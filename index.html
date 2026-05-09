@@ -155,7 +155,8 @@
     font-family: 'Sora', sans-serif;
     font-weight: 700;
     letter-spacing: -0.04em;
-    line-height: 0.96;
+    line-height: 1.02;
+    padding-bottom: 0.06em;
   }
   .display .grad {
     background: linear-gradient(180deg, #ffffff 0%, #b9c7d9 60%, #6f7e93 100%);
@@ -166,37 +167,6 @@
     -webkit-background-clip: text; background-clip: text; color: transparent;
     font-style: italic;
     font-weight: 500;
-  }
-
-  /* custom cursor */
-  @media (hover: hover) and (pointer: fine) {
-    html, body, a, button, input, textarea, label { cursor: none; }
-  }
-  .cursor-dot, .cursor-blob {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100;
-    border-radius: 999px; will-change: transform;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: screen;
-  }
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: #fff;
-    box-shadow: 0 0 12px rgba(255,255,255,0.6);
-  }
-  .cursor-blob {
-    width: 36px; height: 36px;
-    background: radial-gradient(closest-side, rgba(127,196,255,0.55), rgba(127,196,255,0) 70%);
-    transition: width .25s ease, height .25s ease, background .25s ease;
-  }
-  .cursor-blob.hover {
-    width: 80px; height: 80px;
-    background: radial-gradient(closest-side, rgba(232,206,154,0.55), rgba(232,206,154,0) 70%);
-  }
-  .cursor-blob.tap {
-    width: 24px; height: 24px;
-  }
-  @media (hover: none), (pointer: coarse) {
-    .cursor-dot, .cursor-blob { display: none; }
   }
 
   /* rotating studio seal */
@@ -475,10 +445,6 @@
   <a href="#kontakt" data-rail="kontakt">Kontakt</a>
 </nav>
 
-<!-- custom cursor -->
-<div class="cursor-blob" id="cursorBlob"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-
 <!-- rotating studio seal -->
 <a href="#kontakt" class="seal" aria-label="Studio kontaktieren" data-magnet>
   <svg class="ring" viewBox="0 0 200 200" width="100%" height="100%">
@@ -535,7 +501,7 @@
 </header>
 
 <!-- ============================  HERO  ============================ -->
-<section id="top" class="relative pt-[120px] md:pt-[160px] pb-24 md:pb-32 overflow-hidden">
+<section id="top" class="relative pt-[120px] md:pt-[160px] pb-24 md:pb-32">
   <div class="ambient"></div>
 
   <div class="relative max-w-7xl mx-auto px-5 md:px-8">
@@ -547,9 +513,9 @@
       </span>
     </div>
 
-    <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]">
-      <span class="grad block">Websites</span>
-      <span class="block">die <span class="accent">überzeugen</span>.</span>
+    <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]" style="overflow:visible;padding-bottom:0.12em;">
+      <span class="grad block">Websites,</span>
+      <span class="block">die <span class="accent">überzeugen.</span></span>
     </h1>
 
     <p data-h="sub" class="mt-7 md:mt-9 text-center text-white/75 font-display font-light text-[18px] md:text-[22px] tracking-tight max-w-2xl mx-auto">
@@ -593,20 +559,20 @@
             <span>Atlas Studios</span><span>·</span>
             <span>Nordwerk</span><span>·</span>
             <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
+            <span>Stadthotel Mira</span><span>·</span>
+            <span>Atlas Studios</span><span>·</span>
+            <span>Nordwerk</span><span>·</span>
+            <span>Helio &amp; Co.</span><span>·</span>
             <span>Stadthotel Mira</span><span>·</span>
           </div>
           <div class="flex items-center gap-16 pr-16" aria-hidden="true">
             <span>Atlas Studios</span><span>·</span>
             <span>Nordwerk</span><span>·</span>
             <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
+            <span>Stadthotel Mira</span><span>·</span>
+            <span>Atlas Studios</span><span>·</span>
+            <span>Nordwerk</span><span>·</span>
+            <span>Helio &amp; Co.</span><span>·</span>
             <span>Stadthotel Mira</span><span>·</span>
           </div>
         </div>
@@ -880,7 +846,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
       <div class="lg:col-span-5 reveal">
         <span class="eyebrow"><span class="dot"></span> FAQ</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[60px]">
+        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[60px]" style="overflow:visible;padding-bottom:0.14em;">
           Häufige
           <span class="accent">Fragen.</span>
         </h2>
@@ -938,7 +904,7 @@
         <!-- left -->
         <div class="lg:col-span-5 reveal">
           <span class="eyebrow"><span class="dot"></span> Kontakt</span>
-          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px] leading-[0.98]">
+          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px]" style="overflow:visible;padding-bottom:0.14em;">
             Bereit für deine
             <span class="accent">neue Website?</span>
           </h2>
@@ -1178,9 +1144,9 @@
 
   // ====================== section headline mask reveal ======================
   gsap.utils.toArray('section h2.display').forEach((h2) => {
-    gsap.set(h2, { clipPath: 'inset(0 0 100% 0)', yPercent: 8, autoAlpha: 0.9 });
+    gsap.set(h2, { clipPath: 'inset(0 -4px 100% -4px)', yPercent: 8, autoAlpha: 0.9 });
     gsap.to(h2, {
-      clipPath: 'inset(0 0 0% 0)', yPercent: 0, autoAlpha: 1,
+      clipPath: 'inset(0 -4px -8px -4px)', yPercent: 0, autoAlpha: 1,
       duration: 1.4, ease: 'expo.out',
       scrollTrigger: ST({ trigger: h2, start: 'top 85%' }),
     });
@@ -1228,47 +1194,19 @@
       scrollTrigger: ST({ trigger: '[data-cta-card]', start: 'top 85%' }) }
   );
 
-  // ====================== custom cursor + magnetic buttons ======================
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (isFinePointer) {
-    const dot = document.getElementById('cursorDot');
-    const blob = document.getElementById('cursorBlob');
-    const tgt = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const blobPos = { x: tgt.x, y: tgt.y };
-
-    window.addEventListener('pointermove', (e) => {
-      tgt.x = e.clientX; tgt.y = e.clientY;
-      gsap.set(dot, { x: e.clientX, y: e.clientY });
+  // ====================== magnetic buttons ======================
+  document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
+    const strength = el.classList.contains('seal') ? 18 : 10;
+    el.addEventListener('pointermove', (e) => {
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+      const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+      gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.45, ease: 'power3.out' });
     });
-    window.addEventListener('pointerdown', () => blob.classList.add('tap'));
-    window.addEventListener('pointerup', () => blob.classList.remove('tap'));
-
-    gsap.ticker.add(() => {
-      blobPos.x += (tgt.x - blobPos.x) * 0.18;
-      blobPos.y += (tgt.y - blobPos.y) * 0.18;
-      gsap.set(blob, { x: blobPos.x, y: blobPos.y });
+    el.addEventListener('pointerleave', () => {
+      gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
     });
-
-    const HOVER_SEL = 'a, button, [data-card], [data-magnet], input, textarea, label, .btn-primary, .btn-ghost';
-    document.querySelectorAll(HOVER_SEL).forEach((el) => {
-      el.addEventListener('pointerenter', () => blob.classList.add('hover'));
-      el.addEventListener('pointerleave', () => blob.classList.remove('hover'));
-    });
-
-    // magnetic buttons
-    document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
-      const strength = el.classList.contains('seal') ? 18 : 10;
-      el.addEventListener('pointermove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-        gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.45, ease: 'power3.out' });
-      });
-      el.addEventListener('pointerleave', () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-      });
-    });
-  }
+  });
 
   // ====================== mouse-follow hero aurora ======================
   const hero = document.getElementById('top');

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AGB — Bisnero</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg: #07080C; --text: #ECEEF3; }
+  html, body { background: var(--bg); color: var(--text); }
+  body { font-family: 'Manrope', ui-sans-serif, system-ui; -webkit-font-smoothing: antialiased; }
+  .logo-mark {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: conic-gradient(from 220deg, #7FC4FF, #E8CE9A, #7FC4FF);
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 20px rgba(127,196,255,0.35); flex-shrink: 0;
+  }
+  .logo-mark::after { content: ""; position: absolute; inset: 2px; border-radius: 6px; background: #07080C; }
+  .logo-mark::before {
+    content: "B"; position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; color: #fff;
+    z-index: 2; letter-spacing: -0.04em;
+  }
+  h1 { font-family: 'Sora', sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+  h2 { font-family: 'Sora', sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent); }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<header class="border-b border-white/8 sticky top-0 z-50 backdrop-blur-xl" style="background:rgba(7,8,12,0.85);">
+  <div class="max-w-4xl mx-auto px-5 md:px-8 h-[64px] flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <span class="logo-mark"></span>
+      <span style="font-family:'Sora',sans-serif;font-weight:600;font-size:17px;letter-spacing:-0.02em;">Bisnero</span>
+    </a>
+    <a href="index.html" class="text-[13px] text-white/55 hover:text-white transition-colors">← Zurück zur Website</a>
+  </div>
+</header>
+
+<main class="max-w-4xl mx-auto px-5 md:px-8 py-16 md:py-24">
+
+  <div class="mb-12">
+    <p class="text-[12px] uppercase tracking-[0.18em] text-white/40 mb-4">Rechtliches</p>
+    <h1 class="text-[40px] md:text-[56px] text-white mb-4">Allgemeine Geschäftsbedingungen</h1>
+    <p class="text-white/50 text-[15px]">Gültig ab: Mai 2026 · Bisnero Studio, Max Mustermann, Berlin</p>
+  </div>
+
+  <div class="divider mb-12"></div>
+
+  <div class="space-y-10 text-[15px] leading-relaxed text-white/75">
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 1 Geltungsbereich</h2>
+      <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen Bisnero Studio (Max Mustermann, Musterstraße 1, 12345 Berlin, nachfolgend „Auftragnehmer") und seinen Auftraggebern über die Erbringung von Webdesign-, Webentwicklungs- und damit verbundenen Dienstleistungen.</p>
+      <p class="mt-4">Abweichende oder ergänzende Bedingungen des Auftraggebers werden nicht Vertragsbestandteil, es sei denn, der Auftragnehmer hat ihrer Geltung ausdrücklich schriftlich zugestimmt.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 2 Vertragsschluss</h2>
+      <p>Angebote des Auftragnehmers sind freibleibend und unverbindlich. Ein Vertrag kommt erst durch die schriftliche Auftragsbestätigung des Auftragnehmers oder durch den Beginn der Leistungserbringung zustande.</p>
+      <p class="mt-4">Änderungen, Ergänzungen und Nebenabreden bedürfen der Schriftform. Dies gilt auch für die Aufhebung dieses Schriftformerfordernisses.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 3 Leistungsumfang</h2>
+      <p>Der Umfang der zu erbringenden Leistungen ergibt sich aus dem jeweiligen Angebot bzw. der Auftragsbestätigung. Der Auftragnehmer ist berechtigt, zur Erfüllung seiner Leistungspflichten qualifizierte Dritte (Subunternehmer) einzusetzen.</p>
+      <p class="mt-4">Änderungen des vereinbarten Leistungsumfangs bedürfen der schriftlichen Vereinbarung und können zu einer Anpassung der Vergütung sowie der Liefer- und Fertigstellungsfristen führen.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 4 Mitwirkungspflichten des Auftraggebers</h2>
+      <p>Der Auftraggeber ist verpflichtet, alle für die Durchführung des Auftrags erforderlichen Informationen, Materialien und Zugangsdaten rechtzeitig und vollständig zur Verfügung zu stellen.</p>
+      <p class="mt-4">Verzögerungen, die durch verspätete oder unvollständige Mitwirkung des Auftraggebers entstehen, berechtigen den Auftragnehmer zur angemessenen Verlängerung vereinbarter Fristen. Mehrkosten, die durch unzureichende Mitwirkung entstehen, trägt der Auftraggeber.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 5 Vergütung und Zahlungsbedingungen</h2>
+      <p>Die Vergütung richtet sich nach dem jeweiligen Angebot. Alle Preise verstehen sich zuzüglich der gesetzlichen Umsatzsteuer, sofern der Auftragnehmer umsatzsteuerpflichtig ist.</p>
+      <p class="mt-4">Sofern nicht anders vereinbart, gilt folgende Zahlungsregelung:</p>
+      <ul class="mt-3 space-y-2 list-disc list-inside text-white/60">
+        <li>50 % des Gesamtbetrags bei Auftragserteilung (Anzahlung)</li>
+        <li>50 % bei Projektabschluss bzw. Übergabe der fertigen Leistung</li>
+      </ul>
+      <p class="mt-4">Rechnungen sind innerhalb von 14 Tagen nach Rechnungsdatum ohne Abzug zu begleichen. Bei Zahlungsverzug ist der Auftragnehmer berechtigt, Verzugszinsen in Höhe von 9 Prozentpunkten über dem Basiszinssatz zu berechnen.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 6 Urheberrecht und Nutzungsrechte</h2>
+      <p>Alle vom Auftragnehmer erstellten Werke (Designs, Code, Texte, Grafiken etc.) sind urheberrechtlich geschützt und verbleiben zunächst im Eigentum des Auftragnehmers.</p>
+      <p class="mt-4">Mit vollständiger Bezahlung der vereinbarten Vergütung räumt der Auftragnehmer dem Auftraggeber das einfache, nicht übertragbare Nutzungsrecht für die vertraglich vereinbarten Zwecke ein. Eine Übertragung dieser Rechte an Dritte bedarf der ausdrücklichen schriftlichen Zustimmung des Auftragnehmers.</p>
+      <p class="mt-4">Der Auftragnehmer ist berechtigt, das abgeschlossene Projekt als Referenz in seinem Portfolio und auf seinen eigenen Kanälen zu veröffentlichen.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 7 Abnahme und Freigabe</h2>
+      <p>Nach Fertigstellung der Leistung ist der Auftraggeber verpflichtet, das Ergebnis innerhalb von 7 Werktagen zu prüfen und abzunehmen oder konkrete, schriftlich begründete Mängel zu rügen. Erfolgt innerhalb dieser Frist keine Reaktion, gilt die Leistung als abgenommen.</p>
+      <p class="mt-4">Inbetriebnahme oder produktiver Einsatz der erbrachten Leistung gelten ebenfalls als Abnahme.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 8 Gewährleistung</h2>
+      <p>Der Auftragnehmer gewährleistet, dass die erbrachten Leistungen den vereinbarten Spezifikationen entsprechen. Die Gewährleistungsfrist beträgt 12 Monate ab Abnahme.</p>
+      <p class="mt-4">Mängel sind unverzüglich schriftlich zu rügen. Der Auftragnehmer hat das Recht zur Nachbesserung. Schlägt die Nachbesserung zweimal fehl, kann der Auftraggeber Minderung verlangen.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 9 Haftungsbeschränkung</h2>
+      <p>Der Auftragnehmer haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit sowie für Schäden, die auf Vorsatz oder grobe Fahrlässigkeit zurückzuführen sind.</p>
+      <p class="mt-4">Im Übrigen ist die Haftung des Auftragnehmers auf den vertragstypisch vorhersehbaren Schaden begrenzt. Die Haftung für mittelbare Schäden, Folgeschäden und entgangenen Gewinn ist ausgeschlossen, soweit dies gesetzlich zulässig ist.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 10 Vertraulichkeit</h2>
+      <p>Beide Parteien verpflichten sich, alle im Rahmen des Vertragsverhältnisses erlangten vertraulichen Informationen der jeweils anderen Partei streng vertraulich zu behandeln und nicht an Dritte weiterzugeben. Diese Verpflichtung gilt auch nach Beendigung des Vertragsverhältnisses.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 11 Kündigung</h2>
+      <p>Beide Parteien können den Vertrag aus wichtigem Grund fristlos kündigen. Ein wichtiger Grund liegt insbesondere vor, wenn eine Partei ihre wesentlichen Vertragspflichten trotz Abmahnung und Fristsetzung nicht erfüllt.</p>
+      <p class="mt-4">Bei Kündigung durch den Auftraggeber ohne wichtigen Grund hat der Auftragnehmer Anspruch auf die bis zur Kündigung erbrachten Leistungen sowie auf Ersatz nachgewiesener Aufwendungen.</p>
+    </section>
+
+    <section>
+      <h2 class="text-white text-[18px] mb-4">§ 12 Schlussbestimmungen</h2>
+      <p>Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand für alle Streitigkeiten aus dem Vertragsverhältnis ist Berlin, sofern der Auftraggeber Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen ist.</p>
+      <p class="mt-4">Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt. Die unwirksame Bestimmung ist durch eine wirksame zu ersetzen, die dem wirtschaftlichen Zweck der unwirksamen Regelung am nächsten kommt.</p>
+    </section>
+
+  </div>
+
+</main>
+
+<footer class="border-t border-white/8 mt-16">
+  <div class="max-w-4xl mx-auto px-5 md:px-8 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[13px] text-white/40">
+    <span>© 2026 Bisnero Studio</span>
+    <div class="flex gap-6">
+      <a href="impressum.html" class="hover:text-white transition-colors">Impressum</a>
+      <a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a>
+      <a href="agb.html" class="hover:text-white transition-colors">AGB</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

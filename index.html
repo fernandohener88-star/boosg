@@ -431,6 +431,60 @@
   }
   .faq-item[open] .faq-plus { transform: rotate(45deg); background: rgba(127,196,255,0.18); color: var(--cyan); }
   .faq-body { padding-bottom: 22px; color: rgba(236,238,243,0.6); font-size: 15px; line-height: 1.7; max-width: 720px; }
+
+  /* ====================== MOBILE OPTIMIZATIONS ====================== */
+  @media (max-width: 767px) {
+    /* Section vertical spacing: 112px → 64px */
+    #leistungen, #prozess, #faq { padding-top: 4rem; padding-bottom: 4rem; }
+    #kontakt { padding-top: 3rem; padding-bottom: 3rem; }
+
+    /* Hero: tighter top padding */
+    #top { padding-top: 88px; padding-bottom: 4rem; }
+
+    /* Hero headline: slightly smaller */
+    [data-h="headline"] { font-size: 2.4rem !important; letter-spacing: -0.03em; }
+
+    /* Stats: always 3 columns on mobile, compact */
+    [data-h="stats"] { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    [data-stat] { padding: 1rem 0.75rem; }
+    [data-stat] .text-\[44px\], [data-stat] .md\:text-\[54px\] { font-size: 1.75rem; }
+    [data-stat] .text-\[13px\] { font-size: 10px; letter-spacing: 0.12em; }
+
+    /* Section headlines */
+    #leistungen h2.display { font-size: 2rem; }
+    #prozess h2.display  { font-size: 2rem; }
+    #faq     h2.display  { font-size: 2rem; }
+    #kontakt h2.display  { font-size: 1.9rem; }
+
+    /* Contact card: tighter padding, no corner radius clash */
+    [data-cta-card] { border-radius: 20px; }
+    [data-cta-card] > div > .relative { padding: 1.5rem; }
+
+    /* Form submit button: full width */
+    #contactForm button[type="submit"] { width: 100%; justify-content: center; }
+
+    /* FAQ touch targets */
+    .faq-item summary { padding: 18px 0; min-height: 52px; font-size: 16px; }
+    .faq-plus { width: 32px; height: 32px; flex-shrink: 0; }
+
+    /* Process steps: 2-col on mobile */
+    #processGrid .grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+
+    /* Rail sidebar: hide on mobile (takes up width) */
+    #rail { display: none; }
+
+    /* Footer: compact */
+    footer.relative { padding-top: 3rem; padding-bottom: 5rem; }
+
+    /* Floating pill: don't overflow narrow screens */
+    #__pill nav { flex-wrap: nowrap; white-space: nowrap; }
+  }
+
+  @media (max-width: 400px) {
+    [data-h="headline"] { font-size: 2rem !important; }
+    [data-stat] { padding: 0.75rem 0.5rem; }
+    [data-stat] .text-\[44px\] { font-size: 1.5rem; }
+  }
 </style>
 </head>
 
@@ -880,7 +934,7 @@
       <div aria-hidden="true" class="absolute inset-0 opacity-50 pointer-events-none"
            style="background: radial-gradient(60% 60% at 0% 0%, rgba(127,196,255,0.18), transparent 60%), radial-gradient(60% 60% at 100% 100%, rgba(232,206,154,0.12), transparent 60%);"></div>
 
-      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-7 md:p-12 lg:p-16">
+      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 md:p-12 lg:p-16">
         <!-- left -->
         <div class="lg:col-span-5 reveal" style="padding-bottom:2rem;">
           <span class="eyebrow"><span class="dot"></span> Kontakt</span>
@@ -1022,8 +1076,9 @@
     setTimeout(() => splash.classList.add('hidden'), 1800);
   }
 
-  // ====================== Lenis smooth scroll ======================
-  if (window.Lenis) {
+  // ====================== Lenis smooth scroll (desktop only) ======================
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (window.Lenis && !isTouch) {
     const lenis = new Lenis({ duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     function raf(time) { lenis.raf(time * 1000); }
     gsap.ticker.add(raf);
@@ -1173,30 +1228,34 @@
       scrollTrigger: ST({ trigger: '[data-cta-card]', start: 'top 90%' }) }
   );
 
-  // ====================== magnetic buttons ======================
-  document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
-    const strength = el.classList.contains('seal') ? 18 : 10;
-    el.addEventListener('pointermove', (e) => {
-      const r = el.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-      const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-      gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.45, ease: 'power3.out' });
+  // ====================== magnetic buttons (desktop/mouse only) ======================
+  if (!isTouch) {
+    document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
+      const strength = el.classList.contains('seal') ? 18 : 10;
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.45, ease: 'power3.out' });
+      });
+      el.addEventListener('pointerleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+      });
     });
-    el.addEventListener('pointerleave', () => {
-      gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-    });
-  });
+  }
 
-  // ====================== mouse-follow hero aurora ======================
-  const hero = document.getElementById('top');
-  if (hero) {
-    const ambient = hero.querySelector('.ambient');
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 40;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * 30;
-      gsap.to(ambient, { x, y, duration: 1.2, ease: 'power3.out' });
-    });
+  // ====================== mouse-follow hero aurora (desktop only) ======================
+  if (!isTouch) {
+    const hero = document.getElementById('top');
+    if (hero) {
+      const ambient = hero.querySelector('.ambient');
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 40;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 30;
+        gsap.to(ambient, { x, y, duration: 1.2, ease: 'power3.out' });
+      });
+    }
   }
 
   // ====================== seal dim on contact section ======================
@@ -1274,8 +1333,8 @@
 </script>
 
 <!-- floating legal pill -->
-<div style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:110;pointer-events:auto;margin-bottom:env(safe-area-inset-bottom);">
-  <nav style="display:flex;align-items:center;gap:0;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:0 4px;box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);font-family:'Manrope',ui-sans-serif,system-ui;font-size:12px;letter-spacing:0.01em;">
+<div id="__pill" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:110;pointer-events:auto;margin-bottom:env(safe-area-inset-bottom);max-width:calc(100vw - 32px);">
+  <nav style="display:flex;align-items:center;gap:0;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:0 4px;box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);font-family:'Manrope',ui-sans-serif,system-ui;font-size:12px;letter-spacing:0.01em;white-space:nowrap;">
     <a href="impressum.html" style="color:rgba(255,255,255,0.45);text-decoration:none;padding:8px 16px;border-radius:999px;transition:color .2s ease,background .2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.9)';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.background='transparent'">Impressum</a>
     <span style="color:rgba(255,255,255,0.12);font-size:10px;">·</span>
     <a href="datenschutz.html" style="color:rgba(255,255,255,0.45);text-decoration:none;padding:8px 16px;border-radius:999px;transition:color .2s ease,background .2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.9)';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.background='transparent'">Datenschutz</a>

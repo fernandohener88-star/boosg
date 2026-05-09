@@ -441,9 +441,6 @@
     /* Hero: tighter top padding */
     #top { padding-top: 88px; padding-bottom: 4rem; }
 
-    /* Hero headline: slightly smaller */
-    [data-h="headline"] { font-size: 2.4rem !important; letter-spacing: -0.03em; }
-
     /* Stats: always 3 columns on mobile, compact */
     [data-h="stats"] { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
     [data-stat] { padding: 1rem 0.75rem; }
@@ -576,9 +573,9 @@
       </span>
     </div>
 
-    <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]" style="overflow:visible;padding-bottom:0.12em;">
+    <h1 data-h="headline" class="display text-center text-white text-[38px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]" style="overflow:visible;padding-bottom:0.12em;">
       <span class="grad block">Websites,</span>
-      <span style="display:block;overflow:hidden;">die <span class="accent" id="cycleWord" style="display:inline-block;">überzeugen.</span></span>
+      <span style="display:block;">die <span class="accent" id="cycleWord" style="display:inline-block;padding-right:0.15em;">überzeugen.</span></span>
     </h1>
 
     <p data-h="sub" class="mt-7 md:mt-9 text-center text-white/75 font-display font-light text-[18px] md:text-[22px] tracking-tight max-w-2xl mx-auto">
@@ -1313,16 +1310,16 @@
 
     function cycle() {
       gsap.to(el, {
-        yPercent: -55,
         autoAlpha: 0,
-        duration: 0.52,
+        y: -8,
+        duration: 0.38,
         ease: 'power2.in',
         onComplete() {
           idx = (idx + 1) % words.length;
           el.textContent = words[idx];
           gsap.fromTo(el,
-            { yPercent: 55, autoAlpha: 0 },
-            { yPercent: 0, autoAlpha: 1, duration: 0.62, ease: 'power3.out' }
+            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power3.out' }
           );
         }
       });

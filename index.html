@@ -515,7 +515,7 @@
 
     <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]" style="overflow:visible;padding-bottom:0.12em;">
       <span class="grad block">Websites,</span>
-      <span class="block">die <span class="accent">überzeugen.</span></span>
+      <span style="display:block;overflow:hidden;">die <span class="accent" id="cycleWord" style="display:inline-block;">überzeugen.</span></span>
     </h1>
 
     <p data-h="sub" class="mt-7 md:mt-9 text-center text-white/75 font-display font-light text-[18px] md:text-[22px] tracking-tight max-w-2xl mx-auto">
@@ -549,35 +549,6 @@
       </div>
     </div>
 
-    <!-- trust strip -->
-    <div data-h="trust" class="mt-16 md:mt-20 relative">
-      <div class="absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#07080C] to-transparent"></div>
-      <div class="absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[#07080C] to-transparent"></div>
-      <div class="overflow-hidden">
-        <div class="marquee text-white/35 font-display tracking-tight text-[18px] md:text-[22px] py-2">
-          <div class="flex items-center gap-16 pr-16">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-          <div class="flex items-center gap-16 pr-16" aria-hidden="true">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </section>
@@ -588,15 +559,15 @@
 <section id="leistungen" class="relative py-28 md:py-40">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
 
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">
+    <div class="mb-14 md:mb-20">
       <div class="reveal">
         <span class="eyebrow"><span class="dot"></span> Leistungen</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[820px]">
+        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[900px]">
           Alles aus einer Hand —
           <span class="accent">von der Idee</span> bis zum Launch.
         </h2>
       </div>
-      <p class="reveal text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-sm">
+      <p class="reveal mt-6 text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-2xl">
         Strategie, Design, Entwicklung und Performance — verzahnt in einem
         kompromisslosen Prozess. Du bekommst nicht nur eine Website,
         du bekommst ein Werkzeug, das verkauft.
@@ -902,9 +873,9 @@
 
       <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-7 md:p-12 lg:p-16">
         <!-- left -->
-        <div class="lg:col-span-5 reveal">
+        <div class="lg:col-span-5 reveal" style="padding-bottom:0.5rem;">
           <span class="eyebrow"><span class="dot"></span> Kontakt</span>
-          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px]" style="overflow:visible;padding-bottom:0.14em;">
+          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px]" style="padding-bottom:0.3em;line-height:1.08;">
             Bereit für deine
             <span class="accent">neue Website?</span>
           </h2>
@@ -1108,7 +1079,7 @@
   gsap.registerPlugin(ScrollTrigger);
 
   // pre-hide hero pieces
-  gsap.set(['[data-h="eyebrow"]', '[data-h="headline"]', '[data-h="sub"]', '[data-h="text"]', '[data-h="cta"] > *', '[data-h="trust"]'], { autoAlpha: 0, y: 24 });
+  gsap.set(['[data-h="eyebrow"]', '[data-h="headline"]', '[data-h="sub"]', '[data-h="text"]', '[data-h="cta"] > *'], { autoAlpha: 0, y: 24 });
   gsap.set('[data-stat]', { autoAlpha: 0, y: 30, scale: 0.86 });
 
   const heroTl = gsap.timeline({ defaults: { ease: 'back.out(1.7)' }, delay: 0.15 });
@@ -1119,7 +1090,6 @@
     .to('[data-h="text"]', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.35')
     .to('[data-h="cta"] > *', { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'back.out(2)' }, '-=0.35')
     .to('[data-stat]', { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.1, ease: 'back.out(2.2)' }, '-=0.35')
-    .to('[data-h="trust"]', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.3')
     .add(() => {
       document.querySelectorAll('.num').forEach(el => {
         const to = parseInt(el.dataset.to, 10);
@@ -1259,6 +1229,33 @@
       }
     });
   });
+
+  // ====================== hero word cycling ======================
+  (function() {
+    const words = ['überzeugen.', 'begeistern.', 'verkaufen.', 'gewinnen.', 'beeindrucken.'];
+    let idx = 0;
+    const el = document.getElementById('cycleWord');
+    if (!el) return;
+
+    function cycle() {
+      gsap.to(el, {
+        yPercent: -55,
+        autoAlpha: 0,
+        duration: 0.52,
+        ease: 'power2.in',
+        onComplete() {
+          idx = (idx + 1) % words.length;
+          el.textContent = words[idx];
+          gsap.fromTo(el,
+            { yPercent: 55, autoAlpha: 0 },
+            { yPercent: 0, autoAlpha: 1, duration: 0.62, ease: 'power3.out' }
+          );
+        }
+      });
+    }
+
+    setTimeout(() => setInterval(cycle, 2800), 4200);
+  })();
 </script>
 
 </body>

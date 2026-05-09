@@ -564,7 +564,7 @@
         <span class="eyebrow"><span class="dot"></span> Leistungen</span>
         <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[900px]">
           Alles aus einer Hand —
-          <span style="white-space:nowrap"><span class="accent">von der Idee</span></span> bis zum Launch.
+          <span style="white-space:nowrap"><span class="accent" style="padding-right:0.12em;">von der Idee</span></span> bis zum Launch.
         </h2>
       </div>
       <p class="reveal mt-6 text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-2xl">
@@ -877,7 +877,7 @@
           <span class="eyebrow"><span class="dot"></span> Kontakt</span>
           <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px]" data-no-clip style="padding-bottom:0.55em;line-height:1.08;overflow:visible;">
             Bereit für deine
-            <span class="accent">neue Website?</span>
+            <span class="accent" style="padding-right:0.18em;">neue Website?</span>
           </h2>
           <p class="mt-5 text-white/65 text-[15px] md:text-[16px] leading-relaxed max-w-md">
             Schreib uns kurz, was du im Kopf hast. Wir melden uns innerhalb von
@@ -1114,16 +1114,10 @@
 
   // ====================== section headline mask reveal ======================
   gsap.utils.toArray('section h2.display').forEach((h2) => {
-    if (h2.hasAttribute('data-no-clip')) {
-      gsap.fromTo(h2, { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 1.0, ease: 'expo.out', scrollTrigger: ST({ trigger: h2, start: 'top 85%' }) });
-      return;
-    }
-    gsap.set(h2, { clipPath: 'inset(0 -20px 100% -20px)', yPercent: 8, autoAlpha: 0.9 });
-    gsap.to(h2, {
-      clipPath: 'inset(0 -20px -40px -20px)', yPercent: 0, autoAlpha: 1,
-      duration: 1.4, ease: 'expo.out',
-      scrollTrigger: ST({ trigger: h2, start: 'top 85%' }),
-    });
+    gsap.fromTo(h2,
+      { autoAlpha: 0, y: 20 },
+      { autoAlpha: 1, y: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: ST({ trigger: h2, start: 'top 88%' }) }
+    );
   });
 
   // ====================== service cards 3D stagger ======================

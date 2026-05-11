@@ -159,6 +159,8 @@ footer.site .copy{border-top:1px solid color-mix(in oklab,var(--retro-red) 30%,t
 .star-teal{color:var(--retro-teal)}
 
 /* Animations */
+.hero h1.neon-flicker{color:#ff2d78;animation:neon-flicker 1.8s ease-in-out infinite}
+@keyframes neon-flicker{0%,18%,20%,50%,52%,64%,66%,100%{color:#ff2d78;opacity:1;text-shadow:0 0 5px #fff,0 0 10px #fff,0 0 21px #fff,0 0 42px #ff2d78,0 0 82px #ff2d78,0 0 92px #ff00cc,0 0 102px #ff00cc,0 0 151px #ff00cc,0 0 220px #00e5ff}19%,51%,65%{color:rgba(255,45,120,.6);opacity:.78;text-shadow:0 0 3px rgba(255,45,120,.4)}}
 @keyframes neon{0%,100%{text-shadow:0 0 6px color-mix(in oklab,var(--retro-red) 60%,transparent),0 0 18px color-mix(in oklab,var(--retro-red) 30%,transparent)}50%{text-shadow:0 0 14px color-mix(in oklab,var(--retro-red) 90%,transparent),0 0 36px color-mix(in oklab,var(--retro-red) 55%,transparent)}}
 @keyframes neonTeal{0%,100%{text-shadow:0 0 6px color-mix(in oklab,var(--retro-teal) 60%,transparent),0 0 18px color-mix(in oklab,var(--retro-teal) 30%,transparent)}50%{text-shadow:0 0 14px color-mix(in oklab,var(--retro-teal) 90%,transparent),0 0 36px color-mix(in oklab,var(--retro-teal) 55%,transparent)}}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}

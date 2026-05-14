@@ -63,5 +63,11 @@
   </div>
   <div class="copy">© 2026 Retrovibes Anziehbaar · <a href="impressum.html" style="text-decoration:underline">Impressum</a></div>
 </footer>
+
+<div id="cookie-banner">
+  <p>★ Diese Website verwendet Cookies. Mit der weiteren Nutzung stimmst du unserer <a href="impressum.html">Datenschutzerklärung</a> zu.</p>
+  <button class="btn-cookie" onclick="localStorage.setItem('rv-cookies','1');document.getElementById('cookie-banner').style.display='none'">AKZEPTIEREN</button>
+</div>
+<script>if(localStorage.getItem('rv-cookies'))document.getElementById('cookie-banner').style.display='none'</script>
 </body>
 </html>

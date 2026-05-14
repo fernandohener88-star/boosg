@@ -195,3 +195,10 @@ footer.site .copy{border-top:1px solid color-mix(in oklab,var(--retro-red) 30%,t
 
 @keyframes clink{0%,100%{transform:rotate(0)}20%{transform:rotate(-2deg)}40%{transform:rotate(2.5deg)}60%{transform:rotate(-1.5deg)}80%{transform:rotate(1deg)}}
 .clink{animation:clink 5s ease-in-out infinite;transform-origin:top center;display:inline-block}
+
+/* Cookie Banner */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--cream);border-top:4px double var(--retro-red);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;box-shadow:0 -4px 24px rgba(0,0,0,0.15)}
+#cookie-banner p{margin:0;font-family:"Oswald",sans-serif;font-size:.95rem;max-width:640px;line-height:1.5}
+#cookie-banner a{color:var(--retro-red);text-decoration:underline}
+.btn-cookie{font-family:"Bungee",sans-serif;letter-spacing:.18em;padding:.65rem 1.4rem;background:var(--retro-red);color:var(--cream);border:none;border-radius:4px;cursor:pointer;box-shadow:3px 3px 0 var(--retro-ink);transition:all .2s;white-space:nowrap}
+.btn-cookie:hover{box-shadow:0 0 18px var(--retro-red);transform:translateY(-1px)}

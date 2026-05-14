@@ -1362,5 +1362,93 @@
   </nav>
 </div>
 
+<!-- cookie consent banner -->
+<div id="cookieBanner" style="
+  display:none;
+  position:fixed;
+  bottom:72px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  z-index:200;
+  width:calc(100vw - 32px);
+  max-width:520px;
+  background:rgba(13,14,20,0.96);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:20px 22px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.07);
+  font-family:'Manrope',ui-sans-serif,system-ui;
+  opacity:0;
+  transition:opacity .35s ease, transform .35s ease;
+">
+  <div style="display:flex;align-items:flex-start;gap:14px;">
+    <div style="flex:1;">
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.55;margin:0 0 4px;">
+        <strong style="font-weight:600;color:#fff;">Diese Website verwendet Cookies.</strong>
+      </p>
+      <p style="font-size:12.5px;color:rgba(255,255,255,0.45);line-height:1.55;margin:0;">
+        Wir nutzen technisch notwendige Cookies sowie Google Fonts.
+        <a href="datenschutz.html" style="color:rgba(127,196,255,0.8);text-decoration:none;border-bottom:1px solid rgba(127,196,255,0.3);">Datenschutzerklärung</a>
+      </p>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:16px;">
+    <button id="cookieAccept" style="
+      flex:1;
+      background:linear-gradient(180deg,#ffffff,#d8e6f5);
+      color:#07080C;
+      border:none;
+      border-radius:999px;
+      padding:10px 20px;
+      font-family:'Manrope',ui-sans-serif,system-ui;
+      font-size:13.5px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 0 0 1px rgba(255,255,255,0.4),0 6px 20px -6px rgba(127,196,255,0.5);
+      transition:opacity .2s ease;
+    ">Alle akzeptieren</button>
+    <button id="cookieDecline" style="
+      background:rgba(255,255,255,0.05);
+      color:rgba(255,255,255,0.5);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:999px;
+      padding:10px 18px;
+      font-family:'Manrope',ui-sans-serif,system-ui;
+      font-size:13px;
+      cursor:pointer;
+      transition:color .2s ease,background .2s ease;
+    ">Ablehnen</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  if (localStorage.getItem('cookieConsent')) return;
+  const banner = document.getElementById('cookieBanner');
+  banner.style.display = 'block';
+  setTimeout(() => {
+    banner.style.opacity = '1';
+    banner.style.transform = 'translateX(-50%) translateY(0)';
+  }, 800);
+
+  function dismiss() {
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateX(-50%) translateY(12px)';
+    setTimeout(() => banner.style.display = 'none', 350);
+  }
+
+  document.getElementById('cookieAccept').addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'accepted');
+    dismiss();
+  });
+  document.getElementById('cookieDecline').addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'declined');
+    dismiss();
+  });
+})();
+</script>
+
 </body>
 </html>

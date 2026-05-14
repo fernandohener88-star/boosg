@@ -351,15 +351,14 @@
           </div>
         </div>
 
-        <!-- bottom row: scroll cue -->
-        <div class="mt-20 flex items-end text-cream-50/80">
-          <div class="hidden md:flex flex-col items-center gap-2 scroll-cue">
-            <span class="eyebrow text-cream-50/60 mb-1">Scrollen</span>
-            <div class="w-6 h-10 rounded-full border border-cream-50/40 flex justify-center pt-2">
-              <span class="w-1 h-2.5 rounded-full bg-cream-50/70" style="animation: drift 2.6s ease-in-out infinite;"></span>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+
+    <!-- scroll cue: absolute bottom-left, above next section -->
+    <div class="hidden md:flex absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-20 scroll-cue">
+      <span class="eyebrow text-cream-50/60 text-[10px]">Scrollen</span>
+      <div class="w-6 h-10 rounded-full border border-cream-50/50 flex justify-center pt-2">
+        <span class="w-1 h-2.5 rounded-full bg-cream-50/80" style="animation: drift 2.6s ease-in-out infinite;"></span>
       </div>
     </div>
   </section>

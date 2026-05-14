@@ -225,7 +225,7 @@
   </style>
 </head>
 
-<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok') }" x-cloak>
+<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok'), impressum:false, datenschutz:false }" x-cloak>
 
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header
@@ -698,7 +698,7 @@
             Ihre Gesundheit in <span class="italic">besten Händen.</span>
           </p>
           <div class="mt-6 flex items-center gap-3">
-            <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
+            <a href="https://www.instagram.com/physiopfau/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
             </a>
             <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
@@ -733,8 +733,8 @@
         <div class="lg:col-span-2">
           <div class="eyebrow text-sage-300">Rechtliches</div>
           <ul class="mt-5 space-y-3 text-[14.5px]">
-            <li><a href="#" class="hover:text-cream-50 text-cream-100/80">Impressum</a></li>
-            <li><a href="#" class="hover:text-cream-50 text-cream-100/80">Datenschutzerklärung</a></li>
+            <li><button @click="impressum=true" class="hover:text-cream-50 text-cream-100/80 transition-colors">Impressum</button></li>
+            <li><button @click="datenschutz=true" class="hover:text-cream-50 text-cream-100/80 transition-colors">Datenschutzerklärung</button></li>
           </ul>
         </div>
       </div>
@@ -852,6 +852,131 @@
     </div>
   </div>
 
+  <!-- ────────────────────────────── IMPRESSUM MODAL ────────────────────────────── -->
+  <div
+    x-show="impressum"
+    x-transition.opacity
+    @keydown.escape.window="impressum=false"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    style="display:none"
+  >
+    <div class="absolute inset-0 bg-sage-900/55 backdrop" @click="impressum=false"></div>
+    <div
+      x-show="impressum"
+      x-transition:enter="transition transform duration-400 ease-out"
+      x-transition:enter-start="opacity-0 translate-y-5 scale-[0.98]"
+      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+      class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-cream-50 rounded-3xl shadow-lift border border-sage-100"
+    >
+      <div class="sticky top-0 bg-cream-50 flex items-center justify-between px-7 py-5 border-b border-sage-100 z-10">
+        <h2 class="font-serif text-2xl text-sage-800">Impressum</h2>
+        <button @click="impressum=false" class="w-9 h-9 grid place-items-center rounded-full border border-sage-200 hover:bg-sage-50 transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="px-7 py-7 text-[14.5px] text-sage-700 leading-relaxed space-y-5">
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Angaben gemäß § 5 TMG</p>
+          <p><strong class="text-sage-800">[Vollständiger Name]</strong><br/>
+          PhysioPfau<br/>
+          Lazarettstraße 1<br/>
+          76829 Landau in der Pfalz</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Kontakt</p>
+          <p>Telefon: <span class="text-sage-800">[Telefon Platzhalter]</span><br/>
+          E-Mail: <span class="text-sage-800">[E-Mail Platzhalter]</span></p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Berufsbezeichnung & Aufsicht</p>
+          <p>Berufsbezeichnung: Physiotherapeut/in<br/>
+          Zuständige Kammer: <span class="text-sage-800">[Kammer Platzhalter]</span><br/>
+          Aufsichtsbehörde: <span class="text-sage-800">[Behörde Platzhalter]</span><br/>
+          Berufsrechtliche Regelungen: Masseur- und Physiotherapeutengesetz (MPhG)</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Umsatzsteuer-ID</p>
+          <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br/>
+          <span class="text-sage-800">[USt-ID Platzhalter]</span></p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Haftung für Inhalte</p>
+          <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Haftung für Links</p>
+          <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">Urheberrecht</p>
+          <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ────────────────────────────── DATENSCHUTZ MODAL ────────────────────────────── -->
+  <div
+    x-show="datenschutz"
+    x-transition.opacity
+    @keydown.escape.window="datenschutz=false"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    style="display:none"
+  >
+    <div class="absolute inset-0 bg-sage-900/55 backdrop" @click="datenschutz=false"></div>
+    <div
+      x-show="datenschutz"
+      x-transition:enter="transition transform duration-400 ease-out"
+      x-transition:enter-start="opacity-0 translate-y-5 scale-[0.98]"
+      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+      class="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto bg-cream-50 rounded-3xl shadow-lift border border-sage-100"
+    >
+      <div class="sticky top-0 bg-cream-50 flex items-center justify-between px-7 py-5 border-b border-sage-100 z-10">
+        <h2 class="font-serif text-2xl text-sage-800">Datenschutzerklärung</h2>
+        <button @click="datenschutz=false" class="w-9 h-9 grid place-items-center rounded-full border border-sage-200 hover:bg-sage-50 transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="px-7 py-7 text-[14.5px] text-sage-700 leading-relaxed space-y-6">
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">1. Verantwortliche Person</p>
+          <p><strong class="text-sage-800">[Vollständiger Name]</strong><br/>
+          PhysioPfau · Lazarettstraße 1 · 76829 Landau in der Pfalz<br/>
+          E-Mail: <span class="text-sage-800">[E-Mail Platzhalter]</span><br/>
+          Telefon: <span class="text-sage-800">[Telefon Platzhalter]</span></p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">2. Erhebung und Verarbeitung personenbezogener Daten</p>
+          <p>Wir erheben personenbezogene Daten nur, wenn Sie uns diese im Rahmen einer Kontaktaufnahme oder Terminanfrage freiwillig mitteilen. Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage sowie zur Terminvereinbarung verwendet und nicht an Dritte weitergegeben.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">3. Cookies</p>
+          <p>Diese Website verwendet technisch notwendige Cookies, um den Betrieb der Seite zu gewährleisten. Es werden keine Tracking- oder Analyse-Cookies eingesetzt. Mit dem Klick auf „Akzeptieren" im Cookie-Banner stimmen Sie der Verwendung dieser technisch notwendigen Cookies zu. Ihre Einwilligung wird in Ihrem Browser gespeichert (localStorage) und kann jederzeit durch Löschen des Browser-Caches widerrufen werden.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">4. Kontaktformular & Terminanfragen</p>
+          <p>Wenn Sie uns per Formular oder E-Mail kontaktieren, werden Ihre Angaben (Name, E-Mail, Telefon, Nachricht) zur Bearbeitung der Anfrage und für den Fall von Anschlussfragen gespeichert. Die Daten werden ohne Ihre Einwilligung nicht an Dritte weitergegeben. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung).</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">5. Ihre Rechte (DSGVO)</p>
+          <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit Ihrer bei uns gespeicherten Daten (Art. 15–20 DSGVO). Wenden Sie sich dazu an: <span class="text-sage-800">[E-Mail Platzhalter]</span>. Zudem haben Sie das Recht, sich bei einer Aufsichtsbehörde zu beschweren.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">6. Hosting</p>
+          <p>Diese Website wird bei Netlify (Netlify, Inc., 512 2nd Street, Suite 200, San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Seite werden von Netlify automatisch Server-Logs erhoben (IP-Adresse, Uhrzeit, aufgerufene Seite). Weitere Informationen: <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener" class="underline hover:text-sage-900">netlify.com/privacy</a>.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">7. Externe Bilder (Unsplash)</p>
+          <p>Diese Website verwendet Bilder des Dienstes Unsplash (Unsplash Inc., 500 rue Notre-Dame Ouest, Montreal, QC H2Y 1T8, Canada). Die Bilder werden direkt von Unsplash-Servern geladen. Dabei kann Ihre IP-Adresse an Unsplash übermittelt werden. Weitere Informationen: <a href="https://unsplash.com/privacy" target="_blank" rel="noopener" class="underline hover:text-sage-900">unsplash.com/privacy</a>.</p>
+        </div>
+        <div>
+          <p class="eyebrow text-sage-500 mb-2">8. Aktualität</p>
+          <p>Stand: Mai 2025. Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf anzupassen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ────────────────────────────── COOKIE BANNER ────────────────────────────── -->
   <div
     x-show="cookie"
@@ -866,7 +991,7 @@
   >
     <div class="flex-1 text-[13.5px] text-sage-700/90 leading-relaxed">
       Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Weitere Informationen finden Sie in unserer
-      <a href="#" class="underline hover:text-sage-900 transition-colors">Datenschutzerklärung</a>.
+      <button @click="datenschutz=true" class="underline hover:text-sage-900 transition-colors">Datenschutzerklärung</button>.
     </div>
     <button
       @click="cookie=false; localStorage.setItem('cookie_ok','1')"

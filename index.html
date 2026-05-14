@@ -1,1327 +1,818 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bisnero — Websites die überzeugen</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhysioPfau – Physiotherapie | Landau in der Pfalz</title>
+  <meta name="description" content="Willkommen bei PhysioPfau – Ihre moderne Physiotherapiepraxis in Landau in der Pfalz für individuelle, ganzheitliche Behandlung." />
 
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.13.5/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.453.0/dist/umd/lucide.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          display: ['Sora', 'ui-sans-serif', 'system-ui'],
-          sans: ['Manrope', 'ui-sans-serif', 'system-ui'],
-        },
-        colors: {
-          ink: {
-            950: '#07080C',
-            900: '#0B0D14',
-            800: '#11141D',
-            700: '#1A1E2B',
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
+            sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
           },
-          cyan: { soft: '#7FC4FF' },
-          gold: { soft: '#E8CE9A' },
+          colors: {
+            cream: {
+              50:  '#fbf9f4',
+              100: '#f6f2ea',
+              200: '#ece6d8',
+            },
+            sage: {
+              50:  '#f1f4f1',
+              100: '#dde6df',
+              200: '#bccdc1',
+              300: '#92ad9a',
+              400: '#6f8e79',
+              500: '#557362',
+              600: '#3f5a4c',
+              700: '#32483d',
+              800: '#293a32',
+              900: '#1f2c26',
+            },
+            mist: {
+              100: '#eaf0f1',
+              200: '#cfdce0',
+            },
+            ink: '#1c2622',
+          },
+          letterSpacing: {
+            'tightish': '-0.015em',
+            'eyebrow':  '0.22em',
+          },
+          boxShadow: {
+            'soft':   '0 1px 2px rgba(28,38,34,.04), 0 8px 24px -12px rgba(28,38,34,.10)',
+            'lift':   '0 2px 4px rgba(28,38,34,.05), 0 24px 48px -20px rgba(28,38,34,.18)',
+          },
+          keyframes: {
+            'fade-up': {
+              '0%':   { opacity: 0, transform: 'translateY(14px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' },
+            },
+            'fade-in': {
+              '0%':   { opacity: 0 },
+              '100%': { opacity: 1 },
+            },
+            'breathe': {
+              '0%,100%': { transform: 'scale(1)' },
+              '50%':     { transform: 'scale(1.04)' },
+            },
+          },
+          animation: {
+            'fade-up':  'fade-up .9s cubic-bezier(.2,.6,.2,1) both',
+            'fade-in':  'fade-in 1.2s ease both',
+            'breathe':  'breathe 9s ease-in-out infinite',
+          },
         },
       },
-    },
-  };
-</script>
+    };
+  </script>
 
-<style>
-  :root {
-    --bg: #07080C;
-    --bg-2: #0B0D14;
-    --line: rgba(255,255,255,0.08);
-    --line-strong: rgba(255,255,255,0.14);
-    --text: #ECEEF3;
-    --muted: rgba(236,238,243,0.58);
-    --cyan: oklch(0.82 0.12 230);
-    --cyan-glow: oklch(0.72 0.14 230 / 0.45);
-    --gold: oklch(0.86 0.09 85);
-  }
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      color: #1c2622;
+      background: #fbf9f4;
+      font-feature-settings: "ss01","ss02";
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, .serif {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+    }
+    /* eyebrow */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    /* slim underline link */
+    .link-underline {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .link-underline::after{
+      content: "";
+      position: absolute;
+      left: 0; right: 0; bottom: -2px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(.4);
+      transform-origin: left;
+      transition: transform .5s cubic-bezier(.2,.6,.2,1);
+      opacity: .35;
+    }
+    .link-underline:hover::after { transform: scaleX(1); opacity: 1; }
 
-  html, body { background: var(--bg); color: var(--text); }
-  body {
-    font-family: 'Manrope', ui-sans-serif, system-ui;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-  }
+    /* nav link */
+    .nav-link {
+      position: relative;
+      color: #32483d;
+      font-weight: 500;
+      font-size: 14px;
+      padding: 6px 2px;
+    }
+    .nav-link::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:-2px;
+      height:1px; background: currentColor;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform .4s cubic-bezier(.2,.6,.2,1);
+    }
+    .nav-link:hover::after { transform: scaleX(1); }
 
-  .font-display { font-family: 'Sora', ui-sans-serif, system-ui; }
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1); }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal[data-delay="1"]{ transition-delay: .08s; }
+    .reveal[data-delay="2"]{ transition-delay: .16s; }
+    .reveal[data-delay="3"]{ transition-delay: .24s; }
+    .reveal[data-delay="4"]{ transition-delay: .32s; }
 
-  /* subtle film grain */
-  .grain::before {
-    content: "";
-    position: fixed; inset: 0; pointer-events: none; z-index: 60;
-    opacity: 0.035; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
+    /* subtle grain on cream */
+    .grain { position: relative; }
+    .grain::before {
+      content: "";
+      position: absolute; inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.11 0 0 0 0 0.15 0 0 0 0 0.13 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>");
+      mix-blend-mode: multiply;
+      opacity: .06;
+    }
 
-  /* deep ambient glows behind hero */
-  .ambient {
-    position: absolute; inset: -20% -10% auto -10%; height: 130%;
-    pointer-events: none; z-index: 0;
-  }
-  .ambient::before, .ambient::after {
-    content: ""; position: absolute; border-radius: 50%; filter: blur(90px);
-  }
-  .ambient::before {
-    width: 720px; height: 720px; left: -120px; top: -120px;
-    background: radial-gradient(closest-side, rgba(127,196,255,0.28), rgba(127,196,255,0) 70%);
-  }
-  .ambient::after {
-    width: 560px; height: 560px; right: -80px; top: 40px;
-    background: radial-gradient(closest-side, rgba(232,206,154,0.18), rgba(232,206,154,0) 70%);
-  }
+    /* primary button */
+    .btn-primary {
+      background: #3f5a4c;
+      color: #fbf9f4;
+      transition: background .3s, transform .3s, box-shadow .3s;
+    }
+    .btn-primary:hover { background: #32483d; box-shadow: 0 18px 30px -16px rgba(50,72,61,.55); }
+    .btn-ghost {
+      color: #1c2622;
+      border: 1px solid rgba(28,38,34,.18);
+      background: transparent;
+      transition: background .3s, border-color .3s, color .3s;
+    }
+    .btn-ghost:hover { border-color: #3f5a4c; background: rgba(63,90,76,.04); }
 
-  .hairline { box-shadow: inset 0 0 0 1px var(--line); }
-  .hairline-strong { box-shadow: inset 0 0 0 1px var(--line-strong); }
+    /* card hover */
+    .card { transition: transform .5s cubic-bezier(.2,.6,.2,1), box-shadow .5s, border-color .5s; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(28,38,34,.05), 0 24px 48px -20px rgba(28,38,34,.18); border-color: rgba(63,90,76,.25); }
 
-  /* glass surfaces */
-  .glass {
-    background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
-    backdrop-filter: blur(14px) saturate(120%);
-    -webkit-backdrop-filter: blur(14px) saturate(120%);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.07),
-      inset 0 1px 0 rgba(255,255,255,0.06);
-  }
-  .glass-strong {
-    background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
-    backdrop-filter: blur(20px) saturate(130%);
-    -webkit-backdrop-filter: blur(20px) saturate(130%);
-    box-shadow:
-      inset 0 0 0 1px rgba(255,255,255,0.10),
-      inset 0 1px 0 rgba(255,255,255,0.10);
-  }
+    /* hero parallax-ish */
+    .hero-img { transform: scale(1.04); transition: transform 8s ease-out; }
+    .hero-img.in { transform: scale(1.0); }
 
-  /* primary button */
-  .btn-primary {
-    position: relative;
-    background: linear-gradient(180deg, #ffffff, #d8e6f5);
-    color: #07080C;
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.5),
-      0 10px 30px -10px rgba(127,196,255,0.55),
-      0 20px 60px -20px rgba(127,196,255,0.35);
-    transition: transform .25s cubic-bezier(.2,.7,.2,1.2), box-shadow .25s ease;
-  }
-  .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow:
-      0 0 0 1px rgba(255,255,255,0.7),
-      0 14px 36px -10px rgba(127,196,255,0.7),
-      0 30px 80px -20px rgba(127,196,255,0.45);
-  }
+    /* divider dot */
+    .dot { width: 4px; height: 4px; border-radius: 999px; background: currentColor; opacity: .4; }
 
-  /* ghost button */
-  .btn-ghost {
-    background: rgba(255,255,255,0.04);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12);
-    transition: background .25s ease, box-shadow .25s ease, transform .25s ease;
-  }
-  .btn-ghost:hover {
-    background: rgba(255,255,255,0.08);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22);
-  }
+    /* number marker for services */
+    .num {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      color: rgba(63,90,76,.35);
+      font-size: 14px;
+    }
 
-  /* eyebrow pill */
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 12px; border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
-    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: rgba(236,238,243,0.78);
-  }
-  .eyebrow .dot {
-    width: 6px; height: 6px; border-radius: 999px; background: var(--cyan);
-    box-shadow: 0 0 12px var(--cyan-glow);
-  }
+    /* modal backdrop blur */
+    .backdrop { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 
-  /* display headline */
-  .display {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.96;
-  }
-  .display .grad {
-    background: linear-gradient(180deg, #ffffff 0%, #b9c7d9 60%, #6f7e93 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .display .accent {
-    background: linear-gradient(180deg, var(--cyan) 0%, var(--gold) 110%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    font-style: italic;
-    font-weight: 500;
-  }
+    /* form */
+    .field {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid rgba(28,38,34,.18);
+      padding: 12px 0 10px;
+      font-size: 15px;
+      color: #1c2622;
+      transition: border-color .3s;
+      outline: none;
+    }
+    .field:focus { border-color: #3f5a4c; }
+    .field::placeholder { color: rgba(28,38,34,.4); }
+    label.flab {
+      font-size: 11px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(28,38,34,.55);
+      font-weight: 500;
+    }
 
-  /* custom cursor */
-  @media (hover: hover) and (pointer: fine) {
-    html, body, a, button, input, textarea, label { cursor: none; }
-  }
-  .cursor-dot, .cursor-blob {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100;
-    border-radius: 999px; will-change: transform;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: screen;
-  }
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: #fff;
-    box-shadow: 0 0 12px rgba(255,255,255,0.6);
-  }
-  .cursor-blob {
-    width: 36px; height: 36px;
-    background: radial-gradient(closest-side, rgba(127,196,255,0.55), rgba(127,196,255,0) 70%);
-    transition: width .25s ease, height .25s ease, background .25s ease;
-  }
-  .cursor-blob.hover {
-    width: 80px; height: 80px;
-    background: radial-gradient(closest-side, rgba(232,206,154,0.55), rgba(232,206,154,0) 70%);
-  }
-  .cursor-blob.tap {
-    width: 24px; height: 24px;
-  }
-  @media (hover: none), (pointer: coarse) {
-    .cursor-dot, .cursor-blob { display: none; }
-  }
-
-  /* rotating studio seal */
-  .seal {
-    position: fixed; right: 20px; bottom: 20px; width: 124px; height: 124px;
-    z-index: 40; pointer-events: auto;
-    display: grid; place-items: center;
-    color: var(--text);
-  }
-  .seal .ring {
-    position: absolute; inset: 0;
-    animation: sealspin 24s linear infinite;
-  }
-  .seal .core {
-    position: relative; width: 56px; height: 56px; border-radius: 999px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 30px rgba(127,196,255,0.25);
-    display: grid; place-items: center;
-    backdrop-filter: blur(10px);
-  }
-  .seal .core svg { color: var(--cyan); }
-  @keyframes sealspin { to { transform: rotate(360deg); } }
-  .seal text {
-    font-family: 'Sora', sans-serif; font-size: 9.6px;
-    letter-spacing: 0.32em; text-transform: uppercase;
-    fill: rgba(236,238,243,0.85);
-  }
-  @media (max-width: 640px) {
-    .seal { width: 92px; height: 92px; right: 12px; bottom: 12px; }
-    .seal .core { width: 40px; height: 40px; }
-    .seal text { font-size: 8.4px; }
-  }
-
-  .magnet { display: inline-block; will-change: transform; }
-
-  /* nav */
-  .nav-link {
-    color: rgba(236,238,243,0.7); transition: color .2s ease;
-    position: relative;
-  }
-  .nav-link:hover { color: #fff; }
-  .nav-link::after {
-    content: ""; position: absolute; left: 50%; right: 50%; bottom: -6px; height: 1px;
-    background: var(--cyan); opacity: 0; transition: all .25s ease;
-  }
-  .nav-link:hover::after { left: 0; right: 0; opacity: 1; }
-
-  /* service card */
-  .card {
-    position: relative; overflow: hidden;
-    border-radius: 22px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.07);
-    transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
-  }
-  .card::before {
-    content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
-    background: radial-gradient(420px 220px at var(--mx,50%) var(--my,0%), rgba(127,196,255,0.16), transparent 60%);
-    opacity: 0; transition: opacity .3s ease;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
-  .card:hover::before { opacity: 1; }
-
-  .card-num {
-    font-family: 'Sora', sans-serif; font-weight: 300;
-    font-size: 13px; letter-spacing: 0.2em; color: rgba(236,238,243,0.45);
-  }
-
-  .icon-wrap {
-    width: 44px; height: 44px; border-radius: 12px;
-    display: grid; place-items: center;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
-    color: var(--cyan);
-  }
-
-  /* process step */
-  .step-num {
-    font-family: 'Sora', sans-serif; font-weight: 300;
-    font-size: clamp(56px, 8vw, 96px);
-    letter-spacing: -0.05em; line-height: 1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.18));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-
-  /* form */
-  .field {
-    width: 100%; padding: 16px 18px; border-radius: 14px;
-    background: rgba(255,255,255,0.03);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10);
-    color: var(--text); font-family: inherit; font-size: 15px;
-    transition: box-shadow .2s ease, background .2s ease;
-  }
-  .field::placeholder { color: rgba(236,238,243,0.35); }
-  .field:focus {
-    outline: none; background: rgba(255,255,255,0.05);
-    box-shadow: inset 0 0 0 1px rgba(127,196,255,0.55), 0 0 0 4px rgba(127,196,255,0.10);
-  }
-
-  /* divider */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent);
-  }
-
-  .reveal { opacity: 0; transform: translateY(28px); }
-
-  /* marquee */
-  .marquee {
-    display: flex; gap: 64px; animation: marquee 38s linear infinite;
-    white-space: nowrap;
-  }
-  @keyframes marquee { to { transform: translateX(-50%); } }
-
-  /* nav scroll state */
-  #nav.scrolled {
-    background: rgba(7,8,12,0.72);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.07);
-  }
-
-  ::selection { background: rgba(127,196,255,0.35); color: #fff; }
-
-  .btn-primary .arr, .btn-ghost .arr { transition: transform .25s ease; }
-  .btn-primary:hover .arr, .btn-ghost:hover .arr { transform: translateX(3px); }
-
-  /* pulse dot */
-  .pulse {
-    width: 8px; height: 8px; border-radius: 999px; background: #5DE0A6;
-    box-shadow: 0 0 0 0 rgba(93,224,166,0.55);
-    animation: pulse 2.4s ease-out infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(93,224,166,0.55); }
-    70% { box-shadow: 0 0 0 12px rgba(93,224,166,0); }
-    100% { box-shadow: 0 0 0 0 rgba(93,224,166,0); }
-  }
-
-  /* stat card sheen */
-  .stat { position: relative; overflow: hidden; }
-  .stat::after {
-    content: ""; position: absolute; inset: 0; border-radius: inherit;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent 40%);
-    pointer-events: none;
-  }
-
-  /* mobile nav */
-  #mobileMenu { transform: translateY(-12px); opacity: 0; pointer-events: none; transition: all .25s ease; }
-  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-
-  /* splash */
-  #splash {
-    position: fixed; inset: 0; z-index: 200;
-    background: #07080C;
-    display: grid; place-items: center;
-    transition: opacity .8s ease .2s, visibility 0s linear 1.1s;
-  }
-  #splash.hidden { opacity: 0; visibility: hidden; }
-  #splash .splash-mark { display: flex; align-items: center; gap: 14px; }
-  #splash .splash-name {
-    font-family: 'Sora', sans-serif; font-weight: 600; letter-spacing: -0.02em;
-    font-size: 22px; color: #fff;
-    overflow: hidden; white-space: nowrap;
-  }
-  #splash .splash-bar {
-    position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--cyan), var(--gold), transparent);
-    transform-origin: left; transform: scaleX(0);
-  }
-
-  /* section indicator rail */
-  #rail {
-    position: fixed; left: 22px; top: 50%; transform: translateY(-50%);
-    z-index: 30; display: none;
-    flex-direction: column; gap: 14px;
-  }
-  @media (min-width: 1100px) { #rail { display: flex; } }
-  #rail a {
-    position: relative; padding: 6px 0 6px 18px;
-    font-family: 'Sora', sans-serif; font-size: 11px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: rgba(236,238,243,0.4);
-    transition: color .25s ease;
-  }
-  #rail a::before {
-    content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-    width: 8px; height: 1px; background: rgba(236,238,243,0.3);
-    transition: width .35s ease, background .25s ease;
-  }
-  #rail a:hover { color: rgba(236,238,243,0.9); }
-  #rail a.active { color: #fff; }
-  #rail a.active::before { width: 20px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan-glow); }
-
-  /* logo mark */
-  .logo-mark {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: conic-gradient(from 220deg, #7FC4FF, #E8CE9A, #7FC4FF);
-    position: relative; overflow: hidden;
-    box-shadow: 0 0 20px rgba(127,196,255,0.35);
-  }
-  .logo-mark::after {
-    content: ""; position: absolute; inset: 2px; border-radius: 6px;
-    background: #07080C;
-  }
-  .logo-mark::before {
-    content: "B"; position: absolute; inset: 0; display: grid; place-items: center;
-    font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; color: #fff;
-    z-index: 2; letter-spacing: -0.04em;
-  }
-
-  /* faint grid behind process section */
-  .grid-bg {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, #000 30%, transparent 75%);
-  }
-
-  /* perspective wrapper for 3d card stagger */
-  .grid-3d { perspective: 1400px; }
-
-  /* process timeline line */
-  .process-line {
-    position: absolute; left: 0; right: 0; top: 36px; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(127,196,255,0.55) 15%, rgba(232,206,154,0.55) 85%, transparent);
-    transform-origin: left center;
-    transform: scaleX(0);
-  }
-  .process-dot {
-    position: absolute; top: 30px; width: 12px; height: 12px; border-radius: 999px;
-    background: var(--cyan);
-    box-shadow: 0 0 0 4px rgba(127,196,255,0.18), 0 0 18px rgba(127,196,255,0.55);
-    opacity: 0;
-  }
-
-  /* FAQ accordion */
-  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .faq-item summary {
-    list-style: none; cursor: pointer;
-    padding: 22px 0; display: flex; justify-content: space-between; align-items: center; gap: 24px;
-    font-family: 'Sora', sans-serif; font-weight: 500; font-size: 18px; color: #fff;
-    letter-spacing: -0.01em;
-  }
-  .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item .faq-plus {
-    width: 28px; height: 28px; border-radius: 999px;
-    display: grid; place-items: center;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
-    color: rgba(236,238,243,0.8);
-    flex-shrink: 0;
-    transition: transform .35s ease, background .35s ease, color .35s ease;
-  }
-  .faq-item[open] .faq-plus { transform: rotate(45deg); background: rgba(127,196,255,0.18); color: var(--cyan); }
-  .faq-body { padding-bottom: 22px; color: rgba(236,238,243,0.6); font-size: 15px; line-height: 1.7; max-width: 720px; }
-</style>
+    /* scroll cue */
+    .scroll-cue { animation: drift 2.6s ease-in-out infinite; }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0); opacity: .8; }
+      50%      { transform: translateY(6px); opacity: 1; }
+    }
+  </style>
 </head>
 
-<body class="grain antialiased">
+<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false }" x-cloak>
 
-<!-- splash -->
-<div id="splash">
-  <div class="splash-mark">
-    <span class="logo-mark"></span>
-    <span class="splash-name">Bisnero</span>
-  </div>
-  <div class="splash-bar"></div>
-</div>
-
-<!-- section indicator rail -->
-<nav id="rail" aria-label="Sektionen">
-  <a href="#top" data-rail="top">Intro</a>
-  <a href="#leistungen" data-rail="leistungen">Leistungen</a>
-  <a href="#prozess" data-rail="prozess">Prozess</a>
-  <a href="#faq" data-rail="faq">FAQ</a>
-  <a href="#kontakt" data-rail="kontakt">Kontakt</a>
-</nav>
-
-<!-- custom cursor -->
-<div class="cursor-blob" id="cursorBlob"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-
-<!-- rotating studio seal -->
-<a href="#kontakt" class="seal" aria-label="Studio kontaktieren" data-magnet>
-  <svg class="ring" viewBox="0 0 200 200" width="100%" height="100%">
-    <defs>
-      <path id="sealPath" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"></path>
-    </defs>
-    <text>
-      <textPath href="#sealPath" startOffset="0">BISNERO STUDIO • CRAFTED IN BERLIN • SINCE 2024 • </textPath>
-    </text>
-  </svg>
-  <span class="core">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
-  </span>
-</a>
-
-<!-- ============================  NAV  ============================ -->
-<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-5 md:px-8 h-[68px] flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-3 group">
-      <span class="logo-mark"></span>
-      <span class="font-display font-semibold tracking-tight text-[17px]">Bisnero</span>
-    </a>
-
-    <nav class="hidden md:flex items-center gap-7 text-[13.5px] font-medium">
-      <a href="#leistungen" class="nav-link">Leistungen</a>
-      <a href="#prozess" class="nav-link">Prozess</a>
-      <a href="#faq" class="nav-link">FAQ</a>
-      <a href="#kontakt" class="nav-link">Kontakt</a>
-    </nav>
-
-    <div class="flex items-center gap-3">
-      <span class="hidden sm:flex items-center gap-2 text-[12px] text-white/60">
-        <span class="pulse"></span> Verfügbar Q3 2026
-      </span>
-      <a href="#kontakt" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-semibold btn-primary">
-        Angebot anfragen
-        <span class="arr">→</span>
+  <!-- ────────────────────────────── NAV ────────────────────────────── -->
+  <header
+    class="fixed top-0 inset-x-0 z-40 transition-all duration-500"
+    :class="scrolled ? 'bg-cream-50/85 backdrop-blur border-b border-sage-100' : 'bg-transparent border-b border-transparent'"
+    x-data="{ scrolled:false }"
+    x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 20)"
+  >
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <!-- mark -->
+        <span class="relative inline-flex items-center justify-center w-9 h-9 rounded-full bg-sage-600 text-cream-50">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+            <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/>
+          </svg>
+          <span class="absolute inset-0 rounded-full ring-1 ring-sage-300/50 animate-breathe"></span>
+        </span>
+        <span class="leading-tight">
+          <span class="block font-serif text-[22px] text-sage-800 -mb-0.5">PhysioPfau</span>
+          <span class="block text-[10px] uppercase tracking-eyebrow text-sage-500 font-medium">Landau in der Pfalz</span>
+        </span>
       </a>
-      <button id="menuBtn" class="md:hidden w-10 h-10 rounded-full grid place-items-center hairline" aria-label="Menü">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-    </div>
-  </div>
 
-  <div id="mobileMenu" class="md:hidden mx-5 rounded-2xl glass-strong p-5 absolute left-0 right-0 top-[72px]">
-    <div class="flex flex-col gap-4 text-[15px]">
-      <a href="#leistungen" class="py-1">Leistungen</a>
-      <a href="#prozess" class="py-1">Prozess</a>
-      <a href="#faq" class="py-1">FAQ</a>
-      <a href="#kontakt" class="py-1">Kontakt</a>
-      <a href="#kontakt" class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-[14px] font-semibold btn-primary">Angebot anfragen <span class="arr">→</span></a>
-    </div>
-  </div>
-</header>
+      <nav class="hidden md:flex items-center gap-9">
+        <a href="#top" class="nav-link">Start</a>
+        <a href="#ueber" class="nav-link">Über mich</a>
+        <a href="#leistungen" class="nav-link">Leistungen</a>
+        <a href="#kontakt" class="nav-link">Kontakt</a>
+      </nav>
 
-<!-- ============================  HERO  ============================ -->
-<section id="top" class="relative pt-[120px] md:pt-[160px] pb-24 md:pb-32 overflow-hidden">
-  <div class="ambient"></div>
-
-  <div class="relative max-w-7xl mx-auto px-5 md:px-8">
-
-    <div data-h="eyebrow" class="flex items-center justify-center mb-8 md:mb-10">
-      <span class="eyebrow">
-        <span class="dot"></span>
-        Premium Webdesign · Studio
-      </span>
-    </div>
-
-    <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]">
-      <span class="grad block">Websites</span>
-      <span class="block">die <span class="accent">überzeugen</span>.</span>
-    </h1>
-
-    <p data-h="sub" class="mt-7 md:mt-9 text-center text-white/75 font-display font-light text-[18px] md:text-[22px] tracking-tight max-w-2xl mx-auto">
-      Dein Business. Online. Professionell. Unverwechselbar.
-    </p>
-
-    <p data-h="text" class="mt-5 text-center text-white/55 text-[15px] md:text-[17px] leading-relaxed max-w-[620px] mx-auto">
-      Wir bauen Websites, die nicht nur gut aussehen — sondern Kunden gewinnen
-      und messbare Ergebnisse liefern.
-    </p>
-
-    <div data-h="cta" class="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-      <a href="#kontakt" class="btn-primary inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-[15px] font-semibold w-full sm:w-auto">
-        Jetzt Angebot anfragen <span class="arr">→</span>
-      </a>
-    </div>
-
-    <!-- stats -->
-    <div data-h="stats" class="mt-16 md:mt-24 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="50">0</span><span class="text-cyan-soft">+</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Websites gebaut</div>
-      </div>
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="100">0</span><span class="text-cyan-soft">%</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Zufriedene Kunden</div>
-      </div>
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="14">0</span><span class="text-white/40 text-[28px] md:text-[34px] align-middle ml-1">Tage</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Ø Lieferzeit</div>
+      <div class="flex items-center gap-3">
+        <button @click="open=true" class="btn-primary hidden sm:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[13.5px] font-medium">
+          Termin vereinbaren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <button @click="mobile=true" class="md:hidden w-10 h-10 grid place-items-center rounded-full border border-sage-200">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
       </div>
     </div>
 
-    <!-- trust strip -->
-    <div data-h="trust" class="mt-16 md:mt-20 relative">
-      <div class="absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#07080C] to-transparent"></div>
-      <div class="absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[#07080C] to-transparent"></div>
-      <div class="overflow-hidden">
-        <div class="marquee text-white/35 font-display tracking-tight text-[18px] md:text-[22px] py-2">
-          <div class="flex items-center gap-16 pr-16">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-          <div class="flex items-center gap-16 pr-16" aria-hidden="true">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-        </div>
+    <!-- mobile sheet -->
+    <div
+      x-show="mobile" x-transition.opacity
+      class="md:hidden fixed inset-0 z-50 bg-cream-50"
+      style="display:none"
+    >
+      <div class="flex items-center justify-between h-[72px] px-6 border-b border-sage-100">
+        <span class="font-serif text-[22px] text-sage-800">PhysioPfau</span>
+        <button @click="mobile=false" class="w-10 h-10 grid place-items-center rounded-full border border-sage-200">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <div class="px-6 py-10 flex flex-col gap-1">
+        <template x-for="(item,i) in [['Start','#top'],['Über mich','#ueber'],['Leistungen','#leistungen'],['Kontakt','#kontakt']]" :key="i">
+          <a :href="item[1]" @click="mobile=false"
+             class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800">
+            <span x-text="item[0]"></span>
+            <span class="text-sage-400">↗</span>
+          </a>
+        </template>
+        <button @click="mobile=false; open=true" class="btn-primary mt-8 rounded-full px-6 py-4 text-base">Termin vereinbaren</button>
       </div>
     </div>
+  </header>
 
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ============================  SERVICES  ============================ -->
-<section id="leistungen" class="relative py-28 md:py-40">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">
-      <div class="reveal">
-        <span class="eyebrow"><span class="dot"></span> Leistungen</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[820px]">
-          Alles aus einer Hand —
-          <span class="accent">von der Idee</span> bis zum Launch.
-        </h2>
-      </div>
-      <p class="reveal text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-sm">
-        Strategie, Design, Entwicklung und Performance — verzahnt in einem
-        kompromisslosen Prozess. Du bekommst nicht nur eine Website,
-        du bekommst ein Werkzeug, das verkauft.
-      </p>
+  <!-- ────────────────────────────── HERO ────────────────────────────── -->
+  <section id="top" class="relative min-h-[100svh] flex items-end overflow-hidden">
+    <!-- image -->
+    <div class="absolute inset-0">
+      <img
+        src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=2400&q=80"
+        alt="Therapeutische Behandlung in heller Praxis"
+        class="hero-img w-full h-full object-cover"
+        x-init="$nextTick(()=>$el.classList.add('in'))"
+      />
+      <!-- soft warm wash -->
+      <div class="absolute inset-0" style="background:
+          linear-gradient(180deg, rgba(28,38,34,0) 0%, rgba(28,38,34,0) 40%, rgba(28,38,34,.55) 100%),
+          linear-gradient(115deg, rgba(63,90,76,.55) 0%, rgba(63,90,76,.18) 40%, rgba(0,0,0,0) 70%);
+      "></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5h18v14H3z"/><path d="M3 9h18"/><path d="M7 13h6"/></svg>
-          </div>
-          <span class="card-num">01</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">Landingpages</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          Hochkonvertierende Single-Pages für Kampagnen und Produkt-Launches.
-          Klar, schnell, fokussiert auf eine einzige Aktion.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">A/B-Tests</span>
-          <span class="px-2.5 py-1 rounded-full hairline">CRO</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Tracking</span>
-        </div>
-      </article>
-
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/></svg>
-          </div>
-          <span class="card-num">02</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">Unternehmenswebsites</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          Repräsentative Mehrseiter mit CMS, Karriereportal und Blog.
-          Skalierbar aufgebaut, einfach zu pflegen.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">CMS</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Mehrsprachig</span>
-          <span class="px-2.5 py-1 rounded-full hairline">DSGVO</span>
-        </div>
-      </article>
-
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="20" r="1.6"/><circle cx="18" cy="20" r="1.6"/><path d="M3 4h3l2.4 12.2a2 2 0 0 0 2 1.6H18a2 2 0 0 0 2-1.5L22 8H6"/></svg>
-          </div>
-          <span class="card-num">03</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">Online Shops</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          E-Commerce mit Shopify oder Headless. Vom Sortiment-Setup
-          bis zum optimierten Checkout — bereit zum Skalieren.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">Shopify</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Headless</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Checkout-CRO</span>
-        </div>
-      </article>
-
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 20v-8"/><path d="M5 12V5h14v7"/><path d="M5 12l-2 8h18l-2-8"/></svg>
-          </div>
-          <span class="card-num">04</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">Redesign</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          Frischer Auftritt für bestehende Seiten. Wir behalten was funktioniert
-          und ersetzen alles, was Ergebnisse kostet.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">Audit</span>
-          <span class="px-2.5 py-1 rounded-full hairline">UX-Review</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Migration</span>
-        </div>
-      </article>
-
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l4-4 4 4 4-6 6 8"/><path d="M3 20h18"/></svg>
-          </div>
-          <span class="card-num">05</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">SEO &amp; Performance</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          Technisches SEO, Core Web Vitals und Content-Strategie.
-          Sichtbar in Google — schnell auf jedem Gerät.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">CWV</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Schema</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Content-Plan</span>
-        </div>
-      </article>
-
-      <article class="card p-7 md:p-8" data-card data-tilt>
-        <div class="flex items-start justify-between">
-          <div class="icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.9 4.9l2.8 2.8"/><path d="M16.3 16.3l2.8 2.8"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.9 19.1l2.8-2.8"/><path d="M16.3 7.7l2.8-2.8"/></svg>
-          </div>
-          <span class="card-num">06</span>
-        </div>
-        <h3 class="font-display text-white text-[22px] md:text-[24px] tracking-tight mt-7">Wartung &amp; Pflege</h3>
-        <p class="text-white/55 text-[14.5px] leading-relaxed mt-3">
-          Hosting, Backups, Updates, Sicherheit. Wir kümmern uns —
-          du fokussierst dich aufs Geschäft.
-        </p>
-        <div class="mt-7 flex flex-wrap gap-2 text-[12px] text-white/55">
-          <span class="px-2.5 py-1 rounded-full hairline">Monitoring</span>
-          <span class="px-2.5 py-1 rounded-full hairline">Backups</span>
-          <span class="px-2.5 py-1 rounded-full hairline">SLA</span>
-        </div>
-      </article>
+    <!-- side label -->
+    <div class="hidden lg:flex absolute left-10 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-cream-50/70 eyebrow gap-3 items-center">
+      <span class="block w-10 h-px bg-cream-50/50"></span>
+      Praxis · est. 2019
     </div>
 
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ============================  PROZESS  ============================ -->
-<section id="prozess" class="relative py-28 md:py-40 overflow-hidden">
-  <!-- faint grid background -->
-  <div class="grid-bg absolute inset-0 pointer-events-none"></div>
-
-  <div class="relative max-w-7xl mx-auto px-5 md:px-8">
-
-    <div class="text-center mb-16 md:mb-24 reveal">
-      <span class="eyebrow"><span class="dot"></span> Prozess</span>
-      <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px]">
-        So arbeiten
-        <span class="accent">wir zusammen.</span>
-      </h2>
-      <p class="mt-5 text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-xl mx-auto">
-        Vom ersten Gespräch bis zum Live-Gang — ein klarer Ablauf,
-        keine Überraschungen, verbindliche Termine.
-      </p>
-    </div>
-
-    <!-- timeline container -->
-    <div id="processGrid" class="relative">
-      <!-- animated connector line (desktop only) -->
-      <div class="hidden lg:block absolute left-0 right-0 top-0 pointer-events-none" style="padding: 0 12.5%;">
-        <div id="processLine" class="process-line"></div>
-        <!-- dots at each step -->
-        <div class="process-dot" data-dot style="left: calc(0% - 6px)"></div>
-        <div class="process-dot" data-dot style="left: calc(33.33% - 6px)"></div>
-        <div class="process-dot" data-dot style="left: calc(66.66% - 6px)"></div>
-        <div class="process-dot" data-dot style="left: calc(100% - 6px)"></div>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 pt-0 lg:pt-20">
-
-        <!-- step 1 -->
-        <div class="relative" data-step>
-          <div class="hidden lg:flex items-center justify-center w-12 h-12 mb-6 rounded-full glass hairline-strong">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-cyan-soft"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <!-- copy -->
+    <div class="relative z-10 w-full">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-16 lg:pb-24 pt-32">
+        <div class="max-w-3xl text-cream-50">
+          <div class="flex items-center gap-3 eyebrow text-cream-50/85 animate-fade-in" style="animation-delay:.2s">
+            <span class="block w-6 h-px bg-cream-50/60"></span>
+            Physiotherapie · Landau in der Pfalz
           </div>
-          <div class="step-num mb-4">01</div>
-          <h3 class="font-display font-semibold text-white text-[20px] md:text-[22px] tracking-tight mb-3">Kick-off</h3>
-          <p class="text-white/55 text-[14.5px] leading-relaxed">
-            Kostenloses Erstgespräch — wir hören zu, stellen die richtigen Fragen
-            und definieren gemeinsam Ziel, Umfang und Budget.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-2 text-[12px] text-white/45">
-            <span class="px-2.5 py-1 rounded-full hairline">Brief</span>
-            <span class="px-2.5 py-1 rounded-full hairline">Scope</span>
-          </div>
-        </div>
-
-        <!-- step 2 -->
-        <div class="relative" data-step>
-          <div class="hidden lg:flex items-center justify-center w-12 h-12 mb-6 rounded-full glass hairline-strong">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-cyan-soft"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          </div>
-          <div class="step-num mb-4">02</div>
-          <h3 class="font-display font-semibold text-white text-[20px] md:text-[22px] tracking-tight mb-3">Design</h3>
-          <p class="text-white/55 text-[14.5px] leading-relaxed">
-            Moodboard, Wireframes, visuelles Konzept. Du siehst alles bevor
-            eine Zeile Code geschrieben wird — und gibst grünes Licht.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-2 text-[12px] text-white/45">
-            <span class="px-2.5 py-1 rounded-full hairline">Figma</span>
-            <span class="px-2.5 py-1 rounded-full hairline">Prototyp</span>
-          </div>
-        </div>
-
-        <!-- step 3 -->
-        <div class="relative" data-step>
-          <div class="hidden lg:flex items-center justify-center w-12 h-12 mb-6 rounded-full glass hairline-strong">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-cyan-soft"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <div class="step-num mb-4">03</div>
-          <h3 class="font-display font-semibold text-white text-[20px] md:text-[22px] tracking-tight mb-3">Entwicklung</h3>
-          <p class="text-white/55 text-[14.5px] leading-relaxed">
-            Pixel-genaue Umsetzung mit modernen Technologien.
-            Laufende Updates per Loom — du siehst den Fortschritt täglich.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-2 text-[12px] text-white/45">
-            <span class="px-2.5 py-1 rounded-full hairline">Webflow</span>
-            <span class="px-2.5 py-1 rounded-full hairline">Next.js</span>
-          </div>
-        </div>
-
-        <!-- step 4 -->
-        <div class="relative" data-step>
-          <div class="hidden lg:flex items-center justify-center w-12 h-12 mb-6 rounded-full glass hairline-strong">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="text-cyan-soft"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          </div>
-          <div class="step-num mb-4">04</div>
-          <h3 class="font-display font-semibold text-white text-[20px] md:text-[22px] tracking-tight mb-3">Launch</h3>
-          <p class="text-white/55 text-[14.5px] leading-relaxed">
-            Go-live, DNS-Umzug, finale QA auf allen Geräten.
-            30 Tage Post-Launch-Support inklusive — du bist nie allein.
-          </p>
-          <div class="mt-5 flex flex-wrap gap-2 text-[12px] text-white/45">
-            <span class="px-2.5 py-1 rounded-full hairline">QA</span>
-            <span class="px-2.5 py-1 rounded-full hairline">Support</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- bottom cta -->
-    <div class="mt-16 md:mt-20 text-center reveal">
-      <a href="#kontakt" class="btn-ghost inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[14px] font-semibold text-white">
-        Prozess kennenlernen <span class="arr">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ============================  FAQ  ============================ -->
-<section id="faq" class="relative py-28 md:py-40">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
-      <div class="lg:col-span-5 reveal">
-        <span class="eyebrow"><span class="dot"></span> FAQ</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[60px]">
-          Häufige
-          <span class="accent">Fragen.</span>
-        </h2>
-        <p class="mt-5 text-white/55 text-[15px] leading-relaxed max-w-sm">
-          Du hast eine Frage, die hier nicht steht? Schreib uns einfach —
-          wir antworten meist innerhalb weniger Stunden.
-        </p>
-        <a href="#kontakt" class="btn-ghost mt-8 inline-flex items-center gap-2 px-5 py-3 rounded-full text-[14px] font-semibold text-white">Frage stellen <span class="arr">→</span></a>
-      </div>
-
-      <div class="lg:col-span-7">
-        <details class="faq-item reveal">
-          <summary>Wie lange dauert ein Projekt wirklich?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Im Schnitt 14 Tage von Kick-off bis Launch. Starter-Projekte schaffen wir in 7 Tagen, größere Plattformen brauchen 4–6 Wochen. Du bekommst zu Beginn einen verbindlichen Zeitplan mit Meilensteinen.</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Was passiert nach dem Launch?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Im Studio-Paket sind 30 Tage Support inklusive. Danach kannst du in unser Pflege-Paket wechseln (ab 149 €/Monat) oder einfach selbst editieren — wir richten alles so ein, dass du das ohne uns kannst.</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Kann ich Inhalte selbst editieren?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Ja. Wir nutzen Webflow oder ein Headless-CMS deiner Wahl. Texte, Bilder, neue Blogposts — alles per Klick. Eine kurze Einweisung ist im Preis enthalten.</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Wie läuft die Zahlung ab?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">50% bei Projektbeginn, 50% bei Launch. Auf Wunsch in 2–3 Raten. Festpreis-Angebot — keine versteckten Kosten, keine Stundensätze.</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Macht ihr auch nur Redesigns?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Klar. Wir analysieren deine bestehende Seite, behalten was funktioniert, und ersetzen alles, was Conversion kostet. Inkl. SEO-sicherer Migration.</div>
-        </details>
-        <details class="faq-item reveal">
-          <summary>Wo sitzt ihr und wie arbeiten wir zusammen?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Studio in Berlin, Team remote-first. Du hast einen persönlichen Ansprechpartner ab Tag 1, Updates per Loom-Videos, Calls auf Wunsch. Sprachen: Deutsch &amp; Englisch.</div>
-        </details>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ============================  KONTAKT  ============================ -->
-<section id="kontakt" class="relative py-28 md:py-40 overflow-hidden">
-  <div aria-hidden="true" class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
-       style="background: radial-gradient(closest-side, rgba(127,196,255,0.18), rgba(127,196,255,0) 70%); filter: blur(40px);"></div>
-
-  <div class="relative max-w-7xl mx-auto px-5 md:px-8">
-
-    <div class="rounded-[28px] md:rounded-[36px] glass-strong overflow-hidden relative" data-cta-card>
-      <div aria-hidden="true" class="absolute inset-0 opacity-50 pointer-events-none"
-           style="background: radial-gradient(60% 60% at 0% 0%, rgba(127,196,255,0.18), transparent 60%), radial-gradient(60% 60% at 100% 100%, rgba(232,206,154,0.12), transparent 60%);"></div>
-
-      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-7 md:p-12 lg:p-16">
-        <!-- left -->
-        <div class="lg:col-span-5 reveal">
-          <span class="eyebrow"><span class="dot"></span> Kontakt</span>
-          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px] leading-[0.98]">
-            Bereit für deine
-            <span class="accent">neue Website?</span>
-          </h2>
-          <p class="mt-5 text-white/65 text-[15px] md:text-[16px] leading-relaxed max-w-md">
-            Schreib uns kurz, was du im Kopf hast. Wir melden uns innerhalb von
-            24 Stunden mit einer ehrlichen Einschätzung — kostenlos und unverbindlich.
+          <h1 class="mt-6 text-[44px] sm:text-6xl lg:text-[88px] leading-[1.02] tracking-tightish animate-fade-up" style="animation-delay:.15s">
+            Willkommen bei<br/>
+            <span class="italic text-cream-50">PhysioPfau<span class="text-sage-200">.</span></span>
+          </h1>
+          <p class="mt-7 max-w-xl text-[17px] leading-[1.7] text-cream-50/90 animate-fade-up" style="animation-delay:.35s">
+            Professionelle Physiotherapie in Landau in der Pfalz —
+            individuell, einfühlsam und auf Ihre Bedürfnisse abgestimmt.
           </p>
 
-          <ul class="mt-8 space-y-3 text-[14.5px]">
-            <li class="flex items-center gap-3 text-white/75">
-              <span class="w-6 h-6 rounded-full grid place-items-center hairline-strong text-cyan-soft">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10"/></svg>
-              </span>
-              Antwort innerhalb von 24 h
-            </li>
-            <li class="flex items-center gap-3 text-white/75">
-              <span class="w-6 h-6 rounded-full grid place-items-center hairline-strong text-cyan-soft">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10"/></svg>
-              </span>
-              Festpreis-Angebot, keine versteckten Kosten
-            </li>
-            <li class="flex items-center gap-3 text-white/75">
-              <span class="w-6 h-6 rounded-full grid place-items-center hairline-strong text-cyan-soft">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l4 4 10-10"/></svg>
-              </span>
-              Persönlicher Ansprechpartner ab Tag 1
-            </li>
-          </ul>
-
-          <div class="mt-10 pt-6 border-t border-white/10 flex items-center gap-4 text-[13.5px] text-white/55">
-            <span class="logo-mark"></span>
-            <span>hi@bisnero.de · +49 30 123 456 78</span>
-          </div>
-        </div>
-
-        <!-- form -->
-        <form id="contactForm" class="lg:col-span-7 reveal grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 self-start">
-          <label class="block sm:col-span-1">
-            <span class="text-[12px] uppercase tracking-[0.18em] text-white/55">Name</span>
-            <input class="field mt-2" type="text" name="name" placeholder="Max Mustermann" required />
-          </label>
-          <label class="block sm:col-span-1">
-            <span class="text-[12px] uppercase tracking-[0.18em] text-white/55">Firma</span>
-            <input class="field mt-2" type="text" name="company" placeholder="Musterfirma GmbH" />
-          </label>
-          <label class="block sm:col-span-2">
-            <span class="text-[12px] uppercase tracking-[0.18em] text-white/55">E-Mail</span>
-            <input class="field mt-2" type="email" name="email" placeholder="max@musterfirma.de" required />
-          </label>
-          <label class="block sm:col-span-2">
-            <span class="text-[12px] uppercase tracking-[0.18em] text-white/55">Worum geht's?</span>
-            <textarea class="field mt-2" rows="5" name="message" placeholder="Kurz dein Vorhaben, Zeitraum und Budget…" required></textarea>
-          </label>
-
-          <div class="sm:col-span-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-2">
-            <p class="text-[12.5px] text-white/45 max-w-xs leading-relaxed">
-              Mit dem Absenden stimmst du unserer Datenschutzerklärung zu.
-            </p>
-            <button type="submit" class="btn-primary inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full text-[15px] font-semibold w-full sm:w-auto">
-              Anfrage senden <span class="arr">→</span>
+          <div class="mt-10 flex flex-col sm:flex-row gap-3 animate-fade-up" style="animation-delay:.55s">
+            <button @click="open=true" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+              Termin vereinbaren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
+            <a href="#leistungen" class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium text-cream-50 border border-cream-50/30 hover:bg-cream-50/10 transition">
+              Leistungen entdecken
+            </a>
+          </div>
+        </div>
+
+        <!-- bottom row: scroll cue + small testimonial pill -->
+        <div class="mt-20 flex items-end justify-between text-cream-50/80">
+          <div class="hidden md:flex items-center gap-3 eyebrow scroll-cue">
+            <span class="block w-px h-10 bg-cream-50/40"></span>
+            Scrollen
+          </div>
+          <div class="hidden md:flex items-center gap-4 max-w-md backdrop bg-cream-50/10 border border-cream-50/20 rounded-2xl px-5 py-4 animate-fade-up" style="animation-delay:.8s">
+            <div class="flex -space-x-2">
+              <span class="w-9 h-9 rounded-full bg-sage-300 ring-2 ring-cream-50/20"></span>
+              <span class="w-9 h-9 rounded-full bg-mist-200 ring-2 ring-cream-50/20"></span>
+              <span class="w-9 h-9 rounded-full bg-sage-200 ring-2 ring-cream-50/20"></span>
+            </div>
+            <div class="text-[13px] leading-snug">
+              <div class="flex items-center gap-1.5 text-cream-50">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+                <span class="ml-1">4,9 · Jameda</span>
+              </div>
+              <span class="block text-cream-50/80 mt-0.5">Über 120 Empfehlungen aus der Region.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────── FEATURE CARDS ────────────────────────────── -->
+  <section class="relative bg-cream-50 grain">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 -mt-24 lg:-mt-28 relative z-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-sage-100 rounded-2xl overflow-hidden shadow-lift border border-sage-100">
+        <!-- card 1 -->
+        <div class="card bg-cream-50 p-8 lg:p-10 reveal" data-delay="1">
+          <div class="w-12 h-12 rounded-full bg-sage-50 grid place-items-center text-sage-600 mb-7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <path d="M3 21V10l9-7 9 7v11"/><path d="M9 21v-6h6v6"/><path d="M12 3v4M4 10h16"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl text-sage-800">Moderne Einrichtung</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-sage-700/85">
+            Lichtdurchflutete Räume und neueste Therapiegeräte für ein angenehmes Behandlungserlebnis.
+          </p>
+        </div>
+        <!-- card 2 -->
+        <div class="card bg-cream-50 p-8 lg:p-10 reveal" data-delay="2">
+          <div class="w-12 h-12 rounded-full bg-sage-50 grid place-items-center text-sage-600 mb-7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl text-sage-800">Individuelle Betreuung</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-sage-700/85">
+            Jeder Mensch ist einzigartig – Ihre Behandlung wird genau auf Sie abgestimmt.
+          </p>
+        </div>
+        <!-- card 3 -->
+        <div class="card bg-cream-50 p-8 lg:p-10 reveal" data-delay="3">
+          <div class="w-12 h-12 rounded-full bg-sage-50 grid place-items-center text-sage-600 mb-7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+              <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl text-sage-800">Ganzheitliche Therapie</h3>
+          <p class="mt-3 text-[15px] leading-relaxed text-sage-700/85">
+            Wir betrachten Körper und Wohlbefinden als Einheit – für nachhaltige Genesung.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- spacer -->
+    <div class="h-28 lg:h-40"></div>
+  </section>
+
+  <!-- ────────────────────────────── ÜBER MICH ────────────────────────────── -->
+  <section id="ueber" class="relative bg-cream-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-28 lg:pb-40">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        <!-- image -->
+        <div class="lg:col-span-6 reveal">
+          <div class="relative">
+            <div class="aspect-[4/5] rounded-3xl overflow-hidden bg-sage-100">
+              <img
+                src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?auto=format&fit=crop&w=1400&q=80"
+                alt="Innenansicht der Praxis PhysioPfau"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <!-- floating credential card -->
+            <div class="absolute -bottom-8 -right-4 lg:-right-10 bg-cream-50 border border-sage-100 rounded-2xl shadow-lift p-5 max-w-[260px]">
+              <div class="flex items-center gap-3">
+                <span class="w-10 h-10 grid place-items-center rounded-full bg-sage-600 text-cream-50">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                    <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>
+                  </svg>
+                </span>
+                <div>
+                  <div class="text-[11px] uppercase tracking-eyebrow text-sage-500">Anerkannt</div>
+                  <div class="font-serif text-lg text-sage-800 leading-tight">Alle Kassen</div>
+                </div>
+              </div>
+              <p class="mt-3 text-[12.5px] text-sage-700/80 leading-relaxed">
+                Privat &amp; gesetzlich. Heilmittelverordnung willkommen.
+              </p>
+            </div>
+            <!-- soft decorative blob -->
+            <div class="hidden lg:block absolute -top-8 -left-8 w-32 h-32 rounded-full bg-sage-100 -z-0"></div>
+          </div>
+        </div>
+
+        <!-- copy -->
+        <div class="lg:col-span-6 reveal" data-delay="1">
+          <div class="flex items-center gap-3 eyebrow text-sage-600">
+            <span class="block w-6 h-px bg-sage-300"></span>
+            Über die Praxis
+          </div>
+          <h2 class="mt-5 text-[40px] sm:text-5xl lg:text-[58px] leading-[1.05] text-sage-800">
+            Ein Ort, an dem Sie<br/>
+            <span class="italic">zur Ruhe</span> kommen.
+          </h2>
+
+          <p class="mt-7 text-[16.5px] leading-[1.8] text-sage-700/90 max-w-xl">
+            In unserer Praxis verbinden wir fachliche Kompetenz mit menschlicher Wärme.
+            Jede Behandlung beginnt mit einem aufmerksamen Gespräch, denn wir möchten Sie
+            und Ihre Beschwerden wirklich verstehen.
+          </p>
+          <p class="mt-4 text-[16.5px] leading-[1.8] text-sage-700/90 max-w-xl">
+            So entsteht ein Therapieplan, der Sie nachhaltig auf dem Weg zu mehr
+            Beweglichkeit und Wohlbefinden begleitet.
+          </p>
+
+          <!-- mini stats row -->
+          <div class="mt-10 grid grid-cols-3 gap-6 border-t border-sage-100 pt-8 max-w-lg">
+            <div>
+              <div class="font-serif text-3xl text-sage-800">12+</div>
+              <div class="text-[12px] text-sage-600 mt-1">Jahre Erfahrung</div>
+            </div>
+            <div>
+              <div class="font-serif text-3xl text-sage-800">1:1</div>
+              <div class="text-[12px] text-sage-600 mt-1">Einzelbehandlung</div>
+            </div>
+            <div>
+              <div class="font-serif text-3xl text-sage-800">∞</div>
+              <div class="text-[12px] text-sage-600 mt-1">Zeit für Sie</div>
+            </div>
           </div>
 
-          <div id="formSuccess" class="hidden sm:col-span-2 rounded-xl px-4 py-3 text-[14px]"
-               style="background: rgba(93,224,166,0.10); box-shadow: inset 0 0 0 1px rgba(93,224,166,0.35); color: #B8F2D6;">
-            Danke! Deine Nachricht ist angekommen — wir melden uns innerhalb von 24 Stunden.
+          <a href="#kontakt" class="link-underline mt-10 inline-flex text-sage-700 text-[14.5px] font-medium">
+            Mehr über mich
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────── LEISTUNGEN ────────────────────────────── -->
+  <section id="leistungen" class="relative bg-sage-800 text-cream-50 overflow-hidden">
+    <!-- soft texture -->
+    <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+      style="background: radial-gradient(60% 50% at 20% 0%, rgba(255,255,255,.5), transparent 60%), radial-gradient(40% 40% at 90% 100%, rgba(146,173,154,.6), transparent 60%);"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-16 lg:mb-24">
+        <div class="lg:col-span-7 reveal">
+          <div class="flex items-center gap-3 eyebrow text-sage-200">
+            <span class="block w-6 h-px bg-sage-300"></span>
+            Leistungen
+          </div>
+          <h2 class="mt-5 text-[40px] sm:text-5xl lg:text-[64px] leading-[1.05]">
+            Therapie, <span class="italic text-sage-200">die wirkt.</span>
+          </h2>
+        </div>
+        <div class="lg:col-span-5 reveal" data-delay="1">
+          <p class="text-[16.5px] leading-[1.8] text-cream-50/80">
+            Eine Auswahl unserer Behandlungsangebote — individuell auf Sie
+            abgestimmt. Jede Sitzung findet als Einzeltermin in ruhiger
+            Atmosphäre statt.
+          </p>
+        </div>
+      </div>
+
+      <!-- services list -->
+      <div class="border-t border-cream-50/15">
+        <!-- item template -->
+        <template x-for="(s,i) in [
+            { n:'01', t:'Krankengymnastik', d:'Aktive Bewegungstherapie zur Wiederherstellung von Beweglichkeit, Kraft und Funktion.', tag:'Bewegung', icon:'activity' },
+            { n:'02', t:'Manuelle Therapie', d:'Spezielle Handgriffe lösen Funktionsstörungen an Gelenken, Muskeln und Nerven.', tag:'Mobilisation', icon:'hands' },
+            { n:'03', t:'CMD-Therapie', d:'Behandlung der Craniomandibulären Dysfunktion bei Kiefer- und Kopfbeschwerden.', tag:'Kiefer & Kopf', icon:'face' },
+            { n:'04', t:'Manuelle Lymphdrainage', d:'Sanfte Grifftechnik zur Entstauung des Gewebes und Entlastung des Lymphsystems.', tag:'Entstauung', icon:'drop' },
+          ]" :key="i">
+          <a href="#kontakt"
+             class="group block border-b border-cream-50/15 py-8 lg:py-10 reveal"
+             :data-delay="i % 4">
+            <div class="grid grid-cols-12 gap-4 items-baseline">
+              <div class="col-span-2 lg:col-span-1 num" x-text="s.n"></div>
+
+              <div class="col-span-10 lg:col-span-5 flex items-center gap-4">
+                <span class="hidden lg:grid w-10 h-10 place-items-center rounded-full bg-cream-50/8 ring-1 ring-cream-50/20 text-cream-50 transition group-hover:bg-cream-50 group-hover:text-sage-800">
+                  <!-- per-service tiny icon (drawn inline) -->
+                  <template x-if="s.icon==='activity'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></template>
+                  <template x-if="s.icon==='hands'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V5a1.5 1.5 0 1 1 3 0v5M13 10V6.5a1.5 1.5 0 1 1 3 0V13"/><path d="M7 11c-1.5 0-2 1-2 2 0 4 3 8 7 8s7-3 7-7v-3"/></svg></template>
+                  <template x-if="s.icon==='face'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 10h.01M15 10h.01"/></svg></template>
+                  <template x-if="s.icon==='drop'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11Z"/></svg></template>
+                </span>
+                <h3 class="font-serif text-3xl lg:text-[40px] leading-tight transition group-hover:text-sage-200" x-text="s.t"></h3>
+              </div>
+
+              <p class="col-span-12 lg:col-span-4 text-[15px] leading-relaxed text-cream-50/75 lg:pl-6" x-text="s.d"></p>
+
+              <div class="col-span-12 lg:col-span-2 flex lg:justify-end items-center gap-3 text-[12.5px] text-cream-50/70 mt-2 lg:mt-0">
+                <span class="rounded-full border border-cream-50/20 px-3 py-1" x-text="s.tag"></span>
+                <span class="w-9 h-9 rounded-full grid place-items-center border border-cream-50/20 transition group-hover:bg-cream-50 group-hover:text-sage-800 group-hover:border-cream-50">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        </template>
+      </div>
+
+      <div class="mt-14 flex items-center gap-3 text-cream-50/70 text-sm">
+        <span class="dot"></span>
+        Auch Hausbesuche im Raum Landau auf Anfrage möglich.
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────── CTA ────────────────────────────── -->
+  <section id="kontakt" class="relative bg-cream-50">
+    <div class="max-w-6xl mx-auto px-6 lg:px-10 py-28 lg:py-40">
+      <div class="relative rounded-[36px] overflow-hidden border border-sage-100 bg-cream-100 shadow-soft">
+        <!-- decorative side image -->
+        <div class="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
+          <img src="https://images.unsplash.com/photo-1599447421416-3414500d18a5?auto=format&fit=crop&w=1600&q=80"
+               alt="Helle Praxisatmosphäre"
+               class="w-full h-full object-cover" />
+          <div class="absolute inset-0" style="background: linear-gradient(90deg, #f6f2ea 0%, rgba(246,242,234,0.2) 35%, rgba(246,242,234,0) 60%);"></div>
+        </div>
+
+        <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-12 p-10 lg:p-16">
+          <div class="reveal">
+            <div class="flex items-center gap-3 eyebrow text-sage-600">
+              <span class="block w-6 h-px bg-sage-300"></span>
+              Erstes Gespräch
+            </div>
+            <h2 class="mt-5 text-[40px] sm:text-5xl lg:text-[58px] leading-[1.05] text-sage-800">
+              Bereit für Ihren <span class="italic">ersten Termin?</span>
+            </h2>
+            <p class="mt-6 text-[16.5px] leading-[1.8] text-sage-700/90 max-w-md">
+              Wir freuen uns darauf, Sie kennenzulernen und gemeinsam mit Ihnen
+              zu starten.
+            </p>
+            <div class="mt-9 flex flex-col sm:flex-row gap-3">
+              <button @click="open=true" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+                Termin vereinbaren
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <a href="tel:+4900000000" class="btn-ghost inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+                Direkt anrufen
+              </a>
+            </div>
+
+            <div class="mt-10 grid grid-cols-2 gap-5 max-w-md">
+              <div class="border-t border-sage-200 pt-4">
+                <div class="eyebrow text-sage-500">Adresse</div>
+                <div class="mt-2 text-[14.5px] text-sage-800 leading-snug">
+                  Lazarettstraße 1<br/>76829 Landau in der Pfalz
+                </div>
+              </div>
+              <div class="border-t border-sage-200 pt-4">
+                <div class="eyebrow text-sage-500">Sprechzeiten</div>
+                <div class="mt-2 text-[14.5px] text-sage-800 leading-snug">
+                  Mo – Fr · 08 – 19 Uhr<br/>Sa · nach Vereinbarung
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hidden lg:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────── FOOTER ────────────────────────────── -->
+  <footer class="bg-sage-900 text-cream-100">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5">
+          <div class="flex items-center gap-2.5">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sage-600">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/>
+              </svg>
+            </span>
+            <span class="font-serif text-[24px]">PhysioPfau</span>
+          </div>
+          <p class="mt-5 font-serif text-2xl leading-snug text-cream-100/95 max-w-sm">
+            Ihre Gesundheit in <span class="italic">besten Händen.</span>
+          </p>
+          <div class="mt-6 flex items-center gap-3">
+            <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M13 22v-8h3l.5-4H13V7.5c0-1.1.3-1.9 2-1.9h2V2.2C16.7 2.1 15.6 2 14.3 2 11.6 2 10 3.6 10 6.7V10H7v4h3v8h3z"/></svg>
+            </a>
+            <a href="#" aria-label="Jameda" class="w-10 h-10 rounded-full grid place-items-center border border-cream-100/20 hover:bg-cream-100 hover:text-sage-900 transition">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2">
+          <div class="eyebrow text-sage-300">Navigation</div>
+          <ul class="mt-5 space-y-3 text-[14.5px]">
+            <li><a href="#top" class="hover:text-cream-50 text-cream-100/80">Startseite</a></li>
+            <li><a href="#leistungen" class="hover:text-cream-50 text-cream-100/80">Leistungen</a></li>
+            <li><a href="#ueber" class="hover:text-cream-50 text-cream-100/80">Über mich</a></li>
+            <li><a href="#kontakt" class="hover:text-cream-50 text-cream-100/80">Termin</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-3">
+          <div class="eyebrow text-sage-300">Kontakt</div>
+          <ul class="mt-5 space-y-3 text-[14.5px] text-cream-100/80">
+            <li>Lazarettstraße 1</li>
+            <li>76829 Landau in der Pfalz</li>
+            <li>Tel: <span class="text-cream-100">[Telefon Platzhalter]</span></li>
+            <li>E-Mail: <span class="text-cream-100">[E-Mail Platzhalter]</span></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <div class="eyebrow text-sage-300">Rechtliches</div>
+          <ul class="mt-5 space-y-3 text-[14.5px]">
+            <li><a href="#" class="hover:text-cream-50 text-cream-100/80">Impressum</a></li>
+            <li><a href="#" class="hover:text-cream-50 text-cream-100/80">Datenschutzerklärung</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-16 pt-6 border-t border-cream-100/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[12.5px] text-cream-100/55">
+        <span>© 2025 PhysioPfau · Alle Rechte vorbehalten.</span>
+        <span>Webdesign by <span class="text-cream-100/80">[Platzhalter]</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ────────────────────────────── MODAL ────────────────────────────── -->
+  <div
+    x-show="open"
+    x-transition.opacity
+    @keydown.escape.window="open=false"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    style="display:none"
+  >
+    <div class="absolute inset-0 bg-sage-900/55 backdrop" @click="open=false"></div>
+    <div
+      x-show="open"
+      x-transition:enter="transition transform duration-500 ease-out"
+      x-transition:enter-start="opacity-0 translate-y-6 scale-[0.98]"
+      x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+      class="relative w-full max-w-2xl bg-cream-50 rounded-3xl shadow-lift overflow-hidden border border-sage-100"
+    >
+      <!-- header -->
+      <div class="flex items-start justify-between p-6 lg:p-8 pb-2">
+        <div>
+          <div class="eyebrow text-sage-600 flex items-center gap-3">
+            <span class="block w-6 h-px bg-sage-300"></span>
+            Terminanfrage
+          </div>
+          <h3 class="mt-3 font-serif text-3xl lg:text-4xl text-sage-800 leading-tight">
+            Lassen Sie uns ins <span class="italic">Gespräch</span> kommen.
+          </h3>
+        </div>
+        <button @click="open=false" class="w-9 h-9 grid place-items-center rounded-full border border-sage-200 hover:bg-sage-50 transition">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+
+      <!-- body -->
+      <div class="px-6 lg:px-8 pb-6 lg:pb-8" x-show="!sent">
+        <p class="text-[14.5px] text-sage-700/85 leading-relaxed max-w-md">
+          Hinterlassen Sie uns kurz Ihre Daten und ein Wunschdatum — wir melden
+          uns innerhalb von 24 Stunden bei Ihnen.
+        </p>
+
+        <form class="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5"
+              @submit.prevent="sent=true; setTimeout(()=>{open=false; sent=false}, 2200)">
+          <div>
+            <label class="flab">Vorname</label>
+            <input class="field" type="text" placeholder="Anna" required />
+          </div>
+          <div>
+            <label class="flab">Nachname</label>
+            <input class="field" type="text" placeholder="Müller" required />
+          </div>
+          <div>
+            <label class="flab">E-Mail</label>
+            <input class="field" type="email" placeholder="anna@beispiel.de" required />
+          </div>
+          <div>
+            <label class="flab">Telefon</label>
+            <input class="field" type="tel" placeholder="0151 …" />
+          </div>
+          <div class="sm:col-span-2">
+            <label class="flab">Anliegen</label>
+            <div class="flex flex-wrap gap-2 mt-3"
+                 x-data="{ sel:'Krankengymnastik' }">
+              <template x-for="opt in ['Krankengymnastik','Manuelle Therapie','CMD-Therapie','Lymphdrainage','Sonstiges']" :key="opt">
+                <button type="button" @click="sel=opt"
+                        :class="sel===opt ? 'bg-sage-700 text-cream-50 border-sage-700' : 'bg-transparent text-sage-700 border-sage-200 hover:border-sage-400'"
+                        class="text-[13px] rounded-full border px-3.5 py-1.5 transition">
+                  <span x-text="opt"></span>
+                </button>
+              </template>
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="flab">Nachricht (optional)</label>
+            <textarea class="field resize-none" rows="3" placeholder="Wunschtermin, kurze Beschreibung der Beschwerden …"></textarea>
+          </div>
+          <div class="sm:col-span-2 flex items-start gap-3 mt-1">
+            <input type="checkbox" required class="mt-1 accent-sage-700" id="dsg" />
+            <label for="dsg" class="text-[12.5px] text-sage-700/85 leading-relaxed">
+              Ich stimme der Verarbeitung meiner Daten gemäß der
+              <a href="#" class="underline">Datenschutzerklärung</a> zu.
+            </label>
+          </div>
+          <div class="sm:col-span-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+            <button type="submit" class="btn-primary rounded-full px-7 py-3.5 text-[14.5px] font-medium inline-flex items-center justify-center gap-2">
+              Anfrage senden
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+            <span class="text-[12.5px] text-sage-600">
+              · oder anrufen: <span class="text-sage-800">[Telefon Platzhalter]</span>
+            </span>
           </div>
         </form>
       </div>
-    </div>
 
-  </div>
-</section>
-
-<!-- ============================  FOOTER  ============================ -->
-<footer class="relative pt-20 pb-10">
-  <div class="max-w-7xl mx-auto px-5 md:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6">
-      <div class="md:col-span-5">
-        <div class="flex items-center gap-3">
-          <span class="logo-mark"></span>
-          <span class="font-display font-semibold tracking-tight text-[18px]">Bisnero</span>
-        </div>
-        <p class="mt-5 text-white/55 text-[14.5px] leading-relaxed max-w-sm">
-          Premium Webdesign-Studio. Wir bauen Websites, die nicht nur gut aussehen —
-          sondern verkaufen.
-        </p>
-        <div class="mt-6 flex items-center gap-2 text-[12.5px] text-white/50">
-          <span class="pulse"></span> Verfügbar für neue Projekte · Q3 2026
+      <!-- confirmation -->
+      <div class="px-6 lg:px-8 pb-10 pt-2" x-show="sent" x-transition x-cloak style="display:none">
+        <div class="flex flex-col items-center text-center py-10">
+          <span class="w-14 h-14 grid place-items-center rounded-full bg-sage-100 text-sage-700">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M5 13l4 4L19 7"/></svg>
+          </span>
+          <h4 class="mt-5 font-serif text-3xl text-sage-800">Vielen Dank.</h4>
+          <p class="mt-2 text-sage-700/80 max-w-sm">Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen zurück.</p>
         </div>
       </div>
-      <div class="md:col-span-2">
-        <div class="text-[12px] uppercase tracking-[0.18em] text-white/40 mb-4">Studio</div>
-        <ul class="space-y-3 text-[14px] text-white/70">
-          <li><a href="#leistungen" class="hover:text-white transition-colors">Leistungen</a></li>
-          <li><a href="#prozess" class="hover:text-white transition-colors">Prozess</a></li>
-          <li><a href="#kontakt" class="hover:text-white transition-colors">Kontakt</a></li>
-        </ul>
-      </div>
-      <div class="md:col-span-2">
-        <div class="text-[12px] uppercase tracking-[0.18em] text-white/40 mb-4">Rechtliches</div>
-        <ul class="space-y-3 text-[14px] text-white/70">
-          <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">AGB</a></li>
-        </ul>
-      </div>
-      <div class="md:col-span-3">
-        <div class="text-[12px] uppercase tracking-[0.18em] text-white/40 mb-4">Kontakt</div>
-        <ul class="space-y-3 text-[14px] text-white/70">
-          <li>hi@bisnero.de</li>
-          <li>+49 30 123 456 78</li>
-          <li>Berlin · Remote</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[12.5px] text-white/45">
-      <div>© 2026 Bisnero Studio. Alle Rechte vorbehalten.</div>
-      <div class="font-display tracking-tight">Made with care · Berlin</div>
     </div>
   </div>
-</footer>
 
-<script>
-  // ====================== splash ======================
-  const splash = document.getElementById('splash');
-  if (splash) {
-    gsap.to('#splash .splash-bar', { scaleX: 1, duration: 1.0, ease: 'power3.inOut' });
-    window.addEventListener('load', () => {
-      setTimeout(() => splash.classList.add('hidden'), 700);
-    });
-    setTimeout(() => splash.classList.add('hidden'), 1800);
-  }
-
-  // ====================== Lenis smooth scroll ======================
-  if (window.Lenis) {
-    const lenis = new Lenis({ duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-    function raf(time) { lenis.raf(time * 1000); }
-    gsap.ticker.add(raf);
-    gsap.ticker.lagSmoothing(0);
-    window.__lenis = lenis;
-  }
-
-  // ====================== section indicator rail ======================
-  const rail = document.getElementById('rail');
-  if (rail) {
-    const ids = ['top','leistungen','prozess','faq','kontakt'];
-    ids.forEach(id => {
-      const sec = document.getElementById(id);
-      const link = rail.querySelector(`[data-rail="${id}"]`);
-      if (!sec || !link) return;
-      ScrollTrigger.create({
-        trigger: sec, start: 'top 45%', end: 'bottom 45%',
-        onToggle: (self) => {
-          if (self.isActive) {
-            rail.querySelectorAll('a').forEach(a => a.classList.remove('active'));
-            link.classList.add('active');
-          }
-        },
+  <!-- ────────────────────────────── REVEAL ON SCROLL ────────────────────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
       });
-    });
-  }
-
-  // ====================== FAQ accordion smooth ======================
-  document.querySelectorAll('.faq-item').forEach(item => {
-    const body = item.querySelector('.faq-body');
-    if (!body) return;
-    item.addEventListener('toggle', () => {
-      if (item.open) {
-        gsap.fromTo(body, { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-      }
-    });
-  });
-
-  // ====================== nav scroll state ======================
-  const nav = document.getElementById('nav');
-  const onScroll = () => {
-    if (window.scrollY > 12) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  // ====================== mobile menu ======================
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  menuBtn?.addEventListener('click', () => menu.classList.toggle('open'));
-  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
-
-  // ====================== card pointer glow ======================
-  document.querySelectorAll('[data-card]').forEach(card => {
-    card.addEventListener('pointermove', (e) => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
-    });
-  });
-
-  // ====================== GSAP setup ======================
-  gsap.registerPlugin(ScrollTrigger);
-
-  // pre-hide hero pieces
-  gsap.set(['[data-h="eyebrow"]', '[data-h="headline"]', '[data-h="sub"]', '[data-h="text"]', '[data-h="cta"] > *', '[data-h="trust"]'], { autoAlpha: 0, y: 24 });
-  gsap.set('[data-stat]', { autoAlpha: 0, y: 30, scale: 0.86 });
-
-  const heroTl = gsap.timeline({ defaults: { ease: 'back.out(1.7)' }, delay: 0.15 });
-  heroTl
-    .to('[data-h="eyebrow"]', { autoAlpha: 1, y: 0, duration: 0.55 })
-    .to('[data-h="headline"]', { autoAlpha: 1, y: 0, scale: 1, duration: 0.9, ease: 'back.out(1.5)' }, '-=0.25')
-    .to('[data-h="sub"]', { autoAlpha: 1, y: 0, duration: 0.55 }, '-=0.45')
-    .to('[data-h="text"]', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.35')
-    .to('[data-h="cta"] > *', { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'back.out(2)' }, '-=0.35')
-    .to('[data-stat]', { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.1, ease: 'back.out(2.2)' }, '-=0.35')
-    .to('[data-h="trust"]', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.3')
-    .add(() => {
-      document.querySelectorAll('.num').forEach(el => {
-        const to = parseInt(el.dataset.to, 10);
-        gsap.to(el, {
-          textContent: to, duration: 1.2, ease: 'power2.out',
-          snap: { textContent: 1 },
-          onUpdate() { el.textContent = Math.round(this.targets()[0].textContent || el.textContent); },
-        });
-      });
-    }, '-=0.4');
-
-  // replay on scroll both directions
-  const ST = (extra) => Object.assign({ toggleActions: 'play none none reverse' }, extra);
-
-  // ====================== generic scroll reveal ======================
-  gsap.utils.toArray('.reveal').forEach((el) => {
-    gsap.fromTo(el,
-      { autoAlpha: 0, y: 28 },
-      { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: ST({ trigger: el, start: 'top 88%' }) }
-    );
-  });
-
-  // ====================== section headline mask reveal ======================
-  gsap.utils.toArray('section h2.display').forEach((h2) => {
-    gsap.set(h2, { clipPath: 'inset(0 0 100% 0)', yPercent: 8, autoAlpha: 0.9 });
-    gsap.to(h2, {
-      clipPath: 'inset(0 0 0% 0)', yPercent: 0, autoAlpha: 1,
-      duration: 1.4, ease: 'expo.out',
-      scrollTrigger: ST({ trigger: h2, start: 'top 85%' }),
-    });
-  });
-
-  // ====================== service cards 3D stagger ======================
-  document.querySelectorAll('#leistungen .grid').forEach(g => g.classList.add('grid-3d'));
-  gsap.utils.toArray('[data-tilt]').forEach((card, i) => {
-    gsap.fromTo(card,
-      { autoAlpha: 0, y: 60, rotateX: -22, transformOrigin: '50% 100%' },
-      {
-        autoAlpha: 1, y: 0, rotateX: 0, duration: 0.95, ease: 'power3.out',
-        scrollTrigger: ST({ trigger: card, start: 'top 90%' }),
-        delay: (i % 3) * 0.08,
-      }
-    );
-  });
-
-  // ====================== process line + dot animations ======================
-  const processLine = document.getElementById('processLine');
-  if (processLine) {
-    gsap.to(processLine, {
-      scaleX: 1, ease: 'none',
-      scrollTrigger: {
-        trigger: '#processGrid', start: 'top 75%', end: 'bottom 70%', scrub: 0.6,
-      },
-    });
-  }
-
-  gsap.fromTo('[data-step]',
-    { autoAlpha: 0, y: 40 },
-    { autoAlpha: 1, y: 0, duration: 0.8, ease: 'back.out(1.6)', stagger: 0.14,
-      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 78%' }) }
-  );
-  gsap.fromTo('[data-dot]',
-    { autoAlpha: 0, scale: 0 },
-    { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'back.out(2.6)', stagger: 0.14,
-      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 78%' }), delay: 0.1 }
-  );
-
-  // ====================== CTA card scale-in ======================
-  gsap.fromTo('[data-cta-card]',
-    { autoAlpha: 0, scale: 0.92, y: 60 },
-    { autoAlpha: 1, scale: 1, y: 0, duration: 1.2, ease: 'expo.out',
-      scrollTrigger: ST({ trigger: '[data-cta-card]', start: 'top 85%' }) }
-  );
-
-  // ====================== custom cursor + magnetic buttons ======================
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (isFinePointer) {
-    const dot = document.getElementById('cursorDot');
-    const blob = document.getElementById('cursorBlob');
-    const tgt = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const blobPos = { x: tgt.x, y: tgt.y };
-
-    window.addEventListener('pointermove', (e) => {
-      tgt.x = e.clientX; tgt.y = e.clientY;
-      gsap.set(dot, { x: e.clientX, y: e.clientY });
-    });
-    window.addEventListener('pointerdown', () => blob.classList.add('tap'));
-    window.addEventListener('pointerup', () => blob.classList.remove('tap'));
-
-    gsap.ticker.add(() => {
-      blobPos.x += (tgt.x - blobPos.x) * 0.18;
-      blobPos.y += (tgt.y - blobPos.y) * 0.18;
-      gsap.set(blob, { x: blobPos.x, y: blobPos.y });
-    });
-
-    const HOVER_SEL = 'a, button, [data-card], [data-magnet], input, textarea, label, .btn-primary, .btn-ghost';
-    document.querySelectorAll(HOVER_SEL).forEach((el) => {
-      el.addEventListener('pointerenter', () => blob.classList.add('hover'));
-      el.addEventListener('pointerleave', () => blob.classList.remove('hover'));
-    });
-
-    // magnetic buttons
-    document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
-      const strength = el.classList.contains('seal') ? 18 : 10;
-      el.addEventListener('pointermove', (e) => {
-        const r = el.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-        gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.45, ease: 'power3.out' });
-      });
-      el.addEventListener('pointerleave', () => {
-        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
-      });
-    });
-  }
-
-  // ====================== mouse-follow hero aurora ======================
-  const hero = document.getElementById('top');
-  if (hero) {
-    const ambient = hero.querySelector('.ambient');
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 40;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * 30;
-      gsap.to(ambient, { x, y, duration: 1.2, ease: 'power3.out' });
-    });
-  }
-
-  // ====================== seal dim on contact section ======================
-  ScrollTrigger.create({
-    trigger: '#kontakt', start: 'top center', end: 'bottom bottom',
-    onEnter: () => gsap.to('.seal', { autoAlpha: 0.25, duration: 0.4 }),
-    onLeaveBack: () => gsap.to('.seal', { autoAlpha: 1, duration: 0.4 }),
-  });
-
-  // ====================== hero ambient parallax ======================
-  gsap.to('.ambient', {
-    yPercent: 35, ease: 'none',
-    scrollTrigger: { trigger: '#top', start: 'top top', end: 'bottom top', scrub: true },
-  });
-
-  // ====================== process grid-bg parallax ======================
-  gsap.to('.grid-bg', {
-    backgroundPositionY: '+=120', ease: 'none',
-    scrollTrigger: { trigger: '#prozess', start: 'top bottom', end: 'bottom top', scrub: true },
-  });
-
-  // ====================== contact form ======================
-  const form = document.getElementById('contactForm');
-  const success = document.getElementById('formSuccess');
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    success.classList.remove('hidden');
-    form.querySelectorAll('input, textarea').forEach(i => i.value = '');
-    gsap.fromTo(success, { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' });
-  });
-
-  // smooth-scroll anchor links (works alongside Lenis)
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      if (id.length > 1 && document.querySelector(id)) {
-        e.preventDefault();
-        document.querySelector(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  });
-</script>
-
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
 </body>
 </html>

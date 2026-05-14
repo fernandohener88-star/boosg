@@ -275,32 +275,36 @@
       </div>
     </div>
 
-    <!-- mobile sheet -->
-    <div
-      x-show="mobile" x-transition.opacity
-      class="md:hidden fixed inset-0 z-50 bg-cream-50"
-      style="display:none"
-    >
-      <div class="flex items-center justify-between h-[72px] px-6 border-b border-sage-100">
-        <span class="font-serif text-[22px] text-sage-800">PhysioPfau</span>
-        <button @click="mobile=false" class="w-10 h-10 grid place-items-center rounded-full border border-sage-200">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M6 6l12 12M18 6 6 18"/></svg>
-        </button>
-      </div>
-      <div class="px-6 py-10 flex flex-col gap-1">
-        <template x-for="(item,i) in [['Start','#top'],['Über mich','#ueber'],['Leistungen','#leistungen'],['Kontakt','#kontakt']]" :key="i">
-          <a :href="item[1]" @click="mobile=false"
-             class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800">
-            <span x-text="item[0]"></span>
-            <span class="text-sage-400">↗</span>
-          </a>
-        </template>
-        <button @click="mobile=false; open=true" class="btn-primary mt-8 rounded-full px-6 py-4 text-base">Termin vereinbaren</button>
-      </div>
-    </div>
   </header>
 
-  <!-- ────────────────────────────── HERO ────────────────────────────── -->
+  <!-- mobile sheet: außerhalb des Headers, damit kein iOS fixed-in-fixed Bug -->
+  <div
+    x-show="mobile"
+    x-transition:enter="transition duration-250 ease-out"
+    x-transition:enter-start="opacity-0 -translate-y-3"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition duration-200 ease-in"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-3"
+    @keydown.escape.window="mobile=false"
+    class="md:hidden fixed inset-0 z-[60] flex flex-col bg-cream-50"
+    style="display:none"
+  >
+    <div class="flex items-center justify-between h-[72px] px-6 border-b border-sage-100 shrink-0">
+      <span class="font-serif text-[22px] text-sage-800">PhysioPfau</span>
+      <button @click="mobile=false" class="w-10 h-10 grid place-items-center rounded-full border border-sage-200 hover:bg-sage-50 transition">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-6 py-8 flex flex-col">
+      <a href="#top"        @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Start<span class="text-sage-400">↗</span></a>
+      <a href="#ueber"      @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Über mich<span class="text-sage-400">↗</span></a>
+      <a href="#leistungen" @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Leistungen<span class="text-sage-400">↗</span></a>
+      <a href="#kontakt"    @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Kontakt<span class="text-sage-400">↗</span></a>
+      <button @click="mobile=false; open=true" class="btn-primary mt-8 rounded-full px-6 py-4 text-base w-full">Termin vereinbaren</button>
+    </div>
+  </div>
+
   <section id="top" class="relative min-h-[100svh] flex items-end">
     <!-- image -->
     <div class="absolute inset-0">
@@ -760,10 +764,10 @@
       x-transition:enter="transition transform duration-500 ease-out"
       x-transition:enter-start="opacity-0 translate-y-6 scale-[0.98]"
       x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-      class="relative w-full max-w-2xl bg-cream-50 rounded-3xl shadow-lift overflow-hidden border border-sage-100"
+      class="relative w-full max-w-2xl max-h-[92vh] flex flex-col bg-cream-50 rounded-3xl shadow-lift border border-sage-100"
     >
       <!-- header -->
-      <div class="flex items-start justify-between p-6 lg:p-8 pb-2">
+      <div class="flex items-start justify-between p-6 lg:p-8 pb-2 shrink-0">
         <div>
           <div class="eyebrow text-sage-600 flex items-center gap-3">
             <span class="block w-6 h-px bg-sage-300"></span>
@@ -779,7 +783,7 @@
       </div>
 
       <!-- body -->
-      <div class="px-6 lg:px-8 pb-6 lg:pb-8" x-show="!sent">
+      <div class="px-6 lg:px-8 pb-6 lg:pb-8 overflow-y-auto flex-1 overscroll-contain" x-show="!sent">
         <p class="text-[14.5px] text-sage-700/85 leading-relaxed max-w-md">
           Hinterlassen Sie uns kurz Ihre Daten und ein Wunschdatum — wir melden
           uns innerhalb von 24 Stunden bei Ihnen.

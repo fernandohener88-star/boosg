@@ -225,7 +225,7 @@
   </style>
 </head>
 
-<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false }" x-cloak>
+<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok') }" x-cloak>
 
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header
@@ -803,6 +803,30 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ────────────────────────────── COOKIE BANNER ────────────────────────────── -->
+  <div
+    x-show="cookie"
+    x-transition:enter="transition transform duration-500 ease-out"
+    x-transition:enter-start="opacity-0 translate-y-4"
+    x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition duration-300 ease-in"
+    x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 translate-y-4"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-2xl bg-cream-50 border border-sage-100 rounded-2xl shadow-lift px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+    style="display:none"
+  >
+    <div class="flex-1 text-[13.5px] text-sage-700/90 leading-relaxed">
+      Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Weitere Informationen finden Sie in unserer
+      <a href="#" class="underline hover:text-sage-900 transition-colors">Datenschutzerklärung</a>.
+    </div>
+    <button
+      @click="cookie=false; localStorage.setItem('cookie_ok','1')"
+      class="btn-primary shrink-0 rounded-full px-6 py-2.5 text-[13.5px] font-medium whitespace-nowrap"
+    >
+      Akzeptieren
+    </button>
   </div>
 
   <!-- ────────────────────────────── REVEAL ON SCROLL ────────────────────────────── -->

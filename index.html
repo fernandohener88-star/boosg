@@ -1425,28 +1425,39 @@
 
 <script>
 (function() {
-  if (localStorage.getItem('cookieConsent')) return;
-  const banner = document.getElementById('cookieBanner');
-  banner.style.display = 'block';
-  setTimeout(() => {
-    banner.style.opacity = '1';
-    banner.style.transform = 'translateX(-50%) translateY(0)';
-  }, 800);
+  if (localStorage.getItem('bisnero_cookie')) return;
+  var banner = document.getElementById('cookieBanner');
+
+  function show() {
+    banner.style.display = 'block';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        banner.style.opacity = '1';
+        banner.style.transform = 'translateX(-50%) translateY(0)';
+      });
+    });
+  }
 
   function dismiss() {
     banner.style.opacity = '0';
-    banner.style.transform = 'translateX(-50%) translateY(12px)';
-    setTimeout(() => banner.style.display = 'none', 350);
+    banner.style.transform = 'translateX(-50%) translateY(14px)';
+    setTimeout(function() { banner.style.display = 'none'; }, 400);
   }
 
-  document.getElementById('cookieAccept').addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'accepted');
+  document.getElementById('cookieAccept').onclick = function() {
+    localStorage.setItem('bisnero_cookie', '1');
     dismiss();
-  });
-  document.getElementById('cookieDecline').addEventListener('click', () => {
-    localStorage.setItem('cookieConsent', 'declined');
+  };
+  document.getElementById('cookieDecline').onclick = function() {
+    localStorage.setItem('bisnero_cookie', '0');
     dismiss();
-  });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(show, 600); });
+  } else {
+    setTimeout(show, 600);
+  }
 })();
 </script>
 

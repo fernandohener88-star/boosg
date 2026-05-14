@@ -238,8 +238,16 @@
       <a href="#top" class="flex items-center gap-2.5 group">
         <!-- mark -->
         <span class="relative inline-flex items-center justify-center w-9 h-9 rounded-full bg-sage-600 text-cream-50">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-            <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+            <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+            <circle cx="5" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="19" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+            <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
+            <circle cx="12" cy="11" r="1.5"/>
+            <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
           </svg>
           <span class="absolute inset-0 rounded-full ring-1 ring-sage-300/50 animate-breathe"></span>
         </span>
@@ -312,7 +320,7 @@
     <!-- side label -->
     <div class="hidden lg:flex absolute left-10 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-cream-50/70 eyebrow gap-3 items-center">
       <span class="block w-10 h-px bg-cream-50/50"></span>
-      Praxis · est. 2019
+      Praxis · Landau in der Pfalz
     </div>
 
     <!-- copy -->
@@ -343,28 +351,12 @@
           </div>
         </div>
 
-        <!-- bottom row: scroll cue + small testimonial pill -->
-        <div class="mt-20 flex items-end justify-between text-cream-50/80">
-          <div class="hidden md:flex items-center gap-3 eyebrow scroll-cue">
-            <span class="block w-px h-10 bg-cream-50/40"></span>
-            Scrollen
-          </div>
-          <div class="hidden md:flex items-center gap-4 max-w-md backdrop bg-cream-50/10 border border-cream-50/20 rounded-2xl px-5 py-4 animate-fade-up" style="animation-delay:.8s">
-            <div class="flex -space-x-2">
-              <span class="w-9 h-9 rounded-full bg-sage-300 ring-2 ring-cream-50/20"></span>
-              <span class="w-9 h-9 rounded-full bg-mist-200 ring-2 ring-cream-50/20"></span>
-              <span class="w-9 h-9 rounded-full bg-sage-200 ring-2 ring-cream-50/20"></span>
-            </div>
-            <div class="text-[13px] leading-snug">
-              <div class="flex items-center gap-1.5 text-cream-50">
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1L12 2z"/></svg>
-                <span class="ml-1">4,9 · Jameda</span>
-              </div>
-              <span class="block text-cream-50/80 mt-0.5">Über 120 Empfehlungen aus der Region.</span>
+        <!-- bottom row: scroll cue -->
+        <div class="mt-20 flex items-end text-cream-50/80">
+          <div class="hidden md:flex flex-col items-center gap-2 scroll-cue">
+            <span class="eyebrow text-cream-50/60 mb-1">Scrollen</span>
+            <div class="w-6 h-10 rounded-full border border-cream-50/40 flex justify-center pt-2">
+              <span class="w-1 h-2.5 rounded-full bg-cream-50/70" style="animation: drift 2.6s ease-in-out infinite;"></span>
             </div>
           </div>
         </div>
@@ -479,7 +471,7 @@
           <!-- mini stats row -->
           <div class="mt-10 grid grid-cols-3 gap-6 border-t border-sage-100 pt-8 max-w-lg">
             <div>
-              <div class="font-serif text-3xl text-sage-800">12+</div>
+              <div class="font-serif text-3xl text-sage-800">[X]+</div>
               <div class="text-[12px] text-sage-600 mt-1">Jahre Erfahrung</div>
             </div>
             <div>
@@ -531,10 +523,12 @@
       <div class="border-t border-cream-50/15">
         <!-- item template -->
         <template x-for="(s,i) in [
-            { n:'01', t:'Krankengymnastik', d:'Aktive Bewegungstherapie zur Wiederherstellung von Beweglichkeit, Kraft und Funktion.', tag:'Bewegung', icon:'activity' },
-            { n:'02', t:'Manuelle Therapie', d:'Spezielle Handgriffe lösen Funktionsstörungen an Gelenken, Muskeln und Nerven.', tag:'Mobilisation', icon:'hands' },
-            { n:'03', t:'CMD-Therapie', d:'Behandlung der Craniomandibulären Dysfunktion bei Kiefer- und Kopfbeschwerden.', tag:'Kiefer & Kopf', icon:'face' },
-            { n:'04', t:'Manuelle Lymphdrainage', d:'Sanfte Grifftechnik zur Entstauung des Gewebes und Entlastung des Lymphsystems.', tag:'Entstauung', icon:'drop' },
+            { n:'01', t:'Krankengymnastik', d:'Gezielte Bewegungsübungen stärken Muskeln, verbessern Koordination und Stabilität – nach Verletzungen, Operationen oder bei chronischen Beschwerden.', tag:'Bewegung', icon:'activity' },
+            { n:'02', t:'Manuelle Therapie', d:'Präzise Handgriffe lösen Blockaden und Funktionsstörungen an Gelenken, Muskeln und Nerven – für mehr Bewegungsfreiheit und nachhaltige Schmerzreduktion.', tag:'Mobilisation', icon:'hands' },
+            { n:'03', t:'CMD-Therapie', d:'Spezialisierte Behandlung der Craniomandibulären Dysfunktion: Kieferschmerzen, Kopfschmerzen und Verspannungen werden gezielt und einfühlsam therapiert.', tag:'Kiefer & Kopf', icon:'face' },
+            { n:'04', t:'Manuelle Lymphdrainage', d:'Sanfte, rhythmische Grifftechniken aktivieren das Lymphsystem, reduzieren Schwellungen und fördern die Entgiftung – besonders nach Operationen oder bei Ödemen.', tag:'Entstauung', icon:'drop' },
+            { n:'05', t:'Massagetherapie', d:'Klassische und therapeutische Massagen lösen tiefe Muskelverspannungen, verbessern die Durchblutung und unterstützen die körperliche und mentale Regeneration.', tag:'Entspannung', icon:'massage' },
+            { n:'06', t:'Elektrotherapie', d:'Physikalische Reizstromverfahren lindern Schmerzen, regen die Durchblutung an und unterstützen Heilungsprozesse bei akuten wie chronischen Beschwerden.', tag:'Physikalisch', icon:'zap' },
           ]" :key="i">
           <a href="#kontakt"
              class="group block border-b border-cream-50/15 py-8 lg:py-10 reveal"
@@ -549,6 +543,8 @@
                   <template x-if="s.icon==='hands'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V5a1.5 1.5 0 1 1 3 0v5M13 10V6.5a1.5 1.5 0 1 1 3 0V13"/><path d="M7 11c-1.5 0-2 1-2 2 0 4 3 8 7 8s7-3 7-7v-3"/></svg></template>
                   <template x-if="s.icon==='face'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 10h.01M15 10h.01"/></svg></template>
                   <template x-if="s.icon==='drop'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 3s6 6 6 11a6 6 0 0 1-12 0c0-5 6-11 6-11Z"/></svg></template>
+                  <template x-if="s.icon==='massage'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V5a1.5 1.5 0 1 1 3 0v5M13 10V6.5a1.5 1.5 0 1 1 3 0V13"/><path d="M7 11c-1.5 0-2 1-2 2 0 4 3 8 7 8s7-3 7-7v-3"/><path d="M3 5c1-2 3-3 5-2"/></svg></template>
+                  <template x-if="s.icon==='zap'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M13 2L4.5 13.5H12L11 22l8.5-11.5H12L13 2z"/></svg></template>
                 </span>
                 <h3 class="font-serif text-3xl lg:text-[40px] leading-tight transition group-hover:text-sage-200" x-text="s.t"></h3>
               </div>
@@ -638,8 +634,16 @@
         <div class="lg:col-span-5">
           <div class="flex items-center gap-2.5">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-sage-600">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
-                <path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4">
+                <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+                <circle cx="5" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+                <circle cx="9" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+                <circle cx="12" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+                <circle cx="15" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+                <circle cx="19" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+                <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
+                <circle cx="12" cy="11" r="1.5"/>
+                <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
               </svg>
             </span>
             <span class="font-serif text-[24px]">PhysioPfau</span>

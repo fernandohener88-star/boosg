@@ -230,7 +230,7 @@
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header
     class="fixed top-0 inset-x-0 z-40 transition-all duration-500"
-    :class="scrolled ? 'bg-cream-50/85 backdrop-blur border-b border-sage-100' : 'bg-transparent border-b border-transparent'"
+    :class="scrolled ? 'bg-cream-50/92 backdrop-blur border-b border-sage-100 shadow-sm' : 'bg-cream-50/55 backdrop-blur-sm border-b border-sage-100/30'"
     x-data="{ scrolled:false }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 20)"
   >

@@ -230,7 +230,7 @@
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header
     class="fixed top-0 inset-x-0 z-40 transition-all duration-500"
-    :class="scrolled ? 'bg-cream-50/92 backdrop-blur border-b border-sage-100 shadow-sm' : 'bg-cream-50/55 backdrop-blur-sm border-b border-sage-100/30'"
+    :class="scrolled ? 'bg-cream-50 shadow-md border-b border-sage-100' : 'bg-cream-50/60 backdrop-blur-md border-b border-sage-100/20'"
     x-data="{ scrolled:false }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 20)"
   >
@@ -287,21 +287,83 @@
     x-transition:leave-start="opacity-100 translate-y-0"
     x-transition:leave-end="opacity-0 -translate-y-3"
     @keydown.escape.window="mobile=false"
-    class="md:hidden fixed inset-0 z-[60] flex flex-col bg-cream-50"
+    class="md:hidden fixed inset-0 z-[60] flex flex-col bg-sage-900"
     style="display:none"
   >
-    <div class="flex items-center justify-between h-[72px] px-6 border-b border-sage-100 shrink-0">
-      <span class="font-serif text-[22px] text-sage-800">PhysioPfau</span>
-      <button @click="mobile=false" class="w-10 h-10 grid place-items-center rounded-full border border-sage-200 hover:bg-sage-50 transition">
+    <!-- header -->
+    <div class="flex items-center justify-between h-[72px] px-6 border-b border-cream-50/10 shrink-0">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sage-600">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-cream-50">
+            <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+            <circle cx="5" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="9" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+            <circle cx="19" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+            <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
+            <circle cx="12" cy="11" r="1.5"/>
+            <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
+          </svg>
+        </span>
+        <span class="font-serif text-[20px] text-cream-50">PhysioPfau</span>
+      </div>
+      <button @click="mobile=false" class="w-10 h-10 grid place-items-center rounded-full border border-cream-50/20 text-cream-50 hover:bg-cream-50/10 transition">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M6 6l12 12M18 6 6 18"/></svg>
       </button>
     </div>
-    <div class="flex-1 overflow-y-auto px-6 py-8 flex flex-col">
-      <a href="#top"        @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Start<span class="text-sage-400">↗</span></a>
-      <a href="#ueber"      @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Über mich<span class="text-sage-400">↗</span></a>
-      <a href="#leistungen" @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Leistungen<span class="text-sage-400">↗</span></a>
-      <a href="#kontakt"    @click="mobile=false" class="flex items-center justify-between py-5 border-b border-sage-100 font-serif text-3xl text-sage-800 hover:text-sage-600 transition-colors">Kontakt<span class="text-sage-400">↗</span></a>
-      <button @click="mobile=false; open=true" class="btn-primary mt-8 rounded-full px-6 py-4 text-base w-full">Termin vereinbaren</button>
+
+    <!-- nav items -->
+    <div class="flex-1 overflow-y-auto px-6 py-6 flex flex-col justify-between">
+      <nav class="flex flex-col">
+        <a href="#top"        @click="mobile=false" class="group flex items-center justify-between py-5 border-b border-cream-50/10">
+          <div class="flex items-center gap-4">
+            <span class="font-serif italic text-[13px] text-sage-400">01</span>
+            <span class="font-serif text-[34px] text-cream-50 group-hover:text-sage-200 transition-colors duration-200">Start</span>
+          </div>
+          <span class="w-9 h-9 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:bg-cream-50 group-hover:text-sage-900 group-hover:border-cream-50 transition-all duration-200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="#ueber"      @click="mobile=false" class="group flex items-center justify-between py-5 border-b border-cream-50/10">
+          <div class="flex items-center gap-4">
+            <span class="font-serif italic text-[13px] text-sage-400">02</span>
+            <span class="font-serif text-[34px] text-cream-50 group-hover:text-sage-200 transition-colors duration-200">Über mich</span>
+          </div>
+          <span class="w-9 h-9 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:bg-cream-50 group-hover:text-sage-900 group-hover:border-cream-50 transition-all duration-200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="#leistungen" @click="mobile=false" class="group flex items-center justify-between py-5 border-b border-cream-50/10">
+          <div class="flex items-center gap-4">
+            <span class="font-serif italic text-[13px] text-sage-400">03</span>
+            <span class="font-serif text-[34px] text-cream-50 group-hover:text-sage-200 transition-colors duration-200">Leistungen</span>
+          </div>
+          <span class="w-9 h-9 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:bg-cream-50 group-hover:text-sage-900 group-hover:border-cream-50 transition-all duration-200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="#kontakt"    @click="mobile=false" class="group flex items-center justify-between py-5 border-b border-cream-50/10">
+          <div class="flex items-center gap-4">
+            <span class="font-serif italic text-[13px] text-sage-400">04</span>
+            <span class="font-serif text-[34px] text-cream-50 group-hover:text-sage-200 transition-colors duration-200">Kontakt</span>
+          </div>
+          <span class="w-9 h-9 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:bg-cream-50 group-hover:text-sage-900 group-hover:border-cream-50 transition-all duration-200">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </nav>
+
+      <!-- bottom -->
+      <div class="pb-4 pt-6">
+        <button @click="mobile=false; open=true" class="w-full bg-cream-50 text-sage-900 font-medium rounded-full py-4 text-[15px] flex items-center justify-center gap-2 hover:bg-cream-100 transition">
+          Termin vereinbaren
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="mt-5 flex items-center justify-center gap-2 text-[12px] text-cream-50/35 eyebrow">
+          <span>Physiotherapie</span><span class="dot bg-cream-50/30"></span><span>Landau in der Pfalz</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -352,13 +414,14 @@
             individuell, einfühlsam und auf Ihre Bedürfnisse abgestimmt.
           </p>
 
-          <div class="mt-10 flex flex-col sm:flex-row gap-3 animate-fade-up" style="animation-delay:.55s">
-            <button @click="open=true" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+          <div class="mt-8 flex flex-row flex-wrap gap-3 animate-fade-up" style="animation-delay:.55s">
+            <button @click="open=true" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 sm:px-7 sm:py-3.5 text-[13.5px] sm:text-[14.5px] font-medium">
               Termin vereinbaren
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
-            <a href="#leistungen" class="inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium text-cream-50 border border-cream-50/30 hover:bg-cream-50/10 transition">
-              Leistungen entdecken
+            <a href="#leistungen" class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 sm:px-7 sm:py-3.5 text-[13.5px] sm:text-[14.5px] font-medium text-cream-50 border border-cream-50/30 hover:bg-cream-50/10 transition">
+              Leistungen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
           </div>
         </div>

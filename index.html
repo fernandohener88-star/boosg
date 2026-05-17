@@ -474,6 +474,16 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   transition: transform .6s cubic-bezier(.2,.6,.2,1);
 }
 .team-card:hover .team-card__photo img { transform: scale(1.04); }
+.team-card__photo--ph {
+  display: flex; align-items: center; justify-content: center;
+  background: var(--cream-dark);
+  border: 0.5px solid rgba(200,169,110,.3);
+}
+.team-card__initial {
+  font-family: var(--serif); font-size: 72px; font-weight: 400;
+  color: rgba(200,169,110,.5); line-height: 1;
+  user-select: none;
+}
 .team-card__name {
   font-family: var(--serif);
   font-size: 24px; font-weight: 400;
@@ -597,7 +607,6 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   aspect-ratio: 1;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
   display: block;
   background: var(--cream-mid);
 }
@@ -610,11 +619,15 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 .ig-tile::after {
   content: "";
   position: absolute; inset: 0;
-  background: rgba(26,23,20,.0);
+  background: rgba(26,23,20,0);
   transition: background .35s;
   pointer-events: none;
 }
 .ig-tile:hover::after { background: rgba(26,23,20,.18); }
+.ig-tile--ph {
+  background: linear-gradient(135deg, var(--cream-mid) 0%, var(--cream-dark) 100%);
+  cursor: default;
+}
 .instagram__cta { text-align: center; }
 .instagram__btn {
   display: inline-flex; align-items: center; gap: 12px;
@@ -1222,13 +1235,9 @@ footer {
         </ul>
       </div>
 
-      <div class="about__image reveal d2">
-        <img
-          src="https://images.pexels.com/photos/7984818/pexels-photo-7984818.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop"
-          alt="Stylistin bei der Arbeit im LORRAINE Haarstudio"
-          style="width:100%;height:100%;object-fit:cover;display:block;"
-          loading="lazy"
-        />
+      <div class="about__image reveal d2" style="display:flex;align-items:center;justify-content:center;background:var(--cream-dark);">
+        <img src="logo-hero.png" alt="LORRAINE Haarstudio"
+          style="width:min(380px,80%);height:auto;display:block;border-radius:50%;opacity:.85;" />
       </div>
     </div>
   </div>
@@ -1298,12 +1307,8 @@ footer {
 
     <div class="team__grid">
       <div class="team-card reveal d1">
-        <div class="team-card__photo">
-          <img
-            src="https://images.pexels.com/photos/17163935/pexels-photo-17163935.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
-            alt="Lorraine Padberg — Inhaberin & Meisterin"
-            loading="lazy"
-          />
+        <div class="team-card__photo team-card__photo--ph">
+          <span class="team-card__initial">L</span>
         </div>
         <div class="team-card__name">Lorraine Padberg</div>
         <div class="team-card__role">Inhaberin &amp; Meisterin</div>
@@ -1312,12 +1317,8 @@ footer {
       </div>
 
       <div class="team-card reveal d2">
-        <div class="team-card__photo">
-          <img
-            src="https://images.pexels.com/photos/3791554/pexels-photo-3791554.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
-            alt="Stylistin"
-            loading="lazy"
-          />
+        <div class="team-card__photo team-card__photo--ph">
+          <span class="team-card__initial">S</span>
         </div>
         <!-- NAME & ROLLE EINFÜGEN -->
         <div class="team-card__name">Name Vorname</div>
@@ -1327,12 +1328,8 @@ footer {
       </div>
 
       <div class="team-card reveal d3">
-        <div class="team-card__photo">
-          <img
-            src="https://images.pexels.com/photos/11411119/pexels-photo-11411119.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
-            alt="Stylistin"
-            loading="lazy"
-          />
+        <div class="team-card__photo team-card__photo--ph">
+          <span class="team-card__initial">S</span>
         </div>
         <!-- NAME & ROLLE EINFÜGEN -->
         <div class="team-card__name">Name Vorname</div>
@@ -1418,24 +1415,12 @@ footer {
     </div>
 
     <div class="instagram__grid reveal">
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/4923123/pexels-photo-4923123.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Langes Haar von hinten" loading="lazy" />
-      </a>
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/9069636/pexels-photo-9069636.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Nahaufnahme Haar im Sonnenlicht" loading="lazy" />
-      </a>
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/3992863/pexels-photo-3992863.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haarschnitt im Salon" loading="lazy" />
-      </a>
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/4780701/pexels-photo-4780701.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haare im goldenen Licht" loading="lazy" />
-      </a>
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/33461159/pexels-photo-33461159.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Frau mit langem Haar im warmen Licht" loading="lazy" />
-      </a>
-      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
-        <img src="https://images.pexels.com/photos/2598176/pexels-photo-2598176.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Frau mit blondem Haar" loading="lazy" />
-      </a>
+      <div class="ig-tile ig-tile--ph"></div>
+      <div class="ig-tile ig-tile--ph"></div>
+      <div class="ig-tile ig-tile--ph"></div>
+      <div class="ig-tile ig-tile--ph"></div>
+      <div class="ig-tile ig-tile--ph"></div>
+      <div class="ig-tile ig-tile--ph"></div>
     </div>
 
     <div class="instagram__cta reveal">

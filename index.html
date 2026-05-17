@@ -677,38 +677,46 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   line-height: 1;
 }
 .logo-nav {
-  height: 52px; width: auto;
+  /* logo-nav.png is 120×120 (2× HiDPI), displayed at 52px */
+  height: 52px; width: 52px;
   display: block;
-  /* The PNG has cream bg — matches page bg seamlessly */
+  border-radius: 50%;
+  object-fit: cover;
 }
 .logo-hero {
-  width: min(440px, 90%);
+  /* logo-hero.png: 800×800 square, full circle */
+  width: min(420px, 80%);
   height: auto;
   display: block;
   margin: 0 auto;
-  /* Contains the full circular logo — cream bg blends with panel */
+  border-radius: 50%;
+  box-shadow: 0 20px 60px -10px rgba(140,102,89,.22), 0 4px 16px -4px rgba(140,102,89,.12);
+  transition: transform .6s cubic-bezier(.2,.6,.2,1), box-shadow .6s;
+}
+.logo-hero:hover {
+  transform: scale(1.02);
+  box-shadow: 0 28px 80px -10px rgba(140,102,89,.28);
 }
 .logo-footer-wrap {
-  width: 96px; height: 96px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto 20px;
-  background: #FAF0EA;
-  display: flex; align-items: center; justify-content: center;
   border: 1px solid rgba(200,160,130,.3);
 }
 .logo-footer {
-  /* The PNG is 1297×721; logo circle fills ~100% of height.
-     We show it at 260% width so the circle fills the round container. */
-  width: 260%; height: auto;
+  width: 100%; height: 100%;
   display: block;
-  flex-shrink: 0;
+  object-fit: cover;
 }
 .logo-overlay {
-  width: min(120px, 40vw);
+  /* Shown in mobile menu overlay */
+  width: min(110px, 38vw);
   height: auto;
   display: block;
   margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 8px 32px -8px rgba(140,102,89,.2);
 }
 /* Hero right: logo displayed centered in panel */
 .hero__logo-panel {
@@ -719,11 +727,9 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   position: relative;
 }
 .hero__logo-panel::before {
-  /* subtle vignette frame */
   content: "";
   position: absolute; inset: 40px;
   border: 0.5px solid rgba(200,169,110,.25);
-  border-radius: 0;
   pointer-events: none;
 }
 
@@ -769,7 +775,8 @@ footer {
 ================================================================ -->
 <nav class="nav" id="nav" role="navigation" aria-label="Hauptnavigation">
   <a href="#top" class="nav__logo" aria-label="LORRAINE — Zurück zur Startseite">
-    <img src="logo.png" alt="LORRAINE Haarstudio Logo" class="logo-nav" />
+    <img src="logo-nav.png" alt="LORRAINE Haarstudio" class="logo-nav"
+         srcset="logo-nav.png 2x" width="52" height="52" />
   </a>
   <ul class="nav__links" role="list">
     <li><a href="#studio">Studio</a></li>
@@ -786,7 +793,7 @@ footer {
 
 <!-- Mobile overlay -->
 <div class="nav__overlay" id="overlay" aria-hidden="true">
-  <img src="logo.png" alt="LORRAINE" class="logo-overlay" />
+  <img src="logo-circle.png" alt="LORRAINE" class="logo-overlay" width="110" height="110" />
   <a href="#studio"     onclick="closeMenu()">Studio</a>
   <a href="#leistungen" onclick="closeMenu()">Leistungen</a>
   <a href="#team"       onclick="closeMenu()">Team</a>
@@ -813,7 +820,8 @@ footer {
   <!-- FOTO HIER EINFÜGEN: Ersetze hero__logo-panel durch <img src="dein-foto.jpg" class="hero__image" style="object-fit:cover"> -->
   <div class="hero__right">
     <div class="hero__logo-panel">
-      <img src="logo.png" alt="LORRAINE — by Lorraine Padberg" class="logo-hero" />
+      <img src="logo-hero.png" alt="LORRAINE — by Lorraine Padberg" class="logo-hero"
+           width="800" height="800" loading="eager" />
     </div>
   </div>
 
@@ -847,9 +855,10 @@ footer {
       </div>
 
       <!-- FOTO HIER EINFÜGEN: Ersetze das img durch <img src="dein-studiofoto.jpg" class="about__image" style="object-fit:cover"> -->
-      <div class="about__image reveal d2" style="display:flex;align-items:center;justify-content:center;background:var(--cream-dark);">
-        <img src="logo.png" alt="LORRAINE Haarstudio — by Lorraine Padberg"
-          style="width:90%;height:auto;display:block;" />
+      <!-- FOTO HIER EINFÜGEN: Ersetze das img durch dein Studio-Foto -->
+      <div class="about__image reveal d2" style="display:flex;align-items:center;justify-content:center;background:var(--cream);">
+        <img src="logo-hero.png" alt="LORRAINE Haarstudio — by Lorraine Padberg"
+          style="width:min(400px,85%);height:auto;display:block;border-radius:50%;box-shadow:0 20px 60px -10px rgba(140,102,89,.2);" />
       </div>
     </div>
   </div>
@@ -1113,7 +1122,8 @@ footer {
 ================================================================ -->
 <footer role="contentinfo">
   <div class="logo-footer-wrap">
-    <img src="logo.png" alt="LORRAINE Haarstudio" class="logo-footer" />
+    <img src="logo-circle.png" alt="LORRAINE Haarstudio" class="logo-footer"
+         width="100" height="100" loading="lazy" />
   </div>
   <div class="footer__since">seit MMXIX</div>
   <nav class="footer__links" aria-label="Footer-Navigation">

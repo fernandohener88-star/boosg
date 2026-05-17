@@ -670,6 +670,64 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 
 /* ================================================================
+   LOGO
+================================================================ */
+.nav__logo {
+  display: flex; align-items: center;
+  line-height: 1;
+}
+.logo-nav {
+  height: 52px; width: auto;
+  display: block;
+  /* The PNG has cream bg — matches page bg seamlessly */
+}
+.logo-hero {
+  width: min(440px, 90%);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  /* Contains the full circular logo — cream bg blends with panel */
+}
+.logo-footer-wrap {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  background: #FAF0EA;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(200,160,130,.3);
+}
+.logo-footer {
+  /* The PNG is 1297×721; logo circle fills ~100% of height.
+     We show it at 260% width so the circle fills the round container. */
+  width: 260%; height: auto;
+  display: block;
+  flex-shrink: 0;
+}
+.logo-overlay {
+  width: min(120px, 40vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+/* Hero right: logo displayed centered in panel */
+.hero__logo-panel {
+  width: 100%; height: 100%;
+  min-height: 500px;
+  background: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hero__logo-panel::before {
+  /* subtle vignette frame */
+  content: "";
+  position: absolute; inset: 40px;
+  border: 0.5px solid rgba(200,169,110,.25);
+  border-radius: 0;
+  pointer-events: none;
+}
+
+/* ================================================================
    FOOTER
 ================================================================ */
 footer {
@@ -710,7 +768,9 @@ footer {
      NAVIGATION
 ================================================================ -->
 <nav class="nav" id="nav" role="navigation" aria-label="Hauptnavigation">
-  <a href="#top" class="nav__logo">Lorraine</a>
+  <a href="#top" class="nav__logo" aria-label="LORRAINE — Zurück zur Startseite">
+    <img src="logo.png" alt="LORRAINE Haarstudio Logo" class="logo-nav" />
+  </a>
   <ul class="nav__links" role="list">
     <li><a href="#studio">Studio</a></li>
     <li><a href="#leistungen">Leistungen</a></li>
@@ -726,6 +786,7 @@ footer {
 
 <!-- Mobile overlay -->
 <div class="nav__overlay" id="overlay" aria-hidden="true">
+  <img src="logo.png" alt="LORRAINE" class="logo-overlay" />
   <a href="#studio"     onclick="closeMenu()">Studio</a>
   <a href="#leistungen" onclick="closeMenu()">Leistungen</a>
   <a href="#team"       onclick="closeMenu()">Team</a>
@@ -749,10 +810,10 @@ footer {
     </div>
   </div>
 
-  <!-- FOTO HIER EINFÜGEN: Ersetze das div.ph durch ein <img src="..." alt="..."> -->
+  <!-- FOTO HIER EINFÜGEN: Ersetze hero__logo-panel durch <img src="dein-foto.jpg" class="hero__image" style="object-fit:cover"> -->
   <div class="hero__right">
-    <div class="hero__image ph">
-      <span>→ Foto hier einfügen</span>
+    <div class="hero__logo-panel">
+      <img src="logo.png" alt="LORRAINE — by Lorraine Padberg" class="logo-hero" />
     </div>
   </div>
 
@@ -785,9 +846,10 @@ footer {
         </ul>
       </div>
 
-      <!-- FOTO HIER EINFÜGEN: Ersetze das div.ph durch <img src="..." alt="Lorraine Haarstudio Studio"> -->
-      <div class="about__image ph reveal d2">
-        <span>→ Foto hier einfügen</span>
+      <!-- FOTO HIER EINFÜGEN: Ersetze das img durch <img src="dein-studiofoto.jpg" class="about__image" style="object-fit:cover"> -->
+      <div class="about__image reveal d2" style="display:flex;align-items:center;justify-content:center;background:var(--cream-dark);">
+        <img src="logo.png" alt="LORRAINE Haarstudio — by Lorraine Padberg"
+          style="width:90%;height:auto;display:block;" />
       </div>
     </div>
   </div>
@@ -1050,7 +1112,9 @@ footer {
      FOOTER
 ================================================================ -->
 <footer role="contentinfo">
-  <div class="footer__logo">Lorraine</div>
+  <div class="logo-footer-wrap">
+    <img src="logo.png" alt="LORRAINE Haarstudio" class="logo-footer" />
+  </div>
   <div class="footer__since">seit MMXIX</div>
   <nav class="footer__links" aria-label="Footer-Navigation">
     <!-- IMPRESSUM & DATENSCHUTZ LINKS EINTRAGEN -->

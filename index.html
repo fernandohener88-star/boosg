@@ -1604,12 +1604,13 @@ if (slides.length) {
 /* ——— Modals ——————————————————————————————————————————————— */
 (function () {
   function openModal(id) {
+    closeAll();
     const m = document.getElementById('modal-' + id);
     if (!m) return;
     m.classList.add('open');
     m.removeAttribute('aria-hidden');
     document.body.style.overflow = 'hidden';
-    m.querySelector('.modal__close')?.focus();
+    requestAnimationFrame(() => m.querySelector('.modal__close')?.focus());
   }
   function closeModal(m) {
     m.classList.remove('open');
@@ -1620,18 +1621,34 @@ if (slides.length) {
     document.querySelectorAll('.modal.open').forEach(closeModal);
   }
 
-  // Open triggers
-  document.querySelectorAll('[data-modal]').forEach(el => {
-    el.addEventListener('click', () => openModal(el.dataset.modal));
-  });
-  document.getElementById('dockBookBtn')?.addEventListener('click', () => openModal('booking'));
-  document.getElementById('contactBookBtn')?.addEventListener('click', () => openModal('booking'));
+  // Single delegated listener for all clicks
+  document.addEventListener('click', function (e) {
+    // 1. Close button (X)
+    const closeBtn = e.target.closest('.modal__close');
+    if (closeBtn) {
+      const m = closeBtn.closest('.modal');
+      if (m) { closeModal(m); return; }
+    }
 
-  // Close triggers (backdrop + close btn)
-  document.querySelectorAll('.modal').forEach(m => {
-    m.querySelectorAll('[data-close]').forEach(el => {
-      el.addEventListener('click', () => closeModal(m));
-    });
+    // 2. Backdrop (clicked .modal but NOT .modal__panel)
+    const modal = e.target.closest('.modal');
+    if (modal && !e.target.closest('.modal__panel')) {
+      closeModal(modal);
+      return;
+    }
+
+    // 3. Open triggers (data-modal attribute)
+    const trigger = e.target.closest('[data-modal]');
+    if (trigger) {
+      openModal(trigger.dataset.modal);
+      return;
+    }
+
+    // 4. Named open buttons
+    if (e.target.id === 'dockBookBtn' || e.target.id === 'contactBookBtn') {
+      openModal('booking');
+      return;
+    }
   });
 
   // Escape key

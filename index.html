@@ -847,6 +847,174 @@ footer {
 }
 
 /* ================================================================
+   MODALS
+================================================================ */
+.modal {
+  position: fixed; inset: 0; z-index: 500;
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  pointer-events: none;
+  visibility: hidden;
+}
+.modal.open {
+  pointer-events: all;
+  visibility: visible;
+}
+.modal__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(20,15,12,.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity .4s ease;
+  cursor: pointer;
+}
+.modal.open .modal__backdrop { opacity: 1; }
+
+.modal__panel {
+  position: relative; z-index: 1;
+  background: var(--cream);
+  height: 100dvh;
+  display: flex; flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .45s cubic-bezier(.2,.8,.2,1);
+  overflow: hidden;
+}
+.modal.open .modal__panel { transform: translateX(0); }
+
+.modal__panel--form  { width: min(540px, 100vw); }
+.modal__panel--legal { width: min(680px, 100vw); }
+
+.modal__close {
+  position: absolute; top: 20px; right: 20px;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--black); opacity: .45;
+  transition: opacity .2s, transform .2s;
+  z-index: 2;
+}
+.modal__close svg { width: 20px; height: 20px; }
+.modal__close:hover { opacity: 1; transform: rotate(90deg); }
+
+.modal__inner {
+  flex: 1; overflow-y: auto;
+  padding: 56px 48px 48px;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 560px) {
+  .modal__inner { padding: 48px 24px 40px; }
+}
+
+.modal__eyebrow { color: var(--gold); margin-bottom: 20px; display: block; }
+.modal__title {
+  font-family: var(--serif); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400; line-height: 1.05;
+  color: var(--black); margin-bottom: 16px;
+}
+.modal__title em { color: var(--gold); }
+.modal__sub {
+  font-family: var(--sans); font-size: 15px; line-height: 1.65;
+  color: rgba(26,23,20,.6); margin-bottom: 36px;
+}
+
+/* ── Booking form ── */
+.booking-form { display: flex; flex-direction: column; gap: 18px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-field { display: flex; flex-direction: column; gap: 7px; }
+.form-field label {
+  font-family: var(--sans); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(26,23,20,.5);
+}
+.form-field label span { color: var(--gold); }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font-family: var(--sans); font-size: 15px; color: var(--black);
+  background: #fff;
+  border: 0.5px solid rgba(26,23,20,.18);
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color .25s;
+  border-radius: 0;
+  -webkit-appearance: none; appearance: none;
+  width: 100%; box-sizing: border-box;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus { border-color: var(--gold); }
+.form-field input.invalid,
+.form-field select.invalid { border-color: #c0392b; }
+.form-field textarea { resize: vertical; min-height: 80px; }
+.form-field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A1714' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.form-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+  padding-top: 12px;
+  border-top: 0.5px solid rgba(26,23,20,.08);
+}
+.form-legal { font-size: 11px; color: rgba(26,23,20,.4); line-height: 1.5; }
+.form-legal .link-btn { color: var(--gold); text-decoration: underline; font-size: 11px; }
+
+.btn-submit {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  padding: 14px 28px;
+  background: var(--black); color: var(--cream);
+  border: none; cursor: pointer;
+  transition: background .25s, transform .25s;
+  white-space: nowrap;
+}
+.btn-submit:hover { background: var(--gold); transform: translateY(-1px); }
+
+.form-success {
+  display: none; align-items: center; gap: 14px;
+  padding: 20px; background: #f0f9f4;
+  color: #1a6640; font-family: var(--sans); font-size: 15px;
+}
+.form-success.show { display: flex; }
+.form-success svg { width: 24px; height: 24px; flex-shrink: 0; stroke: #1a6640; }
+
+.modal__alt-contact {
+  margin-top: 28px; padding-top: 20px;
+  border-top: 0.5px solid rgba(26,23,20,.08);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-family: var(--serif); font-size: 16px; color: rgba(26,23,20,.45);
+}
+.modal__alt-contact a { color: var(--black); transition: color .25s; }
+.modal__alt-contact a:hover { color: var(--gold); }
+
+/* ── Legal text ── */
+.legal-body { font-family: var(--sans); font-size: 14px; line-height: 1.75; color: rgba(26,23,20,.75); }
+.legal-body h3 {
+  font-family: var(--sans); font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500; margin: 28px 0 10px;
+}
+.legal-body h3:first-child { margin-top: 0; }
+.legal-body p { margin: 0 0 12px; }
+.legal-body a { color: var(--black); text-decoration: underline; }
+.legal-body a:hover { color: var(--gold); }
+.legal-body strong { color: rgba(192,80,50,.85); }
+
+/* ── Shared link-btn (ghost button looking like a link) ── */
+.link-btn {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: inherit; font-size: inherit; letter-spacing: inherit;
+  color: inherit; text-decoration: none;
+}
+.footer-link { color: rgba(250,248,244,.3); transition: color .25s; }
+.footer-link:hover { color: rgba(250,248,244,.7); }
+
+/* contact__bar link-btns */
+.contact__bar .link-btn { color: inherit; }
+.contact__bar .link-btn:hover { color: rgba(250,248,244,.7); }
+
+/* ================================================================
    STICKY DOCK
 ================================================================ */
 .sticky-dock {
@@ -1302,7 +1470,7 @@ footer {
 
       <div class="contact__book reveal d3">
         <!-- BOOKING LINK EINTRAGEN (z.B. Booksy, Treatwell, Calendly) -->
-        <a href="#" class="btn-book">Jetzt Termin buchen</a>
+        <button class="btn-book" id="contactBookBtn">Jetzt Termin buchen</button>
         <p class="contact__book-note">→ Booking-Link hier einfügen</p>
       </div>
     </div>
@@ -1324,7 +1492,7 @@ footer {
   <div class="contact__bar">
     <span>Von Frauen geführt 🤍</span>
     <span>© 2026 Lorraine Padberg</span>
-    <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a></span>
+    <span><button class="link-btn" data-modal="impressum">Impressum</button> · <button class="link-btn" data-modal="datenschutz">Datenschutz</button></span>
   </div>
 
 </section>
@@ -1339,9 +1507,8 @@ footer {
   </div>
   <div class="footer__since">seit MMXIX</div>
   <nav class="footer__links" aria-label="Footer-Navigation">
-    <!-- IMPRESSUM & DATENSCHUTZ LINKS EINTRAGEN -->
-    <a href="#">Impressum</a>
-    <a href="#">Datenschutz</a>
+    <button class="link-btn footer-link" data-modal="impressum">Impressum</button>
+    <button class="link-btn footer-link" data-modal="datenschutz">Datenschutz</button>
   </nav>
   <div class="footer__rule"></div>
   <p class="footer__copy">Von Frauen geführt 🤍 &nbsp;·&nbsp; © 2026 Lorraine Padberg</p>
@@ -1434,6 +1601,68 @@ if (slides.length) {
     if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
   });
 }
+/* ——— Modals ——————————————————————————————————————————————— */
+(function () {
+  function openModal(id) {
+    const m = document.getElementById('modal-' + id);
+    if (!m) return;
+    m.classList.add('open');
+    m.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+    m.querySelector('.modal__close')?.focus();
+  }
+  function closeModal(m) {
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  function closeAll() {
+    document.querySelectorAll('.modal.open').forEach(closeModal);
+  }
+
+  // Open triggers
+  document.querySelectorAll('[data-modal]').forEach(el => {
+    el.addEventListener('click', () => openModal(el.dataset.modal));
+  });
+  document.getElementById('dockBookBtn')?.addEventListener('click', () => openModal('booking'));
+  document.getElementById('contactBookBtn')?.addEventListener('click', () => openModal('booking'));
+
+  // Close triggers (backdrop + close btn)
+  document.querySelectorAll('.modal').forEach(m => {
+    m.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', () => closeModal(m));
+    });
+  });
+
+  // Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeAll();
+  });
+
+  // Booking form submit (placeholder — wire to real backend/Formspree/EmailJS)
+  const form = document.getElementById('bookingForm');
+  const success = document.getElementById('bookingSuccess');
+  if (form) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+      form.querySelectorAll('[required]').forEach(el => {
+        if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
+        else el.classList.remove('invalid');
+      });
+      if (!valid) return;
+      // → Hier Formspree / EmailJS / fetch() zum Backend eintragen
+      form.querySelectorAll('input,select,textarea,button[type=submit]')
+          .forEach(el => el.disabled = true);
+      success.classList.add('show');
+      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    form.querySelectorAll('[required]').forEach(el => {
+      el.addEventListener('input', () => el.classList.remove('invalid'));
+    });
+  }
+})();
+
 /* ——— Sticky Dock ————————————————————————————————————————— */
 (function () {
   const dock = document.getElementById('stickyDock');
@@ -1500,8 +1729,230 @@ if (slides.length) {
         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.88 19.79 19.79 0 01.9 1.22 2 2 0 012.92.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.07-1.08a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
       </svg>
     </a>
-    <a href="#kontakt" class="sticky-dock__cta">Termin buchen</a>
+    <button class="sticky-dock__cta" id="dockBookBtn">Termin buchen</button>
   </div>
 </div>
+
+<!-- ================================================================
+     MODAL: TERMIN BUCHEN (Kontaktformular)
+================================================================ -->
+<div class="modal" id="modal-booking" role="dialog" aria-modal="true" aria-labelledby="modal-booking-title" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel modal__panel--form">
+    <button class="modal__close" data-close aria-label="Schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal__inner">
+      <span class="eyebrow modal__eyebrow">— Terminanfrage</span>
+      <h2 class="modal__title" id="modal-booking-title">Setz dich.<br><em>Wir kümmern uns.</em></h2>
+      <p class="modal__sub">Schreib uns kurz — wir melden uns innerhalb von 24 Stunden mit einem passenden Termin.</p>
+
+      <form class="booking-form" id="bookingForm" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="bf-name">Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="bf-name" name="name" autocomplete="name" required placeholder="Dein Name">
+          </div>
+          <div class="form-field">
+            <label for="bf-phone">Telefon</label>
+            <input type="tel" id="bf-phone" name="phone" autocomplete="tel" placeholder="06341 …">
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="bf-email">E-Mail <span aria-hidden="true">*</span></label>
+          <input type="email" id="bf-email" name="email" autocomplete="email" required placeholder="deine@email.de">
+        </div>
+        <div class="form-field">
+          <label for="bf-service">Gewünschte Leistung</label>
+          <select id="bf-service" name="service">
+            <option value="">— bitte wählen —</option>
+            <option>Haarschnitt</option>
+            <option>Farbe & Tönung</option>
+            <option>Balayage / Strähnchen</option>
+            <option>Haarpflege-Behandlung</option>
+            <option>Braut &amp; Anlasspflege</option>
+            <option>Beratungsgespräch</option>
+            <option>Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="bf-date">Wunschdatum</label>
+            <input type="date" id="bf-date" name="date">
+          </div>
+          <div class="form-field">
+            <label for="bf-time">Uhrzeit</label>
+            <select id="bf-time" name="time">
+              <option value="">— egal —</option>
+              <option>Morgens (9–12 Uhr)</option>
+              <option>Mittags (12–14 Uhr)</option>
+              <option>Nachmittags (14–18 Uhr)</option>
+              <option>Abend Do (18–20 Uhr)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="bf-msg">Nachricht</label>
+          <textarea id="bf-msg" name="message" rows="3" placeholder="Besondere Wünsche, Haartyp, …"></textarea>
+        </div>
+
+        <div class="form-footer">
+          <p class="form-legal">Mit dem Absenden stimmst du unserer <button type="button" class="link-btn" data-modal="datenschutz">Datenschutzerklärung</button> zu.</p>
+          <button type="submit" class="btn-submit">Anfrage senden →</button>
+        </div>
+
+        <div class="form-success" id="bookingSuccess" aria-live="polite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <p>Danke! Wir melden uns bald bei dir.</p>
+        </div>
+      </form>
+
+      <div class="modal__alt-contact">
+        <a href="tel:063419029615">06341 9029615</a>
+        <span>·</span>
+        <a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: IMPRESSUM
+================================================================ -->
+<div class="modal" id="modal-impressum" role="dialog" aria-modal="true" aria-labelledby="modal-impressum-title" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel modal__panel--legal">
+    <button class="modal__close" data-close aria-label="Schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal__inner">
+      <span class="eyebrow modal__eyebrow">— Rechtliches</span>
+      <h2 class="modal__title" id="modal-impressum-title">Impressum</h2>
+
+      <div class="legal-body">
+        <h3>Angaben gemäß § 5 TMG</h3>
+        <p>
+          <strong>→ Name / Firma eintragen</strong><br>
+          Lorraine Padberg<br>
+          Theaterstraße 16<br>
+          76829 Landau in der Pfalz
+        </p>
+
+        <h3>Kontakt</h3>
+        <p>
+          Telefon: <a href="tel:063419029615">06341 9029615</a><br>
+          E-Mail: <a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a>
+        </p>
+
+        <h3>Berufsbezeichnung und berufsrechtliche Regelungen</h3>
+        <p>
+          Berufsbezeichnung: Friseurin / Friseurmeisterin<br>
+          Zuständige Kammer: <strong>→ Handwerkskammer eintragen</strong><br>
+          Verliehen in: Deutschland
+        </p>
+
+        <h3>Umsatzsteuer-ID</h3>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
+          <strong>→ USt-IdNr. eintragen (falls vorhanden)</strong>
+        </p>
+
+        <h3>Streitschlichtung</h3>
+        <p>
+          Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+          <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a><br>
+          Unsere E-Mail-Adresse finden Sie oben im Impressum.
+        </p>
+        <p>
+          Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
+          Verbraucherschlichtungsstelle teilzunehmen.
+        </p>
+
+        <h3>Haftung für Inhalte</h3>
+        <p>
+          Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
+          nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als
+          Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen
+          zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     MODAL: DATENSCHUTZERKLÄRUNG
+================================================================ -->
+<div class="modal" id="modal-datenschutz" role="dialog" aria-modal="true" aria-labelledby="modal-datenschutz-title" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel modal__panel--legal">
+    <button class="modal__close" data-close aria-label="Schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal__inner">
+      <span class="eyebrow modal__eyebrow">— Rechtliches</span>
+      <h2 class="modal__title" id="modal-datenschutz-title">Datenschutz&shy;erklärung</h2>
+
+      <div class="legal-body">
+        <h3>1. Datenschutz auf einen Blick</h3>
+        <p>
+          Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren
+          personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
+          Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.
+        </p>
+
+        <h3>2. Verantwortliche Stelle</h3>
+        <p>
+          Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br><br>
+          <strong>→ Name / Firma eintragen</strong><br>
+          Lorraine Padberg<br>
+          Theaterstraße 16 · 76829 Landau in der Pfalz<br>
+          Telefon: 06341 9029615<br>
+          E-Mail: hallo@lorraine-haarstudio.de
+        </p>
+
+        <h3>3. Datenerfassung auf dieser Website</h3>
+        <p><strong>Kontaktformular</strong></p>
+        <p>
+          Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem
+          Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung
+          der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir
+          nicht ohne Ihre Einwilligung weiter. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO.
+        </p>
+
+        <p><strong>Google Maps</strong></p>
+        <p>
+          Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited,
+          Gordon House, Barrow Street, Dublin 4, Irland. Zur Nutzung der Funktionen von Google Maps
+          ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an
+          einen Server von Google in den USA übertragen und dort gespeichert. Rechtsgrundlage:
+          Art. 6 Abs. 1 lit. f DSGVO. Mehr dazu unter
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.
+        </p>
+
+        <h3>4. Ihre Rechte</h3>
+        <p>
+          Sie haben jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten
+          personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung
+          sowie ein Recht auf Berichtigung oder Löschung dieser Daten. Hierzu sowie zu weiteren
+          Fragen zum Thema personenbezogene Daten können Sie sich jederzeit an uns wenden.
+        </p>
+
+        <h3>5. Hosting</h3>
+        <p>
+          <strong>→ Hosting-Anbieter eintragen</strong> (z.B. GitHub Pages, Netlify, All-Inkl, …).
+          Beim Besuch der Website werden automatisch Verbindungsdaten (IP-Adresse, Datum/Uhrzeit,
+          aufgerufene Seite) als sog. Server-Log-Files gespeichert. Eine Zusammenführung dieser
+          Daten mit anderen Datenquellen wird nicht vorgenommen.
+        </p>
+
+        <p style="margin-top:32px;font-size:12px;opacity:.5">
+          Stand: Mai 2026 · <strong>→ Bitte durch einen Anwalt oder einen DSGVO-Generator prüfen lassen.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

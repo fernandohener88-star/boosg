@@ -19,10 +19,10 @@
   --cream:       #FAF8F4;
   --cream-dark:  #F0EBE3;
   --cream-mid:   #E8E4DE;
-  --black:       #1A1714;
-  --black-soft:  #2E2A27;
-  --ink:         #4A4541;
-  --ink-light:   #7A7470;
+  --black:       #141210;
+  --black-soft:  #2A2624;
+  --ink:         #2C2826;
+  --ink-light:   #5A5450;
   --gold:        #C8A96E;
   --gold-light:  #DFC192;
   --gold-pale:   #F5EDD8;
@@ -46,9 +46,9 @@ body {
   background: var(--cream);
   color: var(--black);
   font-family: var(--sans);
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 1.65;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -67,9 +67,9 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .eyebrow {
   font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: .3em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--gold);
   display: block;
@@ -376,7 +376,7 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   margin-bottom: 18px;
 }
 .services__title em { font-style: italic; color: var(--ink); }
-.services__lede { font-size: 15px; color: var(--ink-light); max-width: 50ch; }
+.services__lede { font-size: 16px; color: var(--ink); max-width: 54ch; }
 
 /* Scrollable cards on mobile */
 .services__track {
@@ -407,7 +407,7 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .svc-card__name em { font-style: italic; }
 .svc-card__desc {
-  font-size: 14px; line-height: 1.7; color: var(--ink);
+  font-size: 15px; line-height: 1.75; color: var(--ink);
   flex: 1; margin-bottom: 28px;
 }
 .svc-card__price {
@@ -419,8 +419,8 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .services__note {
   margin-top: 36px;
-  font-size: 13px; font-style: italic;
-  color: var(--ink-light); text-align: center;
+  font-size: 15px; font-style: italic;
+  color: var(--ink); text-align: center;
   font-family: var(--serif);
 }
 
@@ -483,7 +483,7 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 16px;
 }
-.team-card__bio { font-size: 14px; line-height: 1.7; color: var(--ink); max-width: 26ch; }
+.team-card__bio { font-size: 15px; line-height: 1.75; color: var(--ink); max-width: 28ch; }
 
 @media (max-width: 900px) {
   .team__grid { grid-template-columns: 1fr 1fr; gap: 48px; }
@@ -531,9 +531,9 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .review__quote {
   font-family: var(--serif);
-  font-size: clamp(20px, 2.2vw, 26px);
-  font-style: italic; font-weight: 300;
-  line-height: 1.5; color: var(--black);
+  font-size: clamp(21px, 2.4vw, 28px);
+  font-style: italic; font-weight: 400;
+  line-height: 1.6; color: var(--black);
   margin-bottom: 36px;
 }
 .review__by {
@@ -543,7 +543,7 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .review__name { font-family: var(--serif); font-size: 19px; font-weight: 400; }
 .review__stars { color: var(--gold); letter-spacing: 3px; font-size: 11px; }
-.review__meta { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-light); }
+.review__meta { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-light); }
 
 .slider__controls {
   display: flex; justify-content: center; align-items: center; gap: 20px;
@@ -677,19 +677,19 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   color: rgba(200,169,110,.7); font-weight: 400; margin-bottom: 10px;
 }
 .contact__block p, .contact__block a {
-  font-family: var(--serif); font-size: 18px; line-height: 1.45;
-  color: var(--cream); margin: 0;
+  font-family: var(--serif); font-size: 19px; line-height: 1.55;
+  color: rgba(250,248,244,.95); margin: 0;
   transition: color .3s;
 }
 .contact__block.full { grid-column: 1 / -1; }
 .contact__block a:hover { color: var(--gold-light); }
 
 .hours {
-  display: grid; grid-template-columns: auto 1fr; gap: 2px 20px;
-  font-size: 13px; line-height: 1.75;
+  display: grid; grid-template-columns: auto 1fr; gap: 4px 24px;
+  font-size: 15px; line-height: 1.85;
 }
-.hours dt { color: rgba(200,169,110,.8); font-family: var(--sans); font-size: 10px; letter-spacing: .14em; }
-.hours dd { margin: 0; color: rgba(250,248,244,.75); }
+.hours dt { color: rgba(200,169,110,.95); font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: .1em; }
+.hours dd { margin: 0; color: rgba(250,248,244,.9); }
 
 /* Book button strip */
 .contact__book {
@@ -919,8 +919,8 @@ footer {
 }
 .modal__title em { color: var(--gold); }
 .modal__sub {
-  font-family: var(--sans); font-size: 15px; line-height: 1.65;
-  color: rgba(26,23,20,.6); margin-bottom: 36px;
+  font-family: var(--sans); font-size: 16px; line-height: 1.75;
+  color: var(--ink); margin-bottom: 36px;
 }
 
 /* ── Booking form ── */
@@ -966,8 +966,8 @@ footer {
   padding-top: 12px;
   border-top: 0.5px solid rgba(26,23,20,.08);
 }
-.form-legal { font-size: 11px; color: rgba(26,23,20,.4); line-height: 1.5; }
-.form-legal .link-btn { color: var(--gold); text-decoration: underline; font-size: 11px; }
+.form-legal { font-size: 12px; color: rgba(26,23,20,.55); line-height: 1.6; }
+.form-legal .link-btn { color: var(--gold); text-decoration: underline; font-size: 12px; }
 
 .btn-submit {
   font-family: var(--sans); font-size: 11px; letter-spacing: .22em; text-transform: uppercase;

@@ -282,36 +282,31 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   width: 100%; height: 100%; min-height: 500px;
   position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(150deg,
-    #EDD5C5 0%,
-    #D4A99A 28%,
-    #B87F72 58%,
-    #9A6357 82%,
-    #7E4E45 100%);
+  background: #7E4E45;
 }
-.hero__hair-svg {
+.hero__real-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  opacity: .16;
+  object-fit: cover; object-position: center top;
+  display: block;
+}
+.hero__img-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(20,8,4,.08) 0%,
+    rgba(20,8,4,.32) 100%
+  );
 }
 .hero__hair-logo {
   position: relative; z-index: 2;
-  width: min(280px, 58%); height: auto;
+  width: min(220px, 46%); height: auto;
   display: block;
   border-radius: 50%;
-  box-shadow: 0 28px 72px -12px rgba(20,8,4,.4), 0 0 0 1px rgba(255,255,255,.06);
+  box-shadow: 0 28px 72px -12px rgba(20,8,4,.55), 0 0 0 1.5px rgba(255,255,255,.12);
   transition: transform .7s cubic-bezier(.2,.6,.2,1);
 }
 .hero__hair-logo:hover { transform: scale(1.025); }
-.hero__hair-badge {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
-  color: rgba(255,255,255,.45);
-  padding: 7px 18px;
-  border: 0.5px solid rgba(255,255,255,.18);
-  border-radius: 999px;
-  white-space: nowrap; z-index: 3;
-}
 
 @media (max-width: 900px) {
   .hero {
@@ -470,7 +465,15 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   border-radius: 50%;
   margin-bottom: 28px;
   overflow: hidden;
+  background: var(--cream-mid);
 }
+.team-card__photo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+  display: block;
+  transition: transform .6s cubic-bezier(.2,.6,.2,1);
+}
+.team-card:hover .team-card__photo img { transform: scale(1.04); }
 .team-card__name {
   font-family: var(--serif);
   font-size: 24px; font-weight: 400;
@@ -595,19 +598,23 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  display: block;
+  background: var(--cream-mid);
 }
-.ig-tile .ph { width: 100%; height: 100%; }
-.ig-tile svg {
-  position: absolute; width: 24px; height: 24px;
-  color: var(--ink-light);
+.ig-tile img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform .55s cubic-bezier(.2,.6,.2,1);
 }
+.ig-tile:hover img { transform: scale(1.06); }
 .ig-tile::after {
   content: "";
   position: absolute; inset: 0;
   background: rgba(26,23,20,.0);
   transition: background .35s;
+  pointer-events: none;
 }
-.ig-tile:hover::after { background: rgba(26,23,20,.2); }
+.ig-tile:hover::after { background: rgba(26,23,20,.18); }
 .instagram__cta { text-align: center; }
 .instagram__btn {
   display: inline-flex; align-items: center; gap: 12px;
@@ -1170,28 +1177,19 @@ footer {
     </div>
   </div>
 
-  <!-- FOTO HIER EINFÜGEN: Ersetze .hero__hair-bg durch <img src="salon.jpg" style="width:100%;height:100%;object-fit:cover"> -->
+  <!-- Hero rechts: echtes Salonbild mit Logo-Overlay -->
   <div class="hero__right">
     <div class="hero__hair-bg">
-      <!-- Haar-Linien als SVG-Textur -->
-      <svg class="hero__hair-svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <g fill="none" stroke="rgba(255,255,255,1)" stroke-linecap="round">
-          <path stroke-width="2.5" d="M 60 0 C 80 180 40 360 70 540 C 100 720 55 810 80 900"/>
-          <path stroke-width="1.8" d="M 140 0 C 170 160 120 340 155 520 C 190 700 140 800 165 900"/>
-          <path stroke-width="3"   d="M 220 0 C 260 140 195 310 235 490 C 275 670 215 790 250 900"/>
-          <path stroke-width="1.5" d="M 300 0 C 330 170 280 350 310 530 C 340 710 290 810 320 900"/>
-          <path stroke-width="2.8" d="M 380 0 C 420 150 365 330 400 510 C 435 690 375 800 410 900"/>
-          <path stroke-width="1.8" d="M 460 0 C 490 180 440 360 470 540 C 500 720 450 815 480 900"/>
-          <path stroke-width="2"   d="M 540 0 C 570 160 520 340 555 520 C 590 700 540 800 570 900"/>
-          <path stroke-width="1.2" d="M 100 0 C 60 220 115 440 80 660 C 55 800 90 860 70 900"/>
-          <path stroke-width="1.4" d="M 340 0 C 310 200 360 410 330 620 C 308 770 340 850 320 900"/>
-          <path stroke-width="1"   d="M 510 0 C 545 210 495 420 530 630 C 558 780 510 855 540 900"/>
-        </g>
-      </svg>
-      <!-- Logo sitzt auf dem Haar-Hintergrund -->
+      <img
+        src="https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&w=900&h=1000&fit=crop"
+        alt="LORRAINE Haarstudio — Haarpflege im Salon"
+        class="hero__real-img"
+        width="900" height="1000" loading="eager"
+        fetchpriority="high"
+      />
+      <div class="hero__img-overlay"></div>
       <img src="logo-hero.png" alt="LORRAINE — by Lorraine Padberg" class="hero__hair-logo"
            width="800" height="800" loading="eager" />
-      <span class="hero__hair-badge">→ Salon-Foto hier einfügen</span>
     </div>
   </div>
 
@@ -1224,11 +1222,13 @@ footer {
         </ul>
       </div>
 
-      <!-- FOTO HIER EINFÜGEN: Ersetze das img durch <img src="dein-studiofoto.jpg" class="about__image" style="object-fit:cover"> -->
-      <!-- FOTO HIER EINFÜGEN: Ersetze das img durch dein Studio-Foto -->
-      <div class="about__image reveal d2" style="display:flex;align-items:center;justify-content:center;background:var(--cream);">
-        <img src="logo-hero.png" alt="LORRAINE Haarstudio — by Lorraine Padberg"
-          style="width:min(400px,85%);height:auto;display:block;border-radius:50%;box-shadow:0 20px 60px -10px rgba(140,102,89,.2);" />
+      <div class="about__image reveal d2">
+        <img
+          src="https://images.pexels.com/photos/7984818/pexels-photo-7984818.jpeg?auto=compress&cs=tinysrgb&w=800&h=1000&fit=crop"
+          alt="Stylistin bei der Arbeit im LORRAINE Haarstudio"
+          style="width:100%;height:100%;object-fit:cover;display:block;"
+          loading="lazy"
+        />
       </div>
     </div>
   </div>
@@ -1298,9 +1298,12 @@ footer {
 
     <div class="team__grid">
       <div class="team-card reveal d1">
-        <!-- FOTO HIER EINFÜGEN: Ersetze div.ph durch <img src="..." alt="Lorraine Padberg"> -->
-        <div class="team-card__photo ph">
-          <span style="font-size:10px">→ Foto</span>
+        <div class="team-card__photo">
+          <img
+            src="https://images.pexels.com/photos/17163935/pexels-photo-17163935.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
+            alt="Lorraine Padberg — Inhaberin & Meisterin"
+            loading="lazy"
+          />
         </div>
         <div class="team-card__name">Lorraine Padberg</div>
         <div class="team-card__role">Inhaberin &amp; Meisterin</div>
@@ -1309,9 +1312,12 @@ footer {
       </div>
 
       <div class="team-card reveal d2">
-        <!-- FOTO HIER EINFÜGEN -->
-        <div class="team-card__photo ph">
-          <span style="font-size:10px">→ Foto</span>
+        <div class="team-card__photo">
+          <img
+            src="https://images.pexels.com/photos/3791554/pexels-photo-3791554.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
+            alt="Stylistin"
+            loading="lazy"
+          />
         </div>
         <!-- NAME & ROLLE EINFÜGEN -->
         <div class="team-card__name">Name Vorname</div>
@@ -1321,9 +1327,12 @@ footer {
       </div>
 
       <div class="team-card reveal d3">
-        <!-- FOTO HIER EINFÜGEN -->
-        <div class="team-card__photo ph">
-          <span style="font-size:10px">→ Foto</span>
+        <div class="team-card__photo">
+          <img
+            src="https://images.pexels.com/photos/11411119/pexels-photo-11411119.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop&crop=faces"
+            alt="Stylistin"
+            loading="lazy"
+          />
         </div>
         <!-- NAME & ROLLE EINFÜGEN -->
         <div class="team-card__name">Name Vorname</div>
@@ -1408,14 +1417,25 @@ footer {
       <p class="instagram__handle reveal d2">@lorraine_haarstudio</p>
     </div>
 
-    <!-- INSTAGRAM-BILDER HIER EINFÜGEN: Ersetze die .ig-tile divs durch echte Bilder oder einen Feed-Embed -->
     <div class="instagram__grid reveal">
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
-      <div class="ig-tile"><div class="ph" style="height:100%"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div></div>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/4923123/pexels-photo-4923123.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Langes Haar von hinten" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/9069636/pexels-photo-9069636.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Nahaufnahme Haar im Sonnenlicht" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/3992863/pexels-photo-3992863.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haarschnitt im Salon" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/4780701/pexels-photo-4780701.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haare im goldenen Licht" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/33461159/pexels-photo-33461159.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Frau mit langem Haar im warmen Licht" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="#" target="_blank" rel="noopener" aria-label="Instagram öffnen">
+        <img src="https://images.pexels.com/photos/2598176/pexels-photo-2598176.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Frau mit blondem Haar" loading="lazy" />
+      </a>
     </div>
 
     <div class="instagram__cta reveal">

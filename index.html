@@ -277,34 +277,50 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 .hero__right {
   position: relative; overflow: hidden;
 }
-/* FOTO HIER EINFÜGEN */
-.hero__image {
+/* ─ Hair mood panel (ersetze durch echtes Salon-Foto) ─ */
+.hero__hair-bg {
+  width: 100%; height: 100%; min-height: 500px;
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(150deg,
+    #EDD5C5 0%,
+    #D4A99A 28%,
+    #B87F72 58%,
+    #9A6357 82%,
+    #7E4E45 100%);
+}
+.hero__hair-svg {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  min-height: 500px;
+  opacity: .16;
 }
-.hero__scroll {
-  position: absolute; bottom: 40px; left: calc(var(--gutter) + max(0px, (100vw - var(--max)) / 2));
-  display: flex; align-items: center; gap: 12px;
-  font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-light);
-  z-index: 2;
+.hero__hair-logo {
+  position: relative; z-index: 2;
+  width: min(280px, 58%); height: auto;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 28px 72px -12px rgba(20,8,4,.4), 0 0 0 1px rgba(255,255,255,.06);
+  transition: transform .7s cubic-bezier(.2,.6,.2,1);
 }
-.hero__scroll-line {
-  display: block; width: 40px; height: 0.5px; background: var(--gold);
-  animation: scrollPulse 2.4s ease-in-out infinite;
-}
-@keyframes scrollPulse {
-  0%, 100% { transform: scaleX(1); opacity: 1; }
-  50%       { transform: scaleX(.4); opacity: .5; }
+.hero__hair-logo:hover { transform: scale(1.025); }
+.hero__hair-badge {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  font-size: 9px; letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  padding: 7px 18px;
+  border: 0.5px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  white-space: nowrap; z-index: 3;
 }
 
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 55vw;
+    grid-template-rows: auto 65vw;
     min-height: auto;
   }
   .hero__left { padding: 120px var(--gutter) 60px; }
-  .hero__right { min-height: 55vw; }
+  .hero__hair-bg { min-height: 65vw; }
   .hero__scroll { display: none; }
 }
 
@@ -606,67 +622,130 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 @media (max-width: 500px) { .instagram__grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ================================================================
-   CONTACT
+   CONTACT — redesigned
 ================================================================ */
-.contact { padding: 140px 0 0; background: var(--cream); }
-.contact__inner {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-  margin-bottom: 80px;
+.contact {
+  position: relative;
+  background: var(--black);
+  color: var(--cream);
+  overflow: hidden;
 }
-.contact__left {}
-.contact__title {
-  font-family: var(--serif);
-  font-size: clamp(40px, 5vw, 72px); font-weight: 400;
-  margin-bottom: 48px;
-}
-.contact__title em { font-style: italic; }
 
-.contact__info { display: flex; flex-direction: column; gap: 36px; }
+/* ── Hero strip: big type left + map right ── */
+.contact__hero {
+  display: grid;
+  grid-template-columns: 44% 56%;
+  min-height: 680px;
+}
+.contact__left {
+  padding: 80px var(--gutter) 80px calc(var(--gutter) + max(0px,(100vw - var(--max))/2));
+  display: flex; flex-direction: column; justify-content: center;
+  position: relative; z-index: 2;
+}
+
+/* eyebrow */
+.contact .eyebrow { color: rgba(200,169,110,.8); margin-bottom: 32px; }
+
+/* Stacked headline */
+.contact__headline { margin-bottom: 56px; }
+.contact__headline-word {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: .92;
+  color: var(--cream);
+}
+.contact__headline-word.xl  { font-size: clamp(60px, 7vw, 100px); }
+.contact__headline-word.lg  { font-size: clamp(50px, 6vw,  86px); letter-spacing: -.01em; }
+.contact__headline-word.md  { font-size: clamp(36px, 4vw,  58px); color: rgba(250,248,244,.55); margin-top: .18em; }
+.contact__headline-word.em  { font-style: italic; color: var(--gold-light); }
+.contact__headline-word.indent { padding-left: clamp(24px, 4vw, 56px); }
+
+/* Info grid */
+.contact__info {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 36px 40px;
+}
 .contact__block h4 {
-  font-family: var(--sans); font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--gold); font-weight: 400; margin-bottom: 10px;
+  font-family: var(--sans); font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(200,169,110,.7); font-weight: 400; margin-bottom: 10px;
 }
 .contact__block p, .contact__block a {
-  font-family: var(--serif); font-size: 20px; line-height: 1.45;
-  color: var(--black); margin: 0;
+  font-family: var(--serif); font-size: 18px; line-height: 1.45;
+  color: var(--cream); margin: 0;
   transition: color .3s;
 }
-.contact__block a:hover { color: var(--gold); }
+.contact__block.full { grid-column: 1 / -1; }
+.contact__block a:hover { color: var(--gold-light); }
 
 .hours {
-  display: grid; grid-template-columns: auto 1fr; gap: 3px 24px;
-  font-size: 14px; line-height: 1.7;
+  display: grid; grid-template-columns: auto 1fr; gap: 2px 20px;
+  font-size: 13px; line-height: 1.75;
 }
-.hours dt { color: var(--gold); font-family: var(--sans); font-size: 11px; letter-spacing: .14em; font-weight: 400; }
-.hours dd { margin: 0; color: var(--ink); }
+.hours dt { color: rgba(200,169,110,.8); font-family: var(--sans); font-size: 10px; letter-spacing: .14em; }
+.hours dd { margin: 0; color: rgba(250,248,244,.75); }
 
-.contact__booking {
-  margin-top: 48px; padding: 36px;
-  border: var(--gold-line);
-  background: var(--gold-pale);
+/* Book button strip */
+.contact__book {
+  margin-top: 44px;
+  padding-top: 36px;
+  border-top: 0.5px solid rgba(250,248,244,.08);
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
 }
-.contact__booking p {
-  font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--ink-light); margin-bottom: 16px; font-family: var(--sans);
+.btn-book {
+  font-family: var(--sans); font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+  padding: 14px 30px;
+  background: var(--gold);
+  color: #fff;
+  border: none; cursor: pointer;
+  transition: background .3s, transform .3s;
+  display: inline-block;
 }
-.contact__booking .btn-primary { width: 100%; text-align: center; justify-content: center; display: block; }
+.btn-book:hover { background: var(--gold-light); transform: translateY(-2px); }
+.contact__book-note {
+  font-size: 11px; color: rgba(250,248,244,.35); letter-spacing: .06em;
+}
 
-/* GOOGLE MAPS IFRAME HIER */
-.map-placeholder {
-  width: 100%; aspect-ratio: 4/3;
-  min-height: 360px;
-  background: var(--cream-mid);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 12px;
-  font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-light);
-  border: var(--line);
-  position: sticky; top: 100px;
+/* ── Map column ── */
+.contact__map {
+  position: relative;
+  overflow: hidden;
 }
-.map-placeholder svg { width: 32px; height: 32px; color: var(--gold); opacity: .6; }
+.contact__map iframe {
+  width: 100%; height: 100%; min-height: 480px;
+  display: block; border: 0;
+  filter: grayscale(15%) contrast(1.05);
+}
+/* Subtle left-edge fade */
+.contact__map::before {
+  content: "";
+  position: absolute; inset: 0; left: 0; z-index: 1;
+  width: 40px;
+  background: linear-gradient(to right, var(--black), transparent);
+  pointer-events: none;
+}
+
+/* ── Bottom bar: address + fine print ── */
+.contact__bar {
+  border-top: 0.5px solid rgba(250,248,244,.07);
+  padding: 28px calc(var(--gutter) + max(0px,(100vw - var(--max))/2));
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(250,248,244,.3);
+}
+.contact__bar a:hover { color: rgba(250,248,244,.7); }
 
 @media (max-width: 900px) {
-  .contact__inner { grid-template-columns: 1fr; gap: 60px; }
-  .map-placeholder { position: static; aspect-ratio: 16/9; min-height: 260px; }
+  .contact__hero { grid-template-columns: 1fr; }
+  .contact__left { padding: 72px var(--gutter) 56px; }
+  .contact__map iframe { min-height: 320px; height: 320px; }
+  .contact__map::before { display: none; }
+  .contact__info { grid-template-columns: 1fr; gap: 28px; }
+  .contact__block.full { grid-column: auto; }
+  .contact__bar { padding: 24px var(--gutter); }
+}
+@media (max-width: 560px) {
+  .contact__headline-word.xl { font-size: 52px; }
+  .contact__headline-word.lg { font-size: 44px; }
 }
 
 /* ================================================================
@@ -817,11 +896,28 @@ footer {
     </div>
   </div>
 
-  <!-- FOTO HIER EINFÜGEN: Ersetze hero__logo-panel durch <img src="dein-foto.jpg" class="hero__image" style="object-fit:cover"> -->
+  <!-- FOTO HIER EINFÜGEN: Ersetze .hero__hair-bg durch <img src="salon.jpg" style="width:100%;height:100%;object-fit:cover"> -->
   <div class="hero__right">
-    <div class="hero__logo-panel">
-      <img src="logo-hero.png" alt="LORRAINE — by Lorraine Padberg" class="logo-hero"
+    <div class="hero__hair-bg">
+      <!-- Haar-Linien als SVG-Textur -->
+      <svg class="hero__hair-svg" viewBox="0 0 600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,1)" stroke-linecap="round">
+          <path stroke-width="2.5" d="M 60 0 C 80 180 40 360 70 540 C 100 720 55 810 80 900"/>
+          <path stroke-width="1.8" d="M 140 0 C 170 160 120 340 155 520 C 190 700 140 800 165 900"/>
+          <path stroke-width="3"   d="M 220 0 C 260 140 195 310 235 490 C 275 670 215 790 250 900"/>
+          <path stroke-width="1.5" d="M 300 0 C 330 170 280 350 310 530 C 340 710 290 810 320 900"/>
+          <path stroke-width="2.8" d="M 380 0 C 420 150 365 330 400 510 C 435 690 375 800 410 900"/>
+          <path stroke-width="1.8" d="M 460 0 C 490 180 440 360 470 540 C 500 720 450 815 480 900"/>
+          <path stroke-width="2"   d="M 540 0 C 570 160 520 340 555 520 C 590 700 540 800 570 900"/>
+          <path stroke-width="1.2" d="M 100 0 C 60 220 115 440 80 660 C 55 800 90 860 70 900"/>
+          <path stroke-width="1.4" d="M 340 0 C 310 200 360 410 330 620 C 308 770 340 850 320 900"/>
+          <path stroke-width="1"   d="M 510 0 C 545 210 495 420 530 630 C 558 780 510 855 540 900"/>
+        </g>
+      </svg>
+      <!-- Logo sitzt auf dem Haar-Hintergrund -->
+      <img src="logo-hero.png" alt="LORRAINE — by Lorraine Padberg" class="hero__hair-logo"
            width="800" height="800" loading="eager" />
+      <span class="hero__hair-badge">→ Salon-Foto hier einfügen</span>
     </div>
   </div>
 
@@ -1062,59 +1158,69 @@ footer {
      KONTAKT & BUCHUNG
 ================================================================ -->
 <section class="contact" id="kontakt" aria-labelledby="kontakt-title">
-  <div class="wrap">
-    <div class="contact__inner">
-      <div class="contact__left">
-        <span class="eyebrow reveal">— 06 · Kontakt</span>
-        <h2 class="contact__title reveal d1" id="kontakt-title">
-          Komm vorbei,<br>setz dich,<br><em>bleib.</em>
-        </h2>
 
-        <div class="contact__info">
-          <div class="contact__block reveal d2">
-            <h4>Adresse</h4>
-            <p>Theaterstraße 16<br>76829 Landau in der Pfalz</p>
-          </div>
-          <div class="contact__block reveal d2">
-            <h4>Termin</h4>
-            <p><a href="tel:063419029615">06341 9029615</a></p>
-            <p style="font-size:16px;font-family:var(--sans);margin-top:6px">
-              <a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a>
-            </p>
-          </div>
-          <div class="contact__block reveal d3">
-            <h4>Öffnungszeiten</h4>
-            <dl class="hours">
-              <dt>Di – Mi</dt><dd>09 – 18 Uhr</dd>
-              <dt>Do</dt>     <dd>09 – 20 Uhr</dd>
-              <dt>Fr</dt>     <dd>09 – 18 Uhr</dd>
-              <dt>Sa</dt>     <dd>08 – 14 Uhr</dd>
-              <dt>So &amp; Mo</dt><dd>geschlossen</dd>
-            </dl>
-          </div>
+  <div class="contact__hero">
+
+    <!-- LEFT: headline + info -->
+    <div class="contact__left">
+      <span class="eyebrow contact-eyebrow reveal">— 06 · Kontakt</span>
+
+      <div class="contact__headline reveal d1" id="kontakt-title" aria-label="Komm vorbei. Setz dich. Bleib.">
+        <span class="contact__headline-word xl">Komm</span>
+        <span class="contact__headline-word lg indent">vorbei.</span>
+        <span class="contact__headline-word md">Setz dich.</span>
+        <span class="contact__headline-word lg em indent">Bleib.</span>
+      </div>
+
+      <div class="contact__info reveal d2">
+        <div class="contact__block">
+          <h4>Adresse</h4>
+          <p>Theaterstraße 16<br>76829 Landau in der Pfalz</p>
         </div>
-
-        <div class="contact__booking reveal d3">
-          <p>Online buchen</p>
-          <!-- BOOKING LINK EINTRAGEN (z.B. Booksy, Treatwell, Calendly) -->
-          <a href="#" class="btn-primary">Jetzt online buchen</a>
-          <p style="margin-top:14px;font-size:11px;letter-spacing:.1em;text-transform:none;font-family:var(--sans);color:var(--ink-light)">→ Booking-Widget hier einbinden (z.B. Booksy, Treatwell oder Calendly)</p>
+        <div class="contact__block">
+          <h4>Termin</h4>
+          <p><a href="tel:063419029615">06341 9029615</a></p>
+          <p><a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a></p>
+        </div>
+        <div class="contact__block full">
+          <h4>Öffnungszeiten</h4>
+          <dl class="hours">
+            <dt>Di – Mi</dt><dd>09 – 18 Uhr</dd>
+            <dt>Do</dt>     <dd>09 – 20 Uhr</dd>
+            <dt>Fr</dt>     <dd>09 – 18 Uhr</dd>
+            <dt>Sa</dt>     <dd>08 – 14 Uhr</dd>
+            <dt>So &amp; Mo</dt><dd>geschlossen</dd>
+          </dl>
         </div>
       </div>
 
-      <div class="reveal d2">
-        <!-- GOOGLE MAPS IFRAME HIER EINFÜGEN:
-             Ersetze dieses div durch:
-             <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="100%" style="border:0" allowfullscreen loading="lazy"></iframe>
-        -->
-        <div class="map-placeholder">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          <span>→ Google Maps iFrame hier einfügen</span>
-          <span style="font-size:10px;opacity:.7">Theaterstraße 16 · 76829 Landau</span>
-        </div>
+      <div class="contact__book reveal d3">
+        <!-- BOOKING LINK EINTRAGEN (z.B. Booksy, Treatwell, Calendly) -->
+        <a href="#" class="btn-book">Jetzt Termin buchen</a>
+        <p class="contact__book-note">→ Booking-Link hier einfügen</p>
       </div>
     </div>
+
+    <!-- RIGHT: Google Maps -->
+    <div class="contact__map">
+      <iframe
+        src="https://maps.google.com/maps?q=Theaterstra%C3%9Fe+16%2C+76829+Landau+in+der+Pfalz%2C+Germany&output=embed&z=16"
+        width="100%" height="100%"
+        style="border:0" allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="LORRAINE Haarstudio — Theaterstraße 16, Landau">
+      </iframe>
+    </div>
+
   </div>
+
+  <!-- bottom bar -->
+  <div class="contact__bar">
+    <span>Von Frauen geführt 🤍</span>
+    <span>© 2026 Lorraine Padberg</span>
+    <span><a href="#">Impressum</a> · <a href="#">Datenschutz</a></span>
+  </div>
+
 </section>
 
 <!-- ================================================================

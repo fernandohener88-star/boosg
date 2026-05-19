@@ -323,9 +323,35 @@
     pointer-events: none;
   }
 
-  /* mobile nav */
-  #mobileMenu { transform: translateY(-12px); opacity: 0; pointer-events: none; transition: all .25s ease; }
-  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  /* mobile nav overlay */
+  #mobileMenu {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(320px, 85vw);
+    background: rgba(9, 10, 16, 0.97);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-left: 1px solid rgba(255,255,255,0.08);
+    box-shadow: -24px 0 80px rgba(0,0,0,0.6);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+  #mobileMenu.open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  #menuOverlay {
+    position: fixed; inset: 0; z-index: 199;
+    background: rgba(0,0,0,0.5);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #menuOverlay.open { opacity: 1; pointer-events: auto; }
 
   /* splash */
   #splash {
@@ -571,16 +597,56 @@
     </div>
   </div>
 
-  <div id="mobileMenu" class="md:hidden mx-5 rounded-2xl glass-strong p-5 absolute left-0 right-0 top-[72px]">
-    <div class="flex flex-col gap-4 text-[15px]">
-      <a href="#leistungen" class="py-1">Leistungen</a>
-      <a href="#prozess" class="py-1">Prozess</a>
-      <a href="#faq" class="py-1">FAQ</a>
-      <a href="#kontakt" class="py-1">Kontakt</a>
-      <a href="#kontakt" class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-[14px] font-semibold btn-primary">Angebot anfragen <span class="arr">→</span></a>
+  <div id="mobileMenu" class="md:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
+    <!-- panel header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="logo-mark"></span>
+        <span style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px;letter-spacing:-0.02em;">Bisnero</span>
+      </div>
+      <button id="menuClose" aria-label="Menü schließen" style="width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);cursor:pointer;color:#fff;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- nav links -->
+    <nav style="padding:12px 16px;display:flex;flex-direction:column;gap:2px;">
+      <a href="#leistungen" class="menu-link">Leistungen</a>
+      <a href="#prozess"    class="menu-link">Prozess</a>
+      <a href="#faq"        class="menu-link">FAQ</a>
+      <a href="#kontakt"    class="menu-link">Kontakt</a>
+    </nav>
+
+    <!-- CTA -->
+    <div style="padding:8px 24px 24px;">
+      <a href="#kontakt" class="btn-primary inline-flex items-center justify-center gap-2 w-full rounded-full text-[14px] font-semibold" style="padding:14px 20px;">
+        Angebot anfragen <span class="arr">→</span>
+      </a>
+    </div>
+
+    <!-- footer info -->
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;border-top:1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:12px;color:rgba(255,255,255,0.3);line-height:1.6;">hi@bisnero.de<br>Landau in der Pfalz · Remote</p>
     </div>
   </div>
 </header>
+
+<div id="menuOverlay"></div>
+
+<style>
+  .menu-link {
+    display:flex; align-items:center;
+    padding:14px 8px;
+    font-family:'Manrope',ui-sans-serif,system-ui;
+    font-size:17px; font-weight:500;
+    color:rgba(255,255,255,0.7);
+    text-decoration:none;
+    border-radius:12px;
+    transition:background .18s ease, color .18s ease;
+    letter-spacing:-0.01em;
+  }
+  .menu-link:hover, .menu-link:active { background:rgba(255,255,255,0.06); color:#fff; }
+</style>
 
 <!-- ============================  HERO  ============================ -->
 <section id="top" class="relative pt-[120px] md:pt-[160px] pb-20 md:pb-32">
@@ -1146,9 +1212,27 @@
   onScroll();
 
   // ====================== mobile menu ======================
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  menuBtn?.addEventListener('click', () => menu.classList.toggle('open'));
+  const menuBtn  = document.getElementById('menuBtn');
+  const menu     = document.getElementById('mobileMenu');
+  const overlay  = document.getElementById('menuOverlay');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menu.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  overlay?.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
   // ====================== card pointer glow ======================

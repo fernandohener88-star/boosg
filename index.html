@@ -214,9 +214,39 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
   padding-top: 80px;
 }
 .hero__left {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 80px var(--gutter) 80px calc(var(--gutter) + max(0px, (100vw - var(--max)) / 2));
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 80px var(--gutter) 56px calc(var(--gutter) + max(0px, (100vw - var(--max)) / 2));
   position: relative; z-index: 2;
+}
+.hero__main {
+  display: flex; flex-direction: column; justify-content: center;
+  flex: 1;
+}
+.hero__bottom-strip {
+  border-top: 0.5px solid rgba(26,23,20,.12);
+  padding-top: 28px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.hero__strip-tags {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0;
+  font-family: var(--sans); font-size: 10px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink-light);
+}
+.hero__strip-dot {
+  display: inline-block; width: 2px; height: 2px;
+  border-radius: 50%; background: var(--gold);
+  margin: 0 10px; flex-shrink: 0;
+}
+.hero__strip-hours {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  font-family: var(--sans); font-size: 11px;
+  color: var(--ink-light);
+}
+.hero__strip-hours span { display: flex; align-items: center; gap: 5px; }
+.hero__strip-hours em {
+  font-style: normal; color: var(--gold); font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase;
 }
 .hero__eyebrow {
   font-size: 10px; letter-spacing: .36em; text-transform: uppercase;
@@ -314,7 +344,8 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
     grid-template-rows: auto 65vw;
     min-height: auto;
   }
-  .hero__left { padding: 120px var(--gutter) 60px; }
+  .hero__left { padding: 120px var(--gutter) 56px; }
+  .hero__bottom-strip { display: none; }
   .hero__hair-bg { min-height: 65vw; }
   .hero__scroll { display: none; }
 }
@@ -1193,13 +1224,35 @@ textarea:focus-visible {
 ================================================================ -->
 <header class="hero" id="top">
   <div class="hero__left">
-    <div class="hero__eyebrow">Haarstudio · Atelier · Landau in der Pfalz</div>
-    <h1 class="hero__title">LORRAINE</h1>
-    <p class="hero__sub">Dein Haar.<br>Deine Geschichte.</p>
-    <div class="hero__meta">Haarstudio &amp; Atelier · seit 2019</div>
-    <div class="hero__btns">
-      <a href="#kontakt" class="btn-primary">Termin buchen</a>
-      <a href="#leistungen" class="btn-ghost">Leistungen entdecken</a>
+    <div class="hero__main">
+      <div class="hero__eyebrow">Haarstudio · Atelier · Landau in der Pfalz</div>
+      <h1 class="hero__title">LORRAINE</h1>
+      <p class="hero__sub">Dein Haar.<br>Deine Geschichte.</p>
+      <div class="hero__meta">Haarstudio &amp; Atelier · seit 2019</div>
+      <div class="hero__btns">
+        <a href="#kontakt" class="btn-primary">Termin buchen</a>
+        <a href="#leistungen" class="btn-ghost">Leistungen entdecken</a>
+      </div>
+    </div>
+
+    <div class="hero__bottom-strip">
+      <div class="hero__strip-tags">
+        <span>Balayage</span>
+        <span class="hero__strip-dot"></span>
+        <span>Olaplex</span>
+        <span class="hero__strip-dot"></span>
+        <span>Schnitt</span>
+        <span class="hero__strip-dot"></span>
+        <span>Färben</span>
+        <span class="hero__strip-dot"></span>
+        <span>Brautstyling</span>
+      </div>
+      <div class="hero__strip-hours">
+        <span><em>Di–Mi</em> 9–18</span>
+        <span><em>Do</em> 9–20</span>
+        <span><em>Fr</em> 9–18</span>
+        <span><em>Sa</em> 8–14</span>
+      </div>
     </div>
   </div>
 

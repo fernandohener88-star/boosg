@@ -215,8 +215,27 @@ button { font-family: var(--sans); cursor: pointer; border: none; background: no
 }
 .hero__left {
   display: flex; flex-direction: column; justify-content: space-between;
-  padding: 80px var(--gutter) 56px calc(var(--gutter) + max(0px, (100vw - var(--max)) / 2));
+  padding: 80px clamp(40px, 6vw, 100px) 56px clamp(40px, 6vw, 100px);
   position: relative; z-index: 2;
+}
+/* Dekoration: dünne Goldlinie + Jahreszahl am linken Rand */
+.hero__left::before {
+  content: "";
+  position: absolute; left: 0; top: 18%; bottom: 18%;
+  width: 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%);
+  opacity: .45;
+}
+.hero__accent {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  font-family: var(--sans); font-size: 9px; font-weight: 500;
+  letter-spacing: .35em; text-transform: uppercase;
+  color: rgba(200,169,110,.55);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 .hero__main {
   display: flex; flex-direction: column; justify-content: center;
@@ -1224,6 +1243,7 @@ textarea:focus-visible {
 ================================================================ -->
 <header class="hero" id="top">
   <div class="hero__left">
+    <span class="hero__accent" aria-hidden="true">Landau in der Pfalz · seit 2019</span>
     <div class="hero__main">
       <div class="hero__eyebrow">Haarstudio · Atelier · Landau in der Pfalz</div>
       <h1 class="hero__title">LORRAINE</h1>

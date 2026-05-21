@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speisekarte · mio landau</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A1208;--ink-2:#0e0905;
+    --cream:#F5F0E8;--cream-dim:#bdb6a8;--cream-mute:#7e7869;
+    --terra:#C4522A;--terra-soft:#D86A40;
+    --gold:#D4A853;--olive:#4A5C3A;
+    --rule:rgba(245,240,232,0.08);--rule-strong:rgba(245,240,232,0.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+  /* grain */
+  .grain{position:fixed;inset:-2px;pointer-events:none;z-index:200;opacity:.10;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+
+  /* type */
+  .eyebrow{font-family:'Outfit',sans-serif;font-weight:400;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+  .eyebrow.dark{color:var(--terra)}
+  .edot{display:inline-block;width:4px;height:4px;border-radius:50%;background:currentColor;vertical-align:middle;margin:0 .7em 2px}
+
+  /* nav */
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;padding:22px 44px;transition:background .35s,backdrop-filter .35s,padding .35s,border-color .35s;border-bottom:1px solid transparent}
+  nav.top.scrolled{background:rgba(14,9,5,0.78);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);padding:14px 44px;border-bottom-color:var(--rule)}
+  .logo{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:26px;letter-spacing:-.01em;line-height:1}
+  .logo .accent{color:var(--gold);font-style:italic}
+  nav .links{display:flex;gap:38px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+  nav .links a{position:relative;padding:6px 0;transition:color .25s}
+  nav .links a:hover,nav .links a.nav-active{color:var(--cream)}
+  nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  nav .links a:hover::after,nav .links a.nav-active::after{transform:scaleX(1)}
+  .btn{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;padding:13px 22px;border-radius:1px;border:1px solid transparent;transition:transform .25s,background .25s,color .25s,border-color .25s,box-shadow .35s}
+  .btn.terra{background:var(--terra);color:var(--cream)}
+  .btn.terra:hover{background:var(--terra-soft);box-shadow:0 14px 40px -16px rgba(196,82,42,.7)}
+
+  /* page hero */
+  .page-hero{position:relative;min-height:48vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:140px 40px 90px}
+  .bleeds{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .bleed{position:absolute;border-radius:50%;filter:blur(80px)}
+  .bleed.terra{width:600px;height:600px;left:-100px;bottom:-200px;background:radial-gradient(circle,rgba(196,82,42,.8),transparent 65%);opacity:.35}
+  .bleed.olive{width:500px;height:500px;right:-80px;top:-150px;background:radial-gradient(circle,rgba(74,92,58,.7),transparent 65%);opacity:.3}
+  .vline{position:absolute;top:100px;bottom:60px;width:1px;background:var(--rule-strong);z-index:1}
+  .vline.l{left:34px}.vline.r{right:34px}
+  .page-hero-inner{position:relative;z-index:2}
+  .page-hero h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(64px,12vw,160px);line-height:.9;letter-spacing:-.02em;margin:18px 0 20px}
+  .page-hero .subtitle{font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:var(--cream-dim)}
+
+  /* specials */
+  .specials-section{background:#120c06;padding:80px 40px;border-bottom:1px solid var(--rule)}
+  .container{max-width:1280px;margin:0 auto}
+  .specials-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+  .special-card{padding:28px 24px;border:1px solid var(--rule);background:rgba(245,240,232,.02);transition:border-color .3s}
+  .special-card.today{border-color:rgba(212,168,83,.4);background:rgba(212,168,83,.03)}
+  .special-day{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:10px}
+  .special-card.today .special-day{color:var(--gold)}
+  .special-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:22px;font-style:italic;margin-bottom:8px;color:var(--cream-dim)}
+  .special-card.today .special-name{color:var(--gold)}
+  .special-aktion{font-size:13px;color:var(--cream-dim)}
+  .special-card.today .special-aktion{color:var(--cream)}
+  .today-chip{display:inline-block;margin-top:14px;font-size:9px;letter-spacing:.28em;text-transform:uppercase;padding:3px 10px;background:var(--gold);color:var(--ink);border-radius:2px}
+  .specials-note{font-size:11.5px;color:var(--cream-mute);text-align:center;max-width:70ch;margin:0 auto;line-height:1.7}
+
+  /* cat nav */
+  .cat-nav{position:sticky;z-index:100;background:rgba(14,9,5,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--rule);top:64px}
+  .cat-nav-inner{display:flex;overflow-x:auto;scrollbar-width:none;max-width:1280px;margin:0 auto;padding:0 40px}
+  .cat-nav-inner::-webkit-scrollbar{display:none}
+  .cat-tab{flex-shrink:0;padding:15px 18px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute);border-bottom:2px solid transparent;transition:color .25s,border-color .25s;cursor:pointer;white-space:nowrap;background:none;border-top:0;border-left:0;border-right:0;font-family:'Outfit',sans-serif}
+  .cat-tab:hover{color:var(--cream)}
+  .cat-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+
+  /* menu section */
+  .menu-section{padding:90px 40px;border-bottom:1px solid var(--rule)}
+
+  /* section header */
+  .section-header{margin-bottom:48px}
+  .section-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(36px,5vw,64px);line-height:1;margin-top:12px;letter-spacing:-.015em}
+  .section-note{font-size:13px;color:var(--cream-mute);margin-top:14px;max-width:64ch;line-height:1.75;font-style:italic}
+
+  /* items grid */
+  .items-grid{display:grid;grid-template-columns:repeat(2,1fr);background:var(--rule);gap:1px}
+  .menu-item{background:var(--ink);padding:22px 26px;transition:background .2s;display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+  .menu-item:hover{background:rgba(245,240,232,.025)}
+  .item-left{flex:1;min-width:0}
+  .item-nr{font-size:10px;color:var(--gold);font-family:'Cormorant Garamond',serif;letter-spacing:.1em;margin-bottom:3px;opacity:.65}
+  .item-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:20px;letter-spacing:-.01em;line-height:1.15}
+  .item-menge{font-size:12.5px;color:var(--cream-mute);font-family:'Outfit',sans-serif;font-weight:300;margin-left:4px}
+  .item-desc{font-size:12.5px;color:var(--cream-dim);line-height:1.55;margin-top:5px;font-weight:300}
+  .item-price{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);white-space:nowrap;flex-shrink:0;letter-spacing:.02em;text-align:right}
+  .item-price-sub{font-size:11.5px;color:var(--cream-mute);margin-top:2px;white-space:nowrap}
+  .item-badges{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap}
+  .badge{font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;padding:3px 7px;border-radius:2px}
+  .badge.neu{background:var(--terra);color:var(--cream)}
+  .badge.vegan{background:var(--olive);color:var(--cream)}
+  .badge.alkoholfrei{background:transparent;color:var(--gold);border:1px solid rgba(212,168,83,.38)}
+
+  /* pizza extras */
+  .extras-block{margin-top:40px;padding:28px 32px;border:1px solid var(--rule);background:rgba(245,240,232,.015)}
+  .extras-title{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .extras-row{display:flex;gap:20px;align-items:flex-start;margin-bottom:10px}
+  .extras-row:last-child{margin-bottom:0}
+  .extras-price{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);flex-shrink:0;width:60px}
+  .extras-items{font-size:12.5px;color:var(--cream-dim);line-height:1.6}
+
+  /* sub-categories */
+  .subcat-block{margin-bottom:52px}
+  .subcat-block:last-child{margin-bottom:0}
+  .subcat-name{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+
+  /* wine */
+  .wine-row{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .wine-row:last-child{border-bottom:0}
+  .wine-nr{font-size:11px;color:var(--gold);font-family:'Cormorant Garamond',serif;width:42px;flex-shrink:0;opacity:.65}
+  .wine-name-wrap{flex:1}
+  .wine-name{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:19px}
+  .wine-desc-small{font-size:12px;color:var(--cream-mute);display:block;margin-top:2px}
+  .wine-prices{text-align:right;flex-shrink:0;display:flex;flex-direction:column;gap:3px;align-items:flex-end}
+  .wine-p{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--cream);white-space:nowrap}
+  .wine-p .plabel{font-size:10px;letter-spacing:.12em;color:var(--cream-mute);font-family:'Outfit',sans-serif;margin-right:4px}
+
+  /* cocktail */
+  .cocktail-note{display:flex;gap:40px;padding:18px 24px;border:1px solid var(--rule);background:rgba(245,240,232,.015);margin-bottom:28px}
+  .cp-label{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:4px}
+  .cp-price{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--gold)}
+
+  /* eis */
+  .eis-sorten{margin-bottom:48px;padding:28px 32px;border:1px solid var(--rule);background:rgba(245,240,232,.015)}
+  .sorten-label{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:12px}
+  .sorten-pills{display:flex;flex-wrap:wrap;gap:8px}
+  .sorten-pill{font-size:12.5px;color:var(--cream-dim);padding:5px 12px;border:1px solid var(--rule);border-radius:2px}
+  .eis-subsection{margin-bottom:56px}
+  .eis-subsection:last-child{margin-bottom:0}
+  .eis-sub-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(28px,3vw,42px);margin-bottom:22px;color:var(--cream-dim)}
+  .kugeln-grid{display:grid;grid-template-columns:repeat(3,1fr);background:var(--rule);gap:1px}
+  .kugel-item{background:var(--ink);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .2s}
+  .kugel-item:hover{background:rgba(245,240,232,.02)}
+  .kugel-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400}
+  .kugel-desc{font-size:11.5px;color:var(--cream-mute);margin-top:2px}
+  .kugel-price{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);flex-shrink:0}
+
+  /* footer */
+  footer{border-top:1px solid var(--rule);padding:28px 44px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute)}
+  footer .brand{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:16px;color:var(--cream-dim)}
+  footer .center{display:flex;gap:24px}
+  footer a:hover{color:var(--cream)}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* responsive */
+  @media(max-width:980px){
+    nav.top{padding:18px 22px}
+    nav.top.scrolled{padding:12px 22px}
+    nav.top .links{display:none}
+    .page-hero{padding:120px 24px 70px}
+    .vline{display:none}
+    .specials-section{padding:60px 20px}
+    .specials-grid{grid-template-columns:repeat(2,1fr)}
+    .cat-nav-inner{padding:0 16px}
+    .menu-section{padding:60px 20px}
+    .items-grid{grid-template-columns:1fr}
+    .kugeln-grid{grid-template-columns:repeat(2,1fr)}
+    footer{flex-direction:column;gap:14px;text-align:center}
+  }
+  @media(max-width:540px){
+    .specials-grid{grid-template-columns:1fr}
+    .kugeln-grid{grid-template-columns:1fr}
+    .cocktail-note{flex-direction:column;gap:16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<nav class="top" id="nav">
+  <a href="index.html" class="logo">m<span class="accent">io</span></a>
+  <div class="links">
+    <a href="index.html#about">Über uns</a>
+    <a href="index.html#angebot">Angebot</a>
+    <a href="index.html#zeiten">Zeiten</a>
+    <a href="speisekarte.html" class="nav-active">Speisekarte</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <a class="btn terra" href="https://www.opentable.de/r/mio-restaurant-reservations-landau-in-der-pfalz?restref=194247" target="_blank" rel="noopener">Reservieren</a>
+</nav>
+
+<header class="page-hero">
+  <div class="bleeds">
+    <div class="bleed terra"></div>
+    <div class="bleed olive"></div>
+  </div>
+  <div class="vline l"></div>
+  <div class="vline r"></div>
+  <div class="page-hero-inner reveal">
+    <div class="eyebrow">bevi, mangia, ama</div>
+    <h1>Speise<span style="font-style:italic;color:var(--cream-dim)">karte</span></h1>
+    <p class="subtitle">Pizza · Pasta · Bar · Gelateria · Cafeteria</p>
+  </div>
+</header>
+
+<section class="specials-section">
+  <div class="container">
+    <div class="eyebrow reveal" style="text-align:center;margin-bottom:20px">Mio Speziale<span class="edot"></span>Mo – Do</div>
+    <div class="specials-grid reveal" id="specialsGrid"></div>
+    <p class="specials-note reveal">Hausgemachte Pasta sowie Pasta und Pizza der Empfehlungskarte sind ausgenommen. Gilt nur für Standardgerichte, nicht an Feiertagen.</p>
+  </div>
+</section>
+
+<div class="cat-nav" id="catNav">
+  <div class="cat-nav-inner" id="catNavInner"></div>
+</div>
+
+<main id="menuBody"></main>
+
+<footer>
+  <div class="brand">mio landau</div>
+  <div class="center">
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+  </div>
+  <div>© 2024 Mio Landau</div>
+</footer>
+
+<script>
+const MENU = {
+  tagesspecials: {
+    items: [
+      { tag: "Montag",     name: "Pasta e Basta",   aktion: "Alle Pastagerichte für 10 €", day: 1 },
+      { tag: "Dienstag",   name: "Ecco L'Insalata", aktion: "Alle Salate für 10 €",        day: 2 },
+      { tag: "Mittwoch",   name: "Pizza è Arte",     aktion: "Alle Pizzen für 10 €",        day: 3 },
+      { tag: "Donnerstag", name: "Cheers, Ragazzi",  aktion: "Jedes Spritzgetränk für 5 €", day: 4 }
+    ]
+  },
+  kategorien: [
+    {
+      id: "antipasti", name: "Antipasti", tabLabel: "Antipasti",
+      items: [
+        { nr:160, name:"Carpaccio di Manzo",         beschreibung:"Rindercarpaccio mit Rucola und Parmesanstreifen",                               preis:15.90 },
+        { nr:161, name:"Vitello Tonnato",             beschreibung:"Kalbsfleisch mit Thunfischsoße und Kapern",                                     preis:15.90 },
+        { nr:162, name:"Caprese",                     beschreibung:"Tomate-Mozzarella",                                                            preis:10.90 },
+        { nr:163, name:"Bruschetta Classica",         beschreibung:"Mit Tomatenwürfeln, Knoblauch und Zwiebeln",                                   preis:6.90  },
+        { nr:164, name:"Bruschetta Tartufo",          beschreibung:"Mit Trüffelcreme und Parmesan",                                                preis:8.50  },
+        { nr:165, name:"Bruschetta Crema di Avocado", beschreibung:"Mit Guacamole",                                                                preis:7.90  },
+        { nr:166, name:"Bruschetta Toscana",          beschreibung:"Mit Putenstreifen, roten Zwiebeln, Thymian und Balsamico",                     preis:8.90  },
+        { nr:167, name:"Bruschetta Tonnato",          beschreibung:"Mit Thunfischcreme, Kapern und getrockneten Tomaten",                          preis:7.90  },
+        { nr:168, name:"Antipasto Mio",               beschreibung:"Gemischter Vorspeisenteller",                             preis_person:15.00, preis_zwei:29.00 },
+        { nr:970, name:"Focaccia",                    beschreibung:"Inkl. 3 Dips: Tomate-Paprika, Trüffelmayo, Rote Beete",   preis:8.00,  neu:true },
+        { nr:971, name:"Rote Beete Carpaccio",        beschreibung:"Garniert mit Ziegenkäse und Babyspinat",                  preis:13.50, neu:true },
+        { nr:972, name:"Mozzarella di Bufala frita",  beschreibung:"Auf Tomatensugo",                                         preis:13.90, neu:true }
+      ]
+    },
+    {
+      id: "insalata", name: "Insalata", tabLabel: "Insalate",
+      hinweis: "Dressing zur Wahl: Balsamico, Joghurt, Honig-Senf, Feigen-Senf, Himbeer-Balsamico, Kräuter",
+      items: [
+        { nr:170, name:"Beilagensalat",      beschreibung:"Gemischter Salat",                                                                                preis:5.90  },
+        { nr:171, name:"Insalata Italia",    beschreibung:"Gemischter Salat mit Schinken- und Käsestreifen, Zwiebeln, Tomaten und Ei",                       preis:11.50 },
+        { nr:172, name:"Insalata Vegetaria", beschreibung:"Gemischter Salat mit gegrilltem Gemüse und Feta",                                                 preis:13.90 },
+        { nr:173, name:"Insalata Roma",      beschreibung:"Gemischter Salat mit gegrillten Hähnchenstreifen, Karotten, Tomaten, Gurken und Feta",            preis:15.50 },
+        { nr:174, name:"Caesar Salad",       beschreibung:"Gemischter Salat, Cherrytomaten, Parmesan, panierte Hähnchenstreifen, hausgemachtes Dressing",    preis:15.00, neu:true },
+        { nr:175, name:"Insalata Mio",       beschreibung:"Gemischter Salat mit Putenstreifen, Avocado, Mango und Parmesanstreifen",                         preis:16.50 },
+        { nr:176, name:"Insalata Paris",     beschreibung:"Gemischter Salat mit Birne, karamellisierten Walnüssen und Ziegenkäse",                           preis:15.50 },
+        { nr:177, name:"Insalata Contadina", beschreibung:"Gemischter Salat mit Thunfisch, Bohnen, Mais, Zwiebeln, Karotte, Tomate und Gurke",               preis:13.50 }
+      ]
+    },
+    {
+      id: "pizza", name: "Pizza Neapolitana", tabLabel: "Pizza",
+      hinweis: "Für diesen besonderen Pizzateig verwenden wir „00"-Mehl aus der Region Neapels, etwas Meersalz und Wasser. Der Teig ruht bis zu 72 Stunden.",
+      extras: {
+        "1,00": ["Salami","Schinken","Champignons","Paprika","Peperoni","Sardellen","Kapern","Parmesanstreifen","Fior di Latte Mozzarella","Mais","Artischocken","Zwiebeln"],
+        "1,50": ["Gorgonzola","Schafskäse","Thunfisch","Rucola","Spinat","Cherrytomaten"],
+        "3,50": ["Büffelmozzarella","Putenstreifen","Lachs"],
+        "5,00": ["Burrata"]
+      },
+      items: [
+        { nr:180, name:"Pizza Pane",               beschreibung:"Pizzabrot mit Tomatensoße und Oregano",                                                                  preis:6.50,  vegan:true },
+        { nr:181, name:"Pizza Pane Trapanese",     beschreibung:"Pizzabrot mit Tomatensoße, Tomaten, Rucola und Parmesanstreifen",                                        preis:11.50 },
+        { nr:182, name:"Pizza Margherita",         beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Basilikum",                                                       preis:10.90 },
+        { nr:183, name:"Pizza Margherita Bufalina",beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Büffelmozzarella, Basilikum",                                     preis:14.50 },
+        { nr:184, name:"Pizza Marinara",           beschreibung:"Tomatensoße, Knoblauch, Kapern, Tomaten, Oregano, Olivenöl",                                             preis:11.50, vegan:true },
+        { nr:185, name:"Pizza della Donna",        beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Salami, Zwiebeln, Knoblauch, Parmesanstreifen",                   preis:13.90 },
+        { nr:186, name:"Pizza Strapazzata",        beschreibung:"Tomatensoße, gezupfter Burrata, Basilikum-Pesto",                                                        preis:15.90 },
+        { nr:187, name:"Pizza Pesto",              beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Cherrytomaten, Rucola-Pesto, Parmesanstreifen",                   preis:14.50 },
+        { nr:188, name:"Pizza Mio",                beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Parmaschinken, Rucola, Parmesanstreifen",                        preis:15.90 },
+        { nr:189, name:"Pizza Capricciosa",        beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Oliven, Artischocken, Sardellen, Schinken, Champignons",         preis:14.90 },
+        { nr:190, name:"Pizza ai Formaggi",        beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Gorgonzola, Parmesan, Feta",                                     preis:14.50 },
+        { nr:191, name:"Pizza Quattro Stagioni",   beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Paprika, Schinken, Champignons, Artischocken",                   preis:14.90 },
+        { nr:192, name:"Pizza Classica",           beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Edelsalami",                                                     preis:12.50 },
+        { nr:193, name:"Pizza Tonno",              beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Thunfisch, Zwiebeln",                                             preis:13.90 },
+        { nr:194, name:"Pizza Verde",              beschreibung:"Basilikum-Pesto, Cherrytomaten, Parmesan, Büffelmozzarella",                                             preis:15.90 },
+        { nr:195, name:"Pizza Forest",             beschreibung:"Crème Fraîche, gemischte Pilze, Rucola",                                                                 preis:14.50 },
+        { nr:196, name:"Pizza Pablo",              beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Mais, Putenstreifen, Guacamole",                                  preis:15.90 },
+        { nr:197, name:"Pizza Al Capone",          beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Paprikasalami, Zwiebeln, Peperoni, Feta",                        preis:14.90 },
+        { nr:198, name:"Pizza Diavola",            beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Peperoni, Paprika, Salami, Chilliöl – pikant",                   preis:14.50 },
+        { nr:199, name:"Pizza Frutti di Mare",     beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Meeresfrüchte, Sardellen, Lachs",                                preis:15.90 },
+        { nr:200, name:"Pizza Verdure",            beschreibung:"Tomatensoße, Fior di Latte Mozzarella, gemischtes Gemüse der Saison",                                   preis:14.90 },
+        { nr:201, name:"Pizza Salmone",            beschreibung:"Crème Fraîche, Fior di Latte Mozzarella, Lachs, Spinat",                                                preis:15.50 },
+        { nr:202, name:"Pizza Burrata",            beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Burrata, Cherrytomaten, Guacamole",                              preis:16.50 },
+        { nr:203, name:"Pizza Palermitana",        beschreibung:"Tomatensoße, Fior di Latte Mozzarella, Aubergine, Oliven, Knoblauch, Basilikum",                        preis:13.90 },
+        { nr:204, name:"Pizza Tartufo",            beschreibung:"Trüffelcreme, Mozzarella, Parmaschinken, Büffelmozzarella, Parmesancreme",                              preis:18.90, neu:true },
+        { nr:205, name:"Pizza Bud Spencer",        beschreibung:"Tomatensoße, Rinderhackfleisch (Bolognese), geriebener Parmesan",                                       preis:15.50, neu:true },
+        { nr:207, name:"Pizza Viola",              beschreibung:"Rote Beete Creme, Babyspinat, geriebener Schafskäse",                                                   preis:13.90, neu:true },
+        { nr:206, name:"Pizza Dolce Vita",         beschreibung:"Nutella, Pistaziensoße, weiße Schokoladenraspeln, bunte Streusel",                                      preis:10.00, neu:true }
+      ]
+    },
+    {
+      id: "pasta", name: "Pasta", tabLabel: "Pasta",
+      hinweis: "Jedes Pastagericht (hausgemacht ausgenommen) kann wahlweise auch mit Vollkorn- oder glutenfreier Pasta bestellt werden.",
+      items: [
+        { nr:230, name:"Spaghetti Aglio e Olio",     beschreibung:"Mit Knoblauch und Olivenöl, scharf (con Peperoncino)",                          preis:11.50 },
+        { nr:231, name:"Spaghetti Carbonara",         beschreibung:"Mit Ei, geräuchertem Speck, Pecorino und Parmesan",                             preis:13.90 },
+        { nr:232, name:"Gnocchi ai Formaggi",         beschreibung:"In einer Käsesoße",                                                              preis:13.50 },
+        { nr:233, name:"Mezze Maniche Bolognese",     beschreibung:"Kleine Rigatoni mit Rinderbolognese",                                            preis:13.90, neu:true },
+        { nr:234, name:"Penne Pesto",                 beschreibung:"Mit frittierten Zucchini, Tomaten, Rucola-Pesto und Scarmorzakäse",              preis:14.90 },
+        { nr:235, name:"Penne Amatriciana",           beschreibung:"Mit Speck, Zwiebeln in einer Tomatensoße",                                       preis:13.90 },
+        { nr:236, name:"Penne Arrabiata",             beschreibung:"In einer scharfen Tomatensoße",                                                  preis:11.90 },
+        { nr:237, name:"Penne Taverna",               beschreibung:"Mit Putenstreifen, Gemüse, Knoblauch, in scharfer Tomatensoße",                  preis:15.90 },
+        { nr:238, name:"Penne Piku Pacchio",          beschreibung:"Mit frischen Tomaten, Knoblauch und Basilikum",                                  preis:11.90 },
+        { nr:239, name:"Tagliatelle Mio",             beschreibung:"Spinatnudeln mit Salsiccia in einer Pilzcreme",                                  preis:16.50 },
+        { nr:240, name:"Tagliatelle Mari e Fumi",     beschreibung:"Mit Lachs, Shrimps in einer Tomaten-Weißweinsoße",                               preis:15.90 },
+        { nr:242, name:"Spaghetti della Casa",        beschreibung:"Mit Shrimps, Cherrytomaten, Rucola, einer Riesengarnele in Tomaten-Weißwein-Soße", preis:16.90 },
+        { nr:243, name:"Strozzapreti ai Pistacchio",  beschreibung:"In Pistaziencreme und geräuchertem Speck",                                       preis:16.90 },
+        { nr:244, name:"Orecchiette Brokkoli",        beschreibung:"Mit Brokkoli und Tomaten",                                                        preis:13.90 },
+        { nr:245, name:"Fusilli Tonno",               beschreibung:"Mit Thunfisch, Kapern und schwarzen Oliven",                                     preis:14.50 }
+      ]
+    },
+    {
+      id: "pasta_della_casa", name: "Pasta della Casa", tabLabel: "Pasta d.C.",
+      hinweis: "Hausgemachte Teigwaren",
+      items: [
+        { nr:246, name:"Tortelloni Nocciola",       beschreibung:"Gefüllt mit Ricotta, Artischocken – in Nusssoße",                                preis:17.50 },
+        { nr:247, name:"Gnocchi con Tartufo",       beschreibung:"Gefüllt mit Trüffel – in Salbeibutter und Parmesanstreifen",                     preis:18.90 },
+        { nr:248, name:"Ravioli Ricotta e Spinaci", beschreibung:"Gefüllt mit Ricotta und Spinat – in cremiger Käse- und Gorgonzolasoße",          preis:16.90, neu:true },
+        { nr:249, name:"Ravioli Porcini",           beschreibung:"Gefüllt mit Steinpilzen – in Chefsoße",                                          preis:17.90, neu:true }
+      ]
+    },
+    {
+      id: "dolce", name: "Dolce", tabLabel: "Dolce",
+      items: [
+        { nr:376, name:"Tiramisu",              preis:6.50 },
+        { nr:377, name:"Panna Cotta",           preis:6.50 },
+        { nr:378, name:"Apfelstrudel",          preis:6.90 },
+        { nr:379, name:"Apfelstrudel Deluxe",   beschreibung:"Mit Sahne, einer Kugel Vanilleeis und Zimt",                                                  preis:7.50 },
+        { nr:380, name:"Schokotörtchen Mio",    beschreibung:"Mit flüssigem Schokokern, Pistaziensoße, Pistazienstreuseln und einer Kugel Vanilleeis",      preis:9.50 },
+        { nr:381, name:"Strizzi",               beschreibung:"Frittierte Pizzastreifen, Nutella, Pistaziensoße, Puderzucker und bunte Streusel",            preis:12.00, neu:true }
+      ]
+    },
+    {
+      id: "heisse_getraenke", name: "Heiße Getränke", tabLabel: "Heiße Getr.",
+      hinweis: "Alle Milchgetränke auf Wunsch auch mit Sojamilch oder laktosefreier Milch (+0,50 €).",
+      items: [
+        { nr:1,  name:"Tasse Kaffee",                    preis:3.00 },
+        { nr:2,  name:"Tasse Kaffee koffeinfrei",        preis:3.00 },
+        { nr:3,  name:"Große Tasse Kaffee",              preis:4.50 },
+        { nr:4,  name:"Espresso",                        preis:2.50 },
+        { nr:5,  name:"Espresso koffeinfrei",            preis:2.50 },
+        { nr:6,  name:"Espresso Macchiato",              preis:2.80 },
+        { nr:7,  name:"Espresso Corretto",               beschreibung:"Mit Grappa oder Sambuca",                             preis:4.50 },
+        { nr:8,  name:"Doppio Espresso",                 preis:4.50 },
+        { nr:9,  name:"Cappuccino",                      preis:3.50 },
+        { nr:10, name:"Milchkaffee",                     preis:3.80 },
+        { nr:11, name:"Latte Macchiato",                 preis:4.20 },
+        { nr:12, name:"Latte Macchiato con Gusto",       beschreibung:"Nutella, Nuss, Vanille, Karamell oder Zimt",          preis:4.70 },
+        { nr:13, name:"Latte Macchiato con Baileys",     preis:5.50 },
+        { nr:14, name:"Chai Latte",                      preis:4.50 },
+        { nr:15, name:"Heiße Zitrone",                   preis:3.90 },
+        { nr:16, name:"Heißer Apfel",                    beschreibung:"Mit Zimt oder Holunderblüten",                       preis:4.00 },
+        { nr:17, name:"Tee KEO",                         beschreibung:"Schwarzer, Grüner, Früchte-, Kamille- oder Pfefferminztee", preis:3.80 },
+        { nr:18, name:"Heiße Schokolade",                beschreibung:"Weiße oder dunkle Schokolade",                       preis:4.00 },
+        { nr:19, name:"Heiße Schokolade mit Sahnekrone", beschreibung:"Weiße oder dunkle Schokolade",                       preis:4.50 },
+        { nr:20, name:"Affogato",                        beschreibung:"Espresso mit Vanilleeis und Sahnekrone",              preis:5.50 },
+        { nr:21, name:"Marocchino",                      beschreibung:"Dickflüssige dunkle Schokolade mit Espresso und Milchschaum", preis:5.00 },
+        { nr:22, name:"Moccachino",                      beschreibung:"Dickflüssige weiße Schokolade mit Espresso und Milchschaum",  preis:5.00 },
+        { nr:23, name:"Espresso Toffee",                 beschreibung:"Mit Vanilleeis, Karamellsirup und Karamellsoße, Sahnekrone",  preis:6.00 },
+        { nr:24, name:"Nocciolino",                      beschreibung:"Nusseis mit Espresso, Schokosoße, Sahnekrone, Nussstreusel",  preis:6.00 }
+      ]
+    },
+    {
+      id: "softdrinks", name: "Softdrinks & Säfte", tabLabel: "Softdrinks",
+      items: [
+        { nr:30,  name:"Mio Table Water 0,35 l",      beschreibung:"Still oder Sprudel",                                                             preis:3.00 },
+        { nr:31,  name:"Mio Table Water 0,7 l",       beschreibung:"Still oder Sprudel",                                                             preis:5.00 },
+        { nr:32,  name:"CocaCola / Light / Zero",     beschreibung:"0,2 l – auch Mezzo Mix, Fanta, Sprite",                                          preis:3.00 },
+        { nr:33,  name:"Orangina / Rouge",             beschreibung:"0,25 l",                                                                        preis:3.50 },
+        { nr:34,  name:"Thomas Henry 0,2 l",          beschreibung:"Bitter Lemon, Ginger Ale oder Tonic Water",                                      preis:3.50 },
+        { nr:35,  name:"Sanbitter 0,1 l",             preis:3.00 },
+        { nr:36,  name:"Crodino 0,1 l",               preis:4.00 },
+        { nr:37,  name:"Red Bull 0,25 l",             preis:3.90 },
+        { nr:38,  name:"Hausgemachte Limonade 0,5 l", beschreibung:"Granatapfel, Brombeere, Melone, Holunder, Heidelbeere oder Basilikum",            preis:5.00 },
+        { nr:39,  name:"Elephant Bay Eistee 0,33 l",  beschreibung:"Pfirsich, Granatapfel oder Zitrone",                                             preis:3.90 },
+        { nr:42,  name:"Granini Fruchtsaft 0,2 l",    beschreibung:"Multivitamin, Orange oder Apfel",                                                preis:3.20 },
+        { nr:43,  name:"Granini Saftschorle 0,33 l",  beschreibung:"Bio Apfel, schwarze Johannisbeere, Rhabarber, Maracuja, Kirsche",                preis:3.90 }
+      ]
+    },
+    {
+      id: "bier", name: "Bier", tabLabel: "Bier",
+      items: [
+        { nr:45,  name:"Hoepfner Pils vom Fass 0,3 l",       preis:4.00 },
+        { nr:450, name:"Hoepfner Pils vom Fass 0,5 l",       preis:5.00 },
+        { nr:46,  name:"Hoepfner Weizen vom Fass 0,3 l",     preis:4.00 },
+        { nr:460, name:"Hoepfner Weizen vom Fass 0,5 l",     preis:5.00 },
+        { nr:47,  name:"Hoepfner Radler 0,3 l",              preis:4.00 },
+        { nr:48,  name:"Hoepfner Radler 0,5 l",              preis:5.00 },
+        { nr:49,  name:"Hoepfner Cola-Weizen 0,5 l",         preis:5.00 },
+        { nr:50,  name:"Hoepfner Weizenradler 0,5 l",        preis:5.00 },
+        { nr:51,  name:"Hoepfner Pils alkoholfrei 0,3 l",    preis:4.00 },
+        { nr:52,  name:"Hoepfner Weizen alkoholfrei 0,5 l",  preis:5.00 }
+      ]
+    },
+    {
+      id: "wein", name: "Wein", tabLabel: "Wein",
+      unterkategorien: [
+        { name:"Weißwein – Karl Pfaffmann Walsheim", items:[
+          { nr:55, name:"Riesling trocken",   p25:6.00, p75:18.00 },
+          { nr:56, name:"Weißburgunder",      p25:6.50, p75:19.50 },
+          { nr:57, name:"Grauburgunder",      p25:6.50, p75:19.50 },
+          { nr:58, name:"Sauvignon Blanc",    p25:6.90, p75:20.70 },
+          { nr:59, name:"Blanc de Noir",      p25:6.90, p75:20.70 },
+          { nr:60, name:"Gelber Muskateller", p25:6.90, p75:20.70 }
+        ]},
+        { name:"Weißwein Italiano", items:[
+          { nr:63, name:"Grillo (Sizilien)",        p25:6.90, p75:20.70 },
+          { nr:64, name:"Lugana (Gardasee)",        p25:7.90, p75:23.70 },
+          { nr:65, name:"Pinot Grigio (Norditalien)",p25:6.90, p75:20.70 }
+        ]},
+        { name:"Rosé", items:[
+          { nr:68, name:"PINK Vineyard trocken",   p25:6.50, p75:19.50 },
+          { nr:69, name:"Rosé del Sole (Italien)", p25:5.50 },
+          { nr:70, name:"Bardolino Chiaretto",     p25:6.00 }
+        ]},
+        { name:"Rotwein – Karl Pfaffmann Walsheim", items:[
+          { nr:73, name:"Spätburgunder",                                                          p25:6.50, p75:19.50 },
+          { nr:74, name:"RED Vineyard", beschreibung:"Cuvée aus Dornfelder, Merlot, Pinot Noir", p25:6.90, p75:20.70 }
+        ]},
+        { name:"Rotwein Italiano", items:[
+          { nr:75, name:"Lunate (Sizilien)",          p25:6.50 },
+          { nr:76, name:"Primitivo (Apulien)",        p25:7.50 },
+          { nr:77, name:"Valpolicella (Soave)",       p25:7.00 },
+          { nr:78, name:"Lambrusco (Emilia Romagna)", p25:6.00 }
+        ]},
+        { name:"Weinschorle", items:[
+          { nr:79,   name:"Riesling oder Weißherbst 0,25 l", preis:4.00 },
+          { nr:1079, name:"Riesling oder Weißherbst 0,5 l",  preis:5.50 }
+        ]}
+      ]
+    },
+    {
+      id: "aperitivo", name: "Aperitivo", tabLabel: "Aperitivo",
+      items: [
+        { nr:80,  name:"Prosecco Mionetto 0,1 l",               preis:4.50 },
+        { nr:81,  name:"Prosecco Mionetto auf Eis 0,2 l",       preis:6.50 },
+        { nr:82,  name:"Prosecco Mionetto Gran Rosé 0,1 l",     preis:5.50 },
+        { nr:83,  name:"Prosecco Gran Rosé auf Eis 0,2 l",      preis:7.50 },
+        { nr:84,  name:"Prosecco Mionetto Black Label 0,75 l",  preis:29.00 },
+        { nr:85,  name:"Prosecco Mionetto Gran Rosé 0,75 l",    preis:35.00 },
+        { nr:86,  name:"Himbeer-Secco 0,2 l",                   beschreibung:"Himbeersirup, Himbeeren, Prosecco",                          preis:6.50 },
+        { nr:87,  name:"Mango-Secco 0,2 l",                     beschreibung:"Mangopüree, Prosecco, Minze",                                preis:6.50 },
+        { nr:88,  name:"Aperol-Secco 0,2 l",                    beschreibung:"Aperol, Secco",                                              preis:6.50 },
+        { nr:89,  name:"Apfel-Brombeer-Spritz 0,2 l",           beschreibung:"Brombeerlikör, Apfellikör, Limette, Minze, Prosecco, Soda",  preis:7.00 },
+        { nr:90,  name:"Hugo Mio 0,2 l",                        beschreibung:"Prosecco, Holunderblütensirup, Zitronenlimo, Erdbeeren",     preis:7.00 },
+        { nr:91,  name:"Hugo 0,2 l",                            beschreibung:"Prosecco, Holunderblütensirup, Soda, Limette",               preis:7.00 },
+        { nr:92,  name:"Aperol Spritz 0,2 l",                   beschreibung:"Aperol, Prosecco, Soda, Orange",                             preis:7.00 },
+        { nr:93,  name:"Limoncello Spritz 0,2 l",               beschreibung:"Limoncello, Zitrone, Minze, Prosecco, Soda",                 preis:7.00 },
+        { nr:933, name:"White Peach Spritz 0,2 l",              beschreibung:"Prosecco, Schweppes White Peach, Soda",                      preis:7.00 },
+        { nr:94,  name:"Lillet Wild Berry 0,2 l",               beschreibung:"Lillet, Russian Wild Berry, Waldbeeren, Minze",              preis:7.00 },
+        { nr:944, name:"Lillet White Peach 0,2 l",              beschreibung:"Lillet Rosé, Schweppes White Peach",                         preis:7.00 },
+        { nr:95,  name:"Lillet Vive 0,2 l",                     beschreibung:"Lillet, Tonic Water, Gurke, Minze",                          preis:7.00 },
+        { nr:96,  name:"Ramazotti Rosato Mio 0,2 l",            beschreibung:"Ramazotti Rosato, Prosecco, Basilikum, Soda",                preis:7.00 },
+        { nr:97,  name:"Mio Spritz 0,2 l",                      beschreibung:"Selbstgemachter Basilikumsirup, Prosecco, Soda",             preis:7.00 },
+        { nr:98,  name:"Heidelbeer-Mandarinen-Spritz 0,2 l",    beschreibung:"Madarinensaft, Heidelbeersirup, Limette, Minze, Soda",       preis:6.50, alkoholfrei:true },
+        { nr:99,  name:"Maracuja-Brombeer-Spritz 0,2 l",        beschreibung:"Maracujasaft, Brombeersirup, Limette, Minze, Soda",          preis:6.50, alkoholfrei:true }
+      ]
+    },
+    {
+      id: "longdrinks", name: "Longdrinks & Spirituosen", tabLabel: "Longdrinks",
+      unterkategorien: [
+        { name:"Longdrinks", items:[
+          { nr:100, name:"Campari Soda / Orange / Tonic 0,2 l",              preis:6.00 },
+          { nr:101, name:"Gin Tonic 0,2 l",                                  beschreibung:"Bombay Sapphire, Thomas Henry",                                  preis:7.00 },
+          { nr:102, name:"Gin Tonic Exklusiv 0,2 l",                         beschreibung:"Hendrick's, Gin Sul, Monkey 47, Gin Mare – wahlweise Fever-Tree / Thomas Henry / Aqua Monaco", preis:9.00 },
+          { nr:103, name:"Wodka Lemon / Soda / Orange / Cranberry / Red Bull 0,2 l", preis:7.00 },
+          { nr:104, name:"Whiskey Cola / Soda 0,2 l",                        preis:7.00 },
+          { nr:105, name:"Havanna Cola 0,2 l",                               preis:7.00 },
+          { nr:106, name:"Bacardi Cola 0,2 l",                               preis:7.00 },
+          { nr:107, name:"Batida Kirsch 0,2 l",                              preis:7.00 }
+        ]},
+        { name:"Spirituosen", items:[
+          { nr:110, name:"Wodka",                 menge:"2 cl", preis:3.50 },
+          { nr:111, name:"Whiskey",               menge:"4 cl", preis:4.00 },
+          { nr:112, name:"Fernet",                menge:"4 cl", preis:4.00 },
+          { nr:113, name:"Amaro Averna",          menge:"4 cl", preis:4.00 },
+          { nr:114, name:"Ramazotti",             menge:"4 cl", preis:4.00 },
+          { nr:115, name:"Sambuca",               menge:"2 cl", preis:4.00 },
+          { nr:116, name:"Limoncello",            menge:"4 cl", preis:4.00 },
+          { nr:117, name:"Amaretto",              menge:"4 cl", preis:4.00 },
+          { nr:118, name:"Baileys",               menge:"4 cl", preis:4.00 },
+          { nr:119, name:"Willy",                 menge:"4 cl", preis:3.50 },
+          { nr:120, name:"Grappa",                menge:"2 cl", preis:4.00 },
+          { nr:121, name:"Martini Bianco/Rosso",  menge:"4 cl", preis:4.00 },
+          { nr:122, name:"Erdbeerlimes",          menge:"4 cl", preis:3.50 },
+          { nr:123, name:"Berliner Luft",         menge:"4 cl", preis:3.00 },
+          { nr:124, name:"Rum Ron Barcelo Imperial", menge:"4 cl", preis:4.50 }
+        ]}
+      ]
+    },
+    {
+      id: "cocktails", name: "Cocktails", tabLabel: "Cocktails",
+      preis_standard: 8.50, preis_alkoholfrei: 6.50,
+      items: [
+        { nr:125, name:"Sex on the Beach",     beschreibung:"Wodka, Ananassaft, Cranberrysirup, Orangensaft, Aprikosenlikör" },
+        { nr:126, name:"Mojito",               beschreibung:"Weißer Rum, Limette, Rohrzucker, Minze, Soda" },
+        { nr:127, name:"Erdbeermojito",        beschreibung:"Weißer Rum, Erdbeerpüree, Minze, Soda" },
+        { nr:128, name:"Caipirinha",           beschreibung:"Cachaca, Limette, Rohrzucker, Limettensaft" },
+        { nr:129, name:"Amaretto Sour",        beschreibung:"Amaretto, Zitronensaft, Bourbon, Zuckersirup, Eiweiß" },
+        { nr:130, name:"Moscow Mule",          beschreibung:"Wodka, Ginger Beer, Limettensaft, Gurke" },
+        { nr:131, name:"Daiquiri",             beschreibung:"Klassik / Erdbeer / Mango – Rum, Limettensaft, Zuckerrohrsirup" },
+        { nr:132, name:"Cosmopolitan",         beschreibung:"Wodka, Limettensaft, Triple Sec, Cranberrysaft" },
+        { nr:133, name:"Swimmingpool",         beschreibung:"Wodka, weißer Rum, Sahne, Ananassaft, Blue Curacao, Batida de Coco" },
+        { nr:134, name:"Margarita",            beschreibung:"Limettensaft, Orangenlikör, Tequila, Salzrand" },
+        { nr:135, name:"Pina Colada",          beschreibung:"Weißer und dunkler Rum, Kokossirup, Sahne, Ananassaft, Blue Curacao" },
+        { nr:136, name:"Tequila Sunrise",      beschreibung:"Tequila, Zitronensaft, Orangensaft, Grenadine" },
+        { nr:137, name:"Long Island Iced Tea", beschreibung:"Wodka, weißer Rum, Gin, Triple Sec, Zuckerrohrsirup, Zitronensaft, Cola" },
+        { nr:138, name:"Mai Tai",              beschreibung:"Brauner Rum, Orangenlikör, Zuckerrohrsirup, Mandelsirup, Ananassaft, Limette" },
+        { nr:139, name:"Espresso Martini",     beschreibung:"Wodka, Kaffeelikör, Espresso" },
+        { nr:140, name:"Mio Spezial",          beschreibung:"Gin, Brombeerlikör, Brombeersirup, Vanille, Limejuice, Zitronensaft" },
+        { nr:142, name:"Virgin Mojito",        beschreibung:"Soda, Limette, Rohrzucker, Zitronenlimonade",                alkoholfrei:true },
+        { nr:143, name:"No Sex on the Beach",  beschreibung:"Ananassaft, Orangensaft, Cranberrysaft",                     alkoholfrei:true },
+        { nr:144, name:"Virgin Daiquiri",      beschreibung:"Erdbeere / Mango – Soda, Limettensaft, Zuckerrohrsirup",     alkoholfrei:true },
+        { nr:145, name:"Fruit Punch",          beschreibung:"Orangensaft, Maracujasaft, Mandarinensaft, Johannisbeersaft", alkoholfrei:true },
+        { nr:146, name:"Cherry-Coconut",       beschreibung:"Kirschsaft, Kokossirup, Sahne",                              alkoholfrei:true }
+      ]
+    },
+    {
+      id: "shakes_icedrinks", name: "Shakes & Ice Drinks", tabLabel: "Shakes",
+      items: [
+        { nr:356, name:"Milchshake nach Wahl 0,3 l",   preis:4.00 },
+        { nr:357, name:"Milchshake nach Wahl 0,5 l",   preis:5.50 },
+        { nr:358, name:"Joghurtshake nach Wahl 0,3 l", preis:4.50 },
+        { nr:359, name:"Joghurtshake nach Wahl 0,5 l", preis:6.00 },
+        { nr:360, name:"Sahne zum Mixgetränk",          preis:1.30 },
+        { nr:366, name:"Eiscafé",                       preis:6.90 },
+        { nr:367, name:"Eiscafé mit Baileys",           preis:8.50 },
+        { nr:368, name:"Eisschokolade",                 preis:6.90 },
+        { nr:369, name:"Zitroneneis mit Prosecco",      preis:10.00 },
+        { nr:370, name:"Vanilleeis mit Orange",         preis:8.00 }
+      ]
+    },
+    {
+      id: "eis", name: "Eis", tabLabel: "Eis",
+      hinweis: "Italienisches Eis aus der Manufaktur La Piazza in Edenkoben an der Südlichen Weinstraße. Saisonal bedingt kann die Auswahl variieren.",
+      sorten: {
+        milcheis: ["Vanille","Schoko","Nuss","Mokka","Stracciatella","Cookies","Walnuss","Joghurt-Pfirsich-Orange","Rocher","Salziges Karamell","Nutella","Malaga","Kokos","Sahne-Kirsch","Pistazie","Bubble Gum","Joghurt"],
+        fruchteis: ["Melone","Banane","Himbeere","Erdbeere","Zitrone","Mango","Ananas"]
+      },
+      kugeln: [
+        { nr:250, name:"Bambini",          beschreibung:"1 große Kugel",  preis:1.70 },
+        { nr:251, name:"Piccola",          beschreibung:"2 große Kugeln", preis:3.40 },
+        { nr:252, name:"Media",            beschreibung:"3 große Kugeln", preis:5.10 },
+        { nr:253, name:"Grande",           beschreibung:"4 große Kugeln", preis:6.50 },
+        { nr:254, name:"XXL",              beschreibung:"5 große Kugeln", preis:8.50 },
+        { nr:255, name:"Jede weitere Kugel",               preis:1.70 }
+      ],
+      extras_eis: [
+        { nr:256, name:"Portion Sahne",    preis:1.30 },
+        { nr:257, name:"Portion Streusel", preis:1.30 },
+        { nr:258, name:"Portion Soße",     preis:1.10 },
+        { nr:259, name:"Portion Likör",    preis:1.50 }
+      ],
+      eisbecher: [
+        { nr:264, name:"Coppa Felicita",       beschreibung:"Gemischtes Eis, frische Erdbeeren, Melonen, Sahnekrone, Erdbeersoße",                  preis:11.50 },
+        { nr:265, name:"Coppa Italia",         beschreibung:"Gemischtes Eis, frische Erdbeeren, Bananen, Kiwis, Sahnekrone, Tricolore",             preis:12.90 },
+        { nr:267, name:"Ananasbecher",         beschreibung:"Gemischtes Fruchteis, frische Ananas, Sahnekrone, Ananassoße",                          preis:11.50 },
+        { nr:268, name:"Kiwibecher",           beschreibung:"Gemischtes Fruchteis, Kiwi-Ring, Kiwisoße, Sahnekrone",                                preis:11.50 },
+        { nr:269, name:"Melonenbecher",        beschreibung:"Gemischtes Fruchteis, frische Melone, Sahnekrone, Melonensoße",                        preis:11.50 },
+        { nr:270, name:"Mangobecher",          beschreibung:"Gemischtes Fruchteis, frische Mango, Sahnekrone, Mangosoße",                           preis:11.50 },
+        { nr:271, name:"Himbeerbecher",        beschreibung:"Gemischtes Fruchteis, frische Himbeeren, Sahnekrone, Himbeersoße",                     preis:11.50 },
+        { nr:272, name:"Fruchtbecher",         beschreibung:"Gemischtes Fruchteis, frische Früchte, Sahnekrone, Amarenasoße",                       preis:11.50 },
+        { nr:273, name:"Coppa Frutti di Bosco",beschreibung:"Gemischtes Fruchteis, frische Waldbeeren, Sahnekrone, Waldbeersoße",                   preis:12.00 },
+        { nr:274, name:"Coppa Fondente",       beschreibung:"Gemischtes Milcheis, frische Früchte, Sahnekrone mit warmer Schokosoße",               preis:12.90 },
+        { nr:275, name:"Coppa Bonito",         beschreibung:"Gemischtes Milcheis, frische Bananen, Sahnekrone, Schoko- und Bananensoße",            preis:11.50 },
+        { nr:276, name:"Erdbeerbecher",        beschreibung:"Vanille- und Erdbeereis, frische Erdbeeren, Sahnekrone, Erdbeersoße",                  preis:11.50 },
+        { nr:279, name:"Joghurt Erdbeeren",    beschreibung:"Joghurteis und frischer Joghurt mit Erdbeeren",                                        preis:11.50 },
+        { nr:280, name:"Joghurt Bananen",      beschreibung:"Joghurteis und frischer Joghurt mit Bananen",                                          preis:11.50 },
+        { nr:281, name:"Joghurt Kiwi",         beschreibung:"Joghurteis und frischer Joghurt mit Kiwi",                                             preis:11.50 },
+        { nr:282, name:"Joghurt Ananas",       beschreibung:"Joghurteis und frischer Joghurt mit Ananas",                                           preis:11.50 },
+        { nr:283, name:"Joghurt Waldbeeren",   beschreibung:"Joghurteis und frischer Joghurt mit Waldbeeren",                                       preis:11.50 },
+        { nr:284, name:"Joghurt Mango",        beschreibung:"Joghurteis und frischer Joghurt mit Mango",                                            preis:11.50 },
+        { nr:285, name:"Joghurt Heidelbeeren", beschreibung:"Joghurteis und frischer Joghurt mit Heidelbeeren",                                     preis:11.50 },
+        { nr:286, name:"Joghurt Himbeeren",    beschreibung:"Joghurteis und frischer Joghurt mit Himbeeren",                                        preis:11.50 },
+        { nr:287, name:"Joghurt Melone",       beschreibung:"Joghurteis und frischer Joghurt mit Melone",                                           preis:11.50 },
+        { nr:288, name:"Müsli",                                                                                                                      preis:9.90  },
+        { nr:289, name:"Coppa Joghurt Spezial",beschreibung:"Joghurteis, frisches Obst, Sahnekrone, Waldbeersoße",                                  preis:13.00 },
+        { nr:293, name:"Haselnussbecher",      beschreibung:"Gemischtes Milcheis, Sahne, Nusssoße, Nusslikör, Haselnüsse",                          preis:11.50 },
+        { nr:294, name:"Walnussbecher",        beschreibung:"Gemischtes Milcheis, Sahne, Nusssoße, Nusslikör, Walnüsse",                            preis:11.50 },
+        { nr:295, name:"Coppa Nocciolissima",  beschreibung:"Gemischtes Milcheis, Sahne, Haselnusssoße, verschiedene Nüsse, Nusslikör",             preis:12.00 },
+        { nr:296, name:"Coppa Pistacchio",     beschreibung:"Gemischtes Milcheis, Sahne, Pistaziensoße, Pistazien",                                 preis:12.00 },
+        { nr:299, name:"Bananensplit",         beschreibung:"Gemischtes Milcheis, frische Bananen, Amarena-, Bananen- und Schokosoße, Sahnekrone",  preis:11.50 },
+        { nr:300, name:"Cookies",              beschreibung:"Cookieseis, Sahnekrone, Cookies, Schokosoße",                                          preis:11.00 },
+        { nr:301, name:"Obstsalat",            beschreibung:"Mit frischen Früchten",                                                                preis:10.00 },
+        { nr:302, name:"Obstsalat mit Zitroneneis", beschreibung:"Mit frischen Früchten und einer Kugel Zitroneneis",                               preis:10.50 },
+        { nr:305, name:"Spaghetti Classico",   beschreibung:"Vanilleeis, Sahne, frische Erdbeersoße, Kokosraspeln",                                 preis:8.00  },
+        { nr:306, name:"Spaghetti Vanille",    beschreibung:"Vanilleeis, Sahne, Vanillesoße, weiße Schokoraspeln",                                  preis:9.00  },
+        { nr:307, name:"Spaghetti Carbonara",  beschreibung:"Vanilleeis, Sahne, Krokantstreusel, Nüsse, Eierlikör",                                 preis:11.00 },
+        { nr:308, name:"Super Spaghetti Eis",  beschreibung:"Vanilleeis, Sahne, frische Erdbeersoße, weiße Schokoraspeln, Waldfrüchte",             preis:12.00 },
+        { nr:309, name:"Spaghetti Erdbeere",   beschreibung:"Vanilleeis, Sahne, frische Erdbeeren, Erdbeersoße, Kokosraspeln",                      preis:11.00 },
+        { nr:310, name:"Spaghetti Kiwi",       beschreibung:"Vanilleeis, Sahne, Kiwi, Kiwisoße, weiße Schokoraspeln",                              preis:11.00 },
+        { nr:311, name:"Spaghetti Joghurt",    beschreibung:"Joghurteis, Sahne, frischer Joghurt, Erdbeersoße, weiße Schokoraspeln",                preis:11.00 },
+        { nr:312, name:"Spaghetti Bonito",     beschreibung:"Vanilleeis, Sahne, Bananenscheiben, Schokosoße, weiße Schokoraspeln",                  preis:11.00 },
+        { nr:313, name:"Spaghetti Mio",        beschreibung:"Vanilleeis auf Sahne und Obstbeet, frische Früchte, Erdbeersoße, weiße Schokoraspeln", preis:12.50 },
+        { nr:319, name:"Baileysbecher",        beschreibung:"Gemischtes Milcheis, Sahne, Baileys, Kakaopulver",                                     preis:11.50 },
+        { nr:320, name:"Coppa Batida de Coco", beschreibung:"Gemischtes Milcheis, Sahne, Kokossoße, Kokosraspeln, Kokoslikör",                      preis:11.50 },
+        { nr:321, name:"Schwarzwaldbecher",    beschreibung:"Gemischtes Milcheis, Sahne, Schoko- und Amarenasoße, Schokoraspeln, Kirschwasser, Schattenmorellen", preis:11.50 },
+        { nr:322, name:"Coppa Malaga",         beschreibung:"Gemischtes Milcheis, Sahne, Rosinen, Likör, Vanillesoße",                              preis:11.50 },
+        { nr:323, name:"Eierlikörbecher",      beschreibung:"Gemischtes Milcheis, Sahne, Eierlikör, Schokosoße, Schokoraspeln",                     preis:11.50 },
+        { nr:324, name:"Amarettobecher",       beschreibung:"Gemischtes Milcheis, Sahne, Amarettosoße und -likör, Amarettini",                       preis:11.50 },
+        { nr:329, name:"Heißer Himbeerbecher", beschreibung:"Vanilleeis, Sahnekrone, heiße Himbeeren, Himbeersoße",                                 preis:11.00 },
+        { nr:330, name:"Heißer Schokobecher",  beschreibung:"Vanilleeis, Sahnekrone, heiße Schokolade",                                             preis:11.00 },
+        { nr:331, name:"Heißer Kirschbecher",  beschreibung:"Vanilleeis, Sahnekrone, heiße Kirschen, Amarenasoße",                                  preis:11.00 },
+        { nr:334, name:"Giottobecher",         beschreibung:"Gemischtes Milcheis, Sahne, Nusssoße, Nussraspeln, Giotto-Pralinen",                   preis:11.50 },
+        { nr:335, name:"Toffeebecher",         beschreibung:"Gemischtes Milcheis, Sahne, Toffee- und Karamellsoße",                                 preis:11.50 },
+        { nr:336, name:"After-Eight-Becher",   beschreibung:"Gemischtes Milcheis, Sahne, Schokosoße, Pfefferminzlikör, After-Eight-Pralinen",       preis:11.50 },
+        { nr:337, name:"Raffaellobecher",      beschreibung:"Gemischtes Milcheis, Sahne, Kokossoße, Kokosraspeln, Raffaello-Pralinen",              preis:11.50 },
+        { nr:338, name:"Mozartbecher",         beschreibung:"Gemischtes Milcheis, Sahne, Pistazien- und Schokosoße, Mozart-Pralinen",               preis:11.50 },
+        { nr:339, name:"Rocherbecher",         beschreibung:"Gemischtes Milcheis, Sahne, Schokosoße, Nussraspeln, Rocher-Pralinen",                 preis:11.50 },
+        { nr:340, name:"Pralinen-Becher Spezial",beschreibung:"Gemischtes Milcheis, Sahne, Schokosoße, Schokoraspeln, Pralinen-Mix",               preis:12.90 },
+        { nr:343, name:"Schokobecher",         beschreibung:"Gemischtes Milcheis, Sahne, Schokosoße, Schokoraspeln",                                preis:11.00 },
+        { nr:344, name:"Stracciatellabecher",  beschreibung:"Gemischtes Milcheis, Sahne, Stracciatellasoße",                                        preis:11.00 },
+        { nr:345, name:"Amarenabecher",        beschreibung:"Gemischtes Milcheis, Sahne, Amarenasoße, Amarena-Kirschen",                            preis:11.50 },
+        { nr:346, name:"Nutellabecher",        beschreibung:"Gemischtes Milcheis, Sahne, Nutella, Haselnüsse",                                      preis:11.50 }
+      ],
+      kinderbecher: [
+        { nr:348, name:"Mickey Mouse",     preis:6.50 },
+        { nr:349, name:"Biene Maja",       preis:6.50 },
+        { nr:350, name:"Schneemann",       preis:6.50 },
+        { nr:351, name:"Pinocchio",        preis:6.50 },
+        { nr:352, name:"Schokino",         preis:6.50 },
+        { nr:353, name:"Kinder Spaghetti", preis:6.90 }
+      ]
+    }
+  ]
+};
+
+// ── helpers ──────────────────────────────────────────────
+function p(v){ return v.toFixed(2).replace('.',',') + ' €' }
+
+function badges(item){
+  let b = '';
+  if(item.neu)          b += '<span class="badge neu">Neu</span>';
+  if(item.vegan)        b += '<span class="badge vegan">Vegan</span>';
+  if(item.alkoholfrei)  b += '<span class="badge alkoholfrei">Alkoholfrei</span>';
+  return b ? `<div class="item-badges">${b}</div>` : '';
+}
+
+function renderItem(item, cat){
+  const desc = item.beschreibung ? `<div class="item-desc">${item.beschreibung}</div>` : '';
+  const menge = item.menge ? `<span class="item-menge">${item.menge}</span>` : '';
+
+  let priceHtml = '';
+  if(item.preis !== undefined){
+    priceHtml = `<div class="item-price">${p(item.preis)}</div>`;
+  } else if(item.preis_person !== undefined){
+    priceHtml = `<div class="item-price">${p(item.preis_person)}<span class="item-price-sub">pro P.</span><span class="item-price-sub">${p(item.preis_zwei)} für 2 P.</span></div>`;
+  } else if(item.alkoholfrei && cat && cat.preis_alkoholfrei){
+    priceHtml = `<div class="item-price">${p(cat.preis_alkoholfrei)}</div>`;
+  } else if(cat && cat.preis_standard){
+    priceHtml = `<div class="item-price">${p(cat.preis_standard)}</div>`;
+  }
+
+  return `<div class="menu-item">
+    <div class="item-left">
+      <div class="item-nr">${item.nr}</div>
+      <div class="item-name">${item.name}${menge}</div>
+      ${desc}${badges(item)}
+    </div>
+    ${priceHtml}
+  </div>`;
+}
+
+function renderStandard(cat){
+  const note = cat.hinweis ? `<p class="section-note">${cat.hinweis}</p>` : '';
+  return `<div class="section-header">
+      <div class="eyebrow">${cat.name}</div>${note}
+    </div>
+    <div class="items-grid">${(cat.items||[]).map(i=>renderItem(i,cat)).join('')}</div>`;
+}
+
+function renderPizza(cat){
+  let html = renderStandard(cat);
+  html += `<div class="extras-block"><div class="extras-title">Extras &amp; Zutaten</div>`;
+  Object.entries(cat.extras).forEach(([price,items])=>{
+    html += `<div class="extras-row"><div class="extras-price">+ ${price} €</div><div class="extras-items">${items.join(' · ')}</div></div>`;
+  });
+  return html + '</div>';
+}
+
+function renderWein(cat){
+  let html = `<div class="section-header"><div class="eyebrow">Wein · Vino</div></div>`;
+  cat.unterkategorien.forEach(sub=>{
+    html += `<div class="subcat-block"><div class="subcat-name">${sub.name}</div>`;
+    sub.items.forEach(item=>{
+      const desc = item.beschreibung ? `<span class="wine-desc-small">${item.beschreibung}</span>` : '';
+      const p25 = (item.p25||item.preis) ? `<span class="wine-p"><span class="plabel">0,25 l</span>${p(item.p25||item.preis)}</span>` : '';
+      const p75 = item.p75 ? `<span class="wine-p"><span class="plabel">0,75 l</span>${p(item.p75)}</span>` : '';
+      html += `<div class="wine-row">
+        <div class="wine-nr">${item.nr}</div>
+        <div class="wine-name-wrap"><div class="wine-name">${item.name}</div>${desc}</div>
+        <div class="wine-prices">${p25}${p75}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+  return html;
+}
+
+function renderSubcats(cat){
+  let html = `<div class="section-header"><div class="eyebrow">${cat.name}</div></div>`;
+  cat.unterkategorien.forEach(sub=>{
+    html += `<div class="subcat-block"><div class="subcat-name">${sub.name}</div>
+      <div class="items-grid">${sub.items.map(i=>renderItem(i,cat)).join('')}</div></div>`;
+  });
+  return html;
+}
+
+function renderCocktails(cat){
+  return `<div class="section-header"><div class="eyebrow">Cocktails</div></div>
+    <div class="cocktail-note">
+      <div><div class="cp-label">Cocktails</div><div class="cp-price">${p(cat.preis_standard)}</div></div>
+      <div><div class="cp-label">Alkoholfrei</div><div class="cp-price">${p(cat.preis_alkoholfrei)}</div></div>
+    </div>
+    <div class="items-grid">${cat.items.map(i=>renderItem(i,cat)).join('')}</div>`;
+}
+
+function renderEis(cat){
+  const kugelnHtml = cat.kugeln.map(k=>`<div class="kugel-item">
+    <div><div class="kugel-name">${k.name}</div>${k.beschreibung?`<div class="kugel-desc">${k.beschreibung}</div>`:''}</div>
+    <div class="kugel-price">${p(k.preis)}</div>
+  </div>`).join('');
+
+  return `<div class="section-header">
+      <div class="eyebrow">Eis · La Piazza Edenkoben</div>
+      <p class="section-note">${cat.hinweis}</p>
+    </div>
+    <div class="eis-sorten">
+      <div class="sorten-label">Milcheis</div>
+      <div class="sorten-pills">${cat.sorten.milcheis.map(s=>`<span class="sorten-pill">${s}</span>`).join('')}</div>
+      <div class="sorten-label" style="margin-top:18px">Fruchteis</div>
+      <div class="sorten-pills">${cat.sorten.fruchteis.map(s=>`<span class="sorten-pill">${s}</span>`).join('')}</div>
+    </div>
+    <div class="eis-subsection">
+      <div class="eis-sub-title">Kugeln</div>
+      <div class="kugeln-grid">${kugelnHtml}</div>
+    </div>
+    <div class="eis-subsection">
+      <div class="eis-sub-title">Extras</div>
+      <div class="items-grid">${cat.extras_eis.map(i=>renderItem(i,{})).join('')}</div>
+    </div>
+    <div class="eis-subsection">
+      <div class="eis-sub-title">Eisbecher</div>
+      <div class="items-grid">${cat.eisbecher.map(i=>renderItem(i,{})).join('')}</div>
+    </div>
+    <div class="eis-subsection">
+      <div class="eis-sub-title">Kinderbecher</div>
+      <div class="items-grid">${cat.kinderbecher.map(i=>renderItem(i,{})).join('')}</div>
+    </div>`;
+}
+
+// ── main render ──────────────────────────────────────────
+function renderAll(){
+  // Specials
+  const todayNum = new Date().getDay();
+  const dayMap = { 'Montag':1,'Dienstag':2,'Mittwoch':3,'Donnerstag':4 };
+  const sg = document.getElementById('specialsGrid');
+  MENU.tagesspecials.items.forEach(s=>{
+    const isToday = dayMap[s.tag] === todayNum;
+    sg.innerHTML += `<div class="special-card${isToday?' today':''}">
+      <div class="special-day">${s.tag}</div>
+      <div class="special-name">${s.name}</div>
+      <div class="special-aktion">${s.aktion}</div>
+      ${isToday ? '<div class="today-chip">Heute</div>' : ''}
+    </div>`;
+  });
+
+  // Tabs + sections
+  const tabsEl  = document.getElementById('catNavInner');
+  const bodyEl  = document.getElementById('menuBody');
+
+  MENU.kategorien.forEach(cat=>{
+    // Tab
+    tabsEl.innerHTML += `<button class="cat-tab" data-target="${cat.id}">${cat.tabLabel}</button>`;
+
+    // Section content
+    let inner = '';
+    if(cat.id==='pizza')          inner = renderPizza(cat);
+    else if(cat.id==='wein')      inner = renderWein(cat);
+    else if(cat.id==='longdrinks')inner = renderSubcats(cat);
+    else if(cat.id==='cocktails') inner = renderCocktails(cat);
+    else if(cat.id==='eis')       inner = renderEis(cat);
+    else                          inner = renderStandard(cat);
+
+    const sec = document.createElement('section');
+    sec.className = 'menu-section';
+    sec.id = cat.id;
+    sec.innerHTML = `<div class="container">${inner}</div>`;
+    bodyEl.appendChild(sec);
+  });
+
+  // Tab click → scroll
+  const catNav = document.getElementById('catNav');
+  tabsEl.querySelectorAll('.cat-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const target = document.getElementById(tab.dataset.target);
+      if(target){
+        const offset = document.getElementById('nav').offsetHeight + catNav.offsetHeight + 12;
+        window.scrollTo({top: target.offsetTop - offset, behavior:'smooth'});
+      }
+    });
+  });
+
+  // Active tab via IntersectionObserver
+  const tabs = tabsEl.querySelectorAll('.cat-tab');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        tabs.forEach(t=>t.classList.toggle('active', t.dataset.target===e.target.id));
+        const active = tabsEl.querySelector('.cat-tab.active');
+        if(active) active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  bodyEl.querySelectorAll('.menu-section').forEach(s=>io.observe(s));
+  if(tabs.length) tabs[0].classList.add('active');
+}
+
+// Nav scroll
+const nav = document.getElementById('nav');
+const catNav = document.getElementById('catNav');
+function onScroll(){
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+  catNav.style.top = nav.offsetHeight + 'px';
+}
+document.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+// Reveal on scroll
+const revealIo = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealIo.unobserve(e.target); } });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revealIo.observe(el));
+
+renderAll();
+</script>
+</body>
+</html>

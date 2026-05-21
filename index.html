@@ -155,7 +155,8 @@
     font-family: 'Sora', sans-serif;
     font-weight: 700;
     letter-spacing: -0.04em;
-    line-height: 0.96;
+    line-height: 1.02;
+    padding-bottom: 0.06em;
   }
   .display .grad {
     background: linear-gradient(180deg, #ffffff 0%, #b9c7d9 60%, #6f7e93 100%);
@@ -168,66 +169,44 @@
     font-weight: 500;
   }
 
-  /* custom cursor */
-  @media (hover: hover) and (pointer: fine) {
-    html, body, a, button, input, textarea, label { cursor: none; }
-  }
-  .cursor-dot, .cursor-blob {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100;
-    border-radius: 999px; will-change: transform;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: screen;
-  }
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: #fff;
-    box-shadow: 0 0 12px rgba(255,255,255,0.6);
-  }
-  .cursor-blob {
-    width: 36px; height: 36px;
-    background: radial-gradient(closest-side, rgba(127,196,255,0.55), rgba(127,196,255,0) 70%);
-    transition: width .25s ease, height .25s ease, background .25s ease;
-  }
-  .cursor-blob.hover {
-    width: 80px; height: 80px;
-    background: radial-gradient(closest-side, rgba(232,206,154,0.55), rgba(232,206,154,0) 70%);
-  }
-  .cursor-blob.tap {
-    width: 24px; height: 24px;
-  }
-  @media (hover: none), (pointer: coarse) {
-    .cursor-dot, .cursor-blob { display: none; }
-  }
-
   /* rotating studio seal */
   .seal {
-    position: fixed; right: 20px; bottom: 20px; width: 124px; height: 124px;
-    z-index: 40; pointer-events: auto;
+    position: fixed; right: 24px; bottom: 72px; width: 120px; height: 120px;
+    z-index: 110; pointer-events: auto;
     display: grid; place-items: center;
     color: var(--text);
+    filter: drop-shadow(0 0 18px rgba(127,196,255,0.22));
+    transition: filter .3s ease, transform .3s ease;
+  }
+  .seal:hover {
+    filter: drop-shadow(0 0 28px rgba(127,196,255,0.55));
   }
   .seal .ring {
     position: absolute; inset: 0;
-    animation: sealspin 24s linear infinite;
+    animation: sealspin 18s linear infinite;
   }
   .seal .core {
-    position: relative; width: 56px; height: 56px; border-radius: 999px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18), 0 0 30px rgba(127,196,255,0.25);
+    position: relative; width: 52px; height: 52px; border-radius: 999px;
+    background: conic-gradient(from 220deg, #7FC4FF, #E8CE9A, #7FC4FF);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 24px rgba(127,196,255,0.5), 0 4px 16px rgba(0,0,0,0.5);
     display: grid; place-items: center;
-    backdrop-filter: blur(10px);
   }
-  .seal .core svg { color: var(--cyan); }
+  .seal .core::before {
+    content: '';
+    position: absolute; inset: 2px; border-radius: 999px;
+    background: #0d1117;
+  }
+  .seal .core svg { color: #7FC4FF; position: relative; z-index: 1; }
   @keyframes sealspin { to { transform: rotate(360deg); } }
   .seal text {
-    font-family: 'Sora', sans-serif; font-size: 9.6px;
-    letter-spacing: 0.32em; text-transform: uppercase;
-    fill: rgba(236,238,243,0.85);
+    font-family: 'Sora', sans-serif; font-size: 9px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    fill: rgba(127,196,255,0.7);
   }
   @media (max-width: 640px) {
-    .seal { width: 92px; height: 92px; right: 12px; bottom: 12px; }
-    .seal .core { width: 40px; height: 40px; }
-    .seal text { font-size: 8.4px; }
+    .seal { width: 88px; height: 88px; right: 14px; bottom: 70px; }
+    .seal .core { width: 38px; height: 38px; }
+    .seal text { font-size: 7.8px; }
   }
 
   .magnet { display: inline-block; will-change: transform; }
@@ -344,9 +323,33 @@
     pointer-events: none;
   }
 
-  /* mobile nav */
-  #mobileMenu { transform: translateY(-12px); opacity: 0; pointer-events: none; transition: all .25s ease; }
-  #mobileMenu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  /* mobile nav overlay */
+  #mobileMenu {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(320px, 85vw);
+    background: #0B0D14;
+    border-left: 1px solid rgba(255,255,255,0.10);
+    box-shadow: -20px 0 60px rgba(0,0,0,0.8);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+  #mobileMenu.open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+  #menuOverlay {
+    position: fixed; inset: 0; z-index: 199;
+    background: rgba(0,0,0,0.65);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  #menuOverlay.open { opacity: 1; pointer-events: auto; }
 
   /* splash */
   #splash {
@@ -452,6 +455,79 @@
   }
   .faq-item[open] .faq-plus { transform: rotate(45deg); background: rgba(127,196,255,0.18); color: var(--cyan); }
   .faq-body { padding-bottom: 22px; color: rgba(236,238,243,0.6); font-size: 15px; line-height: 1.7; max-width: 720px; }
+
+  /* ====================== MOBILE OPTIMIZATIONS ====================== */
+  @media (max-width: 767px) {
+
+    /* --- Hero --- */
+    #top { padding-top: 80px !important; padding-bottom: 3rem !important; }
+    [data-h="eyebrow"] { margin-bottom: 1.25rem; }
+    [data-h="sub"]  { margin-top: 1rem; font-size: 1rem; line-height: 1.55; }
+    [data-h="text"] { margin-top: 0.75rem; font-size: 0.9rem; line-height: 1.65; }
+    [data-h="cta"]  { margin-top: 1.75rem; }
+    [data-h="cta"] a { width: 100%; font-size: 15px; padding: 14px 24px; }
+    [data-h="stats"] { margin-top: 1.5rem; gap: 0.5rem; }
+
+    /* --- Stats --- */
+    [data-stat] { padding: 0.875rem 0.5rem !important; }
+
+    /* --- Section spacing --- */
+    #leistungen { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    #prozess    { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    #faq        { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    #kontakt    { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+    #leistungen .mb-14 { margin-bottom: 2rem; }
+
+    /* --- Section headlines --- */
+    #leistungen h2.display { font-size: 1.85rem; line-height: 1.08; }
+    #prozess    h2.display { font-size: 1.85rem; }
+    #faq        h2.display { font-size: 1.85rem; }
+    #kontakt    h2.display { font-size: 1.75rem; line-height: 1.1; padding-bottom: 0.3em; }
+
+    /* --- Services cards: tighter padding --- */
+    .card[data-tilt] { padding: 1.25rem !important; }
+    .card[data-tilt] h3 { font-size: 1.1rem; margin-top: 1rem; }
+    .card[data-tilt] p  { font-size: 13.5px; margin-top: 0.5rem; }
+    .card[data-tilt] .mt-7 { margin-top: 0.875rem; }
+
+    /* --- Process steps: 2-col --- */
+    #processGrid .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+    [data-step] h3 { font-size: 1rem; }
+    [data-step] p  { font-size: 13px; }
+
+    /* --- FAQ: bigger touch targets --- */
+    .faq-item summary { padding: 1.125rem 0; font-size: 15px; min-height: 52px; }
+    .faq-plus { width: 30px; height: 30px; flex-shrink: 0; }
+    .faq-body { font-size: 14px; }
+
+    /* --- Contact card --- */
+    [data-cta-card] { border-radius: 18px !important; }
+    #contactInner { padding: 1.375rem !important; gap: 1.5rem; }
+    #contactForm button[type="submit"] { width: 100%; justify-content: center; }
+
+    /* --- Footer --- */
+    footer.relative { padding-top: 2.5rem !important; padding-bottom: 5rem !important; }
+    footer .grid { gap: 1.5rem; }
+
+    /* --- Floating pill --- */
+    #__pill nav { font-size: 11px; }
+    #__pill nav a { padding: 7px 11px; }
+
+    /* --- Hide rail --- */
+    #rail { display: none !important; }
+
+    /* --- Seal: smaller, keep clear of pill --- */
+    .seal { width: 80px !important; height: 80px !important; right: 10px !important; bottom: 65px !important; }
+    .seal .core { width: 34px !important; height: 34px !important; }
+    .seal text { font-size: 7px; }
+  }
+
+  @media (max-width: 390px) {
+    [data-h="eyebrow"] .eyebrow { font-size: 10px; padding: 5px 10px; }
+    #leistungen h2.display, #prozess h2.display,
+    #faq h2.display, #kontakt h2.display { font-size: 1.65rem; }
+    [data-stat] { padding: 0.625rem 0.375rem !important; }
+  }
 </style>
 </head>
 
@@ -475,10 +551,6 @@
   <a href="#kontakt" data-rail="kontakt">Kontakt</a>
 </nav>
 
-<!-- custom cursor -->
-<div class="cursor-blob" id="cursorBlob"></div>
-<div class="cursor-dot" id="cursorDot"></div>
-
 <!-- rotating studio seal -->
 <a href="#kontakt" class="seal" aria-label="Studio kontaktieren" data-magnet>
   <svg class="ring" viewBox="0 0 200 200" width="100%" height="100%">
@@ -486,11 +558,11 @@
       <path id="sealPath" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0"></path>
     </defs>
     <text>
-      <textPath href="#sealPath" startOffset="0">BISNERO STUDIO • CRAFTED IN BERLIN • SINCE 2024 • </textPath>
+      <textPath href="#sealPath" startOffset="0">BISNERO STUDIO • LANDAU IN DER PFALZ • SINCE 2024 •</textPath>
     </text>
   </svg>
   <span class="core">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
   </span>
 </a>
 
@@ -523,19 +595,59 @@
     </div>
   </div>
 
-  <div id="mobileMenu" class="md:hidden mx-5 rounded-2xl glass-strong p-5 absolute left-0 right-0 top-[72px]">
-    <div class="flex flex-col gap-4 text-[15px]">
-      <a href="#leistungen" class="py-1">Leistungen</a>
-      <a href="#prozess" class="py-1">Prozess</a>
-      <a href="#faq" class="py-1">FAQ</a>
-      <a href="#kontakt" class="py-1">Kontakt</a>
-      <a href="#kontakt" class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-[14px] font-semibold btn-primary">Angebot anfragen <span class="arr">→</span></a>
+  <div id="mobileMenu" class="md:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
+    <!-- panel header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,0.07);">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span class="logo-mark"></span>
+        <span style="font-family:'Sora',sans-serif;font-weight:600;font-size:16px;letter-spacing:-0.02em;">Bisnero</span>
+      </div>
+      <button id="menuClose" aria-label="Menü schließen" style="width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);cursor:pointer;color:#fff;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- nav links -->
+    <nav style="padding:12px 16px;display:flex;flex-direction:column;gap:2px;">
+      <a href="#leistungen" class="menu-link">Leistungen</a>
+      <a href="#prozess"    class="menu-link">Prozess</a>
+      <a href="#faq"        class="menu-link">FAQ</a>
+      <a href="#kontakt"    class="menu-link">Kontakt</a>
+    </nav>
+
+    <!-- CTA -->
+    <div style="padding:8px 24px 24px;">
+      <a href="#kontakt" class="btn-primary inline-flex items-center justify-center gap-2 w-full rounded-full text-[14px] font-semibold" style="padding:14px 20px;">
+        Angebot anfragen <span class="arr">→</span>
+      </a>
+    </div>
+
+    <!-- footer info -->
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 24px;border-top:1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:12px;color:rgba(255,255,255,0.3);line-height:1.6;">hi@bisnero.de<br>Landau in der Pfalz · Remote</p>
     </div>
   </div>
 </header>
 
+<div id="menuOverlay"></div>
+
+<style>
+  .menu-link {
+    display:flex; align-items:center;
+    padding:14px 8px;
+    font-family:'Manrope',ui-sans-serif,system-ui;
+    font-size:17px; font-weight:500;
+    color:rgba(255,255,255,0.7);
+    text-decoration:none;
+    border-radius:12px;
+    transition:background .18s ease, color .18s ease;
+    letter-spacing:-0.01em;
+  }
+  .menu-link:hover, .menu-link:active { background:rgba(255,255,255,0.06); color:#fff; }
+</style>
+
 <!-- ============================  HERO  ============================ -->
-<section id="top" class="relative pt-[120px] md:pt-[160px] pb-24 md:pb-32 overflow-hidden">
+<section id="top" class="relative pt-[120px] md:pt-[160px] pb-20 md:pb-32">
   <div class="ambient"></div>
 
   <div class="relative max-w-7xl mx-auto px-5 md:px-8">
@@ -547,9 +659,9 @@
       </span>
     </div>
 
-    <h1 data-h="headline" class="display text-center text-white text-[44px] xs:text-[54px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]">
-      <span class="grad block">Websites</span>
-      <span class="block">die <span class="accent">überzeugen</span>.</span>
+    <h1 data-h="headline" class="display text-center text-white text-[38px] sm:text-[72px] md:text-[96px] lg:text-[124px] mx-auto max-w-[1100px]" style="overflow:visible;padding-bottom:0.12em;">
+      <span class="grad block">Websites,</span>
+      <span style="display:block;">die <span class="accent" id="cycleWord" style="display:inline-block;padding-right:0.15em;">überzeugen.</span></span>
     </h1>
 
     <p data-h="sub" class="mt-7 md:mt-9 text-center text-white/75 font-display font-light text-[18px] md:text-[22px] tracking-tight max-w-2xl mx-auto">
@@ -568,50 +680,21 @@
     </div>
 
     <!-- stats -->
-    <div data-h="stats" class="mt-16 md:mt-24 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="50">0</span><span class="text-cyan-soft">+</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Websites gebaut</div>
+    <div data-h="stats" class="mt-10 md:mt-24 grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 max-w-4xl mx-auto">
+      <div data-stat class="stat glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-7 text-center">
+        <div class="font-display text-white text-[28px] sm:text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="50">0</span><span class="text-cyan-soft">+</span></div>
+        <div class="mt-2 sm:mt-3 text-[9px] sm:text-[13px] uppercase tracking-[0.14em] sm:tracking-[0.18em] text-white/55">Websites gebaut</div>
       </div>
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="100">0</span><span class="text-cyan-soft">%</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Zufriedene Kunden</div>
+      <div data-stat class="stat glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-7 text-center">
+        <div class="font-display text-white text-[28px] sm:text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="100">0</span><span class="text-cyan-soft">%</span></div>
+        <div class="mt-2 sm:mt-3 text-[9px] sm:text-[13px] uppercase tracking-[0.14em] sm:tracking-[0.18em] text-white/55">Zufriedene Kunden</div>
       </div>
-      <div data-stat class="stat glass rounded-2xl p-6 md:p-7 text-center">
-        <div class="font-display text-white text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="14">0</span><span class="text-white/40 text-[28px] md:text-[34px] align-middle ml-1">Tage</span></div>
-        <div class="mt-3 text-[13px] uppercase tracking-[0.18em] text-white/55">Ø Lieferzeit</div>
+      <div data-stat class="stat glass rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-7 text-center">
+        <div class="font-display text-white text-[28px] sm:text-[44px] md:text-[54px] font-semibold leading-none tracking-tight"><span class="num" data-to="14">0</span><span class="text-white/40 text-[16px] sm:text-[28px] md:text-[34px] align-middle ml-0.5 sm:ml-1">T.</span></div>
+        <div class="mt-2 sm:mt-3 text-[9px] sm:text-[13px] uppercase tracking-[0.14em] sm:tracking-[0.18em] text-white/55">Ø Lieferzeit</div>
       </div>
     </div>
 
-    <!-- trust strip -->
-    <div data-h="trust" class="mt-16 md:mt-20 relative">
-      <div class="absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#07080C] to-transparent"></div>
-      <div class="absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[#07080C] to-transparent"></div>
-      <div class="overflow-hidden">
-        <div class="marquee text-white/35 font-display tracking-tight text-[18px] md:text-[22px] py-2">
-          <div class="flex items-center gap-16 pr-16">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-          <div class="flex items-center gap-16 pr-16" aria-hidden="true">
-            <span>Atlas Studios</span><span>·</span>
-            <span>Nordwerk</span><span>·</span>
-            <span>Helio &amp; Co.</span><span>·</span>
-            <span>Marlow Capital</span><span>·</span>
-            <span>Verde Botanik</span><span>·</span>
-            <span>Klarbau</span><span>·</span>
-            <span>Felsen Kaffee</span><span>·</span>
-            <span>Stadthotel Mira</span><span>·</span>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </section>
@@ -619,18 +702,18 @@
 <div class="divider"></div>
 
 <!-- ============================  SERVICES  ============================ -->
-<section id="leistungen" class="relative py-28 md:py-40">
+<section id="leistungen" class="relative py-16 md:py-40">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
 
-    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 md:mb-20">
+    <div class="mb-14 md:mb-20">
       <div class="reveal">
         <span class="eyebrow"><span class="dot"></span> Leistungen</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[820px]">
+        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[68px] max-w-[900px]">
           Alles aus einer Hand —
-          <span class="accent">von der Idee</span> bis zum Launch.
+          <span style="white-space:nowrap"><span class="accent" style="padding-right:0.12em;">von der Idee</span></span> bis zum Launch.
         </h2>
       </div>
-      <p class="reveal text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-sm">
+      <p class="reveal mt-6 text-white/55 text-[15px] md:text-[16px] leading-relaxed max-w-2xl">
         Strategie, Design, Entwicklung und Performance — verzahnt in einem
         kompromisslosen Prozess. Du bekommst nicht nur eine Website,
         du bekommst ein Werkzeug, das verkauft.
@@ -759,7 +842,7 @@
 <div class="divider"></div>
 
 <!-- ============================  PROZESS  ============================ -->
-<section id="prozess" class="relative py-28 md:py-40 overflow-hidden">
+<section id="prozess" class="relative py-16 md:py-40 overflow-hidden">
   <!-- faint grid background -->
   <div class="grid-bg absolute inset-0 pointer-events-none"></div>
 
@@ -875,12 +958,12 @@
 <div class="divider"></div>
 
 <!-- ============================  FAQ  ============================ -->
-<section id="faq" class="relative py-28 md:py-40">
+<section id="faq" class="relative py-16 md:py-40">
   <div class="max-w-7xl mx-auto px-5 md:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
       <div class="lg:col-span-5 reveal">
         <span class="eyebrow"><span class="dot"></span> FAQ</span>
-        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[60px]">
+        <h2 class="display mt-5 text-white text-[36px] sm:text-[48px] md:text-[60px]" style="overflow:visible;padding-bottom:0.14em;">
           Häufige
           <span class="accent">Fragen.</span>
         </h2>
@@ -914,7 +997,7 @@
         </details>
         <details class="faq-item reveal">
           <summary>Wo sitzt ihr und wie arbeiten wir zusammen?<span class="faq-plus"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></summary>
-          <div class="faq-body">Studio in Berlin, Team remote-first. Du hast einen persönlichen Ansprechpartner ab Tag 1, Updates per Loom-Videos, Calls auf Wunsch. Sprachen: Deutsch &amp; Englisch.</div>
+          <div class="faq-body">Studio in Landau in der Pfalz, Team remote-first. Du hast einen persönlichen Ansprechpartner ab Tag 1, Updates per Loom-Videos, Calls auf Wunsch. Sprachen: Deutsch &amp; Englisch.</div>
         </details>
       </div>
     </div>
@@ -924,7 +1007,7 @@
 <div class="divider"></div>
 
 <!-- ============================  KONTAKT  ============================ -->
-<section id="kontakt" class="relative py-28 md:py-40 overflow-hidden">
+<section id="kontakt" class="relative py-14 md:py-40 overflow-hidden">
   <div aria-hidden="true" class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
        style="background: radial-gradient(closest-side, rgba(127,196,255,0.18), rgba(127,196,255,0) 70%); filter: blur(40px);"></div>
 
@@ -934,13 +1017,13 @@
       <div aria-hidden="true" class="absolute inset-0 opacity-50 pointer-events-none"
            style="background: radial-gradient(60% 60% at 0% 0%, rgba(127,196,255,0.18), transparent 60%), radial-gradient(60% 60% at 100% 100%, rgba(232,206,154,0.12), transparent 60%);"></div>
 
-      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-10 p-7 md:p-12 lg:p-16">
+      <div id="contactInner" class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 sm:p-10 md:p-12 lg:p-16">
         <!-- left -->
-        <div class="lg:col-span-5 reveal">
+        <div class="lg:col-span-5 reveal" style="padding-bottom:2rem;">
           <span class="eyebrow"><span class="dot"></span> Kontakt</span>
-          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px] leading-[0.98]">
+          <h2 class="display mt-5 text-white text-[34px] sm:text-[44px] md:text-[58px]" data-no-clip style="padding-bottom:0.55em;line-height:1.08;overflow:visible;">
             Bereit für deine
-            <span class="accent">neue Website?</span>
+            <span class="accent" style="padding-right:0.18em;">neue Website?</span>
           </h2>
           <p class="mt-5 text-white/65 text-[15px] md:text-[16px] leading-relaxed max-w-md">
             Schreib uns kurz, was du im Kopf hast. Wir melden uns innerhalb von
@@ -975,7 +1058,9 @@
         </div>
 
         <!-- form -->
-        <form id="contactForm" class="lg:col-span-7 reveal grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 self-start">
+        <form id="contactForm" name="kontakt" data-netlify="true" netlify-honeypot="bot-field" class="lg:col-span-7 reveal grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 self-start">
+          <input type="hidden" name="form-name" value="kontakt" />
+          <input type="hidden" name="bot-field" />
           <label class="block sm:col-span-1">
             <span class="text-[12px] uppercase tracking-[0.18em] text-white/55">Name</span>
             <input class="field mt-2" type="text" name="name" placeholder="Max Mustermann" required />
@@ -1041,9 +1126,9 @@
       <div class="md:col-span-2">
         <div class="text-[12px] uppercase tracking-[0.18em] text-white/40 mb-4">Rechtliches</div>
         <ul class="space-y-3 text-[14px] text-white/70">
-          <li><a href="#" class="hover:text-white transition-colors">Impressum</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">Datenschutz</a></li>
-          <li><a href="#" class="hover:text-white transition-colors">AGB</a></li>
+          <li><a href="impressum.html" class="hover:text-white transition-colors">Impressum</a></li>
+          <li><a href="datenschutz.html" class="hover:text-white transition-colors">Datenschutz</a></li>
+          <li><a href="agb.html" class="hover:text-white transition-colors">AGB</a></li>
         </ul>
       </div>
       <div class="md:col-span-3">
@@ -1051,14 +1136,14 @@
         <ul class="space-y-3 text-[14px] text-white/70">
           <li>hi@bisnero.de</li>
           <li>+49 30 123 456 78</li>
-          <li>Berlin · Remote</li>
+          <li>Landau in der Pfalz · Remote</li>
         </ul>
       </div>
     </div>
 
     <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[12.5px] text-white/45">
       <div>© 2026 Bisnero Studio. Alle Rechte vorbehalten.</div>
-      <div class="font-display tracking-tight">Made with care · Berlin</div>
+      <div class="font-display tracking-tight">Made with care · Landau in der Pfalz</div>
     </div>
   </div>
 </footer>
@@ -1074,8 +1159,9 @@
     setTimeout(() => splash.classList.add('hidden'), 1800);
   }
 
-  // ====================== Lenis smooth scroll ======================
-  if (window.Lenis) {
+  // ====================== Lenis smooth scroll (desktop only) ======================
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (window.Lenis && !isTouch) {
     const lenis = new Lenis({ duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     function raf(time) { lenis.raf(time * 1000); }
     gsap.ticker.add(raf);
@@ -1124,9 +1210,27 @@
   onScroll();
 
   // ====================== mobile menu ======================
-  const menuBtn = document.getElementById('menuBtn');
-  const menu = document.getElementById('mobileMenu');
-  menuBtn?.addEventListener('click', () => menu.classList.toggle('open'));
+  const menuBtn  = document.getElementById('menuBtn');
+  const menu     = document.getElementById('mobileMenu');
+  const overlay  = document.getElementById('menuOverlay');
+  const menuClose = document.getElementById('menuClose');
+
+  function openMenu() {
+    menu.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    menu.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  overlay?.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+  menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   menu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 
   // ====================== card pointer glow ======================
@@ -1142,7 +1246,7 @@
   gsap.registerPlugin(ScrollTrigger);
 
   // pre-hide hero pieces
-  gsap.set(['[data-h="eyebrow"]', '[data-h="headline"]', '[data-h="sub"]', '[data-h="text"]', '[data-h="cta"] > *', '[data-h="trust"]'], { autoAlpha: 0, y: 24 });
+  gsap.set(['[data-h="eyebrow"]', '[data-h="headline"]', '[data-h="sub"]', '[data-h="text"]', '[data-h="cta"] > *'], { autoAlpha: 0, y: 24 });
   gsap.set('[data-stat]', { autoAlpha: 0, y: 30, scale: 0.86 });
 
   const heroTl = gsap.timeline({ defaults: { ease: 'back.out(1.7)' }, delay: 0.15 });
@@ -1153,7 +1257,6 @@
     .to('[data-h="text"]', { autoAlpha: 1, y: 0, duration: 0.5 }, '-=0.35')
     .to('[data-h="cta"] > *', { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'back.out(2)' }, '-=0.35')
     .to('[data-stat]', { autoAlpha: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.1, ease: 'back.out(2.2)' }, '-=0.35')
-    .to('[data-h="trust"]', { autoAlpha: 1, y: 0, duration: 0.6 }, '-=0.3')
     .add(() => {
       document.querySelectorAll('.num').forEach(el => {
         const to = parseInt(el.dataset.to, 10);
@@ -1171,30 +1274,28 @@
   // ====================== generic scroll reveal ======================
   gsap.utils.toArray('.reveal').forEach((el) => {
     gsap.fromTo(el,
-      { autoAlpha: 0, y: 28 },
-      { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: ST({ trigger: el, start: 'top 88%' }) }
+      { autoAlpha: 0, y: 18 },
+      { autoAlpha: 1, y: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: ST({ trigger: el, start: 'top 92%' }) }
     );
   });
 
   // ====================== section headline mask reveal ======================
   gsap.utils.toArray('section h2.display').forEach((h2) => {
-    gsap.set(h2, { clipPath: 'inset(0 0 100% 0)', yPercent: 8, autoAlpha: 0.9 });
-    gsap.to(h2, {
-      clipPath: 'inset(0 0 0% 0)', yPercent: 0, autoAlpha: 1,
-      duration: 1.4, ease: 'expo.out',
-      scrollTrigger: ST({ trigger: h2, start: 'top 85%' }),
-    });
+    gsap.fromTo(h2,
+      { autoAlpha: 0, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: ST({ trigger: h2, start: 'top 92%' }) }
+    );
   });
 
   // ====================== service cards 3D stagger ======================
   document.querySelectorAll('#leistungen .grid').forEach(g => g.classList.add('grid-3d'));
   gsap.utils.toArray('[data-tilt]').forEach((card, i) => {
     gsap.fromTo(card,
-      { autoAlpha: 0, y: 60, rotateX: -22, transformOrigin: '50% 100%' },
+      { autoAlpha: 0, y: 32, rotateX: -10, transformOrigin: '50% 100%' },
       {
-        autoAlpha: 1, y: 0, rotateX: 0, duration: 0.95, ease: 'power3.out',
-        scrollTrigger: ST({ trigger: card, start: 'top 90%' }),
-        delay: (i % 3) * 0.08,
+        autoAlpha: 1, y: 0, rotateX: 0, duration: 1.1, ease: 'expo.out',
+        scrollTrigger: ST({ trigger: card, start: 'top 93%' }),
+        delay: (i % 3) * 0.07,
       }
     );
   });
@@ -1205,57 +1306,31 @@
     gsap.to(processLine, {
       scaleX: 1, ease: 'none',
       scrollTrigger: {
-        trigger: '#processGrid', start: 'top 75%', end: 'bottom 70%', scrub: 0.6,
+        trigger: '#processGrid', start: 'top 80%', end: 'bottom 70%', scrub: 1.2,
       },
     });
   }
 
   gsap.fromTo('[data-step]',
-    { autoAlpha: 0, y: 40 },
-    { autoAlpha: 1, y: 0, duration: 0.8, ease: 'back.out(1.6)', stagger: 0.14,
-      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 78%' }) }
+    { autoAlpha: 0, y: 24 },
+    { autoAlpha: 1, y: 0, duration: 1.0, ease: 'expo.out', stagger: 0.13,
+      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 82%' }) }
   );
   gsap.fromTo('[data-dot]',
     { autoAlpha: 0, scale: 0 },
-    { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'back.out(2.6)', stagger: 0.14,
-      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 78%' }), delay: 0.1 }
+    { autoAlpha: 1, scale: 1, duration: 0.6, ease: 'back.out(2)', stagger: 0.13,
+      scrollTrigger: ST({ trigger: '#processGrid', start: 'top 82%' }), delay: 0.1 }
   );
 
   // ====================== CTA card scale-in ======================
   gsap.fromTo('[data-cta-card]',
-    { autoAlpha: 0, scale: 0.92, y: 60 },
-    { autoAlpha: 1, scale: 1, y: 0, duration: 1.2, ease: 'expo.out',
-      scrollTrigger: ST({ trigger: '[data-cta-card]', start: 'top 85%' }) }
+    { autoAlpha: 0, scale: 0.96, y: 30 },
+    { autoAlpha: 1, scale: 1, y: 0, duration: 1.4, ease: 'expo.out',
+      scrollTrigger: ST({ trigger: '[data-cta-card]', start: 'top 90%' }) }
   );
 
-  // ====================== custom cursor + magnetic buttons ======================
-  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (isFinePointer) {
-    const dot = document.getElementById('cursorDot');
-    const blob = document.getElementById('cursorBlob');
-    const tgt = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const blobPos = { x: tgt.x, y: tgt.y };
-
-    window.addEventListener('pointermove', (e) => {
-      tgt.x = e.clientX; tgt.y = e.clientY;
-      gsap.set(dot, { x: e.clientX, y: e.clientY });
-    });
-    window.addEventListener('pointerdown', () => blob.classList.add('tap'));
-    window.addEventListener('pointerup', () => blob.classList.remove('tap'));
-
-    gsap.ticker.add(() => {
-      blobPos.x += (tgt.x - blobPos.x) * 0.18;
-      blobPos.y += (tgt.y - blobPos.y) * 0.18;
-      gsap.set(blob, { x: blobPos.x, y: blobPos.y });
-    });
-
-    const HOVER_SEL = 'a, button, [data-card], [data-magnet], input, textarea, label, .btn-primary, .btn-ghost';
-    document.querySelectorAll(HOVER_SEL).forEach((el) => {
-      el.addEventListener('pointerenter', () => blob.classList.add('hover'));
-      el.addEventListener('pointerleave', () => blob.classList.remove('hover'));
-    });
-
-    // magnetic buttons
+  // ====================== magnetic buttons (desktop/mouse only) ======================
+  if (!isTouch) {
     document.querySelectorAll('.btn-primary, [data-magnet]').forEach((el) => {
       const strength = el.classList.contains('seal') ? 18 : 10;
       el.addEventListener('pointermove', (e) => {
@@ -1270,16 +1345,18 @@
     });
   }
 
-  // ====================== mouse-follow hero aurora ======================
-  const hero = document.getElementById('top');
-  if (hero) {
-    const ambient = hero.querySelector('.ambient');
-    hero.addEventListener('pointermove', (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 40;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * 30;
-      gsap.to(ambient, { x, y, duration: 1.2, ease: 'power3.out' });
-    });
+  // ====================== mouse-follow hero aurora (desktop only) ======================
+  if (!isTouch) {
+    const hero = document.getElementById('top');
+    if (hero) {
+      const ambient = hero.querySelector('.ambient');
+      hero.addEventListener('pointermove', (e) => {
+        const r = hero.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 40;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * 30;
+        gsap.to(ambient, { x, y, duration: 1.2, ease: 'power3.out' });
+      });
+    }
   }
 
   // ====================== seal dim on contact section ======================
@@ -1306,9 +1383,15 @@
   const success = document.getElementById('formSuccess');
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    success.classList.remove('hidden');
-    form.querySelectorAll('input, textarea').forEach(i => i.value = '');
-    gsap.fromTo(success, { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+    const data = new FormData(form);
+    fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString() })
+      .then(() => {
+        success.classList.remove('hidden');
+        form.querySelectorAll('input:not([type=hidden]), textarea').forEach(i => i.value = '');
+        gsap.fromTo(success, { autoAlpha: 0, y: -8 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+      })
+      .catch(() => alert('Fehler beim Senden. Bitte versuche es erneut.'));
   });
 
   // smooth-scroll anchor links (works alongside Lenis)
@@ -1321,6 +1404,143 @@
       }
     });
   });
+
+  // ====================== hero word cycling ======================
+  (function() {
+    const words = ['überzeugen.', 'begeistern.', 'verkaufen.', 'gewinnen.', 'beeindrucken.'];
+    let idx = 0;
+    const el = document.getElementById('cycleWord');
+    if (!el) return;
+
+    function cycle() {
+      gsap.to(el, {
+        autoAlpha: 0,
+        y: -8,
+        duration: 0.38,
+        ease: 'power2.in',
+        onComplete() {
+          idx = (idx + 1) % words.length;
+          el.textContent = words[idx];
+          gsap.fromTo(el,
+            { autoAlpha: 0, y: 8 },
+            { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power3.out' }
+          );
+        }
+      });
+    }
+
+    setTimeout(() => setInterval(cycle, 2800), 2500);
+  })();
+</script>
+
+<!-- floating legal pill -->
+<div id="__pill" style="position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:110;pointer-events:auto;margin-bottom:env(safe-area-inset-bottom);max-width:calc(100vw - 32px);">
+  <nav style="display:flex;align-items:center;gap:0;background:rgba(255,255,255,0.05);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:0 4px;box-shadow:0 8px 32px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.08);font-family:'Manrope',ui-sans-serif,system-ui;font-size:12px;letter-spacing:0.01em;white-space:nowrap;">
+    <a href="impressum.html" style="color:rgba(255,255,255,0.45);text-decoration:none;padding:8px 16px;border-radius:999px;transition:color .2s ease,background .2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.9)';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.background='transparent'">Impressum</a>
+    <span style="color:rgba(255,255,255,0.12);font-size:10px;">·</span>
+    <a href="datenschutz.html" style="color:rgba(255,255,255,0.45);text-decoration:none;padding:8px 16px;border-radius:999px;transition:color .2s ease,background .2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.9)';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.background='transparent'">Datenschutz</a>
+    <span style="color:rgba(255,255,255,0.12);font-size:10px;">·</span>
+    <a href="agb.html" style="color:rgba(255,255,255,0.45);text-decoration:none;padding:8px 16px;border-radius:999px;transition:color .2s ease,background .2s ease;" onmouseover="this.style.color='rgba(255,255,255,0.9)';this.style.background='rgba(255,255,255,0.06)'" onmouseout="this.style.color='rgba(255,255,255,0.45)';this.style.background='transparent'">AGB</a>
+  </nav>
+</div>
+
+<!-- cookie consent banner -->
+<div id="cookieBanner" style="
+  display:none;
+  position:fixed;
+  bottom:72px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  z-index:200;
+  width:calc(100vw - 32px);
+  max-width:520px;
+  background:rgba(13,14,20,0.96);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:20px 22px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.07);
+  font-family:'Manrope',ui-sans-serif,system-ui;
+  opacity:0;
+  transition:opacity .35s ease, transform .35s ease;
+">
+  <div style="display:flex;align-items:flex-start;gap:14px;">
+    <div style="flex:1;">
+      <p style="font-size:13.5px;color:rgba(255,255,255,0.85);line-height:1.55;margin:0 0 4px;">
+        <strong style="font-weight:600;color:#fff;">Diese Website verwendet Cookies.</strong>
+      </p>
+      <p style="font-size:12.5px;color:rgba(255,255,255,0.45);line-height:1.55;margin:0;">
+        Wir nutzen technisch notwendige Cookies sowie Google Fonts.
+        <a href="datenschutz.html" style="color:rgba(127,196,255,0.8);text-decoration:none;border-bottom:1px solid rgba(127,196,255,0.3);">Datenschutzerklärung</a>
+      </p>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;margin-top:16px;">
+    <button id="cookieAccept" style="
+      flex:1;
+      background:linear-gradient(180deg,#ffffff,#d8e6f5);
+      color:#07080C;
+      border:none;
+      border-radius:999px;
+      padding:10px 20px;
+      font-family:'Manrope',ui-sans-serif,system-ui;
+      font-size:13.5px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 0 0 1px rgba(255,255,255,0.4),0 6px 20px -6px rgba(127,196,255,0.5);
+      transition:opacity .2s ease;
+    ">Alle akzeptieren</button>
+    <button id="cookieDecline" style="
+      background:rgba(255,255,255,0.05);
+      color:rgba(255,255,255,0.5);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:999px;
+      padding:10px 18px;
+      font-family:'Manrope',ui-sans-serif,system-ui;
+      font-size:13px;
+      cursor:pointer;
+      transition:color .2s ease,background .2s ease;
+    ">Ablehnen</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  if (localStorage.getItem('bisnero_cookie')) return;
+  var banner = document.getElementById('cookieBanner');
+
+  function show() {
+    banner.style.display = 'block';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        banner.style.opacity = '1';
+        banner.style.transform = 'translateX(-50%) translateY(0)';
+      });
+    });
+  }
+
+  function dismiss() {
+    banner.style.opacity = '0';
+    banner.style.transform = 'translateX(-50%) translateY(14px)';
+    setTimeout(function() { banner.style.display = 'none'; }, 400);
+  }
+
+  document.getElementById('cookieAccept').onclick = function() {
+    localStorage.setItem('bisnero_cookie', '1');
+    dismiss();
+  };
+  document.getElementById('cookieDecline').onclick = function() {
+    localStorage.setItem('bisnero_cookie', '0');
+    dismiss();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(show, 600); });
+  } else {
+    setTimeout(show, 600);
+  }
+})();
 </script>
 
 </body>

@@ -999,6 +999,13 @@ footer {
 }
 .form-success.show { display: flex; }
 .form-success svg { width: 24px; height: 24px; flex-shrink: 0; stroke: #1a6640; }
+.form-error {
+  display: none; padding: 16px 20px;
+  background: #fef2f2; border-left: 3px solid #c0392b;
+  font-size: 14px; color: #7f1d1d; line-height: 1.5;
+}
+.form-error.show { display: block; }
+.form-error a { color: #7f1d1d; text-decoration: underline; }
 
 .modal__alt-contact {
   margin-top: 28px; padding-top: 20px;
@@ -1139,6 +1146,45 @@ footer {
   .sticky-dock__name { padding: 0 14px; font-size: 11px; letter-spacing: .25em; }
   .sticky-dock__cta  { padding: 0 16px; }
 }
+
+/* ── Google Maps Consent ── */
+.maps-consent {
+  position: absolute; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--cream-dark);
+  padding: 40px 32px;
+}
+.maps-consent__inner {
+  text-align: center; max-width: 320px;
+}
+.maps-consent__icon {
+  width: 40px; height: 40px; color: var(--gold);
+  margin: 0 auto 20px;
+}
+.maps-consent__text {
+  font-family: var(--sans); font-size: 14px; line-height: 1.7;
+  color: var(--ink); margin-bottom: 24px;
+}
+.maps-consent__text a { color: var(--gold); text-decoration: underline; }
+.maps-consent__btn {
+  font-family: var(--sans); font-size: 11px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 13px 28px;
+  background: var(--black); color: var(--cream);
+  border: none; cursor: pointer;
+  transition: background .25s;
+}
+.maps-consent__btn:hover { background: var(--gold); }
+
+/* Focus styles (accessibility) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
 </style>
 </head>
 <body>
@@ -1148,8 +1194,8 @@ footer {
 ================================================================ -->
 <nav class="nav" id="nav" role="navigation" aria-label="Hauptnavigation">
   <a href="#top" class="nav__logo" aria-label="LORRAINE — Zurück zur Startseite">
-    <img src="logo-nav.png" alt="LORRAINE Haarstudio" class="logo-nav"
-         srcset="logo-nav.png 2x" width="52" height="52" />
+    <img src="logo-nav.png" alt="LORRAINE Haarstudio — zur Startseite" class="logo-nav"
+         srcset="logo-nav.png 2x" width="52" height="52" loading="eager" fetchpriority="high" />
   </a>
   <ul class="nav__links" role="list">
     <li><a href="#studio">Studio</a></li>
@@ -1159,14 +1205,15 @@ footer {
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
   <a href="#kontakt" class="nav__cta">Termin buchen</a>
-  <button class="nav__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false">
+  <button class="nav__burger" id="burger"
+          aria-label="Menü öffnen" aria-expanded="false" aria-controls="overlay">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- Mobile overlay -->
 <div class="nav__overlay" id="overlay" aria-hidden="true">
-  <img src="logo-circle.png" alt="LORRAINE" class="logo-overlay" width="110" height="110" />
+  <img src="logo-circle.png" alt="LORRAINE Haarstudio" class="logo-overlay" width="110" height="110" loading="lazy" />
   <a href="#studio"     onclick="closeMenu()">Studio</a>
   <a href="#leistungen" onclick="closeMenu()">Leistungen</a>
   <a href="#team"       onclick="closeMenu()">Team</a>
@@ -1316,26 +1363,22 @@ footer {
         <p class="team-card__bio">Seit über zehn Jahren leidenschaftliche Friseurmeisterin mit Liebe zum Handwerk. Ihr Credo: Zuhören kommt vor dem Schnitt.</p>
       </div>
 
-      <div class="team-card reveal d2">
+      <div class="team-card team-card--soon reveal d2">
         <div class="team-card__photo team-card__photo--ph">
-          <span class="team-card__initial">S</span>
+          <span class="team-card__initial" aria-hidden="true">✦</span>
         </div>
-        <!-- NAME & ROLLE EINFÜGEN -->
-        <div class="team-card__name">Name Vorname</div>
+        <div class="team-card__name" style="color:var(--ink-light)">Kommt bald</div>
         <div class="team-card__role">Stylistin</div>
-        <!-- KURZE BIO EINFÜGEN -->
-        <p class="team-card__bio">Spezialistin für Balayage und Farbtechniken. Sie verwandelt jedes Haar mit Präzision und einem guten Gefühl für Proportionen.</p>
+        <p class="team-card__bio" style="color:var(--ink-light)">Wir wachsen. Bald stellt sich dir ein weiteres Gesicht des LORRAINE-Teams vor.</p>
       </div>
 
-      <div class="team-card reveal d3">
+      <div class="team-card team-card--soon reveal d3">
         <div class="team-card__photo team-card__photo--ph">
-          <span class="team-card__initial">S</span>
+          <span class="team-card__initial" aria-hidden="true">✦</span>
         </div>
-        <!-- NAME & ROLLE EINFÜGEN -->
-        <div class="team-card__name">Name Vorname</div>
+        <div class="team-card__name" style="color:var(--ink-light)">Kommt bald</div>
         <div class="team-card__role">Stylistin</div>
-        <!-- KURZE BIO EINFÜGEN -->
-        <p class="team-card__bio">Brautstyling-Expertin mit einem Auge für Details. Sie sorgt dafür, dass du dich an besonderen Tagen ganz wie du selbst fühlst.</p>
+        <p class="team-card__bio" style="color:var(--ink-light)">Noch ein Gesicht, noch eine Leidenschaft — demnächst mehr.</p>
       </div>
     </div>
   </div>
@@ -1424,9 +1467,8 @@ footer {
     </div>
 
     <div class="instagram__cta reveal">
-      <!-- INSTAGRAM LINK HIER EINTRAGEN -->
-      <a href="#" class="instagram__btn" target="_blank" rel="noopener">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <a href="https://www.instagram.com/lorraine_haarstudio/" class="instagram__btn" target="_blank" rel="noopener noreferrer" aria-label="LORRAINE Haarstudio auf Instagram folgen">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
         @lorraine_haarstudio auf Instagram
       </a>
     </div>
@@ -1476,19 +1518,25 @@ footer {
       <div class="contact__book reveal d3">
         <!-- BOOKING LINK EINTRAGEN (z.B. Booksy, Treatwell, Calendly) -->
         <button class="btn-book" id="contactBookBtn">Jetzt Termin buchen</button>
-        <p class="contact__book-note">→ Booking-Link hier einfügen</p>
+        <p class="contact__book-note">Oder ruf uns an: <a href="tel:063419029615" style="color:inherit;text-decoration:underline">06341 9029615</a></p>
       </div>
     </div>
 
-    <!-- RIGHT: Google Maps -->
-    <div class="contact__map">
-      <iframe
-        src="https://maps.google.com/maps?q=Theaterstra%C3%9Fe+16%2C+76829+Landau+in+der+Pfalz%2C+Germany&output=embed&z=16"
-        width="100%" height="100%"
-        style="border:0" allowfullscreen loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="LORRAINE Haarstudio — Theaterstraße 16, Landau">
-      </iframe>
+    <!-- RIGHT: Google Maps with DSGVO consent -->
+    <div class="contact__map" id="mapsContainer">
+      <!-- Consent overlay — shown until user accepts -->
+      <div class="maps-consent" id="mapsConsent">
+        <div class="maps-consent__inner">
+          <svg class="maps-consent__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <p class="maps-consent__text">Diese Karte wird von <strong>Google Maps</strong> bereitgestellt. Mit dem Laden stimmst du der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a> zu.</p>
+          <button class="maps-consent__btn" id="mapsAcceptBtn">Karte laden</button>
+        </div>
+      </div>
+      <!-- Actual iframe — injected by JS after consent -->
+      <div id="mapsFrame" style="width:100%;height:100%;display:none;"></div>
     </div>
 
   </div>
@@ -1540,6 +1588,7 @@ function openMenu() {
   overlay.classList.add('open');
   overlay.removeAttribute('aria-hidden');
   burger.setAttribute('aria-expanded', 'true');
+  burger.setAttribute('aria-label', 'Menü schließen');
   document.body.style.overflow = 'hidden';
 }
 function closeMenu() {
@@ -1548,6 +1597,7 @@ function closeMenu() {
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
   burger.setAttribute('aria-expanded', 'false');
+  burger.setAttribute('aria-label', 'Menü öffnen');
   document.body.style.overflow = '';
 }
 burger.addEventListener('click', () => menuOpen ? closeMenu() : openMenu());
@@ -1661,26 +1711,84 @@ if (slides.length) {
     if (e.key === 'Escape') closeAll();
   });
 
-  // Booking form submit (placeholder — wire to real backend/Formspree/EmailJS)
+  // Booking form — Netlify Forms submission
   const form = document.getElementById('bookingForm');
   const success = document.getElementById('bookingSuccess');
+  const errorMsg = document.getElementById('bookingError');
   if (form) {
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
+
+      // Client-side validation
       let valid = true;
       form.querySelectorAll('[required]').forEach(el => {
         if (!el.value.trim()) { el.classList.add('invalid'); valid = false; }
         else el.classList.remove('invalid');
       });
       if (!valid) return;
-      // → Hier Formspree / EmailJS / fetch() zum Backend eintragen
-      form.querySelectorAll('input,select,textarea,button[type=submit]')
-          .forEach(el => el.disabled = true);
-      success.classList.add('show');
-      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+      const submitBtn = form.querySelector('button[type=submit]');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Wird gesendet …';
+      if (errorMsg) errorMsg.classList.remove('show');
+
+      try {
+        const data = new FormData(form);
+        const res = await fetch('/', {
+          method: 'POST',
+          headers: { 'Accept': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data).toString(),
+        });
+        if (!res.ok) throw new Error('Network ' + res.status);
+        form.querySelectorAll('input,select,textarea,button[type=submit]')
+            .forEach(el => el.disabled = true);
+        if (success) {
+          success.classList.add('show');
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Anfrage senden →';
+        if (errorMsg) errorMsg.classList.add('show');
+      }
     });
+
     form.querySelectorAll('[required]').forEach(el => {
       el.addEventListener('input', () => el.classList.remove('invalid'));
+    });
+  }
+})();
+
+/* ——— Google Maps Consent ————————————————————————————————— */
+(function () {
+  const MAPS_SRC = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2584.0!2d8.1167!3d49.1989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4796af8cee4b1dc5%3A0x7e8e56c0a4b92a91!2sTheaterstra%C3%9Fe%2016%2C%2076829%20Landau%20in%20der%20Pfalz!5e0!3m2!1sde!2sde!4v1716000000000';
+
+  function getCookie(name) {
+    return document.cookie.split('; ').find(r => r.startsWith(name + '='))?.split('=')[1];
+  }
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 864e5);
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+  }
+  function loadMap() {
+    const frame = document.getElementById('mapsFrame');
+    const consent = document.getElementById('mapsConsent');
+    if (!frame) return;
+    frame.innerHTML = '<iframe src="' + MAPS_SRC + '" width="100%" height="100%" style="border:0;display:block;min-height:480px" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="LORRAINE Haarstudio — Theaterstraße 16, Landau"></iframe>';
+    frame.style.display = 'block';
+    if (consent) consent.style.display = 'none';
+  }
+
+  // Auto-load if consent cookie exists
+  if (getCookie('maps_consent') === 'true') loadMap();
+
+  // Button click
+  const btn = document.getElementById('mapsAcceptBtn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      setCookie('maps_consent', 'true', 365);
+      loadMap();
     });
   }
 })();
@@ -1769,7 +1877,12 @@ if (slides.length) {
       <h2 class="modal__title" id="modal-booking-title">Setz dich.<br><em>Wir kümmern uns.</em></h2>
       <p class="modal__sub">Schreib uns kurz — wir melden uns innerhalb von 24 Stunden mit einem passenden Termin.</p>
 
-      <form class="booking-form" id="bookingForm" novalidate>
+      <form class="booking-form" id="bookingForm"
+            name="terminanfrage" method="POST"
+            data-netlify="true" netlify-honeypot="bot-field"
+            novalidate>
+        <input type="hidden" name="form-name" value="terminanfrage" />
+        <p style="display:none"><label>Bot-Feld: <input name="bot-field" /></label></p>
         <div class="form-row">
           <div class="form-field">
             <label for="bf-name">Name <span aria-hidden="true">*</span></label>
@@ -1827,6 +1940,9 @@ if (slides.length) {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           <p>Danke! Wir melden uns bald bei dir.</p>
         </div>
+        <div class="form-error" id="bookingError" role="alert" aria-live="assertive">
+          <p>Etwas ist schiefgelaufen. Bitte ruf uns kurz an: <a href="tel:063419029615">06341 9029615</a></p>
+        </div>
       </form>
 
       <div class="modal__alt-contact">
@@ -1854,7 +1970,6 @@ if (slides.length) {
       <div class="legal-body">
         <h3>Angaben gemäß § 5 TMG</h3>
         <p>
-          <strong>→ Name / Firma eintragen</strong><br>
           Lorraine Padberg<br>
           Theaterstraße 16<br>
           76829 Landau in der Pfalz
@@ -1869,14 +1984,14 @@ if (slides.length) {
         <h3>Berufsbezeichnung und berufsrechtliche Regelungen</h3>
         <p>
           Berufsbezeichnung: Friseurin / Friseurmeisterin<br>
-          Zuständige Kammer: <strong>→ Handwerkskammer eintragen</strong><br>
+          Zuständige Kammer: Handwerkskammer der Pfalz<br>
           Verliehen in: Deutschland
         </p>
 
         <h3>Umsatzsteuer-ID</h3>
         <p>
           Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br>
-          <strong>→ USt-IdNr. eintragen (falls vorhanden)</strong>
+          Wird nachgereicht (Kleinunternehmer gemäß § 19 UStG, sofern zutreffend).
         </p>
 
         <h3>Streitschlichtung</h3>
@@ -1926,7 +2041,7 @@ if (slides.length) {
         <h3>2. Verantwortliche Stelle</h3>
         <p>
           Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br><br>
-          <strong>→ Name / Firma eintragen</strong><br>
+          Lorraine Padberg<br>
           Lorraine Padberg<br>
           Theaterstraße 16 · 76829 Landau in der Pfalz<br>
           Telefon: 06341 9029615<br>
@@ -1962,14 +2077,14 @@ if (slides.length) {
 
         <h3>5. Hosting</h3>
         <p>
-          <strong>→ Hosting-Anbieter eintragen</strong> (z.B. GitHub Pages, Netlify, All-Inkl, …).
+          Diese Website wird gehostet bei <strong>Netlify, Inc.</strong>, 44 Montgomery Street, Suite 300, San Francisco, CA 94104, USA.
           Beim Besuch der Website werden automatisch Verbindungsdaten (IP-Adresse, Datum/Uhrzeit,
           aufgerufene Seite) als sog. Server-Log-Files gespeichert. Eine Zusammenführung dieser
           Daten mit anderen Datenquellen wird nicht vorgenommen.
         </p>
 
         <p style="margin-top:32px;font-size:12px;opacity:.5">
-          Stand: Mai 2026 · <strong>→ Bitte durch einen Anwalt oder einen DSGVO-Generator prüfen lassen.</strong>
+          Stand: Mai 2026 · Diese Erklärung ist ein Entwurf — bitte vor Go-Live durch einen Anwalt oder einen zertifizierten DSGVO-Generator finalisieren lassen.
         </p>
       </div>
     </div>

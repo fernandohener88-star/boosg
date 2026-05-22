@@ -1168,6 +1168,74 @@
     .member-overlay .bio { opacity: 1; transform: none; }
     .member-meta { display: none; }
   }
+
+  /* ---------- COOKIE BANNER ---------- */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 20px var(--pad-x);
+    background: rgba(22,19,16,0.95);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-top: 1px solid var(--line);
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease);
+  }
+  .cookie-banner.is-visible { transform: translateY(0); }
+  .cookie-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cookie-text { flex: 1; min-width: 220px; }
+  .cookie-title {
+    font-family: var(--ff-display);
+    font-size: 1rem;
+    color: var(--cream);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .cookie-text p {
+    font-size: 0.78rem;
+    color: var(--cream-dim);
+    line-height: 1.65;
+    max-width: 68ch;
+  }
+  .cookie-link { color: var(--gold); border-bottom: 1px solid rgba(201,160,106,0.3); transition: border-color 0.3s; }
+  .cookie-link:hover { border-bottom-color: var(--gold); }
+  .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+  .cookie-btn {
+    padding: 11px 22px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.35s var(--ease);
+    white-space: nowrap;
+  }
+  .cookie-decline {
+    background: transparent;
+    border: 1px solid rgba(242,235,224,0.22);
+    color: var(--cream-dim);
+  }
+  .cookie-decline:hover { border-color: var(--cream-dim); color: var(--cream); transform: translateY(-1px); }
+  .cookie-accept {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--bg);
+  }
+  .cookie-accept:hover { background: var(--cream); border-color: var(--cream); transform: translateY(-1px); }
+  @media (max-width: 600px) {
+    .cookie-inner { gap: 20px; }
+    .cookie-actions { width: 100%; }
+    .cookie-btn { flex: 1; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -1647,6 +1715,20 @@
   </div>
 </footer>
 
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie-Einstellungen" aria-live="polite">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <p class="cookie-title">Cookies &amp; Datenschutz</p>
+      <p>Wir verwenden Cookies für Google Fonts, Google Maps und zur Verbesserung deines Besuchs. Weitere Infos in unserer <a href="#" class="cookie-link">Datenschutzerklärung</a>.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn cookie-decline" id="cookieDecline">Nur notwendige</button>
+      <button class="cookie-btn cookie-accept" id="cookieAccept">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+
 <script>
   // ------- Nav scroll state -------
   const nav = document.getElementById('nav');
@@ -1729,6 +1811,43 @@
     if (!ok) return;
     shell.classList.add('is-sent');
   });
+
+  // ------- Cookie banner -------
+  (function () {
+    const banner = document.getElementById('cookieBanner');
+    const COOKIE_KEY = 'lorraine_cookie_consent';
+
+    function setCookie(val) {
+      const d = new Date();
+      d.setFullYear(d.getFullYear() + 1);
+      document.cookie = COOKIE_KEY + '=' + val + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+    }
+    function getCookie() {
+      return document.cookie.split('; ').reduce((acc, c) => {
+        const [k, v] = c.split('=');
+        return k === COOKIE_KEY ? v : acc;
+      }, null);
+    }
+    function dismiss() {
+      banner.classList.remove('is-visible');
+      banner.addEventListener('transitionend', () => banner.remove(), { once: true });
+    }
+
+    if (!getCookie()) {
+      setTimeout(() => banner.classList.add('is-visible'), 800);
+    } else {
+      banner.remove();
+    }
+
+    document.getElementById('cookieAccept').addEventListener('click', () => {
+      setCookie('all');
+      dismiss();
+    });
+    document.getElementById('cookieDecline').addEventListener('click', () => {
+      setCookie('necessary');
+      dismiss();
+    });
+  })();
 </script>
 </body>
 </html>

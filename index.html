@@ -28,6 +28,38 @@
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   img{max-width:100%;display:block}
 
+  /* ── intro curtain ───────────────────────────────────── */
+  #intro{position:fixed;inset:0;z-index:1000;overflow:hidden;pointer-events:all}
+  #intro.gone{pointer-events:none;visibility:hidden}
+  .ip{position:absolute;left:0;right:0;height:50%;background:var(--ink-2);will-change:transform;transition:transform .9s cubic-bezier(.76,0,.24,1)}
+  .ip.t{top:0;transform:translateY(0)}
+  .ip.b{bottom:0;transform:translateY(0)}
+  #intro.open .ip.t{transform:translateY(-100%)}
+  #intro.open .ip.b{transform:translateY(100%)}
+  .ic{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;pointer-events:none;transition:opacity .28s ease}
+  #intro.open .ic{opacity:0}
+  .iglow{position:absolute;width:760px;height:560px;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse, rgba(212,168,83,.13) 0%, transparent 62%);pointer-events:none}
+  .iword{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:clamp(88px,15vw,176px);
+    font-weight:300;color:var(--cream);letter-spacing:-.025em;line-height:1;
+    opacity:0;transform:scale(.92) translateY(8px);
+    transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+  }
+  .iword .au{color:var(--gold);font-style:italic}
+  #intro.ready .iword{opacity:1;transform:scale(1) translateY(0)}
+  .irule{
+    width:36px;height:1px;background:var(--gold);margin:22px 0 20px;
+    transform:scaleX(0);transition:transform .55s cubic-bezier(.22,1,.36,1) .35s;
+  }
+  #intro.ready .irule{transform:scaleX(1)}
+  .icity{
+    font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream-mute);
+    opacity:0;transform:translateY(7px);
+    transition:opacity .55s ease .6s, transform .55s ease .6s;
+  }
+  #intro.ready .icity{opacity:1;transform:translateY(0)}
+
   /* ---------- grain overlay ---------- */
   .grain{
     position:fixed;inset:-2px;pointer-events:none;z-index:200;
@@ -323,6 +355,17 @@
 </head>
 <body>
 
+<div id="intro" aria-hidden="true">
+  <div class="ip t"></div>
+  <div class="ip b"></div>
+  <div class="ic">
+    <div class="iglow"></div>
+    <div class="iword">m<span class="au">io</span></div>
+    <div class="irule"></div>
+    <div class="icity">Landau in der Pfalz</div>
+  </div>
+</div>
+
 <div class="grain"></div>
 
 <nav class="top" id="nav">
@@ -600,6 +643,24 @@
     });
   }, {threshold: 0.12});
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Intro curtain
+  (function(){
+    var intro = document.getElementById('intro');
+    if(!intro) return;
+    // only once per browser session
+    if(sessionStorage.getItem('mio_intro')){
+      intro.remove();
+      return;
+    }
+    sessionStorage.setItem('mio_intro','1');
+    requestAnimationFrame(function(){
+      setTimeout(function(){ intro.classList.add('ready'); }, 60);
+      setTimeout(function(){ intro.classList.add('open');  }, 1600);
+      setTimeout(function(){ intro.classList.add('gone');  }, 2550);
+      setTimeout(function(){ intro.remove();               }, 2700);
+    });
+  })();
 </script>
 
 <script>

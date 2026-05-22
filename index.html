@@ -80,6 +80,20 @@
 
   <style>
     html { scroll-behavior: smooth; }
+    @keyframes intro-rise {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes intro-bar {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+    @keyframes intro-slide-out {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-100%); }
+    }
+    .intro-rise { animation: intro-rise .85s cubic-bezier(.2,.6,.2,1) both; }
+    .intro-out  { animation: intro-slide-out .7s cubic-bezier(.7,0,.3,1) forwards; }
     body {
       font-family: 'Manrope', system-ui, sans-serif;
       color: #1c2622;
@@ -225,7 +239,47 @@
   </style>
 </head>
 
-<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok'), impressum:false, datenschutz:false }" x-cloak>
+<body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok'), impressum:false, datenschutz:false, intro:true }" x-cloak>
+
+  <!-- ────────────────────────────── INTRO OPENER ────────────────────────────── -->
+  <div
+    id="intro-overlay"
+    x-show="intro"
+    x-init="setTimeout(() => { $el.classList.add('intro-out'); setTimeout(() => intro = false, 680); }, 2100)"
+    class="fixed inset-0 z-[200] bg-sage-900 flex flex-col items-center justify-center overflow-hidden"
+    style="display:flex"
+  >
+    <!-- subtle radial glow -->
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(85,115,98,.18) 0%, transparent 70%);"></div>
+
+    <!-- logo mark -->
+    <div class="intro-rise" style="animation-delay:.05s">
+      <span class="inline-flex items-center justify-center w-[72px] h-[72px] rounded-full bg-sage-600/25 border border-sage-500/40 text-cream-50">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+          <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+          <circle cx="5" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="9" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="12" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="15" cy="3" r="0.8" fill="currentColor" stroke="none"/>
+          <circle cx="19" cy="4" r="0.8" fill="currentColor" stroke="none"/>
+          <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
+          <circle cx="12" cy="11" r="1.5"/>
+          <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
+        </svg>
+      </span>
+    </div>
+
+    <!-- wordmark -->
+    <h1 class="intro-rise font-serif text-[48px] sm:text-[64px] text-cream-50 mt-5 leading-none" style="animation-delay:.18s">PhysioPfau</h1>
+
+    <!-- subline -->
+    <p class="intro-rise mt-3 text-[11px] uppercase tracking-[.2em] text-sage-400 font-medium" style="animation-delay:.32s">Physiotherapie · Landau in der Pfalz</p>
+
+    <!-- progress line -->
+    <div class="intro-rise mt-10 w-28 h-px bg-sage-700 overflow-hidden" style="animation-delay:.44s">
+      <div class="h-full bg-sage-400 origin-left" style="animation: intro-bar 1.5s .55s cubic-bezier(.4,0,.2,1) both;"></div>
+    </div>
+  </div>
 
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header

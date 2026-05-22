@@ -104,32 +104,6 @@
   section { position: relative; padding: clamp(80px, 12vw, 160px) 0; }
   .section-head { margin-bottom: clamp(48px, 7vw, 96px); }
 
-  /* ---------- CURSOR ---------- */
-  .cursor-dot, .cursor-ring {
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    will-change: transform;
-    mix-blend-mode: difference;
-  }
-  .cursor-dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    transition: opacity 0.25s ease;
-  }
-  .cursor-ring {
-    width: 34px; height: 34px;
-    border: 1px solid var(--gold);
-    transition: width 0.32s var(--ease), height 0.32s var(--ease), opacity 0.25s ease, background 0.32s var(--ease);
-  }
-  .cursor-ring.is-hover {
-    width: 64px; height: 64px;
-    background: rgba(201,160,106,0.08);
-  }
-  body.cursor-hidden .cursor-dot, body.cursor-hidden .cursor-ring { opacity: 0; }
 
   /* ---------- NAV ---------- */
   .nav {
@@ -156,10 +130,9 @@
     gap: 12px;
   }
   .nav-brand img {
-    height: 44px;
-    width: 44px;
-    object-fit: cover;
-    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
     display: block;
     flex-shrink: 0;
   }
@@ -1103,10 +1076,9 @@
     margin-bottom: 20px;
   }
   .foot-brand .logo-wrap img {
-    height: 52px;
-    width: 52px;
-    border-radius: 50%;
-    object-fit: cover;
+    height: 56px;
+    width: 56px;
+    object-fit: contain;
     flex-shrink: 0;
   }
   .foot-brand .name {
@@ -1172,8 +1144,6 @@
     .foot-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
   }
   @media (max-width: 768px) {
-    body { cursor: auto; }
-    .cursor-dot, .cursor-ring { display: none; }
     .nav-links, .nav-cta { display: none; }
     .nav-toggle { display: block; }
     .nav.is-scrolled { padding: 14px var(--pad-x); }
@@ -1201,10 +1171,6 @@
 </style>
 </head>
 <body>
-
-<!-- Custom cursor -->
-<div class="cursor-dot" aria-hidden="true"></div>
-<div class="cursor-ring" aria-hidden="true"></div>
 
 <!-- Navigation -->
 <nav class="nav" id="nav" aria-label="Hauptnavigation">
@@ -1682,36 +1648,6 @@
 </footer>
 
 <script>
-  // ------- Custom cursor (Desktop only) -------
-  (function () {
-    if (window.matchMedia('(hover: none), (max-width: 768px)').matches) return;
-    const dot  = document.querySelector('.cursor-dot');
-    const ring = document.querySelector('.cursor-ring');
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-    let rx = mx, ry = my;
-
-    document.addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-    });
-    document.addEventListener('mouseleave', () => document.body.classList.add('cursor-hidden'));
-    document.addEventListener('mouseenter', () => document.body.classList.remove('cursor-hidden'));
-
-    function tick() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-      requestAnimationFrame(tick);
-    }
-    tick();
-
-    const hoverables = 'a, button, [data-cursor="hover"], .service, .member, .ig-tile, .voice-dot, .map-wrap';
-    document.querySelectorAll(hoverables).forEach((el) => {
-      el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
-    });
-  })();
-
   // ------- Nav scroll state -------
   const nav = document.getElementById('nav');
   const onScroll = () => {

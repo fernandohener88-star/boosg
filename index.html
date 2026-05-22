@@ -80,20 +80,15 @@
 
   <style>
     html { scroll-behavior: smooth; }
-    @keyframes intro-rise {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes intro-bar {
-      from { transform: scaleX(0); }
-      to   { transform: scaleX(1); }
-    }
-    @keyframes intro-slide-out {
-      from { transform: translateY(0); }
-      to   { transform: translateY(-100%); }
-    }
-    .intro-rise { animation: intro-rise .85s cubic-bezier(.2,.6,.2,1) both; }
-    .intro-out  { animation: intro-slide-out .7s cubic-bezier(.7,0,.3,1) forwards; }
+    @keyframes i-rise  { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes i-bar   { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+    @keyframes i-up    { from { transform:translateY(0); }   to { transform:translateY(-100%); } }
+    @keyframes i-down  { from { transform:translateY(0); }   to { transform:translateY( 100%); } }
+    @keyframes i-logo  { 0%{opacity:0;transform:scale(.7) rotate(-8deg);} 100%{opacity:1;transform:scale(1) rotate(0deg);} }
+    @keyframes i-fade  { to { opacity:0; } }
+    .i-curtain-up   { animation: i-up   .9s cubic-bezier(.85,0,.15,1) forwards; }
+    .i-curtain-down { animation: i-down .9s cubic-bezier(.85,0,.15,1) forwards; }
+    .i-content-fade { animation: i-fade .35s ease forwards; }
     body {
       font-family: 'Manrope', system-ui, sans-serif;
       color: #1c2622;
@@ -242,42 +237,86 @@
 <body class="bg-cream-50 text-ink antialiased" x-data="{ open:false, mobile:false, sent:false, cookie: !localStorage.getItem('cookie_ok'), impressum:false, datenschutz:false, intro:true }" x-cloak>
 
   <!-- ────────────────────────────── INTRO OPENER ────────────────────────────── -->
-  <div
-    id="intro-overlay"
-    x-show="intro"
-    x-init="setTimeout(() => { $el.classList.add('intro-out'); setTimeout(() => intro = false, 680); }, 2100)"
-    class="fixed inset-0 z-[200] bg-sage-900 flex flex-col items-center justify-center overflow-hidden"
-    style="display:flex"
+  <!-- ────────── INTRO OPENER ────────── -->
+  <div id="intro-overlay" x-show="intro" style="display:block"
+    x-init="
+      // hacker-scramble on title
+      const el = document.getElementById('intro-title');
+      const word = 'PhysioPfau';
+      const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@&%';
+      let n = 0;
+      setTimeout(() => {
+        el.style.opacity = '1';
+        const iv = setInterval(() => {
+          el.textContent = word.split('').map((c,i) => i < n ? c : glyphs[Math.floor(Math.random()*glyphs.length)]).join('');
+          n += 0.22;
+          if (n >= word.length) { el.textContent = word; clearInterval(iv); }
+        }, 38);
+      }, 550);
+      // exit: fade content → split curtains
+      setTimeout(() => {
+        document.getElementById('intro-content').classList.add('i-content-fade');
+        setTimeout(() => {
+          document.getElementById('intro-top').classList.add('i-curtain-up');
+          document.getElementById('intro-bot').classList.add('i-curtain-down');
+          setTimeout(() => intro = false, 950);
+        }, 320);
+      }, 2300);
+    "
+    class="fixed inset-0 z-[200] pointer-events-none"
   >
-    <!-- subtle radial glow -->
-    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(85,115,98,.18) 0%, transparent 70%);"></div>
+    <!-- top curtain panel -->
+    <div id="intro-top" class="absolute top-0 left-0 right-0 h-[50.5vh]" style="background:#1f2c26;"></div>
+    <!-- bottom curtain panel -->
+    <div id="intro-bot" class="absolute bottom-0 left-0 right-0 h-[50.5vh]" style="background:#1f2c26;"></div>
 
-    <!-- logo mark -->
-    <div class="intro-rise" style="animation-delay:.05s">
-      <span class="inline-flex items-center justify-center w-[72px] h-[72px] rounded-full bg-sage-600/25 border border-sage-500/40 text-cream-50">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-          <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
-          <circle cx="5" cy="4" r="0.8" fill="currentColor" stroke="none"/>
-          <circle cx="9" cy="3" r="0.8" fill="currentColor" stroke="none"/>
-          <circle cx="12" cy="3" r="0.8" fill="currentColor" stroke="none"/>
-          <circle cx="15" cy="3" r="0.8" fill="currentColor" stroke="none"/>
-          <circle cx="19" cy="4" r="0.8" fill="currentColor" stroke="none"/>
-          <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
-          <circle cx="12" cy="11" r="1.5"/>
-          <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
-        </svg>
-      </span>
-    </div>
+    <!-- center content (floats above both panels) -->
+    <div id="intro-content" class="absolute inset-0 flex flex-col items-center justify-center z-10">
 
-    <!-- wordmark -->
-    <h1 class="intro-rise font-serif text-[48px] sm:text-[64px] text-cream-50 mt-5 leading-none" style="animation-delay:.18s">PhysioPfau</h1>
+      <!-- glow blob -->
+      <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 55% 45% at 50% 55%, rgba(85,115,98,.22) 0%, transparent 65%);"></div>
 
-    <!-- subline -->
-    <p class="intro-rise mt-3 text-[11px] uppercase tracking-[.2em] text-sage-400 font-medium" style="animation-delay:.32s">Physiotherapie · Landau in der Pfalz</p>
+      <!-- logo mark — spins + scales in -->
+      <div style="animation:i-logo .7s .08s cubic-bezier(.34,1.56,.64,1) both">
+        <span class="relative inline-flex items-center justify-center w-20 h-20 rounded-full text-cream-50"
+              style="background:rgba(85,115,98,.22); border:1px solid rgba(146,173,154,.35);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" class="w-9 h-9">
+            <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+            <circle cx="5"  cy="4"  r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="9"  cy="3"  r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="12" cy="3"  r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="15" cy="3"  r=".8" fill="currentColor" stroke="none"/>
+            <circle cx="19" cy="4"  r=".8" fill="currentColor" stroke="none"/>
+            <ellipse cx="12" cy="17" rx="3" ry="2.5"/>
+            <circle cx="12" cy="11" r="1.5"/>
+            <path d="M11 9.5L10.5 8M12 9.5L12 8M13 9.5L13.5 8"/>
+          </svg>
+          <!-- pulse ring -->
+          <span class="absolute inset-0 rounded-full" style="border:1px solid rgba(146,173,154,.4); animation:breathe 2.5s ease-in-out infinite;"></span>
+        </span>
+      </div>
 
-    <!-- progress line -->
-    <div class="intro-rise mt-10 w-28 h-px bg-sage-700 overflow-hidden" style="animation-delay:.44s">
-      <div class="h-full bg-sage-400 origin-left" style="animation: intro-bar 1.5s .55s cubic-bezier(.4,0,.2,1) both;"></div>
+      <!-- title — hacker scramble -->
+      <h1 id="intro-title"
+          class="font-serif leading-none mt-6 select-none"
+          style="font-size:clamp(44px,8vw,84px); color:#fbf9f4; opacity:0; letter-spacing:-.02em;">
+        PhysioPfau
+      </h1>
+
+      <!-- horizontal rule + subtitle -->
+      <div style="animation:i-rise .7s .85s cubic-bezier(.2,.6,.2,1) both; opacity:0">
+        <div class="flex items-center gap-4 mt-4">
+          <span class="block w-12 h-px" style="background:rgba(146,173,154,.4);"></span>
+          <p class="text-[11px] uppercase tracking-[.22em] font-medium" style="color:#92ad9a;">Physiotherapie · Landau in der Pfalz</p>
+          <span class="block w-12 h-px" style="background:rgba(146,173,154,.4);"></span>
+        </div>
+      </div>
+
+      <!-- loading bar -->
+      <div style="animation:i-rise .6s 1.05s cubic-bezier(.2,.6,.2,1) both; opacity:0; background:rgba(50,72,61,.6);" class="mt-10 w-36 h-px overflow-hidden">
+        <div style="height:1px; background:rgba(146,173,154,.7); transform-origin:left; animation:i-bar 1.3s 1.15s cubic-bezier(.4,0,.2,1) both;"></div>
+      </div>
+
     </div>
   </div>
 

@@ -834,7 +834,11 @@ function renderAll(){
       if(e.isIntersecting){
         tabs.forEach(t=>t.classList.toggle('active', t.dataset.target===e.target.id));
         const active = tabsEl.querySelector('.cat-tab.active');
-        if(active) active.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+        if(active){
+          const tr = active.getBoundingClientRect();
+          const nr = tabsEl.getBoundingClientRect();
+          tabsEl.scrollTo({left: tabsEl.scrollLeft + tr.left - nr.left - (nr.width - tr.width) / 2, behavior:'smooth'});
+        }
       }
     });
   },{rootMargin:'-20% 0px -70% 0px'});

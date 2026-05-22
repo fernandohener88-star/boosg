@@ -1132,8 +1132,8 @@
   .foot-bottom .legal { display: flex; gap: 24px; }
   .foot-bottom .legal a:hover { color: var(--cream); }
   .foot-credit { font-size: 0.66rem; color: var(--muted); letter-spacing: 0.08em; }
-  .foot-credit a { color: var(--muted); transition: color 0.3s; }
-  .foot-credit a:hover { color: var(--gold); }
+  .foot-credit a { color: var(--gold); border-bottom: 1px solid rgba(201,160,106,0.35); transition: color 0.3s, border-color 0.3s; cursor: pointer; }
+  .foot-credit a:hover { color: var(--cream); border-bottom-color: var(--cream); }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 1024px) {

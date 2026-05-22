@@ -253,13 +253,14 @@
           if (n >= word.length) { el.textContent = word; clearInterval(iv); }
         }, 38);
       }, 550);
-      // exit: fade content → split curtains
+      // exit: fade content → split curtains → remove
+      const _d = $data;
       setTimeout(() => {
         document.getElementById('intro-content').classList.add('i-content-fade');
         setTimeout(() => {
           document.getElementById('intro-top').classList.add('i-curtain-up');
           document.getElementById('intro-bot').classList.add('i-curtain-down');
-          setTimeout(() => intro = false, 950);
+          setTimeout(() => { _d.intro = false; }, 950);
         }, 320);
       }, 2300);
     "

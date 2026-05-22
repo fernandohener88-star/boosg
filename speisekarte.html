@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Speisekarte · mio landau</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script>
+(function(){var c=localStorage.getItem('mio_cookie_consent');if(c==='all'){var h=document.head,p1=document.createElement('link'),p2=document.createElement('link'),f=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';h.appendChild(p1);h.appendChild(p2);h.appendChild(f);}})();
+</script>
 <style>
   :root{
     --ink:#1A1208;--ink-2:#0e0905;
@@ -16,7 +16,7 @@
     --rule:rgba(245,240,232,0.08);--rule-strong:rgba(245,240,232,0.16);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--ink);color:var(--cream);font-family:'Outfit',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:clip}
+  html,body{background:var(--ink);color:var(--cream);font-family:'Outfit',system-ui,-apple-system,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:clip}
   a{color:inherit;text-decoration:none}
   button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
@@ -153,9 +153,19 @@
 
   /* footer */
   footer{border-top:1px solid var(--rule);padding:28px 44px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute)}
-  footer .brand{font-family:'Cormorant Garamond',serif;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:16px;color:var(--cream-dim)}
+  footer .brand{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:16px;color:var(--cream-dim)}
   footer .center{display:flex;gap:24px}
   footer a:hover{color:var(--cream)}
+
+  /* cookie banner */
+  #cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(14,9,5,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--rule-strong);padding:20px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+  #cookie-banner.visible{transform:translateY(0)}
+  .cb-text{font-size:13px;color:var(--cream-dim);line-height:1.55;max-width:680px}
+  .cb-text strong{display:block;color:var(--cream);margin-bottom:5px;font-weight:400;font-size:13.5px}
+  .cb-text a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+  .cb-actions{display:flex;gap:10px;flex-shrink:0}
+  .btn.outline{border-color:var(--rule-strong);color:var(--cream)}
+  .btn.outline:hover{border-color:var(--cream);background:rgba(245,240,232,.05)}
 
   /* reveal */
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
@@ -230,11 +240,24 @@
 <footer>
   <div class="brand">mio landau</div>
   <div class="center">
-    <a href="#">Impressum</a>
-    <a href="#">Datenschutz</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="#" onclick="document.getElementById('cookie-banner').classList.add('visible');return false;">Cookie-Einstellungen</a>
   </div>
-  <div>© 2024 Mio Landau</div>
+  <div>© 2025 Mio Landau</div>
 </footer>
+
+<div id="cookie-banner" role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="cb-text">
+    <strong>Schriftarten &amp; Datenschutz</strong>
+    Diese Webseite lädt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google-Server übertragen.
+    <a href="datenschutz.html">Datenschutzerklärung lesen</a>
+  </div>
+  <div class="cb-actions">
+    <button class="btn outline" onclick="_cookieDecline()">Nur notwendige</button>
+    <button class="btn terra" onclick="_cookieAccept()">Akzeptieren</button>
+  </div>
+</div>
 
 <script>
 const MENU = {
@@ -878,6 +901,33 @@ const revealIo = new IntersectionObserver(entries=>{
 document.querySelectorAll('.reveal').forEach(el=>revealIo.observe(el));
 
 renderAll();
+</script>
+
+<script>
+(function(){
+  var KEY='mio_cookie_consent';
+  var stored=localStorage.getItem(KEY);
+
+  function loadFonts(){
+    var h=document.head;
+    var p1=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';
+    var p2=document.createElement('link');p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';
+    var f=document.createElement('link');f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';
+    h.appendChild(p1);h.appendChild(p2);h.appendChild(f);
+  }
+
+  window._cookieAccept=function(){
+    localStorage.setItem(KEY,'all');
+    document.getElementById('cookie-banner').classList.remove('visible');
+    loadFonts();
+  };
+  window._cookieDecline=function(){
+    localStorage.setItem(KEY,'necessary');
+    document.getElementById('cookie-banner').classList.remove('visible');
+  };
+
+  if(!stored) document.getElementById('cookie-banner').classList.add('visible');
+})();
 </script>
 </body>
 </html>

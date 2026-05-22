@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutz · mio landau</title>
+<script>
+(function(){var c=localStorage.getItem('mio_cookie_consent');if(c==='all'){var h=document.head,p1=document.createElement('link'),p2=document.createElement('link'),f=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';h.appendChild(p1);h.appendChild(p2);h.appendChild(f);}})();
+</script>
+<style>
+  :root{
+    --ink:#1A1208;--ink-2:#0e0905;
+    --cream:#F5F0E8;--cream-dim:#bdb6a8;--cream-mute:#7e7869;
+    --terra:#C4522A;--terra-soft:#D86A40;
+    --gold:#D4A853;--olive:#4A5C3A;
+    --rule:rgba(245,240,232,0.08);--rule-strong:rgba(245,240,232,0.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--cream);font-family:'Outfit',system-ui,-apple-system,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:clip}
+  a{color:inherit;text-decoration:none}
+
+  nav.top{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;padding:22px 44px;background:rgba(14,9,5,0.82);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid var(--rule)}
+  .logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;letter-spacing:-.01em;line-height:1}
+  .logo .accent{color:var(--gold);font-style:italic}
+  nav .links{display:flex;gap:38px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+  nav .links a{position:relative;padding:6px 0;transition:color .25s}
+  nav .links a:hover{color:var(--cream)}
+  nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  nav .links a:hover::after{transform:scaleX(1)}
+  .btn{display:inline-flex;align-items:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;padding:13px 22px;border-radius:1px;border:1px solid transparent;transition:transform .25s,background .25s,color .25s,border-color .25s}
+  .btn.terra{background:var(--terra);color:var(--cream)}
+  .btn.terra:hover{background:var(--terra-soft)}
+  .btn.outline{border-color:var(--rule-strong);color:var(--cream)}
+  .btn.outline:hover{border-color:var(--cream);background:rgba(245,240,232,.05)}
+
+  .legal-wrap{max-width:780px;margin:0 auto;padding:140px 44px 100px}
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:18px}
+  .legal-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(38px,6vw,68px);font-weight:300;line-height:1.08;margin-bottom:64px}
+  .legal-wrap h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:400;color:var(--cream);margin:52px 0 16px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+  .legal-wrap h3{font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin:28px 0 10px}
+  .legal-wrap p{color:var(--cream-dim);font-size:15px;line-height:1.75;margin-bottom:12px}
+  .legal-wrap ul{color:var(--cream-dim);font-size:15px;line-height:1.75;margin:0 0 12px 20px}
+  .legal-wrap li{margin-bottom:4px}
+  .legal-wrap p:last-child{margin-bottom:0}
+  .legal-wrap a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(212,168,83,.4)}
+  .legal-wrap a:hover{text-decoration-color:var(--gold)}
+  .legal-wrap strong{color:var(--cream);font-weight:400}
+  .legal-wrap address{font-style:normal;color:var(--cream-dim);font-size:15px;line-height:1.75;margin-bottom:12px}
+  .infobox{background:rgba(212,168,83,.07);border:1px solid rgba(212,168,83,.2);border-radius:2px;padding:18px 22px;margin:20px 0}
+  .infobox p{margin-bottom:0;font-size:14px}
+
+  footer{border-top:1px solid var(--rule);padding:28px 44px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute)}
+  footer .brand{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:16px;color:var(--cream-dim)}
+  footer .center{display:flex;gap:24px}
+  footer a:hover{color:var(--cream)}
+
+  #cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(14,9,5,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--rule-strong);padding:20px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+  #cookie-banner.visible{transform:translateY(0)}
+  .cb-text{font-size:13px;color:var(--cream-dim);line-height:1.55;max-width:680px}
+  .cb-text strong{display:block;color:var(--cream);margin-bottom:5px;font-weight:400;font-size:13.5px}
+  .cb-text a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+  .cb-actions{display:flex;gap:10px;flex-shrink:0}
+
+  @media(max-width:980px){
+    nav.top{padding:18px 22px}
+    nav.top .links{display:none}
+  }
+  @media(max-width:700px){
+    .legal-wrap{padding:110px 22px 80px}
+    footer{flex-direction:column;gap:14px;text-align:center}
+    #cookie-banner{flex-direction:column;align-items:stretch;padding:18px 22px}
+    .cb-actions{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="index.html" class="logo">m<span class="accent">io</span></a>
+  <div class="links">
+    <a href="index.html">Startseite</a>
+    <a href="speisekarte.html">Speisekarte</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <a class="btn terra" href="https://www.opentable.de/r/mio-restaurant-reservations-landau-in-der-pfalz?restref=194247" target="_blank" rel="noopener">Reservieren</a>
+</nav>
+
+<main>
+  <div class="legal-wrap">
+    <div class="eyebrow">Rechtliches</div>
+    <h1 class="legal-title">Datenschutz&shy;erklärung</h1>
+
+    <h2>1. Allgemeine Hinweise</h2>
+    <p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TTDSG, TMG). In dieser Datenschutzerklärung informieren wir Sie über die wichtigsten Aspekte der Datenverarbeitung im Rahmen unserer Webseite.</p>
+
+    <h2>2. Verantwortlicher</h2>
+    <address>
+      Mio Landau<br>
+      Obertorplatz 4<br>
+      76829 Landau in der Pfalz<br><br>
+      E-Mail: <a href="mailto:info@mio-landau.de">info@mio-landau.de</a>
+    </address>
+    <p>Bei Fragen zum Datenschutz wenden Sie sich bitte an die oben genannte Adresse.</p>
+
+    <h2>3. Datenerfassung auf dieser Webseite</h2>
+
+    <h3>Server-Log-Dateien</h3>
+    <p>Der Hosting-Anbieter dieser Webseite erhebt und speichert automatisch Informationen in sogenannten Server-Log-Dateien, die Ihr Browser beim Besuch der Webseite übermittelt. Dies umfasst:</p>
+    <ul>
+      <li>Browsertyp und Browserversion</li>
+      <li>verwendetes Betriebssystem</li>
+      <li>Referrer URL (zuvor besuchte Seite)</li>
+      <li>IP-Adresse des zugreifenden Rechners</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+    </ul>
+    <p>Diese Daten werden nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem technisch fehlerfreien Betrieb der Webseite).</p>
+
+    <h3>Cookies und Local Storage</h3>
+    <p>Diese Webseite setzt einen einzigen Speichereintrag im Local Storage Ihres Browsers (<code style="font-size:13px;color:var(--gold)">mio_cookie_consent</code>), der Ihre Cookie-Einwilligung speichert. Dieser Eintrag enthält keine personenbezogenen Daten und ist technisch notwendig, um Ihre Einwilligungs­entscheidung dauerhaft zu merken. Rechtsgrundlage ist § 25 Abs. 2 TTDSG.</p>
+
+    <h2>4. Externe Dienste</h2>
+
+    <h3>Google Fonts</h3>
+    <p>Diese Webseite kann Schriftarten von Google Fonts nutzen (Google Ireland Ltd., Gordon House, Barrow Street, Dublin 4, Irland). Wenn Sie im Cookie-Banner auf <strong>„Akzeptieren"</strong> geklickt haben, werden beim Laden der Webseite Anfragen an Google-Server gesendet. Dabei wird Ihre IP-Adresse an Google übertragen und ggf. in den USA verarbeitet.</p>
+    <p>Rechtsgrundlage ist Ihre Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO. Sie können Ihre Einwilligung jederzeit widerrufen, indem Sie im Footer auf <strong>„Cookie-Einstellungen"</strong> klicken und <strong>„Nur notwendige"</strong> wählen. In diesem Fall werden System-Schriftarten verwendet.</p>
+    <p>Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+
+    <h3>OpenTable (Reservierungssystem)</h3>
+    <p>Für Online-Reservierungen verlinken wir auf das Reservierungssystem OpenTable (OpenTable, Inc., 1 Montgomery St., San Francisco, CA 94104, USA). Beim Klick auf den Reservierungs-Button verlassen Sie unsere Webseite und werden direkt zu OpenTable weitergeleitet. Wir binden OpenTable nicht als iframe ein und übertragen selbst keine Daten an OpenTable.</p>
+    <p>Datenschutzerklärung von OpenTable: <a href="https://www.opentable.de/legal/privacy-policy" target="_blank" rel="noopener">opentable.de/legal/privacy-policy</a></p>
+
+    <h3>Google Maps</h3>
+    <p>Auf unserer Startseite befindet sich ein externer Link zu Google Maps. Beim Klick auf diesen Link verlassen Sie unsere Webseite. Wir betten Google Maps nicht direkt ein, sodass keine Datenübertragung an Google Maps stattfindet, solange Sie unsere Webseite besuchen.</p>
+
+    <h2>5. Kontakt per E-Mail</h2>
+    <p>Wenn Sie uns per E-Mail kontaktieren, werden Ihre Angaben inklusive der von Ihnen angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+    <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
+
+    <h2>6. Ihre Rechte</h2>
+    <p>Sie haben gegenüber uns folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
+    <ul>
+      <li><strong>Recht auf Auskunft</strong> (Art. 15 DSGVO)</li>
+      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
+      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO)</li>
+      <li><strong>Recht auf Einschränkung der Verarbeitung</strong> (Art. 18 DSGVO)</li>
+      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+      <li><strong>Recht auf Widerruf</strong> erteilter Einwilligungen (Art. 7 Abs. 3 DSGVO)</li>
+    </ul>
+    <p>Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:info@mio-landau.de">info@mio-landau.de</a></p>
+
+    <h2>7. Beschwerderecht bei der Aufsichtsbehörde</h2>
+    <p>Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Die zuständige Behörde für Rheinland-Pfalz ist:</p>
+    <div class="infobox">
+      <p><strong>Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz</strong><br>
+      Hintere Bleiche 34 · 55116 Mainz<br>
+      Tel.: 06131 8920-0<br>
+      E-Mail: <a href="mailto:poststelle@datenschutz.rlp.de">poststelle@datenschutz.rlp.de</a><br>
+      Web: <a href="https://www.datenschutz.rlp.de" target="_blank" rel="noopener">datenschutz.rlp.de</a></p>
+    </div>
+
+    <h2>8. Aktualität und Änderungen</h2>
+    <p>Diese Datenschutzerklärung hat den Stand Mai 2025. Durch die Weiterentwicklung unserer Webseite oder aufgrund geänderter gesetzlicher bzw. behördlicher Vorgaben kann es notwendig werden, diese Datenschutzerklärung zu ändern. Die jeweils aktuelle Version ist auf dieser Seite abrufbar.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="brand">mio landau</div>
+  <div class="center">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="#" onclick="document.getElementById('cookie-banner').classList.add('visible');return false;">Cookie-Einstellungen</a>
+  </div>
+  <div>© 2025 Mio Landau</div>
+</footer>
+
+<div id="cookie-banner" role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="cb-text">
+    <strong>Schriftarten &amp; Datenschutz</strong>
+    Diese Webseite lädt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google-Server übertragen.
+    <a href="datenschutz.html">Datenschutzerklärung lesen</a>
+  </div>
+  <div class="cb-actions">
+    <button class="btn outline" onclick="_cookieDecline()">Nur notwendige</button>
+    <button class="btn terra" onclick="_cookieAccept()">Akzeptieren</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='mio_cookie_consent';
+  var stored=localStorage.getItem(KEY);
+
+  function loadFonts(){
+    var h=document.head;
+    var p1=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';
+    var p2=document.createElement('link');p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';
+    var f=document.createElement('link');f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';
+    h.appendChild(p1);h.appendChild(p2);h.appendChild(f);
+  }
+
+  window._cookieAccept=function(){
+    localStorage.setItem(KEY,'all');
+    document.getElementById('cookie-banner').classList.remove('visible');
+    loadFonts();
+  };
+  window._cookieDecline=function(){
+    localStorage.setItem(KEY,'necessary');
+    document.getElementById('cookie-banner').classList.remove('visible');
+  };
+
+  if(!stored){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.getElementById('cookie-banner').classList.add('visible');
+    });
+  }
+})();
+</script>
+</body>
+</html>

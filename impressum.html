@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum · mio landau</title>
+<script>
+(function(){var c=localStorage.getItem('mio_cookie_consent');if(c==='all'){var h=document.head,p1=document.createElement('link'),p2=document.createElement('link'),f=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';h.appendChild(p1);h.appendChild(p2);h.appendChild(f);}})();
+</script>
+<style>
+  :root{
+    --ink:#1A1208;--ink-2:#0e0905;
+    --cream:#F5F0E8;--cream-dim:#bdb6a8;--cream-mute:#7e7869;
+    --terra:#C4522A;--terra-soft:#D86A40;
+    --gold:#D4A853;--olive:#4A5C3A;
+    --rule:rgba(245,240,232,0.08);--rule-strong:rgba(245,240,232,0.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);color:var(--cream);font-family:'Outfit',system-ui,-apple-system,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:clip}
+  a{color:inherit;text-decoration:none}
+
+  /* nav */
+  nav.top{
+    position:fixed;top:0;left:0;right:0;z-index:120;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 44px;
+    background:rgba(14,9,5,0.82);
+    backdrop-filter:blur(18px) saturate(140%);
+    -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border-bottom:1px solid var(--rule);
+  }
+  .logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;letter-spacing:-.01em;line-height:1}
+  .logo .accent{color:var(--gold);font-style:italic}
+  nav .links{display:flex;gap:38px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim)}
+  nav .links a{position:relative;padding:6px 0;transition:color .25s}
+  nav .links a:hover{color:var(--cream)}
+  nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  nav .links a:hover::after{transform:scaleX(1)}
+  .btn{display:inline-flex;align-items:center;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;padding:13px 22px;border-radius:1px;border:1px solid transparent;transition:transform .25s,background .25s,color .25s,border-color .25s}
+  .btn.terra{background:var(--terra);color:var(--cream)}
+  .btn.terra:hover{background:var(--terra-soft)}
+
+  /* legal content */
+  .legal-wrap{max-width:780px;margin:0 auto;padding:140px 44px 100px}
+  .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-mute);margin-bottom:18px}
+  .legal-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(42px,6vw,72px);font-weight:300;line-height:1.08;margin-bottom:64px}
+  .legal-wrap h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:400;color:var(--cream);margin:52px 0 16px;padding-bottom:14px;border-bottom:1px solid var(--rule)}
+  .legal-wrap h3{font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin:28px 0 10px}
+  .legal-wrap p{color:var(--cream-dim);font-size:15px;line-height:1.75;margin-bottom:12px}
+  .legal-wrap p:last-child{margin-bottom:0}
+  .legal-wrap a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(212,168,83,.4)}
+  .legal-wrap a:hover{text-decoration-color:var(--gold)}
+  .legal-wrap strong{color:var(--cream);font-weight:400}
+  .placeholder{color:var(--terra-soft);font-style:italic}
+  .legal-wrap address{font-style:normal;color:var(--cream-dim);font-size:15px;line-height:1.75}
+  .notice{background:rgba(196,82,42,.1);border:1px solid rgba(196,82,42,.25);border-radius:2px;padding:16px 20px;margin-top:32px;font-size:13px;color:var(--terra-soft);line-height:1.6}
+
+  /* footer */
+  footer{border-top:1px solid var(--rule);padding:28px 44px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute)}
+  footer .brand{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:.02em;font-size:16px;color:var(--cream-dim)}
+  footer .center{display:flex;gap:24px}
+  footer a:hover{color:var(--cream)}
+
+  /* cookie banner */
+  #cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(14,9,5,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--rule-strong);padding:20px 44px;display:flex;align-items:center;justify-content:space-between;gap:24px;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+  #cookie-banner.visible{transform:translateY(0)}
+  .cb-text{font-size:13px;color:var(--cream-dim);line-height:1.55;max-width:680px}
+  .cb-text strong{display:block;color:var(--cream);margin-bottom:5px;font-weight:400;font-size:13.5px}
+  .cb-text a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
+  .cb-actions{display:flex;gap:10px;flex-shrink:0}
+  .btn.outline{border-color:var(--rule-strong);color:var(--cream)}
+  .btn.outline:hover{border-color:var(--cream);background:rgba(245,240,232,.05)}
+
+  @media(max-width:980px){
+    nav.top{padding:18px 22px}
+    nav.top .links{display:none}
+  }
+  @media(max-width:700px){
+    .legal-wrap{padding:110px 22px 80px}
+    footer{flex-direction:column;gap:14px;text-align:center}
+    #cookie-banner{flex-direction:column;align-items:stretch;padding:18px 22px}
+    .cb-actions{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <a href="index.html" class="logo">m<span class="accent">io</span></a>
+  <div class="links">
+    <a href="index.html">Startseite</a>
+    <a href="speisekarte.html">Speisekarte</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+  <a class="btn terra" href="https://www.opentable.de/r/mio-restaurant-reservations-landau-in-der-pfalz?restref=194247" target="_blank" rel="noopener">Reservieren</a>
+</nav>
+
+<main>
+  <div class="legal-wrap">
+    <div class="eyebrow">Rechtliches</div>
+    <h1 class="legal-title">Impressum</h1>
+
+    <h2>Angaben gemäß § 5 TMG</h2>
+    <address>
+      <strong><span class="placeholder">[VOR- UND NACHNAME DES INHABERS]</span></strong><br>
+      Obertorplatz 4<br>
+      76829 Landau in der Pfalz
+    </address>
+
+    <h2>Kontakt</h2>
+    <address>
+      Telefon: <span class="placeholder">[+49 (0) ...]</span><br>
+      E-Mail: <a href="mailto:info@mio-landau.de">info@mio-landau.de</a><br>
+      Web: <a href="https://mio-landau.de">mio-landau.de</a>
+    </address>
+
+    <h2>Umsatzsteuer-ID</h2>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
+    <span class="placeholder">[DE ...]</span></p>
+
+    <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+    <address>
+      <span class="placeholder">[VOR- UND NACHNAME]</span><br>
+      Obertorplatz 4<br>
+      76829 Landau in der Pfalz
+    </address>
+
+    <h2>Streitschlichtung</h2>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+    <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>.</p>
+    <p>Unsere E-Mail-Adresse finden Sie oben im Impressum. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+    <h2>Haftung für Inhalte</h2>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+    <h2>Haftung für Links</h2>
+    <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+    <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+
+    <h2>Urheberrecht</h2>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+
+    <div class="notice">
+      <strong>Hinweis für den Betreiber:</strong> Die mit <span class="placeholder">eckigen Klammern</span> markierten Felder müssen noch mit den korrekten Angaben befüllt werden (Name des Inhabers, Telefonnummer, Umsatzsteuer-ID). Bitte prüfen Sie das Impressum vor der Veröffentlichung mit einem Rechtsanwalt oder Impressum-Generator (z. B. e-recht24.de).
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="brand">mio landau</div>
+  <div class="center">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="#" onclick="document.getElementById('cookie-banner').classList.add('visible');return false;">Cookie-Einstellungen</a>
+  </div>
+  <div>© 2025 Mio Landau</div>
+</footer>
+
+<div id="cookie-banner" role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="cb-text">
+    <strong>Schriftarten &amp; Datenschutz</strong>
+    Diese Webseite lädt Schriftarten von Google Fonts. Dabei wird Ihre IP-Adresse an Google-Server übertragen.
+    <a href="datenschutz.html">Datenschutzerklärung lesen</a>
+  </div>
+  <div class="cb-actions">
+    <button class="btn outline" onclick="_cookieDecline()">Nur notwendige</button>
+    <button class="btn terra" onclick="_cookieAccept()">Akzeptieren</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='mio_cookie_consent';
+  var stored=localStorage.getItem(KEY);
+
+  function loadFonts(){
+    var h=document.head;
+    var p1=document.createElement('link');p1.rel='preconnect';p1.href='https://fonts.googleapis.com';
+    var p2=document.createElement('link');p2.rel='preconnect';p2.href='https://fonts.gstatic.com';p2.crossOrigin='';
+    var f=document.createElement('link');f.rel='stylesheet';f.href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap';
+    h.appendChild(p1);h.appendChild(p2);h.appendChild(f);
+  }
+
+  window._cookieAccept=function(){
+    localStorage.setItem(KEY,'all');
+    document.getElementById('cookie-banner').classList.remove('visible');
+    loadFonts();
+  };
+  window._cookieDecline=function(){
+    localStorage.setItem(KEY,'necessary');
+    document.getElementById('cookie-banner').classList.remove('visible');
+  };
+
+  if(!stored){
+    document.addEventListener('DOMContentLoaded',function(){
+      document.getElementById('cookie-banner').classList.add('visible');
+    });
+  }
+})();
+</script>
+</body>
+</html>

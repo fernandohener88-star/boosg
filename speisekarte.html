@@ -146,6 +146,10 @@
   .kugel-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400}
   .kugel-desc{font-size:11.5px;color:var(--cream-mute);margin-top:2px}
   .kugel-price{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--cream);flex-shrink:0}
+  .menu-item--empty{pointer-events:none}
+  .menu-item--empty:hover{background:var(--ink)}
+  .kugel-item--empty{pointer-events:none}
+  .kugel-item--empty:hover{background:var(--ink)}
 
   /* footer */
   footer{border-top:1px solid var(--rule);padding:28px 44px;display:flex;align-items:center;justify-content:space-between;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--cream-mute)}
@@ -687,12 +691,18 @@ function renderItem(item, cat){
   </div>`;
 }
 
+function grid(items, cat){
+  let html = items.map(i=>renderItem(i,cat)).join('');
+  if(items.length % 2 !== 0) html += '<div class="menu-item menu-item--empty"></div>';
+  return html;
+}
+
 function renderStandard(cat){
   const note = cat.hinweis ? `<p class="section-note">${cat.hinweis}</p>` : '';
   return `<div class="section-header">
       <div class="eyebrow">${cat.name}</div>${note}
     </div>
-    <div class="items-grid">${(cat.items||[]).map(i=>renderItem(i,cat)).join('')}</div>`;
+    <div class="items-grid">${grid(cat.items||[],cat)}</div>`;
 }
 
 function renderPizza(cat){
@@ -727,7 +737,7 @@ function renderSubcats(cat){
   let html = `<div class="section-header"><div class="eyebrow">${cat.name}</div></div>`;
   cat.unterkategorien.forEach(sub=>{
     html += `<div class="subcat-block"><div class="subcat-name">${sub.name}</div>
-      <div class="items-grid">${sub.items.map(i=>renderItem(i,cat)).join('')}</div></div>`;
+      <div class="items-grid">${grid(sub.items,cat)}</div></div>`;
   });
   return html;
 }
@@ -738,14 +748,19 @@ function renderCocktails(cat){
       <div><div class="cp-label">Cocktails</div><div class="cp-price">${p(cat.preis_standard)}</div></div>
       <div><div class="cp-label">Alkoholfrei</div><div class="cp-price">${p(cat.preis_alkoholfrei)}</div></div>
     </div>
-    <div class="items-grid">${cat.items.map(i=>renderItem(i,cat)).join('')}</div>`;
+    <div class="items-grid">${grid(cat.items,cat)}</div>`;
 }
 
 function renderEis(cat){
-  const kugelnHtml = cat.kugeln.map(k=>`<div class="kugel-item">
+  // kugeln: 3-column grid — pad to multiple of 3
+  let kugelnItems = cat.kugeln.map(k=>`<div class="kugel-item">
     <div><div class="kugel-name">${k.name}</div>${k.beschreibung?`<div class="kugel-desc">${k.beschreibung}</div>`:''}</div>
     <div class="kugel-price">${p(k.preis)}</div>
   </div>`).join('');
+  const kugelnRem = cat.kugeln.length % 3;
+  if(kugelnRem !== 0){
+    for(let i=0;i<3-kugelnRem;i++) kugelnItems += '<div class="kugel-item kugel-item--empty"></div>';
+  }
 
   return `<div class="section-header">
       <div class="eyebrow">Eis · La Piazza Edenkoben</div>
@@ -759,19 +774,19 @@ function renderEis(cat){
     </div>
     <div class="eis-subsection">
       <div class="eis-sub-title">Kugeln</div>
-      <div class="kugeln-grid">${kugelnHtml}</div>
+      <div class="kugeln-grid">${kugelnItems}</div>
     </div>
     <div class="eis-subsection">
       <div class="eis-sub-title">Extras</div>
-      <div class="items-grid">${cat.extras_eis.map(i=>renderItem(i,{})).join('')}</div>
+      <div class="items-grid">${grid(cat.extras_eis,{})}</div>
     </div>
     <div class="eis-subsection">
       <div class="eis-sub-title">Eisbecher</div>
-      <div class="items-grid">${cat.eisbecher.map(i=>renderItem(i,{})).join('')}</div>
+      <div class="items-grid">${grid(cat.eisbecher,{})}</div>
     </div>
     <div class="eis-subsection">
       <div class="eis-sub-title">Kinderbecher</div>
-      <div class="items-grid">${cat.kinderbecher.map(i=>renderItem(i,{})).join('')}</div>
+      <div class="items-grid">${grid(cat.kinderbecher,{})}</div>
     </div>`;
 }
 

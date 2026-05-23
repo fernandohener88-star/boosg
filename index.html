@@ -503,68 +503,181 @@
   }
 
   /* ============ PHILOSOPHY ============ */
-  .philo {
-    background: var(--paper);
-    padding: var(--section-y) var(--pad-x);
+  /* ============ MANIFESTO / PHILOSOPHY ============ */
+  .manifesto {
+    background: var(--ink);
+    color: var(--paper);
+    overflow: hidden;
+    position: relative;
   }
-  .philo__quote {
+  .manifesto .section__head {
+    padding: clamp(56px, 9vh, 120px) var(--pad-x) 0;
+  }
+  .manifesto .section__label { color: rgba(250,247,240,0.35); }
+  .manifesto .section__label .num { color: var(--terra); }
+
+  /* Ticker */
+  .mfst-ticker {
+    overflow: hidden;
+    border-bottom: 1px solid rgba(250,247,240,0.08);
+    padding: 14px 0;
+    user-select: none;
+  }
+  .mfst-ticker__track {
+    display: flex;
+    width: max-content;
+    animation: mfstTick 32s linear infinite;
+  }
+  @keyframes mfstTick {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .mfst-ticker__item {
+    font-size: 10px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: rgba(250,247,240,0.28);
+    padding: 0 36px;
+    white-space: nowrap;
+  }
+  .mfst-ticker__item b { color: var(--terra); font-weight: 400; }
+
+  /* Body */
+  .mfst-body {
+    padding: clamp(72px, 11vh, 160px) var(--pad-x) clamp(56px, 9vh, 130px);
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    gap: clamp(32px, 5vw, 100px);
+    align-items: end;
+  }
+
+  /* Quote */
+  .mfst-quote {
     font-family: var(--serif);
     font-style: italic;
     font-weight: 300;
-    font-size: clamp(32px, 5vw, 80px);
-    line-height: 1.08;
-    letter-spacing: -0.015em;
-    max-width: 22ch;
-    margin: 0 auto;
-    text-align: left;
-    text-wrap: balance;
+    font-size: clamp(46px, 7.5vw, 136px);
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    margin: 0;
   }
-  .philo__quote .accent { color: var(--terra); }
-  .philo__attr {
-    margin-top: 32px;
-    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(10,10,10,0.55);
-    max-width: 22ch;
-    margin-left: auto; margin-right: auto;
+  .mfst-quote__line { display: block; overflow: hidden; }
+  .mfst-quote__inner {
+    display: block;
+    transform: translateY(115%);
+    transition: transform 1.2s var(--ease-out);
   }
+  .manifesto.is-in .mfst-quote__inner { transform: translateY(0); }
+  .mfst-quote__line:nth-child(2) .mfst-quote__inner { transition-delay: 0.08s; }
+  .mfst-quote__line:nth-child(3) .mfst-quote__inner { transition-delay: 0.16s; }
+  .mfst-quote__line:nth-child(4) .mfst-quote__inner { transition-delay: 0.24s; }
+  .mfst-quote__line:nth-child(5) .mfst-quote__inner { transition-delay: 0.32s; }
+  .mfst-accent { color: var(--terra); font-style: italic; }
 
-  .stats {
-    margin-top: clamp(80px, 14vh, 160px);
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+  /* Side */
+  .mfst-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-bottom: 0.08em;
+    gap: 16px;
   }
-  .stat {
-    padding: 48px 32px;
-    border-right: 1px solid var(--line);
-    display: flex; flex-direction: column; gap: 12px;
+  .mfst-attr {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(250,247,240,0.32);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
   }
-  .stat:last-child { border-right: 0; }
-  .stat__num {
-    font-family: var(--serif); font-style: italic; font-weight: 300;
-    font-size: clamp(64px, 8vw, 128px);
+  .mfst-deco {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(80px, 14vw, 220px);
     line-height: 1;
     letter-spacing: -0.04em;
+    color: rgba(250,247,240,0.04);
+    user-select: none;
+    line-height: 1;
   }
-  .stat__num .plus, .stat__num .tilde { color: var(--terra); font-size: 0.5em; vertical-align: middle; margin: 0 0.05em; }
-  .stat__label {
-    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(10,10,10,0.6);
+
+  /* Stats */
+  .mfst-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid rgba(250,247,240,0.1);
   }
-  @media (max-width: 800px) {
-    .stats { grid-template-columns: 1fr; }
-    .stat { border-right: 0; border-bottom: 1px solid var(--line); }
-    .stat:last-child { border-bottom: 0; }
+  .mfst-stat {
+    padding: clamp(40px, 7vh, 72px) var(--pad-x);
+    border-right: 1px solid rgba(250,247,240,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mfst-stat:last-child { border-right: 0; }
+  .mfst-stat::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--terra);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.65s var(--ease-out);
+  }
+  .mfst-stat:hover::after { transform: scaleX(1); }
+  .mfst-stat-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(72px, 10vw, 160px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--paper);
+  }
+  .mfst-stat-num .sym { color: var(--terra); font-size: 0.48em; vertical-align: 0.12em; margin: 0 0.04em; }
+  .mfst-stat-label {
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(250,247,240,0.38);
+  }
+  @media (max-width: 900px) {
+    .mfst-body { grid-template-columns: 1fr; }
+    .mfst-side { flex-direction: row; align-items: center; }
+    .mfst-attr { writing-mode: horizontal-tb; transform: none; }
+    .mfst-deco { display: none; }
+  }
+  @media (max-width: 680px) {
+    .mfst-stats { grid-template-columns: 1fr; }
+    .mfst-stat { border-right: 0; border-bottom: 1px solid rgba(250,247,240,0.1); }
+    .mfst-stat:last-child { border-bottom: 0; }
   }
 
   /* ============ TEAM ============ */
-  .team-grid {
+  .partners-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 2px;
+    margin-bottom: 2px;
   }
-  @media (max-width: 600px) { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; } }
+  @media (max-width: 800px) { .partners-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .team-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    justify-content: center;
+  }
+  .team-grid .member {
+    flex: 0 0 calc((100% - 10px) / 6);
+    min-width: 200px;
+  }
+  @media (max-width: 600px) {
+    .team-grid .member { flex: 0 0 calc(50% - 1px); min-width: 0; }
+  }
 
   .member {
     position: relative;
@@ -1277,32 +1390,66 @@
     </section>
 
     <!-- ============ PHILOSOPHY ============ -->
-    <section class="philo section--paper" id="philosophie">
-      <div class="section__head" style="margin-bottom:clamp(60px,9vh,120px)">
+    <section class="manifesto" id="philosophie">
+
+      <!-- Ticker -->
+      <div class="mfst-ticker" aria-hidden="true">
+        <div class="mfst-ticker__track">
+          <span class="mfst-ticker__item">Architektur <b>·</b></span>
+          <span class="mfst-ticker__item">Gestaltung <b>·</b></span>
+          <span class="mfst-ticker__item">Handwerk <b>·</b></span>
+          <span class="mfst-ticker__item">Ausführung <b>·</b></span>
+          <span class="mfst-ticker__item">Entwurf <b>·</b></span>
+          <span class="mfst-ticker__item">Landau i.d. Pfalz <b>·</b></span>
+          <span class="mfst-ticker__item">seit 2005 <b>·</b></span>
+          <span class="mfst-ticker__item">Architektur <b>·</b></span>
+          <span class="mfst-ticker__item">Gestaltung <b>·</b></span>
+          <span class="mfst-ticker__item">Handwerk <b>·</b></span>
+          <span class="mfst-ticker__item">Ausführung <b>·</b></span>
+          <span class="mfst-ticker__item">Entwurf <b>·</b></span>
+          <span class="mfst-ticker__item">Landau i.d. Pfalz <b>·</b></span>
+          <span class="mfst-ticker__item">seit 2005 <b>·</b></span>
+        </div>
+      </div>
+
+      <!-- Section label -->
+      <div class="section__head">
         <div>
           <div class="section__label"><span class="num">02</span><span>Philosophie</span></div>
         </div>
       </div>
 
-      <blockquote class="philo__quote reveal">
-        Gestaltung ist in der Architektur untrennbar mit der <span class="accent">tatsächlichen Ausführung</span> verbunden.
-      </blockquote>
-      <div class="philo__attr reveal" data-delay="2">— hausgemachte Architekten</div>
-
-      <div class="stats" id="stats">
-        <div class="stat reveal">
-          <div class="stat__num"><span class="tilde">~</span><span class="counter" data-to="20">0</span></div>
-          <div class="stat__label">Jahre Erfahrung</div>
-        </div>
-        <div class="stat reveal" data-delay="1">
-          <div class="stat__num"><span class="counter" data-to="50">0</span><span class="plus">+</span></div>
-          <div class="stat__label">Ausgezeichnete Projekte</div>
-        </div>
-        <div class="stat reveal" data-delay="2">
-          <div class="stat__num"><span class="counter" data-to="4">0</span></div>
-          <div class="stat__label">Partner</div>
+      <!-- Quote + side -->
+      <div class="mfst-body">
+        <blockquote class="mfst-quote" aria-label="Gestaltung ist in der Architektur untrennbar mit der tatsächlichen Ausführung verbunden.">
+          <span class="mfst-quote__line"><span class="mfst-quote__inner">Gestaltung ist</span></span>
+          <span class="mfst-quote__line"><span class="mfst-quote__inner">in der Architektur</span></span>
+          <span class="mfst-quote__line"><span class="mfst-quote__inner">untrennbar mit der</span></span>
+          <span class="mfst-quote__line"><span class="mfst-quote__inner"><em class="mfst-accent">tatsächlichen</em></span></span>
+          <span class="mfst-quote__line"><span class="mfst-quote__inner mfst-accent">Ausführung.</span></span>
+        </blockquote>
+        <div class="mfst-side">
+          <div class="mfst-deco" aria-hidden="true">02</div>
+          <div class="mfst-attr">— hausgemachte Architekten</div>
         </div>
       </div>
+
+      <!-- Stats -->
+      <div class="mfst-stats" id="stats">
+        <div class="mfst-stat">
+          <div class="mfst-stat-num"><span class="sym">~</span><span class="counter" data-to="20">0</span></div>
+          <div class="mfst-stat-label">Jahre Erfahrung</div>
+        </div>
+        <div class="mfst-stat">
+          <div class="mfst-stat-num"><span class="counter" data-to="50">0</span><span class="sym">+</span></div>
+          <div class="mfst-stat-label">Ausgezeichnete Projekte</div>
+        </div>
+        <div class="mfst-stat">
+          <div class="mfst-stat-num"><span class="counter" data-to="4">0</span></div>
+          <div class="mfst-stat-label">Partner</div>
+        </div>
+      </div>
+
     </section>
 
     <!-- ============ TEAM ============ -->
@@ -1317,8 +1464,11 @@
         </p>
       </div>
 
-      <div class="team-grid" id="teamGrid">
-        <!-- members injected by JS -->
+      <div class="partners-grid" id="partnersGrid">
+        <!-- partners injected by JS -->
+      </div>
+      <div class="team-grid" id="staffGrid">
+        <!-- staff injected by JS -->
       </div>
     </section>
 
@@ -1696,7 +1846,6 @@
     });
 
     // ============ TEAM RENDER ============
-    const teamGrid = document.getElementById('teamGrid');
 
     function memberHTML(name, role, initials, photo, isPartner) {
       const visual = photo
@@ -1714,12 +1863,15 @@
         </div>`;
     }
 
+    const partnersGrid = document.getElementById('partnersGrid');
+    const staffGrid = document.getElementById('staffGrid');
+
     partners.forEach((p, i) => {
       const el = document.createElement('article');
       el.className = 'member member--partner reveal';
       el.setAttribute('data-delay', (i % 4));
       el.innerHTML = memberHTML(p.name, `${p.role} · ${p.title}`, p.initials, p.photo, true);
-      teamGrid.appendChild(el);
+      partnersGrid.appendChild(el);
     });
 
     staff.forEach((s, i) => {
@@ -1727,7 +1879,7 @@
       el.className = 'member reveal';
       el.setAttribute('data-delay', (i % 4));
       el.innerHTML = memberHTML(s.name, 'Mitarbeiter:in', s.initials, s.photo, false);
-      teamGrid.appendChild(el);
+      staffGrid.appendChild(el);
     });
 
     // ============ AWARDS RENDER ============
@@ -1745,6 +1897,18 @@
       awardsRail.appendChild(el);
     });
 
+
+    // ============ MANIFESTO QUOTE REVEAL ============
+    const manifestoEl = document.querySelector('.manifesto');
+    if (manifestoEl) {
+      const mio = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          manifestoEl.classList.add('is-in');
+          mio.disconnect();
+        }
+      }, { threshold: 0.18 });
+      mio.observe(manifestoEl);
+    }
 
     // ============ INTERSECTION REVEAL ============
     const io = new IntersectionObserver(entries => {

@@ -855,39 +855,81 @@
     background: var(--bg-card);
     position: relative;
     overflow: hidden;
-    transition: transform 0.6s var(--ease);
+    display: block;
   }
-  .ig-tile::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at var(--cx, 50%) var(--cy, 50%), rgba(201,160,106,0.22), transparent 60%),
-      linear-gradient(135deg, var(--bg-soft), var(--bg-card));
+  .ig-tile img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.88);
+    transition: transform 0.8s var(--ease), filter 0.5s var(--ease);
+    display: block;
   }
   .ig-tile::after {
     content: "";
     position: absolute;
-    inset: 12px;
-    border: 1px solid rgba(242,235,224,0.05);
-  }
-  .ig-tile:nth-child(1) { --cx: 30%; --cy: 30%; }
-  .ig-tile:nth-child(2) { --cx: 70%; --cy: 40%; }
-  .ig-tile:nth-child(3) { --cx: 40%; --cy: 60%; }
-  .ig-tile:nth-child(4) { --cx: 80%; --cy: 70%; }
-  .ig-tile:nth-child(5) { --cx: 20%; --cy: 80%; }
-  .ig-tile span {
-    position: absolute;
     inset: 0;
-    display: grid;
-    place-items: center;
-    font-family: var(--ff-display);
-    font-style: italic;
-    font-size: 1.4rem;
-    color: var(--cream-dim);
-    opacity: 0.5;
+    background: rgba(22,19,16,0);
+    transition: background 0.4s var(--ease);
   }
-  .ig-tile:hover { transform: translateY(-4px); }
+  .ig-tile:hover img { transform: scale(1.07); filter: saturate(1.05); }
+  .ig-tile:hover::after { background: rgba(22,19,16,0.15); }
+
+  /* ---------- PHONE CTA ---------- */
+  .contact-call {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: clamp(32px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .contact-call h4 {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    max-width: 16ch;
+    line-height: 1.1;
+  }
+  .contact-call h4 em { font-style: italic; color: var(--cream-dim); }
+  .contact-call > p { color: var(--cream-dim); max-width: 38ch; }
+  .call-number {
+    display: block;
+    font-family: var(--ff-display);
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    color: var(--gold);
+    letter-spacing: -0.01em;
+    line-height: 1;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.3s var(--ease);
+  }
+  .call-number small {
+    display: block;
+    font-family: var(--ff-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .call-number:hover { color: var(--cream); }
+  .call-hours {
+    display: grid;
+    gap: 16px;
+  }
+  .call-hours-grid {
+    display: grid;
+    gap: 7px;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.88rem;
+  }
+  .call-hours-grid div { display: flex; gap: 10px; }
+  .call-hours-grid .day { color: var(--cream-dim); width: 4.2em; flex-shrink: 0; }
+  .call-hours-grid .time { color: var(--cream); }
+  .call-hours-grid .closed .day,
+  .call-hours-grid .closed .time { color: var(--muted); }
+  .call-btn {
+    align-self: flex-start;
+  }
 
   /* ---------- CONTACT ---------- */
   .contact { background: var(--bg-soft); }
@@ -1748,12 +1790,22 @@
       </div>
     </div>
 
-    <div class="ig-strip reveal" data-d="2" aria-hidden="true">
-      <div class="ig-tile"><span>Cut</span></div>
-      <div class="ig-tile"><span>Color</span></div>
-      <div class="ig-tile"><span>Braut</span></div>
-      <div class="ig-tile"><span>Studio</span></div>
-      <div class="ig-tile"><span>Detail</span></div>
+    <div class="ig-strip reveal" data-d="2">
+      <a class="ig-tile" href="https://instagram.com/lorraine.haarstudio" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://images.pexels.com/photos/3065209/pexels-photo-3065209.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Balayage Farbe" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="https://instagram.com/lorraine.haarstudio" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://images.pexels.com/photos/3807571/pexels-photo-3807571.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haar Styling" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="https://instagram.com/lorraine.haarstudio" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://images.pexels.com/photos/3065171/pexels-photo-3065171.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Haarpflege" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="https://instagram.com/lorraine.haarstudio" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://images.pexels.com/photos/3997381/pexels-photo-3997381.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Schnitt" loading="lazy" />
+      </a>
+      <a class="ig-tile" href="https://instagram.com/lorraine.haarstudio" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="https://images.pexels.com/photos/3738373/pexels-photo-3738373.jpeg?auto=compress&cs=tinysrgb&w=600&h=600&fit=crop" alt="Detail" loading="lazy" />
+      </a>
     </div>
   </div>
 </section>
@@ -1765,7 +1817,7 @@
       <div class="contact-info reveal">
         <span class="eyebrow">— 06 · Kontakt</span>
         <h3>Komm gerne <em>vorbei.</em></h3>
-        <p>Ein Anruf reicht, oder schreib uns kurz übers Formular. Wir melden uns innerhalb eines Werktags zurück — mit einem Vorschlag, der passt.</p>
+        <p>Einfach anrufen — wir nehmen uns Zeit für dich und finden gemeinsam den passenden Termin.</p>
 
         <dl class="contact-blocks">
           <div class="contact-block">
@@ -1801,77 +1853,33 @@
         </div>
       </div>
 
-      <div class="form-shell reveal" data-d="2" id="formShell">
-        <div class="form-body">
-          <span class="eyebrow">Termin anfragen</span>
-          <h4>Erzähl uns kurz, <em>was du dir wünschst.</em></h4>
-
-          <form id="contactForm" novalidate>
-            <div class="field-grid">
-              <div class="field-row">
-                <div class="field">
-                  <input type="text" id="f-name" name="name" required autocomplete="name" />
-                  <label for="f-name">Dein Name</label>
-                </div>
-                <div class="field">
-                  <input type="tel" id="f-phone" name="phone" autocomplete="tel" />
-                  <label for="f-phone">Telefon (optional)</label>
-                </div>
-              </div>
-
-              <div class="field">
-                <input type="email" id="f-mail" name="mail" required autocomplete="email" />
-                <label for="f-mail">E-Mail</label>
-              </div>
-
-              <div class="field-row">
-                <div class="field">
-                  <select id="f-service" name="service" required>
-                    <option value="" disabled selected hidden></option>
-                    <option>Schnitt &amp; Form</option>
-                    <option>Farbe &amp; Strähnchen</option>
-                    <option>Styling &amp; Anlass</option>
-                    <option>Pflege &amp; Treatment</option>
-                    <option>Beratung im Studio</option>
-                  </select>
-                  <label for="f-service">Leistung</label>
-                </div>
-                <div class="field">
-                  <select id="f-when" name="when">
-                    <option value="" disabled selected hidden></option>
-                    <option>Vormittags</option>
-                    <option>Nachmittags</option>
-                    <option>Donnerstagabend</option>
-                    <option>Samstag</option>
-                    <option>Flexibel</option>
-                  </select>
-                  <label for="f-when">Wann passt?</label>
-                </div>
-              </div>
-
-              <div class="field">
-                <textarea id="f-note" name="note" rows="3"></textarea>
-                <label for="f-note">Notiz (optional)</label>
-              </div>
-            </div>
-
-            <div class="form-foot">
-              <small>Mit dem Absenden stimmst du unserer Datenschutzerklärung zu. Wir melden uns innerhalb eines Werktags.</small>
-              <button type="submit" class="btn btn-primary" data-cursor="hover">
-                Anfrage senden
-                <span class="arrow">→</span>
-              </button>
-            </div>
-          </form>
+      <div class="contact-call reveal" data-d="2">
+        <div>
+          <span class="eyebrow">Termin vereinbaren</span>
+          <h4 style="margin-top:16px;">Ruf uns einfach <em>an.</em></h4>
+          <p>Kein Formular, kein Warten. Ein kurzer Anruf — und wir finden gemeinsam den perfekten Termin für dich.</p>
         </div>
 
-        <div class="form-success" aria-hidden="true">
-          <div class="check">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10 L8.5 14.5 L16 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <a href="tel:063419029615" class="call-number">
+          <small>Telefon</small>
+          06341 · 9029615
+        </a>
+
+        <div class="call-hours">
+          <span class="eyebrow">Wann wir erreichbar sind</span>
+          <div class="call-hours-grid">
+            <div><span class="day">Di – Mi</span><span class="time">09 — 18 Uhr</span></div>
+            <div><span class="day">Do</span><span class="time">09 — 20 Uhr</span></div>
+            <div><span class="day">Fr</span><span class="time">09 — 18 Uhr</span></div>
+            <div><span class="day">Sa</span><span class="time">08 — 14 Uhr</span></div>
+            <div class="closed"><span class="day">So &amp; Mo</span><span class="time">geschlossen</span></div>
           </div>
-          <h5>Danke — wir melden uns <em>in Kürze.</em></h5>
-          <p>Deine Anfrage ist bei uns gelandet. Wir lesen jede Nachricht persönlich und antworten meistens noch am selben Tag.</p>
         </div>
+
+        <a href="tel:063419029615" class="btn btn-primary call-btn">
+          Jetzt anrufen
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
   </div>
@@ -2140,28 +2148,6 @@
     auto();
   })();
 
-  // ------- Floating-label form -------
-  document.querySelectorAll('.field input, .field select, .field textarea').forEach((el) => {
-    const sync = () => el.parentElement.classList.toggle('is-filled', !!el.value);
-    el.addEventListener('input', sync);
-    el.addEventListener('change', sync);
-    el.addEventListener('blur', sync);
-    sync();
-  });
-
-  // ------- Form submit -------
-  const form = document.getElementById('contactForm');
-  const shell = document.getElementById('formShell');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const required = form.querySelectorAll('[required]');
-    let ok = true;
-    required.forEach((el) => {
-      if (!el.value) { el.parentElement.classList.add('is-error'); ok = false; }
-    });
-    if (!ok) return;
-    shell.classList.add('is-sent');
-  });
 
   // ------- Modals (Impressum / Datenschutz) -------
   (function () {

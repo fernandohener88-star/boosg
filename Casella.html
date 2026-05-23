@@ -1,0 +1,1959 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Casel·la · Ristorante &amp; Feinkost · Landau in der Pfalz · seit 1972</title>
+<meta name="description" content="Casellas Ristorante Farfallina — italienische Lebensart in Landau seit 1972. Hausgemachte Pasta, kuratierte Weine und ein kleines Feinkostgeschäft am Kleinen Platz." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+<style>
+/* ─────────────────────────────────────────────
+   CASEL·LA · Landau · tokens
+   ───────────────────────────────────────────── */
+:root{
+  --bg:           #140F0B;
+  --bg-soft:      #1C1510;
+  --bg-card:      #231A13;
+  --cream:        #F0E8DC;
+  --cream-dim:    #BFB3A4;
+  --terracotta:   #C4673A;
+  --terra-glow:   #DC7E4D;
+  --terra-pale:   #3B1F12;
+  --gold:         #B8963E;
+  --muted:        #7A6F62;
+  --line:         rgba(196,103,58,0.22);
+  --line-soft:    rgba(240,232,220,0.08);
+
+  --serif: "Playfair Display", "Hoefler Text", Georgia, serif;
+  --sans:  "Lato", "Helvetica Neue", system-ui, sans-serif;
+
+  --max:    1320px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; background:var(--bg); color:var(--cream); }
+html{ scroll-behavior:smooth; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+body{
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:.9rem;
+  line-height:1.85;
+  letter-spacing:.005em;
+  overflow-x:hidden;
+  background:
+    radial-gradient(1200px 800px at 80% -10%, #2a1b10 0%, transparent 60%),
+    radial-gradient(900px 600px at -10% 100%, #1f140c 0%, transparent 65%),
+    var(--bg);
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+::selection{ background:var(--terracotta); color:var(--bg); }
+
+h1,h2,h3,h4{
+  font-family:var(--serif);
+  font-weight:400;
+  letter-spacing:-0.01em;
+  line-height:1.05;
+  margin:0;
+  color:var(--cream);
+}
+h1{ font-size:clamp(3rem, 9vw, 7.5rem); }
+h2{ font-size:clamp(2.2rem, 5.2vw, 4.2rem); line-height:1.08; }
+h3{ font-size:clamp(1.4rem, 2.4vw, 1.9rem); line-height:1.18; }
+em, .it{ font-style:italic; color:var(--cream); }
+
+p{ margin:0; }
+p + p{ margin-top:1.15em; }
+
+/* Eyebrow + section number */
+.eyebrow{
+  font-family:var(--sans);
+  font-size:.62rem;
+  font-weight:400;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--terracotta);
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+}
+.eyebrow::before{
+  content:"";
+  width:48px; height:1px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+  display:inline-block;
+}
+.eyebrow.center{ justify-content:center; }
+.eyebrow.center::after{
+  content:"";
+  width:48px; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold));
+}
+
+.sec-num{
+  font-family:var(--sans);
+  font-size:.62rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--terracotta);
+  display:flex; align-items:center; gap:18px;
+  margin-bottom:32px;
+}
+.sec-num::after{
+  content:"";
+  flex:0 0 120px; height:1px;
+  background:linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* Custom cursor */
+.cursor-dot, .cursor-ring{
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+}
+.cursor-dot{
+  width:6px; height:6px;
+  background:var(--terracotta);
+  border-radius:50%;
+  transition:transform .15s ease;
+}
+.cursor-ring{
+  width:34px; height:34px;
+  border:1px solid var(--terracotta);
+  border-radius:50%;
+  transition:width .25s ease, height .25s ease, opacity .2s ease, border-color .2s ease;
+}
+.cursor-ring.is-hover{ width:62px; height:62px; border-color:var(--terra-glow); }
+@media (pointer:coarse){ .cursor-dot,.cursor-ring{ display:none; } }
+@media (pointer:fine){ body{ cursor:none; } a, button, input, textarea, select, [data-cursor="hover"]{ cursor:none; } }
+
+/* ─────────────────────────────────────────────
+   Nav
+   ───────────────────────────────────────────── */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:26px var(--gutter);
+  transition:padding .35s ease, background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.is-scrolled{
+  padding:14px var(--gutter);
+  background:rgba(20,15,11,0.72);
+  backdrop-filter:blur(16px) saturate(1.1);
+  -webkit-backdrop-filter:blur(16px) saturate(1.1);
+  border-bottom:1px solid var(--line);
+}
+.brand{
+  font-family:var(--serif);
+  font-size:1.55rem;
+  letter-spacing:.01em;
+  color:var(--cream);
+  display:flex; align-items:baseline; gap:.18em;
+  transition:font-size .35s ease;
+}
+.nav.is-scrolled .brand{ font-size:1.25rem; }
+.brand .dot{ color:var(--terracotta); font-style:italic; }
+.brand small{
+  font-family:var(--sans);
+  font-size:.55rem; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--muted); margin-left:14px; font-weight:400;
+  align-self:center;
+}
+.nav-links{
+  display:flex; align-items:center; gap:38px;
+  list-style:none; margin:0; padding:0;
+}
+.nav-links a{
+  font-size:.68rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--cream-dim);
+  position:relative;
+  padding:6px 0;
+  transition:color .25s ease;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:0;
+  width:0; height:1px; background:var(--terracotta);
+  transition:width .35s ease;
+}
+.nav-links a:hover{ color:var(--cream); }
+.nav-links a:hover::after{ width:100%; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:13px 22px;
+  font-size:.66rem; letter-spacing:.22em; text-transform:uppercase;
+  font-family:var(--sans); font-weight:400;
+  border:1px solid var(--terracotta);
+  background:var(--terracotta);
+  color:var(--cream);
+  border-radius:1px;
+  transition:transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.btn:hover{
+  background:var(--cream); color:var(--bg);
+  border-color:var(--cream);
+  transform:translateY(-1px);
+  box-shadow:0 10px 30px -12px rgba(0,0,0,.7);
+}
+.btn--ghost{ background:transparent; color:var(--cream); }
+.btn--ghost:hover{ background:var(--terracotta); color:var(--cream); border-color:var(--terracotta); }
+.btn .arrow{ display:inline-block; transition:transform .3s ease; }
+.btn:hover .arrow{ transform:translateX(6px); }
+
+.hamburger{ display:none; width:36px; height:36px; position:relative; }
+.hamburger span{
+  position:absolute; left:7px; right:7px; height:1px;
+  background:var(--cream);
+  transition:transform .3s ease, opacity .25s ease, top .3s ease;
+}
+.hamburger span:nth-child(1){ top:13px; }
+.hamburger span:nth-child(2){ top:22px; }
+.hamburger.is-open span:nth-child(1){ top:17px; transform:rotate(45deg); }
+.hamburger.is-open span:nth-child(2){ top:17px; transform:rotate(-45deg); }
+
+.mobile-nav{
+  position:fixed; inset:0; z-index:40;
+  background:var(--bg);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:34px;
+  opacity:0; pointer-events:none;
+  transition:opacity .35s ease;
+}
+.mobile-nav.is-open{ opacity:1; pointer-events:auto; }
+.mobile-nav a{
+  font-family:var(--serif);
+  font-size:2.2rem;
+  color:var(--cream);
+  letter-spacing:-0.01em;
+}
+.mobile-nav .num{
+  font-family:var(--sans); font-size:.6rem; letter-spacing:.3em;
+  color:var(--terracotta); margin-right:14px;
+}
+
+/* Layout */
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 var(--gutter); }
+section{ padding:clamp(80px, 11vw, 160px) 0; position:relative; }
+
+.reveal{ opacity:0; transform:translateY(40px); transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+.reveal.in{ opacity:1; transform:none; }
+.reveal.d1{ transition-delay:.08s; }
+.reveal.d2{ transition-delay:.18s; }
+.reveal.d3{ transition-delay:.28s; }
+.reveal.d4{ transition-delay:.38s; }
+
+/* ─────────────────────────────────────────────
+   Hero
+   ───────────────────────────────────────────── */
+.hero{
+  position:relative;
+  height:100vh; min-height:680px;
+  padding:0;
+  overflow:hidden;
+  display:flex; align-items:flex-end;
+}
+.hero-img{
+  position:absolute; inset:0;
+  background:
+    url('https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1000&fit=crop')
+    center/cover no-repeat;
+  transform:scale(1.07);
+  animation:heroZoom 9s ease-out forwards;
+}
+@keyframes heroZoom{ to{ transform:scale(1); } }
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(20,15,11,.55) 0%, rgba(20,15,11,.25) 35%, rgba(20,15,11,.65) 70%, rgba(20,15,11,.95) 100%),
+    linear-gradient(90deg, rgba(20,15,11,.6) 0%, transparent 55%);
+}
+.hero-watermark{
+  position:absolute;
+  left:var(--gutter);
+  right:var(--gutter);
+  top:18%;
+  font-family:var(--serif);
+  font-size:clamp(8rem, 22vw, 19rem);
+  line-height:.85;
+  font-style:italic;
+  letter-spacing:-0.04em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(240,232,220,0.13);
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+}
+.hero-content{
+  position:relative; z-index:2;
+  padding:0 var(--gutter) clamp(60px, 8vw, 110px);
+  max-width:var(--max);
+  margin:0 auto;
+  width:100%;
+}
+.hero-eyebrow{ margin-bottom:28px; opacity:0; animation:heroFade .9s ease .2s forwards; }
+.hero h1{
+  font-style:italic;
+  font-weight:400;
+  max-width:14ch;
+  margin-bottom:28px;
+  opacity:0; animation:heroFade 1s ease .45s forwards;
+}
+.hero h1 .accent{ font-style:normal; color:var(--terracotta); }
+.hero-sub{
+  font-size:1.05rem;
+  font-weight:300;
+  letter-spacing:.02em;
+  color:var(--cream-dim);
+  max-width:46ch;
+  margin-bottom:42px;
+  opacity:0; animation:heroFade 1s ease .7s forwards;
+}
+.hero-cta{
+  display:flex; gap:14px; flex-wrap:wrap;
+  opacity:0; animation:heroFade 1s ease .95s forwards;
+}
+.hero-meta{
+  position:absolute; right:var(--gutter); bottom:clamp(60px, 8vw, 110px);
+  display:flex; flex-direction:column; gap:6px; align-items:flex-end;
+  font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--cream-dim);
+  opacity:0; animation:heroFade 1s ease 1.2s forwards;
+}
+.hero-meta b{ color:var(--terracotta); font-weight:400; }
+@keyframes heroFade{ from{ opacity:0; transform:translateY(24px);} to{ opacity:1; transform:none; } }
+
+.scroll-ind{
+  position:absolute; right:var(--gutter); top:50%;
+  transform:translateY(-50%) rotate(0);
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  font-size:.55rem; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--cream-dim);
+}
+.scroll-ind .line{ width:1px; height:80px; background:var(--line); position:relative; overflow:hidden; }
+.scroll-ind .line::after{
+  content:""; position:absolute; top:-40px; left:0; width:100%; height:40px;
+  background:linear-gradient(180deg, transparent, var(--terracotta));
+  animation:drawLine 2.4s ease-in-out infinite;
+}
+@keyframes drawLine{
+  0%{ top:-40px; opacity:0; }
+  20%{ opacity:1; }
+  100%{ top:100%; opacity:0; }
+}
+.scroll-ind .label{ writing-mode:vertical-rl; transform:rotate(180deg); }
+@media (max-width:1024px){ .scroll-ind{ display:none; } }
+
+/* ─────────────────────────────────────────────
+   Das Haus
+   ───────────────────────────────────────────── */
+.about{
+  display:grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap:clamp(40px, 7vw, 110px);
+  align-items:start;
+}
+.about-text h2{ margin-bottom:30px; max-width:16ch; }
+.about-text h2 em{ color:var(--terracotta); }
+.about-text p{ color:var(--cream-dim); max-width:52ch; }
+.about-text .first-letter::first-letter{
+  font-family:var(--serif);
+  float:left;
+  font-size:4.6rem;
+  line-height:.85;
+  padding:6px 14px 0 0;
+  color:var(--terracotta);
+  font-style:italic;
+}
+.about-stats{
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:1px;
+  background:var(--line-soft);
+  border:1px solid var(--line-soft);
+  margin-top:46px;
+}
+.stat{ background:var(--bg); padding:28px 24px; }
+.stat .n{
+  font-family:var(--serif);
+  font-size:2.4rem;
+  color:var(--terracotta);
+  line-height:1;
+  display:block; margin-bottom:10px;
+  font-style:italic;
+}
+.stat .t{
+  font-size:.62rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--cream-dim);
+}
+
+.about-side{ position:relative; padding-top:14px; }
+.about-img{
+  position:relative;
+  aspect-ratio: 4/5;
+  border-radius:1px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(20,15,11,.15), rgba(20,15,11,.55)),
+    url('https://images.pexels.com/photos/3535383/pexels-photo-3535383.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&fit=crop') center/cover no-repeat;
+}
+.about-img::after{
+  content:""; position:absolute; inset:14px;
+  border:1px solid rgba(240,232,220,.14);
+  pointer-events:none;
+}
+.about-quote{
+  position:absolute;
+  left:-30px; bottom:40px;
+  background:var(--bg-card);
+  border-left:2px solid var(--terracotta);
+  padding:24px 28px;
+  max-width:320px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.05rem;
+  line-height:1.4;
+  color:var(--cream);
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.7);
+}
+.about-quote .who{
+  display:block;
+  margin-top:14px;
+  font-family:var(--sans); font-style:normal;
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--gold);
+}
+@media (max-width:1024px){
+  .about{ grid-template-columns:1fr; }
+  .about-quote{ left:auto; right:0; bottom:24px; }
+}
+
+/* ─────────────────────────────────────────────
+   La Carta — 2x2 columns
+   ───────────────────────────────────────────── */
+.carta{
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 50%, var(--bg) 100%);
+}
+.carta-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:40px; flex-wrap:wrap;
+  margin-bottom:80px;
+}
+.carta-head h2{ max-width:18ch; }
+.carta-head h2 em{ color:var(--terracotta); }
+.carta-head .note{
+  max-width:36ch;
+  font-size:.85rem;
+  color:var(--cream-dim);
+  border-left:1px solid var(--line);
+  padding-left:22px;
+}
+.carta-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:clamp(50px, 6vw, 90px) clamp(40px,5vw,80px);
+}
+.cat-title{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.55rem;
+  color:var(--terracotta);
+  margin:0 0 8px;
+  display:flex; align-items:baseline; gap:14px;
+}
+.cat-title .n{
+  font-family:var(--sans); font-style:normal;
+  font-size:.6rem; letter-spacing:.28em;
+  color:var(--gold);
+}
+.cat-sub{
+  font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:32px;
+  padding-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.dish{
+  position:relative;
+  padding:18px 0 18px 0;
+  border-bottom:1px solid var(--line-soft);
+  transition:padding-left .3s ease;
+}
+.dish::before{
+  content:"";
+  position:absolute; left:0; top:18px; bottom:18px;
+  width:2px; background:var(--terracotta);
+  transform:scaleY(0); transform-origin:top;
+  transition:transform .3s ease;
+}
+.dish:hover{ padding-left:16px; }
+.dish:hover::before{ transform:scaleY(1); }
+.dish-row{
+  display:flex; justify-content:space-between; gap:18px;
+  align-items:baseline;
+}
+.dish-name{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:400;
+  color:var(--cream);
+  line-height:1.25;
+}
+.dish-price{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  color:var(--cream-dim);
+  white-space:nowrap;
+  letter-spacing:.02em;
+  transition:color .3s ease, text-shadow .3s ease;
+}
+.dish:hover .dish-price{
+  color:var(--terra-glow);
+  text-shadow:0 0 18px rgba(220,126,77,.4);
+}
+.dish-desc{
+  margin-top:6px;
+  font-size:.78rem;
+  line-height:1.65;
+  color:var(--cream-dim);
+  max-width:46ch;
+  font-style:italic;
+}
+.dish .tag{
+  display:inline-block;
+  margin-left:8px;
+  font-family:var(--sans);
+  font-size:.55rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--gold);
+  padding:2px 8px;
+  border:1px solid var(--line);
+  font-style:normal;
+  vertical-align:1px;
+}
+
+.menu-bar{
+  margin-top:90px;
+  display:grid; grid-template-columns:repeat(4, 1fr);
+  border:1px solid var(--line);
+  background:rgba(35,26,19,.4);
+}
+.menu-bar .cell{
+  padding:30px 28px;
+  border-right:1px solid var(--line);
+}
+.menu-bar .cell:last-child{ border-right:0; }
+.menu-bar .k{
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--terracotta);
+  margin-bottom:14px;
+}
+.menu-bar .v{
+  font-family:var(--serif);
+  font-size:1.55rem;
+  color:var(--cream);
+  font-style:italic;
+  line-height:1.1;
+  margin-bottom:6px;
+}
+.menu-bar .d{
+  font-size:.74rem;
+  color:var(--cream-dim);
+}
+@media (max-width:1024px){
+  .menu-bar{ grid-template-columns:1fr 1fr; }
+  .menu-bar .cell:nth-child(2){ border-right:0; }
+  .menu-bar .cell{ border-bottom:1px solid var(--line); }
+}
+@media (max-width:720px){
+  .carta-grid{ grid-template-columns:1fr; gap:48px; }
+  .menu-bar{ grid-template-columns:1fr; }
+  .menu-bar .cell{ border-right:0; border-bottom:1px solid var(--line); }
+  .menu-bar .cell:last-child{ border-bottom:0; }
+}
+
+/* ─────────────────────────────────────────────
+   Die Familie
+   ───────────────────────────────────────────── */
+.chef{ background:var(--bg); }
+.chef-grid{
+  display:grid;
+  grid-template-columns:0.85fr 1fr;
+  gap:clamp(36px, 6vw, 90px);
+  align-items:stretch;
+}
+.chef-card{
+  position:relative;
+  aspect-ratio: 4/5;
+  background:
+    linear-gradient(180deg, rgba(20,15,11,.25), rgba(20,15,11,.75)),
+    linear-gradient(135deg, #2a1b10, #140F0B);
+  overflow:hidden;
+  border:1px solid var(--line-soft);
+}
+.chef-card .initials{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(8rem, 18vw, 14rem);
+  color:transparent;
+  -webkit-text-stroke:1px rgba(196,103,58,.55);
+  letter-spacing:-0.04em;
+  line-height:1;
+  user-select:none;
+}
+.chef-card::before{
+  content:"";
+  position:absolute; inset:18px;
+  border:1px solid rgba(240,232,220,.1);
+  pointer-events:none;
+  z-index:1;
+}
+.chef-card .badge{
+  position:absolute; left:30px; top:30px;
+  font-size:.55rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--terracotta);
+  z-index:2;
+}
+.chef-card .name{
+  position:absolute; left:30px; right:30px; bottom:30px;
+  z-index:2;
+}
+.chef-card .name .nm{
+  font-family:var(--serif);
+  font-size:1.4rem; font-style:italic;
+  color:var(--cream);
+  margin-bottom:4px;
+}
+.chef-card .name .tt{
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--cream-dim);
+}
+.chef-card .overlay{
+  position:absolute; left:0; right:0; bottom:0;
+  z-index:3;
+  background:linear-gradient(180deg, transparent, rgba(20,15,11,.96) 30%);
+  padding:80px 30px 30px;
+  transform:translateY(100%);
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.chef-card:hover .overlay{ transform:translateY(0); }
+.chef-card .overlay p{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:.95rem;
+  line-height:1.55;
+  color:var(--cream);
+}
+.chef-text h2{ margin-bottom:28px; max-width:18ch; }
+.chef-text h2 em{ color:var(--terracotta); }
+.chef-text > p{ color:var(--cream-dim); max-width:56ch; }
+.chef-pull{
+  font-family:var(--serif);
+  font-size:1.4rem;
+  font-style:italic;
+  color:var(--cream);
+  line-height:1.4;
+  margin:36px 0;
+  padding-left:22px;
+  border-left:2px solid var(--terracotta);
+  max-width:36ch;
+}
+
+.timeline{
+  margin-top:32px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border-top:1px solid var(--line);
+}
+.tl{ padding:24px 22px 4px 0; position:relative; }
+.tl + .tl{ padding-left:22px; border-left:1px solid var(--line); }
+.tl .y{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.5rem;
+  color:var(--terracotta);
+  margin-bottom:6px;
+  line-height:1;
+}
+.tl .p{
+  font-size:.62rem; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--cream-dim);
+  margin-bottom:4px;
+}
+.tl .d{ font-size:.75rem; color:var(--muted); }
+
+@media (max-width:900px){
+  .chef-grid{ grid-template-columns:1fr; }
+  .timeline{ grid-template-columns:1fr; }
+  .tl + .tl{ padding-left:0; border-left:0; border-top:1px solid var(--line); }
+}
+
+/* ─────────────────────────────────────────────
+   Feinkost & Privée
+   ───────────────────────────────────────────── */
+.reservado{
+  background:
+    linear-gradient(180deg, rgba(20,15,11,.85), rgba(20,15,11,.92)),
+    url('https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop') center/cover fixed no-repeat;
+  position:relative;
+}
+.reservado::before{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(800px 500px at 70% 40%, rgba(196,103,58,.18), transparent 65%);
+}
+.reservado .wrap{ position:relative; }
+.res-head{ text-align:center; margin-bottom:80px; }
+.res-head h2{ max-width:24ch; margin:24px auto 0; font-style:italic; }
+.res-head h2 em{ color:var(--terracotta); font-style:normal; font-family:var(--serif); }
+.res-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.res-card{
+  border:1px solid var(--line);
+  background:rgba(35,26,19,.55);
+  padding:50px 44px;
+  position:relative;
+  overflow:hidden;
+  transition:background .3s ease, border-color .3s ease, transform .3s ease;
+}
+.res-card::after{
+  content:""; position:absolute; left:0; right:0; bottom:0;
+  height:1px; background:var(--terracotta);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.res-card:hover{
+  background:rgba(59,31,18,.6);
+  border-color:rgba(196,103,58,.45);
+  transform:translateY(-2px);
+}
+.res-card:hover::after{ transform:scaleX(1); }
+.res-card .icon{
+  display:inline-flex;
+  width:48px; height:48px;
+  border:1px solid var(--terracotta);
+  align-items:center; justify-content:center;
+  margin-bottom:28px;
+  color:var(--terracotta);
+}
+.res-card h3{ font-style:italic; font-size:1.7rem; margin-bottom:10px; }
+.res-card .lead{ font-size:.95rem; color:var(--cream-dim); margin-bottom:24px; }
+.res-card ul{ list-style:none; padding:0; margin:0; border-top:1px solid var(--line-soft); }
+.res-card li{
+  display:flex; justify-content:space-between; gap:18px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line-soft);
+  font-size:.78rem;
+  letter-spacing:.04em;
+  color:var(--cream-dim);
+}
+.res-card li b{
+  color:var(--cream);
+  font-weight:400;
+  font-family:var(--serif);
+  font-style:italic;
+}
+@media (max-width:780px){ .res-grid{ grid-template-columns:1fr; } }
+
+/* ─────────────────────────────────────────────
+   Stimmen
+   ───────────────────────────────────────────── */
+.opiniones{ background:var(--bg); }
+.op-head{ text-align:center; margin-bottom:60px; }
+.op-head h2{ margin-top:24px; font-style:italic; }
+.op-head h2 em{ color:var(--terracotta); font-style:normal; }
+
+.slider{ position:relative; max-width:880px; margin:0 auto; }
+.slides{ position:relative; min-height:300px; }
+.slide{
+  position:absolute; inset:0;
+  text-align:center;
+  opacity:0; transform:translateY(20px);
+  transition:opacity .55s ease, transform .55s ease;
+  pointer-events:none;
+}
+.slide.is-active{
+  opacity:1; transform:none;
+  pointer-events:auto;
+  position:relative;
+}
+.slide .stars{
+  color:var(--terracotta);
+  letter-spacing:.4em;
+  font-size:.95rem;
+  margin-bottom:18px;
+}
+.slide .src{
+  font-size:.6rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:30px;
+}
+.slide q{
+  display:block;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(1.3rem, 2.4vw, 1.85rem);
+  line-height:1.5;
+  color:var(--cream);
+  max-width:38ch;
+  margin:0 auto;
+  quotes:"\201E" "\201C";
+}
+.slide q::before{ content:open-quote; color:var(--terracotta); margin-right:.1em; }
+.slide q::after{ content:close-quote; color:var(--terracotta); margin-left:.1em; }
+.op-nav{
+  margin-top:50px;
+  display:flex; align-items:center; justify-content:center; gap:32px;
+}
+.op-nav button{
+  width:48px; height:48px;
+  border:1px solid var(--line);
+  color:var(--cream-dim);
+  font-size:1rem;
+  border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:border-color .3s ease, color .3s ease, background .3s ease;
+}
+.op-nav button:hover{
+  border-color:var(--terracotta); color:var(--terracotta);
+  background:rgba(196,103,58,.08);
+}
+.dots{ display:flex; gap:10px; }
+.dot{
+  width:24px; height:1px;
+  background:var(--line);
+  border:0; padding:0; border-radius:0;
+  transition:background .3s ease, transform .3s ease;
+}
+.dot.is-active{ background:var(--terracotta); transform:scaleY(2); }
+
+/* ─────────────────────────────────────────────
+   Gallery
+   ───────────────────────────────────────────── */
+.insta{
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  text-align:center;
+}
+.insta h2{ font-style:italic; max-width:22ch; margin:24px auto 18px; }
+.insta h2 em{ color:var(--terracotta); font-style:normal; }
+.insta .handle{
+  display:inline-block;
+  margin-top:30px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.4rem;
+  color:var(--cream);
+  border-bottom:1px solid var(--line);
+  padding:6px 4px;
+  transition:color .3s ease, border-color .3s ease;
+}
+.insta .handle:hover{ color:var(--terracotta); border-color:var(--terracotta); }
+.gallery{
+  margin-top:60px;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+.gallery .ph{
+  aspect-ratio:1/1;
+  background:var(--bg-card);
+  position:relative;
+  overflow:hidden;
+}
+.gallery .ph.p1{ background:url('https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph.p2{ background:url('https://images.pexels.com/photos/1199957/pexels-photo-1199957.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph.p3{ background:url('https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph.p4{ background:url('https://images.pexels.com/photos/1813504/pexels-photo-1813504.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph.p5{ background:url('https://images.pexels.com/photos/784633/pexels-photo-784633.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph.p6{ background:url('https://images.pexels.com/photos/769289/pexels-photo-769289.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop') center/cover; }
+.gallery .ph .ig{
+  position:absolute; inset:0;
+  background:rgba(20,15,11,.6);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--cream); opacity:0; transition:opacity .35s ease;
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+}
+.gallery .ph:hover .ig{ opacity:1; }
+@media (max-width:780px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
+
+/* ─────────────────────────────────────────────
+   Reservierung
+   ───────────────────────────────────────────── */
+.reservas{ background:var(--bg); }
+.res-layout{
+  display:grid; grid-template-columns:1fr 1.05fr;
+  gap:clamp(40px, 6vw, 90px);
+}
+.res-info h2{ margin-bottom:24px; max-width:14ch; font-style:italic; }
+.res-info h2 em{ color:var(--terracotta); font-style:normal; }
+.res-info > p{ color:var(--cream-dim); max-width:44ch; margin-bottom:36px; }
+.info-block{ margin-top:36px; }
+.info-block .k{
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--terracotta);
+  margin-bottom:14px;
+}
+.info-block .v{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.15rem;
+  color:var(--cream);
+}
+.info-block a{ color:var(--cream); border-bottom:1px solid var(--line); transition:border-color .3s ease, color .3s ease; }
+.info-block a:hover{ color:var(--terracotta); border-color:var(--terracotta); }
+.hours{
+  list-style:none; padding:0; margin:18px 0 0;
+  border-top:1px solid var(--line-soft);
+}
+.hours li{
+  display:flex; justify-content:space-between; gap:24px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line-soft);
+  font-size:.78rem;
+  letter-spacing:.04em;
+}
+.hours li .d{ font-family:var(--serif); font-style:italic; color:var(--cream); }
+.hours li .t{ color:var(--cream-dim); }
+.hours li.closed .t{ color:var(--muted); font-style:italic; }
+.map{
+  margin-top:36px;
+  position:relative;
+  aspect-ratio: 16/9;
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.map iframe{
+  width:100%; height:100%; border:0;
+  filter:grayscale(100%) sepia(20%) contrast(1.05) brightness(.9);
+  transition:filter .5s ease;
+}
+.map:hover iframe{ filter:grayscale(50%) sepia(10%) contrast(1.05) brightness(.95); }
+
+/* Form */
+.form{
+  background:var(--bg-card);
+  border:1px solid var(--line-soft);
+  padding:clamp(28px, 4vw, 56px);
+  position:relative;
+}
+.form::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:1px;
+  background:linear-gradient(180deg, transparent, var(--terracotta), transparent);
+}
+.form h3{ font-style:italic; font-size:1.6rem; margin-bottom:8px; }
+.form .sub{ font-size:.78rem; color:var(--cream-dim); margin-bottom:38px; }
+.fld{ position:relative; margin-bottom:30px; }
+.fld input, .fld textarea, .fld select{
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line-soft);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-size:.92rem;
+  padding:18px 0 10px;
+  outline:none;
+  transition:border-color .3s ease;
+  font-weight:300;
+}
+.fld textarea{ resize:vertical; min-height:90px; }
+.fld select{ appearance:none; background:transparent; }
+.fld select option{ background:var(--bg-card); color:var(--cream); }
+.fld label{
+  position:absolute;
+  left:0; top:22px;
+  font-size:.85rem;
+  color:var(--cream-dim);
+  pointer-events:none;
+  transition:transform .3s ease, color .3s ease, font-size .3s ease, top .3s ease;
+  letter-spacing:.02em;
+}
+.fld input:focus, .fld textarea:focus, .fld select:focus{ border-bottom-color:var(--terracotta); }
+.fld input:focus + label,
+.fld input:not(:placeholder-shown) + label,
+.fld textarea:focus + label,
+.fld textarea:not(:placeholder-shown) + label,
+.fld.has-value label,
+.fld select:focus + label{
+  top:0;
+  font-size:.6rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+.fld .arrow-icon{
+  position:absolute; right:0; bottom:14px;
+  color:var(--muted);
+  font-size:.7rem;
+  pointer-events:none;
+}
+.fld-grid{ display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+.consent{
+  display:flex; gap:10px; align-items:flex-start;
+  font-size:.72rem; color:var(--cream-dim);
+  margin:8px 0 28px;
+  letter-spacing:.02em;
+  line-height:1.55;
+}
+.consent input{ accent-color:var(--terracotta); margin-top:4px; }
+.form .btn{ width:100%; justify-content:center; }
+.form-success{
+  display:none;
+  padding:24px;
+  border:1px solid var(--terracotta);
+  background:rgba(196,103,58,.08);
+  margin-top:24px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.05rem;
+  color:var(--cream);
+  text-align:center;
+}
+.form-success.is-show{ display:block; }
+.form-success .s{
+  display:block;
+  font-family:var(--sans); font-style:normal;
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--terracotta);
+  margin-bottom:10px;
+}
+
+.note-card{
+  margin-top:24px;
+  padding:18px 22px;
+  border-left:2px solid var(--gold);
+  background:rgba(184,150,62,.05);
+  font-size:.72rem;
+  letter-spacing:.04em;
+  color:var(--cream-dim);
+  line-height:1.6;
+}
+.note-card b{ color:var(--cream); font-weight:400; font-family:var(--serif); font-style:italic; }
+
+@media (max-width:980px){
+  .res-layout{ grid-template-columns:1fr; }
+  .fld-grid{ grid-template-columns:1fr; gap:0; }
+}
+
+/* Footer */
+footer{
+  background:var(--bg-card);
+  padding:90px var(--gutter) 36px;
+  border-top:1px solid var(--line-soft);
+  position:relative;
+}
+footer .footer-mark{
+  position:absolute;
+  left:var(--gutter); right:var(--gutter);
+  bottom:-22px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:clamp(5rem, 18vw, 16rem);
+  letter-spacing:-0.04em;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(196,103,58,.16);
+  line-height:.8;
+  white-space:nowrap;
+  user-select:none; pointer-events:none;
+  overflow:hidden;
+}
+.foot-grid{
+  display:grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap:50px;
+  max-width:var(--max);
+  margin:0 auto;
+  position:relative; z-index:1;
+}
+.foot-brand .lg{ font-family:var(--serif); font-size:1.8rem; margin-bottom:16px; }
+.foot-brand .lg .dot{ color:var(--terracotta); font-style:italic; }
+.foot-brand .tag{
+  font-style:italic;
+  font-family:var(--serif);
+  font-size:1rem;
+  color:var(--cream-dim);
+  max-width:34ch;
+  line-height:1.4;
+}
+.foot-h{
+  font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--terracotta);
+  margin-bottom:22px;
+}
+.foot-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+.foot-list a{
+  font-size:.78rem;
+  color:var(--cream-dim);
+  letter-spacing:.04em;
+  transition:color .25s ease;
+}
+.foot-list a:hover{ color:var(--terracotta); }
+.foot-list li{ font-size:.78rem; color:var(--cream-dim); }
+.foot-list .lab{
+  display:block;
+  font-size:.58rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:2px;
+}
+.foot-bottom{
+  max-width:var(--max);
+  margin:80px auto 0;
+  padding-top:28px;
+  border-top:1px solid var(--line-soft);
+  display:flex; justify-content:space-between;
+  gap:24px; flex-wrap:wrap;
+  font-size:.68rem; letter-spacing:.14em;
+  color:var(--muted);
+  position:relative; z-index:1;
+}
+.foot-bottom a{ color:var(--cream-dim); }
+.foot-bottom a:hover{ color:var(--terracotta); }
+@media (max-width:900px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:560px){ .foot-grid{ grid-template-columns:1fr; } }
+
+/* Mobile nav cutoff */
+@media (max-width:880px){
+  .nav-links, .nav .btn{ display:none; }
+  .hamburger{ display:inline-block; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  .reveal{ opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor-ring" id="curRing" aria-hidden="true"></div>
+<div class="cursor-dot"  id="curDot"  aria-hidden="true"></div>
+
+<!-- ─────────────── NAV ─────────────── -->
+<header class="nav" id="nav">
+  <a href="#hero" class="brand" data-cursor="hover">
+    Casel<span class="dot">·</span>la
+    <small>Ristorante · Landau</small>
+  </a>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="#haus">Das Haus</a></li>
+      <li><a href="#karte">Die Karte</a></li>
+      <li><a href="#familie">Die Familie</a></li>
+      <li><a href="#feinkost">Feinkost &amp; Privée</a></li>
+      <li><a href="#stimmen">Stimmen</a></li>
+      <li><a href="#reservierung">Kontakt</a></li>
+    </ul>
+  </nav>
+  <a href="#reservierung" class="btn" data-cursor="hover">Tisch reservieren <span class="arrow">→</span></a>
+  <button class="hamburger" id="hamb" aria-label="Menü">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile fullscreen nav -->
+<div class="mobile-nav" id="mnav" aria-hidden="true">
+  <a href="#haus"><span class="num">01</span>Das Haus</a>
+  <a href="#karte"><span class="num">02</span>Die Karte</a>
+  <a href="#familie"><span class="num">03</span>Die Familie</a>
+  <a href="#feinkost"><span class="num">04</span>Feinkost &amp; Privée</a>
+  <a href="#stimmen"><span class="num">05</span>Stimmen</a>
+  <a href="#reservierung"><span class="num">06</span>Reservierung</a>
+</div>
+
+<!-- ─────────────── HERO ─────────────── -->
+<section class="hero" id="hero" data-screen-label="01 Hero">
+  <div class="hero-img" aria-hidden="true"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-watermark" aria-hidden="true">Casel·la</div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow eyebrow">Landau in der Pfalz · Dal 1972</div>
+    <h1>Italienische <span class="accent">Lebensart</span><br/>am Kleinen Platz —<br/>seit <em>1972</em>.</h1>
+    <p class="hero-sub">Casellas Ristorante Farfallina. Hausgemachte Pasta, kuratierte Weine und ein kleines Feinkostgeschäft, das eine Familie aus Italien vor einem halben Jahrhundert in der Pfälzer Altstadt eröffnet hat — und bis heute selbst führt.</p>
+    <div class="hero-cta">
+      <a href="#reservierung" class="btn" data-cursor="hover">Tisch reservieren <span class="arrow">→</span></a>
+      <a href="#karte" class="btn btn--ghost" data-cursor="hover">Zur Karte</a>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <span><b>Heute geöffnet</b> · 12:00 — 14:00 &amp; 18:00 — 22:00</span>
+    <span>+49 6341 80827 · Kleiner Platz 13</span>
+  </div>
+
+  <div class="scroll-ind" aria-hidden="true">
+    <span class="label">Scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ─────────────── DAS HAUS ─────────────── -->
+<section id="haus" data-screen-label="02 Das Haus">
+  <div class="wrap">
+    <div class="sec-num reveal">— 01 · Das Haus</div>
+
+    <div class="about">
+      <div class="about-text reveal d1">
+        <h2>Ein Stück <em>Italien</em><br/>mitten in Landau.</h2>
+        <p class="first-letter">Was 1972 als kleines Feinkostgeschäft begann — gegründet von Francesco Casella, um den italienischen Gastarbeitern der damaligen Zeit ein Stück Heimat zu geben — ist heute beides geblieben: ein Lädchen, in dem Olivenöl, Pasta, Wein und Käse direkt aus Italien stehen, und ein Ristorante, in dem die Pasta jeden Tag frisch im Haus gemacht wird.</p>
+        <p>„Klein aber fein" sagen unsere Gäste seit Jahren. Wir nehmen das als Kompliment. Lieber eine schmale Karte mit Gerichten, die wir richtig können, als ein Buch voller Versprechen. Lieber ein Wein, den wir selbst gerne trinken, als eine Liste, die niemand kennt.</p>
+
+        <div class="about-stats">
+          <div class="stat"><span class="n">1972</span><span class="t">Familie Casella in Landau</span></div>
+          <div class="stat"><span class="n">2.</span><span class="t">Generation am Herd</span></div>
+          <div class="stat"><span class="n">100%</span><span class="t">Pasta hausgemacht</span></div>
+          <div class="stat"><span class="n">Ø 18€</span><span class="t">Hauptgang aus der Karte</span></div>
+        </div>
+      </div>
+
+      <div class="about-side reveal d2">
+        <div class="about-img" role="img" aria-label="Italienische Küche, hausgemachte Pasta"></div>
+        <div class="about-quote">
+          Mit importierten italienischen Zutaten ein Gefühl der Verbundenheit mit der Heimat — das war die Idee meines Vaters.
+          <span class="who">— Adriano Casella</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── DIE KARTE ─────────────── -->
+<section id="karte" class="carta" data-screen-label="03 Die Karte">
+  <div class="wrap">
+    <div class="sec-num reveal">— 02 · Die Karte</div>
+
+    <div class="carta-head">
+      <h2 class="reveal">Tagesfrisch, <em>kurz</em><br/>und mit Vorsatz.</h2>
+      <p class="note reveal d1">Die Karte ändert sich mit der Saison und dem Markt. Pasta machen wir täglich frisch im Haus — auf Wunsch auch glutenfrei. Wenn etwas fehlt oder Sie Unverträglichkeiten haben, sprechen Sie uns einfach an.</p>
+    </div>
+
+    <div class="carta-grid">
+
+      <div class="cat reveal d1">
+        <h3 class="cat-title"><span class="n">I.</span> Antipasti</h3>
+        <div class="cat-sub">Zum Ankommen</div>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Vitello tonnato</span>
+            <span class="dish-price">14,50 €</span>
+          </div>
+          <p class="dish-desc">Dünn aufgeschnittenes Kalbfleisch unter klassischer Thunfisch-Kapern-Crème.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Bruschetta al pomodoro e basilico</span>
+            <span class="dish-price">8,90 €</span>
+          </div>
+          <p class="dish-desc">Geröstetes Landbrot, sonnengereifte Tomaten, Knoblauch, Basilikum, gutes Öl.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Caprese di bufala</span>
+            <span class="dish-price">13,50 €</span>
+          </div>
+          <p class="dish-desc">Büffelmozzarella, Tomaten, Basilikum — wie es sein muss, ohne Effekt.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Carpaccio di manzo, rucola e grana</span>
+            <span class="dish-price">15,90 €</span>
+          </div>
+          <p class="dish-desc">Hauchdünnes Rinderfilet, Rucola, Parmesan, Zitrone, Olivenöl.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Antipasto della casa <span class="tag">Für 2</span></span>
+            <span class="dish-price">19,50 €</span>
+          </div>
+          <p class="dish-desc">Eine Auswahl vom Haus aus Feinkost-Lager und Küche, wechselnd.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Insalata di rucola, pere e grana</span>
+            <span class="dish-price">11,50 €</span>
+          </div>
+          <p class="dish-desc">Rucola, Birne, Parmesan, Walnuss, Balsamico.</p>
+        </article>
+      </div>
+
+      <div class="cat reveal d2">
+        <h3 class="cat-title"><span class="n">II.</span> Pasta &amp; Risotti</h3>
+        <div class="cat-sub">Fatta in casa · täglich frisch</div>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Tagliatelle al ragù bolognese</span>
+            <span class="dish-price">14,50 €</span>
+          </div>
+          <p class="dish-desc">Lang geschmortes Rinderragù auf hausgemachten Tagliatelle.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Spaghetti alle vongole veraci</span>
+            <span class="dish-price">17,90 €</span>
+          </div>
+          <p class="dish-desc">Venusmuscheln, Knoblauch, Petersilie, Weißwein, Olivenöl.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Ravioli ricotta e spinaci, burro e salvia</span>
+            <span class="dish-price">15,50 €</span>
+          </div>
+          <p class="dish-desc">Hausgemachte Ravioli mit Ricotta und Spinat, brauner Salbeibutter.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Pappardelle ai funghi porcini</span>
+            <span class="dish-price">17,50 €</span>
+          </div>
+          <p class="dish-desc">Breite Bandnudeln, Steinpilze, Knoblauch, Petersilie, Grana.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Linguine all'arrabbiata</span>
+            <span class="dish-price">13,50 €</span>
+          </div>
+          <p class="dish-desc">Tomaten, Knoblauch, Peperoncino — schlicht und mit Schärfe.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Risotto allo zafferano</span>
+            <span class="dish-price">15,90 €</span>
+          </div>
+          <p class="dish-desc">Carnaroli-Reis, Safran, Parmesan, Butter — minutengenau gerührt.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Pasta della casa <span class="tag">Wechselnd</span></span>
+            <span class="dish-price">Tagespreis</span>
+          </div>
+          <p class="dish-desc">Was Adriano heute morgen vom Markt mitgebracht hat — fragen Sie uns.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Glutenfreie Pasta</span>
+            <span class="dish-price">+ 2,50 €</span>
+          </div>
+          <p class="dish-desc">Jedes Pasta-Gericht auch glutenfrei zubereitbar.</p>
+        </article>
+      </div>
+
+      <div class="cat reveal d3">
+        <h3 class="cat-title"><span class="n">III.</span> Secondi</h3>
+        <div class="cat-sub">Vom Herd und aus dem Ofen</div>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Saltimbocca alla romana</span>
+            <span class="dish-price">22,50 €</span>
+          </div>
+          <p class="dish-desc">Kalbsschnitzel, Parmaschinken, Salbei, Marsala — mit Rosmarinkartoffeln.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Filetto di manzo al rosmarino</span>
+            <span class="dish-price">28,90 €</span>
+          </div>
+          <p class="dish-desc">Rinderfilet, Rosmarinjus, geschmortes Gemüse der Saison.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Branzino al forno</span>
+            <span class="dish-price">24,50 €</span>
+          </div>
+          <p class="dish-desc">Ganzer Wolfsbarsch aus dem Ofen, Zitrone, Olivenöl, Kräuter.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Scaloppine al limone</span>
+            <span class="dish-price">19,90 €</span>
+          </div>
+          <p class="dish-desc">Kalbsschnitzelchen mit Zitrone, Kapern und Petersilie.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Tagliata di manzo, rucola e grana</span>
+            <span class="dish-price">26,50 €</span>
+          </div>
+          <p class="dish-desc">Aufgeschnittenes Rinderfilet, Rucola, Parmesan, Balsamico.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Pollo al limone con verdure</span>
+            <span class="dish-price">17,50 €</span>
+          </div>
+          <p class="dish-desc">Hähnchenbrust, Zitrone, Knoblauch, geröstetes Saisongemüse.</p>
+        </article>
+      </div>
+
+      <div class="cat reveal d4">
+        <h3 class="cat-title"><span class="n">IV.</span> Dolci &amp; Caffè</h3>
+        <div class="cat-sub">Hausgemacht</div>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Tiramisù della casa</span>
+            <span class="dish-price">7,50 €</span>
+          </div>
+          <p class="dish-desc">Mascarpone, Espresso, Marsala, Kakao — wie Mama es gemacht hat.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Panna cotta ai frutti di bosco</span>
+            <span class="dish-price">6,90 €</span>
+          </div>
+          <p class="dish-desc">Mit Waldbeeren-Coulis und Vanille.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Cantucci e Vin Santo</span>
+            <span class="dish-price">8,50 €</span>
+          </div>
+          <p class="dish-desc">Toskanische Mandelkekse mit einem Glas süßem Vin Santo zum Eintunken.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Affogato al caffè</span>
+            <span class="dish-price">6,50 €</span>
+          </div>
+          <p class="dish-desc">Vanilleeis, heißer Espresso, optional ein Schuss Amaretto.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Espresso · Cappuccino · Macchiato</span>
+            <span class="dish-price">2,80 – 3,80 €</span>
+          </div>
+          <p class="dish-desc">Bohne von einer Familienrösterei in Triest — die seit Jahrzehnten dieselbe ist.</p>
+        </article>
+
+        <article class="dish">
+          <div class="dish-row">
+            <span class="dish-name">Grappa, Amaro, Limoncello</span>
+            <span class="dish-price">4,50 – 7,50 €</span>
+          </div>
+          <p class="dish-desc">Zum Abschluss — fragen Sie nach der kleinen Karte.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="menu-bar reveal">
+      <div class="cell">
+        <div class="k">Mittagsmenü</div>
+        <div class="v">ab 14,90 €</div>
+        <div class="d">Pasta &amp; ein Glas Wasser · Mo–Fr · 12–14 Uhr</div>
+      </div>
+      <div class="cell">
+        <div class="k">Pasta hausgemacht</div>
+        <div class="v">Täglich frisch</div>
+        <div class="d">Auf Wunsch glutenfrei verfügbar</div>
+      </div>
+      <div class="cell">
+        <div class="k">Weinkarte</div>
+        <div class="v">~ 60 Positionen</div>
+        <div class="d">Schwerpunkt Italien · auch offen im Glas</div>
+      </div>
+      <div class="cell">
+        <div class="k">Gruppen &amp; Feiern</div>
+        <div class="v">Auf Anfrage</div>
+        <div class="d">Eigenes Menü ab 6 Personen · bitte 1 Woche vorher</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── DIE FAMILIE ─────────────── -->
+<section id="familie" class="chef" data-screen-label="04 Die Familie">
+  <div class="wrap">
+    <div class="sec-num reveal">— 03 · Die Familie</div>
+
+    <div class="chef-grid">
+      <div class="chef-card reveal" data-cursor="hover">
+        <span class="badge">Inhaber · 2. Generation</span>
+        <div class="initials" aria-hidden="true">AC</div>
+        <div class="name">
+          <div class="nm">Adriano Casella</div>
+          <div class="tt">Sohn von Francesco · Landau</div>
+        </div>
+        <div class="overlay">
+          <p>„Ich bin in diesem Laden groß geworden. Erst neben der Theke meines Vaters, dann hinter ihr, und jetzt in der Küche dahinter. Manche Gäste kenne ich länger als sich selbst."</p>
+        </div>
+      </div>
+
+      <div class="chef-text reveal d1">
+        <h2>Francesco. Dann <em>Adriano</em>.<br/>Eine Familie, ein Haus.</h2>
+        <p>Francesco Casella eröffnete 1972 ein kleines Feinkostgeschäft in der Innenstadt von Landau. Importierte italienische Spezialitäten — Olivenöl, Pasta, Wein, Schinken — vor allem für die italienischen Gastarbeiter der Pfalz, denen das ein Stück Heimat war.</p>
+
+        <div class="chef-pull">„Klein aber fein — das gilt nicht nur fürs Lokal, sondern auch für die Karte. Pfiffige Ideen, täglich neu sortiert."</div>
+
+        <p>Heute führt sein Sohn Adriano das Haus. Aus dem Feinkostgeschäft wurde fast nebenbei ein Ristorante — modern, ruhig, mit Platz für Mittagsgäste, Geschäftsessen und lange Abende. Die Pasta wird im Haus gemacht. Der Espresso kommt aus Triest. Der Wein wird selbst probiert, bevor er auf die Karte kommt.</p>
+
+        <div class="timeline">
+          <div class="tl">
+            <div class="y">1972</div>
+            <div class="p">Francesco Casella</div>
+            <div class="d">Eröffnung des Feinkostgeschäfts in Landau.</div>
+          </div>
+          <div class="tl">
+            <div class="y">2000er</div>
+            <div class="p">Übergang</div>
+            <div class="d">Aus dem Lädchen wächst ein Ristorante.</div>
+          </div>
+          <div class="tl">
+            <div class="y">Heute</div>
+            <div class="p">Adriano Casella</div>
+            <div class="d">2. Generation · Küche, Wein, Service in einer Hand.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── FEINKOST & PRIVÉE ─────────────── -->
+<section id="feinkost" class="reservado" data-screen-label="05 Feinkost & Privée">
+  <div class="wrap">
+    <div class="res-head reveal">
+      <div class="eyebrow center">— 04 · Feinkost &amp; Privée</div>
+      <h2>Was Sie noch <em>mitnehmen</em> können —<br/>oder hier feiern dürfen.</h2>
+    </div>
+
+    <div class="res-grid">
+      <div class="res-card reveal d1" data-cursor="hover">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M5 8h14l-1 13H6L5 8z"/>
+            <path d="M9 8V5a3 3 0 0 1 6 0v3"/>
+          </svg>
+        </div>
+        <h3>Feinkost &amp; Cantina</h3>
+        <p class="lead">Das Geschäft, mit dem 1972 alles anfing — und das es bis heute gibt. Olivenöl, Pasta, Aceto, Käse, Schinken und Wein direkt von kleinen Erzeugern aus Italien. Zum Mitnehmen, zum Verschenken, oder einfach für zuhause.</p>
+        <ul>
+          <li><span>Sortiment</span><b>Öl · Pasta · Wein · Käse</b></li>
+          <li><span>Öffnungszeiten</span><b>Mo–Fr 11–18 · Sa 9–14</b></li>
+          <li><span>Beratung</span><b>persönlich vor Ort</b></li>
+          <li><span>Geschenkkörbe</span><b>auf Anfrage zusammengestellt</b></li>
+        </ul>
+      </div>
+
+      <div class="res-card reveal d2" data-cursor="hover">
+        <div class="icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+            <path d="M4 21V8l8-5 8 5v13"/>
+            <path d="M9 21v-7h6v7"/>
+          </svg>
+        </div>
+        <h3>Gruppen &amp; Feiern</h3>
+        <p class="lead">Geburtstage, Geschäftsessen, Hochzeitsfeiern im kleinen Kreis. Wir reservieren das Haus oder einen Bereich davon nur für Sie — mit einem eigenen Menü, das wir vorher gemeinsam besprechen.</p>
+        <ul>
+          <li><span>Ab</span><b>6 Personen</b></li>
+          <li><span>Menü</span><b>Vorab abgestimmt · 3–5 Gänge</b></li>
+          <li><span>Vorlauf</span><b>min. 1 Woche</b></li>
+          <li><span>Anfrage</span><b>+49 6341 80827</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── STIMMEN ─────────────── -->
+<section id="stimmen" class="opiniones" data-screen-label="06 Stimmen">
+  <div class="wrap">
+    <div class="op-head reveal">
+      <div class="eyebrow center">— 05 · Stimmen</div>
+      <h2>Was unsere Gäste <em>erzählen</em>.</h2>
+    </div>
+
+    <div class="slider reveal d1">
+      <div class="slides" id="slides">
+        <article class="slide is-active">
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <div class="src">Stammgast · Tripadvisor</div>
+          <q>Wir kommen seit vielen Jahren hierher. Hier wird noch frisch gekocht, die Pasta ist unsere Liebe, und wenn die Zeit es zulässt, kommt der Chef persönlich an den Tisch.</q>
+        </article>
+        <article class="slide">
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <div class="src">Yelp · Mittagsgast</div>
+          <q>Klein aber fein. Tagesfrische Ideen, eine schmale, präzise Karte und eine Weinauswahl, die den Tag heller macht. Adriano weiß, was er tut.</q>
+        </article>
+        <article class="slide">
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <div class="src">Speisekarte.menu</div>
+          <q>Wir kamen ohne Voranmeldung und wurden sehr freundlich empfangen. Service und Essen ausgezeichnet — bisher das beste Restaurant in Landau für uns.</q>
+        </article>
+        <article class="slide">
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <div class="src">Online-Tischreservierung</div>
+          <q>Liebevoll eingerichtetes Ambiente, eine Karte, in der jeder etwas findet, und eine Getränkekarte, die keine Wünsche offen lässt. Gerne wieder.</q>
+        </article>
+      </div>
+      <div class="op-nav">
+        <button id="opPrev" aria-label="Vorherige Stimme">←</button>
+        <div class="dots" id="opDots"></div>
+        <button id="opNext" aria-label="Nächste Stimme">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── GALERIE ─────────────── -->
+<section class="insta" data-screen-label="07 Galerie">
+  <div class="wrap reveal">
+    <div class="eyebrow center">— 06 · Aus dem Haus</div>
+    <h2>Was bei uns auf den <em>Tisch</em> kommt.</h2>
+    <p style="color:var(--cream-dim); max-width:48ch; margin:0 auto;">Pasta vom Vormittag, Wein aus dem Keller, Szenen vom Mittagsservice. Ein paar Eindrücke aus dem Ristorante &amp; der Feinkost am Kleinen Platz.</p>
+    <a class="handle" href="https://casel.la" target="_blank" rel="noopener" data-cursor="hover">casel.la →</a>
+
+    <div class="gallery" aria-hidden="true">
+      <div class="ph p1"><div class="ig">Ansehen</div></div>
+      <div class="ph p2"><div class="ig">Ansehen</div></div>
+      <div class="ph p3"><div class="ig">Ansehen</div></div>
+      <div class="ph p4"><div class="ig">Ansehen</div></div>
+      <div class="ph p5"><div class="ig">Ansehen</div></div>
+      <div class="ph p6"><div class="ig">Ansehen</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── RESERVIERUNG ─────────────── -->
+<section id="reservierung" class="reservas" data-screen-label="08 Reservierung">
+  <div class="wrap">
+    <div class="sec-num reveal">— 07 · Reservierung &amp; Kontakt</div>
+
+    <div class="res-layout">
+      <div class="res-info reveal">
+        <h2>Einen Tisch <em>buchen</em>.</h2>
+        <p>Schreiben Sie uns über das Formular oder rufen Sie direkt an — wir bestätigen Reservierungen in der Regel am selben Tag. Spontane Gäste sind herzlich willkommen, ein kurzer Anruf vorab sichert Ihnen aber einen guten Platz.</p>
+
+        <div class="info-block">
+          <div class="k">Adresse</div>
+          <div class="v">Kleiner Platz 13<br/>76829 Landau in der Pfalz</div>
+        </div>
+
+        <div class="info-block">
+          <div class="k">Telefon</div>
+          <div class="v">
+            <a href="tel:+4963418082">+49 6341 80827</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <div class="k">Öffnungszeiten · Ristorante</div>
+          <ul class="hours">
+            <li><span class="d">Montag — Freitag</span><span class="t">12:00 — 14:00 · 18:00 — 22:00</span></li>
+            <li><span class="d">Samstag</span><span class="t">18:00 — 22:00</span></li>
+            <li class="closed"><span class="d">Sonn- &amp; Feiertage</span><span class="t">Ruhetag</span></li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <div class="k">Öffnungszeiten · Feinkost</div>
+          <ul class="hours">
+            <li><span class="d">Montag — Freitag</span><span class="t">11:00 — 18:00</span></li>
+            <li><span class="d">Samstag</span><span class="t">09:00 — 14:00</span></li>
+          </ul>
+        </div>
+
+        <div class="map">
+          <iframe
+            title="Casel·la · Kleiner Platz 13, Landau in der Pfalz"
+            src="https://maps.google.com/maps?q=Kleiner+Platz+13+76829+Landau+in+der+Pfalz&output=embed&z=17"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <form class="form reveal d1" id="resForm" novalidate>
+        <h3>Reservierungsanfrage.</h3>
+        <p class="sub">Wir melden uns innerhalb von 24 Stunden zurück. Felder mit * sind erforderlich.</p>
+
+        <div class="fld-grid">
+          <div class="fld">
+            <input id="f-nombre" name="nombre" type="text" placeholder=" " required />
+            <label for="f-nombre">Name *</label>
+          </div>
+          <div class="fld">
+            <input id="f-tel" name="telefono" type="tel" placeholder=" " required />
+            <label for="f-tel">Telefon *</label>
+          </div>
+        </div>
+
+        <div class="fld">
+          <input id="f-mail" name="email" type="email" placeholder=" " required />
+          <label for="f-mail">E-Mail-Adresse *</label>
+        </div>
+
+        <div class="fld-grid">
+          <div class="fld">
+            <input id="f-fecha" name="fecha" type="date" placeholder=" " required />
+            <label for="f-fecha">Datum *</label>
+          </div>
+          <div class="fld">
+            <input id="f-hora" name="hora" type="time" placeholder=" " required />
+            <label for="f-hora">Uhrzeit *</label>
+          </div>
+        </div>
+
+        <div class="fld-grid">
+          <div class="fld has-value">
+            <select id="f-pers" name="personas" required>
+              <option value="2" selected>2 Personen</option>
+              <option value="3">3 Personen</option>
+              <option value="4">4 Personen</option>
+              <option value="5">5 Personen</option>
+              <option value="6">6 Personen</option>
+              <option value="7">7 Personen</option>
+              <option value="8">8 Personen</option>
+              <option value="more">Mehr als 8 (Gruppe)</option>
+            </select>
+            <label for="f-pers">Personenzahl *</label>
+            <span class="arrow-icon">▾</span>
+          </div>
+          <div class="fld has-value">
+            <select id="f-anlass" name="anlass" required>
+              <option value="abend" selected>Abendessen</option>
+              <option value="mittag">Mittagessen</option>
+              <option value="geburtstag">Geburtstag</option>
+              <option value="business">Geschäftsessen</option>
+              <option value="gruppe">Gruppe / Feier</option>
+            </select>
+            <label for="f-anlass">Anlass</label>
+            <span class="arrow-icon">▾</span>
+          </div>
+        </div>
+
+        <div class="fld">
+          <textarea id="f-msg" name="mensaje" placeholder=" " rows="3"></textarea>
+          <label for="f-msg">Nachricht (optional · Allergien, Wünsche, Anlass)</label>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" required />
+          <span>Ich habe die <a href="#" style="border-bottom:1px solid var(--line); color:var(--cream);">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zur Bearbeitung der Reservierungsanfrage zu.</span>
+        </label>
+
+        <button type="submit" class="btn" data-cursor="hover">
+          Anfrage senden <span class="arrow">→</span>
+        </button>
+
+        <div class="note-card">
+          <b>Hinweis zur Reservierung:</b> Bitte stornieren Sie spätestens 48 Stunden vor Ihrem Termin, falls Sie nicht kommen können. Für No-Shows behalten wir uns eine Bearbeitungsgebühr vor — eine kurze Mitteilung reicht aus.
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <span class="s">— Anfrage eingegangen</span>
+          Vielen Dank! Wir haben Ihre Reservierungsanfrage erhalten und melden uns innerhalb von 24 Stunden. Bei dringenden Anfragen erreichen Sie uns direkt unter <strong style="color:var(--terracotta);">+49 6341 80827</strong>.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── FOOTER ─────────────── -->
+<footer>
+  <div class="footer-mark" aria-hidden="true">Casel·la</div>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <div class="lg">Casel<span class="dot">·</span>la</div>
+      <p class="tag">Italienische Lebensart in Landau in der Pfalz — seit 1972.</p>
+    </div>
+    <div>
+      <div class="foot-h">Navigation</div>
+      <ul class="foot-list">
+        <li><a href="#haus">Das Haus</a></li>
+        <li><a href="#karte">Die Karte</a></li>
+        <li><a href="#familie">Die Familie</a></li>
+        <li><a href="#feinkost">Feinkost &amp; Privée</a></li>
+        <li><a href="#stimmen">Stimmen</a></li>
+        <li><a href="#reservierung">Reservierung</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-h">Kontakt</div>
+      <ul class="foot-list">
+        <li><span class="lab">Adresse</span>Kleiner Platz 13<br/>76829 Landau in der Pfalz</li>
+        <li><span class="lab">Telefon</span><a href="tel:+4963418082">+49 6341 80827</a></li>
+        <li><span class="lab">Web</span><a href="https://casel.la" target="_blank" rel="noopener">casel.la</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="foot-h">Öffnungszeiten</div>
+      <ul class="foot-list">
+        <li><span class="lab">Ristorante Mo–Fr</span>12:00 — 14:00 &amp; 18:00 — 22:00</li>
+        <li><span class="lab">Ristorante Sa</span>18:00 — 22:00</li>
+        <li><span class="lab">Ruhetag</span>So &amp; Feiertage</li>
+        <li><span class="lab">Feinkost</span>Mo–Fr 11–18 · Sa 9–14</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 1972 — 2026 Casellas Ristorante Farfallina · Landau in der Pfalz</span>
+    <span>
+      <a href="#">Impressum</a> &nbsp;·&nbsp;
+      <a href="#">Datenschutz</a> &nbsp;·&nbsp;
+      <a href="#">AGB Reservierung</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+(() => {
+  /* NAV scroll state */
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  /* Hamburger / mobile nav */
+  const hamb = document.getElementById('hamb');
+  const mnav = document.getElementById('mnav');
+  const toggleMenu = (open) => {
+    const isOpen = open ?? !mnav.classList.contains('is-open');
+    hamb.classList.toggle('is-open', isOpen);
+    mnav.classList.toggle('is-open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    mnav.setAttribute('aria-hidden', !isOpen);
+  };
+  hamb.addEventListener('click', () => toggleMenu());
+  mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+  /* Custom cursor (desktop only) */
+  const isFine = window.matchMedia('(pointer:fine)').matches;
+  if (isFine){
+    const dot  = document.getElementById('curDot');
+    const ring = document.getElementById('curRing');
+    let dx=0, dy=0, rx=0, ry=0;
+    document.addEventListener('mousemove', (e) => {
+      dx = e.clientX; dy = e.clientY;
+      dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%,-50%)`;
+    }, { passive:true });
+    const tick = () => {
+      rx += (dx - rx) * 0.18;
+      ry += (dy - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(tick);
+    };
+    tick();
+    const hoverables = document.querySelectorAll('a, button, input, textarea, select, [data-cursor="hover"], .dish, .res-card, .ph, .chef-card');
+    hoverables.forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('is-hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('is-hover'));
+    });
+  }
+
+  /* IO reveals */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* Testimonial slider */
+  const slidesEl = document.querySelectorAll('#slides .slide');
+  const dotsHost = document.getElementById('opDots');
+  let cur = 0;
+  slidesEl.forEach((_, i) => {
+    const b = document.createElement('button');
+    b.className = 'dot' + (i===0 ? ' is-active' : '');
+    b.setAttribute('aria-label', 'Stimme ' + (i+1));
+    b.addEventListener('click', () => go(i));
+    dotsHost.appendChild(b);
+  });
+  const dotsEl = dotsHost.querySelectorAll('.dot');
+  function go(i){
+    cur = (i + slidesEl.length) % slidesEl.length;
+    slidesEl.forEach((s,n) => s.classList.toggle('is-active', n===cur));
+    dotsEl.forEach((d,n) => d.classList.toggle('is-active', n===cur));
+  }
+  document.getElementById('opPrev').addEventListener('click', () => go(cur-1));
+  document.getElementById('opNext').addEventListener('click', () => go(cur+1));
+  let auto = setInterval(() => go(cur+1), 7000);
+  const slider = document.querySelector('.slider');
+  slider.addEventListener('mouseenter', () => clearInterval(auto));
+  slider.addEventListener('mouseleave', () => auto = setInterval(() => go(cur+1), 7000));
+
+  /* Form */
+  const form = document.getElementById('resForm');
+  form.querySelectorAll('input, textarea, select').forEach(inp => {
+    const sync = () => {
+      const fld = inp.closest('.fld');
+      if (!fld) return;
+      if (inp.value && String(inp.value).trim() !== '') fld.classList.add('has-value');
+      else fld.classList.remove('has-value');
+    };
+    inp.addEventListener('input', sync);
+    inp.addEventListener('change', sync);
+    sync();
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let ok = true;
+    form.querySelectorAll('[required]').forEach(el => {
+      if (!el.checkValidity()){
+        ok = false;
+        if (el.closest('.fld')) el.closest('.fld').style.borderBottomColor = 'var(--terracotta)';
+      }
+    });
+    if (!ok){
+      form.animate(
+        [{ transform:'translateX(0)'},{ transform:'translateX(-6px)'},{ transform:'translateX(6px)'},{ transform:'translateX(0)'}],
+        { duration:320, easing:'ease-in-out' }
+      );
+      return;
+    }
+    const success = document.getElementById('formSuccess');
+    success.classList.add('is-show');
+    form.querySelector('button[type=submit]').setAttribute('disabled', 'disabled');
+    form.querySelector('button[type=submit]').style.opacity = '.5';
+  });
+
+  /* Min date = today */
+  const fdate = document.getElementById('f-fecha');
+  if (fdate){
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2,'0');
+    fdate.min = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  }
+})();
+</script>
+</body>
+</html>

@@ -561,68 +561,81 @@
   /* ============ TEAM ============ */
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2px;
   }
+  @media (max-width: 600px) { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; } }
+
   .member {
     position: relative;
-    background: var(--paper);
-    border: 1px solid var(--line);
-    padding: 24px;
     aspect-ratio: 3 / 4;
-    display: flex; flex-direction: column; justify-content: space-between;
-    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out), border-color .4s var(--ease);
-    transform-style: preserve-3d;
-    perspective: 800px;
+    overflow: hidden;
+    background: #111;
+    cursor: default;
   }
-  .member:hover {
-    transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0);
-    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.18);
-    border-color: transparent;
+  .member__photo {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(100%) contrast(1.05);
+    transition: transform .6s var(--ease-out), filter .5s var(--ease);
+    will-change: transform;
   }
-  .member__avatar {
-    width: 88px; height: 88px;
-    border-radius: 50%;
+  .member:hover .member__photo { transform: scale(1.04); filter: grayscale(80%) contrast(1.05); }
+
+  .member__placeholder {
+    width: 100%; height: 100%;
     display: grid; place-items: center;
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: 32px;
+    background: linear-gradient(145deg, #1c1c1c 0%, #111 100%);
+  }
+  .member__initials {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(36px, 4vw, 60px);
+    color: rgba(250,250,250,0.25);
     letter-spacing: -0.02em;
-    color: var(--paper);
-    background: var(--concrete);
-    position: relative;
-    flex: 0 0 auto;
+    line-height: 1;
+    user-select: none;
   }
-  .member--partner .member__avatar {
-    background: var(--terra);
+  .member--partner .member__placeholder {
+    background: linear-gradient(145deg, #2a1a12 0%, #1a0e09 100%);
   }
-  .member__avatar::after {
-    content: ""; position: absolute; inset: -6px;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity .4s var(--ease), transform .6s var(--ease-out);
+  .member--partner .member__initials { color: rgba(184,92,56,0.45); }
+
+  .member__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.4) 40%, transparent 65%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 20px 22px 22px;
+    transition: background .4s var(--ease);
   }
-  .member:hover .member__avatar::after { opacity: 1; transform: scale(1.1); }
-  .member__info { margin-top: auto; }
+  .member:hover .member__overlay {
+    background: linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.55) 50%, rgba(10,10,10,0.1) 70%);
+  }
+  .member__partner-tag {
+    position: absolute; top: 16px; left: 16px;
+    font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--terra);
+    background: rgba(10,10,10,0.7);
+    padding: 4px 9px;
+    border: 1px solid rgba(184,92,56,0.4);
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+  .member__info { color: var(--paper); }
   .member__name {
     font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: 22px;
+    font-size: clamp(16px, 1.6vw, 22px);
     line-height: 1.05;
-    margin: 0 0 6px;
+    margin: 0 0 5px;
     letter-spacing: -0.01em;
-    text-wrap: balance;
   }
   .member__role {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(10,10,10,0.55);
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,250,250,0.5);
     line-height: 1.5;
   }
-  .member--partner .member__role { color: var(--terra-deep); }
-  .member__partner-tag {
-    position: absolute; top: 20px; right: 20px;
-    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: var(--terra);
-  }
+  .member--partner .member__role { color: rgba(184,92,56,0.85); }
 
   /* ============ AWARDS ============ */
   .awards {
@@ -1601,16 +1614,25 @@
     ];
 
     const partners = [
-      { name: "Robin Fuchs", role: "Dipl.-Ing. Architekt", title: "Vertretungsberechtigter Partner", initials: "RF" },
-      { name: "Jörg Reiser", role: "Dipl.-Ing. Architekt", title: "Vertretungsberechtigter Partner", initials: "JR" },
-      { name: "Dardan Bislimi", role: "Dipl.-Ing.", title: "Partner", initials: "DB" },
-      { name: "Sonja Böhr (M.A.)", role: "Innenarchitektin", title: "Partnerin", initials: "SB" },
+      { name: "Robin Fuchs", role: "Dipl.-Ing. Architekt", title: "Partner", initials: "RF", photo: "images/team/robin-fuchs.png" },
+      { name: "Jörg Reiser", role: "Dipl.-Ing. Architekt", title: "Partner", initials: "JR", photo: null },
+      { name: "Dardan Bislimi", role: "Dipl.-Ing.", title: "Partner", initials: "DB", photo: null },
+      { name: "Sonja Böhr M.A.", role: "Innenarchitektin", title: "Partnerin", initials: "SB", photo: null },
     ];
 
     const staff = [
-      "Catrin Mandery","Danxia Yang","Aleksandra Bieniek","Christian Kempf",
-      "Markus Kuntz","Markus Mohr","Anna Kornberger","Ergys Stavre",
-      "Agnes Fliehmann","Mike Diener","Hanna Baas","Juliane Haber"
+      { name: "Catrin Mandery",    initials: "CM", photo: null },
+      { name: "Danxia Yang",       initials: "DY", photo: null },
+      { name: "Aleksandra Bieniek",initials: "AB", photo: null },
+      { name: "Christian Kempf",   initials: "CK", photo: null },
+      { name: "Markus Kuntz",      initials: "MK", photo: null },
+      { name: "Markus Mohr",       initials: "MM", photo: null },
+      { name: "Anna Kornberger",   initials: "AK", photo: null },
+      { name: "Ergys Stavre",      initials: "ES", photo: null },
+      { name: "Agnes Fliehmann",   initials: "AF", photo: "images/team/agnes-fliehmann.png" },
+      { name: "Mike Diener",       initials: "MD", photo: "images/team/mike-diener.png" },
+      { name: "Hanna Baas",        initials: "HB", photo: "images/team/hanna-baas.png" },
+      { name: "Juliane Haber",     initials: "JH", photo: "images/team/juliane-haber.png" },
     ];
 
     const awards = [
@@ -1675,33 +1697,36 @@
 
     // ============ TEAM RENDER ============
     const teamGrid = document.getElementById('teamGrid');
+
+    function memberHTML(name, role, initials, photo, isPartner) {
+      const visual = photo
+        ? `<img class="member__photo" src="${photo}" alt="${name}" loading="lazy">`
+        : `<div class="member__placeholder"><span class="member__initials">${initials}</span></div>`;
+      const partnerTag = isPartner ? `<span class="member__partner-tag">Partner</span>` : '';
+      return `
+        ${visual}
+        ${partnerTag}
+        <div class="member__overlay">
+          <div class="member__info">
+            <h3 class="member__name">${name}</h3>
+            <div class="member__role">${role}</div>
+          </div>
+        </div>`;
+    }
+
     partners.forEach((p, i) => {
       const el = document.createElement('article');
       el.className = 'member member--partner reveal';
       el.setAttribute('data-delay', (i % 4));
-      el.setAttribute('data-hover', '');
-      el.innerHTML = `
-        <span class="member__partner-tag">Partner</span>
-        <div class="member__avatar">${p.initials}</div>
-        <div class="member__info">
-          <h3 class="member__name">${p.name}</h3>
-          <div class="member__role">${p.role}<br/>${p.title}</div>
-        </div>`;
+      el.innerHTML = memberHTML(p.name, `${p.role} · ${p.title}`, p.initials, p.photo, true);
       teamGrid.appendChild(el);
     });
-    staff.forEach((name, i) => {
-      const parts = name.split(' ');
-      const initials = (parts[0][0] + (parts[parts.length-1][0] || '')).toUpperCase();
+
+    staff.forEach((s, i) => {
       const el = document.createElement('article');
       el.className = 'member reveal';
       el.setAttribute('data-delay', (i % 4));
-      el.setAttribute('data-hover', '');
-      el.innerHTML = `
-        <div class="member__avatar">${initials}</div>
-        <div class="member__info">
-          <h3 class="member__name">${name}</h3>
-          <div class="member__role">Mitarbeiter:in</div>
-        </div>`;
+      el.innerHTML = memberHTML(s.name, 'Mitarbeiter:in', s.initials, s.photo, false);
       teamGrid.appendChild(el);
     });
 
@@ -1720,21 +1745,6 @@
       awardsRail.appendChild(el);
     });
 
-    // ============ TILT for member cards ============
-    document.querySelectorAll('.member').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        if (reduced) return;
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width - 0.5;
-        const y = (e.clientY - r.top) / r.height - 0.5;
-        card.style.setProperty('--tilt-x', (-y * 5) + 'deg');
-        card.style.setProperty('--tilt-y', (x * 5) + 'deg');
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--tilt-x', '0deg');
-        card.style.setProperty('--tilt-y', '0deg');
-      });
-    });
 
     // ============ INTERSECTION REVEAL ============
     const io = new IntersectionObserver(entries => {

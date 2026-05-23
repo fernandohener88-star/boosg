@@ -140,39 +140,107 @@
   .nav__menu a:hover::after { right: 0; }
   .nav__burger {
     display: none;
-    width: 32px; height: 18px;
-    position: relative;
+    flex-direction: column; justify-content: center; align-items: flex-end;
+    gap: 5px; width: 36px; height: 24px; cursor: pointer;
   }
   .nav__burger span {
-    position: absolute; left: 0; right: 0; height: 1px; background: currentColor;
-    transition: transform .4s var(--ease), top .4s var(--ease), opacity .25s;
+    display: block; height: 1px; background: currentColor;
+    transition: transform .5s var(--ease-out), width .4s var(--ease), opacity .25s;
   }
-  .nav__burger span:nth-child(1) { top: 2px; }
-  .nav__burger span:nth-child(2) { top: 50%; }
-  .nav__burger span:nth-child(3) { top: calc(100% - 2px); }
-  body.menu-open .nav__burger span:nth-child(1) { top: 50%; transform: rotate(45deg); }
-  body.menu-open .nav__burger span:nth-child(2) { opacity: 0; }
-  body.menu-open .nav__burger span:nth-child(3) { top: 50%; transform: rotate(-45deg); }
+  .nav__burger span:nth-child(1) { width: 100%; }
+  .nav__burger span:nth-child(2) { width: 65%; }
+  .nav__burger span:nth-child(3) { width: 100%; }
+  body.menu-open .nav__burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); width: 100%; }
+  body.menu-open .nav__burger span:nth-child(2) { opacity: 0; width: 100%; }
+  body.menu-open .nav__burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 100%; }
 
+  /* ── FULL-SCREEN MENU ── */
   .menu-overlay {
-    position: fixed; inset: 0;
-    background: var(--ink);
-    color: var(--paper);
-    z-index: 90;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 32px;
-    opacity: 0; pointer-events: none;
-    transition: opacity .5s var(--ease);
+    position: fixed; inset: 0; z-index: 90;
+    background: var(--ink); color: var(--paper);
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path .78s cubic-bezier(0.76, 0, 0.24, 1);
+    pointer-events: none; overflow: hidden;
   }
-  body.menu-open .menu-overlay { opacity: 1; pointer-events: auto; }
-  .menu-overlay a {
-    font-family: var(--serif); font-style: italic; font-size: clamp(36px, 8vw, 72px);
-    font-weight: 400;
+  body.menu-open .menu-overlay { clip-path: inset(0 0 0% 0); pointer-events: auto; }
+
+  .menu__inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding: 90px var(--pad-x) 52px;
+  }
+
+  /* Terra accent stripe */
+  .menu__stripe {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--terra);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) .08s;
+  }
+  body.menu-open .menu__stripe { transform: scaleY(1); }
+
+  /* Nav links */
+  .menu__nav { display: flex; flex-direction: column; margin: auto 0; }
+
+  .menu__item {
+    display: flex; align-items: baseline; gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(250,247,240,0.08);
+    color: var(--paper); text-decoration: none;
+    transform: translateY(56px); opacity: 0;
+    transition: transform .45s var(--ease-out), opacity .35s var(--ease-out), color .25s;
+  }
+  .menu__item:first-child { border-top: 1px solid rgba(250,247,240,0.08); }
+  .menu__item:hover { color: var(--terra); }
+
+  body.menu-open .menu__item { transform: translateY(0); opacity: 1; }
+  body.menu-open .menu__item:nth-child(1) { transition-delay: .18s; }
+  body.menu-open .menu__item:nth-child(2) { transition-delay: .26s; }
+  body.menu-open .menu__item:nth-child(3) { transition-delay: .34s; }
+  body.menu-open .menu__item:nth-child(4) { transition-delay: .42s; }
+
+  .menu__num {
+    font-family: var(--serif); font-style: italic;
+    font-size: 13px; color: var(--terra); opacity: .75;
+    flex-shrink: 0; letter-spacing: .04em;
+    transition: opacity .25s;
+  }
+  .menu__item:hover .menu__num { opacity: 1; }
+
+  .menu__label {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(42px, 11vw, 80px);
+    line-height: 1; letter-spacing: -0.025em;
+  }
+
+  /* Footer info */
+  .menu__footer {
+    margin-top: auto; padding-top: 36px;
+    display: flex; flex-direction: column; gap: 5px;
+    transform: translateY(20px); opacity: 0;
+    transition: transform .6s var(--ease-out) .48s, opacity .5s var(--ease-out) .48s;
+  }
+  body.menu-open .menu__footer { transform: translateY(0); opacity: 1; }
+  .menu__addr, .menu__tel {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(250,247,240,0.3);
+  }
+  .menu__tel { transition: color .25s; }
+  .menu__tel:hover { color: var(--terra); }
+
+  /* Background watermark */
+  .menu__deco {
+    position: absolute; right: -0.05em; bottom: -0.12em;
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(140px, 50vw, 420px);
+    line-height: 1; letter-spacing: -0.04em;
+    color: rgba(250,247,240,0.03);
+    user-select: none; pointer-events: none;
   }
 
   @media (max-width: 760px) {
     .nav__menu { display: none; }
-    .nav__burger { display: block; }
+    .nav__burger { display: flex; }
   }
 
   /* ============ HERO ============ */
@@ -1329,10 +1397,28 @@
   </nav>
 
   <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
-    <a href="#projekte" data-hover>Projekte</a>
-    <a href="#auszeichnungen" data-hover>Auszeichnungen</a>
-    <a href="#team" data-hover>Team</a>
-    <a href="#kontakt" data-hover>Kontakt</a>
+    <div class="menu__inner">
+      <div class="menu__stripe" aria-hidden="true"></div>
+      <nav class="menu__nav">
+        <a class="menu__item" href="#projekte">
+          <span class="menu__num">01</span><span class="menu__label">Projekte</span>
+        </a>
+        <a class="menu__item" href="#auszeichnungen">
+          <span class="menu__num">02</span><span class="menu__label">Auszeichnungen</span>
+        </a>
+        <a class="menu__item" href="#team">
+          <span class="menu__num">03</span><span class="menu__label">Team</span>
+        </a>
+        <a class="menu__item" href="#kontakt">
+          <span class="menu__num">04</span><span class="menu__label">Kontakt</span>
+        </a>
+      </nav>
+      <div class="menu__footer">
+        <div class="menu__addr">Marktstraße 114 · 76829 Landau i.d. Pfalz</div>
+        <a class="menu__tel" href="tel:+4963419689074">06341 9689074</a>
+      </div>
+      <div class="menu__deco" aria-hidden="true">hm</div>
+    </div>
   </div>
 
   <main id="top">
@@ -1772,25 +1858,25 @@
     ];
 
     const partners = [
-      { name: "Robin Fuchs", role: "Dipl.-Ing. Architekt", title: "Partner", initials: "RF", photo: "images/team/robin-fuchs.png" },
-      { name: "Jörg Reiser", role: "Dipl.-Ing. Architekt", title: "Partner", initials: "JR", photo: "images/team/jorg-reiser.png" },
-      { name: "Dardan Bislimi", role: "Dipl.-Ing.", title: "Partner", initials: "DB", photo: "images/team/dardan-bislimi.png" },
-      { name: "Sonja Böhr M.A.", role: "Innenarchitektin", title: "Partnerin", initials: "SB", photo: "images/team/sonja-bohr.png" },
+      { name: "Robin Fuchs",     role: "Dipl.-Ing. Architekt",  title: "Vertretungsberechtigter Partner", initials: "RF", photo: "images/team/robin-fuchs.png"   },
+      { name: "Jörg Reiser",    role: "Dipl.-Ing. Architekt",  title: "Vertretungsberechtigter Partner", initials: "JR", photo: "images/team/jorg-reiser.png"   },
+      { name: "Dardan Bislimi", role: "Dipl.-Ing.",             title: "Partner",                         initials: "DB", photo: "images/team/dardan-bislimi.png" },
+      { name: "Sonja Böhr M.A.",role: "M.A. Innenarchitektin", title: "Partnerin",                       initials: "SB", photo: "images/team/sonja-bohr.png"    },
     ];
 
     const staff = [
-      { name: "Catrin Mandery",    initials: "CM", photo: "images/team/catrin-mandery.png" },
-      { name: "Danxia Yang",       initials: "DY", photo: "images/team/danxia-yang.png" },
-      { name: "Aleksandra Bieniek",initials: "AB", photo: "images/team/aleksandra-bieniek.png" },
-      { name: "Christian Kempf",   initials: "CK", photo: "images/team/christian-kempf.png" },
-      { name: "Markus Kuntz",      initials: "MK", photo: "images/team/markus-kuntz.png" },
-      { name: "Markus Mohr",       initials: "MM", photo: "images/team/markus-mohr.png" },
-      { name: "Anna Kornberger",   initials: "AK", photo: "images/team/anna-kornberger.png" },
-      { name: "Ergys Stavre",      initials: "ES", photo: "images/team/ergys-stavre.png" },
-      { name: "Agnes Fliehmann",   initials: "AF", photo: "images/team/agnes-fliehmann.png" },
-      { name: "Mike Diener",       initials: "MD", photo: "images/team/mike-diener.png" },
-      { name: "Hanna Baas",        initials: "HB", photo: "images/team/hanna-baas.png" },
-      { name: "Juliane Haber",     initials: "JH", photo: "images/team/juliane-haber.png" },
+      { name: "Catrin Mandery",     role: "Assistenz der Geschäftsführung",           initials: "CM", photo: "images/team/catrin-mandery.png"    },
+      { name: "Danxia Yang",        role: "Dipl.-Ing. Architektur · Partnerin China", initials: "DY", photo: "images/team/danxia-yang.png"       },
+      { name: "Aleksandra Bieniek", role: "B.A. Innenarchitektur",                    initials: "AB", photo: "images/team/aleksandra-bieniek.png" },
+      { name: "Christian Kempf",    role: "Dipl.-Ing. Architekt",                     initials: "CK", photo: "images/team/christian-kempf.png"   },
+      { name: "Markus Kuntz",       role: "Bauleitung",                               initials: "MK", photo: "images/team/markus-kuntz.png"      },
+      { name: "Markus Mohr",        role: "Bauleitung",                               initials: "MM", photo: "images/team/markus-mohr.png"       },
+      { name: "Anna Kornberger",    role: "M.A. Architektur · Energieberaterin HWK", initials: "AK", photo: "images/team/anna-kornberger.png"   },
+      { name: "Ergys Stavre",       role: "M.Sc. Architektur",                        initials: "ES", photo: "images/team/ergys-stavre.png"      },
+      { name: "Agnes Fliehmann",    role: "Bauzeichnerin",                            initials: "AF", photo: "images/team/agnes-fliehmann.png"   },
+      { name: "Mike Diener",        role: "M.A. Architektur",                         initials: "MD", photo: "images/team/mike-diener.png"       },
+      { name: "Hanna Baas",         role: "M.A. Architektur",                         initials: "HB", photo: "images/team/hanna-baas.png"        },
+      { name: "Juliane Haber",      role: "B.Sc. Architektur",                        initials: "JH", photo: "images/team/juliane-haber.png"     },
     ];
 
     const awards = [

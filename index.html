@@ -1075,6 +1075,49 @@
   .hero-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,254,251,.44);border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s;}
   .hero-dot.active{background:var(--white);transform:scale(1.3);}
 
+  /* ===== LIEFERANTEN SECTION ===== */
+  .partners-sec{ background:var(--white); }
+  .partners-split{
+    display:grid;
+    grid-template-columns:1fr 1px 1fr;
+    gap:0;
+    align-items:start;
+    margin-top:48px;
+  }
+  @media(max-width:768px){ .partners-split{ grid-template-columns:1fr; } }
+  .partners-divider{
+    background:linear-gradient(180deg, transparent, rgba(61,122,58,.25) 20%, rgba(61,122,58,.25) 80%, transparent);
+    align-self:stretch; min-height:200px;
+  }
+  @media(max-width:768px){ .partners-divider{ display:none; } }
+  .partners-col{ padding:0 40px; }
+  @media(max-width:768px){ .partners-col{ padding:0; margin-bottom:36px; } }
+  .partners-col-title{
+    font-family:'Caveat',cursive; font-weight:700;
+    font-size:clamp(24px,3vw,32px); color:var(--green);
+    margin:0 0 20px; padding-bottom:12px;
+    border-bottom:2px solid rgba(61,122,58,.18);
+    line-height:1;
+  }
+  .partner-list{ display:flex; flex-direction:column; gap:12px; }
+  .partner-item{
+    display:flex; align-items:center; gap:14px;
+    background:var(--cream); border-radius:var(--radius-m);
+    padding:14px 18px;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .partner-item:hover{ transform:translateY(-2px); box-shadow:var(--shadow-card); }
+  .partner-icon{ font-size:28px; line-height:1; flex:none; }
+  .partner-logo-img{ height:44px; width:auto; object-fit:contain; flex:none; }
+  .partner-name{ font-weight:800; font-size:15px; color:var(--ink); line-height:1.2; }
+  .partner-desc{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  .partner-more{
+    background:transparent; border:1.5px dashed rgba(61,122,58,.28);
+    color:var(--green); font-weight:700; font-size:14px;
+    justify-content:center;
+  }
+  .partner-more:hover{ transform:none; box-shadow:none; }
+
   /* ===== INSTAGRAM SECTION ===== */
   .insta-sec{background:var(--cream-deep);}
   .insta-head{text-align:center;margin-bottom:40px;}
@@ -1356,6 +1399,82 @@
         <div class="stat">
           <div class="stat-num" data-count="1">1</div>
           <div class="stat-lbl">Philosophie: Alles kann, nichts MUSS.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== LIEFERANTEN =========================== -->
+  <section class="partners-sec section-pad" id="lieferanten">
+    <div class="container">
+      <div style="text-align:center;">
+        <span class="eyebrow">à la "LA FAMILIA"</span>
+        <h2 class="title">Unsere <span class="gold">Lieferanten</span></h2>
+        <p class="lead" style="margin:0 auto;">Was auf den Tisch kommt, kommt von den Besten. Keine Kompromisse.</p>
+      </div>
+      <div class="partners-split">
+        <div class="partners-col">
+          <h3 class="partners-col-title">Feinkost Lieferanten</h3>
+          <div class="partner-list">
+            <div class="partner-item">
+              <!-- Logo: Frische Paradies – img src hier eintragen wenn verfügbar -->
+              <span class="partner-icon">🦀</span>
+              <div>
+                <div class="partner-name">Frische Paradies</div>
+                <div class="partner-desc">Premium-Feinkost &amp; Meeresfrüchte</div>
+              </div>
+            </div>
+            <div class="partner-item">
+              <!-- Logo: KiKok -->
+              <span class="partner-icon">🐔</span>
+              <div>
+                <div class="partner-name">KiKok</div>
+                <div class="partner-desc">Das ganz besondere Hähnchen</div>
+              </div>
+            </div>
+            <div class="partner-item">
+              <!-- Logo: R Express -->
+              <span class="partner-icon">🏆</span>
+              <div>
+                <div class="partner-name">R Express</div>
+                <div class="partner-desc">Feinkost &amp; Spezialitäten</div>
+              </div>
+            </div>
+            <div class="partner-item partner-more">uvm.</div>
+          </div>
+        </div>
+
+        <div class="partners-divider"></div>
+
+        <div class="partners-col">
+          <h3 class="partners-col-title">Regionale Lieferanten</h3>
+          <div class="partner-list">
+            <div class="partner-item">
+              <!-- Logo: Theis -->
+              <span class="partner-icon">🥬</span>
+              <div>
+                <div class="partner-name">Theis</div>
+                <div class="partner-desc">Frische Lebensmittel aus der Region</div>
+              </div>
+            </div>
+            <div class="partner-item">
+              <!-- Logo: Weiller -->
+              <span class="partner-icon">🍎</span>
+              <div>
+                <div class="partner-name">Weiller</div>
+                <div class="partner-desc">Obst- &amp; Gemüsegroßhandel Gastronomieservice</div>
+              </div>
+            </div>
+            <div class="partner-item">
+              <!-- Logo: De' Bäcker Becker -->
+              <span class="partner-icon">🥖</span>
+              <div>
+                <div class="partner-name">De' Bäcker Becker</div>
+                <div class="partner-desc">Wir leben Brotkultur!</div>
+              </div>
+            </div>
+            <div class="partner-item partner-more">uvm.</div>
+          </div>
         </div>
       </div>
     </div>

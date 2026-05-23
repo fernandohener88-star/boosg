@@ -337,6 +337,20 @@
   .cb-text a{color:var(--gold);text-decoration:underline;text-underline-offset:2px}
   .cb-actions{display:flex;gap:10px;flex-shrink:0}
 
+  /* ── burger & mobile overlay ────────────────────────── */
+  .burger{display:none;flex-direction:column;justify-content:space-between;width:24px;height:17px;background:none;border:0;padding:0;cursor:pointer;flex-shrink:0}
+  .burger span{display:block;width:100%;height:1.5px;background:var(--cream);border-radius:1px;transition:transform .35s ease,opacity .22s ease,width .22s ease}
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0;width:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .mobile-overlay{position:fixed;inset:0;z-index:115;background:rgba(10,6,3,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;padding:80px 32px;opacity:0;pointer-events:none;transition:opacity .38s ease}
+  .mobile-overlay.open{opacity:1;pointer-events:all}
+  .mo-link{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(32px,9vw,52px);font-weight:300;color:var(--cream-dim);letter-spacing:.01em;transition:color .22s,transform .22s;display:block}
+  .mo-link:hover{color:var(--cream)}
+  .mo-rule{width:36px;height:1px;background:var(--rule-strong)}
+  .mo-cta{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--terra);margin-top:4px;transition:color .22s;display:block}
+  .mo-cta:hover{color:var(--terra-soft)}
+
   /* ---------- footer ---------- */
   footer{
     border-top:1px solid var(--rule);
@@ -356,17 +370,24 @@
   @media (max-width: 980px){
     nav.top{padding:18px 22px}
     nav.top .links{display:none}
+    .burger{display:flex}
     section{padding:90px 26px}
     .hero{padding:0 26px}
     .vline{display:none}
     .two-col{grid-template-columns:1fr;gap:50px}
     .offer-grid{grid-template-columns:1fr 1fr;gap:14px}
-    .marquee span{font-size:30px}
+    .marquee span{font-size:28px}
     .info .block{grid-template-columns:1fr;gap:6px}
-    .map-card{min-height:380px}
-    footer{flex-direction:column;gap:14px;text-align:center}
+    .map-card{min-height:320px}
+    footer{flex-direction:column;gap:12px;text-align:center;padding:24px 22px}
+  }
+  @media (max-width: 640px){
+    #cookie-banner{flex-direction:column;align-items:stretch;padding:16px 20px;gap:12px}
+    .cb-actions{flex-direction:column}
+    .cb-actions .btn{text-align:center;justify-content:center}
   }
   @media (max-width: 540px){
+    .hero h1{font-size:clamp(50px,16vw,70px)}
     .offer-grid{grid-template-columns:1fr}
     .hero .cta{flex-direction:column;align-items:stretch}
   }
@@ -402,8 +423,21 @@
     <a href="speisekarte.html">Speisekarte</a>
     <a href="#kontakt">Kontakt</a>
   </div>
+  <button class="burger" id="burger" aria-label="Navigation öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
   <a class="btn terra" href="https://www.opentable.de/r/mio-restaurant-reservations-landau-in-der-pfalz?restref=194247" target="_blank" rel="noopener">Reservieren</a>
 </nav>
+
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true">
+  <a href="#about"   class="mo-link">Über uns</a>
+  <a href="#angebot" class="mo-link">Angebot</a>
+  <a href="#zeiten"  class="mo-link">Öffnungszeiten</a>
+  <a href="speisekarte.html" class="mo-link">Speisekarte</a>
+  <a href="#kontakt" class="mo-link">Kontakt</a>
+  <div class="mo-rule"></div>
+  <a href="https://www.opentable.de/r/mio-restaurant-reservations-landau-in-der-pfalz?restref=194247" class="mo-cta" target="_blank" rel="noopener">Tisch reservieren →</a>
+</div>
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="top">
@@ -645,18 +679,40 @@
   document.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  // Smooth scroll for in-page nav links
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
+  // Smooth scroll (nav + mobile overlay)
+  function closeMobileNav(){
+    const ov = document.getElementById('mobileOverlay');
+    const bg = document.getElementById('burger');
+    if(!ov) return;
+    ov.classList.remove('open');
+    ov.setAttribute('aria-hidden','true');
+    bg.classList.remove('open');
+    bg.setAttribute('aria-expanded','false');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('a[href^="#"]:not([href="#"])').forEach(a => {
     a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href').slice(1);
-      if(!id) return;
-      const target = document.getElementById(id);
+      const target = document.getElementById(a.getAttribute('href').slice(1));
       if(target){
         e.preventDefault();
-        window.scrollTo({top: target.offsetTop - 40, behavior:'smooth'});
+        closeMobileNav();
+        window.scrollTo({top: target.offsetTop - 64, behavior:'smooth'});
       }
     });
   });
+
+  // Burger toggle
+  const burgerBtn = document.getElementById('burger');
+  const mobileOv  = document.getElementById('mobileOverlay');
+  if(burgerBtn){
+    burgerBtn.addEventListener('click', () => {
+      const open = mobileOv.classList.toggle('open');
+      mobileOv.setAttribute('aria-hidden', !open);
+      burgerBtn.classList.toggle('open', open);
+      burgerBtn.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+  }
 
   // Today's row highlight
   const today = new Date().getDay();

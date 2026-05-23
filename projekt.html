@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>hausgemacht Architekten</title>
+<meta name="description" content="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fafafa;
+    --concrete: #c8c4bc;
+    --concrete-soft: #e8e6e1;
+    --terra: #b85c38;
+    --terra-deep: #8f4528;
+    --line: rgba(10,10,10,0.12);
+    --line-dark: rgba(250,250,250,0.16);
+    --serif: "Cormorant Garamond","Times New Roman",serif;
+    --sans: "Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --pad-x: clamp(24px,6vw,120px);
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img,svg{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;}
+  ::selection{background:var(--terra);color:var(--paper);}
+
+  /* ── SCROLL PROGRESS ── */
+  .prog-bar{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    height:2px;background:var(--terra);
+    transform-origin:left;transform:scaleX(0);
+    transition:transform .05s linear;
+  }
+
+  /* ── CURSOR ── */
+  .cursor-dot,.cursor-ring{
+    position:fixed;top:0;left:0;pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);will-change:transform;mix-blend-mode:difference;
+  }
+  .cursor-dot{width:6px;height:6px;background:var(--paper);border-radius:50%;transition:background .25s,transform .15s;}
+  .cursor-ring{width:36px;height:36px;border:1px solid rgba(250,250,250,.55);border-radius:50%;transition:width .35s var(--ease),height .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease);}
+  body.cursor-hover .cursor-ring{width:64px;height:64px;border-color:var(--terra);background:rgba(184,92,56,.1);}
+  body.cursor-hover .cursor-dot{background:var(--terra);}
+  @media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none;}body{cursor:auto;}}
+  @media(hover:hover) and (pointer:fine){html,body{cursor:none;}a,button{cursor:none;}}
+
+  /* ── NAV ── */
+  .nav{
+    position:fixed;inset:0 0 auto 0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px var(--pad-x);
+    color:var(--paper);
+    transition:background .45s var(--ease),color .45s var(--ease),padding .45s var(--ease),border-color .45s var(--ease);
+    border-bottom:1px solid transparent;
+    backdrop-filter:blur(0);
+  }
+  .nav.is-scrolled{
+    background:rgba(250,250,250,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    color:var(--ink);padding-top:16px;padding-bottom:16px;border-bottom-color:var(--line);
+  }
+  .nav__brand{display:inline-flex;align-items:baseline;gap:10px;font-family:var(--serif);font-style:italic;font-weight:500;font-size:26px;letter-spacing:-.01em;}
+  .nav__brand .suffix{font-family:var(--sans);font-style:normal;font-weight:400;font-size:11px;letter-spacing:.28em;text-transform:uppercase;transform:translateY(-2px);}
+  .nav__menu{display:flex;gap:clamp(20px,3vw,42px);align-items:center;font-size:13px;letter-spacing:.08em;text-transform:lowercase;}
+  .nav__menu a{position:relative;padding:6px 0;}
+  .nav__menu a::after{content:"";position:absolute;left:0;right:100%;bottom:2px;height:1px;background:currentColor;transition:right .4s var(--ease-out);}
+  .nav__menu a:hover::after{right:0;}
+  .nav__back{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    opacity:.7;transition:opacity .3s;
+  }
+  .nav__back:hover{opacity:1;}
+  .nav__back svg{width:18px;height:8px;stroke:currentColor;stroke-width:1.5;fill:none;transition:transform .3s var(--ease-out);}
+  .nav__back:hover svg{transform:translateX(-4px);}
+  .nav__hamburger{display:none;flex-direction:column;gap:5px;padding:6px;width:40px;}
+  .nav__hamburger span{height:1px;background:currentColor;border-radius:1px;transition:transform .4s var(--ease-out),opacity .3s;}
+  @media(max-width:700px){
+    .nav__menu{display:none;}
+    .nav__hamburger{display:flex;}
+  }
+
+  /* ── MOBILE MENU OVERLAY ── */
+  .menu-overlay{
+    position:fixed;inset:0;z-index:90;
+    background:var(--ink);color:var(--paper);
+    clip-path:inset(0 0 100% 0);
+    transition:clip-path .78s cubic-bezier(0.76,0,0.24,1);
+    pointer-events:none;overflow:hidden;
+  }
+  body.menu-open .menu-overlay{clip-path:inset(0 0 0% 0);pointer-events:auto;}
+  .menu__inner{height:100%;display:flex;flex-direction:column;justify-content:center;padding:80px var(--pad-x) 40px;}
+  .menu__stripe{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--terra);transform:scaleY(0);transform-origin:top;transition:transform 1s cubic-bezier(.16,1,.3,1) .08s;}
+  body.menu-open .menu__stripe{transform:scaleY(1);}
+  .menu__item{display:flex;align-items:baseline;gap:20px;padding:18px 0;border-bottom:1px solid rgba(250,247,240,.08);color:var(--paper);transform:translateY(56px);opacity:0;transition:transform .45s var(--ease-out),opacity .35s var(--ease-out),color .25s;}
+  body.menu-open .menu__item{transform:translateY(0);opacity:1;}
+  body.menu-open .menu__item:nth-child(1){transition-delay:.18s;}
+  body.menu-open .menu__item:nth-child(2){transition-delay:.26s;}
+  body.menu-open .menu__item:nth-child(3){transition-delay:.34s;}
+  body.menu-open .menu__item:nth-child(4){transition-delay:.42s;}
+  .menu__num{font-size:10px;letter-spacing:.28em;color:var(--terra);min-width:28px;}
+  .menu__label{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(42px,11vw,80px);}
+  .menu__footer{margin-top:auto;font-size:13px;opacity:.4;display:flex;flex-direction:column;gap:4px;}
+  .menu__tel{letter-spacing:.04em;}
+  .menu__deco{position:absolute;right:-0.05em;bottom:-0.12em;font-family:var(--serif);font-style:italic;font-size:clamp(140px,50vw,420px);color:rgba(250,250,250,.03);}
+
+  /* ── HERO ── */
+  .hero{
+    position:relative;
+    height:100svh;min-height:600px;
+    background:var(--ink);
+    overflow:hidden;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 var(--pad-x) clamp(48px,8vh,100px);
+  }
+  .hero__bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    filter:grayscale(35%) contrast(1.08);
+    transform:scale(1.04);
+    transition:transform 1.4s var(--ease-out);
+    will-change:transform;
+  }
+  .hero__bg.loaded{transform:scale(1);}
+  .hero__overlay{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.15) 100%),
+      linear-gradient(to right, rgba(0,0,0,.3) 0%, transparent 50%);
+  }
+  .hero__noise{
+    position:absolute;inset:0;opacity:.04;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:200px;
+  }
+  .hero__back{
+    position:absolute;top:clamp(80px,12vh,120px);left:var(--pad-x);
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:rgba(250,250,250,.55);
+    z-index:2;
+    transition:color .3s;
+    opacity:0;animation:fadeUp .6s var(--ease-out) .3s forwards;
+  }
+  .hero__back:hover{color:var(--paper);}
+  .hero__back svg{width:18px;height:8px;stroke:currentColor;stroke-width:1.5;fill:none;transition:transform .3s var(--ease-out);}
+  .hero__back:hover svg{transform:translateX(-4px);}
+  .hero__cat{
+    position:relative;z-index:2;
+    font-size:10px;letter-spacing:.36em;text-transform:uppercase;
+    color:var(--terra);margin-bottom:18px;
+    opacity:0;animation:fadeUp .6s var(--ease-out) .4s forwards;
+  }
+  .hero__title{
+    position:relative;z-index:2;
+    font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(52px,9vw,130px);line-height:.95;
+    color:var(--paper);
+    letter-spacing:-.02em;
+    overflow:hidden;
+  }
+  .hero__title-inner{
+    display:block;
+    transform:translateY(110%);
+    animation:slideUp .9s var(--ease-out) .5s forwards;
+  }
+  .hero__title-inner:nth-child(2){animation-delay:.62s;}
+  .hero__title-inner:nth-child(3){animation-delay:.74s;}
+  .hero__meta{
+    position:relative;z-index:2;
+    display:flex;align-items:center;gap:clamp(20px,4vw,56px);
+    margin-top:clamp(20px,3vh,36px);
+    flex-wrap:wrap;
+  }
+  .hero__meta-item{
+    display:flex;flex-direction:column;gap:4px;
+    opacity:0;animation:fadeUp .6s var(--ease-out) .85s forwards;
+  }
+  .hero__meta-item:nth-child(2){animation-delay:.95s;}
+  .hero__meta-item:nth-child(3){animation-delay:1.05s;}
+  .hero__meta-label{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(250,250,250,.4);}
+  .hero__meta-val{font-size:15px;color:rgba(250,250,250,.85);}
+  .hero__rule{
+    position:absolute;bottom:0;left:0;right:0;
+    height:1px;background:rgba(250,250,250,.1);
+    transform-origin:left;transform:scaleX(0);
+    animation:ruleIn 1s var(--ease-out) 1s forwards;
+    z-index:2;
+  }
+  .hero__num{
+    position:absolute;right:var(--pad-x);bottom:clamp(48px,8vh,100px);
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(100px,20vw,220px);
+    color:rgba(250,250,250,.04);line-height:1;
+    z-index:1;letter-spacing:-.04em;
+    pointer-events:none;
+    animation:fadeUp .8s var(--ease-out) 1.1s both;
+  }
+
+  @keyframes slideUp{from{transform:translateY(110%);}to{transform:translateY(0);}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes ruleIn{to{transform:scaleX(1);}}
+
+  /* ── SPECS STRIP ── */
+  .specs{
+    background:var(--ink);color:var(--paper);
+    padding:clamp(28px,4vh,48px) var(--pad-x);
+    display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px);
+    border-top:2px solid var(--terra);
+  }
+  .specs__item{display:flex;flex-direction:column;gap:5px;}
+  .specs__label{font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(250,250,250,.35);}
+  .specs__val{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.5vw,26px);font-weight:300;color:var(--paper);}
+
+  /* ── CONTENT ── */
+  .content{
+    position:relative;overflow:hidden;
+    padding:clamp(72px,12vh,160px) var(--pad-x);
+    display:grid;
+    grid-template-columns:1fr clamp(280px,32%,420px);
+    gap:clamp(40px,6vw,120px);
+    align-items:start;
+  }
+  @media(max-width:900px){.content{grid-template-columns:1fr;}}
+
+  /* Signature watermark */
+  .content__sig{
+    position:absolute;
+    right:-0.08em;top:50%;
+    transform:translateY(-50%) rotate(-6deg);
+    font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(120px,22vw,320px);
+    color:rgba(10,10,10,.04);
+    line-height:1;letter-spacing:-.04em;
+    pointer-events:none;white-space:nowrap;
+    user-select:none;
+    z-index:0;
+  }
+
+  .content__text{position:relative;z-index:1;}
+  .content__label{font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--terra);margin-bottom:24px;}
+  .content__heading{
+    font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(32px,4vw,52px);line-height:1.12;
+    margin:0 0 clamp(24px,3vh,40px);color:var(--ink);
+  }
+  .content__body{
+    font-size:clamp(15px,1.2vw,18px);line-height:1.72;
+    color:rgba(10,10,10,.72);max-width:64ch;
+  }
+  .content__body p{margin:0 0 1.4em;}
+  .content__body p:last-child{margin:0;}
+
+  .content__aside{position:relative;z-index:1;}
+
+  /* Partner card in aside */
+  .partner-card{
+    background:var(--ink);color:var(--paper);
+    border-radius:2px;overflow:hidden;
+    border-top:2px solid var(--terra);
+  }
+  .partner-card__photo{
+    width:100%;aspect-ratio:4/3;
+    object-fit:cover;object-position:top center;
+    filter:grayscale(30%);
+    display:block;
+  }
+  .partner-card__photo-placeholder{
+    width:100%;aspect-ratio:4/3;
+    background:linear-gradient(135deg,#1a1a1a,#0d0d0d);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(36px,5vw,56px);color:rgba(250,250,250,.15);
+  }
+  .partner-card__body{padding:24px 28px 28px;}
+  .partner-card__role{font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;}
+  .partner-card__name{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,30px);font-weight:300;margin:0 0 4px;}
+  .partner-card__title{font-size:12px;color:rgba(250,250,250,.45);letter-spacing:.04em;}
+
+  /* Award badge */
+  .award-badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(184,92,56,.12);border:1px solid rgba(184,92,56,.3);
+    color:var(--terra);border-radius:2px;
+    padding:8px 14px;margin-top:20px;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  }
+  .award-badge svg{width:12px;height:12px;fill:var(--terra);}
+
+  /* ── GALLERY ── */
+  .gallery{
+    padding:0 var(--pad-x) clamp(80px,12vh,160px);
+  }
+  .gallery__grid{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    grid-auto-rows:clamp(200px,25vw,380px);
+    gap:clamp(8px,1vw,14px);
+  }
+  .gallery__item{
+    overflow:hidden;border-radius:2px;cursor:zoom-in;
+    background:var(--concrete-soft);
+  }
+  .gallery__item:nth-child(1){grid-column:span 8;}
+  .gallery__item:nth-child(2){grid-column:span 4;grid-row:span 2;}
+  .gallery__item:nth-child(3){grid-column:span 5;}
+  .gallery__item:nth-child(4){grid-column:span 3;}
+  .gallery__item:nth-child(n+5){grid-column:span 4;}
+  @media(max-width:900px){
+    .gallery__grid{grid-template-columns:1fr 1fr;grid-auto-rows:clamp(160px,35vw,280px);}
+    .gallery__item{grid-column:span 1 !important;grid-row:span 1 !important;}
+  }
+  @media(max-width:560px){
+    .gallery__grid{grid-template-columns:1fr;}
+  }
+  .gallery__img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(20%);
+    transition:transform .8s var(--ease-out),filter .6s var(--ease);
+  }
+  .gallery__item:hover .gallery__img{transform:scale(1.06);filter:grayscale(0);}
+
+  /* Lightbox */
+  .lb{
+    position:fixed;inset:0;z-index:500;
+    background:rgba(0,0,0,.94);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .35s var(--ease);
+  }
+  .lb.active{opacity:1;pointer-events:auto;}
+  .lb__img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:2px;}
+  .lb__close{
+    position:absolute;top:24px;right:24px;
+    width:44px;height:44px;
+    border:1px solid rgba(250,250,250,.2);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--paper);transition:border-color .3s,background .3s;
+  }
+  .lb__close:hover{border-color:var(--terra);background:rgba(184,92,56,.1);}
+  .lb__close svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.5;fill:none;}
+  .lb__prev,.lb__next{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:52px;height:52px;
+    border:1px solid rgba(250,250,250,.15);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--paper);transition:border-color .3s,background .3s;
+  }
+  .lb__prev{left:24px;} .lb__next{right:24px;}
+  .lb__prev:hover,.lb__next:hover{border-color:var(--terra);background:rgba(184,92,56,.1);}
+  .lb__prev svg,.lb__next svg{width:20px;height:10px;stroke:currentColor;stroke-width:1.5;fill:none;}
+
+  /* ── NEXT PROJECT ── */
+  .next-proj{
+    position:relative;overflow:hidden;
+    background:var(--ink);color:var(--paper);
+    padding:clamp(72px,12vh,140px) var(--pad-x);
+    display:flex;flex-direction:column;justify-content:flex-end;
+    min-height:320px;
+    cursor:pointer;
+    transition:color .3s;
+  }
+  .next-proj__bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    filter:grayscale(50%) contrast(1.05);
+    opacity:.25;
+    transition:opacity .6s var(--ease),transform .8s var(--ease-out),filter .6s;
+  }
+  .next-proj:hover .next-proj__bg{opacity:.35;transform:scale(1.04);filter:grayscale(20%);}
+  .next-proj__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.4) 100%);}
+  .next-proj__label{position:relative;z-index:1;font-size:9px;letter-spacing:.36em;text-transform:uppercase;color:rgba(250,250,250,.4);margin-bottom:12px;}
+  .next-proj__name{
+    position:relative;z-index:1;
+    font-family:var(--serif);font-style:italic;font-weight:300;
+    font-size:clamp(36px,6vw,80px);line-height:1;
+    color:var(--paper);margin:0 0 24px;
+  }
+  .next-proj__link{
+    position:relative;z-index:1;
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--terra);
+    transition:gap .3s var(--ease-out);
+  }
+  .next-proj:hover .next-proj__link{gap:20px;}
+  .next-proj__link svg{width:24px;height:10px;stroke:currentColor;stroke-width:1.5;fill:none;}
+
+  /* ── FOOTER ── */
+  .footer{
+    padding:clamp(20px,3vh,28px) var(--pad-x);
+    background:var(--ink);color:rgba(250,250,250,.25);
+    font-size:12px;letter-spacing:.04em;
+    display:flex;justify-content:space-between;align-items:center;
+    flex-wrap:wrap;gap:12px;
+    border-top:1px solid rgba(250,250,250,.06);
+  }
+  .footer a{color:rgba(250,250,250,.4);transition:color .3s;}
+  .footer a:hover{color:var(--paper);}
+
+  /* ── REVEAL ── */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);}
+  .reveal.is-in{opacity:1;transform:none;}
+  .reveal[data-delay="1"]{transition-delay:.12s;}
+  .reveal[data-delay="2"]{transition-delay:.22s;}
+  .reveal[data-delay="3"]{transition-delay:.32s;}
+
+  /* ── 404 state ── */
+  .not-found{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    height:100svh;text-align:center;gap:20px;
+  }
+  .not-found h1{font-family:var(--serif);font-style:italic;font-size:clamp(40px,8vw,90px);margin:0;}
+  .not-found a{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);}
+</style>
+</head>
+<body>
+
+<div class="prog-bar" id="progBar"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav" aria-label="Navigation">
+  <a href="index.html" class="nav__brand" data-hover>hausgemacht<span class="suffix">Architekten</span></a>
+  <div class="nav__menu">
+    <a href="projekte.html" data-hover>Projekte</a>
+    <a href="index.html#auszeichnungen" data-hover>Auszeichnungen</a>
+    <a href="team.html" data-hover>Team</a>
+    <a href="index.html#kontakt" data-hover>Kontakt</a>
+  </div>
+  <button class="nav__hamburger" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+  <div class="menu__inner">
+    <div class="menu__stripe" aria-hidden="true"></div>
+    <nav class="menu__nav">
+      <a class="menu__item" href="projekte.html"><span class="menu__num">01</span><span class="menu__label">Projekte</span></a>
+      <a class="menu__item" href="index.html#auszeichnungen"><span class="menu__num">02</span><span class="menu__label">Auszeichnungen</span></a>
+      <a class="menu__item" href="team.html"><span class="menu__num">03</span><span class="menu__label">Team</span></a>
+      <a class="menu__item" href="index.html#kontakt"><span class="menu__num">04</span><span class="menu__label">Kontakt</span></a>
+    </nav>
+    <div class="menu__footer">
+      <div class="menu__addr">Marktstraße 114 · 76829 Landau i.d. Pfalz</div>
+      <a class="menu__tel" href="tel:+4963419689074">06341 9689074</a>
+    </div>
+    <div class="menu__deco" aria-hidden="true">hm</div>
+  </div>
+</div>
+
+<!-- MAIN rendered by JS -->
+<main id="main"></main>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Bildansicht">
+  <button class="lb__close" id="lbClose" aria-label="Schließen"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  <button class="lb__prev" id="lbPrev" aria-label="Zurück"><svg viewBox="0 0 24 10"><path d="M24 5H2M8 1L2 5l6 4"/></svg></button>
+  <img class="lb__img" id="lbImg" src="" alt="" />
+  <button class="lb__next" id="lbNext" aria-label="Weiter"><svg viewBox="0 0 24 10"><path d="M0 5h22M16 1l6 4-6 4"/></svg></button>
+</div>
+
+<footer class="footer">
+  <span>© hausgemacht Architekten GbR 2026</span>
+  <span><a href="index.html#impressum">Impressum</a> · <a href="index.html#datenschutz">Datenschutz</a></span>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+// ═══════════════════════════════════════════
+//  PROJECT DATABASE
+// ═══════════════════════════════════════════
+const DB = {
+  "bucherei-bellheim": {
+    name: "Bücherei Bellheim",
+    subtitle: "Öffentliche Bibliothek",
+    year: 2026,
+    location: "Bellheim",
+    cat: "Bildung",
+    partner: "Robin Fuchs",
+    partnerInitials: "RF",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/robin-fuchs.png",
+    client: "Gemeinde Bellheim",
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Ein Ort des Wissens und der Begegnung — die neue Bücherei Bellheim fügt sich sensibel in die gewachsene Ortsmitte ein und schafft dabei zeitlose Räume für Bildung und Gemeinschaft.",
+    photos: ["images/projects/bucherei-bellheim.jpg"],
+    award: false,
+  },
+  "wohnquartier-obere-hauptstr": {
+    name: "Wohnquartier Obere Hauptstraße",
+    subtitle: "Wohnungsbau",
+    year: 2025,
+    location: "Herxheim",
+    cat: "Wohnen",
+    partner: "Jörg Reiser",
+    partnerInitials: "JR",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/jorg-reiser.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Zeitgemäßes Wohnen im gewachsenen Ortskern — das Wohnquartier an der Oberen Hauptstraße schafft qualitätsvolle Wohnräume und belebt das Herzstück von Herxheim neu.",
+    photos: [],
+    award: false,
+  },
+  "vr-bank-bad-bergzabern": {
+    name: "VR Bank Bad Bergzabern",
+    subtitle: "Bankgebäude",
+    year: 2025,
+    location: "Bad Bergzabern",
+    cat: "Gewerbe",
+    partner: "Dardan Bislimi",
+    partnerInitials: "DB",
+    partnerRole: "Dipl.-Ing.",
+    partnerTitle: "Partner",
+    partnerPhoto: "images/team/dardan-bislimi.png",
+    client: "VR Bank Südpfalz",
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Repräsentative Bankarchitektur im Südpfälzer Kurort — die neue VR Bank verbindet moderne Offenheit mit regionaler Verwurzelung.",
+    photos: [],
+    award: false,
+  },
+  "haus-h": {
+    name: "Haus H.",
+    subtitle: "Einfamilienhaus",
+    year: 2025,
+    location: "Hambach",
+    cat: "Wohnen",
+    partner: "Robin Fuchs",
+    partnerInitials: "RF",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/robin-fuchs.png",
+    client: "Privat",
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Individuelles Wohnen auf höchstem Niveau — Haus H. in Hambach vereint klare Linien mit wohnlicher Wärme.",
+    photos: [],
+    award: false,
+  },
+  "fitter-living-quartier": {
+    name: "Fitter Living Quartier",
+    subtitle: "Stadtquartier",
+    year: 2025,
+    location: "Landau",
+    cat: "Wohnen",
+    partner: "Dardan Bislimi",
+    partnerInitials: "DB",
+    partnerRole: "Dipl.-Ing.",
+    partnerTitle: "Partner",
+    partnerPhoto: "images/team/dardan-bislimi.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Ein lebendiges Stadtquartier im Herzen Landaus — Wohnen, Leben und urbane Mobilität verbinden sich zu einem zukunftsweisenden Ensemble.",
+    photos: [],
+    award: false,
+  },
+  "wasgau-quartier": {
+    name: "Wasgau Quartier",
+    subtitle: "Gemischtes Stadtquartier",
+    year: 2024,
+    location: "Landau",
+    cat: "Mixed-Use",
+    partner: "Jörg Reiser",
+    partnerInitials: "JR",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/jorg-reiser.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Ein Ort voller Leben — das Wasgau Quartier in Landau verbindet Wohnen, Gewerbe und öffentlichen Raum zu einem lebendigen Ensemble, das die städtische Vielfalt der Südpfalz widerspiegelt.",
+    photos: ["images/projects/wasgau-quartier.jpg"],
+    award: false,
+  },
+  "sparkasse-maikammer": {
+    name: "Sparkasse Maikammer",
+    subtitle: "Bankgebäude",
+    year: 2024,
+    location: "Maikammer",
+    cat: "Gewerbe",
+    partner: "Robin Fuchs",
+    partnerInitials: "RF",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/robin-fuchs.png",
+    client: "Sparkasse",
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Präzise Architektur für einen gewachsenen Weinort — die Sparkasse Maikammer setzt ein selbstbewusstes Zeichen ohne die historische Ortsmitte zu dominieren.",
+    photos: [],
+    award: false,
+  },
+  "schule-port-au-prince": {
+    name: "Schule Port-au-Prince",
+    subtitle: "Bildungsgebäude · Haiti",
+    year: 2021,
+    location: "Port-au-Prince, Haiti",
+    cat: "Bildung",
+    partner: "Robin Fuchs",
+    partnerInitials: "RF",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/robin-fuchs.png",
+    client: "Hilfsorganisation",
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Architektur als humanitärer Akt — die Schule in Port-au-Prince entstand in einer der ärmsten Regionen der Welt und zeigt, dass gutes Design kein Luxus ist, sondern eine Notwendigkeit. Robuste Konstruktion, natürliche Belichtung und klimaangepasste Räume geben den Kindern Haitis einen Ort, an dem Lernen möglich wird.",
+    photos: ["images/projects/schule-port-au-prince.jpg"],
+    award: true,
+    awardText: "Ausgezeichnetes Projekt",
+  },
+  "kita-pusteblume": {
+    name: "Kita Pusteblume",
+    subtitle: "Kindertagesstätte",
+    year: null,
+    location: "Bad Bentheim",
+    cat: "Bildung",
+    partner: "Sonja Böhr M.A.",
+    partnerInitials: "SB",
+    partnerRole: "M.A. Innenarchitektin",
+    partnerTitle: "Partnerin",
+    partnerPhoto: "images/team/sonja-bohr.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Spielerisch, warm, sicher — die Kita Pusteblume in Bad Bentheim schafft kindgerechte Räume voller Licht und Geborgenheit.",
+    photos: [],
+    award: true,
+    awardText: "Ausgezeichnetes Projekt",
+  },
+  "wohnpark-am-ebenberg": {
+    name: "Wohnpark am Ebenberg",
+    subtitle: "Wohnanlage",
+    year: null,
+    location: "Landau",
+    cat: "Wohnen",
+    partner: "Jörg Reiser",
+    partnerInitials: "JR",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/jorg-reiser.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Realisiert",
+    description: "Qualitätvolles Wohnen am Stadtrand — der Wohnpark am Ebenberg in Landau übersetzt die landschaftliche Qualität seiner Lage in eine zeitgemäße Wohnarchitektur.",
+    photos: [],
+    award: true,
+    awardText: "Ausgezeichnetes Projekt",
+  },
+  "port-phoenix": {
+    name: "Port Phönix",
+    subtitle: "Stadtquartier",
+    year: null,
+    location: "Dortmund",
+    cat: "Stadtquartier",
+    partner: "Dardan Bislimi",
+    partnerInitials: "DB",
+    partnerRole: "Dipl.-Ing.",
+    partnerTitle: "Partner",
+    partnerPhoto: "images/team/dardan-bislimi.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Wettbewerb",
+    description: "Auf dem Areal des alten Phönix-West-Geländes entsteht ein neues Stadtquartier, das Industriegeschichte und zeitgenössisches Wohnen verbindet.",
+    photos: [],
+    award: true,
+    awardText: "Ausgezeichnetes Projekt",
+  },
+  "le-flair": {
+    name: "Le Flair",
+    subtitle: "Wohnquartier",
+    year: null,
+    location: "Düsseldorf",
+    cat: "Quartier",
+    partner: "Robin Fuchs",
+    partnerInitials: "RF",
+    partnerRole: "Dipl.-Ing. Architekt",
+    partnerTitle: "Vertretungsberechtigter Partner",
+    partnerPhoto: "images/team/robin-fuchs.png",
+    client: null,
+    area: null,
+    bgf: null,
+    status: "Wettbewerb",
+    description: "Urbanes Wohnen mit Esprit — Le Flair in Düsseldorf verbindet großstädtische Eleganz mit menschlichem Maßstab.",
+    photos: [],
+    award: true,
+    awardText: "Ausgezeichnetes Projekt",
+  },
+};
+
+// Ordered list for prev/next navigation
+const ORDER = Object.keys(DB);
+
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
+const id = new URLSearchParams(location.search).get('id');
+const p = DB[id];
+const main = document.getElementById('main');
+
+if(!p){
+  main.innerHTML = `
+    <div class="not-found">
+      <h1>Projekt nicht gefunden.</h1>
+      <a href="projekte.html">← Alle Projekte</a>
+    </div>`;
+  document.title = 'Nicht gefunden · hausgemacht Architekten';
+} else {
+  document.title = p.name + ' · hausgemacht Architekten';
+  document.querySelector('meta[name="description"]').content = p.description;
+
+  const idx = ORDER.indexOf(id);
+  const nextId = ORDER[(idx + 1) % ORDER.length];
+  const next = DB[nextId];
+
+  const starSVG = `<svg viewBox="0 0 12 12"><path d="M6 0l1.35 4.15H12L8.5 6.72l1.27 4.1L6 8.4l-3.77 2.42L3.5 6.72 0 4.15h4.65z"/></svg>`;
+  const arrowRight = `<svg viewBox="0 0 24 10"><path d="M0 5h22M16 1l6 4-6 4"/></svg>`;
+
+  // Title lines - split on spaces into max 2 lines
+  const words = p.name.split(' ');
+  let line1 = words.slice(0, Math.ceil(words.length / 2)).join(' ');
+  let line2 = words.slice(Math.ceil(words.length / 2)).join(' ');
+
+  // Specs to show
+  const specs = [
+    { label: 'Kategorie', val: p.cat },
+    { label: 'Ort', val: p.location },
+    p.year ? { label: 'Jahr', val: p.year } : null,
+    p.client ? { label: 'Bauherr', val: p.client } : null,
+    p.area ? { label: 'Nutzfläche', val: p.area } : null,
+    p.bgf ? { label: 'BGF', val: p.bgf } : null,
+    { label: 'Status', val: p.status || 'Realisiert' },
+  ].filter(Boolean);
+
+  main.innerHTML = `
+    <!-- HERO -->
+    <section class="hero" id="top">
+      ${p.photos.length ? `<div class="hero__bg" id="heroBg" style="background-image:url('${p.photos[0]}')"></div>` : `<div class="hero__bg" style="background:linear-gradient(135deg,#1a1510 0%,#0a0a0a 100%)"></div>`}
+      <div class="hero__overlay"></div>
+      <div class="hero__noise"></div>
+      <a class="hero__back" href="projekte.html">
+        <svg viewBox="0 0 18 8"><path d="M18 4H2M7 1L2 4l5 3"/></svg>
+        Alle Projekte
+      </a>
+      <div class="hero__cat">${p.cat} · ${p.location}</div>
+      <h1 class="hero__title">
+        <span class="hero__title-inner">${line1}</span>
+        ${line2 ? `<span class="hero__title-inner">${line2}</span>` : ''}
+      </h1>
+      <div class="hero__meta">
+        ${specs.slice(0,4).map((s,i) => `
+          <div class="hero__meta-item">
+            <span class="hero__meta-label">${s.label}</span>
+            <span class="hero__meta-val">${s.val}</span>
+          </div>`).join('')}
+      </div>
+      <div class="hero__rule"></div>
+      <div class="hero__num" aria-hidden="true">${p.year || '—'}</div>
+    </section>
+
+    <!-- SPECS STRIP -->
+    <div class="specs">
+      ${specs.map(s => `
+        <div class="specs__item">
+          <span class="specs__label">${s.label}</span>
+          <span class="specs__val">${s.val}</span>
+        </div>`).join('')}
+    </div>
+
+    <!-- CONTENT + SIGNATURE -->
+    <section class="content">
+      <div class="content__sig" aria-hidden="true">${p.partnerInitials}</div>
+      <div class="content__text reveal">
+        <div class="content__label">Projektbeschreibung</div>
+        <h2 class="content__heading">${p.subtitle}</h2>
+        <div class="content__body">
+          ${p.description.split('\n\n').map(par => `<p>${par}</p>`).join('')}
+        </div>
+        ${p.award ? `<div class="award-badge">${starSVG} ${p.awardText || 'Ausgezeichnetes Projekt'}</div>` : ''}
+      </div>
+      <div class="content__aside reveal" data-delay="2">
+        <div class="partner-card">
+          ${p.partnerPhoto
+            ? `<img class="partner-card__photo" src="${p.partnerPhoto}" alt="${p.partner}" loading="lazy">`
+            : `<div class="partner-card__photo-placeholder">${p.partnerInitials}</div>`}
+          <div class="partner-card__body">
+            <div class="partner-card__role">Projektverantwortlich</div>
+            <div class="partner-card__name">${p.partner}</div>
+            <div class="partner-card__title">${p.partnerTitle}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    ${p.photos.length > 1 ? `
+    <section class="gallery reveal">
+      <div class="gallery__grid" id="gallery">
+        ${p.photos.map((src, i) => `
+          <div class="gallery__item" data-idx="${i}">
+            <img class="gallery__img" src="${src}" alt="${p.name} – Bild ${i+1}" loading="lazy">
+          </div>`).join('')}
+      </div>
+    </section>` : ''}
+
+    <!-- NEXT PROJECT -->
+    <div class="next-proj" id="nextProj" role="link" tabindex="0">
+      ${next.photos && next.photos.length
+        ? `<div class="next-proj__bg" style="background-image:url('${next.photos[0]}')"></div>`
+        : `<div class="next-proj__bg" style="background:linear-gradient(135deg,#1a1a1a,#0d0d0d)"></div>`}
+      <div class="next-proj__overlay"></div>
+      <div class="next-proj__label">Nächstes Projekt</div>
+      <div class="next-proj__name">${next.name}</div>
+      <a class="next-proj__link" href="projekt.html?id=${nextId}">
+        Projekt ansehen ${arrowRight}
+      </a>
+    </div>
+  `;
+
+  // Lazy-load hero bg with zoom-in
+  if(p.photos.length){
+    const bg = document.getElementById('heroBg');
+    const img = new Image();
+    img.onload = () => bg.classList.add('loaded');
+    img.src = p.photos[0];
+  }
+
+  // Gallery lightbox
+  const gallery = document.getElementById('gallery');
+  if(gallery){
+    let lbIdx = 0;
+    const lbEl = document.getElementById('lb');
+    const lbImg = document.getElementById('lbImg');
+    const showLb = i => {
+      lbIdx = i;
+      lbImg.src = p.photos[i];
+      lbImg.alt = `${p.name} – Bild ${i+1}`;
+      lbEl.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+    const hideLb = () => { lbEl.classList.remove('active'); document.body.style.overflow = ''; };
+    gallery.addEventListener('click', e => {
+      const item = e.target.closest('[data-idx]');
+      if(item) showLb(+item.dataset.idx);
+    });
+    document.getElementById('lbClose').onclick = hideLb;
+    document.getElementById('lbPrev').onclick = () => showLb((lbIdx - 1 + p.photos.length) % p.photos.length);
+    document.getElementById('lbNext').onclick = () => showLb((lbIdx + 1) % p.photos.length);
+    lbEl.addEventListener('click', e => { if(e.target === lbEl) hideLb(); });
+    document.addEventListener('keydown', e => {
+      if(!lbEl.classList.contains('active')) return;
+      if(e.key === 'Escape') hideLb();
+      if(e.key === 'ArrowLeft') showLb((lbIdx - 1 + p.photos.length) % p.photos.length);
+      if(e.key === 'ArrowRight') showLb((lbIdx + 1) % p.photos.length);
+    });
+  }
+
+  // Next project click
+  document.getElementById('nextProj').addEventListener('click', () => {
+    location.href = 'projekt.html?id=' + nextId;
+  });
+  document.getElementById('nextProj').addEventListener('keydown', e => {
+    if(e.key === 'Enter') location.href = 'projekt.html?id=' + nextId;
+  });
+}
+
+// ═══════════════════════════════════════════
+//  NAV SCROLL + PROGRESS
+// ═══════════════════════════════════════════
+const nav = document.getElementById('nav');
+const prog = document.getElementById('progBar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('is-scrolled', scrollY > 60);
+  const docH = document.documentElement.scrollHeight - innerHeight;
+  prog.style.transform = 'scaleX(' + (docH ? scrollY / docH : 0) + ')';
+}, { passive: true });
+
+// ═══════════════════════════════════════════
+//  MOBILE MENU
+// ═══════════════════════════════════════════
+const toggle = document.getElementById('menuToggle');
+const overlay = document.getElementById('menuOverlay');
+toggle.addEventListener('click', () => {
+  const open = document.body.classList.toggle('menu-open');
+  toggle.setAttribute('aria-expanded', open);
+  overlay.setAttribute('aria-hidden', !open);
+  nav.classList.toggle('is-scrolled', !open && scrollY > 60);
+});
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  document.body.classList.remove('menu-open');
+  toggle.setAttribute('aria-expanded', false);
+  overlay.setAttribute('aria-hidden', true);
+}));
+
+// ═══════════════════════════════════════════
+//  CURSOR
+// ═══════════════════════════════════════════
+const dot = document.querySelector('.cursor-dot');
+const ring = document.querySelector('.cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.transform=`translate(calc(${mx}px - 50%),calc(${my}px - 50%))`; }, {passive:true});
+(function lerp(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`;
+  requestAnimationFrame(lerp);
+})();
+document.querySelectorAll('a,button,[role="link"]').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ═══════════════════════════════════════════
+//  REVEAL
+// ═══════════════════════════════════════════
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+}, { threshold: .12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+})();
+</script>
+</body>
+</html>

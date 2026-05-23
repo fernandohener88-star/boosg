@@ -1923,8 +1923,9 @@
     const starSVG = '<svg viewBox="0 0 10 10"><polygon points="5,0 6.2,3.6 10,3.6 6.9,5.8 8.1,9.4 5,7.2 1.9,9.4 3.1,5.8 0,3.6 3.8,3.6"/></svg>';
 
     projects.filter(p => p.featured).sort((a, b) => (b.year || 0) - (a.year || 0)).forEach((p, i) => {
-      const el = document.createElement('article');
+      const el = document.createElement('a');
       el.className = 'project reveal' + (p.award ? ' project--award' : '');
+      el.setAttribute('href', 'projekt.html?id=' + p.id);
       el.setAttribute('data-delay', i + 1);
       el.setAttribute('data-hover', '');
       el.innerHTML = `

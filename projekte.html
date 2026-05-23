@@ -373,8 +373,9 @@
   }
 
   function renderCard(p, delay) {
-    const el = document.createElement('article');
+    const el = document.createElement('a');
     el.className = 'pcard reveal' + (p.award ? ' pcard--award' : '');
+    el.setAttribute('href', 'projekt.html?id=' + p.id);
     el.setAttribute('data-id', p.id);
     el.setAttribute('data-cat', p.cat);
     el.setAttribute('data-award', p.award ? '1' : '0');

@@ -2292,16 +2292,14 @@ tabs().forEach(tab=>{
     const t = document.getElementById('cat-'+tab.dataset.target);
     if(!t) return;
     const overlay = document.getElementById('menuOverlay');
-    const body = overlay.querySelector('.menu-overlay-body');
     const tabBarH = overlay.querySelector('.tab-bar-wrap').offsetHeight;
     const headerH = overlay.querySelector('.menu-overlay-header').offsetHeight;
-    const targetTop = t.getBoundingClientRect().top - overlay.querySelector('.menu-overlay-content').getBoundingClientRect().top;
-    body.scrollTo({ top: body.scrollTop + t.getBoundingClientRect().top - headerH - tabBarH - 20, behavior:'smooth' });
+    overlay.scrollTo({ top: overlay.scrollTop + t.getBoundingClientRect().top - headerH - tabBarH - 20, behavior:'smooth' });
   });
 });
 
 // simple scrollspy inside overlay
-const overlayBody = document.querySelector('.menu-overlay-body');
+const overlayBody = document.getElementById('menuOverlay');
 overlayBody.addEventListener('scroll', ()=>{
   const headerH = document.querySelector('.menu-overlay-header').offsetHeight;
   const tabBarH = document.querySelector('.tab-bar-wrap').offsetHeight;

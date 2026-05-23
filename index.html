@@ -500,11 +500,17 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover; object-position: center;
-    filter: grayscale(30%) contrast(1.05);
+    filter: grayscale(40%) contrast(1.08);
     transition: transform .7s var(--ease-out), filter .5s var(--ease);
-    z-index: 0;
+    z-index: -1;
   }
-  .project:hover .project__photo { transform: scale(1.04); filter: grayscale(10%) contrast(1.05); }
+  .project:hover .project__photo { transform: scale(1.04); filter: grayscale(15%) contrast(1.05); }
+
+  .project:has(.project__photo)::before {
+    background:
+      linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%),
+      radial-gradient(120% 80% at 30% 20%, rgba(184,92,56,0.22), transparent 60%);
+  }
 
   .project__body {
     position: relative; z-index: 1;
@@ -1843,14 +1849,14 @@
 
     // ============ DATA ============
     const projects = [
-      { id: "bucherei-bellheim",           name: "Bücherei Bellheim",               year: 2026, cat: "Bildung",              location: "Bellheim",     award: false, photo: null, featured: true  },
+      { id: "bucherei-bellheim",           name: "Bücherei Bellheim",               year: 2026, cat: "Bildung",              location: "Bellheim",     award: false, photo: "images/projects/bucherei-bellheim.jpg", featured: true  },
       { id: "wohnquartier-obere-hauptstr", name: "Wohnquartier Obere Hauptstraße",  year: 2025, cat: "Wohnen",               location: "Herxheim",     award: false, photo: null, featured: false },
       { id: "vr-bank-bad-bergzabern",      name: "VR Bank Bad Bergzabern",          year: 2025, cat: "Gewerbe",              location: "Bad Bergzabern",award: false, photo: null, featured: false },
       { id: "haus-h",                      name: "Haus H.",                          year: 2025, cat: "Wohnen",               location: "Hambach",      award: false, photo: null, featured: false },
       { id: "fitter-living-quartier",      name: "Fitter Living Quartier",           year: 2025, cat: "Wohnen",               location: "Landau",       award: false, photo: null, featured: false },
-      { id: "wasgau-quartier",             name: "Wasgau Quartier",                  year: 2024, cat: "Mixed-Use",            location: "Landau",       award: false, photo: null, featured: true  },
+      { id: "wasgau-quartier",             name: "Wasgau Quartier",                  year: 2024, cat: "Mixed-Use",            location: "Landau",       award: false, photo: "images/projects/wasgau-quartier.jpg", featured: true  },
       { id: "sparkasse-maikammer",         name: "Sparkasse Maikammer",              year: 2024, cat: "Gewerbe",              location: "Maikammer",    award: false, photo: null, featured: false },
-      { id: "schule-port-au-prince",       name: "Schule Port-au-Prince",            year: 2021, cat: "Bildung",              location: "Haiti",        award: true,  photo: null, featured: true  },
+      { id: "schule-port-au-prince",       name: "Schule Port-au-Prince",            year: 2021, cat: "Bildung",              location: "Haiti",        award: true,  photo: "images/projects/schule-port-au-prince.jpg", featured: true  },
       { id: "kita-pusteblume",             name: "Kita Pusteblume",                  year: null, cat: "Bildung",              location: "Bad Bentheim", award: true,  photo: null, featured: false },
       { id: "wohnpark-am-ebenberg",        name: "Wohnpark am Ebenberg",             year: null, cat: "Wohnen",               location: "Landau",       award: true,  photo: null, featured: false },
       { id: "port-phoenix",                name: "Port Phönix",                      year: null, cat: "Stadtquartier",        location: "Dortmund",     award: true,  photo: null, featured: false },

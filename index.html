@@ -1424,14 +1424,23 @@
   <section class="gallery-sec section-pad" id="about">
     <div class="container">
       <div class="gallery-head">
-        <span class="eyebrow">La Familia</span>
-        <h2 class="title">La Familia <br/>— <span class="gold">Das sind wir.</span></h2>
-        <p class="lead">Bunte Truppe, lange Tafeln, lauter Lieblingsmomente. Bei Joul's gibt's kein Gäste & Personal – nur Familie.</p>
+        <span class="eyebrow">Aktuell</span>
+        <h2 class="title">Unsere neuesten <span class="gold">Projekte</span></h2>
+        <p class="lead">Von Bowl-Kunst bis Foodtruck-Feeling – hier seht ihr, was Joul's gerade bewegt. Frisch, echt, mitten aus dem Leben.</p>
       </div>
     </div>
 
     <div class="gallery-rail" id="galleryRail">
       <!-- filled by JS -->
+    </div>
+
+    <div class="container" style="text-align:center; margin-top:40px;">
+      <a href="https://instagram.com/joulsfood" target="_blank" rel="noopener"
+         class="btn btn-primary"
+         style="font-size:17px; padding:16px 44px; border-radius:100px; display:inline-flex; gap:10px; align-items:center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        Alle Projekte ansehen
+      </a>
     </div>
 
     <div class="container">
@@ -2365,11 +2374,11 @@ overlayBody.addEventListener('scroll', ()=>{
 (function(){
   const rail = document.getElementById('galleryRail');
   const cards = [
+    {cap:'Crazy Bowls', sub:'Der Klassiker unter den Wahnsinn.', img:'https://jouls-food.de/wp-content/uploads/2025/04/IMG_1615.jpg'},
+    {cap:'Buddy on Tour', sub:'Unser Foodtruck auf Tour.', img:'https://jouls-food.de/wp-content/uploads/2024/09/Food_Truck-e1726738284513.jpg'},
     {cap:'Die Küche', sub:'Wo aus Zutaten Lieblingsessen wird.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4686.jpg'},
     {cap:'La Familia', sub:'Bunte Truppe, große Liebe.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4716.jpg'},
     {cap:'Lange Tafeln', sub:'Hier wird geteilt, gelacht, gegessen.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4861.jpg'},
-    {cap:'Crazy Bowls', sub:'Der Klassiker unter den Wahnsinn.', img:'https://jouls-food.de/wp-content/uploads/2025/04/IMG_1615.jpg'},
-    {cap:'Buddy on Tour', sub:'Unser Foodtruck auf Tour.', img:'https://jouls-food.de/wp-content/uploads/2024/09/Food_Truck-e1726738284513.jpg'},
   ];
   cards.forEach((c)=>{
     const el = document.createElement('article');

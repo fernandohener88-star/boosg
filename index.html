@@ -1014,21 +1014,168 @@
     display:inline-flex; align-items:center; justify-content:center;
     vertical-align:middle; flex-shrink:0;
   }
+
+  /* ===== PAGE LOADER ===== */
+  .page-loader{
+    position:fixed;inset:0;z-index:9999;
+    background:var(--cream);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    transition:opacity .8s cubic-bezier(.22,.61,.36,1),visibility .8s;
+  }
+  .page-loader.loaded{opacity:0;visibility:hidden;pointer-events:none;}
+  .loader-logo{height:min(130px,36vw);width:auto;object-fit:contain;animation:loaderFade .9s ease-out forwards;}
+  .loader-sub{font-family:'Caveat',cursive;font-size:clamp(18px,2.8vw,26px);color:var(--gold);letter-spacing:.06em;animation:loaderFade .9s ease-out .12s both;}
+  .loader-bar{width:min(200px,55vw);height:3px;background:var(--cream-deep);border-radius:3px;overflow:hidden;animation:loaderFade .9s ease-out .06s both;}
+  .loader-bar-fill{height:100%;background:var(--green);animation:loaderFill 1.05s ease-out .1s forwards;width:0;}
+  @keyframes loaderFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes loaderFill{from{width:0;}to{width:100%;}}
+  body.loading{overflow:hidden;}
+
+  /* ===== COOKIE BANNER ===== */
+  .cookie-banner{
+    position:fixed;bottom:0;left:0;right:0;z-index:8000;
+    background:var(--ink);color:var(--cream);
+    padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    transform:translateY(100%);
+    transition:transform .5s var(--ease);
+    box-shadow:0 -4px 24px -8px rgba(0,0,0,.4);
+  }
+  .cookie-banner.show{transform:translateY(0);}
+  .cookie-banner p{margin:0;font-size:13.5px;opacity:.9;max-width:680px;}
+  .cookie-banner p button{background:none;border:none;color:var(--gold-soft);font-size:inherit;cursor:pointer;text-decoration:underline;padding:0;font-family:inherit;}
+  .cookie-accept{
+    flex:none;padding:9px 22px;
+    background:var(--green);color:var(--white);
+    border:none;border-radius:var(--radius-pill);
+    font-family:inherit;font-weight:700;font-size:13px;
+    cursor:pointer;transition:background .2s;white-space:nowrap;
+  }
+  .cookie-accept:hover{background:#356b32;}
+
+  /* ===== LOGO IMAGE ===== */
+  .logo-img{height:46px;width:auto;object-fit:contain;display:block;}
+  @media(max-width:640px){.logo-img{height:38px;}}
+  .footer-logo-img{height:50px;width:auto;object-fit:contain;filter:brightness(0) invert(1);display:block;margin-bottom:8px;}
+
+  /* ===== HERO SLIDES ===== */
+  .hero.has-slides{background:var(--ink);}
+  .hero-slides{position:absolute;inset:0;z-index:0;overflow:hidden;}
+  .hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease;}
+  .hero-slide.active{opacity:1;}
+  .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.12) 40%,rgba(0,0,0,.56) 100%);}
+  .hero.has-slides .hero-inner{z-index:2;}
+  .hero.has-slides h1{color:var(--white);}
+  .hero.has-slides h1 .gold{color:var(--gold-soft);}
+  .hero.has-slides .subline{color:rgba(255,254,251,.88);}
+  .hero.has-slides .btn-ghost{border-color:rgba(255,254,251,.6);color:var(--white);}
+  .hero.has-slides .btn-ghost:hover{background:var(--white);color:var(--green);}
+  .hero.has-slides .badge-pill{background:rgba(255,254,251,.14);border-color:rgba(255,254,251,.28);color:var(--white);}
+  .hero-dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;}
+  .hero-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,254,251,.44);border:none;cursor:pointer;padding:0;transition:background .3s,transform .3s;}
+  .hero-dot.active{background:var(--white);transform:scale(1.3);}
+
+  /* ===== INSTAGRAM SECTION ===== */
+  .insta-sec{background:var(--cream-deep);}
+  .insta-head{text-align:center;margin-bottom:40px;}
+  .insta-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media(max-width:900px){.insta-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.insta-grid{gap:8px;}}
+  .insta-tile{aspect-ratio:1;border-radius:var(--radius-m);overflow:hidden;position:relative;display:block;}
+  .insta-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
+  .insta-tile:hover img{transform:scale(1.06);}
+  .insta-cta{text-align:center;margin-top:28px;}
+
+  /* ===== ORDERING SECTION ===== */
+  .ordering{background:var(--green-deep);color:var(--cream);padding:100px 0;}
+  @media(max-width:768px){.ordering{padding:72px 0;}}
+  .ordering-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
+  @media(max-width:900px){.ordering-inner{grid-template-columns:1fr;gap:32px;}}
+  .ordering h2.title{color:var(--white);}
+  .ordering h2.title .gold{color:var(--gold-soft);}
+  .ordering .lead{color:rgba(255,254,251,.78);}
+  .order-cards{display:grid;gap:14px;}
+  .order-card{
+    background:rgba(255,254,251,.07);
+    border:1px solid rgba(255,254,251,.14);
+    border-radius:var(--radius-l);
+    padding:28px 26px;
+    transition:background .25s,border-color .25s;
+  }
+  .order-card:hover{background:rgba(255,254,251,.12);border-color:rgba(255,254,251,.26);}
+  .order-card h3{font-family:'Caveat',cursive;font-weight:700;font-size:30px;color:var(--gold-soft);margin:0 0 8px;line-height:1;}
+  .order-card p{margin:0 0 16px;font-size:14.5px;color:rgba(255,254,251,.78);}
+  .order-card .btn-ghost{border-color:rgba(255,254,251,.5);color:var(--cream);}
+  .order-card .btn-ghost:hover{background:var(--white);color:var(--green-deep);}
+
+  /* ===== LEGAL MODALS ===== */
+  .legal-modal{
+    position:fixed;inset:0;z-index:5000;
+    background:rgba(44,34,24,.6);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:flex;align-items:flex-start;justify-content:center;
+    padding:40px 20px;overflow-y:auto;
+    opacity:0;visibility:hidden;
+    transition:opacity .35s,visibility .35s;
+  }
+  .legal-modal.open{opacity:1;visibility:visible;}
+  .legal-box{
+    background:var(--white);border-radius:var(--radius-l);padding:48px;
+    max-width:760px;width:100%;position:relative;margin:auto;
+  }
+  @media(max-width:640px){.legal-box{padding:28px 20px;}}
+  .legal-box h2{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(36px,6vw,60px);color:var(--green);margin:0 0 24px;line-height:1;}
+  .legal-box h3{font-family:'Caveat',cursive;font-weight:700;font-size:26px;color:var(--ink);margin:28px 0 8px;line-height:1;}
+  .legal-box p,.legal-box address{font-size:14.5px;color:var(--ink-soft);line-height:1.7;margin:0 0 12px;font-style:normal;}
+  .legal-box a{color:var(--green);}
+  .placeholder{color:#9a7200;font-style:italic;font-weight:700;background:rgba(200,168,75,.18);padding:2px 6px;border-radius:4px;}
+  .legal-close{
+    position:absolute;top:20px;right:20px;
+    width:40px;height:40px;background:var(--cream-deep);border:none;border-radius:50%;
+    cursor:pointer;display:grid;place-items:center;font-size:20px;color:var(--ink);
+    transition:background .2s,transform .2s;
+  }
+  .legal-close:hover{background:var(--green);color:var(--white);transform:rotate(90deg);}
+
+  /* ===== FOOTER LEGAL LINKS ===== */
+  .footer-legal-btn{background:none;border:none;color:inherit;cursor:pointer;font-size:inherit;opacity:.85;font-family:inherit;padding:0;transition:opacity .2s,color .2s;text-align:left;display:block;}
+  .footer-legal-btn:hover{opacity:1;color:var(--gold-soft);}
+
+  /* ===== BACK TO TOP ===== */
+  .back-to-top{
+    position:fixed;right:24px;bottom:90px;z-index:119;
+    width:46px;height:46px;background:var(--white);
+    border:1.5px solid rgba(61,122,58,.2);color:var(--green);
+    border-radius:50%;display:grid;place-items:center;
+    box-shadow:var(--shadow-card);cursor:pointer;
+    opacity:0;visibility:hidden;
+    transition:opacity .3s,visibility .3s,transform .3s var(--ease),background .2s;
+    transform:translateY(10px);
+  }
+  .back-to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+  .back-to-top:hover{background:var(--green);color:var(--white);}
 </style>
 </head>
 <body>
+
+<!-- PAGE LOADER -->
+<div class="page-loader" id="pageLoader">
+  <img class="loader-logo" src="https://jouls-food.de/wp-content/uploads/2024/02/jouls_header.png" alt="Joul's Food" />
+  <div class="loader-sub">Crazy Bowls &amp; MORE</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner" role="alertdialog" aria-label="Cookie-Hinweis">
+  <p>Diese Website verwendet essentielle Cookies für technisch notwendige Funktionen. Mit der weiteren Nutzung stimmst du zu. <button onclick="openModal('datenschutz')">Datenschutzerklärung</button></p>
+  <button class="cookie-accept" id="cookieAccept">Verstanden</button>
+</div>
 
 <!-- =========================== NAVBAR =========================== -->
 <header class="nav" id="nav">
   <div class="container nav-inner">
     <a href="#top" class="logo" aria-label="Joul's – Crazy Bowls & MORE">
-      <span class="logo-text">Joul's</span>
-      <svg class="butterfly" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 14 C 6 8, 2 6, 4 12 C 2 18, 8 18, 12 14 Z" fill="#E63946"/>
-        <path d="M12 14 C 18 8, 22 6, 20 12 C 22 18, 16 18, 12 14 Z" fill="#E63946"/>
-        <circle cx="12" cy="14" r="1.6" fill="#2C2218"/>
-      </svg>
-      <span class="logo-amp">& MORE</span>
+      <img class="logo-img" src="https://jouls-food.de/wp-content/uploads/2024/02/jouls_header.png" alt="Joul's Food – Crazy Bowls & MORE" />
     </a>
 
     <nav aria-label="Hauptnavigation">
@@ -1064,7 +1211,13 @@
 <main id="top">
 
   <!-- =========================== HERO =========================== -->
-  <section class="hero" id="hero">
+  <section class="hero has-slides" id="hero">
+    <div class="hero-slides">
+      <div class="hero-slide active" style="background-image:url('https://jouls-food.de/wp-content/uploads/2024/09/Hero_Slider_5.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('https://jouls-food.de/wp-content/uploads/2024/09/Hero_Slider_1.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('https://jouls-food.de/wp-content/uploads/2024/09/Hero_Slider_4.jpg')"></div>
+    </div>
+    <div class="hero-overlay"></div>
     <div class="hero-inner">
       <h1 id="heroHeadline">
         <span class="line">
@@ -1096,6 +1249,11 @@
           90% recycelbar
         </span>
       </div>
+    </div>
+    <div class="hero-dots" aria-label="Slider Navigation">
+      <button class="hero-dot active" aria-label="Bild 1"></button>
+      <button class="hero-dot" aria-label="Bild 2"></button>
+      <button class="hero-dot" aria-label="Bild 3"></button>
     </div>
   </section>
 
@@ -1178,6 +1336,37 @@
     </div>
   </section>
 
+  <!-- =========================== INSTAGRAM =========================== -->
+  <section class="insta-sec section-pad" id="instagram">
+    <div class="container">
+      <div class="insta-head">
+        <span class="eyebrow">Instagram</span>
+        <h2 class="title">Folg uns <span class="gold">@joulsfood</span></h2>
+        <p class="lead" style="margin:0 auto;">Bowl-Vibes, Hinter-den-Kulissen-Momente &amp; ordentlich Food-Porn. Täglich frisch.</p>
+      </div>
+      <div class="insta-grid">
+        <a class="insta-tile" href="https://instagram.com/joulsfood" target="_blank" rel="noopener" aria-label="Instagram @joulsfood – Bowl">
+          <img src="https://jouls-food.de/wp-content/uploads/2025/04/IMG_1615.jpg" alt="Crazy Bowl bei Joul's" loading="lazy" />
+        </a>
+        <a class="insta-tile" href="https://instagram.com/joulsfood" target="_blank" rel="noopener" aria-label="Instagram @joulsfood – Restaurant">
+          <img src="https://jouls-food.de/wp-content/uploads/2024/09/Hero_Slider_5.jpg" alt="Joul's Food Restaurant Landau" loading="lazy" />
+        </a>
+        <a class="insta-tile" href="https://instagram.com/joulsfood" target="_blank" rel="noopener" aria-label="Instagram @joulsfood – Küche">
+          <img src="https://jouls-food.de/wp-content/uploads/2021/10/DSCF4686.jpg" alt="Joul's Küche" loading="lazy" />
+        </a>
+        <a class="insta-tile" href="https://instagram.com/joulsfood" target="_blank" rel="noopener" aria-label="Instagram @joulsfood – Foodtruck">
+          <img src="https://jouls-food.de/wp-content/uploads/2024/09/Food_Truck-e1726738284513.jpg" alt="Buddy on Tour – Joul's Foodtruck" loading="lazy" />
+        </a>
+      </div>
+      <div class="insta-cta">
+        <a href="https://instagram.com/joulsfood" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          @joulsfood folgen
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- =========================== TRUCK / CATERING =========================== -->
   <section class="truck section-pad" id="truck">
     <div class="container">
@@ -1224,6 +1413,38 @@
               <span><strong>Private Events</strong> — ab ~20 Gästen, gerne anfragen.</span>
             </li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== BESTELLEN & RESERVIEREN =========================== -->
+  <section class="ordering" id="ordering">
+    <div class="container">
+      <div class="ordering-inner">
+        <div>
+          <span class="eyebrow" style="background:rgba(200,168,75,.18); color:var(--gold-soft);">Online & vor Ort</span>
+          <h2 class="title">Bestellen &amp; <span class="gold">Reservieren</span></h2>
+          <p class="lead">Direkt online ordern oder deinen Tisch reservieren – schnell, unkompliziert, per Klick. Oder ruf einfach an.</p>
+          <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="tel:+4963412670303" class="btn btn-gold">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 7.32 7.32l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/></svg>
+              06341 / 2670303
+            </a>
+          </div>
+        </div>
+        <div class="order-cards">
+          <div class="order-card">
+            <h3>Online Bestellen</h3>
+            <p>Bowl, Burger oder Bar-Snack – direkt online bestellen, abholen oder liefern lassen.</p>
+            <!-- Gastronovi Restaurant ID: 83633 – URL bitte mit dem Gastronovi-Dashboard abgleichen -->
+            <a href="https://www.gastronovi.com/de/restaurants/83633" target="_blank" rel="noopener" class="btn btn-gold">Jetzt bestellen →</a>
+          </div>
+          <div class="order-card">
+            <h3>Tisch Reservieren</h3>
+            <p>Sichere dir deinen Lieblingsplatz bei Joul's – für die ganze Familia.</p>
+            <a href="#contact" class="btn btn-ghost">Reservierungsanfrage →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1350,10 +1571,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-logo">
-        <div class="logo">
-          <span class="logo-text">Joul's</span>
-          <span class="logo-amp">& MORE</span>
-        </div>
+        <img class="footer-logo-img" src="https://jouls-food.de/wp-content/uploads/2024/02/jouls_header.png" alt="Joul's Food" />
         <div class="tagline">Alles kann, <br/>nichts MUSS.</div>
         <p style="margin-top:18px; opacity:.75; font-size:14px; max-width:320px;">Crazy Bowls, ehrliches Essen, gute Laune – mitten in Landau. Komm vorbei, wir freuen uns.</p>
       </div>
@@ -1365,6 +1583,8 @@
           <li><a href="#truck">Catering</a></li>
           <li><a href="#hours">Öffnungszeiten</a></li>
           <li><a href="#contact">Kontakt</a></li>
+          <li><button class="footer-legal-btn" onclick="openModal('impressum')">Impressum</button></li>
+          <li><button class="footer-legal-btn" onclick="openModal('datenschutz')">Datenschutz</button></li>
         </ul>
       </div>
       <div>
@@ -1385,10 +1605,14 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div>© 2025 Joul's Food · Meerweibchenstraße 9 · 76829 Landau</div>
-      <div>Made mit
-        <svg class="svg-ic" width="14" height="14" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        in der Pfalz.
+      <div>© 2026 Joul's Food · Meerweibchenstraße 9 · 76829 Landau</div>
+      <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;">
+        <button class="footer-legal-btn" onclick="openModal('impressum')">Impressum</button>
+        <button class="footer-legal-btn" onclick="openModal('datenschutz')">Datenschutz</button>
+        <span>Made mit
+          <svg class="svg-ic" width="14" height="14" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          in der Pfalz.
+        </span>
       </div>
     </div>
   </div>
@@ -1427,6 +1651,82 @@
     <path d="M12 2a10 10 0 0 0-8.5 15.2L2 22l4.9-1.5A10 10 0 1 0 12 2zm5.4 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3 0-1.5.8-2.2 1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .5 0 .7.6.3.7 1 2.4 1.1 2.5.1.2.1.4 0 .6-.1.2-.2.4-.4.5-.1.2-.3.4-.4.5-.1.1-.3.3-.1.6.1.3.7 1.1 1.4 1.8 1 .9 1.8 1.2 2.1 1.3.3.1.5.1.6 0 .2-.2.7-.8.9-1 .2-.3.3-.2.6-.1.2.1 1.6.8 1.9.9.3.1.5.2.6.3.1.2.1.8-.1 1.4z"/>
   </svg>
 </a>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- IMPRESSUM MODAL -->
+<div class="legal-modal" id="impressumModal" role="dialog" aria-modal="true" aria-label="Impressum">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeModal('impressum')" aria-label="Schließen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2>Impressum</h2>
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <address>
+      <strong>Joul's Food</strong><br/>
+      Meerweibchenstraße 9<br/>
+      76829 Landau in der Pfalz<br/>
+      Deutschland
+    </address>
+    <h3>Vertreten durch</h3>
+    <p><span class="placeholder">[Name des Inhabers / der Inhaberin eintragen]</span></p>
+    <h3>Kontakt</h3>
+    <p>
+      Telefon: <a href="tel:+4963412670303">06341 / 2670303</a><br/>
+      E-Mail: <a href="mailto:info@jouls-food.de">info@jouls-food.de</a>
+    </p>
+    <h3>Umsatzsteuer-ID</h3>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:<br/>
+    <span class="placeholder">[USt-IdNr. eintragen, z. B. DE123456789]</span></p>
+    <h3>Handelsregister</h3>
+    <p>
+      Registergericht: <span class="placeholder">[z. B. Amtsgericht Landau in der Pfalz]</span><br/>
+      Registernummer: <span class="placeholder">[z. B. HRB 12345 – nur wenn eingetragen]</span>
+    </p>
+    <h3>Verantwortlich für den Inhalt (§ 55 Abs. 2 RStV)</h3>
+    <p><span class="placeholder">[Name und Anschrift der verantwortlichen Person]</span></p>
+    <h3>EU-Streitschlichtung</h3>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>. Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    <h3>Haftung für Inhalte</h3>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8–10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen.</p>
+    <h3>Urheberrecht</h3>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung.</p>
+  </div>
+</div>
+
+<!-- DATENSCHUTZ MODAL -->
+<div class="legal-modal" id="datenschutzModal" role="dialog" aria-modal="true" aria-label="Datenschutzerklärung">
+  <div class="legal-box">
+    <button class="legal-close" onclick="closeModal('datenschutz')" aria-label="Schließen">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h2>Datenschutz</h2>
+    <h3>1. Verantwortliche Stelle</h3>
+    <address>
+      Joul's Food<br/>
+      Meerweibchenstraße 9 · 76829 Landau in der Pfalz<br/>
+      Telefon: <a href="tel:+4963412670303">06341 / 2670303</a><br/>
+      E-Mail: <a href="mailto:info@jouls-food.de">info@jouls-food.de</a><br/>
+      Vertreten durch: <span class="placeholder">[Name des Inhabers eintragen]</span>
+    </address>
+    <h3>2. Hosting</h3>
+    <p>Diese Website wird bei einem externen Dienstleister gehostet. Personenbezogene Daten werden auf den Servern des Hosters gespeichert. Hoster: <span class="placeholder">[Name und Adresse des Hosters eintragen]</span>. Die Einbindung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.</p>
+    <h3>3. Datenerfassung auf dieser Website</h3>
+    <p><strong>Server-Logfiles:</strong> Bei jedem Seitenaufruf übermittelt dein Browser automatisch Daten (IP-Adresse, Browsertyp, Referrer-URL, Uhrzeit). Diese Daten sind technisch notwendig und werden nicht mit anderen Daten zusammengeführt (Art. 6 Abs. 1 lit. f DSGVO).</p>
+    <p><strong>Kontaktformular:</strong> Deine Angaben (Name, E-Mail, Nachricht) werden zur Bearbeitung deiner Anfrage gespeichert und nicht ohne deine Einwilligung weitergegeben (Art. 6 Abs. 1 lit. b DSGVO).</p>
+    <p><strong>Cookies:</strong> Diese Website verwendet ausschließlich technisch notwendige Cookies (z. B. für die Cookie-Einwilligungsspeicherung via localStorage). Eine Einwilligung ist für diese Cookies nicht erforderlich (§ 25 Abs. 2 TTDSG).</p>
+    <h3>4. Google Maps</h3>
+    <p>Diese Website bindet Google Maps der Google Ireland Limited (Gordon House, Barrow Street, Dublin 4, Irland) ein. Zur Darstellung der Karte wird deine IP-Adresse an Google übertragen und ggf. in den USA gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+    <h3>5. Deine Rechte</h3>
+    <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit deiner personenbezogenen Daten. Du kannst jederzeit Widerspruch gegen die Verarbeitung einlegen. Wende dich dafür an: <a href="mailto:info@jouls-food.de">info@jouls-food.de</a></p>
+    <p>Darüber hinaus steht dir ein Beschwerderecht bei der zuständigen Aufsichtsbehörde zu: Landesbeauftragter für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz, Hintere Bleiche 34, 55116 Mainz.</p>
+    <h3>6. Aktualität</h3>
+    <p>Diese Datenschutzerklärung hat den Stand Mai 2026 und wird bei Bedarf aktualisiert.</p>
+  </div>
+</div>
 
 <script>
 /* ============================================================
@@ -1672,7 +1972,12 @@ function closeMenu(){
   document.body.classList.remove('menu-open');
 }
 // close on Escape
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    closeMenu();
+    document.querySelectorAll('.legal-modal.open').forEach(m=> closeModal(m.id.replace('Modal','')));
+  }
+});
 
 /* ============================================================
    TAB BAR
@@ -1785,22 +2090,19 @@ overlayBody.addEventListener('scroll', ()=>{
 (function(){
   const rail = document.getElementById('galleryRail');
   const cards = [
-    {cap:'Die Küche', sub:'Wo aus Zutaten Lieblingsessen wird.', bg:'linear-gradient(135deg, #3D7A3A, #5B9457)'},
-    {cap:'La Familia', sub:'Bunte Truppe, große Liebe.', bg:'linear-gradient(135deg, #C8A84B, #E0C476)'},
-    {cap:'Lange Tafeln', sub:'Hier wird geteilt, gelacht, gegessen.', bg:'linear-gradient(135deg, #2A5C2A, #3D7A3A)'},
-    {cap:'Crazy Bowls', sub:'Der Klassiker unter den Wahnsinn.', bg:'linear-gradient(135deg, #E63946, #C8A84B)'},
-    {cap:'Buddy on Tour', sub:'Unser Foodtruck auf Tour.', bg:'linear-gradient(135deg, #5B9457, #C8A84B)'},
+    {cap:'Die Küche', sub:'Wo aus Zutaten Lieblingsessen wird.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4686.jpg'},
+    {cap:'La Familia', sub:'Bunte Truppe, große Liebe.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4716.jpg'},
+    {cap:'Lange Tafeln', sub:'Hier wird geteilt, gelacht, gegessen.', img:'https://jouls-food.de/wp-content/uploads/2021/10/DSCF4861.jpg'},
+    {cap:'Crazy Bowls', sub:'Der Klassiker unter den Wahnsinn.', img:'https://jouls-food.de/wp-content/uploads/2025/04/IMG_1615.jpg'},
+    {cap:'Buddy on Tour', sub:'Unser Foodtruck auf Tour.', img:'https://jouls-food.de/wp-content/uploads/2024/09/Food_Truck-e1726738284513.jpg'},
   ];
-  cards.forEach((c,i)=>{
+  cards.forEach((c)=>{
     const el = document.createElement('article');
     el.className='gallery-card';
-    el.style.background = c.bg;
+    el.style.backgroundImage = `url(${c.img})`;
+    el.style.backgroundSize = 'cover';
+    el.style.backgroundPosition = 'center';
     el.innerHTML = `
-      <svg class="gc-shape" viewBox="0 0 400 500" preserveAspectRatio="none" aria-hidden="true">
-        <circle cx="${100+i*40}" cy="${120+i*20}" r="80" fill="rgba(255,255,255,.12)"/>
-        <circle cx="${300-i*30}" cy="${380-i*15}" r="120" fill="rgba(255,255,255,.08)"/>
-        <circle cx="${200}" cy="${260}" r="60" fill="rgba(255,255,255,.1)"/>
-      </svg>
       <div class="gc-caption">${c.cap}</div>
       <div class="gc-sub">${c.sub}</div>
     `;
@@ -1919,6 +2221,88 @@ document.getElementById('contactForm').addEventListener('submit', e=>{
   document.getElementById('formSuccess').classList.add('show');
   form.reset();
 });
+
+/* ============================================================
+   PAGE LOADER
+   ============================================================ */
+(function(){
+  document.body.classList.add('loading');
+  function hideLoader(){
+    const loader = document.getElementById('pageLoader');
+    if(!loader) return;
+    loader.classList.add('loaded');
+    document.body.classList.remove('loading');
+    setTimeout(()=>{ if(loader.parentNode) loader.parentNode.removeChild(loader); }, 900);
+  }
+  if(document.readyState === 'complete') setTimeout(hideLoader, 350);
+  else window.addEventListener('load', ()=> setTimeout(hideLoader, 350));
+  setTimeout(hideLoader, 3000);
+})();
+
+/* ============================================================
+   COOKIE BANNER
+   ============================================================ */
+(function(){
+  const banner = document.getElementById('cookieBanner');
+  if(!banner) return;
+  if(!localStorage.getItem('jouls_cookie_ok')){
+    setTimeout(()=> banner.classList.add('show'), 1600);
+  }
+  document.getElementById('cookieAccept').addEventListener('click', ()=>{
+    localStorage.setItem('jouls_cookie_ok', '1');
+    banner.classList.remove('show');
+  });
+})();
+
+/* ============================================================
+   HERO SLIDER
+   ============================================================ */
+(function(){
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.hero-dot');
+  if(!slides.length) return;
+  let cur = 0, timer;
+  function goTo(n){
+    slides[cur].classList.remove('active');
+    if(dots[cur]) dots[cur].classList.remove('active');
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    if(dots[cur]) dots[cur].classList.add('active');
+  }
+  function start(){ timer = setInterval(()=> goTo(cur+1), 5500); }
+  function reset(){ clearInterval(timer); start(); }
+  dots.forEach((d,i)=> d.addEventListener('click', ()=>{ goTo(i); reset(); }));
+  start();
+})();
+
+/* ============================================================
+   LEGAL MODALS
+   ============================================================ */
+function openModal(type){
+  const el = document.getElementById(type+'Modal');
+  if(el){ el.classList.add('open'); document.body.classList.add('menu-open'); }
+}
+function closeModal(type){
+  const el = document.getElementById(type+'Modal');
+  if(el){ el.classList.remove('open'); document.body.classList.remove('menu-open'); }
+}
+document.querySelectorAll('.legal-modal').forEach(modal=>{
+  modal.addEventListener('click', e=>{
+    if(e.target===modal) closeModal(modal.id.replace('Modal',''));
+  });
+});
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+(function(){
+  const btn = document.getElementById('backToTop');
+  if(!btn) return;
+  window.addEventListener('scroll', ()=>{
+    btn.classList.toggle('show', window.scrollY > 450);
+  }, {passive:true});
+  btn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+})();
 </script>
 </body>
 </html>

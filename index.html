@@ -74,21 +74,6 @@
   @media (max-width:640px){ .container{ padding:0 20px; } }
 
   /* ============================================================
-     PRELOADER
-     ============================================================ */
-  #preloader{
-    position:fixed; inset:0; z-index:9999;
-    background:var(--cream);
-    display:grid; place-items:center;
-    transition:opacity .6s var(--ease), visibility .6s;
-  }
-  #preloader.done{ opacity:0; visibility:hidden; pointer-events:none; }
-  #preloader svg{ width:240px; height:auto; }
-  #preloader .pl-path{ fill:none; stroke:var(--green); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
-  #preloader .pl-butterfly{ fill:var(--red); opacity:0; transition:opacity .4s .8s; }
-  #preloader.draw .pl-butterfly{ opacity:1; }
-
-  /* ============================================================
      NAVBAR
      ============================================================ */
   .nav{
@@ -175,7 +160,6 @@
     border-radius:var(--radius-pill);
     border:none; cursor:pointer;
     transition:transform .2s var(--ease), box-shadow .25s var(--ease), background .2s, color .2s;
-    will-change:transform;
     white-space:nowrap;
   }
   .btn-primary{ background:var(--green); color:var(--white); box-shadow:0 6px 18px -6px rgba(61,122,58,.5); }
@@ -251,13 +235,7 @@
     min-height:100svh;
     display:grid; place-items:center;
     padding:calc(var(--nav-h) + 40px) 0 60px;
-    overflow:hidden;
     background:linear-gradient(180deg, #F4F1E7 0%, #F0EDE4 60%, #ECE7D8 100%);
-  }
-  #hero-canvas{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    z-index:0;
   }
   .hero-inner{
     position:relative; z-index:2;
@@ -268,13 +246,12 @@
   .hero h1{
     font-family:'Caveat', cursive; font-weight:700;
     font-size:clamp(72px, 13vw, 200px);
-    line-height:.88;
+    line-height:.95;
     margin:0;
     color:var(--ink);
     letter-spacing:-.01em;
   }
-  .hero h1 .word{ display:inline-block; overflow:hidden; padding:0 .04em; }
-  .hero h1 .word span{ display:inline-block; will-change:transform; }
+  .hero h1 .word{ display:inline-block; padding:0 .04em; }
   .hero h1 .gold{ color:var(--gold); }
   .hero .subline{
     margin:22px auto 0;
@@ -287,13 +264,13 @@
     display:flex; flex-wrap:wrap; gap:14px;
     justify-content:center;
     margin-top:34px;
-    opacity:0;
+    opacity:1;
   }
   .hero .badges{
     display:flex; flex-wrap:wrap; gap:10px;
     justify-content:center;
     margin-top:44px;
-    opacity:0;
+    opacity:1;
   }
   .badge-pill{
     background:var(--white);
@@ -304,25 +281,6 @@
     border-radius:var(--radius-pill);
     box-shadow:var(--shadow-card);
     display:inline-flex; align-items:center; gap:6px;
-  }
-  .hero .scroll-hint{
-    position:absolute; left:50%; bottom:24px;
-    transform:translateX(-50%);
-    z-index:2;
-    font-size:11px; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--ink-soft);
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-    opacity:.7;
-  }
-  .scroll-hint .line{
-    width:1px; height:30px; background:var(--ink-soft);
-    animation:scrollHint 2s var(--ease) infinite;
-    transform-origin:top;
-  }
-  @keyframes scrollHint{
-    0%{ transform:scaleY(.2); opacity:.2; }
-    50%{ transform:scaleY(1); opacity:.8; }
-    100%{ transform:scaleY(.2); transform-origin:bottom; opacity:.2; }
   }
 
   /* ============================================================
@@ -395,7 +353,6 @@
     box-shadow:var(--shadow-card);
     position:relative;
     transform-style:preserve-3d;
-    will-change:transform;
   }
   .philo-card .num{
     font-family:'Caveat', cursive;
@@ -438,25 +395,61 @@
   }
 
   /* ============================================================
-     SPEISEKARTE
+     MENU OVERLAY
      ============================================================ */
-  .menu{ background:linear-gradient(180deg, var(--cream) 0%, #ECE7D8 100%); }
-  .menu-head{
-    display:flex; align-items:end; justify-content:space-between;
-    gap:40px;
-    flex-wrap:wrap;
-    margin-bottom:40px;
+  .menu-overlay{
+    position:fixed; inset:0; z-index:300;
+    background:var(--cream);
+    overflow-y:auto;
+    transform:translateY(100%);
+    transition:transform .4s ease;
+    display:flex; flex-direction:column;
   }
+  .menu-overlay.open{ transform:translateY(0); }
+  body.menu-open{ overflow:hidden; }
+
+  .menu-overlay-header{
+    position:sticky; top:0; z-index:10;
+    background:rgba(240,237,228,.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(44,34,24,.08);
+    padding:0 28px;
+    height:var(--nav-h);
+    display:flex; align-items:center; justify-content:space-between;
+    flex-shrink:0;
+  }
+  .menu-overlay-header h2{
+    font-family:'Caveat', cursive; font-weight:700;
+    font-size:36px; color:var(--green);
+    margin:0; line-height:1;
+  }
+  .menu-overlay-close{
+    width:44px; height:44px;
+    background:var(--cream-deep); border:none;
+    border-radius:50%;
+    cursor:pointer;
+    display:grid; place-items:center;
+    font-size:22px; color:var(--ink);
+    transition:background .2s, transform .2s;
+  }
+  .menu-overlay-close:hover{ background:var(--green); color:var(--white); transform:rotate(90deg); }
+
+  .menu-overlay-body{
+    flex:1;
+    padding:0 0 60px;
+  }
+
   .tab-bar-wrap{
     position:sticky;
-    top:calc(var(--nav-h) - 1px);
+    top:var(--nav-h);
     z-index:50;
     background:rgba(240,237,228,.85);
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
     border-top:1px solid rgba(44,34,24,.06);
     border-bottom:1px solid rgba(44,34,24,.06);
-    margin:0 -28px 40px;
+    margin:0;
   }
   .tab-bar{
     display:flex; gap:4px;
@@ -487,13 +480,20 @@
     height:3px; background:var(--green);
     border-radius:3px;
     width:0; opacity:0;
-    transition:opacity .2s;
+    transition:opacity .2s, width .3s ease, left .3s ease;
     pointer-events:none;
+  }
+
+  .menu-overlay-content{
+    padding:40px 28px;
+    max-width:1240px;
+    margin:0 auto;
+    width:100%;
   }
 
   .menu-cat{
     margin-bottom:80px;
-    scroll-margin-top:calc(var(--nav-h) + 80px);
+    scroll-margin-top:calc(var(--nav-h)*2 + 20px);
   }
   .menu-cat:last-child{ margin-bottom:0; }
   .cat-head{
@@ -537,7 +537,6 @@
     box-shadow:var(--shadow-card);
     position:relative;
     transition:transform .35s var(--ease), box-shadow .35s var(--ease);
-    will-change:transform;
     display:flex; flex-direction:column;
     min-height:160px;
   }
@@ -560,6 +559,7 @@
     background:rgba(61,122,58,.1);
     color:var(--green);
     letter-spacing:.02em;
+    display:inline-flex; align-items:center; gap:4px;
   }
   .item-tag.veggie{ background:rgba(200,168,75,.18); color:#8a7430; }
   .item .item-desc{
@@ -706,7 +706,6 @@
     background:rgba(200,168,75,.18); color:var(--gold-soft);
     border-radius:50%;
     display:grid; place-items:center;
-    font-size:18px;
   }
   .truck-cta{ margin-top:24px; display:inline-flex; }
 
@@ -756,6 +755,7 @@
     margin-top:8px;
     font-size:12.5px;
     color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center; gap:6px;
   }
   .hour-card.current .note{ color:rgba(255,254,251,.8); }
 
@@ -874,7 +874,6 @@
     background:rgba(61,122,58,.1); color:var(--green);
     border-radius:50%;
     display:grid; place-items:center;
-    font-size:18px;
   }
   .info-card .info-line a:hover{ color:var(--green); }
   .info-card .map{
@@ -1006,49 +1005,18 @@
       animation-iteration-count:1 !important;
       transition-duration:.001s !important;
     }
-    #hero-canvas{ display:none; }
+  }
+
+  /* ============================================================
+     SVG ICON HELPER
+     ============================================================ */
+  .svg-ic{
+    display:inline-flex; align-items:center; justify-content:center;
+    vertical-align:middle; flex-shrink:0;
   }
 </style>
 </head>
 <body>
-
-<!-- =========================== PRELOADER =========================== -->
-<div id="preloader" aria-hidden="true">
-  <svg viewBox="0 0 380 120" aria-hidden="true">
-    <!-- "Joul's" written -->
-    <path class="pl-path" d="M 30 80
-       C 30 95, 22 100, 14 90
-       M 30 80
-       Q 38 35, 46 38
-       Q 50 40, 46 56
-       Q 42 78, 50 80
-       Q 60 82, 70 60
-       M 76 60
-       Q 76 38, 90 38
-       Q 104 38, 104 60
-       Q 104 82, 90 82
-       Q 76 82, 76 60 Z
-       M 116 30
-       Q 116 60, 116 78
-       Q 116 84, 122 84
-       Q 132 84, 138 70
-       Q 138 60, 138 50
-       M 138 30 Q 138 60, 138 78 Q 138 88, 148 84
-       M 156 36 L 156 42
-       M 160 60
-       Q 158 50, 168 50
-       Q 178 50, 178 60
-       Q 178 70, 168 72
-       Q 158 76, 168 80
-       Q 178 80, 178 76" />
-    <!-- butterfly accent -->
-    <g class="pl-butterfly" transform="translate(195,36)">
-      <path d="M 0 6 C -8 -4, -16 -4, -10 6 C -16 16, -8 16, 0 6 Z" />
-      <path d="M 0 6 C 8 -4, 16 -4, 10 6 C 16 16, 8 16, 0 6 Z" />
-    </g>
-    <text x="210" y="80" font-family="Caveat, cursive" font-size="64" font-weight="700" fill="#3D7A3A">Crazy</text>
-  </svg>
-</div>
 
 <!-- =========================== NAVBAR =========================== -->
 <header class="nav" id="nav">
@@ -1066,8 +1034,8 @@
     <nav aria-label="Hauptnavigation">
       <ul class="nav-links">
         <li><a href="#philo">Bowls & Mehr</a></li>
-        <li><a href="#menu">Speisekarte</a></li>
-        <li><a href="#bar-anchor">Bar</a></li>
+        <li><a href="#menu-trigger" onclick="openMenu(); return false;">Speisekarte</a></li>
+        <li><a href="#bar-anchor" onclick="openMenu(); setTimeout(()=>{const b=document.getElementById('cat-bar'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'});},450); return false;">Bar</a></li>
         <li><a href="#truck">Catering</a></li>
         <li><a href="#contact">Kontakt</a></li>
       </ul>
@@ -1077,7 +1045,7 @@
       <span class="open-badge in-nav" id="navBadge" aria-live="polite">
         <span class="dot"></span><span class="lbl">Jetzt geöffnet</span>
       </span>
-      <a href="#menu" class="btn btn-primary">Jetzt Bestellen</a>
+      <button class="btn btn-primary" onclick="openMenu()">Jetzt Bestellen</button>
       <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
     </div>
   </div>
@@ -1086,42 +1054,49 @@
 
 <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <a href="#philo">Bowls & Mehr</a>
-  <a href="#menu">Speisekarte</a>
-  <a href="#bar-anchor">Bar</a>
+  <a href="#menu-trigger" onclick="openMenu(); closeMobile(); return false;">Speisekarte</a>
+  <a href="#bar-anchor" onclick="openMenu(); closeMobile(); setTimeout(()=>{const b=document.getElementById('cat-bar'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'});},450); return false;">Bar</a>
   <a href="#truck">Catering</a>
   <a href="#contact">Kontakt</a>
-  <a href="#menu" class="btn btn-primary">Jetzt Bestellen</a>
+  <button class="btn btn-primary" onclick="openMenu(); closeMobile();">Jetzt Bestellen</button>
 </aside>
 
 <main id="top">
 
   <!-- =========================== HERO =========================== -->
   <section class="hero" id="hero">
-    <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <div class="hero-inner">
       <h1 id="heroHeadline">
         <span class="line">
-          <span class="word"><span>Crazy</span></span>
-          <span class="word"><span>Bowls.</span></span>
+          <span class="word">Crazy</span>
+          <span class="word">Bowls.</span>
         </span>
         <br/>
         <span class="line gold">
-          <span class="word"><span>&</span></span>
-          <span class="word"><span>MORE</span></span>
+          <span class="word">&amp;</span>
+          <span class="word">MORE</span>
         </span>
       </h1>
       <p class="subline" id="heroSub">Frisch. Regional. Für dich. <br/>Alles kann, nichts MUSS.</p>
       <div class="ctas" id="heroCtas">
-        <a href="#menu" class="btn btn-primary">Zur Speisekarte →</a>
+        <button class="btn btn-primary" onclick="openMenu()">Zur Speisekarte →</button>
         <a href="#contact" class="btn btn-ghost">Tisch reservieren</a>
       </div>
       <div class="badges" id="heroBadges">
-        <span class="badge-pill">🌱 Vegan möglich</span>
-        <span class="badge-pill">🐟 Zertifizierter Fisch</span>
-        <span class="badge-pill">♻️ 90% recycelbar</span>
+        <span class="badge-pill">
+          <svg class="svg-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D7A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4-6 8-10 8-14a8 8 0 0 0-16 0c0 4 4 8 8 14z"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg>
+          Vegan möglich
+        </span>
+        <span class="badge-pill">
+          <svg class="svg-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C8A84B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 12c0-3.5 2-6 5.5-6s5.5 2.5 5.5 6-2 7-5.5 7-5.5-3.5-5.5-7z"/><path d="M12 6V3"/><path d="M8 8.5C6 7 4 7.5 3 9"/><path d="M16 8.5c2-1.5 4-1 5 .5"/></svg>
+          Zertifizierter Fisch
+        </span>
+        <span class="badge-pill">
+          <svg class="svg-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D7A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-9 9"/><path d="M3 12a9 9 0 0 1 9-9"/><path d="M18 3l3 3-3 3"/><path d="M6 21l-3-3 3-3"/></svg>
+          90% recycelbar
+        </span>
       </div>
     </div>
-    <div class="scroll-hint" aria-hidden="true"><span class="line"></span>Scroll</div>
   </section>
 
   <!-- =========================== PHILOSOPHIE =========================== -->
@@ -1168,26 +1143,8 @@
     <div class="quote-track" id="quoteTrack"></div>
   </div>
 
-  <!-- =========================== SPEISEKARTE =========================== -->
-  <section class="menu section-pad" id="menu">
-    <div class="container">
-      <div class="menu-head">
-        <div>
-          <span class="eyebrow">Speisekarte</span>
-          <h2 class="title"><span class="green">Alles,</span> was schmeckt.</h2>
-          <p class="lead">Klassiker, Crazy Bowls, Burger, Süßes – und dazu Drinks von Barista bis Bar. PS: <strong>Every bowl & every burger can be veganized.</strong> 🌱</p>
-        </div>
-      </div>
-
-      <div class="tab-bar-wrap">
-        <div class="tab-bar" id="tabBar" role="tablist">
-          <span class="tab-indicator" id="tabIndicator"></span>
-        </div>
-      </div>
-
-      <div id="menuContent"></div>
-    </div>
-  </section>
+  <!-- Anchor for #menu links without inline menu section -->
+  <span id="menu-trigger" style="display:block; height:0; overflow:hidden;"></span>
 
   <!-- =========================== GALLERY / ABOUT =========================== -->
   <section class="gallery-sec section-pad" id="about">
@@ -1206,15 +1163,15 @@
     <div class="container">
       <div class="stats-row" id="statsRow">
         <div class="stat">
-          <div class="stat-num" data-count="4">0</div>
+          <div class="stat-num" data-count="4">4</div>
           <div class="stat-lbl">Gebote, an denen wir festhalten.</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+          <div class="stat-num" data-count="100" data-suffix="%">100%</div>
           <div class="stat-lbl">Regional, wo immer möglich.</div>
         </div>
         <div class="stat">
-          <div class="stat-num" data-count="1">0</div>
+          <div class="stat-num" data-count="1">1</div>
           <div class="stat-lbl">Philosophie: Alles kann, nichts MUSS.</div>
         </div>
       </div>
@@ -1227,18 +1184,45 @@
       <div class="truck-grid">
         <div data-truck-left>
           <span class="eyebrow" style="background:rgba(200,168,75,.18); color:var(--gold-soft);">Catering</span>
-          <h2 class="title">Buddy <br/>on <span class="gold">Tour</span> 🚚</h2>
+          <h2 class="title">Buddy <br/>on <span class="gold">Tour</span>
+            <svg class="svg-ic" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--gold-soft)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-left:6px;vertical-align:middle;"><rect x="1" y="10" width="22" height="8" rx="2"/><path d="M1 14h22"/><path d="M5 10V7a2 2 0 0 1 2-2h6l4 5"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+          </h2>
           <p class="lead">Geburtstag, Firmenfeier, Hochzeit? Unser Foodtruck Buddy bringt Joul's-Vibes direkt zu euch – inkl. Bowls, Burger, Bar und ordentlich Familienliebe.</p>
           <a href="#contact" class="btn btn-gold truck-cta">Catering anfragen →</a>
         </div>
         <div class="truck-card" data-truck-right>
           <h3>Buddy macht alles mit.</h3>
           <ul class="truck-list">
-            <li><span class="ic">🎂</span><span><strong>Geburtstage</strong> — vom intimen 30. bis zur runden 50.</span></li>
-            <li><span class="ic">💼</span><span><strong>Firmenfeiern</strong> — Sommerfest, Weihnachtsfeier, Teamevent.</span></li>
-            <li><span class="ic">💍</span><span><strong>Hochzeiten</strong> — flexible Menüs, vegan-freundlich, mit Bar.</span></li>
-            <li><span class="ic">🎪</span><span><strong>Festivals & Märkte</strong> — Buddy steht da, wo gefeiert wird.</span></li>
-            <li><span class="ic">🤝</span><span><strong>Private Events</strong> — ab ~20 Gästen, gerne anfragen.</span></li>
+            <li>
+              <span class="ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v2"/><path d="M9 13h6"/></svg>
+              </span>
+              <span><strong>Geburtstage</strong> — vom intimen 30. bis zur runden 50.</span>
+            </li>
+            <li>
+              <span class="ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+              </span>
+              <span><strong>Firmenfeiern</strong> — Sommerfest, Weihnachtsfeier, Teamevent.</span>
+            </li>
+            <li>
+              <span class="ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M8 14l-3 6h14l-3-6"/><path d="M10 14v2"/><path d="M14 14v2"/></svg>
+              </span>
+              <span><strong>Hochzeiten</strong> — flexible Menüs, vegan-freundlich, mit Bar.</span>
+            </li>
+            <li>
+              <span class="ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 22V10l8-8 8 8v12"/><path d="M9 22v-8h6v8"/></svg>
+              </span>
+              <span><strong>Festivals & Märkte</strong> — Buddy steht da, wo gefeiert wird.</span>
+            </li>
+            <li>
+              <span class="ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 10H3"/><path d="M21 6H3"/><path d="M21 14H3"/><path d="M17 18H3"/></svg>
+              </span>
+              <span><strong>Private Events</strong> — ab ~20 Gästen, gerne anfragen.</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -1262,12 +1246,18 @@
         <div class="hour-card" data-day="sat">
           <div class="day">Samstag</div>
           <div class="time">16:00 – 22:30</div>
-          <div class="note">Je nach Laune auch länger 😊</div>
+          <div class="note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            Je nach Laune auch länger
+          </div>
         </div>
         <div class="hour-card closed-day" data-day="sun">
           <div class="day">Sonntag</div>
           <div class="time">Joul's schläft.</div>
-          <div class="note">💤 Wir sind dann mal weg.</div>
+          <div class="note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+            Wir sind dann mal weg.
+          </div>
         </div>
       </div>
 
@@ -1304,24 +1294,32 @@
             <textarea id="cf-msg" name="message" required minlength="5" placeholder="Was geht ab?" aria-label="Nachricht"></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Senden →</button>
-          <div class="form-success" id="formSuccess">Danke! Wir melden uns asap. 💚</div>
+          <div class="form-success" id="formSuccess">Danke! Wir melden uns asap.
+            <svg class="svg-ic" width="16" height="16" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </div>
         </form>
 
         <div class="info-card">
           <h3>So findest du uns</h3>
           <div class="info-line">
-            <span class="ic">📍</span>
+            <span class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </span>
             <div>
               <strong>Joul's Food</strong><br/>
               Meerweibchenstraße 9 · 76829 Landau / Pfalz
             </div>
           </div>
           <div class="info-line">
-            <span class="ic">📞</span>
+            <span class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 7.32 7.32l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/></svg>
+            </span>
             <a href="tel:+4963412670303">06341 / 2670303</a>
           </div>
           <div class="info-line">
-            <span class="ic">✉️</span>
+            <span class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
             <a href="mailto:info@jouls-food.de">info@jouls-food.de</a>
           </div>
           <div class="map">
@@ -1362,8 +1360,8 @@
       <div>
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#menu">Speisekarte</a></li>
-          <li><a href="#bar-anchor">Bar</a></li>
+          <li><a href="#menu-trigger" onclick="openMenu(); return false;">Speisekarte</a></li>
+          <li><a href="#bar-anchor" onclick="openMenu(); setTimeout(()=>{const b=document.getElementById('cat-bar'); if(b) b.scrollIntoView({behavior:'smooth',block:'start'});},450); return false;">Bar</a></li>
           <li><a href="#truck">Catering</a></li>
           <li><a href="#hours">Öffnungszeiten</a></li>
           <li><a href="#contact">Kontakt</a></li>
@@ -1388,13 +1386,36 @@
     </div>
     <div class="footer-bottom">
       <div>© 2025 Joul's Food · Meerweibchenstraße 9 · 76829 Landau</div>
-      <div>Made mit 💚 in der Pfalz.</div>
+      <div>Made mit
+        <svg class="svg-ic" width="14" height="14" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        in der Pfalz.
+      </div>
     </div>
   </div>
 </footer>
 
+<!-- =========================== MENU OVERLAY =========================== -->
+<div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Speisekarte">
+  <div class="menu-overlay-header">
+    <h2>Speisekarte</h2>
+    <button class="menu-overlay-close" onclick="closeMenu()" aria-label="Speisekarte schließen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="menu-overlay-body">
+    <div class="tab-bar-wrap">
+      <div class="tab-bar" id="tabBar" role="tablist">
+        <span class="tab-indicator" id="tabIndicator"></span>
+      </div>
+    </div>
+    <div class="menu-overlay-content">
+      <div id="menuContent"></div>
+    </div>
+  </div>
+</div>
+
 <!-- =========================== FLOATING ACTIONS =========================== -->
-<button class="fab fab-order" id="fabOrder" aria-label="Jetzt bestellen">
+<button class="fab fab-order" id="fabOrder" aria-label="Jetzt bestellen" onclick="openMenu()">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M3 6h18l-2 12H5L3 6z"/><path d="M3 6 2 3"/><circle cx="9" cy="21" r="1.5" fill="currentColor"/><circle cx="17" cy="21" r="1.5" fill="currentColor"/>
   </svg>
@@ -1407,13 +1428,18 @@
   </svg>
 </a>
 
-<!-- =========================== LIBS =========================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-
 <script>
+/* ============================================================
+   SVG ICON HELPERS
+   ============================================================ */
+const SVG = {
+  leaf: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3D7A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4-6 8-10 8-14a8 8 0 0 0-16 0c0 4 4 8 8 14z"/><path d="M12 8v6"/><path d="M9 11l3 3 3-3"/></svg>`,
+  herb: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8a7430" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V10"/><path d="M12 10C12 10 7 8 5 4c4 0 7 4 7 4z"/><path d="M12 10C12 10 17 8 19 4c-4 0-7 4-7 4z"/><path d="M12 15C12 15 8 13 6 9c4 0 6 6 6 6z"/><path d="M12 15C12 15 16 13 18 9c-4 0-6 6-6 6z"/></svg>`,
+  star: `<svg width="16" height="16" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  heartGreen: `<svg width="14" height="14" viewBox="0 0 24 24" fill="#3D7A3A" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+  truck: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2C2218" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="10" width="22" height="8" rx="2"/><path d="M1 14h22"/><path d="M5 10V7a2 2 0 0 1 2-2h6l4 5"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>`,
+};
+
 /* ============================================================
    MENU DATA
    ============================================================ */
@@ -1421,24 +1447,24 @@ const MENU = [
   {
     id:'klassiker', title:'Klassiker mit Reis', meta:'klein 12,50 € · groß 14,00 €',
     items:[
-      {name:'Umami', desc:'Gegrillte Pilze · Rote Bete · Apfel · Sellerie-Hummus · Blattgrün · Joul’s-Pesto · Lauch · Pflaume', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
-      {name:'Mediterran', desc:'Marinierte Tomate · gegrillte Paprika · Aubergine · Melone · Olive · Rucola · Körner · Joul’s-Pesto', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
-      {name:'Asia Style', desc:'Kimchi · Guacamole · Ingwer-Karotte · Mango · eingelegte Soja-Sprossen · Edamame · gebratener Brokkoli', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
+      {name:'Umami', desc:'Gegrillte Pilze · Rote Bete · Apfel · Sellerie-Hummus · Blattgrün · Joul\'s-Pesto · Lauch · Pflaume', price:'12,50 / 14,00 €', tags:['vegan']},
+      {name:'Mediterran', desc:'Marinierte Tomate · gegrillte Paprika · Aubergine · Melone · Olive · Rucola · Körner · Joul\'s-Pesto', price:'12,50 / 14,00 €', tags:['vegan']},
+      {name:'Asia Style', desc:'Kimchi · Guacamole · Ingwer-Karotte · Mango · eingelegte Soja-Sprossen · Edamame · gebratener Brokkoli', price:'12,50 / 14,00 €', tags:['vegan']},
     ]
   },
   {
     id:'salat', title:'Salat Bowls', meta:'mit Hausdressing, Olivia-Green oder Himmelbeere · klein 12,50 € · groß 14,00 €',
     items:[
-      {name:'Paradise Bowl', desc:'Bulgur · Melone · marinierter Rotkohl · Pflaume · Tomate · Joul’s Salatmix · allerlei Beeren', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
-      {name:'Aladin Bowl', desc:'Bulgur · Joul’s Salatmix · Hummus · Granatapfel · Minze · Kichererbsen · geröstete Nüsse · Paprika · Aubergine', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
-      {name:'Caesar Style', desc:'Joul’s Salatmix · Parmesan · Radieschen · Brot · Gurke · marinierte Tomate · Oliven · Kapern · geröstete Körner', price:'12,50 / 14,00 €', tags:['🌿 vegetarisch']},
-      {name:'Kartoffel-Bowl „Wald, Wiese & Acker"', desc:'Gebratene Pilze · Sellerie-Hummus · Apfel · Rotkohl · Lauch · Rote Bete · Crunchy-Nüsse', price:'12,50 / 14,00 €', tags:['🌱 vegan']},
+      {name:'Paradise Bowl', desc:'Bulgur · Melone · marinierter Rotkohl · Pflaume · Tomate · Joul\'s Salatmix · allerlei Beeren', price:'12,50 / 14,00 €', tags:['vegan']},
+      {name:'Aladin Bowl', desc:'Bulgur · Joul\'s Salatmix · Hummus · Granatapfel · Minze · Kichererbsen · geröstete Nüsse · Paprika · Aubergine', price:'12,50 / 14,00 €', tags:['vegan']},
+      {name:'Caesar Style', desc:'Joul\'s Salatmix · Parmesan · Radieschen · Brot · Gurke · marinierte Tomate · Oliven · Kapern · geröstete Körner', price:'12,50 / 14,00 €', tags:['vegetarisch']},
+      {name:'Kartoffel-Bowl „Wald, Wiese & Acker"', desc:'Gebratene Pilze · Sellerie-Hummus · Apfel · Rotkohl · Lauch · Rote Bete · Crunchy-Nüsse', price:'12,50 / 14,00 €', tags:['vegan']},
     ]
   },
   {
-    id:'crazy', title:'Crazy Bowls', meta:'klein 14,00 € · groß 16,50 €', badge:'PS: Every bowl can be veganized! 🌱',
+    id:'crazy', title:'Crazy Bowls', meta:'klein 14,00 € · groß 16,50 €', badge:'PS: Every bowl can be veganized!',
     items:[
-      {name:'Burrito Bowl', desc:'Chili sin carne · Avocado · Kidney-Bohnen · Tortilla-Chips · Baby-Tomaten · Cheddar · Mais · Joul’s Reis', price:'14,00 / 16,50 €', tags:['🌿 vegetarisch','veganisierbar']},
+      {name:'Burrito Bowl', desc:'Chili sin carne · Avocado · Kidney-Bohnen · Tortilla-Chips · Baby-Tomaten · Cheddar · Mais · Joul\'s Reis', price:'14,00 / 16,50 €', tags:['vegetarisch','veganisierbar']},
       {name:'Bao Bun Bowl', desc:'Pulled BEEF · Sesam · Kimchi · Karotte · Pilze · Yakitori · Edamame · Soja-Sprossen · Paprika · Röstzwiebel', price:'14,00 / 16,50 €', tags:['veganisierbar']},
     ],
     extras:{
@@ -1450,54 +1476,54 @@ const MENU = [
     }
   },
   {
-    id:'brotkultur', title:'Joul’s Wrapsss & Brotkultur', meta:'Wraps je 10,00 € (mit Crispy Chicken / Pulled Lachs / Tofu +2,50 €) · Brote je 12,00 €',
+    id:'brotkultur', title:'Joul\'s Wrapsss & Brotkultur', meta:'Wraps je 10,00 € (mit Crispy Chicken / Pulled Lachs / Tofu +2,50 €) · Brote je 12,00 €',
     items:[
-      {name:'Wrap Caesar Style', desc:'Salat · Parmesan · Kapern · Tomate · Pesto · Radieschen', price:'10,00 €', tags:['🌿 vegetarisch']},
-      {name:'Wrap Asia Style', desc:'Reis · Avocado · Sesam · Karotte · Sojasprossen · Wasabi-Mayo', price:'10,00 €', tags:['🌱 vegan']},
-      {name:'Die Avocado', desc:'Avocadocreme · Mango · Granatapfel · Kirschtomaten (+ Pulled Lachs 4,00 €)', price:'12,00 €', tags:['🌱 vegan']},
-      {name:'Die Aubergine', desc:'Auberginen-Tapenade · geröstete Körner · Oliven · Patros-Kuhmilchkäse', price:'12,00 €', tags:['🌿 vegetarisch']},
-      {name:'Die Ziege', desc:'Lauwarmer Ziegenkäse · Pflaume · Sellerie-Hummus · Rote-Bete', price:'12,00 €', tags:['🌿 vegetarisch']},
-      {name:'Die Burrata', desc:'Burrata · Tomate · Pesto · Olive · Aubergine', price:'14,00 €', tags:['🌿 vegetarisch']},
+      {name:'Wrap Caesar Style', desc:'Salat · Parmesan · Kapern · Tomate · Pesto · Radieschen', price:'10,00 €', tags:['vegetarisch']},
+      {name:'Wrap Asia Style', desc:'Reis · Avocado · Sesam · Karotte · Sojasprossen · Wasabi-Mayo', price:'10,00 €', tags:['vegan']},
+      {name:'Die Avocado', desc:'Avocadocreme · Mango · Granatapfel · Kirschtomaten (+ Pulled Lachs 4,00 €)', price:'12,00 €', tags:['vegan']},
+      {name:'Die Aubergine', desc:'Auberginen-Tapenade · geröstete Körner · Oliven · Patros-Kuhmilchkäse', price:'12,00 €', tags:['vegetarisch']},
+      {name:'Die Ziege', desc:'Lauwarmer Ziegenkäse · Pflaume · Sellerie-Hummus · Rote-Bete', price:'12,00 €', tags:['vegetarisch']},
+      {name:'Die Burrata', desc:'Burrata · Tomate · Pesto · Olive · Aubergine', price:'14,00 €', tags:['vegetarisch']},
     ]
   },
   {
     id:'starters', title:'Tischleindeck Dich', meta:'Starters & Snacks zum Teilen',
     items:[
-      {name:'EinFach Geiler Hummus', desc:'Oliven · Kichererbsen', price:'8,00 €', tags:['🌱 vegan']},
-      {name:'Burrata', desc:'Pesto · Aubergine', price:'9,00 €', tags:['🌿 vegetarisch']},
-      {name:'Brotkörbchen', desc:'Frisches Brot · Aufstrich', price:'4,00 €', tags:['🌿 vegetarisch']},
-      {name:'Gebackener Ziegenkäse', desc:'Rote Bete · Wasabi', price:'11,00 €', tags:['🌿 vegetarisch']},
+      {name:'EinFach Geiler Hummus', desc:'Oliven · Kichererbsen', price:'8,00 €', tags:['vegan']},
+      {name:'Burrata', desc:'Pesto · Aubergine', price:'9,00 €', tags:['vegetarisch']},
+      {name:'Brotkörbchen', desc:'Frisches Brot · Aufstrich', price:'4,00 €', tags:['vegetarisch']},
+      {name:'Gebackener Ziegenkäse', desc:'Rote Bete · Wasabi', price:'11,00 €', tags:['vegetarisch']},
       {name:'Crispy Chicken', desc:'Sesamdip · Yakitori · Kimchi', price:'12,00 €'},
-      {name:'Tortilla Chips', desc:'Cheddar · Guacamole', price:'7,00 €', tags:['🌿 vegetarisch']},
+      {name:'Tortilla Chips', desc:'Cheddar · Guacamole', price:'7,00 €', tags:['vegetarisch']},
     ]
   },
   {
-    id:'fritten', title:'Fritten & Burger', meta:'What the F…ritten-Bowl je 11,00 € · Burger – PS: Every Burger can be veganized! 🌱',
+    id:'fritten', title:'Fritten & Burger', meta:'What the F…ritten-Bowl je 11,00 € · Burger – PS: Every Burger can be veganized!',
     items:[
-      {name:'Geile Trüffel Fritten', desc:'Parmesan · Pfeffer', price:'11,00 €', tags:['🌿 vegetarisch']},
-      {name:'Chili Fritten', desc:'Avocado · Salsa · Cheddar', price:'11,00 €', tags:['🌿 vegetarisch']},
-      {name:'Einfach so', desc:'Ketchup · Mayo', price:'6,00 €', tags:['🌱 vegan']},
+      {name:'Geile Trüffel Fritten', desc:'Parmesan · Pfeffer', price:'11,00 €', tags:['vegetarisch']},
+      {name:'Chili Fritten', desc:'Avocado · Salsa · Cheddar', price:'11,00 €', tags:['vegetarisch']},
+      {name:'Einfach so', desc:'Ketchup · Mayo', price:'6,00 €', tags:['vegan']},
       {name:'Bao-Bun Tacostyle', desc:'1 = 6 € · 2 = 11 € · 3 = 16 € — Asia (Pulled Lachs/Wasabi/Kimchi/Karotte) · BBQ (Pulled Beef/Röstzwiebel/Paprika) · Burrito (Chilli sin Carne/Avocado/Cheddar)', price:'6 / 11 / 16 €'},
       {name:'Burger Asia Style', desc:'Pulled Beef · Bun · Mango · Avocado · Crunchy Zwiebeln · Sesam · Mayo · Kraut', price:'14,50 €'},
       {name:'The Legend', desc:'Finest Angus Beef · Zwiebelmarmelade · Soße · Bacon · Gurken · Cheddar · Bun (150g +0 € / 300g +4 €)', price:'14,00 €'},
       {name:'EinFach Cheese Burger', desc:'Ketchup · Senf · Gurkenpickles · Zwiebel (150g +0 € / 300g +4 €)', price:'10,00 €'},
-      {name:'Die Begleiter', desc:'Joul’s Fritten (Sesam/Trüffel/Ketchup) 4,00 € · Joul’s-Salatmix mit Körnern 3,00 €', price:'ab 3,00 €'},
+      {name:'Die Begleiter', desc:'Joul\'s Fritten (Sesam/Trüffel/Ketchup) 4,00 € · Joul\'s-Salatmix mit Körnern 3,00 €', price:'ab 3,00 €'},
     ]
   },
   {
     id:'suess', title:'Süßlichkeiten', meta:'Waffeln aus Dinkelmehl – auch vegan!',
     items:[
-      {name:'Waffel Natur', desc:'Zimt · Zucker', price:'5,50 €', tags:['🌿 vegetarisch']},
-      {name:'Apfel Queen', desc:'Crumble · Äpfel · Nüsse · Vanille-Creme', price:'8,00 €', tags:['🌿 vegetarisch']},
-      {name:'Dubai-Schokoholic', desc:'Pistazie · Flüssige Schoki · Kadaifie', price:'8,00 €', tags:['🌿 vegetarisch']},
-      {name:'Hot Love', desc:'Himbeeren · Nüsse · Crumble · Vanille-Creme', price:'8,00 €', tags:['🌿 vegetarisch']},
-      {name:'OOREOO ORREEEOO', desc:'Keks · Schoki · Crumble · Vanille-Creme', price:'8,00 €', tags:['🌿 vegetarisch']},
-      {name:'Bananenbrot & Zimtschnecken', desc:'Hausgemacht. Süß. Fertig.', price:'je 4,00 €', tags:['🌿 vegetarisch']},
-      {name:'Smoothie Bowl „Bärenstark"', desc:'Kokos · Beeren · Mango · Granola · Datteln · Banane', price:'8,50 €', tags:['🌱 vegan']},
+      {name:'Waffel Natur', desc:'Zimt · Zucker', price:'5,50 €', tags:['vegetarisch']},
+      {name:'Apfel Queen', desc:'Crumble · Äpfel · Nüsse · Vanille-Creme', price:'8,00 €', tags:['vegetarisch']},
+      {name:'Dubai-Schokoholic', desc:'Pistazie · Flüssige Schoki · Kadaifie', price:'8,00 €', tags:['vegetarisch']},
+      {name:'Hot Love', desc:'Himbeeren · Nüsse · Crumble · Vanille-Creme', price:'8,00 €', tags:['vegetarisch']},
+      {name:'OOREOO ORREEEOO', desc:'Keks · Schoki · Crumble · Vanille-Creme', price:'8,00 €', tags:['vegetarisch']},
+      {name:'Bananenbrot & Zimtschnecken', desc:'Hausgemacht. Süß. Fertig.', price:'je 4,00 €', tags:['vegetarisch']},
+      {name:'Smoothie Bowl „Bärenstark"', desc:'Kokos · Beeren · Mango · Granola · Datteln · Banane', price:'8,50 €', tags:['vegan']},
     ]
   },
   {
-    id:'getranke', title:'Getränke', meta:'Barista by Allegretto · Joul’s Wasser · Smoothies · Kühlschrank',
+    id:'getranke', title:'Getränke', meta:'Barista by Allegretto · Joul\'s Wasser · Smoothies · Kühlschrank',
     items:[
       {name:'Kaffee Crema', desc:'Kuhmilch oder Hafer', price:'3,50 €'},
       {name:'Milchkaffee', desc:'Klassisch. Cremig.', price:'4,00 €'},
@@ -1508,10 +1534,10 @@ const MENU = [
       {name:'Heiße Schoki', desc:'Echte Schoki, kein Pulver.', price:'4,50 €'},
       {name:'Allerlei Tee', desc:'Bio · lose · viele Sorten.', price:'3,50 €'},
       {name:'Iced-Latte', desc:'Matcha · Chai · Dubai-Schoki', price:'je 6,50 €'},
-      {name:'Joul’s Wasser', desc:'Limettedienette · Berrylerry · Mangochango · Labarherrhabarber · Persching · Karaffe 0,5l 2,00 € / 1,0l 4,00 €', price:'0,4 l · 4,50 €'},
-      {name:'Smiley Ginger', desc:'Mango · Passionsfrucht · Ingwer · Karotte', price:'6,50 €', tags:['🌱 vegan']},
-      {name:'Bärenstark', desc:'Blaubeere · Mango · Acai · Himbeere · Dattel', price:'6,50 €', tags:['🌱 vegan']},
-      {name:'Joul’s Kühlschrank', desc:'Limos von zart bis hart · Radler · Bier', price:'je Flasche 3,50 €'},
+      {name:'Joul\'s Wasser', desc:'Limettedienette · Berrylerry · Mangochango · Labarherrhabarber · Persching · Karaffe 0,5l 2,00 € / 1,0l 4,00 €', price:'0,4 l · 4,50 €'},
+      {name:'Smiley Ginger', desc:'Mango · Passionsfrucht · Ingwer · Karotte', price:'6,50 €', tags:['vegan']},
+      {name:'Bärenstark', desc:'Blaubeere · Mango · Acai · Himbeere · Dattel', price:'6,50 €', tags:['vegan']},
+      {name:'Joul\'s Kühlschrank', desc:'Limos von zart bis hart · Radler · Bier', price:'je Flasche 3,50 €'},
       {name:'Birra Moretti', desc:'0,2 l · 3,00 € / 0,4 l · 4,50 €', price:'ab 3,00 €'},
       {name:'Weine by Siener / Birkweiler', desc:'Grauburgunder · Muskateller · Riesling Bundsandstein · Blanc de Noir – 0,25l 7,00 € / Flasche 20,00 €', price:'ab 7,00 €'},
       {name:'Riesling Sekt', desc:'0,1l · 5,00 € / Flasche · 28,00 €', price:'ab 5,00 €'},
@@ -1520,7 +1546,7 @@ const MENU = [
     ]
   },
   {
-    id:'bar', title:'Joul’s Bar', meta:'Geschüttelt, gerührt, gefroren. Cheers.',
+    id:'bar', title:'Joul\'s Bar', meta:'Geschüttelt, gerührt, gefroren. Cheers.',
     items:[
       {name:'Gin Basil Mule', desc:'Landau-Gin · Balis Basil · Limette · Basilikum', price:'8,50 €'},
       {name:'Gin Tonic', desc:'Gin Duke · Orange · Tonic', price:'8,50 €'},
@@ -1567,6 +1593,10 @@ function renderMenu(){
     sec.className = 'menu-cat';
     sec.id = 'cat-'+c.id;
 
+    const badgeHtml = c.badge
+      ? `<div class="cat-badge">${c.badge} ${SVG.leaf}</div>`
+      : '';
+
     const head = document.createElement('div');
     head.className = 'cat-head';
     head.innerHTML = `
@@ -1574,7 +1604,7 @@ function renderMenu(){
         <h3 class="cat-title">${c.title}</h3>
         <div class="cat-meta">${c.meta||''}</div>
       </div>
-      ${c.badge?`<div class="cat-badge">${c.badge}</div>`:''}
+      ${badgeHtml}
     `;
     sec.appendChild(head);
 
@@ -1584,8 +1614,12 @@ function renderMenu(){
       const card = document.createElement('article');
       card.className = 'item';
       const tags = (it.tags||[]).map(t=>{
-        const cls = /veg(an|etarisch|gie)|🌿|🌱/i.test(t) ? (t.includes('🌿')?'item-tag veggie':'item-tag') : 'item-tag';
-        return `<span class="${cls}">${t}</span>`;
+        const isVegan = t === 'vegan';
+        const isVeggie = t === 'vegetarisch';
+        const cls = isVegan ? 'item-tag' : (isVeggie ? 'item-tag veggie' : 'item-tag');
+        const icon = isVegan ? SVG.leaf : (isVeggie ? SVG.herb : '');
+        const label = isVegan ? 'vegan' : (isVeggie ? 'vegetarisch' : t);
+        return `<span class="${cls}">${icon}${label}</span>`;
       }).join('');
       card.innerHTML = `
         <span class="price ${it.price.includes('/')?'dual':''}">${it.price}</span>
@@ -1614,11 +1648,94 @@ function renderMenu(){
 
   // bar anchor for nav link
   const barCat = document.getElementById('cat-bar');
-  if(barCat){ barCat.id = 'cat-bar'; barCat.setAttribute('data-also','bar-anchor'); }
+  if(barCat){ barCat.setAttribute('data-also','bar-anchor'); }
   const barAnchor = document.createElement('span'); barAnchor.id='bar-anchor'; barAnchor.style.position='absolute'; barAnchor.style.top='-120px';
   if(barCat) barCat.appendChild(barAnchor);
 }
 renderMenu();
+
+/* ============================================================
+   MENU OVERLAY
+   ============================================================ */
+function openMenu(){
+  const overlay = document.getElementById('menuOverlay');
+  overlay.classList.add('open');
+  document.body.classList.add('menu-open');
+  // position indicator after open
+  requestAnimationFrame(()=>{
+    const active = document.querySelector('.tab.active');
+    positionIndicator(active);
+  });
+}
+function closeMenu(){
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.body.classList.remove('menu-open');
+}
+// close on Escape
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeMenu(); });
+
+/* ============================================================
+   TAB BAR
+   ============================================================ */
+const tabs = ()=> [...document.querySelectorAll('.tab')];
+const indicator = document.getElementById('tabIndicator');
+
+function positionIndicator(tab){
+  if(!tab) return;
+  const wrap = tab.parentElement;
+  const r = tab.getBoundingClientRect();
+  const pr = wrap.getBoundingClientRect();
+  const x = (r.left - pr.left) + wrap.scrollLeft;
+  indicator.style.left = x + 'px';
+  indicator.style.width = r.width + 'px';
+  indicator.style.opacity = '1';
+}
+
+function activateTab(id){
+  tabs().forEach(t=>{
+    const on = t.dataset.target === id;
+    t.classList.toggle('active', on);
+    if(on) positionIndicator(t);
+  });
+}
+
+// initial
+requestAnimationFrame(()=> activateTab(MENU[0].id));
+window.addEventListener('resize', ()=>{
+  const active = document.querySelector('.tab.active');
+  positionIndicator(active);
+});
+
+tabs().forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    activateTab(tab.dataset.target);
+    const t = document.getElementById('cat-'+tab.dataset.target);
+    if(!t) return;
+    const overlay = document.getElementById('menuOverlay');
+    const body = overlay.querySelector('.menu-overlay-body');
+    const tabBarH = overlay.querySelector('.tab-bar-wrap').offsetHeight;
+    const headerH = overlay.querySelector('.menu-overlay-header').offsetHeight;
+    const targetTop = t.getBoundingClientRect().top - overlay.querySelector('.menu-overlay-content').getBoundingClientRect().top;
+    body.scrollTo({ top: body.scrollTop + t.getBoundingClientRect().top - headerH - tabBarH - 20, behavior:'smooth' });
+  });
+});
+
+// simple scrollspy inside overlay
+const overlayBody = document.querySelector('.menu-overlay-body');
+overlayBody.addEventListener('scroll', ()=>{
+  const headerH = document.querySelector('.menu-overlay-header').offsetHeight;
+  const tabBarH = document.querySelector('.tab-bar-wrap').offsetHeight;
+  const threshold = headerH + tabBarH + 40;
+  let current = MENU[0].id;
+  MENU.forEach(c=>{
+    const el = document.getElementById('cat-'+c.id);
+    if(el){
+      const rect = el.getBoundingClientRect();
+      if(rect.top <= threshold + 60) current = c.id;
+    }
+  });
+  activateTab(current);
+}, {passive:true});
 
 /* ============================================================
    PARTNERS MARQUEE
@@ -1638,12 +1755,26 @@ renderMenu();
    QUOTE STRIP
    ============================================================ */
 (function(){
-  const quotes = ['La Familia liebt Joul\'s ❤️', '★★★★★', 'Crazy Bowls. Crazy good.', '🌱 Vegan möglich. Immer.', 'Alles kann, nichts MUSS.', '★★★★★', 'Frisch. Regional. Für dich.', '🚚 Buddy on Tour'];
+  const starSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="#3D7A3A" style="vertical-align:middle" aria-hidden="true"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`;
+  const leafSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3D7A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><path d="M12 22c4-6 8-10 8-14a8 8 0 0 0-16 0c0 4 4 8 8 14z"/></svg>`;
+  const truckSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2C2218" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><rect x="1" y="10" width="22" height="8" rx="2"/><path d="M1 14h22"/><path d="M5 10V7a2 2 0 0 1 2-2h6l4 5"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>`;
+  const heartSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="#3D7A3A" style="vertical-align:middle" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
+
+  const quotes = [
+    `La Familia liebt Joul's ${heartSvg}`,
+    `${starSvg}${starSvg}${starSvg}${starSvg}${starSvg}`,
+    'Crazy Bowls. Crazy good.',
+    `${leafSvg} Vegan möglich. Immer.`,
+    'Alles kann, nichts MUSS.',
+    `${starSvg}${starSvg}${starSvg}${starSvg}${starSvg}`,
+    'Frisch. Regional. Für dich.',
+    `${truckSvg} Buddy on Tour`
+  ];
   const track = document.getElementById('quoteTrack');
   const set = [...quotes, ...quotes];
   set.forEach(q=>{
     const el = document.createElement('span');
-    el.innerHTML = q.replace(/★/g,'<span class="star">★</span>');
+    el.innerHTML = q;
     track.appendChild(el);
   });
 })();
@@ -1658,7 +1789,7 @@ renderMenu();
     {cap:'La Familia', sub:'Bunte Truppe, große Liebe.', bg:'linear-gradient(135deg, #C8A84B, #E0C476)'},
     {cap:'Lange Tafeln', sub:'Hier wird geteilt, gelacht, gegessen.', bg:'linear-gradient(135deg, #2A5C2A, #3D7A3A)'},
     {cap:'Crazy Bowls', sub:'Der Klassiker unter den Wahnsinn.', bg:'linear-gradient(135deg, #E63946, #C8A84B)'},
-    {cap:'Buddy 🚚', sub:'Unser Foodtruck auf Tour.', bg:'linear-gradient(135deg, #5B9457, #C8A84B)'},
+    {cap:'Buddy on Tour', sub:'Unser Foodtruck auf Tour.', bg:'linear-gradient(135deg, #5B9457, #C8A84B)'},
   ];
   cards.forEach((c,i)=>{
     const el = document.createElement('article');
@@ -1684,41 +1815,6 @@ renderMenu();
 })();
 
 /* ============================================================
-   LENIS SMOOTH SCROLL
-   ============================================================ */
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let lenis = null;
-if(!reduceMotion && window.Lenis){
-  lenis = new Lenis({ duration:1.15, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true });
-  lenis.on('scroll', ()=>{ if(window.ScrollTrigger) ScrollTrigger.update(); });
-  function raf(t){ lenis.raf(t); requestAnimationFrame(raf); }
-  requestAnimationFrame(raf);
-  // intercept anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const id = a.getAttribute('href');
-      if(id && id.length>1){
-        const t = document.querySelector(id);
-        if(t){ e.preventDefault(); lenis.scrollTo(t, {offset:-72}); closeMobile(); }
-      }
-    });
-  });
-}else{
-  // fallback: native smooth scroll, still close mobile menu
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', e=>{
-      const id = a.getAttribute('href');
-      const t = id && document.querySelector(id);
-      if(t){
-        e.preventDefault();
-        t.scrollIntoView ? window.scrollTo({top:t.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth'}) : null;
-        closeMobile();
-      }
-    });
-  });
-}
-
-/* ============================================================
    NAVBAR BEHAVIOR
    ============================================================ */
 const nav = document.getElementById('nav');
@@ -1736,6 +1832,19 @@ function updateScroll(){
 }
 window.addEventListener('scroll', updateScroll, {passive:true});
 updateScroll();
+
+// anchor link handlers (native scroll, mobile menu close)
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    const t = id && id.length > 1 && document.querySelector(id);
+    if(t){
+      e.preventDefault();
+      window.scrollTo({top: t.getBoundingClientRect().top + window.scrollY - 72, behavior:'smooth'});
+      closeMobile();
+    }
+  });
+});
 
 // mobile menu
 const hamb = document.getElementById('hamburger');
@@ -1766,7 +1875,7 @@ function computeOpen(){
     nextLabel = `noch ${h>0?h+'h ':''}${m}min offen`;
   }else{
     // compute next opening
-    let nd = d, addDays=0, no=openMins, nc=closeMins;
+    let addDays=0, no=openMins;
     if(d===0){ addDays=1; no=12*60; }
     else if(d===6 && mins>=closeMins){ addDays=2; no=12*60; }
     else if(d===6 && mins<openMins){ addDays=0; no=16*60; }
@@ -1809,431 +1918,6 @@ document.getElementById('contactForm').addEventListener('submit', e=>{
   if(!form.checkValidity()){ form.reportValidity(); return; }
   document.getElementById('formSuccess').classList.add('show');
   form.reset();
-});
-
-/* ============================================================
-   THREE.JS HERO
-   ============================================================ */
-(function(){
-  if(reduceMotion) return;
-  const canvas = document.getElementById('hero-canvas');
-  if(!canvas || !window.THREE) return;
-
-  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, 1, .1, 100);
-  camera.position.z = 8;
-
-  const ambient = new THREE.AmbientLight(0xffffff, .55);
-  scene.add(ambient);
-  const dir = new THREE.DirectionalLight(0xffffff, .85);
-  dir.position.set(5,5,5);
-  scene.add(dir);
-  const gold = new THREE.PointLight(0xC8A84B, .8, 30);
-  gold.position.set(-5,3,3);
-  scene.add(gold);
-
-  // ---------- Ingredient builders ----------
-  function makeAvocado(){
-    const g = new THREE.Group();
-    const flesh = new THREE.Mesh(
-      new THREE.SphereGeometry(.7, 28, 18, 0, Math.PI*2, 0, Math.PI/1.95),
-      new THREE.MeshPhongMaterial({color:0xBCD27A, shininess:30, specular:0x334022})
-    );
-    const inner = new THREE.Mesh(
-      new THREE.CircleGeometry(.68, 32),
-      new THREE.MeshPhongMaterial({color:0xD8E29A, shininess:10, side:THREE.DoubleSide})
-    );
-    inner.rotation.x = -Math.PI/2;
-    inner.position.y = -.002;
-    const rind = new THREE.Mesh(
-      new THREE.TorusGeometry(.7, .055, 14, 40),
-      new THREE.MeshPhongMaterial({color:0x2F4A1E, shininess:20})
-    );
-    rind.rotation.x = Math.PI/2;
-    const pit = new THREE.Mesh(
-      new THREE.SphereGeometry(.24, 18, 14),
-      new THREE.MeshPhongMaterial({color:0x6B4423, shininess:70, specular:0x442a14})
-    );
-    pit.position.y = .04;
-    pit.scale.y = .8;
-    g.add(flesh, inner, rind, pit);
-    return g;
-  }
-
-  function makeCitrus(c1, c2){
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(
-      new THREE.CylinderGeometry(.62, .62, .14, 36),
-      new THREE.MeshPhongMaterial({color:c2, shininess:50, transparent:true, opacity:.94})
-    );
-    const rind = new THREE.Mesh(
-      new THREE.CylinderGeometry(.66, .66, .12, 36, 1, true),
-      new THREE.MeshPhongMaterial({color:c1, shininess:30, side:THREE.DoubleSide})
-    );
-    const core = new THREE.Mesh(
-      new THREE.CylinderGeometry(.1, .1, .145, 16),
-      new THREE.MeshPhongMaterial({color:0xF7E8B8})
-    );
-    g.add(body, rind, core);
-    // segments as thin radial blades on top
-    for(let i=0;i<10;i++){
-      const seg = new THREE.Mesh(
-        new THREE.BoxGeometry(.5, .005, .015),
-        new THREE.MeshPhongMaterial({color:0xF7E8B8})
-      );
-      seg.position.y = .075;
-      seg.rotation.y = (i/10)*Math.PI*2;
-      seg.position.x = .25 * Math.cos((i/10)*Math.PI*2);
-      seg.position.z = .25 * Math.sin((i/10)*Math.PI*2);
-      g.add(seg);
-    }
-    return g;
-  }
-
-  function makeTomato(){
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(
-      new THREE.SphereGeometry(.5, 24, 18),
-      new THREE.MeshPhongMaterial({color:0xCC3A2B, shininess:90, specular:0xff8866})
-    );
-    body.scale.y = .88;
-    // top dimple
-    const dimple = new THREE.Mesh(
-      new THREE.SphereGeometry(.12, 12, 8),
-      new THREE.MeshPhongMaterial({color:0x8a2818})
-    );
-    dimple.position.y = .42;
-    dimple.scale.y = .4;
-    g.add(body, dimple);
-    // sepals
-    for(let i=0;i<5;i++){
-      const leaf = new THREE.Mesh(
-        new THREE.ConeGeometry(.09, .26, 6),
-        new THREE.MeshPhongMaterial({color:0x3D7A3A, shininess:10})
-      );
-      leaf.position.y = .5;
-      const a = (i/5)*Math.PI*2;
-      leaf.position.x = Math.cos(a) * .14;
-      leaf.position.z = Math.sin(a) * .14;
-      leaf.rotation.z = Math.cos(a) * -.6;
-      leaf.rotation.x = Math.sin(a) * .6;
-      g.add(leaf);
-    }
-    return g;
-  }
-
-  function makeOlive(){
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(
-      new THREE.SphereGeometry(.28, 18, 14),
-      new THREE.MeshPhongMaterial({color:0x4a5d28, shininess:60, specular:0x88aa44})
-    );
-    body.scale.set(1, 1.5, 1);
-    g.add(body);
-    return g;
-  }
-
-  function makeBread(){
-    const geo = new THREE.BoxGeometry(.7, .45, .55, 4, 3, 3);
-    // round corners by displacement
-    const pos = geo.attributes.position;
-    for(let v=0; v<pos.count; v++){
-      const x=pos.getX(v), y=pos.getY(v), z=pos.getZ(v);
-      const n = .08 * (Math.sin(x*4)+Math.cos(z*3.7)+Math.sin(y*5));
-      pos.setXYZ(v, x*(1+n*.2), y*(1+n*.1), z*(1+n*.2));
-    }
-    geo.computeVertexNormals();
-    const top = new THREE.Mesh(geo, new THREE.MeshPhongMaterial({color:0xD9A86A, shininess:15, specular:0x402815, flatShading:true}));
-    return top;
-  }
-
-  function makeHerb(){
-    // a small leafy sprig: 3 leaf planes on a thin stem
-    const g = new THREE.Group();
-    const stem = new THREE.Mesh(
-      new THREE.CylinderGeometry(.018, .018, .9, 6),
-      new THREE.MeshPhongMaterial({color:0x4A6B2A})
-    );
-    g.add(stem);
-    const leafShape = new THREE.Shape();
-    leafShape.moveTo(0,0);
-    leafShape.quadraticCurveTo(.18,.18,0,.42);
-    leafShape.quadraticCurveTo(-.18,.18,0,0);
-    const leafGeo = new THREE.ShapeGeometry(leafShape);
-    const leafMat = new THREE.MeshPhongMaterial({color:0x5B9457, side:THREE.DoubleSide, shininess:25});
-    for(let i=0;i<5;i++){
-      const l = new THREE.Mesh(leafGeo, leafMat);
-      const side = i%2===0 ? 1 : -1;
-      l.position.y = -.3 + i*.15;
-      l.position.x = side * .04;
-      l.rotation.z = side * .9;
-      l.rotation.y = (i*.4);
-      g.add(l);
-    }
-    return g;
-  }
-
-  function makeRadish(){
-    const g = new THREE.Group();
-    const body = new THREE.Mesh(
-      new THREE.SphereGeometry(.32, 18, 14),
-      new THREE.MeshPhongMaterial({color:0xE34B6F, shininess:80, specular:0xff99aa})
-    );
-    body.scale.y = 1.1;
-    const root = new THREE.Mesh(
-      new THREE.ConeGeometry(.04, .35, 8),
-      new THREE.MeshPhongMaterial({color:0xF5E6D8})
-    );
-    root.position.y = -.42;
-    root.rotation.z = .15;
-    g.add(body, root);
-    // small leaves on top
-    for(let i=0;i<3;i++){
-      const leaf = new THREE.Mesh(
-        new THREE.ConeGeometry(.06, .35, 5),
-        new THREE.MeshPhongMaterial({color:0x5B9457})
-      );
-      leaf.position.y = .42;
-      leaf.rotation.z = (i-1)*.4;
-      g.add(leaf);
-    }
-    return g;
-  }
-
-  // ingredient factory
-  const builders = [
-    {make: makeAvocado, scale:1.1, weight:2},
-    {make: ()=>makeCitrus(0xC8A84B, 0xE0C476), scale:1.0, weight:1.5}, // lemon
-    {make: ()=>makeCitrus(0xD66A2C, 0xF0A050), scale:1.0, weight:1},   // orange
-    {make: makeTomato, scale:.95, weight:2},
-    {make: makeOlive, scale:1.1, weight:1.5},
-    {make: makeBread, scale:1.0, weight:1.2},
-    {make: makeHerb, scale:1.0, weight:1.5},
-    {make: makeRadish, scale:1.0, weight:1},
-  ];
-
-  // weighted picker
-  const totalW = builders.reduce((s,b)=>s+b.weight, 0);
-  function pickBuilder(){
-    let r = Math.random()*totalW;
-    for(const b of builders){ r -= b.weight; if(r<=0) return b; }
-    return builders[0];
-  }
-
-  const isMobile = window.innerWidth < 768;
-  const count = isMobile ? 5 : 9;
-  const items = [];
-  for(let i=0;i<count;i++){
-    const b = pickBuilder();
-    const mesh = b.make();
-    const s = b.scale * (.75 + Math.random()*.5);
-    mesh.scale.setScalar(s);
-    mesh.position.set(
-      (Math.random()-.5) * 13,
-      (Math.random()-.5) * 6.5,
-      (Math.random()-.5) * 4 - 1
-    );
-    mesh.rotation.set(
-      Math.random()*Math.PI*2,
-      Math.random()*Math.PI*2,
-      Math.random()*Math.PI*2
-    );
-    mesh.userData = {
-      sp: (Math.random()<.5?-1:1) * (.0015 + Math.random()*.003),
-      sr: (Math.random()<.5?-1:1) * (.001 + Math.random()*.0025),
-      sz: (Math.random()<.5?-1:1) * (.0008 + Math.random()*.002),
-      fx: Math.random()*Math.PI*2,
-      fy: Math.random()*Math.PI*2,
-      ay: .35 + Math.random()*.5,
-      ax: .15 + Math.random()*.25,
-      baseY: mesh.position.y,
-      baseX: mesh.position.x
-    };
-    scene.add(mesh);
-    items.push(mesh);
-  }
-  const blobs = items;
-
-  function resize(){
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w/h;
-    camera.updateProjectionMatrix();
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  let mx=0, my=0, tx=0, ty=0;
-  window.addEventListener('mousemove', e=>{
-    mx = (e.clientX / window.innerWidth - .5) * 2;
-    my = (e.clientY / window.innerHeight - .5) * 2;
-  });
-
-  let t=0;
-  function tick(){
-    t += .01;
-    tx += (mx - tx) * .04;
-    ty += (my - ty) * .04;
-    scene.rotation.y = tx * .12;
-    scene.rotation.x = ty * .08;
-    blobs.forEach(b=>{
-      b.rotation.x += b.userData.sr;
-      b.rotation.y += b.userData.sp;
-      b.rotation.z += b.userData.sz;
-      b.position.y = b.userData.baseY + Math.sin(t + b.userData.fy) * b.userData.ay;
-      b.position.x = b.userData.baseX + Math.sin(t*.5 + b.userData.fx) * b.userData.ax;
-    });
-    renderer.render(scene, camera);
-    requestAnimationFrame(tick);
-  }
-  tick();
-})();
-
-/* ============================================================
-   GSAP ANIMATIONS
-   ============================================================ */
-if(window.gsap && window.ScrollTrigger){
-  gsap.registerPlugin(ScrollTrigger);
-
-  // hero text stagger
-  const headlineWords = document.querySelectorAll('#heroHeadline .word span');
-  gsap.set(headlineWords, {y:120, opacity:0});
-  gsap.to(headlineWords, {
-    y:0, opacity:1, duration:1.1, ease:'expo.out',
-    stagger:.08, delay:.4
-  });
-  gsap.set('#heroSub', {y:30, opacity:0});
-  gsap.to('#heroSub', {y:0, opacity:1, duration:.8, ease:'power3.out', delay:.85});
-  gsap.to('#heroCtas', {opacity:1, y:0, duration:.7, ease:'power3.out', delay:1, startAt:{y:20}});
-  gsap.to('#heroBadges', {opacity:1, y:0, duration:.7, ease:'power3.out', delay:1.2, startAt:{y:20}});
-
-  // section titles
-  gsap.utils.toArray('h2.title, .cat-title, .eyebrow').forEach(el=>{
-    gsap.from(el, {
-      scale:.92, opacity:0, duration:.9, ease:'power3.out',
-      scrollTrigger:{ trigger:el, start:'top 88%' }
-    });
-  });
-
-  // philo cards flip
-  gsap.utils.toArray('.philo-card').forEach((card, i)=>{
-    gsap.set(card, {rotationY:-90, opacity:0, transformPerspective:1200, transformOrigin:'center center'});
-    gsap.to(card, {
-      rotationY:0, opacity:1, duration:.9, ease:'power3.out',
-      delay:i*.12,
-      scrollTrigger:{ trigger:card, start:'top 85%' }
-    });
-  });
-
-  // items stagger
-  ScrollTrigger.batch('.item', {
-    start:'top 90%',
-    onEnter: batch => gsap.from(batch, {
-      y:40, opacity:0, duration:.7, ease:'power3.out',
-      stagger:.06, overwrite:true
-    })
-  });
-
-  // truck columns slide
-  gsap.from('[data-truck-left]', {x:-60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:'.truck', start:'top 70%'}});
-  gsap.from('[data-truck-right]', {x:60, opacity:0, duration:1, ease:'power3.out', scrollTrigger:{trigger:'.truck', start:'top 70%'}});
-
-  // hour cards
-  gsap.from('.hour-card', {y:40, opacity:0, duration:.7, stagger:.1, ease:'power3.out', scrollTrigger:{trigger:'.hours-grid', start:'top 85%'}});
-
-  // gallery cards
-  gsap.from('.gallery-card', {y:40, opacity:0, duration:.7, stagger:.08, ease:'power3.out', scrollTrigger:{trigger:'.gallery-rail', start:'top 85%'}});
-
-  // partners pop
-  gsap.from('.partner-pill', {scale:.85, opacity:0, duration:.5, stagger:.04, ease:'back.out(1.6)', scrollTrigger:{trigger:'.marquee', start:'top 90%'}});
-
-  // count-up stats
-  gsap.utils.toArray('.stat-num').forEach(el=>{
-    const target = parseInt(el.dataset.count, 10);
-    const suffix = el.dataset.suffix || '';
-    const obj = {v:0};
-    ScrollTrigger.create({
-      trigger: el, start:'top 88%', once:true,
-      onEnter: ()=> gsap.to(obj, {
-        v:target, duration:1.6, ease:'power2.out',
-        onUpdate:()=> el.textContent = Math.floor(obj.v) + suffix
-      })
-    });
-  });
-
-  /* ============================================================
-     MENU TABS ScrollSpy + animated indicator
-     ============================================================ */
-  const tabs = [...document.querySelectorAll('.tab')];
-  const indicator = document.getElementById('tabIndicator');
-  function positionIndicator(tab){
-    if(!tab) return;
-    const wrap = tab.parentElement;
-    const r = tab.getBoundingClientRect();
-    const pr = wrap.getBoundingClientRect();
-    gsap.to(indicator, {
-      x: (r.left - pr.left) + wrap.scrollLeft,
-      width: r.width,
-      opacity:1,
-      duration:.4, ease:'power3.out'
-    });
-  }
-  function activateTab(id){
-    tabs.forEach(t=>{
-      const on = t.dataset.target === id;
-      t.classList.toggle('active', on);
-      if(on) positionIndicator(t);
-    });
-  }
-  // initial
-  requestAnimationFrame(()=> activateTab(MENU[0].id));
-  window.addEventListener('resize', ()=>{
-    const active = document.querySelector('.tab.active');
-    positionIndicator(active);
-  });
-
-  tabs.forEach(tab=>{
-    tab.addEventListener('click', ()=>{
-      const t = document.getElementById('cat-'+tab.dataset.target);
-      if(!t) return;
-      if(lenis) lenis.scrollTo(t, {offset:-140});
-      else window.scrollTo({top:t.getBoundingClientRect().top + window.scrollY - 140, behavior:'smooth'});
-    });
-  });
-
-  // scrollspy
-  MENU.forEach(c=>{
-    ScrollTrigger.create({
-      trigger:'#cat-'+c.id,
-      start:'top 25%',
-      end:'bottom 25%',
-      onToggle:self=>{ if(self.isActive) activateTab(c.id); }
-    });
-  });
-
-  // ensure ScrollTrigger refreshes
-  setTimeout(()=> ScrollTrigger.refresh(), 300);
-}
-
-/* ============================================================
-   PRELOADER HIDE
-   ============================================================ */
-window.addEventListener('load', ()=>{
-  const p = document.getElementById('preloader');
-  // draw paths
-  const paths = p.querySelectorAll('.pl-path');
-  paths.forEach(pa=>{
-    const len = pa.getTotalLength();
-    pa.style.strokeDasharray = len;
-    pa.style.strokeDashoffset = len;
-    pa.style.transition = 'stroke-dashoffset 1.1s ease-out';
-    requestAnimationFrame(()=>{ pa.style.strokeDashoffset = 0; });
-  });
-  p.classList.add('draw');
-  setTimeout(()=> p.classList.add('done'), 1400);
 });
 </script>
 </body>

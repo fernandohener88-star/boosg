@@ -1142,6 +1142,13 @@
   .footer-legal-btn:hover{opacity:1;color:var(--gold-soft);}
 
   /* ===== NAVBAR ÜBER HERO-BILD (nicht gescrollt = transparente Leiste) ===== */
+  .nav:not(.scrolled) .logo{
+    background:rgba(255,254,251,.88);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    padding:6px 14px 6px 10px;
+    border-radius:var(--radius-pill);
+  }
   .nav:not(.scrolled) .nav-links a{ color:rgba(255,254,251,.92); }
   .nav:not(.scrolled) .nav-links a:hover{ color:var(--white); }
   .nav:not(.scrolled) .nav-links a::after{ background:var(--white); }

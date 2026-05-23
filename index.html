@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>hausgemacht Architekten · Landau</title>
+<meta name="description" content="hausgemacht Architekten — Büro für Architektur und Innenarchitektur in Landau in der Pfalz." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fafafa;
+    --concrete: #c8c4bc;
+    --concrete-soft: #e8e6e1;
+    --terra: #b85c38;
+    --terra-deep: #8f4528;
+    --line: rgba(10,10,10,0.12);
+    --line-dark: rgba(250,250,250,0.16);
+
+    --serif: "Cormorant Garamond", "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+    --pad-x: clamp(24px, 6vw, 120px);
+    --gap: clamp(20px, 3vw, 48px);
+    --section-y: clamp(96px, 14vh, 200px);
+
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  input, textarea { font: inherit; color: inherit; }
+
+  ::selection { background: var(--terra); color: var(--paper); }
+
+  /* ============ CUSTOM CURSOR ============ */
+  .cursor-dot, .cursor-ring {
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--paper);
+    border-radius: 50%;
+    transition: background .25s var(--ease), transform .15s var(--ease);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(250,250,250,.55);
+    border-radius: 50%;
+    transition: width .35s var(--ease), height .35s var(--ease), border-color .35s var(--ease), background .35s var(--ease);
+  }
+  body.cursor-hover .cursor-ring {
+    width: 64px; height: 64px;
+    border-color: var(--terra);
+    background: rgba(184,92,56,0.10);
+  }
+  body.cursor-hover .cursor-dot { background: var(--terra); }
+  @media (hover: none), (pointer: coarse) {
+    .cursor-dot, .cursor-ring { display: none; }
+    body { cursor: auto; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    html, body { cursor: none; }
+    a, button, input, textarea, label { cursor: none; }
+  }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: fixed; inset: 0 0 auto 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px var(--pad-x);
+    color: var(--paper);
+    transition: background .45s var(--ease), color .45s var(--ease), padding .45s var(--ease), border-color .45s var(--ease);
+    border-bottom: 1px solid transparent;
+    backdrop-filter: blur(0);
+  }
+  .nav.is-scrolled {
+    background: rgba(250,250,250,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: var(--ink);
+    padding-top: 16px; padding-bottom: 16px;
+    border-bottom-color: var(--line);
+  }
+  .nav__brand {
+    display: inline-flex; align-items: baseline; gap: 10px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+  .nav__brand .suffix {
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    transform: translateY(-2px);
+  }
+  .nav__menu {
+    display: flex; gap: clamp(20px, 3vw, 42px);
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+  }
+  .nav__menu a {
+    position: relative;
+    padding: 6px 0;
+  }
+  .nav__menu a::after {
+    content: ""; position: absolute; left: 0; right: 100%;
+    bottom: 2px; height: 1px; background: currentColor;
+    transition: right .4s var(--ease-out);
+  }
+  .nav__menu a:hover::after { right: 0; }
+  .nav__burger {
+    display: none;
+    width: 32px; height: 18px;
+    position: relative;
+  }
+  .nav__burger span {
+    position: absolute; left: 0; right: 0; height: 1px; background: currentColor;
+    transition: transform .4s var(--ease), top .4s var(--ease), opacity .25s;
+  }
+  .nav__burger span:nth-child(1) { top: 2px; }
+  .nav__burger span:nth-child(2) { top: 50%; }
+  .nav__burger span:nth-child(3) { top: calc(100% - 2px); }
+  body.menu-open .nav__burger span:nth-child(1) { top: 50%; transform: rotate(45deg); }
+  body.menu-open .nav__burger span:nth-child(2) { opacity: 0; }
+  body.menu-open .nav__burger span:nth-child(3) { top: 50%; transform: rotate(-45deg); }
+
+  .menu-overlay {
+    position: fixed; inset: 0;
+    background: var(--ink);
+    color: var(--paper);
+    z-index: 90;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 32px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .5s var(--ease);
+  }
+  body.menu-open .menu-overlay { opacity: 1; pointer-events: auto; }
+  .menu-overlay a {
+    font-family: var(--serif); font-style: italic; font-size: clamp(36px, 8vw, 72px);
+    font-weight: 400;
+  }
+
+  @media (max-width: 760px) {
+    .nav__menu { display: none; }
+    .nav__burger { display: block; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    background: var(--ink);
+    color: var(--paper);
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 var(--pad-x) clamp(96px, 12vh, 160px);
+  }
+  .hero__canvas {
+    position: absolute; inset: 0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 1.6s ease 0.6s;
+  }
+  .hero.ready .hero__canvas { opacity: 1; }
+  .hero__inner {
+    position: relative; z-index: 2;
+    width: 100%;
+  }
+  .hero__eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--concrete);
+    margin-bottom: clamp(20px, 3vh, 40px);
+    opacity: 0;
+    animation: fadeUp 0.9s var(--ease-out) 0.3s forwards;
+  }
+  .hero__eyebrow .dot {
+    width: 6px; height: 6px; background: var(--terra); border-radius: 50%;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+  }
+
+  .hero__title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(72px, 16vw, 320px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    margin: 0;
+    color: var(--paper);
+    display: flex; align-items: flex-start; flex-wrap: wrap;
+    gap: clamp(14px, 1.8vw, 32px);
+  }
+  .hero__title .word {
+    display: inline-flex; flex-wrap: wrap;
+    overflow: hidden;
+    line-height: 0.88;
+    padding-bottom: 0.08em;
+  }
+  .hero__title .suffix {
+    display: inline-block;
+    margin-top: clamp(14px, 2.4vw, 48px);
+    font-family: var(--sans);
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(13px, 1.1vw, 22px);
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    opacity: 0;
+    animation: suffixIn 0.9s var(--ease-out) 1.5s forwards;
+  }
+  @keyframes suffixIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero__title .letter {
+    display: inline-block;
+    transform: translateY(110%);
+    animation: letterRise 1.1s var(--ease-out) forwards;
+  }
+  @keyframes letterRise {
+    0% { transform: translateY(110%); }
+    100% { transform: translateY(0); }
+  }
+  .hero__sub {
+    display: flex; align-items: center; gap: 18px;
+    margin-top: clamp(20px, 3vh, 40px);
+    font-size: clamp(11px, 1.1vw, 14px);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    opacity: 0;
+    white-space: nowrap;
+    animation: fadeUp 0.9s var(--ease-out) 1.4s forwards;
+  }
+  .hero__sub .rule { flex: 0 0 60px; height: 1px; background: var(--concrete); opacity: .6; }
+  @media (max-width: 520px) {
+    .hero__sub { white-space: normal; }
+    .hero__sub .rule { flex: 0 0 32px; }
+  }
+
+  .hero__meta {
+    position: absolute; top: 50%; right: var(--pad-x); transform: translateY(-50%);
+    z-index: 2;
+    writing-mode: vertical-rl;
+    font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--concrete);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.8s forwards;
+  }
+  @media (max-width: 900px) { .hero__meta { display: none; } }
+
+  .scroll-indicator {
+    position: absolute; right: var(--pad-x); bottom: 28px;
+    z-index: 3;
+    display: flex; align-items: center; gap: 12px;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--concrete);
+    opacity: 0;
+    animation: fadeIn 1s ease 2s forwards;
+  }
+  @media (max-width: 520px) {
+    .scroll-indicator { display: none; }
+  }
+  .scroll-indicator .line {
+    width: 1px; height: 40px; background: var(--concrete);
+    position: relative; overflow: hidden;
+  }
+  .scroll-indicator .line::after {
+    content: ""; position: absolute; top: -100%; left: 0; right: 0; height: 60%;
+    background: var(--terra);
+    animation: scrollLine 2.4s var(--ease) infinite;
+  }
+  @keyframes scrollLine {
+    0% { top: -60%; }
+    100% { top: 100%; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ============ SECTION SCAFFOLD ============ */
+  .section {
+    padding: var(--section-y) var(--pad-x);
+    position: relative;
+  }
+  .section--dark { background: var(--ink); color: var(--paper); }
+  .section--paper { background: var(--paper); }
+  .section--concrete { background: var(--concrete-soft); }
+
+  .section__head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 40px; flex-wrap: wrap;
+    margin-bottom: clamp(48px, 7vh, 96px);
+  }
+  .section__label {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--terra);
+  }
+  .section__label .num {
+    font-family: var(--serif); font-style: italic;
+    color: inherit; font-size: 14px;
+  }
+  .section__title {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 14px 0 0;
+    max-width: 14ch;
+  }
+  .section__lede {
+    font-size: 16px; line-height: 1.6;
+    max-width: 44ch;
+    color: rgba(10,10,10,0.7);
+  }
+  .section--dark .section__lede { color: rgba(250,250,250,0.7); }
+
+  /* ============ REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+  }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal[data-delay="1"] { transition-delay: .08s; }
+  .reveal[data-delay="2"] { transition-delay: .16s; }
+  .reveal[data-delay="3"] { transition-delay: .24s; }
+  .reveal[data-delay="4"] { transition-delay: .32s; }
+
+  /* ============ PROJECTS ============ */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+  .project {
+    position: relative;
+    background: var(--ink);
+    color: var(--paper);
+    overflow: hidden;
+    border-radius: 2px;
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+    aspect-ratio: 4 / 3;
+    isolation: isolate;
+  }
+  .project::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 80% at 30% 20%, rgba(184,92,56,0.18), transparent 60%),
+      linear-gradient(140deg, #1a1a1a 0%, #0a0a0a 60%);
+    z-index: 0;
+    transition: opacity .6s var(--ease);
+  }
+  .project::after {
+    content: ""; position: absolute;
+    left: 0; top: 16%; bottom: 16%; width: 2px;
+    background: var(--terra);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .55s var(--ease-out);
+    z-index: 2;
+  }
+  .project:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); }
+  .project:hover::after { transform: scaleY(1); }
+
+  .project__body {
+    position: relative; z-index: 1;
+    height: 100%;
+    padding: 24px 28px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .project__top {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  }
+  .project__cat {
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--concrete);
+    padding: 6px 10px; border: 1px solid var(--line-dark);
+    border-radius: 999px;
+  }
+  .project__year {
+    font-family: var(--serif); font-style: italic;
+    font-size: 22px;
+    color: var(--concrete);
+  }
+  .project__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(26px, 3vw, 44px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--paper);
+    text-wrap: pretty;
+  }
+  .project__foot {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 18px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--concrete);
+  }
+  .project__arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--line-dark);
+    display: grid; place-items: center;
+    transition: background .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease);
+  }
+  .project:hover .project__arrow { background: var(--terra); border-color: var(--terra); transform: rotate(-45deg); }
+  .project__arrow svg { width: 12px; height: 12px; }
+
+  .project--award { background: linear-gradient(160deg, #1a1410 0%, #0a0a0a 70%); }
+  .project__award {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--terra);
+    margin-top: 12px;
+  }
+  .project__award svg { width: 10px; height: 10px; fill: var(--terra); }
+
+  /* tile sizes (asymmetric) */
+  .project.s-1 { grid-column: span 6; }
+  .project.s-2 { grid-column: span 6; }
+  .project.s-3 { grid-column: span 4; aspect-ratio: 3 / 4; }
+  .project.s-4 { grid-column: span 4; aspect-ratio: 3 / 4; }
+  .project.s-5 { grid-column: span 4; aspect-ratio: 3 / 4; }
+  .project.s-wide { grid-column: span 8; aspect-ratio: 16 / 9; }
+  .project.s-tall { grid-column: span 4; aspect-ratio: 3 / 4; }
+  .project.s-third { grid-column: span 4; }
+
+  @media (max-width: 1000px) {
+    .project.s-1, .project.s-2 { grid-column: span 12; }
+    .project.s-3, .project.s-4, .project.s-5 { grid-column: span 6; }
+    .project.s-wide { grid-column: span 12; }
+    .project.s-tall, .project.s-third { grid-column: span 6; }
+  }
+  @media (max-width: 620px) {
+    .projects-grid { grid-template-columns: 1fr; gap: 16px; }
+    .project, .project.s-1, .project.s-2, .project.s-3, .project.s-4, .project.s-5,
+    .project.s-wide, .project.s-tall, .project.s-third {
+      grid-column: 1 / -1; aspect-ratio: 4/3;
+    }
+  }
+
+  /* ============ PHILOSOPHY ============ */
+  .philo {
+    background: var(--paper);
+    padding: var(--section-y) var(--pad-x);
+  }
+  .philo__quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(32px, 5vw, 80px);
+    line-height: 1.08;
+    letter-spacing: -0.015em;
+    max-width: 22ch;
+    margin: 0 auto;
+    text-align: left;
+    text-wrap: balance;
+  }
+  .philo__quote .accent { color: var(--terra); }
+  .philo__attr {
+    margin-top: 32px;
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(10,10,10,0.55);
+    max-width: 22ch;
+    margin-left: auto; margin-right: auto;
+  }
+
+  .stats {
+    margin-top: clamp(80px, 14vh, 160px);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat {
+    padding: 48px 32px;
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .stat:last-child { border-right: 0; }
+  .stat__num {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(64px, 8vw, 128px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .stat__num .plus, .stat__num .tilde { color: var(--terra); font-size: 0.5em; vertical-align: middle; margin: 0 0.05em; }
+  .stat__label {
+    font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(10,10,10,0.6);
+  }
+  @media (max-width: 800px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: 0; border-bottom: 1px solid var(--line); }
+    .stat:last-child { border-bottom: 0; }
+  }
+
+  /* ============ TEAM ============ */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .member {
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 24px;
+    aspect-ratio: 3 / 4;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out), border-color .4s var(--ease);
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+  .member:hover {
+    transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.18);
+    border-color: transparent;
+  }
+  .member__avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    background: var(--concrete);
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .member--partner .member__avatar {
+    background: var(--terra);
+  }
+  .member__avatar::after {
+    content: ""; position: absolute; inset: -6px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity .4s var(--ease), transform .6s var(--ease-out);
+  }
+  .member:hover .member__avatar::after { opacity: 1; transform: scale(1.1); }
+  .member__info { margin-top: auto; }
+  .member__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 22px;
+    line-height: 1.05;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .member__role {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(10,10,10,0.55);
+    line-height: 1.5;
+  }
+  .member--partner .member__role { color: var(--terra-deep); }
+  .member__partner-tag {
+    position: absolute; top: 20px; right: 20px;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--terra);
+  }
+
+  /* ============ AWARDS ============ */
+  .awards {
+    background: var(--ink); color: var(--paper);
+    padding: var(--section-y) 0;
+  }
+  .awards .section__head { padding: 0 var(--pad-x); }
+  .awards__rail-wrap {
+    position: relative;
+    margin-top: clamp(40px, 6vh, 80px);
+  }
+  .awards__rail {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 40px var(--pad-x) 60px;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+  .awards__rail::-webkit-scrollbar { display: none; }
+  .award {
+    flex: 0 0 clamp(240px, 26vw, 340px);
+    padding: 32px 28px;
+    position: relative;
+    scroll-snap-align: start;
+    border-right: 1px solid var(--line-dark);
+  }
+  .award:last-child { border-right: 0; }
+  .award__star {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--terra);
+    display: grid; place-items: center;
+    color: var(--paper);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .award__year {
+    font-family: var(--serif); font-style: italic;
+    font-size: 14px; color: var(--terra);
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .award__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 26px; line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 8px;
+    text-wrap: balance;
+  }
+  .award__cat {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--concrete);
+  }
+  .awards__hint {
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 var(--pad-x);
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: rgba(250,250,250,0.45);
+  }
+  .awards__hint .arr {
+    display: inline-flex; gap: 4px;
+  }
+  .awards__hint .arr span {
+    width: 14px; height: 1px; background: currentColor;
+    animation: arrSlide 1.6s ease-in-out infinite;
+  }
+  .awards__hint .arr span:nth-child(2) { animation-delay: .15s; }
+  .awards__hint .arr span:nth-child(3) { animation-delay: .3s; }
+  @keyframes arrSlide {
+    0%, 100% { opacity: 0.2; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(4px); }
+  }
+
+  /* ============ CONTACT ============ */
+  .contact {
+    background: var(--ink); color: var(--paper);
+    padding: var(--section-y) var(--pad-x);
+  }
+  .contact__layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 8vw, 120px);
+    align-items: flex-start;
+  }
+  @media (max-width: 900px) { .contact__layout { grid-template-columns: 1fr; } }
+
+  .contact__title {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(48px, 7vw, 112px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0 0 48px;
+  }
+  .contact__title .accent { color: var(--terra); }
+  .contact__block { margin-bottom: 40px; }
+  .contact__block h4 {
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--concrete); font-weight: 500;
+    margin: 0 0 14px;
+  }
+  .contact__block p {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 28px; line-height: 1.3;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .contact__block a {
+    border-bottom: 1px solid var(--line-dark);
+    transition: color .3s var(--ease), border-color .3s var(--ease);
+  }
+  .contact__block a:hover { color: var(--terra); border-color: var(--terra); }
+
+  .form {
+    display: grid; gap: 20px;
+  }
+  .field { position: relative; }
+  .field label {
+    position: absolute; left: 0; top: 14px;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--concrete); opacity: 0.7;
+    transition: transform .35s var(--ease), color .35s var(--ease), font-size .35s var(--ease);
+    pointer-events: none;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line-dark);
+    padding: 14px 0 12px;
+    font-size: 16px;
+    color: var(--paper);
+    outline: none;
+    transition: border-color .3s var(--ease);
+    font-family: var(--sans);
+  }
+  .field textarea { min-height: 100px; resize: vertical; }
+  .field input:focus, .field textarea:focus { border-bottom-color: var(--terra); }
+  .field input:focus + label,
+  .field textarea:focus + label,
+  .field input:not(:placeholder-shown) + label,
+  .field textarea:not(:placeholder-shown) + label {
+    transform: translateY(-22px);
+    font-size: 10px;
+    color: var(--terra);
+  }
+  .submit {
+    margin-top: 12px;
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 16px 24px;
+    border: 1px solid var(--line-dark);
+    border-radius: 999px;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+    transition: background .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease), padding .4s var(--ease);
+  }
+  .submit:hover { background: var(--terra); border-color: var(--terra); padding-right: 32px; }
+  .submit__arrow { width: 18px; height: 1px; background: currentColor; position: relative; }
+  .submit__arrow::after {
+    content: ""; position: absolute; right: 0; top: 50%;
+    width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .legal {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-dark);
+    display: flex; flex-wrap: wrap; gap: 24px;
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,250,250,0.45);
+  }
+  .legal a:hover { color: var(--terra); }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    background: var(--ink); color: var(--paper);
+    padding: 40px var(--pad-x) 60px;
+    text-align: center;
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    color: rgba(250,250,250,0.55);
+    border-top: 1px solid var(--line-dark);
+  }
+
+  /* ============ A11y ============ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .hero__canvas { opacity: 1 !important; }
+    .hero__title .letter { transform: none; }
+  }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+</style>
+</head>
+<body>
+
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <nav class="nav" id="nav" aria-label="Hauptnavigation">
+    <a href="#top" class="nav__brand" data-hover>hausgemacht<span class="suffix">Architekten</span></a>
+    <div class="nav__menu">
+      <a href="#projekte" data-hover>Projekte</a>
+      <a href="#auszeichnungen" data-hover>Auszeichnungen</a>
+      <a href="#team" data-hover>Team</a>
+      <a href="#kontakt" data-hover>Kontakt</a>
+    </div>
+    <button class="nav__burger" id="burger" aria-label="Menü öffnen" data-hover>
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <a href="#projekte" data-hover>Projekte</a>
+    <a href="#auszeichnungen" data-hover>Auszeichnungen</a>
+    <a href="#team" data-hover>Team</a>
+    <a href="#kontakt" data-hover>Kontakt</a>
+  </div>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="heroCanvas"></canvas>
+      <div class="hero__meta">Landau · Rheinland-Pfalz · est. 2005</div>
+      <div class="hero__inner">
+        <div class="hero__eyebrow">
+          <span class="dot"></span>
+          <span>Architektur · Innenarchitektur · seit ~20 Jahren</span>
+        </div>
+        <h1 class="hero__title" aria-label="hausgemacht Architekten">
+          <span class="word" id="heroTitle"><!-- letters injected by JS --></span><span class="suffix">Architekten</span>
+        </h1>
+        <div class="hero__sub">
+          <span class="rule"></span>
+          <span>Landau in der Pfalz · seit 2005</span>
+        </div>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <span class="line"></span>
+        <span>scroll</span>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section class="section section--paper" id="projekte">
+      <div class="section__head">
+        <div>
+          <div class="section__label"><span class="num">01</span><span>Werk</span></div>
+          <h2 class="section__title reveal">Zwölf Bauten, eine&nbsp;Haltung.</h2>
+        </div>
+        <p class="section__lede reveal" data-delay="2">
+          Von der Pfalz bis nach Port-au-Prince. Eine Auswahl aktueller und ausgezeichneter Projekte aus Wohnungs-, Gewerbe- und Bildungsbau.
+        </p>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <!-- projects injected by JS -->
+      </div>
+    </section>
+
+    <!-- ============ PHILOSOPHY ============ -->
+    <section class="philo section--paper" id="philosophie">
+      <div class="section__head" style="margin-bottom:clamp(60px,9vh,120px)">
+        <div>
+          <div class="section__label"><span class="num">02</span><span>Philosophie</span></div>
+        </div>
+      </div>
+
+      <blockquote class="philo__quote reveal">
+        Gestaltung ist in der Architektur untrennbar mit der <span class="accent">tatsächlichen Ausführung</span> verbunden.
+      </blockquote>
+      <div class="philo__attr reveal" data-delay="2">— hausgemacht Architekten</div>
+
+      <div class="stats" id="stats">
+        <div class="stat reveal">
+          <div class="stat__num"><span class="tilde">~</span><span class="counter" data-to="20">0</span></div>
+          <div class="stat__label">Jahre Erfahrung</div>
+        </div>
+        <div class="stat reveal" data-delay="1">
+          <div class="stat__num"><span class="counter" data-to="50">0</span><span class="plus">+</span></div>
+          <div class="stat__label">Ausgezeichnete Projekte</div>
+        </div>
+        <div class="stat reveal" data-delay="2">
+          <div class="stat__num"><span class="counter" data-to="4">0</span></div>
+          <div class="stat__label">Partner</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section class="section section--concrete" id="team">
+      <div class="section__head">
+        <div>
+          <div class="section__label"><span class="num">03</span><span>Team</span></div>
+          <h2 class="section__title reveal">Vier Partner. Ein Atelier.</h2>
+        </div>
+        <p class="section__lede reveal" data-delay="2">
+          Architekten, Innenarchitekten und Bauingenieure – ein interdisziplinäres Studio, das Entwurf und Ausführung als eine Disziplin versteht.
+        </p>
+      </div>
+
+      <div class="team-grid" id="teamGrid">
+        <!-- members injected by JS -->
+      </div>
+    </section>
+
+    <!-- ============ AWARDS ============ -->
+    <section class="awards" id="auszeichnungen">
+      <div class="section__head">
+        <div>
+          <div class="section__label" style="color:var(--terra)"><span class="num">04</span><span>Auszeichnungen</span></div>
+          <h2 class="section__title reveal" style="color:var(--paper)">Im Wettbewerb&nbsp;bestätigt.</h2>
+        </div>
+        <p class="section__lede reveal" data-delay="2">
+          Architekturpreise, Wettbewerbserfolge und Auszeichnungen aus zwei Jahrzehnten – eine horizontale Chronik.
+        </p>
+      </div>
+
+      <div class="awards__hint reveal">
+        <span>Scrollen</span>
+        <span class="arr"><span></span><span></span><span></span></span>
+      </div>
+
+      <div class="awards__rail-wrap">
+        <div class="awards__rail" id="awardsRail">
+          <!-- awards injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="contact" id="kontakt">
+      <div class="contact__layout">
+        <div>
+          <div class="section__label" style="color:var(--terra); margin-bottom:14px;"><span class="num">05</span><span>Kontakt</span></div>
+          <h2 class="contact__title reveal">
+            Lassen Sie uns <span class="accent">bauen</span>.
+          </h2>
+
+          <div class="contact__block reveal">
+            <h4>Atelier</h4>
+            <p>hausgemacht GbR<br/>Landau in der Pfalz<br/>Rheinland-Pfalz</p>
+          </div>
+
+          <div class="contact__block reveal" data-delay="1">
+            <h4>Kontakt</h4>
+            <p>
+              <a href="mailto:fuchs@hausgemacht.info" data-hover>fuchs@hausgemacht.info</a><br/>
+              <a href="mailto:reiser@hausgemacht.info" data-hover>reiser@hausgemacht.info</a>
+            </p>
+          </div>
+
+          <div class="contact__block reveal" data-delay="2">
+            <h4>Web</h4>
+            <p><a href="https://hausgemacht.info" data-hover>hausgemacht.info</a></p>
+          </div>
+
+          <div class="legal">
+            <a href="#impressum" data-hover>Impressum</a>
+            <a href="#datenschutz" data-hover>Datenschutz</a>
+            <a href="#agb" data-hover>AGB</a>
+          </div>
+        </div>
+
+        <form class="form reveal" data-delay="2" id="contactForm" novalidate>
+          <div class="field">
+            <input type="text" id="f-name" placeholder=" " required />
+            <label for="f-name">Name</label>
+          </div>
+          <div class="field">
+            <input type="email" id="f-mail" placeholder=" " required />
+            <label for="f-mail">E-Mail</label>
+          </div>
+          <div class="field">
+            <textarea id="f-msg" placeholder=" " required></textarea>
+            <label for="f-msg">Nachricht</label>
+          </div>
+          <button type="submit" class="submit" data-hover>
+            <span id="submitText">Senden</span>
+            <span class="submit__arrow"></span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">© hausgemacht Architekten GbR 2026</footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+  (function(){
+    'use strict';
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ============ DATA ============
+    const projects = [
+      { name: "Bücherei Bellheim", year: "2026", cat: "Bildung", size: "s-1" },
+      { name: "Wohnquartier Obere Hauptstraße", year: "2025", cat: "Wohnen · Herxheim", size: "s-2" },
+      { name: "VR Bank Bad Bergzabern", year: "2025", cat: "Gewerbe", size: "s-3" },
+      { name: "Haus H.", year: "2025", cat: "Wohnen · Hambach", size: "s-4" },
+      { name: "Fitter Living Quartier", year: "2025", cat: "Wohnen · Landau", size: "s-5" },
+      { name: "Wasgau Quartier", year: "2024", cat: "Mixed-Use · Landau", size: "s-wide" },
+      { name: "Sparkasse Maikammer", year: "2024", cat: "Gewerbe", size: "s-tall" },
+      { name: "Schule Port-au-Prince", year: "2021", cat: "Bildung · Haiti", size: "s-third", award: true },
+      { name: "Kita Pusteblume", year: "—", cat: "Bildung · Bad Bentheim", size: "s-third", award: true },
+      { name: "Wohnpark am Ebenberg", year: "—", cat: "Wohnen · Landau", size: "s-third", award: true },
+      { name: "Port Phönix", year: "—", cat: "Stadtquartier · Dortmund", size: "s-third", award: true },
+      { name: "Le Flair", year: "—", cat: "Quartier · Düsseldorf", size: "s-third", award: true },
+    ];
+
+    const partners = [
+      { name: "Robin Fuchs", role: "Dipl.-Ing. Architekt", title: "Vertretungsberechtigter Partner", initials: "RF" },
+      { name: "Jörg Reiser", role: "Dipl.-Ing. Architekt", title: "Vertretungsberechtigter Partner", initials: "JR" },
+      { name: "Dardan Bislimi", role: "Dipl.-Ing.", title: "Partner", initials: "DB" },
+      { name: "Sonja Böhr (M.A.)", role: "Innenarchitektin", title: "Partnerin", initials: "SB" },
+    ];
+
+    const staff = [
+      "Catrin Mandery","Danxia Yang","Aleksandra Bieniek","Christian Kempf",
+      "Markus Kuntz","Markus Mohr","Anna Kornberger","Ergys Stavre",
+      "Agnes Fliehmann","Mike Diener","Hanna Baas","Juliane Haber"
+    ];
+
+    const awards = [
+      { year: "2023", name: "Le Flair", cat: "Quartier · Düsseldorf" },
+      { year: "2022", name: "Port Phönix", cat: "Stadtquartier · Dortmund" },
+      { year: "2021", name: "Kita Pusteblume", cat: "Bildung · Bad Bentheim" },
+      { year: "2020", name: "Wohnpark am Ebenberg", cat: "Wohnen · Landau" },
+      { year: "2019", name: "Pfarrheim St. Maria", cat: "Sakralbau" },
+      { year: "2018", name: "Kaufhof Landau", cat: "Gewerbe" },
+      { year: "2017", name: "Reiterstraße", cat: "Wohnen" },
+      { year: "2016", name: "Heinrich-Stützel-Straße", cat: "Wohnen" },
+      { year: "2014", name: "Emma-Geenen-Straße", cat: "Wohnen" },
+      { year: "2012", name: "Siebenpfeiffer-Allee", cat: "Wohnen · Städtebau" },
+    ];
+
+    // ============ HERO TITLE LETTERS ============
+    const titleEl = document.getElementById('heroTitle');
+    const word = "hausgemacht";
+    word.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'letter';
+      span.textContent = ch;
+      span.style.animationDelay = (0.5 + i * 0.06) + 's';
+      titleEl.appendChild(span);
+    });
+
+    // ============ PROJECTS RENDER ============
+    const grid = document.getElementById('projectsGrid');
+    const arrowSVG = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg>';
+    const starSVG = '<svg viewBox="0 0 10 10"><polygon points="5,0 6.2,3.6 10,3.6 6.9,5.8 8.1,9.4 5,7.2 1.9,9.4 3.1,5.8 0,3.6 3.8,3.6"/></svg>';
+
+    projects.forEach((p, i) => {
+      const el = document.createElement('article');
+      el.className = 'project reveal ' + p.size + (p.award ? ' project--award' : '');
+      el.setAttribute('data-delay', (i % 3 + 1));
+      el.setAttribute('data-hover', '');
+      el.innerHTML = `
+        <div class="project__body">
+          <div class="project__top">
+            <span class="project__cat">${p.cat}</span>
+            <span class="project__year">${p.year}</span>
+          </div>
+          <div>
+            <h3 class="project__name">${p.name}</h3>
+            ${p.award ? `<span class="project__award">${starSVG}<span>Ausgezeichnet</span></span>` : ''}
+            <div class="project__foot">
+              <span>Projekt ansehen</span>
+              <span class="project__arrow">${arrowSVG}</span>
+            </div>
+          </div>
+        </div>`;
+      grid.appendChild(el);
+    });
+
+    // ============ TEAM RENDER ============
+    const teamGrid = document.getElementById('teamGrid');
+    partners.forEach((p, i) => {
+      const el = document.createElement('article');
+      el.className = 'member member--partner reveal';
+      el.setAttribute('data-delay', (i % 4));
+      el.setAttribute('data-hover', '');
+      el.innerHTML = `
+        <span class="member__partner-tag">Partner</span>
+        <div class="member__avatar">${p.initials}</div>
+        <div class="member__info">
+          <h3 class="member__name">${p.name}</h3>
+          <div class="member__role">${p.role}<br/>${p.title}</div>
+        </div>`;
+      teamGrid.appendChild(el);
+    });
+    staff.forEach((name, i) => {
+      const parts = name.split(' ');
+      const initials = (parts[0][0] + (parts[parts.length-1][0] || '')).toUpperCase();
+      const el = document.createElement('article');
+      el.className = 'member reveal';
+      el.setAttribute('data-delay', (i % 4));
+      el.setAttribute('data-hover', '');
+      el.innerHTML = `
+        <div class="member__avatar">${initials}</div>
+        <div class="member__info">
+          <h3 class="member__name">${name}</h3>
+          <div class="member__role">Mitarbeiter:in</div>
+        </div>`;
+      teamGrid.appendChild(el);
+    });
+
+    // ============ AWARDS RENDER ============
+    const awardsRail = document.getElementById('awardsRail');
+    awards.forEach((a, i) => {
+      const el = document.createElement('article');
+      el.className = 'award reveal';
+      el.setAttribute('data-delay', (i % 4));
+      el.setAttribute('data-hover','');
+      el.innerHTML = `
+        <div class="award__star">${starSVG}</div>
+        <div class="award__year">${a.year}</div>
+        <h3 class="award__name">${a.name}</h3>
+        <div class="award__cat">${a.cat}</div>`;
+      awardsRail.appendChild(el);
+    });
+
+    // ============ TILT for member cards ============
+    document.querySelectorAll('.member').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        if (reduced) return;
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.setProperty('--tilt-x', (-y * 5) + 'deg');
+        card.style.setProperty('--tilt-y', (x * 5) + 'deg');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
+    });
+
+    // ============ INTERSECTION REVEAL ============
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ============ COUNTER ============
+    const counters = document.querySelectorAll('.counter');
+    const counterIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const to = parseInt(el.dataset.to, 10);
+        const dur = 1400;
+        const start = performance.now();
+        const tick = (now) => {
+          const t = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = Math.round(to * eased).toString();
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        counterIO.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterIO.observe(c));
+
+    // ============ NAV SCROLL ============
+    const nav = document.getElementById('nav');
+    const onScroll = () => {
+      if (window.scrollY > 60) nav.classList.add('is-scrolled');
+      else nav.classList.remove('is-scrolled');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ============ BURGER ============
+    const burger = document.getElementById('burger');
+    const overlay = document.getElementById('menuOverlay');
+    burger.addEventListener('click', () => {
+      document.body.classList.toggle('menu-open');
+    });
+    overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      document.body.classList.remove('menu-open');
+    }));
+
+    // ============ CURSOR ============
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const dot = document.querySelector('.cursor-dot');
+      const ring = document.querySelector('.cursor-ring');
+      let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      let rx = mx, ry = my;
+      window.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+      });
+      const raf = () => {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+        requestAnimationFrame(raf);
+      };
+      raf();
+      // hover state
+      const setHover = (on) => document.body.classList.toggle('cursor-hover', on);
+      document.addEventListener('mouseover', e => {
+        if (e.target.closest('[data-hover], a, button, input, textarea, .project, .member, .award')) setHover(true);
+      });
+      document.addEventListener('mouseout', e => {
+        if (e.target.closest('[data-hover], a, button, input, textarea, .project, .member, .award')) setHover(false);
+      });
+    }
+
+    // ============ CONTACT FORM (no backend) ============
+    const form = document.getElementById('contactForm');
+    const submitText = document.getElementById('submitText');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const ok = ['f-name','f-mail','f-msg'].every(id => document.getElementById(id).value.trim().length > 0);
+      if (!ok) {
+        submitText.textContent = 'Bitte alle Felder';
+        setTimeout(() => submitText.textContent = 'Senden', 1800);
+        return;
+      }
+      submitText.textContent = 'Gesendet ·';
+      setTimeout(() => {
+        form.reset();
+        submitText.textContent = 'Senden';
+      }, 2400);
+    });
+
+    // ============ THREE.JS HERO ============
+    function initHero() {
+      const canvas = document.getElementById('heroCanvas');
+      const hero = document.getElementById('hero');
+      if (!window.THREE) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+      camera.position.set(0, 0, 9);
+
+      // Group with abstract building model
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const lineMat = new THREE.LineBasicMaterial({ color: 0xfafafa, transparent: true, opacity: 0.55 });
+      const accentMat = new THREE.LineBasicMaterial({ color: 0xb85c38, transparent: true, opacity: 0.9 });
+
+      // a stack of nested wireframe boxes — abstract architecture model
+      const boxes = [
+        { w: 3.2, h: 0.6, d: 3.2, y: -1.6, mat: lineMat },
+        { w: 2.6, h: 1.4, d: 2.6, y: -0.5, mat: lineMat },
+        { w: 1.8, h: 1.6, d: 1.8, y:  1.0, mat: lineMat },
+        { w: 0.9, h: 1.0, d: 0.9, y:  2.4, mat: accentMat },
+      ];
+      boxes.forEach(b => {
+        const geo = new THREE.BoxGeometry(b.w, b.h, b.d);
+        const edges = new THREE.EdgesGeometry(geo);
+        const line = new THREE.LineSegments(edges, b.mat);
+        line.position.y = b.y;
+        group.add(line);
+      });
+
+      // a thin vertical line through the centre
+      const pillarGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, -2.4, 0), new THREE.Vector3(0, 3.2, 0)
+      ]);
+      const pillar = new THREE.Line(pillarGeo, new THREE.LineBasicMaterial({ color: 0xb85c38, transparent: true, opacity: 0.5 }));
+      group.add(pillar);
+
+      // grid floor
+      const grid = new THREE.GridHelper(14, 14, 0x333333, 0x1a1a1a);
+      grid.position.y = -1.95;
+      grid.material.transparent = true;
+      grid.material.opacity = 0.35;
+      group.add(grid);
+
+      // position group to the right of the hero
+      group.position.x = 0;
+      group.rotation.x = -0.2;
+
+      let mouseX = 0, mouseY = 0;
+      let tx = 0, ty = 0;
+      window.addEventListener('mousemove', e => {
+        mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+        mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+      });
+
+      function resize() {
+        const w = hero.clientWidth;
+        const h = hero.clientHeight;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        // shift group to right on wide screens, centre on narrow
+        if (w > 900) group.position.x = 2.6;
+        else group.position.x = 0;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const startTime = performance.now();
+      function tick() {
+        const t = (performance.now() - startTime) / 1000;
+        tx += (mouseX * 0.05 - tx) * 0.05;
+        ty += (mouseY * 0.05 - ty) * 0.05;
+        group.rotation.y = t * 0.15 + tx;
+        group.rotation.x = -0.2 + ty;
+        renderer.render(scene, camera);
+        if (!reduced) requestAnimationFrame(tick);
+      }
+      tick();
+      // Mark hero ready a tick later for fade-in
+      requestAnimationFrame(() => hero.classList.add('ready'));
+    }
+
+    // wait a frame so canvas has size
+    if (document.readyState === 'complete') initHero();
+    else window.addEventListener('load', initHero);
+
+  })();
+  </script>
+</body>
+</html>

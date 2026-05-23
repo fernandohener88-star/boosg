@@ -1471,8 +1471,12 @@
       <div class="partners-grid" id="partnersGrid">
         <!-- partners injected by JS -->
       </div>
-      <div class="team-grid" id="staffGrid">
-        <!-- staff injected by JS -->
+
+      <div class="feat-cta reveal" style="margin-top:clamp(40px,6vh,72px)">
+        <a href="team.html" class="feat-cta__link" data-hover>
+          Ganzes Team ansehen
+          <svg viewBox="0 0 20 10"><path d="M0 5h18M13 1l5 4-5 4"/></svg>
+        </a>
       </div>
     </section>
 
@@ -1868,7 +1872,6 @@
     }
 
     const partnersGrid = document.getElementById('partnersGrid');
-    const staffGrid = document.getElementById('staffGrid');
 
     partners.forEach((p, i) => {
       const el = document.createElement('article');
@@ -1876,14 +1879,6 @@
       el.setAttribute('data-delay', (i % 4));
       el.innerHTML = memberHTML(p.name, `${p.role} · ${p.title}`, p.initials, p.photo, true);
       partnersGrid.appendChild(el);
-    });
-
-    staff.forEach((s, i) => {
-      const el = document.createElement('article');
-      el.className = 'member reveal';
-      el.setAttribute('data-delay', (i % 4));
-      el.innerHTML = memberHTML(s.name, 'Mitarbeiter:in', s.initials, s.photo, false);
-      staffGrid.appendChild(el);
     });
 
     // ============ AWARDS RENDER ============

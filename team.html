@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Team · hausgemacht Architekten · Landau</title>
+<meta name="description" content="Das Team von hausgemacht Architekten — 4 Partner und 12 Mitarbeiter:innen in Landau in der Pfalz." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fafafa;
+    --concrete: #c8c4bc;
+    --concrete-soft: #e8e6e1;
+    --terra: #b85c38;
+    --terra-deep: #8f4528;
+    --line: rgba(10,10,10,0.12);
+    --line-dark: rgba(250,250,250,0.16);
+    --serif: "Cormorant Garamond", "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --pad-x: clamp(24px, 6vw, 120px);
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans); font-size: 16px; line-height: 1.55; font-weight: 400;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px var(--pad-x);
+    background: rgba(250,250,248,0.92);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav__brand {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 20px; letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 8px; color: var(--ink);
+  }
+  .nav__brand .suffix {
+    font-family: var(--sans); font-style: normal; font-weight: 500;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink); margin-left: 4px;
+  }
+  .nav__right { display: flex; align-items: center; gap: 32px; }
+  .nav__links { display: flex; gap: 32px; }
+  .nav__links a {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.6; transition: opacity .25s;
+  }
+  .nav__links a:hover { opacity: 1; }
+  .nav__back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.6; transition: opacity .25s, color .25s;
+  }
+  .nav__back:hover { opacity: 1; color: var(--terra); }
+  .nav__back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.2; transition: transform .3s var(--ease); }
+  .nav__back:hover svg { transform: translateX(-3px); }
+
+  /* ============ PAGE HERO ============ */
+  .page-hero {
+    padding: calc(80px + clamp(60px,10vh,140px)) var(--pad-x) clamp(60px,9vh,120px);
+    background: var(--ink); color: var(--paper);
+    position: relative; overflow: hidden;
+  }
+  .page-hero__kicker {
+    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--terra); margin-bottom: 24px;
+  }
+  .page-hero__title {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(72px, 12vw, 200px);
+    line-height: 0.9; letter-spacing: -0.03em;
+    margin: 0 0 32px; color: var(--paper);
+  }
+  .page-hero__sub {
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: rgba(250,247,240,0.5); max-width: 50ch; margin: 0;
+  }
+  .page-hero__deco {
+    position: absolute; right: var(--pad-x); bottom: clamp(24px,4vh,56px);
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(80px, 20vw, 340px);
+    line-height: 1; letter-spacing: -0.04em;
+    color: rgba(250,247,240,0.03);
+    user-select: none; pointer-events: none;
+  }
+
+  /* ============ SECTION LABEL ============ */
+  .section-label {
+    padding: clamp(56px,9vh,120px) var(--pad-x) clamp(24px,3vh,40px);
+    display: flex; align-items: center; gap: 14px;
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--terra);
+    border-bottom: 1px solid var(--line);
+  }
+  .section-label .num {
+    font-family: var(--serif); font-style: italic; font-size: 13px; color: inherit;
+  }
+  .section-label + .section-label { padding-top: clamp(40px,7vh,96px); }
+
+  /* ============ PARTNERS GRID ============ */
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  @media (max-width: 800px) { .partners-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ============ STAFF GRID ============ */
+  .staff-grid {
+    display: flex; flex-wrap: wrap; gap: 2px;
+    justify-content: center;
+  }
+  .staff-grid .member {
+    flex: 0 0 calc((100% - 10px) / 6);
+    min-width: 200px;
+  }
+  @media (max-width: 600px) {
+    .staff-grid .member { flex: 0 0 calc(50% - 1px); min-width: 0; }
+  }
+
+  /* ============ MEMBER CARDS ============ */
+  .member {
+    position: relative; aspect-ratio: 3 / 4;
+    overflow: hidden; background: #111; cursor: default;
+  }
+  .member__photo {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    display: block;
+    filter: grayscale(100%) contrast(1.05);
+    transition: transform .6s var(--ease-out), filter .5s var(--ease);
+    will-change: transform;
+  }
+  .member:hover .member__photo { transform: scale(1.04); filter: grayscale(70%) contrast(1.05); }
+  .member__placeholder {
+    width: 100%; height: 100%;
+    display: grid; place-items: center;
+    background: linear-gradient(145deg, #1c1c1c 0%, #111 100%);
+  }
+  .member--partner .member__placeholder {
+    background: linear-gradient(145deg, #2a1a12 0%, #1a0e09 100%);
+  }
+  .member__initials {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(32px, 3.5vw, 56px);
+    color: rgba(250,250,250,0.2); letter-spacing: -0.02em;
+    user-select: none;
+  }
+  .member--partner .member__initials { color: rgba(184,92,56,0.4); }
+  .member__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.38) 40%, transparent 65%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 20px 22px 22px;
+    transition: background .4s var(--ease);
+  }
+  .member:hover .member__overlay {
+    background: linear-gradient(to top, rgba(10,10,10,0.96) 0%, rgba(10,10,10,0.55) 50%, rgba(10,10,10,0.1) 70%);
+  }
+  .member__partner-tag {
+    position: absolute; top: 16px; left: 16px;
+    font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--terra); background: rgba(10,10,10,0.7);
+    padding: 4px 9px; border: 1px solid rgba(184,92,56,0.4);
+    border-radius: 2px; backdrop-filter: blur(4px);
+  }
+  .member__info { color: var(--paper); }
+  .member__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(16px, 1.5vw, 22px);
+    line-height: 1.05; margin: 0 0 5px; letter-spacing: -0.01em;
+  }
+  .member__role {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,250,250,0.48); line-height: 1.5;
+  }
+  .member--partner .member__role { color: rgba(184,92,56,0.85); }
+
+  /* ============ REVEAL ============ */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .85s var(--ease-out), transform .85s var(--ease-out);
+  }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal[data-delay="1"] { transition-delay: .06s; }
+  .reveal[data-delay="2"] { transition-delay: .12s; }
+  .reveal[data-delay="3"] { transition-delay: .18s; }
+  .reveal[data-delay="4"] { transition-delay: .24s; }
+
+  /* ============ CONTACT STRIP ============ */
+  .contact-strip {
+    background: var(--terra); color: var(--paper);
+    padding: clamp(48px,8vh,100px) var(--pad-x);
+    display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
+  }
+  .contact-strip__text {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(32px, 5vw, 72px);
+    line-height: 1; letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .contact-strip__link {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--paper);
+    border: 1px solid rgba(250,247,240,0.5);
+    padding: 16px 32px; border-radius: 2px;
+    transition: background .3s var(--ease), border-color .3s var(--ease);
+    white-space: nowrap;
+  }
+  .contact-strip__link:hover { background: rgba(250,247,240,0.15); border-color: var(--paper); }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink); color: rgba(250,247,240,0.35);
+    padding: clamp(32px,5vh,56px) var(--pad-x);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  footer a { color: var(--terra); }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 700px) {
+    .nav__links { display: none; }
+    .contact-strip { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    hausgemacht<span class="suffix">Architekten</span>
+  </a>
+  <div class="nav__right">
+    <div class="nav__links">
+      <a href="projekte.html">Projekte</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </div>
+    <a href="index.html" class="nav__back">
+      <svg viewBox="0 0 14 10"><path d="M14 5H2M6 1L2 5l4 4"/></svg>
+      Startseite
+    </a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="page-hero__kicker">03 · Team</div>
+  <h1 class="page-hero__title">Menschen.</h1>
+  <p class="page-hero__sub">Vier Partner. Zwölf Mitarbeiter:innen. Ein gemeinsames Verständnis von Architektur.</p>
+  <div class="page-hero__deco" aria-hidden="true">Team</div>
+</header>
+
+<!-- PARTNERS -->
+<div class="section-label reveal">
+  <span class="num">01</span><span>Partner</span>
+</div>
+<div class="partners-grid" id="partnersGrid">
+  <!-- injected by JS -->
+</div>
+
+<!-- STAFF -->
+<div class="section-label reveal">
+  <span class="num">02</span><span>Mitarbeiter:innen</span>
+</div>
+<div class="staff-grid" id="staffGrid">
+  <!-- injected by JS -->
+</div>
+
+<!-- CONTACT STRIP -->
+<div class="contact-strip reveal">
+  <p class="contact-strip__text">Lassen Sie<br>uns <em>reden.</em></p>
+  <a href="index.html#kontakt" class="contact-strip__link">
+    Jetzt Kontakt aufnehmen
+    <svg width="16" height="10" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h18M13 1l5 4-5 4"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© hausgemacht Architekten GbR 2026</span>
+  <span>Marktstraße 114 · 76829 Landau · <a href="tel:+4963419689074">06341 9689074</a></span>
+</footer>
+
+<script>
+  const partners = [
+    { name: "Robin Fuchs",    role: "Dipl.-Ing. Architekt",  title: "Partner",   initials: "RF", photo: "images/team/robin-fuchs.png"    },
+    { name: "Jörg Reiser",   role: "Dipl.-Ing. Architekt",  title: "Partner",   initials: "JR", photo: "images/team/jorg-reiser.png"    },
+    { name: "Dardan Bislimi",role: "Dipl.-Ing.",             title: "Partner",   initials: "DB", photo: "images/team/dardan-bislimi.png"  },
+    { name: "Sonja Böhr M.A.",role: "Innenarchitektin",      title: "Partnerin", initials: "SB", photo: "images/team/sonja-bohr.png"     },
+  ];
+  const staff = [
+    { name: "Catrin Mandery",     initials: "CM", photo: "images/team/catrin-mandery.png"    },
+    { name: "Danxia Yang",        initials: "DY", photo: "images/team/danxia-yang.png"       },
+    { name: "Aleksandra Bieniek", initials: "AB", photo: "images/team/aleksandra-bieniek.png"},
+    { name: "Christian Kempf",    initials: "CK", photo: "images/team/christian-kempf.png"  },
+    { name: "Markus Kuntz",       initials: "MK", photo: "images/team/markus-kuntz.png"     },
+    { name: "Markus Mohr",        initials: "MM", photo: "images/team/markus-mohr.png"      },
+    { name: "Anna Kornberger",    initials: "AK", photo: "images/team/anna-kornberger.png"  },
+    { name: "Ergys Stavre",       initials: "ES", photo: "images/team/ergys-stavre.png"     },
+    { name: "Agnes Fliehmann",    initials: "AF", photo: "images/team/agnes-fliehmann.png"  },
+    { name: "Mike Diener",        initials: "MD", photo: "images/team/mike-diener.png"      },
+    { name: "Hanna Baas",         initials: "HB", photo: "images/team/hanna-baas.png"       },
+    { name: "Juliane Haber",      initials: "JH", photo: "images/team/juliane-haber.png"    },
+  ];
+
+  function memberHTML(name, role, initials, photo, isPartner) {
+    const visual = photo
+      ? `<img class="member__photo" src="${photo}" alt="${name}" loading="lazy">`
+      : `<div class="member__placeholder"><span class="member__initials">${initials}</span></div>`;
+    const tag = isPartner ? `<span class="member__partner-tag">Partner</span>` : '';
+    return `${visual}${tag}
+      <div class="member__overlay">
+        <div class="member__info">
+          <h3 class="member__name">${name}</h3>
+          <div class="member__role">${role}</div>
+        </div>
+      </div>`;
+  }
+
+  const pGrid = document.getElementById('partnersGrid');
+  partners.forEach((p, i) => {
+    const el = document.createElement('article');
+    el.className = 'member member--partner reveal';
+    el.setAttribute('data-delay', i % 4);
+    el.innerHTML = memberHTML(p.name, `${p.role} · ${p.title}`, p.initials, p.photo, true);
+    pGrid.appendChild(el);
+  });
+
+  const sGrid = document.getElementById('staffGrid');
+  staff.forEach((s, i) => {
+    const el = document.createElement('article');
+    el.className = 'member reveal';
+    el.setAttribute('data-delay', i % 4);
+    el.innerHTML = memberHTML(s.name, 'Mitarbeiter:in', s.initials, s.photo, false);
+    sGrid.appendChild(el);
+  });
+
+  // Intersection reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

@@ -710,6 +710,53 @@
   .truck-cta{ margin-top:24px; display:inline-flex; }
 
   /* ============================================================
+     BUDDY ON TOUR PARTNERS
+     ============================================================ */
+  .bot-partners{ background:var(--white); border-top:1px solid rgba(0,0,0,.06); }
+  .bot-partners-header{ text-align:center; margin-bottom:52px; }
+  .bot-partners-grid{
+    display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+  }
+  .bot-partner-card{
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    background:var(--cream);
+    border:1px solid rgba(0,0,0,.07);
+    border-radius:20px;
+    padding:28px 16px 20px;
+    width:148px;
+    text-decoration:none; color:var(--ink);
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+  }
+  .bot-partner-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 14px 36px rgba(0,0,0,.1);
+    border-color:var(--gold);
+  }
+  .bot-partner-badge{
+    width:68px; height:68px; border-radius:50%;
+    background:var(--white);
+    border:1px solid rgba(0,0,0,.08);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-head); font-weight:900; font-size:20px;
+    color:var(--green-deep); overflow:hidden; flex:none;
+    box-shadow:0 2px 8px rgba(0,0,0,.07);
+  }
+  .bot-partner-badge img{
+    width:80%; height:80%; object-fit:contain;
+  }
+  .bot-partner-name{
+    font-weight:800; font-size:12.5px; text-align:center;
+    line-height:1.3; color:var(--ink);
+  }
+  .bot-partner-type{
+    font-size:11px; color:var(--ink-soft);
+    text-align:center; letter-spacing:.03em;
+  }
+  @media(max-width:600px){
+    .bot-partner-card{ width:calc(50% - 8px); }
+  }
+
+  /* ============================================================
      HOURS
      ============================================================ */
   .hours{ background:var(--cream); text-align:center; }
@@ -1552,6 +1599,68 @@
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== BUDDY ON TOUR · PARTNER =================== -->
+  <section class="bot-partners section-pad" id="bot-partners">
+    <div class="container">
+      <div class="bot-partners-header">
+        <span class="eyebrow" style="background:rgba(200,168,75,.18); color:var(--gold-soft);">Buddy on Tour</span>
+        <h2 class="title">Auf Tour mit den <span class="gold">Besten</span></h2>
+        <p class="lead" style="margin:0 auto; max-width:540px;">Weingüter aus der Pfalz, Fahrzeuge aus der Industrie – Buddy fährt in allerbester Gesellschaft.</p>
+      </div>
+      <div class="bot-partners-grid">
+
+        <a class="bot-partner-card" href="https://www.weingut-siener.de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=weingut-siener.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='S'" />
+          </div>
+          <div class="bot-partner-name">Weingut Siener</div>
+          <div class="bot-partner-type">Pfalz · Weingut</div>
+        </a>
+
+        <a class="bot-partner-card" href="https://www.buerklin-wolf.de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=buerklin-wolf.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='BW'" />
+          </div>
+          <div class="bot-partner-name">Dr. Bürklin-Wolf</div>
+          <div class="bot-partner-type">Pfalz · Weingut</div>
+        </a>
+
+        <a class="bot-partner-card" href="https://www.iveco.com/de-de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=iveco.com&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='I'" />
+          </div>
+          <div class="bot-partner-name">IVECO</div>
+          <div class="bot-partner-type">Trucks &amp; Fahrzeuge</div>
+        </a>
+
+        <a class="bot-partner-card" href="https://www.berizzi.de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=berizzi.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='JB'" />
+          </div>
+          <div class="bot-partner-name">J.J. Berizzi</div>
+          <div class="bot-partner-type">Weinhandel</div>
+        </a>
+
+        <a class="bot-partner-card" href="https://www.schreieck.de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=schreieck.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='S'" />
+          </div>
+          <div class="bot-partner-name">Wein- &amp; Sekthaus Schreieck</div>
+          <div class="bot-partner-type">Maikammer · Weingut</div>
+        </a>
+
+        <a class="bot-partner-card" href="https://www.bassermann-jordan.de" target="_blank" rel="noopener">
+          <div class="bot-partner-badge">
+            <img src="https://www.google.com/s2/favicons?domain=bassermann-jordan.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='BJ'" />
+          </div>
+          <div class="bot-partner-name">Bassermann-Jordan</div>
+          <div class="bot-partner-type">Pfalz · Weingut</div>
+        </a>
+
       </div>
     </div>
   </section>

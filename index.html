@@ -733,17 +733,18 @@
     border-color:var(--gold);
   }
   .bot-partner-badge{
-    width:68px; height:68px; border-radius:50%;
+    width:100%; height:72px; border-radius:12px;
     background:var(--white);
     border:1px solid rgba(0,0,0,.08);
     display:flex; align-items:center; justify-content:center;
     font-family:var(--font-head); font-weight:900; font-size:20px;
     color:var(--green-deep); overflow:hidden; flex:none;
-    box-shadow:0 2px 8px rgba(0,0,0,.07);
+    box-shadow:0 2px 8px rgba(0,0,0,.06);
   }
   .bot-partner-badge img{
-    width:80%; height:80%; object-fit:contain;
+    width:76%; height:76%; object-fit:contain;
   }
+  .bot-partner-badge svg{ display:block; }
   .bot-partner-name{
     font-weight:800; font-size:12.5px; text-align:center;
     line-height:1.3; color:var(--ink);
@@ -1631,7 +1632,14 @@
 
         <a class="bot-partner-card" href="https://www.iveco.com/de-de" target="_blank" rel="noopener">
           <div class="bot-partner-badge">
-            <img src="https://www.google.com/s2/favicons?domain=iveco.com&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='I'" />
+            <!-- IVECO wordmark SVG — bold sans-serif, blue accent rect on E middle bar -->
+            <svg viewBox="0 0 210 56" xmlns="http://www.w3.org/2000/svg" width="88%" aria-label="IVECO">
+              <text x="105" y="44" text-anchor="middle"
+                font-family="'Arial Black','Franklin Gothic Heavy',Impact,sans-serif"
+                font-weight="900" font-size="48" fill="#0d0d0d" letter-spacing="3">IVECO</text>
+              <!-- Blue bar replaces E middle stroke (approximate center offset) -->
+              <rect x="91" y="27" width="15" height="6" rx="1.5" fill="#1D4ED8"/>
+            </svg>
           </div>
           <div class="bot-partner-name">IVECO</div>
           <div class="bot-partner-type">Trucks &amp; Fahrzeuge</div>
@@ -1647,7 +1655,25 @@
 
         <a class="bot-partner-card" href="https://www.schreieck.de" target="_blank" rel="noopener">
           <div class="bot-partner-badge">
-            <img src="https://www.google.com/s2/favicons?domain=schreieck.de&sz=128" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.textContent='S'" />
+            <!-- Schreieck typographic logo — ornate italic S, spaced serif text -->
+            <svg viewBox="0 0 210 70" xmlns="http://www.w3.org/2000/svg" width="90%" aria-label="Wein- und Sekthaus Schreieck Maikammer">
+              <!-- Calligraphic S monogram -->
+              <text x="105" y="20" text-anchor="middle"
+                font-family="'Palatino Linotype',Palatino,'Book Antiqua',Georgia,serif"
+                font-style="italic" font-size="20" fill="#1a1a1a">&#x1D4AE;</text>
+              <!-- WEIN- UND SEKTHAUS -->
+              <text x="105" y="34" text-anchor="middle"
+                font-family="Georgia,'Times New Roman',serif"
+                font-size="8.5" fill="#1a1a1a" letter-spacing="2.5">WEIN- UND SEKTHAUS</text>
+              <!-- SCHREIECK -->
+              <text x="105" y="53" text-anchor="middle"
+                font-family="Georgia,'Times New Roman',serif"
+                font-weight="bold" font-size="20" fill="#0d0d0d" letter-spacing="2">SCHREIECK</text>
+              <!-- MAIKAMMER -->
+              <text x="105" y="65" text-anchor="middle"
+                font-family="Georgia,'Times New Roman',serif"
+                font-size="8" fill="#1a1a1a" letter-spacing="3.5">MAIKAMMER</text>
+            </svg>
           </div>
           <div class="bot-partner-name">Wein- &amp; Sekthaus Schreieck</div>
           <div class="bot-partner-type">Maikammer · Weingut</div>

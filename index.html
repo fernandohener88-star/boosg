@@ -480,20 +480,21 @@
   .project__foot { display: flex; align-items: center; justify-content: flex-end; margin-top: 14px; }
 
   .feat-cta {
-    display: flex; align-items: center; justify-content: flex-end;
-    margin-top: clamp(28px, 4vh, 48px);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: clamp(40px, 6vh, 72px);
   }
   .feat-cta__link {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: var(--ink);
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 3px;
-    transition: color .3s var(--ease);
+    display: inline-flex; align-items: center; gap: 14px;
+    font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 18px 40px;
+    border-radius: 2px;
+    transition: background .3s var(--ease), transform .3s var(--ease-out);
   }
-  .feat-cta__link:hover { color: var(--terra); }
-  .feat-cta__link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.2; transition: transform .3s var(--ease); }
-  .feat-cta__link:hover svg { transform: translateX(4px); }
+  .feat-cta__link:hover { background: var(--terra); transform: translateY(-2px); }
+  .feat-cta__link svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.2; transition: transform .3s var(--ease); }
+  .feat-cta__link:hover svg { transform: translateX(5px); }
 
   @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .feat-grid { grid-template-columns: 1fr; } }
@@ -1373,10 +1374,10 @@
       <div class="section__head">
         <div>
           <div class="section__label"><span class="num">01</span><span>Werk</span></div>
-          <h2 class="section__title reveal">Ausgewählte&nbsp;Projekte.</h2>
+          <h2 class="section__title reveal">Unsere neuesten&nbsp;Projekte.</h2>
         </div>
         <p class="section__lede reveal" data-delay="2">
-          Architektur, die dauert. Eine Auswahl aktueller und ausgezeichneter Bauten aus Wohnungs-, Gewerbe- und Bildungsbau.
+          Frisch aus dem Büro — aktuelle Bauten aus Wohnungs-, Gewerbe- und Bildungsbau. Entworfen und gebaut in der Pfalz und darüber hinaus.
         </p>
       </div>
 
@@ -1825,7 +1826,7 @@
     const arrowSVG = '<svg viewBox="0 0 20 10"><path d="M0 5h18M13 1l5 4-5 4"/></svg>';
     const starSVG = '<svg viewBox="0 0 10 10"><polygon points="5,0 6.2,3.6 10,3.6 6.9,5.8 8.1,9.4 5,7.2 1.9,9.4 3.1,5.8 0,3.6 3.8,3.6"/></svg>';
 
-    projects.filter(p => p.featured).forEach((p, i) => {
+    projects.filter(p => p.featured).sort((a, b) => (b.year || 0) - (a.year || 0)).forEach((p, i) => {
       const el = document.createElement('article');
       el.className = 'project reveal' + (p.award ? ' project--award' : '');
       el.setAttribute('data-delay', i + 1);

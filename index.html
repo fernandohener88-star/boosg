@@ -735,41 +735,80 @@
   @media (max-width: 920px) { .contact__body { grid-template-columns: 1fr; } }
 
   /* left info column */
-  .contact__info { display: flex; flex-direction: column; gap: 48px; }
-  .contact__block {}
-  .contact__block h4 {
-    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
-    color: var(--concrete); font-weight: 500;
-    margin: 0 0 18px;
-    display: flex; align-items: center; gap: 10px;
+  .contact__info { display: flex; flex-direction: column; gap: 0; }
+
+  /* person cards */
+  .contact__persons { display: flex; flex-direction: column; }
+  .cperson {
+    display: flex; gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line-dark);
   }
-  .contact__block h4::after { content: ""; flex: 1; height: 1px; background: var(--line-dark); }
-  .contact__block p {
-    font-family: var(--serif); font-style: italic; font-weight: 300;
-    font-size: clamp(20px, 2.2vw, 30px); line-height: 1.4;
-    margin: 0;
-    letter-spacing: -0.01em;
-    color: rgba(250,250,250,0.88);
+  .cperson:first-child { border-top: 1px solid var(--line-dark); }
+  .cperson__avatar {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--terra);
+    display: grid; place-items: center; flex: 0 0 46px;
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: 16px; color: var(--paper);
+    letter-spacing: -0.02em;
+    transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out);
   }
-  .contact__block a {
+  .cperson:hover .cperson__avatar {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(184,92,56,0.18);
+  }
+  .cperson__avatar--grey { background: rgba(200,196,188,0.18); border: 1px solid var(--line-dark); }
+  .cperson__body { flex: 1; min-width: 0; padding-top: 2px; }
+  .cperson__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(18px, 1.8vw, 24px);
+    line-height: 1.05; letter-spacing: -0.01em;
+    margin: 0 0 5px; color: var(--paper);
+  }
+  .cperson__role {
+    font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  .cperson__topics {
+    font-size: 13px; line-height: 1.65;
+    color: rgba(250,250,250,0.42);
+    margin: 0 0 14px;
+  }
+  .cperson__email {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; letter-spacing: 0.02em;
+    color: rgba(250,250,250,0.65);
     position: relative;
-    display: inline-block;
   }
-  .contact__block a::after {
+  .cperson__email::after {
     content: ""; position: absolute; left: 0; bottom: -2px; right: 100%;
     height: 1px; background: var(--terra);
     transition: right .4s var(--ease-out);
   }
-  .contact__block a:hover::after { right: 0; }
-  .contact__block a:hover { color: var(--terra); }
+  .cperson__email:hover { color: var(--terra); }
+  .cperson__email:hover::after { right: 0; }
 
-  .contact__phone-link {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--concrete);
-    display: inline-flex; align-items: center; gap: 10px;
-    margin-top: 6px;
+  /* bottom meta row */
+  .contact__meta {
+    display: flex; flex-wrap: wrap; gap: 32px 48px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-dark);
   }
-  .contact__phone-link:hover { color: var(--terra); }
+  .contact__meta-item { display: flex; flex-direction: column; gap: 6px; }
+  .contact__meta-label {
+    font-size: 9px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: rgba(250,250,250,0.28);
+  }
+  .contact__meta-val {
+    font-size: 14px; line-height: 1.5;
+    color: rgba(250,250,250,0.6);
+  }
+  a.contact__meta-val { transition: color .3s; }
+  a.contact__meta-val:hover { color: var(--terra); }
 
   /* right form column */
   .contact__form-wrap {
@@ -1305,27 +1344,55 @@
       </div>
 
       <div class="contact__body">
-        <!-- left: info -->
+        <!-- left: person cards -->
         <div class="contact__info">
-          <div class="contact__block reveal">
-            <h4>Atelier</h4>
-            <p>hausgemachte Architekten GbR<br>Marktstraße 114<br>76829 Landau in der Pfalz</p>
+          <div class="contact__persons">
+
+            <div class="cperson reveal">
+              <div class="cperson__avatar">RF</div>
+              <div class="cperson__body">
+                <h3 class="cperson__name">Robin Fuchs</h3>
+                <div class="cperson__role">Dipl.-Ing. Architekt AK RLP · Partner</div>
+                <p class="cperson__topics">Projektanfragen Wohnungs‑ &amp; Gewerbebau,<br>Bildungsbauten, internationale Projekte</p>
+                <a class="cperson__email" href="mailto:fuchs@hausgemacht.info" data-hover>fuchs@hausgemacht.info</a>
+              </div>
+            </div>
+
+            <div class="cperson reveal" data-delay="1">
+              <div class="cperson__avatar">JR</div>
+              <div class="cperson__body">
+                <h3 class="cperson__name">Jörg Reiser</h3>
+                <div class="cperson__role">Dipl.-Ing. Architekt AK RLP · Partner · Datenschutz</div>
+                <p class="cperson__topics">Projektanfragen Stadtquartiere &amp; Sonderbauten,<br>Datenschutz, Wettbewerbe &amp; Auszeichnungen</p>
+                <a class="cperson__email" href="mailto:reiser@hausgemacht.info" data-hover>reiser@hausgemacht.info</a>
+              </div>
+            </div>
+
+            <div class="cperson reveal" data-delay="2">
+              <div class="cperson__avatar cperson__avatar--grey">hA</div>
+              <div class="cperson__body">
+                <h3 class="cperson__name">Allgemeine Anfragen</h3>
+                <div class="cperson__role">Büro hausgemachte Architekten</div>
+                <p class="cperson__topics">Innenarchitektur (Sonja Böhr M.A.),<br>Presse, Kooperationen &amp; Bewerbungen</p>
+                <a class="cperson__email" href="mailto:info@hausgemacht.info" data-hover>info@hausgemacht.info</a>
+              </div>
+            </div>
+
           </div>
-          <div class="contact__block reveal" data-delay="1">
-            <h4>Kontakt</h4>
-            <p>
-              <a href="mailto:fuchs@hausgemacht.info" data-hover>fuchs@hausgemacht.info</a><br>
-              <a href="mailto:reiser@hausgemacht.info" data-hover>reiser@hausgemacht.info</a><br>
-              <a href="mailto:info@hausgemacht.info" data-hover>info@hausgemacht.info</a>
-            </p>
-            <a class="contact__phone-link" href="tel:+4963419689074" data-hover>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-              06341 9689074
-            </a>
-          </div>
-          <div class="contact__block reveal" data-delay="2">
-            <h4>Web</h4>
-            <p><a href="https://hausgemacht.info" data-hover>hausgemacht.info</a></p>
+
+          <div class="contact__meta reveal" data-delay="3">
+            <div class="contact__meta-item">
+              <span class="contact__meta-label">Atelier</span>
+              <span class="contact__meta-val">Marktstraße 114<br>76829 Landau i.d. Pfalz</span>
+            </div>
+            <div class="contact__meta-item">
+              <span class="contact__meta-label">Telefon</span>
+              <a href="tel:+4963419689074" class="contact__meta-val" data-hover>06341 9689074</a>
+            </div>
+            <div class="contact__meta-item">
+              <span class="contact__meta-label">Web</span>
+              <a href="https://hausgemacht.info" class="contact__meta-val" data-hover>hausgemacht.info</a>
+            </div>
           </div>
         </div>
 

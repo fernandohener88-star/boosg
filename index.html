@@ -676,102 +676,297 @@
   /* ============ CONTACT ============ */
   .contact {
     background: var(--ink); color: var(--paper);
-    padding: var(--section-y) var(--pad-x);
+    padding: var(--section-y) var(--pad-x) 0;
   }
-  .contact__layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(40px, 8vw, 120px);
-    align-items: flex-start;
+  .contact__hero {
+    border-bottom: 1px solid var(--line-dark);
+    padding-bottom: clamp(40px, 6vh, 80px);
+    margin-bottom: clamp(48px, 8vh, 100px);
   }
-  @media (max-width: 900px) { .contact__layout { grid-template-columns: 1fr; } }
-
+  .contact__kicker {
+    font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--terra);
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: clamp(20px, 3vh, 36px);
+  }
+  .contact__kicker::before {
+    content: ""; width: 32px; height: 1px; background: var(--terra);
+  }
   .contact__title {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(48px, 7vw, 112px);
-    line-height: 1;
-    letter-spacing: -0.025em;
-    margin: 0 0 48px;
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(52px, 9vw, 160px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin: 0;
+    max-width: 14ch;
   }
-  .contact__title .accent { color: var(--terra); }
-  .contact__block { margin-bottom: 40px; }
+  .contact__title em { font-style: italic; color: var(--terra); }
+
+  .contact__body {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(40px, 8vw, 140px);
+    align-items: flex-start;
+    padding-bottom: clamp(80px, 12vh, 140px);
+  }
+  @media (max-width: 920px) { .contact__body { grid-template-columns: 1fr; } }
+
+  /* left info column */
+  .contact__info { display: flex; flex-direction: column; gap: 48px; }
+  .contact__block {}
   .contact__block h4 {
-    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
     color: var(--concrete); font-weight: 500;
-    margin: 0 0 14px;
+    margin: 0 0 18px;
+    display: flex; align-items: center; gap: 10px;
   }
+  .contact__block h4::after { content: ""; flex: 1; height: 1px; background: var(--line-dark); }
   .contact__block p {
     font-family: var(--serif); font-style: italic; font-weight: 300;
-    font-size: 28px; line-height: 1.3;
+    font-size: clamp(20px, 2.2vw, 30px); line-height: 1.4;
     margin: 0;
     letter-spacing: -0.01em;
+    color: rgba(250,250,250,0.88);
   }
   .contact__block a {
-    border-bottom: 1px solid var(--line-dark);
-    transition: color .3s var(--ease), border-color .3s var(--ease);
+    position: relative;
+    display: inline-block;
   }
-  .contact__block a:hover { color: var(--terra); border-color: var(--terra); }
+  .contact__block a::after {
+    content: ""; position: absolute; left: 0; bottom: -2px; right: 100%;
+    height: 1px; background: var(--terra);
+    transition: right .4s var(--ease-out);
+  }
+  .contact__block a:hover::after { right: 0; }
+  .contact__block a:hover { color: var(--terra); }
+
+  .contact__phone-link {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--concrete);
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-top: 6px;
+  }
+  .contact__phone-link:hover { color: var(--terra); }
+
+  /* right form column */
+  .contact__form-wrap {
+    position: relative;
+  }
+  .contact__form-wrap::before {
+    content: ""; position: absolute;
+    inset: -40px -40px 0 -40px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--line-dark);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+  @media (max-width: 920px) { .contact__form-wrap::before { display: none; } }
 
   .form {
-    display: grid; gap: 20px;
+    display: grid; gap: 0;
+    position: relative; z-index: 1;
+    padding: 8px 0;
   }
-  .field { position: relative; }
+  .field {
+    position: relative;
+    border-bottom: 1px solid var(--line-dark);
+    transition: border-color .35s var(--ease);
+  }
+  .field:focus-within { border-bottom-color: var(--terra); }
   .field label {
-    position: absolute; left: 0; top: 14px;
-    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--concrete); opacity: 0.7;
-    transition: transform .35s var(--ease), color .35s var(--ease), font-size .35s var(--ease);
+    position: absolute; left: 0; top: 20px;
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(250,250,250,0.35);
+    transition: top .35s var(--ease), color .35s var(--ease), font-size .35s var(--ease);
     pointer-events: none;
   }
   .field input, .field textarea {
     width: 100%;
     background: transparent;
     border: 0;
-    border-bottom: 1px solid var(--line-dark);
-    padding: 14px 0 12px;
-    font-size: 16px;
+    padding: 28px 0 10px;
+    font-size: clamp(18px, 2vw, 26px);
+    font-family: var(--serif); font-style: italic;
     color: var(--paper);
     outline: none;
-    transition: border-color .3s var(--ease);
-    font-family: var(--sans);
+    line-height: 1.2;
   }
-  .field textarea { min-height: 100px; resize: vertical; }
-  .field input:focus, .field textarea:focus { border-bottom-color: var(--terra); }
+  .field textarea {
+    min-height: 130px; resize: none;
+    display: block;
+  }
   .field input:focus + label,
   .field textarea:focus + label,
   .field input:not(:placeholder-shown) + label,
   .field textarea:not(:placeholder-shown) + label {
-    transform: translateY(-22px);
-    font-size: 10px;
+    top: 8px;
+    font-size: 9px;
     color: var(--terra);
   }
-  .submit {
-    margin-top: 12px;
-    align-self: flex-start;
-    display: inline-flex; align-items: center; gap: 14px;
-    padding: 16px 24px;
-    border: 1px solid var(--line-dark);
-    border-radius: 999px;
-    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
-    transition: background .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease), padding .4s var(--ease);
+
+  .submit-row {
+    margin-top: 40px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    flex-wrap: wrap;
   }
-  .submit:hover { background: var(--terra); border-color: var(--terra); padding-right: 32px; }
-  .submit__arrow { width: 18px; height: 1px; background: currentColor; position: relative; }
-  .submit__arrow::after {
-    content: ""; position: absolute; right: 0; top: 50%;
-    width: 7px; height: 7px; border-top: 1px solid currentColor; border-right: 1px solid currentColor;
-    transform: translateY(-50%) rotate(45deg);
+  .submit {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 18px;
+    padding: 22px 44px;
+    background: var(--terra);
+    border: 1px solid var(--terra);
+    color: var(--paper);
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    font-weight: 500;
+    overflow: hidden;
+    transition: background .45s var(--ease), border-color .45s var(--ease), color .45s var(--ease);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .submit::before {
+    content: ""; position: absolute; inset: 0;
+    background: var(--paper);
+    transform: translateX(-101%);
+    transition: transform .55s var(--ease-out);
+    z-index: 0;
+  }
+  .submit:hover::before { transform: translateX(0); }
+  .submit:hover { color: var(--ink); border-color: var(--paper); }
+  .submit span, .submit svg { position: relative; z-index: 1; }
+  .submit svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; transition: transform .4s var(--ease-out); }
+  .submit:hover svg { transform: rotate(-45deg) scale(1.1); }
+
+  .submit-note {
+    font-size: 11px; letter-spacing: 0.04em;
+    color: rgba(250,250,250,0.3);
+    max-width: 26ch;
+    line-height: 1.5;
   }
 
+  .form-success {
+    display: none;
+    padding: 40px 0;
+    text-align: center;
+  }
+  .form-success .success-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1px solid var(--terra);
+    display: grid; place-items: center;
+    margin: 0 auto 24px;
+    color: var(--terra);
+    font-size: 24px;
+  }
+  .form-success h3 {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 32px; margin: 0 0 12px; letter-spacing: -0.01em;
+  }
+  .form-success p { font-size: 13px; color: var(--concrete); letter-spacing: 0.04em; }
+
   .legal {
-    margin-top: 80px;
-    padding-top: 32px;
+    padding: 32px var(--pad-x);
     border-top: 1px solid var(--line-dark);
     display: flex; flex-wrap: wrap; gap: 24px;
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(250,250,250,0.45);
+    color: rgba(250,250,250,0.38);
+    background: var(--ink);
+  }
+  .legal a {
+    position: relative;
+    transition: color .3s;
+  }
+  .legal a::after {
+    content: ""; position: absolute; left: 0; bottom: -2px; right: 100%;
+    height: 1px; background: var(--terra);
+    transition: right .35s var(--ease-out);
   }
   .legal a:hover { color: var(--terra); }
+  .legal a:hover::after { right: 0; }
+
+  /* ============ MODAL ============ */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    z-index: 500;
+    background: rgba(10,10,10,0.0);
+    backdrop-filter: blur(0px);
+    pointer-events: none;
+    transition: background .5s var(--ease), backdrop-filter .5s var(--ease);
+  }
+  .modal-backdrop.is-open {
+    background: rgba(10,10,10,0.72);
+    backdrop-filter: blur(8px);
+    pointer-events: auto;
+  }
+  .modal {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(680px, 100vw);
+    background: #111;
+    color: var(--paper);
+    z-index: 510;
+    transform: translateX(100%);
+    transition: transform .6s var(--ease-out);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .modal.is-open { transform: translateX(0); }
+  .modal__header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 28px 40px;
+    border-bottom: 1px solid var(--line-dark);
+    flex: 0 0 auto;
+  }
+  .modal__label {
+    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--terra);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .modal__label::before { content: ""; width: 20px; height: 1px; background: var(--terra); }
+  .modal__close {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line-dark);
+    border-radius: 50%;
+    transition: border-color .3s, background .3s, transform .4s var(--ease-out);
+    color: var(--paper);
+  }
+  .modal__close:hover { border-color: var(--terra); background: var(--terra); transform: rotate(90deg); }
+  .modal__close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+  .modal__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 48px 40px 80px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-dark) transparent;
+  }
+  .modal__body::-webkit-scrollbar { width: 4px; }
+  .modal__body::-webkit-scrollbar-thumb { background: var(--line-dark); border-radius: 4px; }
+  .modal__title {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 48px;
+  }
+  .modal__section { margin-bottom: 40px; }
+  .modal__section h3 {
+    font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--terra);
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-dark);
+  }
+  .modal__section p, .modal__section address {
+    font-size: 15px; line-height: 1.75;
+    color: rgba(250,250,250,0.75);
+    font-style: normal;
+    margin: 0 0 16px;
+  }
+  .modal__section p:last-child { margin-bottom: 0; }
+  .modal__section a { color: var(--terra); }
+  .modal__section a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .modal__header { padding: 20px 24px; }
+    .modal__body { padding: 36px 24px 60px; }
+  }
 
   /* ============ FOOTER ============ */
   .footer {
@@ -939,62 +1134,220 @@
 
     <!-- ============ CONTACT ============ -->
     <section class="contact" id="kontakt">
-      <div class="contact__layout">
-        <div>
-          <div class="section__label" style="color:var(--terra); margin-bottom:14px;"><span class="num">05</span><span>Kontakt</span></div>
-          <h2 class="contact__title reveal">
-            Lassen Sie uns <span class="accent">bauen</span>.
-          </h2>
 
+      <div class="contact__hero reveal">
+        <div class="contact__kicker">05 · Kontakt</div>
+        <h2 class="contact__title">
+          Lassen Sie<br>uns <em>bauen.</em>
+        </h2>
+      </div>
+
+      <div class="contact__body">
+        <!-- left: info -->
+        <div class="contact__info">
           <div class="contact__block reveal">
             <h4>Atelier</h4>
-            <p>hausgemacht GbR<br/>Landau in der Pfalz<br/>Rheinland-Pfalz</p>
+            <p>hausgemachte Architekten GbR<br>Marktstraße 114<br>76829 Landau in der Pfalz</p>
           </div>
-
           <div class="contact__block reveal" data-delay="1">
             <h4>Kontakt</h4>
             <p>
-              <a href="mailto:fuchs@hausgemacht.info" data-hover>fuchs@hausgemacht.info</a><br/>
-              <a href="mailto:reiser@hausgemacht.info" data-hover>reiser@hausgemacht.info</a>
+              <a href="mailto:fuchs@hausgemacht.info" data-hover>fuchs@hausgemacht.info</a><br>
+              <a href="mailto:reiser@hausgemacht.info" data-hover>reiser@hausgemacht.info</a><br>
+              <a href="mailto:info@hausgemacht.info" data-hover>info@hausgemacht.info</a>
             </p>
+            <a class="contact__phone-link" href="tel:+4963419689074" data-hover>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+              06341 9689074
+            </a>
           </div>
-
           <div class="contact__block reveal" data-delay="2">
             <h4>Web</h4>
             <p><a href="https://hausgemacht.info" data-hover>hausgemacht.info</a></p>
           </div>
-
-          <div class="legal">
-            <a href="#impressum" data-hover>Impressum</a>
-            <a href="#datenschutz" data-hover>Datenschutz</a>
-            <a href="#agb" data-hover>AGB</a>
-          </div>
         </div>
 
-        <form class="form reveal" data-delay="2" id="contactForm" novalidate>
-          <div class="field">
-            <input type="text" id="f-name" placeholder=" " required />
-            <label for="f-name">Name</label>
+        <!-- right: form -->
+        <div class="contact__form-wrap reveal" data-delay="2">
+          <form class="form" id="contactForm" novalidate>
+            <div class="field">
+              <input type="text" id="f-name" placeholder=" " required />
+              <label for="f-name">Name</label>
+            </div>
+            <div class="field">
+              <input type="email" id="f-mail" placeholder=" " required />
+              <label for="f-mail">E-Mail</label>
+            </div>
+            <div class="field">
+              <input type="tel" id="f-tel" placeholder=" " />
+              <label for="f-tel">Telefon (optional)</label>
+            </div>
+            <div class="field">
+              <input type="text" id="f-project" placeholder=" " />
+              <label for="f-project">Projektart / Vorhaben</label>
+            </div>
+            <div class="field">
+              <textarea id="f-msg" placeholder=" " required></textarea>
+              <label for="f-msg">Ihre Nachricht</label>
+            </div>
+            <div class="submit-row">
+              <button type="submit" class="submit" data-hover>
+                <span id="submitText">Anfrage senden</span>
+                <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+              <p class="submit-note">Wir antworten in der Regel innerhalb von 24 Stunden.</p>
+            </div>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <div class="success-icon">✓</div>
+            <h3>Vielen Dank.</h3>
+            <p>Wir haben Ihre Nachricht erhalten und melden uns bald.</p>
           </div>
-          <div class="field">
-            <input type="email" id="f-mail" placeholder=" " required />
-            <label for="f-mail">E-Mail</label>
-          </div>
-          <div class="field">
-            <textarea id="f-msg" placeholder=" " required></textarea>
-            <label for="f-msg">Nachricht</label>
-          </div>
-          <button type="submit" class="submit" data-hover>
-            <span id="submitText">Senden</span>
-            <span class="submit__arrow"></span>
-          </button>
-        </form>
+        </div>
       </div>
     </section>
 
   </main>
 
+  <div class="legal">
+    <button onclick="openModal('impressum')" data-hover>Impressum</button>
+    <button onclick="openModal('datenschutz')" data-hover>Datenschutz</button>
+  </div>
+
   <footer class="footer">© hausgemachte Architekten GbR 2026</footer>
+
+  <!-- ============ MODAL BACKDROP ============ -->
+  <div class="modal-backdrop" id="modalBackdrop" onclick="closeAllModals()"></div>
+
+  <!-- ============ IMPRESSUM MODAL ============ -->
+  <div class="modal" id="modal-impressum" role="dialog" aria-modal="true" aria-labelledby="impressum-title">
+    <div class="modal__header">
+      <div class="modal__label">Rechtliches</div>
+      <button class="modal__close" onclick="closeAllModals()" aria-label="Schließen" data-hover>
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal__body">
+      <h2 class="modal__title" id="impressum-title">Impressum</h2>
+
+      <div class="modal__section">
+        <h3>Angaben gemäß § 5 TMG</h3>
+        <address>
+          hausgemachte Architekten GbR<br>
+          Marktstraße 114<br>
+          76829 Landau in der Pfalz<br>
+          Telefon: <a href="tel:+4963419689074">06341 9689074</a><br>
+          E-Mail: <a href="mailto:info@hausgemacht.info">info@hausgemacht.info</a>
+        </address>
+      </div>
+
+      <div class="modal__section">
+        <h3>Vertreten durch</h3>
+        <p>
+          Herr Dipl.-Ing. Robin Fuchs, Architekt AK RLP<br>
+          Herr Dipl.-Ing. Jörg Reiser, Architekt AK RLP<br>
+          Herr Dipl.-Ing. Dardan Bislimi<br>
+          Frau Sonja Böhr M.A., Innenarchitektin AK RLP
+        </p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Umsatzsteuer-ID</h3>
+        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br>DE 281455468</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+        <p>
+          Herr Dipl.-Ing. Robin Fuchs, Architekt AK RLP<br>
+          Herr Dipl.-Ing. Jörg Reiser, Architekt AK RLP<br>
+          Herr Dipl.-Ing. Dardan Bislimi<br>
+          Frau Sonja Böhr M.A., Innenarchitektin AK RLP<br><br>
+          Marktstraße 114, 76829 Landau
+        </p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Haftung für Inhalte</h3>
+        <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Haftung für Links</h3>
+        <p>Unser Angebot enthält Links zu externen Webseiten Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Urheberrecht</h3>
+        <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ DATENSCHUTZ MODAL ============ -->
+  <div class="modal" id="modal-datenschutz" role="dialog" aria-modal="true" aria-labelledby="datenschutz-title">
+    <div class="modal__header">
+      <div class="modal__label">Rechtliches</div>
+      <button class="modal__close" onclick="closeAllModals()" aria-label="Schließen" data-hover>
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal__body">
+      <h2 class="modal__title" id="datenschutz-title">Datenschutz&shy;erklärung</h2>
+
+      <div class="modal__section">
+        <h3>Verantwortliche Stelle</h3>
+        <address>
+          hausgemacht GbR<br>
+          Marktstraße 114<br>
+          76829 Landau i.d. Pfalz<br>
+          Telefon: <a href="tel:+4963419689074">06341 9689074</a><br>
+          E-Mail: <a href="mailto:info@hausgemacht.info">info@hausgemacht.info</a>
+        </address>
+      </div>
+
+      <div class="modal__section">
+        <h3>Erfassung allgemeiner Informationen</h3>
+        <p>Wenn Sie auf unsere Webseite zugreifen, werden automatisch Informationen allgemeiner Natur erfasst. Diese Informationen (Server-Logfiles) beinhalten etwa die Art des Webbrowsers, das verwendete Betriebssystem, den Domainnamen Ihres Internet Service Providers und Ähnliches. Hierbei handelt es sich ausschließlich um Informationen, welche keine Rückschlüsse auf Ihre Person zulassen. Diese Informationen sind technisch notwendig, um von Ihnen angeforderte Inhalte von Webseiten korrekt auszuliefern und fallen bei Nutzung des Internets zwingend an. Anonyme Informationen dieser Art werden von uns statistisch ausgewertet, um unseren Internetauftritt und die dahinterstehende Technik zu optimieren.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Personenbezogene Daten</h3>
+        <p>Personenbezogene Daten sind Angaben, die die Identität des Nutzers offenlegen oder offenlegen können. Wir halten uns an den Grundsatz der Datenvermeidung. Es wird soweit wie möglich auf die Erhebung von personenbezogenen Daten verzichtet. Personenbezogene Daten dienen ausschließlich der Vertragsbegründung, inhaltlichen Ausgestaltung, Durchführung oder Abwicklung des Vertragsverhältnisses (Art. 6 I b DSGVO). Darüber hinaus werden personenbezogene Daten nur verarbeitet, soweit wir hierzu Ihre Einwilligung erhalten haben (Art. 6 I a DSGVO).</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>SSL-Verschlüsselung</h3>
+        <p>Um die Sicherheit Ihrer Daten bei der Übertragung zu schützen, verwenden wir dem aktuellen Stand der Technik entsprechende Verschlüsselungsverfahren (z. B. SSL) über HTTPS.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Löschung bzw. Sperrung der Daten</h3>
+        <p>Wir halten uns an die Grundsätze der Datenvermeidung und Datensparsamkeit. Wir speichern Ihre personenbezogenen Daten daher nur so lange, wie dies zur Erreichung der hier genannten Zwecke erforderlich ist oder wie es die vom Gesetzgeber vorgesehenen Speicherfristen vorsehen. Nach Fortfall des jeweiligen Zweckes bzw. Ablauf dieser Fristen werden die entsprechenden Daten routinemäßig und entsprechend den gesetzlichen Vorschriften gesperrt oder gelöscht.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Ihre Rechte</h3>
+        <p>Sie haben das Recht, jederzeit Auskunft über Ihre bei uns gespeicherten personenbezogenen Daten zu erhalten. Ebenso haben Sie das Recht auf Berichtigung, Sperrung oder Löschung Ihrer personenbezogenen Daten. Bitte wenden Sie sich dazu an unseren Datenschutzbeauftragten.</p>
+      </div>
+
+      <div class="modal__section">
+        <h3>Datenschutzbeauftragter</h3>
+        <address>
+          Jörg Reiser<br>
+          Marktstraße 114<br>
+          76829 Landau i.d. Pfalz<br>
+          Telefon: <a href="tel:+4963419689074">06341 9689074</a><br>
+          E-Mail: <a href="mailto:info@hausgemacht.info">info@hausgemacht.info</a>
+        </address>
+      </div>
+
+      <div class="modal__section">
+        <h3>Änderung der Datenschutzbestimmungen</h3>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung gelegentlich anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen umzusetzen. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.</p>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
@@ -1227,20 +1580,42 @@
     // ============ CONTACT FORM (no backend) ============
     const form = document.getElementById('contactForm');
     const submitText = document.getElementById('submitText');
+    const formSuccess = document.getElementById('formSuccess');
     form.addEventListener('submit', e => {
       e.preventDefault();
       const ok = ['f-name','f-mail','f-msg'].every(id => document.getElementById(id).value.trim().length > 0);
       if (!ok) {
-        submitText.textContent = 'Bitte alle Felder';
-        setTimeout(() => submitText.textContent = 'Senden', 1800);
+        submitText.textContent = 'Bitte Pflichtfelder ausfüllen';
+        setTimeout(() => submitText.textContent = 'Anfrage senden', 2000);
         return;
       }
-      submitText.textContent = 'Gesendet ·';
+      form.style.opacity = '0';
+      form.style.transition = 'opacity .4s';
       setTimeout(() => {
-        form.reset();
-        submitText.textContent = 'Senden';
-      }, 2400);
+        form.style.display = 'none';
+        formSuccess.style.display = 'block';
+      }, 400);
     });
+
+    // ============ MODALS ============
+    const backdrop = document.getElementById('modalBackdrop');
+    function openModal(id) {
+      closeAllModals();
+      const m = document.getElementById('modal-' + id);
+      if (!m) return;
+      backdrop.classList.add('is-open');
+      m.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      m.querySelector('.modal__body').scrollTop = 0;
+    }
+    function closeAllModals() {
+      document.querySelectorAll('.modal.is-open').forEach(m => m.classList.remove('is-open'));
+      backdrop.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    window.openModal = openModal;
+    window.closeAllModals = closeAllModals;
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAllModals(); });
 
     // ============ THREE.JS HERO ============
     function initHero() {

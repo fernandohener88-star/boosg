@@ -391,10 +391,11 @@
   .reveal[data-delay="4"] { transition-delay: .32s; }
 
   /* ============ PROJECTS ============ */
-  .projects-grid {
+  /* ============ PROJECTS FEATURED ============ */
+  .feat-grid {
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 24px);
   }
   .project {
     position: relative;
@@ -403,8 +404,9 @@
     overflow: hidden;
     border-radius: 2px;
     transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 4;
     isolation: isolate;
+    cursor: pointer;
   }
   .project::before {
     content: ""; position: absolute; inset: 0;
@@ -424,6 +426,17 @@
   }
   .project:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); }
   .project:hover::after { transform: scaleY(1); }
+  .project--award { background: linear-gradient(160deg, #1a1410 0%, #0a0a0a 70%); }
+
+  .project__photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    filter: grayscale(30%) contrast(1.05);
+    transition: transform .7s var(--ease-out), filter .5s var(--ease);
+    z-index: 0;
+  }
+  .project:hover .project__photo { transform: scale(1.04); filter: grayscale(10%) contrast(1.05); }
 
   .project__body {
     position: relative; z-index: 1;
@@ -431,76 +444,59 @@
     padding: 24px 28px;
     display: flex; flex-direction: column; justify-content: space-between;
   }
-  .project__top {
-    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
-  }
+  .project__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .project__cat {
     font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
     color: var(--concrete);
-    padding: 6px 10px; border: 1px solid var(--line-dark);
+    padding: 5px 10px; border: 1px solid var(--line-dark);
     border-radius: 999px;
   }
   .project__year {
     font-family: var(--serif); font-style: italic;
-    font-size: 22px;
-    color: var(--concrete);
+    font-size: 20px; color: var(--concrete);
   }
   .project__name {
     font-family: var(--serif); font-style: italic; font-weight: 400;
-    font-size: clamp(26px, 3vw, 44px);
+    font-size: clamp(24px, 2.6vw, 40px);
     line-height: 1;
     letter-spacing: -0.02em;
-    margin: 0;
-    color: var(--paper);
+    margin: 0; color: var(--paper);
     text-wrap: pretty;
   }
-  .project__foot {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    margin-top: 18px;
-    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--concrete);
-  }
-  .project__arrow {
-    width: 28px; height: 28px; border-radius: 50%;
-    border: 1px solid var(--line-dark);
-    display: grid; place-items: center;
-    transition: background .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease);
-  }
-  .project:hover .project__arrow { background: var(--terra); border-color: var(--terra); transform: rotate(-45deg); }
-  .project__arrow svg { width: 12px; height: 12px; }
-
-  .project--award { background: linear-gradient(160deg, #1a1410 0%, #0a0a0a 70%); }
   .project__award {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
-    color: var(--terra);
-    margin-top: 12px;
+    color: var(--terra); margin-bottom: 10px;
   }
   .project__award svg { width: 10px; height: 10px; fill: var(--terra); }
-
-  /* tile sizes (asymmetric) */
-  .project.s-1 { grid-column: span 6; }
-  .project.s-2 { grid-column: span 6; }
-  .project.s-3 { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .project.s-4 { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .project.s-5 { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .project.s-wide { grid-column: span 8; aspect-ratio: 16 / 9; }
-  .project.s-tall { grid-column: span 4; aspect-ratio: 3 / 4; }
-  .project.s-third { grid-column: span 4; }
-
-  @media (max-width: 1000px) {
-    .project.s-1, .project.s-2 { grid-column: span 12; }
-    .project.s-3, .project.s-4, .project.s-5 { grid-column: span 6; }
-    .project.s-wide { grid-column: span 12; }
-    .project.s-tall, .project.s-third { grid-column: span 6; }
+  .project__arrow {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1px solid var(--line-dark);
+    display: grid; place-items: center; flex-shrink: 0;
+    transition: background .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease);
   }
-  @media (max-width: 620px) {
-    .projects-grid { grid-template-columns: 1fr; gap: 16px; }
-    .project, .project.s-1, .project.s-2, .project.s-3, .project.s-4, .project.s-5,
-    .project.s-wide, .project.s-tall, .project.s-third {
-      grid-column: 1 / -1; aspect-ratio: 4/3;
-    }
+  .project:hover .project__arrow { background: var(--terra); border-color: var(--terra); transform: rotate(-45deg); }
+  .project__arrow svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.2; }
+  .project__foot { display: flex; align-items: center; justify-content: flex-end; margin-top: 14px; }
+
+  .feat-cta {
+    display: flex; align-items: center; justify-content: flex-end;
+    margin-top: clamp(28px, 4vh, 48px);
   }
+  .feat-cta__link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 3px;
+    transition: color .3s var(--ease);
+  }
+  .feat-cta__link:hover { color: var(--terra); }
+  .feat-cta__link svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.2; transition: transform .3s var(--ease); }
+  .feat-cta__link:hover svg { transform: translateX(4px); }
+
+  @media (max-width: 900px) { .feat-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .feat-grid { grid-template-columns: 1fr; } }
 
   /* ============ PHILOSOPHY ============ */
   /* ============ MANIFESTO / PHILOSOPHY ============ */
@@ -1377,15 +1373,22 @@
       <div class="section__head">
         <div>
           <div class="section__label"><span class="num">01</span><span>Werk</span></div>
-          <h2 class="section__title reveal">Zwölf Bauten, eine&nbsp;Haltung.</h2>
+          <h2 class="section__title reveal">Ausgewählte&nbsp;Projekte.</h2>
         </div>
         <p class="section__lede reveal" data-delay="2">
-          Von der Pfalz bis nach Port-au-Prince. Eine Auswahl aktueller und ausgezeichneter Projekte aus Wohnungs-, Gewerbe- und Bildungsbau.
+          Architektur, die dauert. Eine Auswahl aktueller und ausgezeichneter Bauten aus Wohnungs-, Gewerbe- und Bildungsbau.
         </p>
       </div>
 
-      <div class="projects-grid" id="projectsGrid">
-        <!-- projects injected by JS -->
+      <div class="feat-grid" id="projectsGrid">
+        <!-- 3 featured projects injected by JS -->
+      </div>
+
+      <div class="feat-cta reveal" data-delay="2">
+        <a href="projekte.html" class="feat-cta__link" data-hover>
+          Alle Projekte ansehen
+          <svg viewBox="0 0 20 10"><path d="M0 5h18M13 1l5 4-5 4"/></svg>
+        </a>
       </div>
     </section>
 
@@ -1749,18 +1752,18 @@
 
     // ============ DATA ============
     const projects = [
-      { name: "Bücherei Bellheim", year: "2026", cat: "Bildung", size: "s-1" },
-      { name: "Wohnquartier Obere Hauptstraße", year: "2025", cat: "Wohnen · Herxheim", size: "s-2" },
-      { name: "VR Bank Bad Bergzabern", year: "2025", cat: "Gewerbe", size: "s-3" },
-      { name: "Haus H.", year: "2025", cat: "Wohnen · Hambach", size: "s-4" },
-      { name: "Fitter Living Quartier", year: "2025", cat: "Wohnen · Landau", size: "s-5" },
-      { name: "Wasgau Quartier", year: "2024", cat: "Mixed-Use · Landau", size: "s-wide" },
-      { name: "Sparkasse Maikammer", year: "2024", cat: "Gewerbe", size: "s-tall" },
-      { name: "Schule Port-au-Prince", year: "2021", cat: "Bildung · Haiti", size: "s-third", award: true },
-      { name: "Kita Pusteblume", year: "—", cat: "Bildung · Bad Bentheim", size: "s-third", award: true },
-      { name: "Wohnpark am Ebenberg", year: "—", cat: "Wohnen · Landau", size: "s-third", award: true },
-      { name: "Port Phönix", year: "—", cat: "Stadtquartier · Dortmund", size: "s-third", award: true },
-      { name: "Le Flair", year: "—", cat: "Quartier · Düsseldorf", size: "s-third", award: true },
+      { id: "bucherei-bellheim",           name: "Bücherei Bellheim",               year: 2026, cat: "Bildung",              location: "Bellheim",     award: false, photo: null, featured: true  },
+      { id: "wohnquartier-obere-hauptstr", name: "Wohnquartier Obere Hauptstraße",  year: 2025, cat: "Wohnen",               location: "Herxheim",     award: false, photo: null, featured: false },
+      { id: "vr-bank-bad-bergzabern",      name: "VR Bank Bad Bergzabern",          year: 2025, cat: "Gewerbe",              location: "Bad Bergzabern",award: false, photo: null, featured: false },
+      { id: "haus-h",                      name: "Haus H.",                          year: 2025, cat: "Wohnen",               location: "Hambach",      award: false, photo: null, featured: false },
+      { id: "fitter-living-quartier",      name: "Fitter Living Quartier",           year: 2025, cat: "Wohnen",               location: "Landau",       award: false, photo: null, featured: false },
+      { id: "wasgau-quartier",             name: "Wasgau Quartier",                  year: 2024, cat: "Mixed-Use",            location: "Landau",       award: false, photo: null, featured: true  },
+      { id: "sparkasse-maikammer",         name: "Sparkasse Maikammer",              year: 2024, cat: "Gewerbe",              location: "Maikammer",    award: false, photo: null, featured: false },
+      { id: "schule-port-au-prince",       name: "Schule Port-au-Prince",            year: 2021, cat: "Bildung",              location: "Haiti",        award: true,  photo: null, featured: true  },
+      { id: "kita-pusteblume",             name: "Kita Pusteblume",                  year: null, cat: "Bildung",              location: "Bad Bentheim", award: true,  photo: null, featured: false },
+      { id: "wohnpark-am-ebenberg",        name: "Wohnpark am Ebenberg",             year: null, cat: "Wohnen",               location: "Landau",       award: true,  photo: null, featured: false },
+      { id: "port-phoenix",                name: "Port Phönix",                      year: null, cat: "Stadtquartier",        location: "Dortmund",     award: true,  photo: null, featured: false },
+      { id: "le-flair",                    name: "Le Flair",                          year: null, cat: "Quartier",             location: "Düsseldorf",   award: true,  photo: null, featured: false },
     ];
 
     const partners = [
@@ -1817,27 +1820,27 @@
       }
     }
 
-    // ============ PROJECTS RENDER ============
+    // ============ PROJECTS RENDER (featured only on main page) ============
     const grid = document.getElementById('projectsGrid');
-    const arrowSVG = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 10 L10 2 M5 2 H10 V7"/></svg>';
+    const arrowSVG = '<svg viewBox="0 0 20 10"><path d="M0 5h18M13 1l5 4-5 4"/></svg>';
     const starSVG = '<svg viewBox="0 0 10 10"><polygon points="5,0 6.2,3.6 10,3.6 6.9,5.8 8.1,9.4 5,7.2 1.9,9.4 3.1,5.8 0,3.6 3.8,3.6"/></svg>';
 
-    projects.forEach((p, i) => {
+    projects.filter(p => p.featured).forEach((p, i) => {
       const el = document.createElement('article');
-      el.className = 'project reveal ' + p.size + (p.award ? ' project--award' : '');
-      el.setAttribute('data-delay', (i % 3 + 1));
+      el.className = 'project reveal' + (p.award ? ' project--award' : '');
+      el.setAttribute('data-delay', i + 1);
       el.setAttribute('data-hover', '');
       el.innerHTML = `
+        ${p.photo ? `<img class="project__photo" src="${p.photo}" alt="${p.name}" loading="lazy">` : ''}
         <div class="project__body">
           <div class="project__top">
             <span class="project__cat">${p.cat}</span>
-            <span class="project__year">${p.year}</span>
+            <span class="project__year">${p.year || '—'}</span>
           </div>
           <div>
+            ${p.award ? `<div class="project__award">${starSVG}<span>Auszeichnung</span></div>` : ''}
             <h3 class="project__name">${p.name}</h3>
-            ${p.award ? `<span class="project__award">${starSVG}<span>Ausgezeichnet</span></span>` : ''}
             <div class="project__foot">
-              <span>Projekt ansehen</span>
               <span class="project__arrow">${arrowSVG}</span>
             </div>
           </div>

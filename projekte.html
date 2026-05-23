@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Projekte · hausgemacht Architekten · Landau</title>
+<meta name="description" content="Alle Projekte von hausgemacht Architekten — Büro für Architektur und Innenarchitektur in Landau in der Pfalz. Seit 2005." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #0a0a0a;
+    --paper: #fafafa;
+    --concrete: #c8c4bc;
+    --concrete-soft: #e8e6e1;
+    --terra: #b85c38;
+    --terra-deep: #8f4528;
+    --line: rgba(10,10,10,0.12);
+    --line-dark: rgba(250,250,250,0.16);
+    --serif: "Cormorant Garamond", "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --pad-x: clamp(24px, 6vw, 120px);
+    --ease: cubic-bezier(.2,.7,.2,1);
+    --ease-out: cubic-bezier(.16,1,.3,1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    font-size: 16px; line-height: 1.55; font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+  /* ============ NAV ============ */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px var(--pad-x);
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .nav__brand {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 20px; letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 8px;
+    color: var(--ink);
+  }
+  .nav__brand .suffix {
+    font-family: var(--sans); font-style: normal; font-weight: 500;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink); margin-left: 4px;
+  }
+  .nav__links { display: flex; align-items: center; gap: 36px; }
+  .nav__links a {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink); opacity: 0.7;
+    transition: opacity .25s;
+  }
+  .nav__links a:hover { opacity: 1; }
+  .nav__back {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink); opacity: 0.6;
+    transition: opacity .25s, color .25s;
+  }
+  .nav__back:hover { opacity: 1; color: var(--terra); }
+  .nav__back svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.2; transition: transform .3s var(--ease); }
+  .nav__back:hover svg { transform: translateX(-3px); }
+
+  /* ============ PAGE HERO ============ */
+  .page-hero {
+    padding: calc(80px + clamp(60px,10vh,140px)) var(--pad-x) clamp(60px,9vh,120px);
+    background: var(--ink);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero__kicker {
+    font-size: 10px; letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 24px;
+  }
+  .page-hero__title {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(72px, 12vw, 200px);
+    line-height: 0.9; letter-spacing: -0.03em;
+    margin: 0 0 32px;
+    color: var(--paper);
+  }
+  .page-hero__sub {
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: rgba(250,247,240,0.5);
+    max-width: 50ch;
+    margin: 0;
+  }
+  .page-hero__deco {
+    position: absolute; right: var(--pad-x); bottom: clamp(32px, 5vh, 64px);
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(80px, 18vw, 300px);
+    line-height: 1; letter-spacing: -0.04em;
+    color: rgba(250,247,240,0.03);
+    user-select: none; pointer-events: none;
+  }
+
+  /* ============ FILTER BAR ============ */
+  .filters {
+    position: sticky; top: 60px; z-index: 90;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 14px var(--pad-x);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+    color: rgba(10,10,10,0.55);
+  }
+  .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .filter-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .filter-btn[data-filter="award"].active { background: var(--terra); border-color: var(--terra); }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    padding: clamp(48px, 7vh, 100px) var(--pad-x);
+  }
+  .tl-group {
+    display: grid;
+    grid-template-columns: clamp(80px, 10vw, 160px) 1fr;
+    gap: clamp(24px, 4vw, 64px);
+    padding-bottom: clamp(48px, 8vh, 100px);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(40px, 6vh, 80px);
+    position: relative;
+  }
+  .tl-group:first-child { border-top: 0; }
+  .tl-group[data-hidden] { display: none; }
+
+  .tl-year {
+    position: sticky;
+    top: calc(60px + 52px + 24px);
+    align-self: start;
+  }
+  .tl-year__num {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 1; letter-spacing: -0.04em;
+    color: rgba(10,10,10,0.1);
+    transition: color .4s var(--ease);
+  }
+  .tl-group:hover .tl-year__num { color: rgba(10,10,10,0.22); }
+  .tl-year__line {
+    width: 1px; height: 100%;
+    background: var(--line);
+    margin-top: 12px;
+    display: none; /* visible only on wide viewports */
+  }
+
+  .tl-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: clamp(14px, 2vw, 22px);
+    align-content: start;
+  }
+
+  /* ============ PROJECT CARD ============ */
+  .pcard {
+    position: relative;
+    background: var(--ink);
+    color: var(--paper);
+    overflow: hidden;
+    border-radius: 2px;
+    aspect-ratio: 4 / 3;
+    isolation: isolate;
+    cursor: pointer;
+    transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out);
+  }
+  .pcard::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 80% at 30% 20%, rgba(184,92,56,0.15), transparent 60%),
+      linear-gradient(150deg, #1e1e1e 0%, #0a0a0a 70%);
+    z-index: 0;
+  }
+  .pcard::after {
+    content: ""; position: absolute;
+    left: 0; top: 14%; bottom: 14%; width: 2px;
+    background: var(--terra);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform .5s var(--ease-out);
+    z-index: 2;
+  }
+  .pcard:hover { transform: translateY(-5px); box-shadow: 0 24px 56px -16px rgba(0,0,0,0.55); }
+  .pcard:hover::after { transform: scaleY(1); }
+  .pcard--award { background: linear-gradient(160deg, #1f1510 0%, #0a0a0a 70%); }
+  .pcard[data-hidden] { display: none; }
+
+  .pcard__photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    filter: grayscale(25%) contrast(1.05);
+    transition: transform .7s var(--ease-out), filter .5s var(--ease);
+    z-index: 0;
+  }
+  .pcard:hover .pcard__photo { transform: scale(1.04); filter: grayscale(5%) contrast(1.05); }
+
+  .pcard__body {
+    position: relative; z-index: 1;
+    height: 100%; padding: 22px 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .pcard__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .pcard__cat {
+    font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--concrete);
+    padding: 5px 10px; border: 1px solid var(--line-dark);
+    border-radius: 999px;
+  }
+  .pcard__award-badge {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px;
+    background: rgba(184,92,56,0.15); border: 1px solid rgba(184,92,56,0.4);
+    border-radius: 50%; flex-shrink: 0;
+  }
+  .pcard__award-badge svg { width: 10px; height: 10px; fill: var(--terra); }
+  .pcard__bottom {}
+  .pcard__location {
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(250,247,240,0.35);
+    margin-bottom: 6px;
+  }
+  .pcard__name {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(20px, 2.2vw, 32px);
+    line-height: 1.05; letter-spacing: -0.018em;
+    margin: 0; color: var(--paper);
+  }
+
+  /* ============ EMPTY STATE ============ */
+  .tl-empty {
+    display: none;
+    padding: clamp(48px, 8vh, 100px) var(--pad-x);
+    text-align: center;
+    color: rgba(10,10,10,0.35);
+    font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .tl-empty.visible { display: block; }
+
+  /* ============ REVEAL ============ */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity .85s var(--ease-out), transform .85s var(--ease-out);
+  }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal[data-delay="1"] { transition-delay: .06s; }
+  .reveal[data-delay="2"] { transition-delay: .12s; }
+  .reveal[data-delay="3"] { transition-delay: .18s; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    background: var(--ink); color: rgba(250,247,240,0.35);
+    padding: clamp(32px, 5vh, 56px) var(--pad-x);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  footer a { color: var(--terra); }
+  footer a:hover { text-decoration: underline; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 700px) {
+    .tl-group { grid-template-columns: 1fr; gap: 20px; }
+    .tl-year { position: static; }
+    .tl-year__num { font-size: 40px; }
+    .nav__links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <a href="index.html" class="nav__brand">
+    hausgemacht<span class="suffix">Architekten</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:32px">
+    <div class="nav__links">
+      <a href="index.html#team">Team</a>
+      <a href="index.html#kontakt">Kontakt</a>
+    </div>
+    <a href="index.html" class="nav__back">
+      <svg viewBox="0 0 14 10"><path d="M14 5H2M6 1L2 5l4 4"/></svg>
+      Startseite
+    </a>
+  </div>
+</nav>
+
+<!-- ============ PAGE HERO ============ -->
+<header class="page-hero">
+  <div class="page-hero__kicker">01 · Werk</div>
+  <h1 class="page-hero__title">Projekte.</h1>
+  <p class="page-hero__sub">Alle Bauten, Entwürfe und Wettbewerbe. Von Landau bis Port-au-Prince, seit 2005.</p>
+  <div class="page-hero__deco" aria-hidden="true">Werk</div>
+</header>
+
+<!-- ============ FILTER BAR ============ -->
+<div class="filters" id="filters">
+  <button class="filter-btn active" data-filter="all">Alle</button>
+  <button class="filter-btn" data-filter="Wohnen">Wohnen</button>
+  <button class="filter-btn" data-filter="Gewerbe">Gewerbe</button>
+  <button class="filter-btn" data-filter="Bildung">Bildung</button>
+  <button class="filter-btn" data-filter="Mixed-Use">Mixed-Use</button>
+  <button class="filter-btn" data-filter="Stadtquartier">Stadtquartier</button>
+  <button class="filter-btn" data-filter="award">★ Auszeichnungen</button>
+</div>
+
+<!-- ============ TIMELINE ============ -->
+<main class="timeline" id="timeline">
+  <!-- groups injected by JS -->
+</main>
+<div class="tl-empty" id="tlEmpty">Keine Projekte gefunden.</div>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <span>© hausgemacht Architekten GbR 2026</span>
+  <span>Marktstraße 114 · 76829 Landau · <a href="tel:+4963419689074">06341 9689074</a></span>
+</footer>
+
+<script>
+  const starSVG = '<svg viewBox="0 0 10 10"><polygon points="5,0 6.2,3.6 10,3.6 6.9,5.8 8.1,9.4 5,7.2 1.9,9.4 3.1,5.8 0,3.6 3.8,3.6"/></svg>';
+
+  const projects = [
+    { id: "bucherei-bellheim",           name: "Bücherei Bellheim",              year: 2026, cat: "Bildung",       location: "Bellheim",      award: false, photo: null },
+    { id: "wohnquartier-obere-hauptstr", name: "Wohnquartier Obere Hauptstraße", year: 2025, cat: "Wohnen",        location: "Herxheim",      award: false, photo: null },
+    { id: "vr-bank-bad-bergzabern",      name: "VR Bank Bad Bergzabern",         year: 2025, cat: "Gewerbe",       location: "Bad Bergzabern",award: false, photo: null },
+    { id: "haus-h",                      name: "Haus H.",                         year: 2025, cat: "Wohnen",        location: "Hambach",       award: false, photo: null },
+    { id: "fitter-living-quartier",      name: "Fitter Living Quartier",          year: 2025, cat: "Wohnen",        location: "Landau",        award: false, photo: null },
+    { id: "wasgau-quartier",             name: "Wasgau Quartier",                 year: 2024, cat: "Mixed-Use",     location: "Landau",        award: false, photo: null },
+    { id: "sparkasse-maikammer",         name: "Sparkasse Maikammer",             year: 2024, cat: "Gewerbe",       location: "Maikammer",     award: false, photo: null },
+    { id: "schule-port-au-prince",       name: "Schule Port-au-Prince",           year: 2021, cat: "Bildung",       location: "Haiti",         award: true,  photo: null },
+    { id: "kita-pusteblume",             name: "Kita Pusteblume",                 year: null, cat: "Bildung",       location: "Bad Bentheim",  award: true,  photo: null },
+    { id: "wohnpark-am-ebenberg",        name: "Wohnpark am Ebenberg",            year: null, cat: "Wohnen",        location: "Landau",        award: true,  photo: null },
+    { id: "port-phoenix",                name: "Port Phönix",                      year: null, cat: "Stadtquartier", location: "Dortmund",      award: true,  photo: null },
+    { id: "le-flair",                    name: "Le Flair",                          year: null, cat: "Quartier",      location: "Düsseldorf",    award: true,  photo: null },
+  ];
+
+  // Group by year (null → "Wettbewerbe")
+  function groupByYear(list) {
+    const groups = {};
+    list.forEach(p => {
+      const key = p.year != null ? String(p.year) : 'Wettbewerbe';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(p);
+    });
+    return groups;
+  }
+
+  function renderCard(p, delay) {
+    const el = document.createElement('article');
+    el.className = 'pcard reveal' + (p.award ? ' pcard--award' : '');
+    el.setAttribute('data-id', p.id);
+    el.setAttribute('data-cat', p.cat);
+    el.setAttribute('data-award', p.award ? '1' : '0');
+    el.setAttribute('data-delay', delay);
+    el.innerHTML = `
+      ${p.photo ? `<img class="pcard__photo" src="${p.photo}" alt="${p.name}" loading="lazy">` : ''}
+      <div class="pcard__body">
+        <div class="pcard__top">
+          <span class="pcard__cat">${p.cat} · ${p.location}</span>
+          ${p.award ? `<span class="pcard__award-badge" title="Auszeichnung">${starSVG}</span>` : ''}
+        </div>
+        <div class="pcard__bottom">
+          <div class="pcard__location">${p.location}</div>
+          <h3 class="pcard__name">${p.name}</h3>
+        </div>
+      </div>`;
+    return el;
+  }
+
+  function buildTimeline(list) {
+    const tl = document.getElementById('timeline');
+    tl.innerHTML = '';
+    const groups = groupByYear(list);
+    // Sort: numeric years descending, then "Wettbewerbe" last
+    const sorted = Object.keys(groups).sort((a, b) => {
+      if (a === 'Wettbewerbe') return 1;
+      if (b === 'Wettbewerbe') return -1;
+      return Number(b) - Number(a);
+    });
+    sorted.forEach(year => {
+      const group = document.createElement('div');
+      group.className = 'tl-group reveal';
+      group.setAttribute('data-year', year);
+
+      const yearEl = document.createElement('div');
+      yearEl.className = 'tl-year';
+      yearEl.innerHTML = `<div class="tl-year__num">${year}</div>`;
+
+      const cards = document.createElement('div');
+      cards.className = 'tl-cards';
+      groups[year].forEach((p, i) => cards.appendChild(renderCard(p, (i % 3) + 1)));
+
+      group.appendChild(yearEl);
+      group.appendChild(cards);
+      tl.appendChild(group);
+    });
+  }
+
+  buildTimeline(projects);
+
+  // ============ FILTER ============
+  let activeFilter = 'all';
+  document.getElementById('filters').addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    activeFilter = btn.dataset.filter;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+
+    const filtered = activeFilter === 'all'
+      ? projects
+      : activeFilter === 'award'
+        ? projects.filter(p => p.award)
+        : projects.filter(p => p.cat === activeFilter);
+
+    buildTimeline(filtered);
+
+    const empty = document.getElementById('tlEmpty');
+    empty.classList.toggle('visible', filtered.length === 0);
+
+    // re-observe new reveals
+    document.querySelectorAll('.reveal:not(.is-in)').forEach(el => io.observe(el));
+  });
+
+  // ============ INTERSECTION REVEAL ============
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

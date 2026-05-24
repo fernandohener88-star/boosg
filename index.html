@@ -493,7 +493,7 @@
 
   .menu-cat{
     margin-bottom:80px;
-    scroll-margin-top:calc(var(--nav-h)*2 + 20px);
+    scroll-margin-top:calc(var(--nav-h) + 64px);
   }
   .menu-cat:last-child{ margin-bottom:0; }
   .cat-head{
@@ -2290,11 +2290,7 @@ tabs().forEach(tab=>{
   tab.addEventListener('click', ()=>{
     activateTab(tab.dataset.target);
     const t = document.getElementById('cat-'+tab.dataset.target);
-    if(!t) return;
-    const overlay = document.getElementById('menuOverlay');
-    const tabBarH = overlay.querySelector('.tab-bar-wrap').offsetHeight;
-    const headerH = overlay.querySelector('.menu-overlay-header').offsetHeight;
-    overlay.scrollTo({ top: overlay.scrollTop + t.getBoundingClientRect().top - headerH - tabBarH - 20, behavior:'smooth' });
+    if(t) t.scrollIntoView({ behavior:'smooth', block:'start' });
   });
 });
 

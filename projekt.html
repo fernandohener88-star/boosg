@@ -1803,7 +1803,7 @@ if(!p){
       <div class="gallery__grid" id="gallery">
         ${p.photos.slice(1).map((src, i) => `
           <div class="gallery__item" data-idx="${i+1}">
-            <img class="gallery__img" src="${src}" alt="${p.name} – Bild ${i+2}" loading="lazy" onerror="this.closest('.gallery__item').style.display='none'">
+            <img class="gallery__img" src="${src}" alt="${p.name} – Bild ${i+2}" loading="lazy">
           </div>`).join('')}
       </div>
     </section>` : ''}

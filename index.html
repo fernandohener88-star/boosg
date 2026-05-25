@@ -1475,6 +1475,83 @@
     animation: introFade 0.8s var(--ease) 1.75s forwards;
   }
   @keyframes introFade { to { opacity: 1; transform: translateY(0); } }
+
+  /* ---------- PRICE LIST ---------- */
+  .price-note {
+    background: var(--gold-pale);
+    border-left: 2px solid var(--gold);
+    padding: 14px 20px;
+    font-size: 0.82rem;
+    color: var(--cream-dim);
+    margin-bottom: clamp(40px, 6vw, 64px);
+    line-height: 1.6;
+  }
+  .price-block { margin-bottom: clamp(48px, 6vw, 72px); }
+  .price-block:last-child { margin-bottom: 0; }
+  .price-block-head {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .price-block-head h3 {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+    margin-top: 10px;
+  }
+  .price-sub-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 24px 0 8px;
+    display: block;
+  }
+  .price-subsection { margin-bottom: 8px; }
+  .price-thead {
+    display: grid;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2px;
+  }
+  .price-thead span {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+  .price-thead span:first-child { text-align: left; }
+  .price-row {
+    display: grid;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(201,160,106,0.07);
+    align-items: baseline;
+    transition: background 0.3s var(--ease);
+  }
+  .price-row:hover { background: rgba(201,160,106,0.04); margin: 0 -8px; padding-left: 8px; padding-right: 8px; }
+  .price-name { font-size: 0.88rem; color: var(--cream-dim); }
+  .price-cell {
+    font-family: var(--ff-display);
+    font-size: 1.05rem;
+    color: var(--gold);
+    text-align: right;
+  }
+  .price-cell.dash { color: var(--muted); font-family: var(--ff-body); font-size: 0.8rem; }
+  /* column variants */
+  .pc-4 { grid-template-columns: 1fr 80px 80px 80px; }
+  .pc-3 { grid-template-columns: 1fr 80px 80px; }
+  .pc-2 { grid-template-columns: 1fr 80px; }
+  @media (max-width: 640px) {
+    .pc-4 { grid-template-columns: 1fr repeat(3, 58px); }
+    .pc-3 { grid-template-columns: 1fr repeat(2, 64px); }
+    .pc-2 { grid-template-columns: 1fr 72px; }
+    .price-cell { font-size: 0.9rem; }
+    .price-name { font-size: 0.82rem; }
+  }
+  @media (max-width: 420px) {
+    .pc-4 .price-cell:nth-child(4) { display: none; }
+    .pc-4 .price-thead span:nth-child(4) { display: none; }
+    .pc-4 { grid-template-columns: 1fr repeat(2, 58px); }
+  }
 </style>
 </head>
 <body>
@@ -1602,56 +1679,106 @@
         <h2 class="section-heading">Was wir anbieten — <em>und wie wir es tun.</em></h2>
       </div>
       <p class="reveal" data-d="2">
-        Jede Leistung beginnt mit einem Gespräch. Preise sind Anhaltspunkte; was es am Ende kostet, klären wir, bevor die Schere oder das Pinselchen in die Hand kommt.
+        Von Schnitt bis Kosmetik — alles aus einer Hand. Ruf uns an und wir beraten dich persönlich.
       </p>
     </div>
 
-    <div class="services-list">
-      <a href="#kontakt" class="service reveal" data-cursor="hover">
-        <span class="svc-num">01</span>
-        <h3 class="svc-title">Schnitt &amp; Form</h3>
-        <p class="svc-desc">Beratung, Wäsche mit Kopfmassage, individueller Schnitt und Styling. Wir schneiden in deine Haarstruktur — nicht gegen sie.</p>
-        <div class="svc-meta">
-          <div class="svc-price"><small>Ab</small>€&nbsp;58</div>
-          <span class="svc-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 H11 V8" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    <div class="price-note reveal">
+      Preise sind Richtwerte. Die endgültige Abrechnung erfolgt nach Beratung im Studio.
+    </div>
+
+    <!-- SCHNITT & STYLING -->
+    <div class="price-block reveal">
+      <div class="price-block-head">
+        <span class="eyebrow">01</span>
+        <h3>Schnitt &amp; Styling</h3>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Damen</span>
+        <div class="price-thead pc-4">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span><span>Extra</span>
         </div>
-      </a>
-      <a href="#kontakt" class="service reveal" data-cursor="hover">
-        <span class="svc-num">02</span>
-        <h3 class="svc-title">Farbe &amp; Strähnchen</h3>
-        <p class="svc-desc">Von dezenten Highlights über Balayage bis zur sanften Komplettcolorierung. Farben, die mit dir altern.</p>
-        <div class="svc-meta">
-          <div class="svc-price"><small>Ab</small>€&nbsp;95</div>
-          <span class="svc-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 H11 V8" stroke="currentColor" stroke-width="1.2"/></svg></span>
+        <div class="price-row pc-4"><span class="price-name">Haarschnitt + Waschen + GO</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span><span class="price-cell">32 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Haarschnitt + Waschen + Föhnen</span><span class="price-cell">41 €</span><span class="price-cell">51 €</span><span class="price-cell">61 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Waschen + Föhnen</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span><span class="price-cell">32 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Glätten / Locken</span><span class="price-cell">15 €</span><span class="price-cell">ab 20 €</span><span class="price-cell">ab 30 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Steckfrisuren</span><span class="price-cell">ab 45 €</span><span class="price-cell dash">—</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-4"><span class="price-name">Pony Schnitt</span><span class="price-cell">6 €</span><span class="price-cell dash">—</span><span class="price-cell dash">—</span></div>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Herren</span>
+        <div class="price-thead pc-3">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span>
         </div>
-      </a>
-      <a href="#kontakt" class="service reveal" data-cursor="hover">
-        <span class="svc-num">03</span>
-        <h3 class="svc-title">Styling &amp; Anlass</h3>
-        <p class="svc-desc">Hochzeit, Foto, Geburtstag — oder einfach, weil. Stylings, die halten und sich trotzdem nach dir anfühlen.</p>
-        <div class="svc-meta">
-          <div class="svc-price"><small>Ab</small>€&nbsp;42</div>
-          <span class="svc-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 H11 V8" stroke="currentColor" stroke-width="1.2"/></svg></span>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt + Waschen</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Maschinenschnitt</span><span class="price-cell">18 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bartrasur</span><span class="price-cell">12 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">W / S / F + Bartrasur</span><span class="price-cell">31 €</span><span class="price-cell">36 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bart kürzen mit Maschine</span><span class="price-cell">5 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bart färben</span><span class="price-cell">15 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bartkonturen schneiden</span><span class="price-cell">9 €</span><span class="price-cell dash">—</span></div>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Kinder</span>
+        <div class="price-thead pc-3">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span>
         </div>
-      </a>
-      <a href="#kontakt" class="service reveal" data-cursor="hover">
-        <span class="svc-num">04</span>
-        <h3 class="svc-title">Pflege &amp; Treatment</h3>
-        <p class="svc-desc">Tiefenpflege, Kopfhautrituale und Olaplex-Behandlungen. Für die Tage, an denen dein Haar mehr braucht.</p>
-        <div class="svc-meta">
-          <div class="svc-price"><small>Ab</small>€&nbsp;28</div>
-          <span class="svc-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 H11 V8" stroke="currentColor" stroke-width="1.2"/></svg></span>
-        </div>
-      </a>
-      <a href="#kontakt" class="service reveal" data-cursor="hover">
-        <span class="svc-num">05</span>
-        <h3 class="svc-title">Beratung im Studio</h3>
-        <p class="svc-desc">Unsicher? Komm vorbei, trink einen Kaffee und wir schauen gemeinsam, was zu dir passt — ganz ohne Druck.</p>
-        <div class="svc-meta">
-          <div class="svc-price"><small>Preis</small>kostenlos</div>
-          <span class="svc-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 11 L11 1 M4 1 H11 V8" stroke="currentColor" stroke-width="1.2"/></svg></span>
-        </div>
-      </a>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt bis 2 Jahre</span><span class="price-cell">13 €</span><span class="price-cell">13 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt 2 – 6 Jahre</span><span class="price-cell">18 €</span><span class="price-cell">21 €</span></div>
+      </div>
+    </div>
+
+    <!-- COLORATION -->
+    <div class="price-block reveal" data-d="1">
+      <div class="price-block-head">
+        <span class="eyebrow">02</span>
+        <h3>Coloration</h3>
+      </div>
+      <div class="price-thead pc-4">
+        <span>Leistung</span><span>Kurz</span><span>Lang</span><span>Extra</span>
+      </div>
+      <div class="price-row pc-4"><span class="price-name">Ansatz Farbe</span><span class="price-cell">24 €</span><span class="price-cell">29 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Färbung (komplett)</span><span class="price-cell">30 €</span><span class="price-cell">40 €</span><span class="price-cell">50 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Tönung (komplett)</span><span class="price-cell">25 €</span><span class="price-cell">35 €</span><span class="price-cell">45 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Strähnen (10 Folien)</span><span class="price-cell">18 €</span><span class="price-cell">23 €</span><span class="price-cell">33 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Haubensträhnen</span><span class="price-cell">35 €</span><span class="price-cell">45 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Kammsträhnen</span><span class="price-cell">25 €</span><span class="price-cell">45 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Balayage Neu inkl. Tönung o. Glossing</span><span class="price-cell">89 €</span><span class="price-cell">109 €</span><span class="price-cell">144 €</span></div>
+    </div>
+
+    <!-- DAUERHAFTE UMFORMUNG -->
+    <div class="price-block reveal" data-d="2">
+      <div class="price-block-head">
+        <span class="eyebrow">03</span>
+        <h3>Dauerhafte Umformung</h3>
+      </div>
+      <div class="price-thead pc-3">
+        <span>Leistung</span><span>Kurz</span><span>Lang</span>
+      </div>
+      <div class="price-row pc-3"><span class="price-name">Dauerwelle</span><span class="price-cell">ab 35 €</span><span class="price-cell">ab 50 €</span></div>
+    </div>
+
+    <!-- KOSMETIK -->
+    <div class="price-block reveal" data-d="3">
+      <div class="price-block-head">
+        <span class="eyebrow">04</span>
+        <h3>Kosmetik</h3>
+      </div>
+      <div class="price-thead pc-2">
+        <span>Leistung</span><span>Preis</span>
+      </div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen formen mit Faden</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen formen mit Messer</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen färben</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Wimpern färben</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Gesichtsenthaarung m. Faden inkl. Augenbrauen</span><span class="price-cell">24 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Gesichtsenthaarung m. Heißwachs inkl. Augenbrauen</span><span class="price-cell">24 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Ohrenhaare mit Heißwachs</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Nasenhaare mit Heißwachs</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Damenbart-Entfernung</span><span class="price-cell">4 €</span></div>
     </div>
   </div>
 </section>
@@ -1682,11 +1809,11 @@
         <div class="member-initial">M</div>
         <div class="member-meta">
           <div class="role">Stylistin · Color</div>
-          <div class="name">Marie Vorname</div>
+          <!-- TODO: Teamname ergänzen --><div class="name">Marie Vorname</div>
         </div>
         <div class="member-overlay">
           <div class="role">Stylistin · Color</div>
-          <div class="name">Marie Vorname</div>
+          <!-- TODO: Teamname ergänzen --><div class="name">Marie Vorname</div>
           <p class="bio">Spezialistin für Balayage und Farbtechniken. Präzision und ein gutes Gefühl für Proportionen.</p>
         </div>
       </div>
@@ -1695,11 +1822,11 @@
         <div class="member-initial">A</div>
         <div class="member-meta">
           <div class="role">Stylistin · Braut</div>
-          <div class="name">Anna Vorname</div>
+          <!-- TODO: Teamname ergänzen --><div class="name">Anna Vorname</div>
         </div>
         <div class="member-overlay">
           <div class="role">Stylistin · Braut</div>
-          <div class="name">Anna Vorname</div>
+          <!-- TODO: Teamname ergänzen --><div class="name">Anna Vorname</div>
           <p class="bio">Brautstyling-Expertin mit einem Auge für Details. Damit du dich an besonderen Tagen ganz wie du selbst fühlst.</p>
         </div>
       </div>
@@ -1835,10 +1962,8 @@
           <div class="contact-block">
             <dt>Öffnungs-<br/>zeiten</dt>
             <dd class="hours-list">
-              <div><span>Di–Mi</span> 09 — 18 Uhr</div>
-              <div><span>Do</span> 09 — 20 Uhr</div>
-              <div><span>Fr</span> 09 — 18 Uhr</div>
-              <div><span>Sa</span> 08 — 14 Uhr</div>
+              <div><span>Di – Fr</span> 09:30 — 18:00 Uhr</div>
+              <div><span>Sa</span> 09:30 — 16:00 Uhr</div>
               <div class="closed"><span>So &amp; Mo</span> geschlossen</div>
             </dd>
           </div>
@@ -1868,10 +1993,8 @@
         <div class="call-hours">
           <span class="eyebrow">Wann wir erreichbar sind</span>
           <div class="call-hours-grid">
-            <div><span class="day">Di – Mi</span><span class="time">09 — 18 Uhr</span></div>
-            <div><span class="day">Do</span><span class="time">09 — 20 Uhr</span></div>
-            <div><span class="day">Fr</span><span class="time">09 — 18 Uhr</span></div>
-            <div><span class="day">Sa</span><span class="time">08 — 14 Uhr</span></div>
+            <div><span class="day">Di – Fr</span><span class="time">09:30 — 18:00 Uhr</span></div>
+            <div><span class="day">Sa</span><span class="time">09:30 — 16:00 Uhr</span></div>
             <div class="closed"><span class="day">So &amp; Mo</span><span class="time">geschlossen</span></div>
           </div>
         </div>
@@ -1919,11 +2042,9 @@
       <div class="foot-col">
         <h6>Öffnungszeiten</h6>
         <div class="hours">
-          <div><span>Di–Mi</span> 09 — 18</div>
-          <div><span>Do</span> 09 — 20</div>
-          <div><span>Fr</span> 09 — 18</div>
-          <div><span>Sa</span> 08 — 14</div>
-          <div class="closed"><span>So Mo</span> geschlossen</div>
+          <div><span>Di – Fr</span> 09:30 — 18:00</div>
+          <div><span>Sa</span> 09:30 — 16:00</div>
+          <div class="closed"><span>So &amp; Mo</span> geschlossen</div>
         </div>
       </div>
     </div>
@@ -1972,7 +2093,7 @@
 
       <h3>Umsatzsteuer-ID</h3>
       <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>
-      <em style="color:var(--muted)">[Bitte hier Ihre USt-IdNr. eintragen]</em></p>
+      <!-- TODO: USt-IdNr. eintragen --><em style="color:var(--muted)">wird nachgereicht</em></p>
 
       <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
       <p>

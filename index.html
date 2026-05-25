@@ -263,6 +263,8 @@ input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gold)44
 <script>
 'use strict';
 
+const $ = id => document.getElementById(id);
+
 // ============================================================
 // NET STUB  — swap send() for socket.emit() to add multiplayer
 // ============================================================
@@ -907,8 +909,6 @@ function initParticles(){
 // ============================================================
 // INIT & EVENT WIRING
 // ============================================================
-const $ = id => document.getElementById(id);
-
 function confirmName(){
   const name=$('name-input').value.trim()||'Shinobi';
   action('INIT_PLAYER',{name});
@@ -951,7 +951,7 @@ $('inv-grid').addEventListener('click',e=>{
 // Boot
 initParticles();
 msg('Welcome to Shinobi Dungeon!','info');
-msg('Enter your name to begin.','info');
+msg('Enter your name to begin, then press Enter or the button.','info');
 </script>
 </body>
 </html>

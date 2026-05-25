@@ -8,163 +8,194 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --or:#ff7a00;--gold:#ffd700;--dark:#0a0500;--ck:#00aaff;
-  --red:#ff2222;--grn:#22ff88;--panel:#140900;--border:#ff7a0044;
-  --purple:#aa44ff;
+  --or:#ff6a00;--gold:#ffd700;--dark:#080510;--ck:#00b4ff;
+  --red:#ff2244;--grn:#00ffaa;--purple:#7c3aed;--dpurp:#1a0d2e;
+  --panel:#0f0820;--border:#7c3aed66;--pink:#ff44aa;
 }
 html,body{height:100%;background:var(--dark);color:#fff;overflow-x:hidden}
-body{font-family:'Press Start 2P','Courier New',monospace;font-size:11px;display:flex;justify-content:center}
+body{font-family:'Press Start 2P','Courier New',monospace;font-size:10px;display:flex;justify-content:center;align-items:flex-start}
 #app{width:100%;max-width:740px;min-height:100vh;position:relative}
 
-/* ---- screens ---- */
+/* screens */
 .screen{display:none;width:100%;min-height:100vh;flex-direction:column}
 .screen.active{display:flex}
 
-/* ---- lobby ---- */
-#screen-lobby{align-items:center;justify-content:center;position:relative;overflow:hidden}
+/* ══════════════════════ LOBBY ══════════════════════ */
+#screen-lobby{position:relative;align-items:center;justify-content:center;overflow:hidden;min-height:100vh}
 #lobby-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.lobby-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 20px}
+.lobby-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px;padding:40px 20px}
 
-.title-kanji{font-size:56px;color:var(--or);text-shadow:0 0 24px var(--or),0 0 60px #ff500066;animation:glow 3s ease-in-out infinite alternate;line-height:1}
-.title-main{font-size:20px;color:var(--gold);text-shadow:0 0 10px var(--gold);letter-spacing:2px;margin-top:4px}
-.title-sub{font-size:8px;color:#ff7a0077;letter-spacing:3px;margin-top:4px}
+.title-wrap{text-align:center}
+.title-kanji{font-size:64px;line-height:1;background:linear-gradient(180deg,#ff9900,#ff3300);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 24px #ff6600aa);animation:kanjipulse 2.5s ease-in-out infinite alternate}
+.title-main{font-size:18px;letter-spacing:4px;background:linear-gradient(90deg,var(--or),var(--gold),var(--or));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px;filter:drop-shadow(0 0 10px var(--gold))}
+.title-sub{font-size:7px;color:#9966cc;letter-spacing:3px;margin-top:5px}
 
-@keyframes glow{from{text-shadow:0 0 20px var(--or),0 0 40px #ff500066}to{text-shadow:0 0 40px var(--or),0 0 80px #ff500099}}
-@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.title-block{animation:floatY 4s ease-in-out infinite;text-align:center}
+@keyframes kanjipulse{from{filter:drop-shadow(0 0 16px #ff6600aa)}to{filter:drop-shadow(0 0 40px #ff6600ff) drop-shadow(0 0 80px #ff330055)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.title-wrap{animation:floatY 4s ease-in-out infinite}
 
-/* ---- player card ---- */
-.player-card{background:#1a0d0099;border:1px solid var(--border);padding:12px 18px;min-width:280px;text-align:center}
-.player-greet{font-size:8px;color:var(--or);margin-bottom:6px}
-.player-name{font-size:14px;color:var(--gold)}
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
-.stat-cell{background:#111;border:1px solid #222;padding:6px 4px;text-align:center;border-radius:2px}
-.stat-lbl{font-size:6px;color:#555;margin-bottom:3px}
-.stat-val{font-size:12px;color:var(--gold)}
-.xp-wrap{background:#111;height:7px;border:1px solid #333;margin-top:8px;overflow:hidden}
-.xp-bar{height:100%;background:linear-gradient(90deg,var(--or),var(--gold));transition:width .4s}
-.xp-lbl{font-size:6px;color:#555;text-align:center;margin-top:3px}
+/* player card */
+.pcard{background:linear-gradient(135deg,#0f0820dd,#1a0d2edd);border:1px solid var(--border);padding:14px 20px;min-width:300px;backdrop-filter:blur(8px)}
+.pcard-greet{font-size:7px;color:#9966cc;margin-bottom:6px}
+.pcard-name{font-size:14px;background:linear-gradient(90deg,var(--or),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.sc{background:#ffffff08;border:1px solid #ffffff11;padding:6px 4px;text-align:center}
+.sc-l{font-size:6px;color:#7c3aed;margin-bottom:3px}
+.sc-v{font-size:11px;color:var(--gold)}
 
-/* ---- name setup ---- */
-.name-setup{display:flex;flex-direction:column;align-items:center;gap:8px}
-.name-setup label{font-size:8px;color:var(--or)}
-input[type=text]{background:#1a0d00;border:1px solid var(--or);color:var(--gold);font-family:inherit;font-size:10px;padding:8px 12px;outline:none;width:220px}
-input[type=text]::placeholder{color:#ff7a0044}
-input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gold)44}
+/* bars */
+.bar-wrap{margin-top:8px}
+.bar-lbl{font-size:6px;color:#888;margin-bottom:2px;display:flex;justify-content:space-between}
+.bar-bg{background:#ffffff0d;height:8px;overflow:hidden}
+.bar-fill{height:100%;transition:width .4s}
+.bar-hp .bar-fill{background:linear-gradient(90deg,#cc0022,#ff2244)}
+.bar-ck .bar-fill{background:linear-gradient(90deg,#0066cc,#00b4ff)}
+.bar-xp .bar-fill{background:linear-gradient(90deg,var(--or),var(--gold))}
 
-/* ---- buttons ---- */
-.btn{padding:9px 18px;border:2px solid var(--or);background:transparent;color:var(--or);font-family:inherit;font-size:10px;cursor:pointer;letter-spacing:1px;transition:all .15s;white-space:nowrap}
-.btn:hover{background:var(--or);color:var(--dark);box-shadow:0 0 14px var(--or)}
+/* name input */
+.name-setup{display:flex;flex-direction:column;align-items:center;gap:10px}
+.name-setup label{font-size:8px;color:#9966cc}
+input[type=text]{background:#0f082099;border:1px solid var(--purple);color:var(--gold);font-family:inherit;font-size:10px;padding:9px 14px;outline:none;width:240px;backdrop-filter:blur(4px)}
+input[type=text]::placeholder{color:#7c3aed66}
+input[type=text]:focus{border-color:var(--or);box-shadow:0 0 12px var(--or)44}
+
+/* ══════════════════════ BUTTONS ══════════════════════ */
+.btn{padding:9px 18px;border:1px solid var(--purple);background:linear-gradient(135deg,#1a0d2e,#0f0820);color:#cc99ff;font-family:inherit;font-size:9px;cursor:pointer;letter-spacing:1px;transition:all .15s;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--purple),#4400aa);opacity:0;transition:opacity .15s}
+.btn:hover{color:#fff;border-color:var(--or);box-shadow:0 0 18px var(--purple)66}
+.btn:hover::after{opacity:.15}
 .btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.4;cursor:default;pointer-events:none}
-.btn-gold{border-color:var(--gold);color:var(--gold)}.btn-gold:hover{background:var(--gold);color:var(--dark);box-shadow:0 0 14px var(--gold)}
-.btn-ck{border-color:var(--ck);color:var(--ck)}.btn-ck:hover{background:var(--ck);color:var(--dark)}
-.btn-sm{padding:5px 10px;font-size:8px}
-.btn-lg{padding:13px 30px;font-size:11px}
+.btn:disabled{opacity:.35;cursor:default;pointer-events:none}
 
-.lobby-menu{display:flex;flex-direction:column;gap:9px;align-items:center;width:260px}
-.lobby-menu .btn{width:100%}
+.btn-or{border-color:var(--or);color:var(--or)}
+.btn-or:hover{box-shadow:0 0 18px var(--or)66;color:#fff;border-color:var(--gold)}
+.btn-gold{border-color:var(--gold);color:var(--gold)}
+.btn-gold:hover{box-shadow:0 0 18px var(--gold)66;color:#fff}
+.btn-ck{border-color:var(--ck);color:var(--ck)}
+.btn-ck:hover{box-shadow:0 0 18px var(--ck)66;color:#fff}
+.btn-red{border-color:var(--red);color:var(--red)}
+.btn-red:hover{box-shadow:0 0 18px var(--red)66}
+.btn-sm{padding:5px 11px;font-size:7px}
+.btn-lg{padding:13px 32px;font-size:11px}
 
-/* ---- panel screens ---- */
-.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:2px solid var(--or);background:var(--panel)}
-.ph h2{color:var(--or);font-size:13px;text-shadow:0 0 6px var(--or)}
-.ph-ryo{color:var(--gold);font-size:9px}
-.pb{flex:1;padding:14px;overflow-y:auto}
-.pf{padding:10px 18px;border-top:2px solid var(--or);background:var(--panel)}
+.lobby-menu{display:flex;flex-direction:column;gap:8px;align-items:center;width:280px}
+.lobby-menu .btn{width:100%;font-size:10px;padding:11px}
 
-/* ---- shop ---- */
-.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-@media(max-width:480px){.shop-grid{grid-template-columns:1fr}}
-.shop-item{background:var(--panel);border:1px solid #2a2a2a;border-radius:3px;padding:9px;display:flex;flex-direction:column;gap:5px;transition:border-color .15s}
-.shop-item:hover{border-color:var(--or)}
-.item-head{display:flex;align-items:center;gap:7px}
-.item-icon{font-size:20px;line-height:1;flex-shrink:0}
-.item-name{font-size:8px;color:#eee;flex:1}
-.rarity{font-size:6px;padding:2px 4px;text-transform:uppercase}
-.r-common{background:#333;color:#aaa}
-.r-uncommon{background:#1a4d1a;color:#44ff44}
-.r-rare{background:#1a1a6e;color:#6699ff}
-.r-legendary{background:#4d1a00;color:var(--gold);border:1px solid var(--gold)}
-.item-stats{font-size:7px;color:#666;line-height:1.9}
-.spos{color:#66ff88}.sneg{color:#ff6666}
-.item-desc{font-size:7px;color:#555;line-height:1.7}
-.item-foot{display:flex;justify-content:space-between;align-items:center;margin-top:3px}
+/* ══════════════════════ PANEL SCREENS ══════════════════════ */
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,var(--panel),#150a28)}
+.ph h2{font-size:12px;background:linear-gradient(90deg,var(--or),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pb{flex:1;padding:14px 16px;overflow-y:auto}
+.pf{padding:10px 16px;border-top:1px solid var(--border);background:var(--panel)}
+
+/* ══════════════════════ SHOP ══════════════════════ */
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.shop-grid{grid-template-columns:1fr}}
+.shop-item{background:linear-gradient(135deg,#0f082099,#1a0d2e88);border:1px solid #2a1a44;padding:10px;transition:border-color .15s,box-shadow .15s}
+.shop-item:hover{border-color:var(--purple);box-shadow:0 0 14px var(--purple)33}
+.item-head{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.item-icon{font-size:20px;line-height:1}
+.item-name{font-size:8px;color:#ddd;flex:1}
+.rar{font-size:6px;padding:2px 5px;text-transform:uppercase;font-family:'Courier New',monospace}
+.r-common{background:#1a1a2a;color:#888}
+.r-uncommon{background:#0a2a0a;color:#44dd44}
+.r-rare{background:#0a0a3a;color:#4488ff}
+.r-legendary{background:linear-gradient(90deg,#2a0a00,#1a0a2a);color:var(--gold);border:1px solid var(--gold)55}
+.item-stats{font-size:7px;line-height:2;margin-bottom:4px}
+.spos{color:#44ffaa}.sneg{color:#ff4466}
+.item-desc{font-size:6px;color:#555;line-height:1.8}
+.item-foot{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
 .item-price{color:var(--gold);font-size:9px}
-.sec-lbl{font-size:8px;color:var(--or);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase}
-.divider{border:none;border-top:1px solid #1a1a1a;margin:14px 0}
+.sec{font-size:7px;color:var(--purple);letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 
-/* ---- inventory ---- */
-.inv-head{color:var(--gold);font-size:9px;margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:6px}
+/* ══════════════════════ INVENTORY ══════════════════════ */
+.inv-ttl{font-size:8px;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1a1a2a}
 .inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.inv-slot{background:#0d0d0d;border:1px solid #222;border-radius:3px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
-.inv-slot.occ{border-color:#444}
-.inv-slot.eq{border-color:var(--gold);background:#1a1200}
+.inv-slot{background:#0a0516;border:1px solid #1a1030;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
+.inv-slot.occ{border-color:#2a1a44}
+.inv-slot.eq{border-color:var(--gold);background:linear-gradient(135deg,#1a1200,#0f0820);box-shadow:0 0 10px var(--gold)22}
 .inv-slot.occ:hover{border-color:var(--or)}
-.inv-slot .si{font-size:18px}
-.inv-slot .sn{font-size:6px;color:#666;text-align:center}
-.inv-slot.eq .sn{color:var(--gold)}
+.inv-icon{font-size:18px}
+.inv-name{font-size:6px;color:#666;text-align:center}
+.inv-slot.eq .inv-name{color:var(--gold)}
 .eq-badge{position:absolute;top:2px;right:3px;font-size:6px;color:var(--gold)}
 
-/* ---- skill tree ---- */
-#skill-canvas{display:block;margin:0 auto;background:#040209;border:1px solid #1a0033;max-width:100%}
-.skill-info{background:var(--panel);border:1px solid var(--border);padding:12px;margin-top:10px;min-height:72px;font-size:8px;color:#888;line-height:1.9}
-.skill-info-name{color:var(--gold);font-size:10px;margin-bottom:6px}
+/* ══════════════════════ SKILL TREE ══════════════════════ */
+#skill-canvas{display:block;margin:0 auto;background:#05020d;border:1px solid #1a0033;max-width:100%}
+.skill-info{background:linear-gradient(135deg,var(--panel),#1a0d2e);border:1px solid var(--border);padding:12px;margin-top:10px;min-height:70px;font-size:8px;color:#888;line-height:2}
+.skill-info-name{font-size:10px;color:var(--gold);margin-bottom:5px}
 .sp-row{text-align:center;margin-bottom:10px;color:var(--grn);font-size:9px}
 .path-labels{display:flex;justify-content:space-around;margin-bottom:4px}
-.pl-n{font-size:8px;color:#ff5555}.pl-t{font-size:8px;color:var(--or)}.pl-g{font-size:8px;color:var(--purple)}
 
-/* ---- achievements ---- */
-.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-@media(max-width:480px){.ach-grid{grid-template-columns:1fr}}
-.ach-card{background:var(--panel);border:1px solid #1a1a1a;border-radius:3px;padding:10px;display:flex;gap:9px;align-items:flex-start}
-.ach-card.unlocked{border-color:var(--gold)}
-.ach-ico{font-size:26px;filter:grayscale(1) brightness(.35);flex-shrink:0}
-.ach-card.unlocked .ach-ico{filter:none}
-.ach-nm{font-size:7px;color:#444;margin-bottom:4px}
-.ach-card.unlocked .ach-nm{color:var(--gold)}
-.ach-ds{font-size:6px;color:#333;line-height:1.7}
-.ach-card.unlocked .ach-ds{color:#888}
-.ach-count{color:var(--gold);font-size:9px}
+/* ══════════════════════ ACHIEVEMENTS ══════════════════════ */
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.ach-grid{grid-template-columns:1fr}}
+.ach-card{background:linear-gradient(135deg,var(--panel),#150820);border:1px solid #1a1030;padding:10px;display:flex;gap:9px;align-items:flex-start}
+.ach-card.on{border-color:var(--gold);box-shadow:0 0 12px var(--gold)22}
+.ach-ico{font-size:24px;filter:grayscale(1) brightness(.3);flex-shrink:0}
+.ach-card.on .ach-ico{filter:none}
+.ach-nm{font-size:7px;color:#333;margin-bottom:4px}
+.ach-card.on .ach-nm{color:var(--gold)}
+.ach-ds{font-size:6px;color:#2a2a2a;line-height:1.8}
+.ach-card.on .ach-ds{color:#777}
 
-/* ---- game placeholder ---- */
-#game-canvas{display:block;margin:0 auto;image-rendering:pixelated;max-width:100%}
+/* ══════════════════════ GAME HUD ══════════════════════ */
+#screen-game{background:var(--dark)}
+.game-hud{padding:8px 12px;background:linear-gradient(180deg,#080510ee,transparent);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hud-name{font-size:8px;color:var(--gold);min-width:80px}
+.hud-bars{display:flex;flex-direction:column;gap:3px;flex:1;max-width:200px}
+.hud-bar-row{display:flex;align-items:center;gap:5px}
+.hud-bar-lbl{font-size:6px;color:#666;width:16px}
+.hud-bar-bg{flex:1;height:7px;background:#ffffff0d}
+.hud-bar-fill{height:100%;transition:width .3s}
+.hud-hp{background:linear-gradient(90deg,#cc0022,#ff2244);box-shadow:0 0 6px #ff224488}
+.hud-ck{background:linear-gradient(90deg,#0055cc,#00b4ff);box-shadow:0 0 6px #00b4ff88}
+.hud-bar-val{font-size:6px;color:#888;min-width:42px;text-align:right}
+.hud-right{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.hud-floor{font-size:8px;color:var(--purple)}
+.hud-ryo{font-size:8px;color:var(--gold)}
+#game-canvas{display:block;width:100%;max-width:740px;image-rendering:pixelated;cursor:crosshair}
+.game-controls{padding:6px 12px;display:flex;gap:14px;justify-content:center;background:linear-gradient(0deg,#080510ee,transparent);flex-wrap:wrap}
+.ctrl-hint{font-size:6px;color:#333}
+.ctrl-key{color:var(--purple);font-size:6px}
 
-/* ---- message log ---- */
-#msg-log{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:90%;max-width:460px;z-index:100;pointer-events:none;display:flex;flex-direction:column;gap:4px;align-items:center}
-.msg{background:#0a050099;border-left:3px solid var(--or);padding:5px 10px;font-size:7px;color:#ddd;animation:msgIn .2s ease-out;max-width:100%;backdrop-filter:blur(4px)}
+/* ══════════════════════ MSG LOG ══════════════════════ */
+#msg-log{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:88%;max-width:440px;z-index:100;pointer-events:none;display:flex;flex-direction:column;gap:3px;align-items:center}
+.msg{background:#080510cc;border-left:2px solid var(--purple);padding:5px 10px;font-size:7px;color:#ccc;animation:msgIn .18s ease-out;backdrop-filter:blur(6px)}
 .msg.good{border-left-color:var(--grn);color:var(--grn)}
-.msg.bad{border-left-color:var(--red);color:#ff8888}
+.msg.bad{border-left-color:var(--red);color:#ff8899}
 .msg.info{border-left-color:var(--ck);color:#88ccff}
 .msg.gold{border-left-color:var(--gold);color:var(--gold)}
-@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
-/* ---- achievement popup ---- */
-#ach-popup{position:fixed;bottom:70px;right:-300px;width:260px;background:#1a1000;border:2px solid var(--gold);padding:11px;z-index:200;transition:right .4s ease-out;display:flex;gap:9px;align-items:center}
-#ach-popup.show{right:14px}
+/* ══════════════════════ ACH POPUP ══════════════════════ */
+#ach-popup{position:fixed;bottom:68px;right:-290px;width:260px;background:linear-gradient(135deg,#1a1000,#0f0820);border:1px solid var(--gold);padding:11px;z-index:200;transition:right .4s ease-out;display:flex;gap:9px;align-items:center;box-shadow:0 0 24px var(--gold)44}
+#ach-popup.show{right:12px}
 .ap-ico{font-size:26px}
-.ap-title{font-size:6px;color:var(--gold);margin-bottom:3px}
-.ap-name{font-size:9px;color:#fff}
+.ap-t{font-size:6px;color:var(--gold);margin-bottom:3px}
+.ap-n{font-size:9px;color:#fff}
 
-/* ---- modal ---- */
-#modal-overlay{position:fixed;inset:0;background:#000000bb;z-index:300;display:flex;align-items:center;justify-content:center}
+/* ══════════════════════ MODAL ══════════════════════ */
+#modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 #modal-overlay.hidden{display:none}
-#modal-box{background:#110800;border:2px solid var(--or);padding:20px;max-width:380px;width:90%;max-height:80vh;overflow-y:auto}
-#modal-title{color:var(--gold);font-size:11px;margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:7px}
-#modal-body{font-size:8px;color:#bbb;line-height:1.9;margin-bottom:12px;white-space:pre-wrap}
+#modal-box{background:linear-gradient(135deg,#0f0820,#1a0d2e);border:1px solid var(--border);padding:20px;max-width:380px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 0 40px var(--purple)44}
+#modal-title{font-size:11px;color:var(--gold);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2a1a44}
+#modal-body{font-size:8px;color:#aaa;line-height:2;margin-bottom:12px;white-space:pre-wrap}
 #modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#0a0500}::-webkit-scrollbar-thumb{background:var(--or)}
+/* ══════════════════════ SCROLLBAR ══════════════════════ */
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#080510}::-webkit-scrollbar-thumb{background:var(--purple)}
 .hidden{display:none!important}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- LOBBY -->
+<!-- ═══════════════ LOBBY ═══════════════ -->
 <div id="screen-lobby" class="screen active">
   <canvas id="lobby-canvas"></canvas>
   <div class="lobby-inner">
-    <div class="title-block">
+    <div class="title-wrap">
       <div class="title-kanji">忍</div>
       <div class="title-main">SHINOBI DUNGEON</div>
       <div class="title-sub">~ A Naruto Roguelike ~</div>
@@ -173,19 +204,20 @@ input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gold)44
     <div id="name-setup" class="name-setup">
       <label>Enter your Shinobi name:</label>
       <input type="text" id="name-input" maxlength="16" placeholder="e.g. Naruto..."/>
-      <button class="btn btn-gold" id="begin-btn">Begin Journey</button>
+      <button class="btn btn-gold btn-lg" id="begin-btn">Begin Journey</button>
     </div>
 
-    <div id="player-card" class="player-card hidden">
-      <div class="player-greet">Welcome back, Shinobi</div>
-      <div class="player-name" id="disp-name"></div>
-      <div class="stat-grid" id="lobby-stat-grid"></div>
-      <div class="xp-wrap"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
-      <div class="xp-lbl" id="xp-lbl"></div>
+    <div id="player-card" class="pcard hidden">
+      <div class="pcard-greet">Welcome back, Shinobi</div>
+      <div class="pcard-name" id="disp-name"></div>
+      <div class="stat-row" id="lobby-stats"></div>
+      <div class="bar-wrap bar-hp"><div class="bar-lbl"><span>HP</span><span id="hp-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-hp"></div></div></div>
+      <div class="bar-wrap bar-ck"><div class="bar-lbl"><span>CHAKRA</span><span id="ck-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-ck"></div></div></div>
+      <div class="bar-wrap bar-xp"><div class="bar-lbl"><span>XP</span><span id="xp-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-xp"></div></div></div>
     </div>
 
     <nav class="lobby-menu hidden" id="lobby-menu">
-      <button class="btn btn-lg" id="start-btn">⚔ START GAME</button>
+      <button class="btn btn-or btn-lg" id="start-btn">⚔ ENTER DUNGEON</button>
       <button class="btn" id="shop-btn">🛒 SHOP</button>
       <button class="btn btn-ck" id="skills-btn">✦ SKILL TREE</button>
       <button class="btn btn-gold" id="ach-btn">🏆 ACHIEVEMENTS</button>
@@ -193,141 +225,128 @@ input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gold)44
   </div>
 </div>
 
-<!-- SHOP -->
+<!-- ═══════════════ SHOP ═══════════════ -->
 <div id="screen-shop" class="screen">
-  <div class="ph"><h2>🛒 SHOP</h2><div class="ph-ryo">💰 <span id="shop-ryo">0</span> Ryo</div></div>
+  <div class="ph"><h2>🛒 SHOP</h2><div style="color:var(--gold);font-size:9px">💰 <span id="shop-ryo">0</span> Ryo</div></div>
   <div class="pb">
-    <div class="sec-lbl">Items for Sale</div>
+    <div class="sec">Items for Sale</div>
     <div class="shop-grid" id="shop-grid"></div>
-    <hr class="divider"/>
-    <div class="inv-head">📦 Inventory (<span id="inv-count">0</span>/8)</div>
+    <hr class="div"/>
+    <div class="inv-ttl">📦 Inventory (<span id="inv-count">0</span>/8)</div>
     <div class="inv-grid" id="inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Back</button></div>
 </div>
 
-<!-- SKILL TREE -->
+<!-- ═══════════════ SKILLS ═══════════════ -->
 <div id="screen-skills" class="screen">
-  <div class="ph"><h2>✦ SKILL TREE</h2><div class="ph-ryo">SP: <span id="sp-hud">0</span></div></div>
+  <div class="ph"><h2>✦ SKILL TREE</h2><div style="color:var(--grn);font-size:9px">SP: <span id="sp-hud">0</span></div></div>
   <div class="pb">
     <div class="sp-row">Available Skill Points: <span id="sp-count">0</span></div>
     <div class="path-labels">
-      <span class="pl-n">NINJUTSU</span>
-      <span class="pl-t">TAIJUTSU</span>
-      <span class="pl-g">GENJUTSU</span>
+      <span style="font-size:8px;color:#ff5555">NINJUTSU</span>
+      <span style="font-size:8px;color:var(--or)">TAIJUTSU</span>
+      <span style="font-size:8px;color:#aa44ff">GENJUTSU</span>
     </div>
     <canvas id="skill-canvas" width="700" height="430"></canvas>
-    <div class="skill-info" id="skill-info"><div style="text-align:center;padding-top:18px;color:#333">Click a node to inspect</div></div>
+    <div class="skill-info" id="skill-info"><div style="text-align:center;padding-top:16px;color:#2a2a3a">Click a node to inspect</div></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="skills-back">◀ Back</button></div>
 </div>
 
-<!-- ACHIEVEMENTS -->
+<!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
 <div id="screen-ach" class="screen">
-  <div class="ph"><h2>🏆 ACHIEVEMENTS</h2><div class="ach-count"><span id="ach-done">0</span>/10</div></div>
+  <div class="ph"><h2>🏆 ACHIEVEMENTS</h2><div style="color:var(--gold);font-size:9px"><span id="ach-done">0</span>/10</div></div>
   <div class="pb"><div class="ach-grid" id="ach-grid"></div></div>
   <div class="pf"><button class="btn btn-sm" id="ach-back">◀ Back</button></div>
 </div>
 
-<!-- GAME -->
+<!-- ═══════════════ GAME ═══════════════ -->
 <div id="screen-game" class="screen">
-  <div class="ph"><h2>⚔ FLOOR <span id="floor-num">1</span></h2><button class="btn btn-sm" id="game-back">◀ Retreat</button></div>
-  <div class="pb" style="display:flex;flex-direction:column;align-items:center;gap:14px;justify-content:center">
-    <canvas id="game-canvas" width="700" height="380"></canvas>
-    <div style="font-size:8px;color:#444;text-align:center">Dungeon generation arrives in Phase 2.<br/>Explore the lobby systems for now!</div>
-    <button class="btn btn-sm btn-gold" id="test-xp-btn">+ Gain 80 XP (test)</button>
-    <button class="btn btn-sm" id="test-ryo-btn">+ Gain 200 Ryo (test)</button>
+  <div class="game-hud" id="game-hud">
+    <div class="hud-name" id="hud-name">—</div>
+    <div class="hud-bars">
+      <div class="hud-bar-row"><span class="hud-bar-lbl">HP</span><div class="hud-bar-bg"><div class="hud-bar-fill hud-hp" id="hud-hp" style="width:100%"></div></div><span class="hud-bar-val" id="hud-hp-v">100/100</span></div>
+      <div class="hud-bar-row"><span class="hud-bar-lbl">CK</span><div class="hud-bar-bg"><div class="hud-bar-fill hud-ck" id="hud-ck" style="width:100%"></div></div><span class="hud-bar-val" id="hud-ck-v">50/50</span></div>
+    </div>
+    <div class="hud-right">
+      <div class="hud-floor">Floor <span id="hud-floor">1</span></div>
+      <div class="hud-ryo">💰 <span id="hud-ryo">0</span></div>
+      <div style="font-size:6px;color:#4a3a6a">Lv.<span id="hud-lv">1</span> ATK:<span id="hud-atk">10</span></div>
+    </div>
+  </div>
+  <canvas id="game-canvas" height="480"></canvas>
+  <div class="game-controls">
+    <span class="ctrl-hint"><span class="ctrl-key">WASD</span> Move</span>
+    <span class="ctrl-hint"><span class="ctrl-key">E / Space</span> Attack</span>
+    <span class="ctrl-hint"><span class="ctrl-key">Q</span> Chakra Strike</span>
+    <span class="ctrl-hint"><span class="ctrl-key">ESC</span> Retreat</span>
   </div>
 </div>
 
-</div><!-- /app -->
-
-<!-- Floating message log -->
+</div>
 <div id="msg-log"></div>
-
-<!-- Achievement popup -->
-<div id="ach-popup">
-  <div class="ap-ico" id="ap-ico">🏆</div>
-  <div><div class="ap-title">ACHIEVEMENT UNLOCKED</div><div class="ap-name" id="ap-name"></div></div>
-</div>
-
-<!-- Modal -->
-<div id="modal-overlay" class="hidden">
-  <div id="modal-box">
-    <div id="modal-title"></div>
-    <div id="modal-body"></div>
-    <div id="modal-actions"></div>
-  </div>
-</div>
+<div id="ach-popup"><div class="ap-ico" id="ap-ico">🏆</div><div><div class="ap-t">ACHIEVEMENT UNLOCKED</div><div class="ap-n" id="ap-nm"></div></div></div>
+<div id="modal-overlay" class="hidden"><div id="modal-box"><div id="modal-title"></div><div id="modal-body"></div><div id="modal-actions"></div></div></div>
 
 <script>
 'use strict';
-
 const $ = id => document.getElementById(id);
 
-// ============================================================
-// NET STUB  — swap send() for socket.emit() to add multiplayer
-// ============================================================
+/* ════════════════════════════════════════════════════
+   NET STUB  (swap send for socket.emit to go multiplayer)
+════════════════════════════════════════════════════ */
 const NET = {
-  send: (_act) => { /* later: socket.emit('action', _act) */ },
-  onReceive: (_cb) => { /* later: socket.on('action', _cb) */ }
+  send: (_a) => {},
+  onReceive: (_cb) => {}
 };
 
-// ============================================================
-// CONSTANTS
-// ============================================================
-const XP_TABLE = [0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000];
+/* ════════════════════════════════════════════════════
+   CONSTANTS
+════════════════════════════════════════════════════ */
+const XP_TABLE = [0,100,250,450,700,1000,1400,1900,2500,3200,4000];
 
 const ITEMS = [
-  { id:'kunai',           name:'Kunai',          icon:'🗡️',  rarity:'common',    type:'weapon',    stats:{atk:3},        price:80,   desc:'Standard kunai. Light and fast.' },
-  { id:'shuriken',        name:'Shuriken',        icon:'✴️',  rarity:'common',    type:'weapon',    stats:{atk:2,rng:2},  price:100,  desc:'Throw from distance. +2 Range.' },
-  { id:'katana',          name:'Katana',          icon:'⚔️',  rarity:'uncommon',  type:'weapon',    stats:{atk:8,spd:-1}, price:220,  desc:'Heavy blade. Great power, less speed.' },
-  { id:'bo_staff',        name:'Bo Staff',        icon:'🥢',  rarity:'uncommon',  type:'weapon',    stats:{atk:5,rng:2},  price:180,  desc:'Long reach. Discipline required.' },
-  { id:'hp_potion',       name:'Health Potion',   icon:'🧪',  rarity:'common',    type:'consumable',stats:{},             price:60,   desc:'Restores 50 HP.',  effect:{hp:50} },
-  { id:'ck_potion',       name:'Chakra Potion',   icon:'💧',  rarity:'common',    type:'consumable',stats:{},             price:60,   desc:'Restores 30 Chakra.',effect:{chakra:30} },
-  { id:'rasengan_scroll', name:'Rasengan Scroll', icon:'📜',  rarity:'rare',      type:'jutsu',     stats:{atk:15},       price:600,  desc:'Spiral sphere. ATK+15, costs 20 chakra/use.', chakraCost:20 },
-  { id:'chidori_blade',   name:'Chidori Blade',   icon:'⚡',  rarity:'legendary', type:'weapon',    stats:{atk:20},       price:1200, desc:"Sasuke's lightning edge. ATK+20, costs 15 chakra.", chakraCost:15 }
+  {id:'kunai',          name:'Kunai',         icon:'🗡️', rar:'common',    type:'weapon',    stats:{atk:3},        price:80,   desc:'Fast and light. +3 ATK.'},
+  {id:'shuriken',       name:'Shuriken',       icon:'✴️', rar:'common',    type:'weapon',    stats:{atk:2,rng:2},  price:100,  desc:'Strike from range. +2 ATK, +2 RNG.'},
+  {id:'katana',         name:'Katana',         icon:'⚔️', rar:'uncommon',  type:'weapon',    stats:{atk:8,spd:-1}, price:220,  desc:'Heavy blade. +8 ATK, -1 SPD.'},
+  {id:'bo_staff',       name:'Bo Staff',       icon:'🥢', rar:'uncommon',  type:'weapon',    stats:{atk:5,rng:2},  price:180,  desc:'Wide reach. +5 ATK, +2 RNG.'},
+  {id:'hp_pot',         name:'Health Potion',  icon:'🧪', rar:'common',    type:'consume',   stats:{},             price:60,   desc:'Restore 50 HP.',  fx:{hp:50}},
+  {id:'ck_pot',         name:'Chakra Potion',  icon:'💧', rar:'common',    type:'consume',   stats:{},             price:60,   desc:'Restore 30 Chakra.',fx:{ck:30}},
+  {id:'rasengan_scroll',name:'Rasengan Scroll',icon:'📜', rar:'rare',      type:'jutsu',     stats:{atk:15},       price:600,  desc:'+15 ATK. Chakra/use: 20', ckCost:20},
+  {id:'chidori_blade',  name:'Chidori Blade',  icon:'⚡', rar:'legendary', type:'weapon',    stats:{atk:20},       price:1200, desc:"+20 ATK. Chakra/use: 15", ckCost:15}
 ];
 
 const SKILLS = {
-  ninjutsu: {
-    label:'Ninjutsu', color:'#ff5555',
-    nodes:[
-      {id:'nj1',name:'Chakra Amplify',  icon:'💠',desc:'Max Chakra +10',        effect:{chakra:10},  cost:1},
-      {id:'nj2',name:'Fireball Jutsu',  icon:'🔥',desc:'Unlock Fireball (ATK+5)',effect:{atk:5},     cost:1},
-      {id:'nj3',name:'Rasengan Mastery',icon:'🌀',desc:'Rasengan costs 10 less chakra',effect:{special:'rasengan_reduce'},cost:2},
-      {id:'nj4',name:'Shadow Clone',    icon:'👥',desc:'ATK+8, creates decoys', effect:{atk:8},     cost:2},
-      {id:'nj5',name:'Sage Mode',       icon:'🐸',desc:'ATK+15, DEF+10',        effect:{atk:15,def:10},cost:3}
-    ]
-  },
-  taijutsu: {
-    label:'Taijutsu', color:'#ff7a00',
-    nodes:[
-      {id:'tj1',name:'Combat Training', icon:'👊',desc:'ATK+3',                effect:{atk:3},        cost:1},
-      {id:'tj2',name:'Combo Strike',    icon:'💥',desc:'ATK+5, chance to hit twice',effect:{atk:5},   cost:1},
-      {id:'tj3',name:'Iron Body',       icon:'🛡️',desc:'DEF+8, HP+20',          effect:{def:8,hp:20},  cost:2},
-      {id:'tj4',name:'Eight Gates',     icon:'🔴',desc:'ATK+20 (danger mode)',  effect:{atk:20},       cost:2},
-      {id:'tj5',name:'Leaf Whirlwind',  icon:'🍃',desc:'SPD+5, hits all nearby',effect:{spd:5},       cost:3}
-    ]
-  },
-  genjutsu: {
-    label:'Genjutsu', color:'#aa44ff',
-    nodes:[
-      {id:'gj1',name:'Quick Steps',     icon:'💨',desc:'SPD+2',                 effect:{spd:2},      cost:1},
-      {id:'gj2',name:'Illusion Veil',   icon:'🌫️',desc:'DEF+4, enemies miss more',effect:{def:4},    cost:1},
-      {id:'gj3',name:'Mind Crush',      icon:'🧠',desc:'ATK+6 vs confused foes',effect:{atk:6},      cost:2},
-      {id:'gj4',name:'Tsukuyomi',       icon:'🌙',desc:'Stun enemies 2 turns',  effect:{special:'tsukuyomi'},cost:2},
-      {id:'gj5',name:'Infinite Tsukuyomi',icon:'🌑',desc:'All enemy stats halved',effect:{special:'inf_tsukuyomi'},cost:3}
-    ]
-  }
+  ninjutsu:{label:'Ninjutsu',color:'#ff5555',nodes:[
+    {id:'nj1',name:'Chakra Amplify',  icon:'💠',desc:'Max Chakra +10',      fx:{ck:10},  cost:1},
+    {id:'nj2',name:'Fireball Jutsu',  icon:'🔥',desc:'Unlock Fireball, ATK+5',fx:{atk:5}, cost:1},
+    {id:'nj3',name:'Rasengan Mastery',icon:'🌀',desc:'Rasengan costs -10 CK',fx:{s:'rasengan_reduce'},cost:2},
+    {id:'nj4',name:'Shadow Clone',    icon:'👥',desc:'ATK+8',               fx:{atk:8},  cost:2},
+    {id:'nj5',name:'Sage Mode',       icon:'🐸',desc:'ATK+15, DEF+10',      fx:{atk:15,def:10},cost:3}
+  ]},
+  taijutsu:{label:'Taijutsu',color:'#ff7a00',nodes:[
+    {id:'tj1',name:'Combat Training', icon:'👊',desc:'ATK+3',               fx:{atk:3},  cost:1},
+    {id:'tj2',name:'Combo Strike',    icon:'💥',desc:'ATK+5',               fx:{atk:5},  cost:1},
+    {id:'tj3',name:'Iron Body',       icon:'🛡️',desc:'DEF+8, HP+20',        fx:{def:8,hp:20},cost:2},
+    {id:'tj4',name:'Eight Gates',     icon:'🔴',desc:'ATK+20',              fx:{atk:20}, cost:2},
+    {id:'tj5',name:'Leaf Whirlwind',  icon:'🍃',desc:'SPD+5',               fx:{spd:5},  cost:3}
+  ]},
+  genjutsu:{label:'Genjutsu',color:'#aa44ff',nodes:[
+    {id:'gj1',name:'Quick Steps',     icon:'💨',desc:'SPD+2',               fx:{spd:2},  cost:1},
+    {id:'gj2',name:'Illusion Veil',   icon:'🌫️',desc:'DEF+4',              fx:{def:4},  cost:1},
+    {id:'gj3',name:'Mind Crush',      icon:'🧠',desc:'ATK+6',               fx:{atk:6},  cost:2},
+    {id:'gj4',name:'Tsukuyomi',       icon:'🌙',desc:'Stun 2 turns',        fx:{s:'tsukuyomi'},cost:2},
+    {id:'gj5',name:'Inf. Tsukuyomi', icon:'🌑',desc:'Enemy stats halved',   fx:{s:'inf_tsukuyomi'},cost:3}
+  ]}
 };
 
-const ACHIEVEMENTS = [
+const ACHLIST = [
   {id:'first_blood',icon:'🩸',name:'First Blood',    desc:'Defeat your first enemy.'},
   {id:'level_5',    icon:'⭐',name:'Genin Rank',     desc:'Reach Level 5.'},
   {id:'level_10',   icon:'🌟',name:'Chunin Rank',    desc:'Reach Level 10.'},
   {id:'boss_slayer',icon:'💀',name:'Boss Slayer',    desc:'Defeat a floor boss.'},
-  {id:'collector',  icon:'🎒',name:'Collector',      desc:'Own 5 or more weapons at once.'},
+  {id:'collector',  icon:'🎒',name:'Collector',      desc:'Own 5 or more weapons.'},
   {id:'floor_5',    icon:'🏯',name:'Deep Diver',     desc:'Reach Floor 5.'},
   {id:'kage',       icon:'👑',name:'Kage',           desc:'Complete the game.'},
   {id:'rich',       icon:'💰',name:'Money Bags',     desc:'Open 10 treasure chests.'},
@@ -335,363 +354,291 @@ const ACHIEVEMENTS = [
   {id:'secret',     icon:'🍥',name:'Believe It!',    desc:'Type the secret phrase.'}
 ];
 
-// ============================================================
-// GLOBAL STATE
-// ============================================================
+const ENEMY_DEF = {
+  chunin:  {name:'Chunin',   hp:40,  atk:8,  spd:55,  col:'#cc2222',glow:'#ff0000',sz:13,xp:25, ryo:15},
+  akatsuki:{name:'Akatsuki', hp:80,  atk:15, spd:45,  col:'#5500aa',glow:'#aa00ff',sz:15,xp:50, ryo:30},
+  anbu:    {name:'ANBU',     hp:130, atk:22, spd:70,  col:'#1a1a44',glow:'#4444ff',sz:13,xp:80, ryo:55},
+  boss:    {name:'Kage',     hp:450, atk:38, spd:35,  col:'#440000',glow:'#ff2200',sz:22,xp:350,ryo:250}
+};
+
+/* ════════════════════════════════════════════════════
+   GLOBAL STATE G
+════════════════════════════════════════════════════ */
 const G = {
   roomId: null,
   localPlayerId: 'p1',
   players: {},
-  dungeon: { floor:1, tiles:[], enemies:[], items:[] },
-  get player() { return this.players[this.localPlayerId]; },
-
-  unlockedSkills: { ninjutsu:[], taijutsu:[], genjutsu:[] },
-  achievements: [],
-  inventory: [],   // [{id, equipped}]
+  get player(){ return this.players[this.localPlayerId]; },
+  skills:{ ninjutsu:[], taijutsu:[], genjutsu:[] },
+  achievements:[],
+  inventory:[],
   ryo: 500,
   floor: 1,
-  chestsOpened: 0,
-  tilesMoved: 0,
-  enemiesKilled: 0,
-  bossesKilled: 0,
-  eggs: { believeit:false, konami:false }
+  chestsOpened:0, tilesMoved:0, enemiesKilled:0, bossesKilled:0,
+  eggs:{ believeit:false, konami:false },
+  dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
 
-// ============================================================
-// ACTION DISPATCH
-// ============================================================
-function action(type, payload = {}) {
-  NET.send({ type, payload });
-  _apply(type, payload);
+/* ════════════════════════════════════════════════════
+   ACTION DISPATCH
+════════════════════════════════════════════════════ */
+function action(type, payload={}){
+  NET.send({type,payload});
+  _apply(type,payload);
 }
-
-function _apply(type, payload) {
-  switch (type) {
-    case 'INIT_PLAYER':     _initPlayer(payload.name); break;
-    case 'BUY_ITEM':        _buyItem(payload.itemId); break;
-    case 'ITEM_ACTION':     _itemAction(payload.index); break;
-    case 'UNLOCK_SKILL':    _unlockSkill(payload.path, payload.ni); break;
-    case 'GAIN_XP':         _gainXp(payload.amt); break;
-    case 'GAIN_RYO':        G.ryo += payload.amt; _refreshRyo(); break;
-    case 'EASTER_EGG':      _applyEgg(payload.egg); break;
+function _apply(type,p){
+  switch(type){
+    case 'INIT_PLAYER': _initPlayer(p.name); break;
+    case 'BUY_ITEM':    _buyItem(p.id); break;
+    case 'ITEM_ACT':    _itemAct(p.idx); break;
+    case 'SKILL':       _unlockSkill(p.path,p.ni); break;
+    case 'GAIN_XP':     _gainXp(p.amt); break;
+    case 'GAIN_RYO':    G.ryo+=p.amt; _syncRyo(); break;
+    case 'EGG':         _applyEgg(p.egg); break;
   }
 }
 
-// ============================================================
-// PLAYER
-// ============================================================
-function _initPlayer(name) {
-  G.players[G.localPlayerId] = {
-    id: G.localPlayerId, name,
+/* ════════════════════════════════════════════════════
+   PLAYER
+════════════════════════════════════════════════════ */
+function _initPlayer(name){
+  G.players[G.localPlayerId]={
+    id:G.localPlayerId, name,
     level:1, xp:0,
-    hp:100, maxHp:100,
-    chakra:50, maxChakra:50,
-    atk:10, def:5, spd:5,
-    skillPoints:0,
-    base: { maxHp:100, maxChakra:50, atk:10, def:5, spd:5 }
+    hp:100, maxHp:100, chakra:50, maxChakra:50,
+    atk:10, def:5, spd:5, skillPoints:0,
+    base:{maxHp:100,maxChakra:50,atk:10,def:5,spd:5},
+    x:0, y:0, facing:1, anim:0,
+    atkCd:0, ckCd:0, hitFlash:0, invuln:0
   };
 }
 
-function xpNeeded(lvl) {
-  if (lvl >= XP_TABLE.length) return XP_TABLE.at(-1) + (lvl - XP_TABLE.length + 1) * 1200;
-  return XP_TABLE[lvl];
-}
+function xpNeed(lv){ return lv>=XP_TABLE.length?XP_TABLE.at(-1)+(lv-XP_TABLE.length+1)*1200:XP_TABLE[lv]; }
 
-function _gainXp(amt) {
-  const p = G.player; if (!p) return;
-  p.xp += amt;
-  while (p.xp >= xpNeeded(p.level)) {
-    p.xp -= xpNeeded(p.level);
-    p.level++;
-    p.base.maxHp += 10; p.base.maxChakra += 5;
-    p.skillPoints++;
-    _recalc();
-    p.hp = p.maxHp; p.chakra = p.maxChakra;
-    msg(`Level Up! Now Lv.${p.level} — +1 Skill Point`, 'gold');
-    _checkAch('level_5'); _checkAch('level_10');
-    _refreshSpDisplay();
+function _gainXp(amt){
+  const p=G.player; if(!p) return;
+  p.xp+=amt;
+  while(p.xp>=xpNeed(p.level)){
+    p.xp-=xpNeed(p.level); p.level++;
+    p.base.maxHp+=10; p.base.maxChakra+=5; p.skillPoints++;
+    _recalc(); p.hp=p.maxHp; p.chakra=p.maxChakra;
+    msg(`Level Up! Lv.${p.level} — +1 Skill Point`,'gold');
+    spawnBurst(p.x,p.y,'#ffd700',20);
+    _chkAch('level_5'); _chkAch('level_10'); _syncSP();
   }
-  _refreshLobby();
+  _syncLobby();
 }
 
-function _recalc() {
-  const p = G.player; if (!p) return;
-  let mhp=p.base.maxHp, mck=p.base.maxChakra, atk=p.base.atk, def=p.base.def, spd=p.base.spd;
-  for (const path of ['ninjutsu','taijutsu','genjutsu']) {
-    for (const nid of G.unlockedSkills[path]) {
-      const nd = SKILLS[path].nodes.find(n => n.id === nid); if (!nd) continue;
-      const e = nd.effect;
-      if (e.hp)     mhp  += e.hp;
-      if (e.chakra) mck  += e.chakra;
-      if (e.atk)    atk  += e.atk;
-      if (e.def)    def  += e.def;
-      if (e.spd)    spd  += e.spd;
+function _recalc(){
+  const p=G.player; if(!p) return;
+  let mhp=p.base.maxHp,mck=p.base.maxChakra,atk=p.base.atk,def=p.base.def,spd=p.base.spd;
+  for(const path of['ninjutsu','taijutsu','genjutsu']){
+    for(const nid of G.skills[path]){
+      const n=SKILLS[path].nodes.find(x=>x.id===nid); if(!n) continue;
+      const f=n.fx;
+      if(f.hp) mhp+=f.hp; if(f.ck) mck+=f.ck;
+      if(f.atk) atk+=f.atk; if(f.def) def+=f.def; if(f.spd) spd+=f.spd;
     }
   }
-  G.inventory.filter(i => i.equipped).forEach(inv => {
-    const it = ITEMS.find(x => x.id === inv.id); if (!it) return;
-    if (it.stats.atk) atk += it.stats.atk;
-    if (it.stats.def) def += it.stats.def;
-    if (it.stats.spd) spd += it.stats.spd;
+  G.inventory.filter(i=>i.eq).forEach(inv=>{
+    const it=ITEMS.find(x=>x.id===inv.id); if(!it) return;
+    if(it.stats.atk) atk+=it.stats.atk;
+    if(it.stats.def) def+=it.stats.def;
+    if(it.stats.spd) spd+=it.stats.spd;
   });
-  if (G.eggs.believeit) atk += 2;
-  if (G.eggs.konami)  { mhp += 200; mck += 200; }
+  if(G.eggs.believeit) atk+=2;
+  if(G.eggs.konami){ mhp+=200; mck+=200; }
   p.maxHp=mhp; p.maxChakra=mck; p.atk=atk; p.def=def; p.spd=spd;
-  _refreshLobby();
+  _syncLobby();
 }
 
-// ============================================================
-// SHOP
-// ============================================================
-function _buyItem(itemId) {
-  const it = ITEMS.find(i => i.id === itemId); if (!it) return;
-  if (G.ryo < it.price)      { msg('Not enough Ryo!', 'bad'); return; }
-  if (G.inventory.length>=8) { msg('Inventory full! (8/8)', 'bad'); return; }
-  G.ryo -= it.price;
-  G.inventory.push({ id:it.id, equipped:false });
-  msg(`Bought ${it.name}!`, 'gold');
-  _refreshRyo();
-  renderShop(); renderInv();
-  const weapons = G.inventory.filter(i => { const x=ITEMS.find(t=>t.id===i.id); return x&&x.type==='weapon'; });
-  if (weapons.length >= 5) _checkAch('collector');
+/* ════════════════════════════════════════════════════
+   SHOP
+════════════════════════════════════════════════════ */
+function _buyItem(id){
+  const it=ITEMS.find(i=>i.id===id); if(!it) return;
+  if(G.ryo<it.price){ msg('Not enough Ryo!','bad'); return; }
+  if(G.inventory.length>=8){ msg('Inventory full!','bad'); return; }
+  G.ryo-=it.price;
+  G.inventory.push({id:it.id,eq:false});
+  msg(`Bought ${it.name}!`,'gold');
+  _syncRyo(); renderShop(); renderInv();
+  if(G.inventory.filter(i=>{const x=ITEMS.find(t=>t.id===i.id);return x&&x.type==='weapon';}).length>=5) _chkAch('collector');
 }
 
-function _itemAction(index) {
-  const inv = G.inventory[index]; if (!inv) return;
-  const it = ITEMS.find(i => i.id === inv.id); if (!it) return;
-  const p = G.player;
-  if (it.type === 'consumable') {
-    if (it.effect) {
-      if (it.effect.hp)     p.hp     = Math.min(p.maxHp,     p.hp     + it.effect.hp);
-      if (it.effect.chakra) p.chakra = Math.min(p.maxChakra, p.chakra + it.effect.chakra);
+function _itemAct(idx){
+  const inv=G.inventory[idx]; if(!inv) return;
+  const it=ITEMS.find(i=>i.id===inv.id); if(!it) return;
+  const p=G.player;
+  if(it.type==='consume'){
+    if(it.fx){
+      if(it.fx.hp)  p.hp=Math.min(p.maxHp,p.hp+it.fx.hp);
+      if(it.fx.ck)  p.chakra=Math.min(p.maxChakra,p.chakra+it.fx.ck);
     }
-    G.inventory.splice(index, 1);
-    msg(`Used ${it.name}.`, 'good');
+    G.inventory.splice(idx,1);
+    msg(`Used ${it.name}.`,'good');
   } else {
-    if (inv.equipped) {
-      inv.equipped = false;
-      msg(`Unequipped ${it.name}.`, 'info');
-    } else {
-      G.inventory.forEach((iv,i) => {
-        if (i!==index && iv.equipped) {
-          const ot=ITEMS.find(x=>x.id===iv.id);
-          if (ot && ot.type===it.type) iv.equipped=false;
-        }
-      });
-      inv.equipped = true;
-      msg(`Equipped ${it.name}!`, 'good');
+    if(inv.eq){ inv.eq=false; msg(`Unequipped ${it.name}.`,'info'); }
+    else {
+      G.inventory.forEach((iv,i)=>{ if(i!==idx&&iv.eq){ const ot=ITEMS.find(x=>x.id===iv.id); if(ot&&ot.type===it.type) iv.eq=false; } });
+      inv.eq=true; msg(`Equipped ${it.name}!`,'good');
     }
     _recalc();
   }
-  _refreshLobby(); renderInv();
+  _syncLobby(); renderInv();
 }
 
-function renderShop() {
-  const grid = $('shop-grid'); grid.innerHTML = '';
-  ITEMS.forEach(it => {
-    const canBuy = G.ryo >= it.price && G.inventory.length < 8;
-    const statHtml = Object.entries(it.stats).map(([k,v]) => {
-      const lbl = {atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k.toUpperCase();
-      const cls = v>=0?'spos':'sneg'; const sign=v>=0?'+':'';
-      return `<span class="${cls}">${lbl} ${sign}${v}</span> `;
+function renderShop(){
+  const g=$('shop-grid'); g.innerHTML='';
+  ITEMS.forEach(it=>{
+    const ok=G.ryo>=it.price&&G.inventory.length<8;
+    const sts=Object.entries(it.stats).map(([k,v])=>{
+      const l={atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k;
+      return `<span class="${v>=0?'spos':'sneg'}">${l} ${v>=0?'+':''}${v}</span> `;
     }).join('');
-    const extra = it.chakraCost ? `  Chakra/use: ${it.chakraCost}` : '';
-    const el = document.createElement('div');
-    el.className = 'shop-item';
-    el.innerHTML = `
-      <div class="item-head">
-        <span class="item-icon">${it.icon}</span>
-        <span class="item-name">${it.name}</span>
-        <span class="rarity r-${it.rarity}">${it.rarity}</span>
-      </div>
-      <div class="item-stats">${statHtml||'—'}</div>
-      <div class="item-desc">${it.desc}${extra?'<br/><span style="color:#555">'+extra+'</span>':''}</div>
-      <div class="item-foot">
-        <span class="item-price">💰 ${it.price}</span>
-        <button class="btn btn-sm btn-gold" ${canBuy?'':'disabled'} data-buy="${it.id}">Buy</button>
-      </div>`;
-    grid.appendChild(el);
+    const el=document.createElement('div');
+    el.className='shop-item';
+    el.innerHTML=`<div class="item-head"><span class="item-icon">${it.icon}</span><span class="item-name">${it.name}</span><span class="rar r-${it.rar}">${it.rar}</span></div>
+<div class="item-stats">${sts||'—'}</div>
+<div class="item-desc">${it.desc}</div>
+<div class="item-foot"><span class="item-price">💰 ${it.price}</span><button class="btn btn-sm btn-gold" ${ok?'':'disabled'} data-buy="${it.id}">Buy</button></div>`;
+    g.appendChild(el);
   });
-  // Use delegation (already bound in init)
 }
 
-function renderInv() {
-  const grid = $('inv-grid'); grid.innerHTML = '';
-  for (let i=0;i<8;i++) {
-    const inv = G.inventory[i];
-    const slot = document.createElement('div');
-    if (inv) {
-      const it = ITEMS.find(x=>x.id===inv.id);
-      slot.className = `inv-slot occ${inv.equipped?' eq':''}`;
-      slot.dataset.idx = i;
-      slot.innerHTML = `${inv.equipped?'<span class="eq-badge">E</span>':''}
-        <span class="si">${it?it.icon:'?'}</span>
-        <span class="sn">${it?it.name:'?'}</span>`;
+function renderInv(){
+  const g=$('inv-grid'); g.innerHTML='';
+  for(let i=0;i<8;i++){
+    const inv=G.inventory[i];
+    const s=document.createElement('div');
+    if(inv){
+      const it=ITEMS.find(x=>x.id===inv.id);
+      s.className=`inv-slot occ${inv.eq?' eq':''}`;
+      s.dataset.idx=i;
+      s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
     } else {
-      slot.className = 'inv-slot';
-      slot.innerHTML = '<span style="font-size:18px;color:#1a1a1a">＋</span>';
+      s.className='inv-slot';
+      s.innerHTML='<span style="font-size:18px;color:#1a1030">＋</span>';
     }
-    grid.appendChild(slot);
+    g.appendChild(s);
   }
-  $('inv-count').textContent = G.inventory.length;
+  $('inv-count').textContent=G.inventory.length;
 }
 
-function showItemModal(index) {
-  const inv = G.inventory[index]; if (!inv) return;
-  const it = ITEMS.find(i=>i.id===inv.id); if (!it) return;
-  const stats = Object.entries(it.stats).map(([k,v])=>`${k.toUpperCase()}: ${v>=0?'+':''}${v}`).join('\n') || 'No stat bonus';
-  const isConsumable = it.type==='consumable';
-  openModal(`${it.icon} ${it.name}`,
-    `[${it.rarity}]\n\n${it.desc}\n\n${stats}${it.chakraCost?'\nChakra/use: '+it.chakraCost:''}`,
-    [{label: isConsumable?'Use':(inv.equipped?'Unequip':'Equip'),
-      cls: isConsumable?'btn-gold':'btn',
-      cb: ()=>action('ITEM_ACTION',{index})}]
-  );
+function _invModal(idx){
+  const inv=G.inventory[idx]; if(!inv) return;
+  const it=ITEMS.find(i=>i.id===inv.id); if(!it) return;
+  const sts=Object.entries(it.stats).map(([k,v])=>`${k.toUpperCase()}: ${v>=0?'+':''}${v}`).join('\n')||'No stat bonus';
+  openModal(`${it.icon} ${it.name}`,`[${it.rar}]\n\n${it.desc}\n\n${sts}${it.ckCost?'\nChakra/use: '+it.ckCost:''}`,
+    [{label:it.type==='consume'?'Use':(inv.eq?'Unequip':'Equip'),cls:'btn-gold',cb:()=>action('ITEM_ACT',{idx})}]);
 }
 
-function _refreshRyo() {
-  const el=$('shop-ryo'); if(el) el.textContent=G.ryo;
+function _syncRyo(){ const e=$('shop-ryo'); if(e) e.textContent=G.ryo; _syncLobby(); }
+
+/* ════════════════════════════════════════════════════
+   SKILL TREE
+════════════════════════════════════════════════════ */
+const SCW=700,SCH=430,NR=27;
+const PX={ninjutsu:117,taijutsu:350,genjutsu:583};
+const NY=[52,130,212,295,378];
+let skCtx=null,hovN=null;
+
+function initSkCanvas(){
+  const cv=$('skill-canvas'); if(!cv) return;
+  cv.width=SCW; cv.height=SCH; skCtx=cv.getContext('2d');
+  cv.removeEventListener('mousemove',_skHov); cv.removeEventListener('click',_skClk);
+  cv.addEventListener('mousemove',_skHov); cv.addEventListener('click',_skClk);
+  _drawSk();
 }
 
-// ============================================================
-// SKILL TREE
-// ============================================================
-const SCW=700, SCH=430;
-const PATH_X = { ninjutsu:117, taijutsu:350, genjutsu:583 };
-const NODE_Y  = [52, 130, 215, 300, 385];
-const NR = 28;
-let skCtx=null, hovNode=null;
-
-function initSkillCanvas() {
-  const canvas = $('skill-canvas');
-  if (!canvas) return;
-  canvas.width=SCW; canvas.height=SCH;
-  skCtx = canvas.getContext('2d');
-  canvas.removeEventListener('mousemove', onSkHover);
-  canvas.removeEventListener('click', onSkClick);
-  canvas.addEventListener('mousemove', onSkHover);
-  canvas.addEventListener('click', onSkClick);
-  drawSkTree();
+function _nState(path,ni){
+  const nid=SKILLS[path].nodes[ni].id;
+  if(G.skills[path].includes(nid)) return 'on';
+  if(ni===0||G.skills[path].includes(SKILLS[path].nodes[ni-1].id)) return 'av';
+  return 'lk';
 }
 
-function nodeState(path, ni) {
-  const nid = SKILLS[path].nodes[ni].id;
-  if (G.unlockedSkills[path].includes(nid)) return 'on';
-  if (ni===0 || G.unlockedSkills[path].includes(SKILLS[path].nodes[ni-1].id)) return 'avail';
-  return 'lock';
-}
+function _drawSk(){
+  if(!skCtx) return;
+  const c=skCtx; c.clearRect(0,0,SCW,SCH);
+  c.fillStyle='#05020d'; c.fillRect(0,0,SCW,SCH);
+  // grid
+  c.strokeStyle='#0d0820'; c.lineWidth=1;
+  for(let x=0;x<SCW;x+=50){c.beginPath();c.moveTo(x,0);c.lineTo(x,SCH);c.stroke();}
+  for(let y=0;y<SCH;y+=50){c.beginPath();c.moveTo(0,y);c.lineTo(SCW,y);c.stroke();}
 
-function drawSkTree() {
-  if (!skCtx) return;
-  const ctx = skCtx;
-  ctx.clearRect(0,0,SCW,SCH);
-  // subtle grid
-  ctx.strokeStyle='#1a0a2a18'; ctx.lineWidth=1;
-  for(let x=0;x<SCW;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,SCH);ctx.stroke();}
-  for(let y=0;y<SCH;y+=50){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(SCW,y);ctx.stroke();}
-
-  for(const path of ['ninjutsu','taijutsu','genjutsu']){
-    const pd = SKILLS[path]; const cx = PATH_X[path];
-    // connecting lines
+  for(const path of['ninjutsu','taijutsu','genjutsu']){
+    const pd=SKILLS[path]; const cx=PX[path];
     for(let i=0;i<pd.nodes.length-1;i++){
-      const y1=NODE_Y[i],y2=NODE_Y[i+1];
-      const both = nodeState(path,i)==='on' && nodeState(path,i+1)==='on';
-      ctx.beginPath(); ctx.moveTo(cx,y1+NR); ctx.lineTo(cx,y2-NR);
-      ctx.strokeStyle=both?pd.color:'#2a2a2a'; ctx.lineWidth=both?3:1;
-      ctx.setLineDash(both?[]:[4,4]); ctx.stroke(); ctx.setLineDash([]);
+      const both=_nState(path,i)==='on'&&_nState(path,i+1)==='on';
+      c.beginPath(); c.moveTo(cx,NY[i]+NR); c.lineTo(cx,NY[i+1]-NR);
+      c.strokeStyle=both?pd.color:'#1a1030'; c.lineWidth=both?3:1;
+      c.setLineDash(both?[]:[4,4]); c.stroke(); c.setLineDash([]);
     }
-    // nodes
     pd.nodes.forEach((nd,i)=>{
-      const cx_=cx, cy=NODE_Y[i];
-      const st=nodeState(path,i);
-      const hov=hovNode&&hovNode.path===path&&hovNode.ni===i;
-      ctx.beginPath(); ctx.arc(cx_,cy,NR,0,Math.PI*2);
+      const st=_nState(path,i); const hov=hovN&&hovN.path===path&&hovN.ni===i;
+      c.beginPath(); c.arc(cx,NY[i],NR,0,Math.PI*2);
       if(st==='on'){
-        const g=ctx.createRadialGradient(cx_,cy,2,cx_,cy,NR);
-        g.addColorStop(0,pd.color+'ff'); g.addColorStop(1,pd.color+'44');
-        ctx.fillStyle=g; ctx.fill();
-        ctx.strokeStyle=pd.color; ctx.lineWidth=hov?3:2; ctx.stroke();
-      } else if(st==='avail'){
-        ctx.fillStyle='#1a1020'; ctx.fill();
-        ctx.setLineDash([4,4]); ctx.strokeStyle=hov?pd.color:'#555';
-        ctx.lineWidth=hov?2:1; ctx.stroke(); ctx.setLineDash([]);
+        const g=c.createRadialGradient(cx,NY[i],2,cx,NY[i],NR);
+        g.addColorStop(0,pd.color+'ff'); g.addColorStop(1,pd.color+'33');
+        c.fillStyle=g; c.fill();
+        c.strokeStyle=hov?'#fff':pd.color; c.lineWidth=hov?3:2;
+        if(hov){c.shadowColor=pd.color;c.shadowBlur=16;}
+        c.stroke(); c.shadowBlur=0;
+      } else if(st==='av'){
+        c.fillStyle='#120a20'; c.fill();
+        c.setLineDash([4,4]); c.strokeStyle=hov?pd.color:'#3a2a5a'; c.lineWidth=hov?2:1; c.stroke(); c.setLineDash([]);
       } else {
-        ctx.fillStyle='#0d0a10'; ctx.fill();
-        ctx.strokeStyle='#222'; ctx.lineWidth=1; ctx.stroke();
+        c.fillStyle='#0a0714'; c.fill(); c.strokeStyle='#1a1030'; c.lineWidth=1; c.stroke();
       }
-      ctx.font=`${NR-6}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
-      ctx.globalAlpha=st==='lock'?0.2:1;
-      ctx.fillText(nd.icon,cx_,cy); ctx.globalAlpha=1;
+      c.font=`${NR-5}px serif`; c.textAlign='center'; c.textBaseline='middle';
+      c.globalAlpha=st==='lk'?0.18:1; c.fillText(nd.icon,cx,NY[i]); c.globalAlpha=1;
       if(st!=='on'){
-        ctx.font='7px "Courier New"';
-        ctx.fillStyle=st==='avail'?'#888':'#333';
-        ctx.fillText(`${nd.cost}SP`,cx_,cy+NR+11);
+        c.font='7px "Courier New"'; c.fillStyle=st==='av'?'#7a6a9a':'#2a2a3a';
+        c.fillText(`${nd.cost}SP`,cx,NY[i]+NR+11);
       }
     });
   }
 }
 
-function getNodeAt(mx,my){
-  for(const path of ['ninjutsu','taijutsu','genjutsu']){
-    const cx=PATH_X[path];
+function _skXY(cv,e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*(SCW/r.width),(e.clientY-r.top)*(SCH/r.height)];}
+function _nodeAt(mx,my){
+  for(const path of['ninjutsu','taijutsu','genjutsu']){
+    const cx=PX[path];
     for(let i=0;i<SKILLS[path].nodes.length;i++){
-      const dx=mx-cx,dy=my-NODE_Y[i];
-      if(dx*dx+dy*dy<=(NR+6)*(NR+6)) return {path,ni:i};
+      const dx=mx-cx,dy=my-NY[i];
+      if(dx*dx+dy*dy<=(NR+7)*(NR+7)) return {path,ni:i};
     }
   }
   return null;
 }
 
-function canvasXY(canvas,e){
-  const r=canvas.getBoundingClientRect();
-  return [(e.clientX-r.left)*(SCW/r.width),(e.clientY-r.top)*(SCH/r.height)];
+function _skHov(e){
+  const[mx,my]=_skXY(this,e); hovN=_nodeAt(mx,my);
+  if(hovN){
+    const n=SKILLS[hovN.path].nodes[hovN.ni]; const st=_nState(hovN.path,hovN.ni);
+    $('skill-info').innerHTML=`<div class="skill-info-name">${n.icon} ${n.name}</div>${n.desc}<br/><br/><span style="color:${st==='on'?'#00ffaa':st==='av'?'#ffaa00':'#444'}">${st==='on'?'✓ Unlocked':st==='av'?`${n.cost} SP to unlock`:'🔒 Locked'}</span>`;
+    this.style.cursor=st==='av'?'pointer':'default';
+  } else this.style.cursor='default';
+  _drawSk();
 }
-
-function onSkHover(e){
-  const canvas=this; const[mx,my]=canvasXY(canvas,e);
-  const nd=getNodeAt(mx,my);
-  hovNode=nd;
-  if(nd){
-    const n=SKILLS[nd.path].nodes[nd.ni]; const st=nodeState(nd.path,nd.ni);
-    const stateStr=st==='on'?'<span style="color:#44ff88">✓ Unlocked</span>'
-      :st==='avail'?`<span style="color:#ffaa00">${n.cost} SP to unlock</span>`
-      :'<span style="color:#555">🔒 Unlock previous node first</span>';
-    $('skill-info').innerHTML=`<div class="skill-info-name">${n.icon} ${n.name}</div>${n.desc}<br/><br/>${stateStr}`;
-    canvas.style.cursor=st==='avail'?'pointer':'default';
-  } else {
-    canvas.style.cursor='default';
-  }
-  drawSkTree();
-}
-
-function onSkClick(e){
-  const canvas=this; const[mx,my]=canvasXY(canvas,e);
-  const nd=getNodeAt(mx,my); if(!nd) return;
-  action('UNLOCK_SKILL',{path:nd.path,ni:nd.ni});
-}
+function _skClk(e){const[mx,my]=_skXY(this,e);const n=_nodeAt(mx,my);if(n) action('SKILL',{path:n.path,ni:n.ni});}
 
 function _unlockSkill(path,ni){
   const p=G.player; if(!p) return;
-  const nd=SKILLS[path].nodes[ni]; const st=nodeState(path,ni);
-  if(st==='on') { msg(`${nd.name} already unlocked.`,'info'); return; }
-  if(st==='lock') { msg('Unlock the previous node first!','bad'); return; }
-  if(p.skillPoints<nd.cost) { msg(`Need ${nd.cost} SP, have ${p.skillPoints}.`,'bad'); return; }
-  p.skillPoints -= nd.cost;
-  G.unlockedSkills[path].push(nd.id);
-  msg(`Unlocked: ${nd.name}!`,'good');
-  _recalc(); _refreshSpDisplay(); drawSkTree();
+  const n=SKILLS[path].nodes[ni]; const st=_nState(path,ni);
+  if(st==='on'){msg(`${n.name} already unlocked.`,'info');return;}
+  if(st==='lk'){msg('Unlock the previous node first!','bad');return;}
+  if(p.skillPoints<n.cost){msg(`Need ${n.cost} SP, have ${p.skillPoints}.`,'bad');return;}
+  p.skillPoints-=n.cost; G.skills[path].push(n.id);
+  msg(`Unlocked: ${n.name}!`,'good'); _recalc(); _syncSP(); _drawSk();
 }
+function _syncSP(){const p=G.player;if(!p)return;['sp-hud','sp-count'].forEach(id=>{const e=$(id);if(e)e.textContent=p.skillPoints;});}
 
-function _refreshSpDisplay(){
-  const p=G.player; if(!p) return;
-  const sp=p.skillPoints;
-  ['sp-hud','sp-count'].forEach(id=>{ const el=$(id); if(el) el.textContent=sp; });
-}
-
-// ============================================================
-// ACHIEVEMENTS
-// ============================================================
-function _checkAch(id){
+/* ════════════════════════════════════════════════════
+   ACHIEVEMENTS
+════════════════════════════════════════════════════ */
+function _chkAch(id){
   if(G.achievements.includes(id)) return;
   const p=G.player;
   let ok=false;
@@ -703,255 +650,682 @@ function _checkAch(id){
     case 'collector':  ok=G.inventory.filter(i=>{const x=ITEMS.find(t=>t.id===i.id);return x&&x.type==='weapon';}).length>=5; break;
     case 'floor_5':    ok=G.floor>=5; break;
     case 'rich':       ok=G.chestsOpened>=10; break;
-    case 'shadow':     ok=G.tilesMoved>=100; break;
     case 'secret':     ok=true; break;
     default:           ok=true;
   }
   if(ok) _grantAch(id);
 }
-
 function _grantAch(id){
   if(G.achievements.includes(id)) return;
   G.achievements.push(id);
-  const def=ACHIEVEMENTS.find(a=>a.id===id); if(!def) return;
-  // popup
-  $('ap-ico').textContent=def.icon; $('ap-name').textContent=def.name;
-  const popup=$('ach-popup'); popup.classList.add('show');
-  setTimeout(()=>popup.classList.remove('show'),3500);
+  const d=ACHLIST.find(a=>a.id===id); if(!d) return;
+  $('ap-ico').textContent=d.icon; $('ap-nm').textContent=d.name;
+  const pop=$('ach-popup'); pop.classList.add('show'); setTimeout(()=>pop.classList.remove('show'),3500);
   renderAch();
 }
-
 function renderAch(){
-  const grid=$('ach-grid'); if(!grid) return;
-  grid.innerHTML='';
-  ACHIEVEMENTS.forEach(a=>{
+  const g=$('ach-grid'); if(!g) return; g.innerHTML='';
+  ACHLIST.forEach(a=>{
     const on=G.achievements.includes(a.id);
-    const el=document.createElement('div');
-    el.className=`ach-card${on?' unlocked':''}`;
-    el.innerHTML=`<div class="ach-ico">${a.icon}</div>
-      <div><div class="ach-nm">${on?a.name:'???'}</div>
-      <div class="ach-ds">${on?a.desc:'Keep playing to unlock...'}</div></div>`;
-    grid.appendChild(el);
+    const el=document.createElement('div'); el.className=`ach-card${on?' on':''}`;
+    el.innerHTML=`<div class="ach-ico">${a.icon}</div><div><div class="ach-nm">${on?a.name:'???'}</div><div class="ach-ds">${on?a.desc:'Keep playing...'}</div></div>`;
+    g.appendChild(el);
   });
   $('ach-done').textContent=G.achievements.length;
 }
 
-// ============================================================
-// EASTER EGGS
-// ============================================================
-let typeBuf=''; let konamiIdx=0;
-const KONAMI_SEQ=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-
+/* ════════════════════════════════════════════════════
+   EASTER EGGS
+════════════════════════════════════════════════════ */
+let typeBuf='', konamiIdx=0;
+const KON=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
 document.addEventListener('keydown',e=>{
-  // Konami
-  if(e.key===KONAMI_SEQ[konamiIdx]){ konamiIdx++; if(konamiIdx===KONAMI_SEQ.length){ konamiIdx=0; action('EASTER_EGG',{egg:'konami'}); } }
-  else konamiIdx=0;
-  // believe it
-  if(e.key.length===1){ typeBuf=(typeBuf+e.key.toLowerCase()).slice(-10); if(typeBuf.includes('believeit')){ typeBuf=''; action('EASTER_EGG',{egg:'believeit'}); } }
+  if(!gameActive){
+    if(e.key===KON[konamiIdx]){konamiIdx++;if(konamiIdx===KON.length){konamiIdx=0;action('EGG',{egg:'konami'});}}else konamiIdx=0;
+    if(e.key.length===1){typeBuf=(typeBuf+e.key.toLowerCase()).slice(-10);if(typeBuf.includes('believeit')){typeBuf='';action('EGG',{egg:'believeit'});}}
+  }
 });
-
 function _applyEgg(egg){
-  if(egg==='believeit'&&!G.eggs.believeit){
-    G.eggs.believeit=true; _recalc();
-    msg('Believe it! ATK+2 unlocked!','gold');
-    openModal('🍥 Believe It!','You typed the secret phrase!\n\nNaruto\'s spirit grants you +2 ATK permanently.',[]);
-    _checkAch('secret');
-  } else if(egg==='konami'&&!G.eggs.konami){
-    G.eggs.konami=true; _recalc();
-    const p=G.player; if(p){ p.hp=Math.min(p.maxHp,p.hp+200); p.chakra=Math.min(p.maxChakra,p.chakra+200); }
-    msg('Konami Code! +200 HP & Chakra!','gold');
-    openModal('🎮 Konami Code!','+200 HP and +200 Chakra activated.\nYou found the secret!',[]);
-  } else {
-    msg('Already activated!','info');
+  if(egg==='believeit'&&!G.eggs.believeit){G.eggs.believeit=true;_recalc();msg('Believe it! ATK+2!','gold');openModal('🍥 Believe It!','Naruto\'s spirit: +2 ATK permanent!',[]);_chkAch('secret');}
+  else if(egg==='konami'&&!G.eggs.konami){G.eggs.konami=true;_recalc();const p=G.player;if(p){p.hp=p.maxHp+200;p.chakra=p.maxChakra+200;}msg('Konami! +200 HP & CK!','gold');}
+  else msg('Already activated!','info');
+}
+
+/* ════════════════════════════════════════════════════
+   MSG LOG + MODAL
+════════════════════════════════════════════════════ */
+function msg(text,type=''){
+  const log=$('msg-log');
+  const el=document.createElement('div'); el.className='msg'+(type?' '+type:''); el.textContent=text;
+  log.appendChild(el); while(log.children.length>5) log.removeChild(log.firstChild);
+  setTimeout(()=>el.remove(),4000);
+}
+function openModal(title,body,actions){
+  $('modal-title').textContent=title; $('modal-body').textContent=body;
+  const ac=$('modal-actions'); ac.innerHTML='';
+  const cl=document.createElement('button'); cl.className='btn btn-sm'; cl.textContent='Close'; cl.onclick=closeModal; ac.appendChild(cl);
+  (actions||[]).forEach(a=>{const b=document.createElement('button');b.className=`btn btn-sm ${a.cls||''}`;b.textContent=a.label;b.onclick=()=>{closeModal();a.cb();};ac.appendChild(b);});
+  $('modal-overlay').classList.remove('hidden');
+}
+function closeModal(){$('modal-overlay').classList.add('hidden');}
+$('modal-overlay').addEventListener('click',e=>{if(e.target===$('modal-overlay'))closeModal();});
+
+/* ════════════════════════════════════════════════════
+   LOBBY SYNC
+════════════════════════════════════════════════════ */
+function _syncLobby(){
+  const p=G.player; if(!p) return;
+  $('disp-name').textContent=p.name;
+  const xn=xpNeed(p.level);
+  $('bar-hp').style.width=(p.hp/p.maxHp*100)+'%';
+  $('bar-ck').style.width=(p.chakra/p.maxChakra*100)+'%';
+  $('bar-xp').style.width=(Math.min(1,p.xp/xn)*100)+'%';
+  $('hp-lbl-txt').textContent=`${p.hp}/${p.maxHp}`;
+  $('ck-lbl-txt').textContent=`${p.chakra}/${p.maxChakra}`;
+  $('xp-lbl-txt').textContent=`${p.xp}/${xn} (Lv.${p.level})`;
+  $('lobby-stats').innerHTML=`
+    <div class="sc"><div class="sc-l">ATK</div><div class="sc-v">${p.atk}</div></div>
+    <div class="sc"><div class="sc-l">DEF</div><div class="sc-v">${p.def}</div></div>
+    <div class="sc"><div class="sc-l">SPD</div><div class="sc-v">${p.spd}</div></div>
+    <div class="sc"><div class="sc-l">HP</div><div class="sc-v" style="color:#ff4466">${p.maxHp}</div></div>
+    <div class="sc"><div class="sc-l">CK</div><div class="sc-v" style="color:var(--ck)">${p.maxChakra}</div></div>
+    <div class="sc"><div class="sc-l">RYO</div><div class="sc-v" style="color:var(--gold);font-size:8px">${G.ryo}</div></div>`;
+  $('shop-ryo').textContent=G.ryo;
+}
+
+/* ════════════════════════════════════════════════════
+   PARTICLE SYSTEM
+════════════════════════════════════════════════════ */
+const PARTS=[];
+const DNUMS=[];
+function spawnBurst(wx,wy,color,count=12,speed=80){
+  for(let i=0;i<count;i++){
+    const a=Math.random()*Math.PI*2, sp=speed*(.4+Math.random()*.8);
+    PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,
+      life:1,maxLife:1,sz:2+Math.random()*3,color,gravity:60});
+  }
+}
+function spawnSlash(wx,wy,color='#ff8800'){
+  for(let i=0;i<8;i++){
+    const a=-Math.PI/4+Math.random()*Math.PI/2, sp=120+Math.random()*80;
+    PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,
+      life:0.5,maxLife:0.5,sz:4+Math.random()*4,color,gravity:0});
+  }
+}
+function spawnDmgNum(wx,wy,text,color='#ff2244'){
+  DNUMS.push({x:wx,y:wy,vy:-55,text,color,life:1.2,maxLife:1.2});
+}
+function _updateFX(dt){
+  for(let i=PARTS.length-1;i>=0;i--){
+    const p=PARTS[i];
+    p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=p.gravity*dt; p.life-=dt*1.4;
+    if(p.life<=0) PARTS.splice(i,1);
+  }
+  for(let i=DNUMS.length-1;i>=0;i--){
+    const d=DNUMS[i]; d.y+=d.vy*dt; d.vy*=0.94; d.life-=dt;
+    if(d.life<=0) DNUMS.splice(i,1);
   }
 }
 
-// ============================================================
-// MESSAGE LOG
-// ============================================================
-function msg(text, type=''){
-  const log=$('msg-log');
-  const el=document.createElement('div');
-  el.className='msg'+(type?' '+type:''); el.textContent=text;
-  log.appendChild(el);
-  while(log.children.length>5) log.removeChild(log.firstChild);
-  setTimeout(()=>el.remove(),4200);
-}
+/* ════════════════════════════════════════════════════
+   SCREEN SHAKE
+════════════════════════════════════════════════════ */
+let shakeAmt=0;
+function shake(n){shakeAmt=Math.max(shakeAmt,n);}
 
-// ============================================================
-// MODAL
-// ============================================================
-function openModal(title,body,actions){
-  $('modal-title').textContent=title;
-  $('modal-body').textContent=body;
-  const ac=$('modal-actions'); ac.innerHTML='';
-  const close=document.createElement('button');
-  close.className='btn btn-sm'; close.textContent='Close';
-  close.onclick=closeModal; ac.appendChild(close);
-  (actions||[]).forEach(a=>{
-    const b=document.createElement('button');
-    b.className=`btn btn-sm ${a.cls||''}`; b.textContent=a.label;
-    b.onclick=()=>{closeModal();a.cb();}; ac.appendChild(b);
+/* ════════════════════════════════════════════════════
+   DUNGEON GENERATOR
+════════════════════════════════════════════════════ */
+const TILE={EMPTY:0,FLOOR:1,WALL:2,STAIRS:3,CHEST:4};
+const TSIZE=32;
+
+function genFloor(floorNum){
+  const W=70,H=55;
+  const tiles=Array.from({length:H},()=>new Uint8Array(W));
+  const rooms=[];
+
+  for(let attempt=0;attempt<100;attempt++){
+    if(rooms.length>=9) break;
+    const rw=6+Math.floor(Math.random()*8);
+    const rh=5+Math.floor(Math.random()*7);
+    const rx=2+Math.floor(Math.random()*(W-rw-4));
+    const ry=2+Math.floor(Math.random()*(H-rh-4));
+    if(rooms.some(r=>rx<r.x+r.w+2&&rx+rw+2>r.x&&ry<r.y+r.h+2&&ry+rh+2>r.y)) continue;
+    rooms.push({x:rx,y:ry,w:rw,h:rh});
+    for(let y=ry;y<ry+rh;y++) for(let x=rx;x<rx+rw;x++) tiles[y][x]=TILE.FLOOR;
+  }
+
+  // corridors
+  for(let i=1;i<rooms.length;i++){
+    const a=rooms[i-1],b=rooms[i];
+    const ax=Math.floor(a.x+a.w/2),ay=Math.floor(a.y+a.h/2);
+    const bx=Math.floor(b.x+b.w/2),by=Math.floor(b.y+b.h/2);
+    const mnX=Math.min(ax,bx),mxX=Math.max(ax,bx);
+    const mnY=Math.min(ay,by),mxY=Math.max(ay,by);
+    for(let x=mnX-1;x<=mxX+1;x++) if(x>=0&&x<W){tiles[ay][x]=TILE.FLOOR;if(ay+1<H)tiles[ay+1][x]=TILE.FLOOR;}
+    for(let y=mnY-1;y<=mxY+1;y++) if(y>=0&&y<H){tiles[y][bx]=TILE.FLOOR;if(bx+1<W)tiles[y][bx+1]=TILE.FLOOR;}
+  }
+
+  // stairs in last room center
+  const lr=rooms[rooms.length-1];
+  const stx=Math.floor(lr.x+lr.w/2), sty=Math.floor(lr.y+lr.h/2);
+  tiles[sty][stx]=TILE.STAIRS;
+
+  // enemies
+  const enemies=[];
+  const types=floorNum<=2?['chunin']:floorNum<=4?['chunin','akatsuki']:['chunin','akatsuki','anbu'];
+  rooms.slice(1,-1).forEach(room=>{
+    const cnt=1+Math.floor(Math.random()*3);
+    for(let i=0;i<cnt;i++){
+      const tx=room.x+1+Math.floor(Math.random()*(room.w-2));
+      const ty=room.y+1+Math.floor(Math.random()*(room.h-2));
+      const type=types[Math.floor(Math.random()*types.length)];
+      const def=ENEMY_DEF[type];
+      enemies.push({type,x:tx*TSIZE+TSIZE/2,y:ty*TSIZE+TSIZE/2,
+        hp:def.hp,maxHp:def.hp,atk:def.atk+floorNum,spd:def.spd,
+        col:def.col,glow:def.glow,sz:def.sz,xp:def.xp,ryo:def.ryo,
+        moveTick:0,hitFlash:0,alive:true,stunTick:0});
+    }
   });
-  $('modal-overlay').classList.remove('hidden');
-}
-function closeModal(){ $('modal-overlay').classList.add('hidden'); }
-$('modal-overlay').addEventListener('click',e=>{ if(e.target===$('modal-overlay')) closeModal(); });
+  // boss every 3 floors
+  if(floorNum%3===0){
+    const def=ENEMY_DEF.boss;
+    enemies.push({type:'boss',x:(stx-2)*TSIZE,y:(sty)*TSIZE,
+      hp:def.hp+floorNum*20,maxHp:def.hp+floorNum*20,atk:def.atk+floorNum*2,spd:def.spd,
+      col:def.col,glow:def.glow,sz:def.sz,xp:def.xp,ryo:def.ryo,
+      moveTick:0,hitFlash:0,alive:true,stunTick:0});
+  }
 
-// ============================================================
-// LOBBY REFRESH
-// ============================================================
-function _refreshLobby(){
+  // chests
+  const chests=[];
+  rooms.slice(1).forEach(room=>{
+    if(Math.random()<0.45){
+      chests.push({tx:room.x+1+Math.floor(Math.random()*(room.w-2)),
+        ty:room.y+1+Math.floor(Math.random()*(room.h-2)),opened:false});
+    }
+  });
+
+  const fr=rooms[0];
+  return {tiles,W,H,rooms,enemies,chests,stx,sty,
+    startX:Math.floor(fr.x+fr.w/2)*TSIZE+TSIZE/2,
+    startY:Math.floor(fr.y+fr.h/2)*TSIZE+TSIZE/2};
+}
+
+/* ════════════════════════════════════════════════════
+   DRAWING HELPERS
+════════════════════════════════════════════════════ */
+function drawPlayerSprite(ctx,sx,sy,anim,flash){
+  const T=TSIZE;
+  const bob=Math.sin(anim*.12)*2;
+  const bx=sx-8, by=sy-16+bob;
+  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  else{ctx.shadowColor='#ff6600';ctx.shadowBlur=14;}
+  // hair
+  ctx.fillStyle='#ffcc00';
+  ctx.fillRect(bx+1,by-5,2,5); ctx.fillRect(bx+4,by-7,3,6);
+  ctx.fillRect(bx+8,by-6,2,5); ctx.fillRect(bx+11,by-4,2,4);
+  // headband
+  ctx.fillStyle='#2255cc'; ctx.fillRect(bx+1,by,13,4);
+  ctx.fillStyle='#aabbee'; ctx.fillRect(bx+4,by+1,6,2);
+  // face
+  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
+  ctx.fillRect(bx+1,by+4,13,9);
+  // eyes
+  ctx.fillStyle='#111'; ctx.fillRect(bx+3,by+6,2,2); ctx.fillRect(bx+9,by+6,2,2);
+  // whiskers
+  ctx.fillStyle='#bb7744'; ctx.fillRect(bx+2,by+9,3,1); ctx.fillRect(bx+10,by+9,3,1);
+  // body (jacket)
+  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillRect(bx+2,by+13,11,10);
+  ctx.fillStyle='#fff'; ctx.fillRect(bx+6,by+15,3,3); // spiral
+  // legs
+  ctx.fillStyle='#1a3a6a';
+  const legOff=Math.sin(anim*.12)*3|0;
+  ctx.fillRect(bx+2,by+23,4,7-legOff); ctx.fillRect(bx+8,by+23,4,7+legOff);
+  ctx.shadowBlur=0;
+}
+
+function drawEnemy(ctx,e,sx,sy){
+  const flash=e.hitFlash>0;
+  ctx.shadowColor=flash?'#ffffff':e.glow; ctx.shadowBlur=flash?20:12;
+  ctx.fillStyle=flash?'#ffffff':e.col;
+  const hs=e.sz;
+  if(e.type==='boss'){
+    ctx.fillRect(sx-hs,sy-hs*1.5,hs*2,hs*2);
+    ctx.fillStyle='#ff2200'; ctx.fillRect(sx-hs+4,sy-hs,6,6); ctx.fillRect(sx+hs-10,sy-hs,6,6);
+    ctx.fillStyle='#ffcc00'; ctx.fillRect(sx-4,sy-hs-10,8,10);
+  } else {
+    ctx.fillRect(sx-hs,sy-hs,hs*2,hs*2);
+    ctx.fillStyle=flash?'#ff000055':'#ff222255';
+    ctx.fillRect(sx-hs+2,sy-hs+4,4,4); ctx.fillRect(sx+hs-6,sy-hs+4,4,4);
+  }
+  ctx.shadowBlur=0;
+  // HP bar above
+  const bw=e.sz*2.5, bh=4;
+  const bx=sx-bw/2, by=sy-e.sz-10;
+  ctx.fillStyle='#1a0010'; ctx.fillRect(bx,by,bw,bh);
+  ctx.fillStyle=e.type==='boss'?'#ff4400':'#cc0022';
+  ctx.fillRect(bx,by,bw*(e.hp/e.maxHp),bh);
+}
+
+function drawTile(ctx,sx,sy,tile,tx,ty,dungeon){
+  const T=TSIZE;
+  if(tile===TILE.EMPTY||tile===TILE.WALL){
+    ctx.fillStyle='#0a0714'; ctx.fillRect(sx,sy,T,T);
+    // wall top highlight if floor above
+    const ab=dungeon.tiles[ty-1]?.[tx];
+    if(ab===TILE.FLOOR||ab===TILE.STAIRS){
+      ctx.fillStyle='#2a1a4a'; ctx.fillRect(sx,sy+T-5,T,5);
+      ctx.fillStyle='#3d2a65'; ctx.fillRect(sx,sy+T-3,T,1);
+    }
+    return;
+  }
+  // floor
+  const dark=(tx+ty)%4===0;
+  ctx.fillStyle=dark?'#130f20':'#181228';
+  ctx.fillRect(sx,sy,T,T);
+  // subtle floor detail
+  if((tx*3+ty*7)%9===0){ ctx.fillStyle='#1e1630'; ctx.fillRect(sx+6,sy+6,4,4); }
+  if(tile===TILE.STAIRS){
+    ctx.fillStyle='#1a1630'; ctx.fillRect(sx,sy,T,T);
+    ctx.shadowColor='#ffd700'; ctx.shadowBlur=18;
+    ctx.font='20px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillStyle='#ffd700'; ctx.fillText('⬇',sx+T/2,sy+T/2);
+    ctx.shadowBlur=0;
+  }
+}
+
+function drawChest(ctx,sx,sy){
+  const T=TSIZE;
+  ctx.shadowColor='#ffd700'; ctx.shadowBlur=14;
+  ctx.fillStyle='#5c3a00'; ctx.fillRect(sx+4,sy+6,T-8,T-12);
+  ctx.fillStyle='#7a4d00'; ctx.fillRect(sx+4,sy+6,T-8,5);
+  ctx.fillStyle='#ffd700'; ctx.fillRect(sx+T/2-3,sy+12,6,6);
+  ctx.shadowBlur=0;
+}
+
+/* ════════════════════════════════════════════════════
+   COLLISION
+════════════════════════════════════════════════════ */
+function isWall(wx,wy){
+  const d=G.dungeon; const hw=7,hh=6;
+  const pts=[[wx-hw,wy-hh],[wx+hw,wy-hh],[wx-hw,wy+hh],[wx+hw,wy+hh]];
+  return pts.some(([cx,cy])=>{
+    const tx=cx/TSIZE|0, ty=cy/TSIZE|0;
+    if(tx<0||ty<0||tx>=d.W||ty>=d.H) return true;
+    return d.tiles[ty][tx]===TILE.WALL||d.tiles[ty][tx]===TILE.EMPTY;
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   COMBAT
+════════════════════════════════════════════════════ */
+function playerAttack(){
+  const p=G.player; if(!p||p.atkCd>0) return;
+  p.atkCd=0.45;
+  const range=52+((p.atk/30)|0)*8;
+  let hit=false;
+  G.dungeon.enemies.filter(e=>e.alive).forEach(e=>{
+    const dx=e.x-p.x, dy=e.y-p.y;
+    if(dx*dx+dy*dy<=range*range){
+      const dmg=Math.max(1,(p.atk-(e.type==='boss'?8:3))+Math.floor(Math.random()*6));
+      e.hp-=dmg; e.hitFlash=0.18;
+      spawnSlash(e.x,e.y,'#ff8800');
+      spawnDmgNum(e.x,e.y-e.sz,`-${dmg}`,'#ff4444');
+      shake(4); hit=true;
+      if(e.hp<=0){
+        e.alive=false;
+        spawnBurst(e.x,e.y,e.glow,18,100);
+        action('GAIN_XP',{amt:e.xp}); action('GAIN_RYO',{amt:e.ryo});
+        G.enemiesKilled++;
+        if(e.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
+        _chkAch('first_blood');
+        msg(`Defeated ${ENEMY_DEF[e.type].name}! +${e.xp}XP +${e.ryo}Ryo`,'good');
+      }
+    }
+  });
+  spawnSlash(p.x+p.facing*20,p.y-6,hit?'#ffaa00':'#ff660055');
+}
+
+function chakraAttack(){
+  const p=G.player; if(!p||p.ckCd>0) return;
+  if(p.chakra<15){msg('Not enough Chakra!','bad');return;}
+  p.ckCd=0.8; p.chakra=Math.max(0,p.chakra-15);
+  const range=90;
+  G.dungeon.enemies.filter(e=>e.alive).forEach(e=>{
+    const dx=e.x-p.x, dy=e.y-p.y;
+    if(dx*dx+dy*dy<=range*range){
+      const dmg=Math.max(5,(p.atk*1.4|0)+Math.floor(Math.random()*10));
+      e.hp-=dmg; e.hitFlash=0.25; e.stunTick=0.6;
+      spawnBurst(e.x,e.y,'#00b4ff',10,90);
+      spawnDmgNum(e.x,e.y-e.sz-8,`-${dmg} CK`,'#00ccff');
+      shake(7);
+      if(e.hp<=0){
+        e.alive=false; spawnBurst(e.x,e.y,'#0088ff',20,110);
+        action('GAIN_XP',{amt:e.xp}); action('GAIN_RYO',{amt:e.ryo});
+        G.enemiesKilled++; if(e.type==='boss')G.bossesKilled++;
+        _chkAch('first_blood');
+      }
+    }
+  });
+  spawnBurst(p.x,p.y,'#00b4ff',8,60);
+}
+
+function updateEnemies(dt){
   const p=G.player; if(!p) return;
-  $('disp-name').textContent=p.name;
-  const xpN=xpNeeded(p.level);
-  $('xp-bar').style.width=(Math.min(1,p.xp/xpN)*100)+'%';
-  $('xp-lbl').textContent=`Lv.${p.level}  ${p.xp}/${xpN} XP`;
-  $('lobby-stat-grid').innerHTML=`
-    <div class="stat-cell"><div class="stat-lbl">HP</div><div class="stat-val" style="color:#ff5555">${p.maxHp}</div></div>
-    <div class="stat-cell"><div class="stat-lbl">CK</div><div class="stat-val" style="color:var(--ck)">${p.maxChakra}</div></div>
-    <div class="stat-cell"><div class="stat-lbl">ATK</div><div class="stat-val">${p.atk}</div></div>
-    <div class="stat-cell"><div class="stat-lbl">DEF</div><div class="stat-val">${p.def}</div></div>
-    <div class="stat-cell"><div class="stat-lbl">SPD</div><div class="stat-val">${p.spd}</div></div>
-    <div class="stat-cell"><div class="stat-lbl">RYO</div><div class="stat-val" style="color:var(--gold);font-size:9px">${G.ryo}</div></div>`;
+  G.dungeon.enemies.forEach(e=>{
+    if(!e.alive) return;
+    if(e.hitFlash>0) e.hitFlash-=dt;
+    if(e.stunTick>0){e.stunTick-=dt;return;}
+    e.moveTick-=dt;
+    if(e.moveTick>0) return;
+    e.moveTick=1/((e.spd/50));
+    const dx=p.x-e.x, dy=p.y-e.y, dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist>300) return; // out of range
+    if(dist<e.sz+12){
+      // attack player
+      if(p.invuln<=0){
+        const dmg=Math.max(1,e.atk-p.def+Math.floor(Math.random()*4));
+        p.hp-=dmg; p.invuln=0.8; p.hitFlash=0.2;
+        shake(6); spawnBurst(p.x,p.y,'#ff0000',8,60);
+        spawnDmgNum(p.x,p.y-20,`-${dmg}`,'#ff2244');
+        updateGameHUD();
+        if(p.hp<=0){p.hp=0;gameOver();return;}
+      }
+    } else {
+      // move toward player
+      const nx=e.x+(dx/dist)*e.spd*dt*2;
+      const ny=e.y+(dy/dist)*e.spd*dt*2;
+      if(!isWall(nx,e.y)) e.x=nx;
+      if(!isWall(e.x,ny)) e.y=ny;
+    }
+  });
 }
 
-function _refreshRyo(){
-  const el=$('shop-ryo'); if(el) el.textContent=G.ryo;
-  _refreshLobby();
+/* ════════════════════════════════════════════════════
+   CAMERA
+════════════════════════════════════════════════════ */
+const CAM={x:0,y:0};
+function updateCam(p,cw,ch){
+  const tx=p.x-cw/2, ty=p.y-ch/2;
+  CAM.x+=(tx-CAM.x)*0.1; CAM.y+=(ty-CAM.y)*0.1;
 }
 
-// ============================================================
-// SCREEN NAV
-// ============================================================
+/* ════════════════════════════════════════════════════
+   RENDER DUNGEON
+════════════════════════════════════════════════════ */
+function renderDungeon(){
+  const canvas=$('game-canvas'); if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const CW=canvas.width, CH=canvas.height;
+  const p=G.player; if(!p) return;
+  const d=G.dungeon;
+
+  updateCam(p,CW,CH);
+
+  ctx.clearRect(0,0,CW,CH);
+  ctx.save();
+  if(shakeAmt>0.5){ctx.translate((Math.random()-.5)*shakeAmt*2,(Math.random()-.5)*shakeAmt*2);}
+  shakeAmt*=0.82;
+
+  // BG fill
+  ctx.fillStyle='#080510'; ctx.fillRect(0,0,CW,CH);
+
+  // tiles
+  const t0x=Math.max(0,CAM.x/TSIZE|0), t0y=Math.max(0,CAM.y/TSIZE|0);
+  const t1x=Math.min(d.W,t0x+(CW/TSIZE|0)+3), t1y=Math.min(d.H,t0y+(CH/TSIZE|0)+3);
+  for(let ty=t0y;ty<t1y;ty++) for(let tx=t0x;tx<t1x;tx++){
+    drawTile(ctx,tx*TSIZE-CAM.x,ty*TSIZE-CAM.y,d.tiles[ty][tx],tx,ty,d);
+  }
+
+  // chests
+  d.chests.filter(c=>!c.opened).forEach(c=>{
+    drawChest(ctx,c.tx*TSIZE-CAM.x,c.ty*TSIZE-CAM.y);
+  });
+
+  // enemies
+  d.enemies.filter(e=>e.alive).forEach(e=>{
+    drawEnemy(ctx,e,e.x-CAM.x,e.y-CAM.y);
+  });
+
+  // player
+  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0){/* blink — skip draw */}
+  else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash);
+  if(p.hitFlash>0) p.hitFlash-=0.016;
+  if(p.invuln>0) p.invuln-=0.016;
+
+  // particles
+  PARTS.forEach(pt=>{
+    ctx.save(); ctx.globalAlpha=pt.life/pt.maxLife;
+    ctx.fillStyle=pt.color; ctx.shadowColor=pt.color; ctx.shadowBlur=8;
+    ctx.fillRect(pt.x-CAM.x-pt.sz/2,pt.y-CAM.y-pt.sz/2,pt.sz,pt.sz);
+    ctx.restore();
+  });
+
+  // damage numbers
+  DNUMS.forEach(d=>{
+    ctx.save(); ctx.globalAlpha=d.life/d.maxLife;
+    ctx.font='bold 13px "Courier New"'; ctx.fillStyle=d.color;
+    ctx.shadowColor=d.color; ctx.shadowBlur=10;
+    ctx.textAlign='center'; ctx.fillText(d.text,d.x-CAM.x,d.y-CAM.y);
+    ctx.restore();
+  });
+
+  // darkness vignette with player light
+  const grd=ctx.createRadialGradient(p.x-CAM.x,p.y-CAM.y,0,p.x-CAM.x,p.y-CAM.y,220);
+  grd.addColorStop(0,'rgba(0,0,0,0)');
+  grd.addColorStop(0.55,'rgba(0,0,0,0.15)');
+  grd.addColorStop(1,'rgba(0,0,0,0.88)');
+  ctx.fillStyle=grd; ctx.fillRect(0,0,CW,CH);
+
+  ctx.restore();
+}
+
+/* ════════════════════════════════════════════════════
+   GAME HUD UPDATE
+════════════════════════════════════════════════════ */
+function updateGameHUD(){
+  const p=G.player; if(!p) return;
+  $('hud-name').textContent=p.name;
+  $('hud-hp').style.width=(Math.max(0,p.hp/p.maxHp)*100)+'%';
+  $('hud-ck').style.width=(p.chakra/p.maxChakra*100)+'%';
+  $('hud-hp-v').textContent=`${p.hp}/${p.maxHp}`;
+  $('hud-ck-v').textContent=`${Math.floor(p.chakra)}/${p.maxChakra}`;
+  $('hud-floor').textContent=G.floor;
+  $('hud-ryo').textContent=G.ryo;
+  $('hud-lv').textContent=p.level;
+  $('hud-atk').textContent=p.atk;
+}
+
+/* ════════════════════════════════════════════════════
+   INPUT
+════════════════════════════════════════════════════ */
+const KEYS={};
+let gameActive=false;
+document.addEventListener('keydown',e=>{
+  KEYS[e.code]=true;
+  if(gameActive&&e.code==='Escape'){goScreen('screen-lobby'); return;}
+  if(gameActive&&(e.code==='KeyE'||e.code==='Space')){e.preventDefault();playerAttack();}
+  if(gameActive&&e.code==='KeyQ'){e.preventDefault();chakraAttack();}
+});
+document.addEventListener('keyup',e=>{KEYS[e.code]=false;});
+
+/* ════════════════════════════════════════════════════
+   GAME LOOP
+════════════════════════════════════════════════════ */
+let lastTs=0, animTick=0, loopId=null;
+
+function gameLoop(ts){
+  if(!gameActive){loopId=null;return;}
+  const dt=Math.min((ts-lastTs)/1000,0.05); lastTs=ts;
+  animTick++;
+
+  const p=G.player;
+  if(p){
+    // movement
+    const spd=100+p.spd*8;
+    let dx=0,dy=0;
+    if(KEYS['KeyA']||KEYS['ArrowLeft'])  {dx=-1;p.facing=-1;}
+    if(KEYS['KeyD']||KEYS['ArrowRight']) {dx=1; p.facing=1;}
+    if(KEYS['KeyW']||KEYS['ArrowUp'])    dy=-1;
+    if(KEYS['KeyS']||KEYS['ArrowDown'])  dy=1;
+    if(dx&&dy){dx*=0.707;dy*=0.707;}
+    if(dx||dy){
+      const nx=p.x+dx*spd*dt, ny=p.y+dy*spd*dt;
+      if(!isWall(nx,p.y)) p.x=nx;
+      if(!isWall(p.x,ny)) p.y=ny;
+    }
+
+    // cooldowns
+    if(p.atkCd>0) p.atkCd-=dt;
+    if(p.ckCd>0)  p.ckCd-=dt;
+    // regen chakra
+    p.chakra=Math.min(p.maxChakra,p.chakra+dt*2);
+
+    // check stairs
+    const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;
+    if(G.dungeon.tiles[pty]?.[ptx]===TILE.STAIRS) nextFloor();
+
+    // check chest
+    G.dungeon.chests.filter(c=>!c.opened).forEach(c=>{
+      const cx=c.tx*TSIZE+TSIZE/2, cy=c.ty*TSIZE+TSIZE/2;
+      const dx2=p.x-cx,dy2=p.y-cy;
+      if(dx2*dx2+dy2*dy2<(TSIZE*1.2)**2){
+        c.opened=true; G.chestsOpened++;
+        const ryoGain=30+Math.floor(Math.random()*80)+G.floor*10;
+        action('GAIN_RYO',{amt:ryoGain});
+        spawnBurst(cx,cy,'#ffd700',16,70);
+        msg(`Chest! +${ryoGain} Ryo`,'gold');
+        _chkAch('rich');
+      }
+    });
+
+    updateGameHUD();
+  }
+
+  updateEnemies(dt);
+  _updateFX(dt);
+  renderDungeon();
+  loopId=requestAnimationFrame(gameLoop);
+}
+
+function startGameLoop(){
+  gameActive=true; lastTs=performance.now();
+  if(loopId) cancelAnimationFrame(loopId);
+  loopId=requestAnimationFrame(gameLoop);
+}
+function stopGameLoop(){gameActive=false;}
+
+function nextFloor(){
+  G.floor++;
+  if(G.floor>10){victory();return;}
+  msg(`Floor ${G.floor}!`,'gold');
+  spawnBurst(G.player.x,G.player.y,'#ffd700',20);
+  _chkAch('floor_5');
+  const data=genFloor(G.floor);
+  Object.assign(G.dungeon,data);
+  G.player.x=data.startX; G.player.y=data.startY;
+  CAM.x=data.startX-350; CAM.y=data.startY-240;
+}
+
+function gameOver(){
+  stopGameLoop();
+  openModal('💀 You Died',`Floor ${G.floor} — Defeated in battle.\n\nEnemies killed: ${G.enemiesKilled}\nRyo: ${G.ryo}`,
+    [{label:'Lobby',cls:'btn-or',cb:()=>goScreen('screen-lobby')}]);
+}
+function victory(){
+  stopGameLoop(); _chkAch('kage');
+  openModal('👑 Victory!',`You conquered all floors!\n\nTrue Kage of the Hidden Village.\nLevel: ${G.player.level}`,
+    [{label:'Lobby',cls:'btn-gold',cb:()=>goScreen('screen-lobby')}]);
+}
+
+/* ════════════════════════════════════════════════════
+   SCREEN NAV
+════════════════════════════════════════════════════ */
 function goScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   $(id).classList.add('active');
-  if(id==='screen-shop')   { renderShop(); renderInv(); _refreshRyo(); }
-  if(id==='screen-skills') { initSkillCanvas(); _refreshSpDisplay(); }
+  if(id==='screen-lobby')  {stopGameLoop(); _syncLobby();}
+  if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
+  if(id==='screen-skills') {initSkCanvas();_syncSP();}
   if(id==='screen-ach')    renderAch();
-  if(id==='screen-lobby')  _refreshLobby();
-  if(id==='screen-game')   drawGamePlaceholder();
+  if(id==='screen-game')   {
+    if(!G.player){msg('Enter your name first!','bad');goScreen('screen-lobby');return;}
+    // init canvas width
+    const cv=$('game-canvas'); cv.width=cv.offsetWidth||700;
+    // start new floor if coming fresh
+    if(!G.dungeon.tiles.length){
+      const data=genFloor(G.floor); Object.assign(G.dungeon,data);
+      G.player.x=data.startX; G.player.y=data.startY;
+      CAM.x=data.startX-350; CAM.y=data.startY-240;
+    }
+    updateGameHUD(); startGameLoop();
+  }
 }
 
-// ============================================================
-// GAME PLACEHOLDER CANVAS
-// ============================================================
-function drawGamePlaceholder(){
-  const canvas=$('game-canvas'); if(!canvas) return;
-  canvas.width=700; canvas.height=380;
-  const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#040209'; ctx.fillRect(0,0,700,380);
-  // grid
-  ctx.strokeStyle='#0f0520'; ctx.lineWidth=1;
-  const cs=32;
-  for(let x=0;x<700;x+=cs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,380);ctx.stroke();}
-  for(let y=0;y<380;y+=cs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(700,y);ctx.stroke();}
-  // text
-  ctx.textAlign='center';
-  ctx.font='14px "Courier New"'; ctx.fillStyle='#ff7a00';
-  ctx.fillText(`FLOOR ${G.floor} — DUNGEON`,350,140);
-  ctx.font='9px "Courier New"'; ctx.fillStyle='#333';
-  ctx.fillText('Phase 2: Full dungeon generation coming soon!',350,170);
-  // player pixel
-  const px=348,py=200;
-  ctx.fillStyle='#ff7a00'; ctx.fillRect(px,py,16,16);
-  ctx.fillStyle='#ffcc44'; ctx.fillRect(px+3,py-7,10,9);
-  // whiskers
-  ctx.fillStyle='#ff6600';
-  ctx.fillRect(px+2,py-4,2,2); ctx.fillRect(px+12,py-4,2,2);
-  ctx.font='8px "Courier New"'; ctx.fillStyle='#444';
-  const p=G.player;
-  ctx.fillText(p?`${p.name} | ATK:${p.atk} DEF:${p.def} SPD:${p.spd}`:'No player',350,252);
-  $('floor-num').textContent=G.floor;
-}
-
-// ============================================================
-// LOBBY PARTICLE ANIMATION
-// ============================================================
-function initParticles(){
-  const canvas=$('lobby-canvas');
-  const ctx=canvas.getContext('2d');
-  const resize=()=>{ canvas.width=canvas.offsetWidth||740; canvas.height=canvas.offsetHeight||window.innerHeight; };
-  resize(); window.addEventListener('resize',resize);
-
-  const LEAF_COUNT=35;
-  const leaves=[];
-  const mkLeaf=(rand=false)=>({
-    x: Math.random()*canvas.width,
-    y: rand ? Math.random()*canvas.height : -12,
-    sz: 3+Math.random()*9,
-    vy: .3+Math.random()*.7,
-    vx: (Math.random()-.5)*.5,
-    rot: Math.random()*Math.PI*2,
-    rv: (Math.random()-.5)*.04,
-    a: .25+Math.random()*.5,
-    col: ['#ff7a00','#ffd700','#cc4400','#ff9933'][Math.floor(Math.random()*4)]
+/* ════════════════════════════════════════════════════
+   LOBBY PARTICLES
+════════════════════════════════════════════════════ */
+function initLobbyParticles(){
+  const cv=$('lobby-canvas'); const ctx=cv.getContext('2d');
+  const rsz=()=>{cv.width=cv.offsetWidth||740;cv.height=cv.offsetHeight||window.innerHeight;};
+  rsz(); window.addEventListener('resize',rsz);
+  const LF=40; const leaves=[];
+  const mk=(rand=false)=>({
+    x:Math.random()*cv.width, y:rand?Math.random()*cv.height:-12,
+    sz:3+Math.random()*9, vy:.25+Math.random()*.65, vx:(Math.random()-.5)*.4,
+    rot:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.035,
+    a:.15+Math.random()*.4,
+    col:['#ff6a00','#ffaa00','#cc4400','#ff9933','#7c3aed44'][Math.floor(Math.random()*5)]
   });
-
-  for(let i=0;i<LEAF_COUNT;i++) leaves.push(mkLeaf(true));
-
+  for(let i=0;i<LF;i++) leaves.push(mk(true));
   (function loop(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,cv.width,cv.height);
+    // dim radial
+    const g=ctx.createRadialGradient(cv.width/2,cv.height/2,0,cv.width/2,cv.height/2,cv.width*.8);
+    g.addColorStop(0,'rgba(20,0,40,0.4)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,cv.width,cv.height);
     leaves.forEach((l,i)=>{
       l.x+=l.vx; l.y+=l.vy; l.rot+=l.rv;
-      if(l.y>canvas.height+16) leaves[i]=mkLeaf(false);
-      ctx.save();
-      ctx.translate(l.x,l.y); ctx.rotate(l.rot); ctx.globalAlpha=l.a;
-      ctx.fillStyle=l.col; ctx.beginPath();
-      ctx.ellipse(0,0,l.sz,l.sz*.45,0,0,Math.PI*2); ctx.fill();
+      if(l.y>cv.height+14) leaves[i]=mk(false);
+      ctx.save(); ctx.translate(l.x,l.y); ctx.rotate(l.rot); ctx.globalAlpha=l.a;
+      ctx.fillStyle=l.col; ctx.shadowColor=l.col; ctx.shadowBlur=6;
+      ctx.beginPath(); ctx.ellipse(0,0,l.sz,l.sz*.4,0,0,Math.PI*2); ctx.fill();
       ctx.restore();
     });
     requestAnimationFrame(loop);
   })();
 }
 
-// ============================================================
-// INIT & EVENT WIRING
-// ============================================================
+/* ════════════════════════════════════════════════════
+   INIT & WIRING
+════════════════════════════════════════════════════ */
 function confirmName(){
   const name=$('name-input').value.trim()||'Shinobi';
   action('INIT_PLAYER',{name});
   $('name-setup').classList.add('hidden');
   $('player-card').classList.remove('hidden');
   $('lobby-menu').classList.remove('hidden');
-  _refreshLobby();
+  _syncLobby();
   msg(`Welcome, ${name}! Your legend begins.`,'good');
-  msg('Hint: type "believeit" for a secret...','info');
+  msg('Hint: type "believeit" for a secret.','info');
 }
 
-// Button wiring
-$('begin-btn').onclick = confirmName;
-$('name-input').addEventListener('keydown',e=>{ if(e.key==='Enter') confirmName(); });
-$('start-btn').onclick  = ()=>goScreen('screen-game');
-$('shop-btn').onclick   = ()=>goScreen('screen-shop');
-$('skills-btn').onclick = ()=>goScreen('screen-skills');
-$('ach-btn').onclick    = ()=>goScreen('screen-ach');
-$('shop-back').onclick  = ()=>goScreen('screen-lobby');
-$('skills-back').onclick= ()=>goScreen('screen-lobby');
-$('ach-back').onclick   = ()=>goScreen('screen-lobby');
-$('game-back').onclick  = ()=>goScreen('screen-lobby');
-$('test-xp-btn').onclick  = ()=>{ action('GAIN_XP',{amt:80}); msg('+80 XP','good'); };
-$('test-ryo-btn').onclick = ()=>{ action('GAIN_RYO',{amt:200}); msg('+200 Ryo','gold'); };
+$('begin-btn').onclick=confirmName;
+$('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')confirmName();});
+$('start-btn').onclick  =()=>goScreen('screen-game');
+$('shop-btn').onclick   =()=>goScreen('screen-shop');
+$('skills-btn').onclick =()=>goScreen('screen-skills');
+$('ach-btn').onclick    =()=>goScreen('screen-ach');
+$('shop-back').onclick  =()=>goScreen('screen-lobby');
+$('skills-back').onclick=()=>goScreen('screen-lobby');
+$('ach-back').onclick   =()=>goScreen('screen-lobby');
+$('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
+$('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 
-// Shop buy delegation
-$('shop-grid').addEventListener('click',e=>{
-  const btn=e.target.closest('[data-buy]'); if(!btn) return;
-  action('BUY_ITEM',{itemId:btn.dataset.buy});
-});
-
-// Inventory click delegation
-$('inv-grid').addEventListener('click',e=>{
-  const slot=e.target.closest('[data-idx]'); if(!slot) return;
-  showItemModal(parseInt(slot.dataset.idx,10));
-});
-
-// Skill canvas — bind after screen shown (initSkillCanvas handles it)
-
-// Boot
-initParticles();
+initLobbyParticles();
 msg('Welcome to Shinobi Dungeon!','info');
-msg('Enter your name to begin, then press Enter or the button.','info');
+msg('Enter your name to begin.','info');
 </script>
 </body>
 </html>

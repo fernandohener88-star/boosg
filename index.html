@@ -183,6 +183,24 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 #modal-body{font-size:8px;color:#aaa;line-height:2;margin-bottom:12px;white-space:pre-wrap}
 #modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 
+/* ══════════════════════ FULLSCREEN ══════════════════════ */
+#screen-game:fullscreen,
+#screen-game:-webkit-full-screen{
+  background:var(--dark);
+  display:flex;
+  flex-direction:column;
+  max-width:100vw;
+}
+#screen-game:fullscreen #game-canvas,
+#screen-game:-webkit-full-screen #game-canvas{
+  flex:1;
+  width:100vw!important;
+  height:calc(100vh - 52px - 28px)!important;
+  max-width:100vw;
+}
+#fs-btn{font-size:14px;padding:4px 8px;border-color:#3a2a5a;color:#7c3aed;margin-left:6px}
+#fs-btn:hover{border-color:var(--or);color:var(--or)}
+
 /* ══════════════════════ SCROLLBAR ══════════════════════ */
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#080510}::-webkit-scrollbar-thumb{background:var(--purple)}
 .hidden{display:none!important}
@@ -274,12 +292,14 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
       <div class="hud-ryo">💰 <span id="hud-ryo">0</span></div>
       <div style="font-size:6px;color:#4a3a6a">Lv.<span id="hud-lv">1</span> ATK:<span id="hud-atk">10</span></div>
     </div>
+    <button class="btn btn-sm" id="fs-btn" title="Fullscreen (F)">⛶</button>
   </div>
   <canvas id="game-canvas" height="480"></canvas>
   <div class="game-controls">
     <span class="ctrl-hint"><span class="ctrl-key">WASD</span> Move</span>
     <span class="ctrl-hint"><span class="ctrl-key">E / Space</span> Attack</span>
     <span class="ctrl-hint"><span class="ctrl-key">Q</span> Chakra Strike</span>
+    <span class="ctrl-hint"><span class="ctrl-key">F</span> Fullscreen</span>
     <span class="ctrl-hint"><span class="ctrl-key">ESC</span> Retreat</span>
   </div>
 </div>
@@ -1142,9 +1162,39 @@ function updateGameHUD(){
 ════════════════════════════════════════════════════ */
 const KEYS={};
 let gameActive=false;
+
+function toggleFullscreen(){
+  const el=$('screen-game');
+  const fsEl=document.fullscreenElement||document.webkitFullscreenElement;
+  if(!fsEl){
+    (el.requestFullscreen||el.webkitRequestFullscreen).call(el);
+  } else {
+    (document.exitFullscreen||document.webkitExitFullscreen).call(document);
+  }
+}
+
+function resizeGameCanvas(){
+  const cv=$('game-canvas'); if(!cv||!gameActive) return;
+  const fsEl=document.fullscreenElement||document.webkitFullscreenElement;
+  if(fsEl){
+    cv.width=window.screen.width;
+    cv.height=window.screen.height-52-28;
+  } else {
+    cv.width=cv.offsetWidth||700;
+    cv.height=480;
+  }
+}
+
+document.addEventListener('fullscreenchange',    ()=>{resizeGameCanvas(); $('fs-btn').textContent=document.fullscreenElement?'✕':'⛶';});
+document.addEventListener('webkitfullscreenchange',()=>{resizeGameCanvas(); $('fs-btn').textContent=document.webkitFullscreenElement?'✕':'⛶';});
+
 document.addEventListener('keydown',e=>{
   KEYS[e.code]=true;
-  if(gameActive&&e.code==='Escape'){goScreen('screen-lobby'); return;}
+  if(gameActive&&e.code==='KeyF'){e.preventDefault();toggleFullscreen();return;}
+  if(gameActive&&e.code==='Escape'){
+    if(document.fullscreenElement||document.webkitFullscreenElement) return; // let browser handle ESC to exit FS
+    goScreen('screen-lobby'); return;
+  }
   if(gameActive&&(e.code==='KeyE'||e.code==='Space')){e.preventDefault();playerAttack();}
   if(gameActive&&e.code==='KeyQ'){e.preventDefault();chakraAttack();}
 });
@@ -1251,8 +1301,7 @@ function goScreen(id){
   if(id==='screen-ach')    renderAch();
   if(id==='screen-game')   {
     if(!G.player){msg('Enter your name first!','bad');goScreen('screen-lobby');return;}
-    // init canvas width
-    const cv=$('game-canvas'); cv.width=cv.offsetWidth||700;
+    const cv=$('game-canvas'); cv.width=cv.offsetWidth||700; cv.height=480;
     // start new floor if coming fresh
     if(!G.dungeon.tiles.length){
       const data=genFloor(G.floor); Object.assign(G.dungeon,data);
@@ -1320,6 +1369,7 @@ $('ach-btn').onclick    =()=>goScreen('screen-ach');
 $('shop-back').onclick  =()=>goScreen('screen-lobby');
 $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
+$('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 

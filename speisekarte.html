@@ -247,7 +247,7 @@
 
   /* floating music player */
   .music-player{
-    position:fixed;bottom:24px;right:24px;z-index:500;
+    position:fixed;bottom:24px;right:24px;z-index:1001;
     display:flex;align-items:center;gap:10px;padding:10px 14px;
     background:rgba(10,6,3,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
     border:1px solid var(--rule-strong);border-radius:2px;
@@ -389,7 +389,7 @@
   <div>© 2025 Mio Landau</div>
 </footer>
 
-<div class="music-player mp-hide" id="musicPlayer" role="complementary" aria-label="Hintergrundmusik">
+<div class="music-player" id="musicPlayer" role="complementary" aria-label="Hintergrundmusik">
   <div class="mp-waves" id="mpWaves"><span></span><span></span><span></span></div>
   <div class="mp-info">
     <div class="mp-title">Italian Jazz</div>
@@ -1131,8 +1131,6 @@ renderAll();
   var mpClose = document.getElementById('mpClose');
   var mpWaves = document.getElementById('mpWaves');
   var player, playing = false;
-
-  setTimeout(function(){ mpEl.classList.remove('mp-hide'); }, 2200);
 
   // Load YouTube IFrame API
   var tag = document.createElement('script');

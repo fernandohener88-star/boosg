@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Shinobi Dungeon</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --or:#ff7a00;--gold:#ffd700;--dark:#0a0500;--ck:#00aaff;
+  --red:#ff2222;--grn:#22ff88;--panel:#140900;--border:#ff7a0044;
+  --purple:#aa44ff;
+}
+html,body{height:100%;background:var(--dark);color:#fff;overflow-x:hidden}
+body{font-family:'Press Start 2P','Courier New',monospace;font-size:11px;display:flex;justify-content:center}
+#app{width:100%;max-width:740px;min-height:100vh;position:relative}
+
+/* ---- screens ---- */
+.screen{display:none;width:100%;min-height:100vh;flex-direction:column}
+.screen.active{display:flex}
+
+/* ---- lobby ---- */
+#screen-lobby{align-items:center;justify-content:center;position:relative;overflow:hidden}
+#lobby-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.lobby-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:18px;padding:30px 20px}
+
+.title-kanji{font-size:56px;color:var(--or);text-shadow:0 0 24px var(--or),0 0 60px #ff500066;animation:glow 3s ease-in-out infinite alternate;line-height:1}
+.title-main{font-size:20px;color:var(--gold);text-shadow:0 0 10px var(--gold);letter-spacing:2px;margin-top:4px}
+.title-sub{font-size:8px;color:#ff7a0077;letter-spacing:3px;margin-top:4px}
+
+@keyframes glow{from{text-shadow:0 0 20px var(--or),0 0 40px #ff500066}to{text-shadow:0 0 40px var(--or),0 0 80px #ff500099}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.title-block{animation:floatY 4s ease-in-out infinite;text-align:center}
+
+/* ---- player card ---- */
+.player-card{background:#1a0d0099;border:1px solid var(--border);padding:12px 18px;min-width:280px;text-align:center}
+.player-greet{font-size:8px;color:var(--or);margin-bottom:6px}
+.player-name{font-size:14px;color:var(--gold)}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.stat-cell{background:#111;border:1px solid #222;padding:6px 4px;text-align:center;border-radius:2px}
+.stat-lbl{font-size:6px;color:#555;margin-bottom:3px}
+.stat-val{font-size:12px;color:var(--gold)}
+.xp-wrap{background:#111;height:7px;border:1px solid #333;margin-top:8px;overflow:hidden}
+.xp-bar{height:100%;background:linear-gradient(90deg,var(--or),var(--gold));transition:width .4s}
+.xp-lbl{font-size:6px;color:#555;text-align:center;margin-top:3px}
+
+/* ---- name setup ---- */
+.name-setup{display:flex;flex-direction:column;align-items:center;gap:8px}
+.name-setup label{font-size:8px;color:var(--or)}
+input[type=text]{background:#1a0d00;border:1px solid var(--or);color:var(--gold);font-family:inherit;font-size:10px;padding:8px 12px;outline:none;width:220px}
+input[type=text]::placeholder{color:#ff7a0044}
+input[type=text]:focus{border-color:var(--gold);box-shadow:0 0 8px var(--gold)44}
+
+/* ---- buttons ---- */
+.btn{padding:9px 18px;border:2px solid var(--or);background:transparent;color:var(--or);font-family:inherit;font-size:10px;cursor:pointer;letter-spacing:1px;transition:all .15s;white-space:nowrap}
+.btn:hover{background:var(--or);color:var(--dark);box-shadow:0 0 14px var(--or)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.4;cursor:default;pointer-events:none}
+.btn-gold{border-color:var(--gold);color:var(--gold)}.btn-gold:hover{background:var(--gold);color:var(--dark);box-shadow:0 0 14px var(--gold)}
+.btn-ck{border-color:var(--ck);color:var(--ck)}.btn-ck:hover{background:var(--ck);color:var(--dark)}
+.btn-sm{padding:5px 10px;font-size:8px}
+.btn-lg{padding:13px 30px;font-size:11px}
+
+.lobby-menu{display:flex;flex-direction:column;gap:9px;align-items:center;width:260px}
+.lobby-menu .btn{width:100%}
+
+/* ---- panel screens ---- */
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:2px solid var(--or);background:var(--panel)}
+.ph h2{color:var(--or);font-size:13px;text-shadow:0 0 6px var(--or)}
+.ph-ryo{color:var(--gold);font-size:9px}
+.pb{flex:1;padding:14px;overflow-y:auto}
+.pf{padding:10px 18px;border-top:2px solid var(--or);background:var(--panel)}
+
+/* ---- shop ---- */
+.shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:480px){.shop-grid{grid-template-columns:1fr}}
+.shop-item{background:var(--panel);border:1px solid #2a2a2a;border-radius:3px;padding:9px;display:flex;flex-direction:column;gap:5px;transition:border-color .15s}
+.shop-item:hover{border-color:var(--or)}
+.item-head{display:flex;align-items:center;gap:7px}
+.item-icon{font-size:20px;line-height:1;flex-shrink:0}
+.item-name{font-size:8px;color:#eee;flex:1}
+.rarity{font-size:6px;padding:2px 4px;text-transform:uppercase}
+.r-common{background:#333;color:#aaa}
+.r-uncommon{background:#1a4d1a;color:#44ff44}
+.r-rare{background:#1a1a6e;color:#6699ff}
+.r-legendary{background:#4d1a00;color:var(--gold);border:1px solid var(--gold)}
+.item-stats{font-size:7px;color:#666;line-height:1.9}
+.spos{color:#66ff88}.sneg{color:#ff6666}
+.item-desc{font-size:7px;color:#555;line-height:1.7}
+.item-foot{display:flex;justify-content:space-between;align-items:center;margin-top:3px}
+.item-price{color:var(--gold);font-size:9px}
+.sec-lbl{font-size:8px;color:var(--or);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase}
+.divider{border:none;border-top:1px solid #1a1a1a;margin:14px 0}
+
+/* ---- inventory ---- */
+.inv-head{color:var(--gold);font-size:9px;margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:6px}
+.inv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.inv-slot{background:#0d0d0d;border:1px solid #222;border-radius:3px;min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
+.inv-slot.occ{border-color:#444}
+.inv-slot.eq{border-color:var(--gold);background:#1a1200}
+.inv-slot.occ:hover{border-color:var(--or)}
+.inv-slot .si{font-size:18px}
+.inv-slot .sn{font-size:6px;color:#666;text-align:center}
+.inv-slot.eq .sn{color:var(--gold)}
+.eq-badge{position:absolute;top:2px;right:3px;font-size:6px;color:var(--gold)}
+
+/* ---- skill tree ---- */
+#skill-canvas{display:block;margin:0 auto;background:#040209;border:1px solid #1a0033;max-width:100%}
+.skill-info{background:var(--panel);border:1px solid var(--border);padding:12px;margin-top:10px;min-height:72px;font-size:8px;color:#888;line-height:1.9}
+.skill-info-name{color:var(--gold);font-size:10px;margin-bottom:6px}
+.sp-row{text-align:center;margin-bottom:10px;color:var(--grn);font-size:9px}
+.path-labels{display:flex;justify-content:space-around;margin-bottom:4px}
+.pl-n{font-size:8px;color:#ff5555}.pl-t{font-size:8px;color:var(--or)}.pl-g{font-size:8px;color:var(--purple)}
+
+/* ---- achievements ---- */
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:480px){.ach-grid{grid-template-columns:1fr}}
+.ach-card{background:var(--panel);border:1px solid #1a1a1a;border-radius:3px;padding:10px;display:flex;gap:9px;align-items:flex-start}
+.ach-card.unlocked{border-color:var(--gold)}
+.ach-ico{font-size:26px;filter:grayscale(1) brightness(.35);flex-shrink:0}
+.ach-card.unlocked .ach-ico{filter:none}
+.ach-nm{font-size:7px;color:#444;margin-bottom:4px}
+.ach-card.unlocked .ach-nm{color:var(--gold)}
+.ach-ds{font-size:6px;color:#333;line-height:1.7}
+.ach-card.unlocked .ach-ds{color:#888}
+.ach-count{color:var(--gold);font-size:9px}
+
+/* ---- game placeholder ---- */
+#game-canvas{display:block;margin:0 auto;image-rendering:pixelated;max-width:100%}
+
+/* ---- message log ---- */
+#msg-log{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);width:90%;max-width:460px;z-index:100;pointer-events:none;display:flex;flex-direction:column;gap:4px;align-items:center}
+.msg{background:#0a050099;border-left:3px solid var(--or);padding:5px 10px;font-size:7px;color:#ddd;animation:msgIn .2s ease-out;max-width:100%;backdrop-filter:blur(4px)}
+.msg.good{border-left-color:var(--grn);color:var(--grn)}
+.msg.bad{border-left-color:var(--red);color:#ff8888}
+.msg.info{border-left-color:var(--ck);color:#88ccff}
+.msg.gold{border-left-color:var(--gold);color:var(--gold)}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- achievement popup ---- */
+#ach-popup{position:fixed;bottom:70px;right:-300px;width:260px;background:#1a1000;border:2px solid var(--gold);padding:11px;z-index:200;transition:right .4s ease-out;display:flex;gap:9px;align-items:center}
+#ach-popup.show{right:14px}
+.ap-ico{font-size:26px}
+.ap-title{font-size:6px;color:var(--gold);margin-bottom:3px}
+.ap-name{font-size:9px;color:#fff}
+
+/* ---- modal ---- */
+#modal-overlay{position:fixed;inset:0;background:#000000bb;z-index:300;display:flex;align-items:center;justify-content:center}
+#modal-overlay.hidden{display:none}
+#modal-box{background:#110800;border:2px solid var(--or);padding:20px;max-width:380px;width:90%;max-height:80vh;overflow-y:auto}
+#modal-title{color:var(--gold);font-size:11px;margin-bottom:10px;border-bottom:1px solid #222;padding-bottom:7px}
+#modal-body{font-size:8px;color:#bbb;line-height:1.9;margin-bottom:12px;white-space:pre-wrap}
+#modal-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#0a0500}::-webkit-scrollbar-thumb{background:var(--or)}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- LOBBY -->
+<div id="screen-lobby" class="screen active">
+  <canvas id="lobby-canvas"></canvas>
+  <div class="lobby-inner">
+    <div class="title-block">
+      <div class="title-kanji">忍</div>
+      <div class="title-main">SHINOBI DUNGEON</div>
+      <div class="title-sub">~ A Naruto Roguelike ~</div>
+    </div>
+
+    <div id="name-setup" class="name-setup">
+      <label>Enter your Shinobi name:</label>
+      <input type="text" id="name-input" maxlength="16" placeholder="e.g. Naruto..."/>
+      <button class="btn btn-gold" id="begin-btn">Begin Journey</button>
+    </div>
+
+    <div id="player-card" class="player-card hidden">
+      <div class="player-greet">Welcome back, Shinobi</div>
+      <div class="player-name" id="disp-name"></div>
+      <div class="stat-grid" id="lobby-stat-grid"></div>
+      <div class="xp-wrap"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
+      <div class="xp-lbl" id="xp-lbl"></div>
+    </div>
+
+    <nav class="lobby-menu hidden" id="lobby-menu">
+      <button class="btn btn-lg" id="start-btn">⚔ START GAME</button>
+      <button class="btn" id="shop-btn">🛒 SHOP</button>
+      <button class="btn btn-ck" id="skills-btn">✦ SKILL TREE</button>
+      <button class="btn btn-gold" id="ach-btn">🏆 ACHIEVEMENTS</button>
+    </nav>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div id="screen-shop" class="screen">
+  <div class="ph"><h2>🛒 SHOP</h2><div class="ph-ryo">💰 <span id="shop-ryo">0</span> Ryo</div></div>
+  <div class="pb">
+    <div class="sec-lbl">Items for Sale</div>
+    <div class="shop-grid" id="shop-grid"></div>
+    <hr class="divider"/>
+    <div class="inv-head">📦 Inventory (<span id="inv-count">0</span>/8)</div>
+    <div class="inv-grid" id="inv-grid"></div>
+  </div>
+  <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Back</button></div>
+</div>
+
+<!-- SKILL TREE -->
+<div id="screen-skills" class="screen">
+  <div class="ph"><h2>✦ SKILL TREE</h2><div class="ph-ryo">SP: <span id="sp-hud">0</span></div></div>
+  <div class="pb">
+    <div class="sp-row">Available Skill Points: <span id="sp-count">0</span></div>
+    <div class="path-labels">
+      <span class="pl-n">NINJUTSU</span>
+      <span class="pl-t">TAIJUTSU</span>
+      <span class="pl-g">GENJUTSU</span>
+    </div>
+    <canvas id="skill-canvas" width="700" height="430"></canvas>
+    <div class="skill-info" id="skill-info"><div style="text-align:center;padding-top:18px;color:#333">Click a node to inspect</div></div>
+  </div>
+  <div class="pf"><button class="btn btn-sm" id="skills-back">◀ Back</button></div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div id="screen-ach" class="screen">
+  <div class="ph"><h2>🏆 ACHIEVEMENTS</h2><div class="ach-count"><span id="ach-done">0</span>/10</div></div>
+  <div class="pb"><div class="ach-grid" id="ach-grid"></div></div>
+  <div class="pf"><button class="btn btn-sm" id="ach-back">◀ Back</button></div>
+</div>
+
+<!-- GAME -->
+<div id="screen-game" class="screen">
+  <div class="ph"><h2>⚔ FLOOR <span id="floor-num">1</span></h2><button class="btn btn-sm" id="game-back">◀ Retreat</button></div>
+  <div class="pb" style="display:flex;flex-direction:column;align-items:center;gap:14px;justify-content:center">
+    <canvas id="game-canvas" width="700" height="380"></canvas>
+    <div style="font-size:8px;color:#444;text-align:center">Dungeon generation arrives in Phase 2.<br/>Explore the lobby systems for now!</div>
+    <button class="btn btn-sm btn-gold" id="test-xp-btn">+ Gain 80 XP (test)</button>
+    <button class="btn btn-sm" id="test-ryo-btn">+ Gain 200 Ryo (test)</button>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- Floating message log -->
+<div id="msg-log"></div>
+
+<!-- Achievement popup -->
+<div id="ach-popup">
+  <div class="ap-ico" id="ap-ico">🏆</div>
+  <div><div class="ap-title">ACHIEVEMENT UNLOCKED</div><div class="ap-name" id="ap-name"></div></div>
+</div>
+
+<!-- Modal -->
+<div id="modal-overlay" class="hidden">
+  <div id="modal-box">
+    <div id="modal-title"></div>
+    <div id="modal-body"></div>
+    <div id="modal-actions"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ============================================================
+// NET STUB  — swap send() for socket.emit() to add multiplayer
+// ============================================================
+const NET = {
+  send: (_act) => { /* later: socket.emit('action', _act) */ },
+  onReceive: (_cb) => { /* later: socket.on('action', _cb) */ }
+};
+
+// ============================================================
+// CONSTANTS
+// ============================================================
+const XP_TABLE = [0, 100, 250, 450, 700, 1000, 1400, 1900, 2500, 3200, 4000];
+
+const ITEMS = [
+  { id:'kunai',           name:'Kunai',          icon:'🗡️',  rarity:'common',    type:'weapon',    stats:{atk:3},        price:80,   desc:'Standard kunai. Light and fast.' },
+  { id:'shuriken',        name:'Shuriken',        icon:'✴️',  rarity:'common',    type:'weapon',    stats:{atk:2,rng:2},  price:100,  desc:'Throw from distance. +2 Range.' },
+  { id:'katana',          name:'Katana',          icon:'⚔️',  rarity:'uncommon',  type:'weapon',    stats:{atk:8,spd:-1}, price:220,  desc:'Heavy blade. Great power, less speed.' },
+  { id:'bo_staff',        name:'Bo Staff',        icon:'🥢',  rarity:'uncommon',  type:'weapon',    stats:{atk:5,rng:2},  price:180,  desc:'Long reach. Discipline required.' },
+  { id:'hp_potion',       name:'Health Potion',   icon:'🧪',  rarity:'common',    type:'consumable',stats:{},             price:60,   desc:'Restores 50 HP.',  effect:{hp:50} },
+  { id:'ck_potion',       name:'Chakra Potion',   icon:'💧',  rarity:'common',    type:'consumable',stats:{},             price:60,   desc:'Restores 30 Chakra.',effect:{chakra:30} },
+  { id:'rasengan_scroll', name:'Rasengan Scroll', icon:'📜',  rarity:'rare',      type:'jutsu',     stats:{atk:15},       price:600,  desc:'Spiral sphere. ATK+15, costs 20 chakra/use.', chakraCost:20 },
+  { id:'chidori_blade',   name:'Chidori Blade',   icon:'⚡',  rarity:'legendary', type:'weapon',    stats:{atk:20},       price:1200, desc:"Sasuke's lightning edge. ATK+20, costs 15 chakra.", chakraCost:15 }
+];
+
+const SKILLS = {
+  ninjutsu: {
+    label:'Ninjutsu', color:'#ff5555',
+    nodes:[
+      {id:'nj1',name:'Chakra Amplify',  icon:'💠',desc:'Max Chakra +10',        effect:{chakra:10},  cost:1},
+      {id:'nj2',name:'Fireball Jutsu',  icon:'🔥',desc:'Unlock Fireball (ATK+5)',effect:{atk:5},     cost:1},
+      {id:'nj3',name:'Rasengan Mastery',icon:'🌀',desc:'Rasengan costs 10 less chakra',effect:{special:'rasengan_reduce'},cost:2},
+      {id:'nj4',name:'Shadow Clone',    icon:'👥',desc:'ATK+8, creates decoys', effect:{atk:8},     cost:2},
+      {id:'nj5',name:'Sage Mode',       icon:'🐸',desc:'ATK+15, DEF+10',        effect:{atk:15,def:10},cost:3}
+    ]
+  },
+  taijutsu: {
+    label:'Taijutsu', color:'#ff7a00',
+    nodes:[
+      {id:'tj1',name:'Combat Training', icon:'👊',desc:'ATK+3',                effect:{atk:3},        cost:1},
+      {id:'tj2',name:'Combo Strike',    icon:'💥',desc:'ATK+5, chance to hit twice',effect:{atk:5},   cost:1},
+      {id:'tj3',name:'Iron Body',       icon:'🛡️',desc:'DEF+8, HP+20',          effect:{def:8,hp:20},  cost:2},
+      {id:'tj4',name:'Eight Gates',     icon:'🔴',desc:'ATK+20 (danger mode)',  effect:{atk:20},       cost:2},
+      {id:'tj5',name:'Leaf Whirlwind',  icon:'🍃',desc:'SPD+5, hits all nearby',effect:{spd:5},       cost:3}
+    ]
+  },
+  genjutsu: {
+    label:'Genjutsu', color:'#aa44ff',
+    nodes:[
+      {id:'gj1',name:'Quick Steps',     icon:'💨',desc:'SPD+2',                 effect:{spd:2},      cost:1},
+      {id:'gj2',name:'Illusion Veil',   icon:'🌫️',desc:'DEF+4, enemies miss more',effect:{def:4},    cost:1},
+      {id:'gj3',name:'Mind Crush',      icon:'🧠',desc:'ATK+6 vs confused foes',effect:{atk:6},      cost:2},
+      {id:'gj4',name:'Tsukuyomi',       icon:'🌙',desc:'Stun enemies 2 turns',  effect:{special:'tsukuyomi'},cost:2},
+      {id:'gj5',name:'Infinite Tsukuyomi',icon:'🌑',desc:'All enemy stats halved',effect:{special:'inf_tsukuyomi'},cost:3}
+    ]
+  }
+};
+
+const ACHIEVEMENTS = [
+  {id:'first_blood',icon:'🩸',name:'First Blood',    desc:'Defeat your first enemy.'},
+  {id:'level_5',    icon:'⭐',name:'Genin Rank',     desc:'Reach Level 5.'},
+  {id:'level_10',   icon:'🌟',name:'Chunin Rank',    desc:'Reach Level 10.'},
+  {id:'boss_slayer',icon:'💀',name:'Boss Slayer',    desc:'Defeat a floor boss.'},
+  {id:'collector',  icon:'🎒',name:'Collector',      desc:'Own 5 or more weapons at once.'},
+  {id:'floor_5',    icon:'🏯',name:'Deep Diver',     desc:'Reach Floor 5.'},
+  {id:'kage',       icon:'👑',name:'Kage',           desc:'Complete the game.'},
+  {id:'rich',       icon:'💰',name:'Money Bags',     desc:'Open 10 treasure chests.'},
+  {id:'shadow',     icon:'🌑',name:'Shadow Stalker', desc:'Move 100 tiles in stealth.'},
+  {id:'secret',     icon:'🍥',name:'Believe It!',    desc:'Type the secret phrase.'}
+];
+
+// ============================================================
+// GLOBAL STATE
+// ============================================================
+const G = {
+  roomId: null,
+  localPlayerId: 'p1',
+  players: {},
+  dungeon: { floor:1, tiles:[], enemies:[], items:[] },
+  get player() { return this.players[this.localPlayerId]; },
+
+  unlockedSkills: { ninjutsu:[], taijutsu:[], genjutsu:[] },
+  achievements: [],
+  inventory: [],   // [{id, equipped}]
+  ryo: 500,
+  floor: 1,
+  chestsOpened: 0,
+  tilesMoved: 0,
+  enemiesKilled: 0,
+  bossesKilled: 0,
+  eggs: { believeit:false, konami:false }
+};
+
+// ============================================================
+// ACTION DISPATCH
+// ============================================================
+function action(type, payload = {}) {
+  NET.send({ type, payload });
+  _apply(type, payload);
+}
+
+function _apply(type, payload) {
+  switch (type) {
+    case 'INIT_PLAYER':     _initPlayer(payload.name); break;
+    case 'BUY_ITEM':        _buyItem(payload.itemId); break;
+    case 'ITEM_ACTION':     _itemAction(payload.index); break;
+    case 'UNLOCK_SKILL':    _unlockSkill(payload.path, payload.ni); break;
+    case 'GAIN_XP':         _gainXp(payload.amt); break;
+    case 'GAIN_RYO':        G.ryo += payload.amt; _refreshRyo(); break;
+    case 'EASTER_EGG':      _applyEgg(payload.egg); break;
+  }
+}
+
+// ============================================================
+// PLAYER
+// ============================================================
+function _initPlayer(name) {
+  G.players[G.localPlayerId] = {
+    id: G.localPlayerId, name,
+    level:1, xp:0,
+    hp:100, maxHp:100,
+    chakra:50, maxChakra:50,
+    atk:10, def:5, spd:5,
+    skillPoints:0,
+    base: { maxHp:100, maxChakra:50, atk:10, def:5, spd:5 }
+  };
+}
+
+function xpNeeded(lvl) {
+  if (lvl >= XP_TABLE.length) return XP_TABLE.at(-1) + (lvl - XP_TABLE.length + 1) * 1200;
+  return XP_TABLE[lvl];
+}
+
+function _gainXp(amt) {
+  const p = G.player; if (!p) return;
+  p.xp += amt;
+  while (p.xp >= xpNeeded(p.level)) {
+    p.xp -= xpNeeded(p.level);
+    p.level++;
+    p.base.maxHp += 10; p.base.maxChakra += 5;
+    p.skillPoints++;
+    _recalc();
+    p.hp = p.maxHp; p.chakra = p.maxChakra;
+    msg(`Level Up! Now Lv.${p.level} — +1 Skill Point`, 'gold');
+    _checkAch('level_5'); _checkAch('level_10');
+    _refreshSpDisplay();
+  }
+  _refreshLobby();
+}
+
+function _recalc() {
+  const p = G.player; if (!p) return;
+  let mhp=p.base.maxHp, mck=p.base.maxChakra, atk=p.base.atk, def=p.base.def, spd=p.base.spd;
+  for (const path of ['ninjutsu','taijutsu','genjutsu']) {
+    for (const nid of G.unlockedSkills[path]) {
+      const nd = SKILLS[path].nodes.find(n => n.id === nid); if (!nd) continue;
+      const e = nd.effect;
+      if (e.hp)     mhp  += e.hp;
+      if (e.chakra) mck  += e.chakra;
+      if (e.atk)    atk  += e.atk;
+      if (e.def)    def  += e.def;
+      if (e.spd)    spd  += e.spd;
+    }
+  }
+  G.inventory.filter(i => i.equipped).forEach(inv => {
+    const it = ITEMS.find(x => x.id === inv.id); if (!it) return;
+    if (it.stats.atk) atk += it.stats.atk;
+    if (it.stats.def) def += it.stats.def;
+    if (it.stats.spd) spd += it.stats.spd;
+  });
+  if (G.eggs.believeit) atk += 2;
+  if (G.eggs.konami)  { mhp += 200; mck += 200; }
+  p.maxHp=mhp; p.maxChakra=mck; p.atk=atk; p.def=def; p.spd=spd;
+  _refreshLobby();
+}
+
+// ============================================================
+// SHOP
+// ============================================================
+function _buyItem(itemId) {
+  const it = ITEMS.find(i => i.id === itemId); if (!it) return;
+  if (G.ryo < it.price)      { msg('Not enough Ryo!', 'bad'); return; }
+  if (G.inventory.length>=8) { msg('Inventory full! (8/8)', 'bad'); return; }
+  G.ryo -= it.price;
+  G.inventory.push({ id:it.id, equipped:false });
+  msg(`Bought ${it.name}!`, 'gold');
+  _refreshRyo();
+  renderShop(); renderInv();
+  const weapons = G.inventory.filter(i => { const x=ITEMS.find(t=>t.id===i.id); return x&&x.type==='weapon'; });
+  if (weapons.length >= 5) _checkAch('collector');
+}
+
+function _itemAction(index) {
+  const inv = G.inventory[index]; if (!inv) return;
+  const it = ITEMS.find(i => i.id === inv.id); if (!it) return;
+  const p = G.player;
+  if (it.type === 'consumable') {
+    if (it.effect) {
+      if (it.effect.hp)     p.hp     = Math.min(p.maxHp,     p.hp     + it.effect.hp);
+      if (it.effect.chakra) p.chakra = Math.min(p.maxChakra, p.chakra + it.effect.chakra);
+    }
+    G.inventory.splice(index, 1);
+    msg(`Used ${it.name}.`, 'good');
+  } else {
+    if (inv.equipped) {
+      inv.equipped = false;
+      msg(`Unequipped ${it.name}.`, 'info');
+    } else {
+      G.inventory.forEach((iv,i) => {
+        if (i!==index && iv.equipped) {
+          const ot=ITEMS.find(x=>x.id===iv.id);
+          if (ot && ot.type===it.type) iv.equipped=false;
+        }
+      });
+      inv.equipped = true;
+      msg(`Equipped ${it.name}!`, 'good');
+    }
+    _recalc();
+  }
+  _refreshLobby(); renderInv();
+}
+
+function renderShop() {
+  const grid = $('shop-grid'); grid.innerHTML = '';
+  ITEMS.forEach(it => {
+    const canBuy = G.ryo >= it.price && G.inventory.length < 8;
+    const statHtml = Object.entries(it.stats).map(([k,v]) => {
+      const lbl = {atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k.toUpperCase();
+      const cls = v>=0?'spos':'sneg'; const sign=v>=0?'+':'';
+      return `<span class="${cls}">${lbl} ${sign}${v}</span> `;
+    }).join('');
+    const extra = it.chakraCost ? `  Chakra/use: ${it.chakraCost}` : '';
+    const el = document.createElement('div');
+    el.className = 'shop-item';
+    el.innerHTML = `
+      <div class="item-head">
+        <span class="item-icon">${it.icon}</span>
+        <span class="item-name">${it.name}</span>
+        <span class="rarity r-${it.rarity}">${it.rarity}</span>
+      </div>
+      <div class="item-stats">${statHtml||'—'}</div>
+      <div class="item-desc">${it.desc}${extra?'<br/><span style="color:#555">'+extra+'</span>':''}</div>
+      <div class="item-foot">
+        <span class="item-price">💰 ${it.price}</span>
+        <button class="btn btn-sm btn-gold" ${canBuy?'':'disabled'} data-buy="${it.id}">Buy</button>
+      </div>`;
+    grid.appendChild(el);
+  });
+  // Use delegation (already bound in init)
+}
+
+function renderInv() {
+  const grid = $('inv-grid'); grid.innerHTML = '';
+  for (let i=0;i<8;i++) {
+    const inv = G.inventory[i];
+    const slot = document.createElement('div');
+    if (inv) {
+      const it = ITEMS.find(x=>x.id===inv.id);
+      slot.className = `inv-slot occ${inv.equipped?' eq':''}`;
+      slot.dataset.idx = i;
+      slot.innerHTML = `${inv.equipped?'<span class="eq-badge">E</span>':''}
+        <span class="si">${it?it.icon:'?'}</span>
+        <span class="sn">${it?it.name:'?'}</span>`;
+    } else {
+      slot.className = 'inv-slot';
+      slot.innerHTML = '<span style="font-size:18px;color:#1a1a1a">＋</span>';
+    }
+    grid.appendChild(slot);
+  }
+  $('inv-count').textContent = G.inventory.length;
+}
+
+function showItemModal(index) {
+  const inv = G.inventory[index]; if (!inv) return;
+  const it = ITEMS.find(i=>i.id===inv.id); if (!it) return;
+  const stats = Object.entries(it.stats).map(([k,v])=>`${k.toUpperCase()}: ${v>=0?'+':''}${v}`).join('\n') || 'No stat bonus';
+  const isConsumable = it.type==='consumable';
+  openModal(`${it.icon} ${it.name}`,
+    `[${it.rarity}]\n\n${it.desc}\n\n${stats}${it.chakraCost?'\nChakra/use: '+it.chakraCost:''}`,
+    [{label: isConsumable?'Use':(inv.equipped?'Unequip':'Equip'),
+      cls: isConsumable?'btn-gold':'btn',
+      cb: ()=>action('ITEM_ACTION',{index})}]
+  );
+}
+
+function _refreshRyo() {
+  const el=$('shop-ryo'); if(el) el.textContent=G.ryo;
+}
+
+// ============================================================
+// SKILL TREE
+// ============================================================
+const SCW=700, SCH=430;
+const PATH_X = { ninjutsu:117, taijutsu:350, genjutsu:583 };
+const NODE_Y  = [52, 130, 215, 300, 385];
+const NR = 28;
+let skCtx=null, hovNode=null;
+
+function initSkillCanvas() {
+  const canvas = $('skill-canvas');
+  if (!canvas) return;
+  canvas.width=SCW; canvas.height=SCH;
+  skCtx = canvas.getContext('2d');
+  canvas.removeEventListener('mousemove', onSkHover);
+  canvas.removeEventListener('click', onSkClick);
+  canvas.addEventListener('mousemove', onSkHover);
+  canvas.addEventListener('click', onSkClick);
+  drawSkTree();
+}
+
+function nodeState(path, ni) {
+  const nid = SKILLS[path].nodes[ni].id;
+  if (G.unlockedSkills[path].includes(nid)) return 'on';
+  if (ni===0 || G.unlockedSkills[path].includes(SKILLS[path].nodes[ni-1].id)) return 'avail';
+  return 'lock';
+}
+
+function drawSkTree() {
+  if (!skCtx) return;
+  const ctx = skCtx;
+  ctx.clearRect(0,0,SCW,SCH);
+  // subtle grid
+  ctx.strokeStyle='#1a0a2a18'; ctx.lineWidth=1;
+  for(let x=0;x<SCW;x+=50){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,SCH);ctx.stroke();}
+  for(let y=0;y<SCH;y+=50){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(SCW,y);ctx.stroke();}
+
+  for(const path of ['ninjutsu','taijutsu','genjutsu']){
+    const pd = SKILLS[path]; const cx = PATH_X[path];
+    // connecting lines
+    for(let i=0;i<pd.nodes.length-1;i++){
+      const y1=NODE_Y[i],y2=NODE_Y[i+1];
+      const both = nodeState(path,i)==='on' && nodeState(path,i+1)==='on';
+      ctx.beginPath(); ctx.moveTo(cx,y1+NR); ctx.lineTo(cx,y2-NR);
+      ctx.strokeStyle=both?pd.color:'#2a2a2a'; ctx.lineWidth=both?3:1;
+      ctx.setLineDash(both?[]:[4,4]); ctx.stroke(); ctx.setLineDash([]);
+    }
+    // nodes
+    pd.nodes.forEach((nd,i)=>{
+      const cx_=cx, cy=NODE_Y[i];
+      const st=nodeState(path,i);
+      const hov=hovNode&&hovNode.path===path&&hovNode.ni===i;
+      ctx.beginPath(); ctx.arc(cx_,cy,NR,0,Math.PI*2);
+      if(st==='on'){
+        const g=ctx.createRadialGradient(cx_,cy,2,cx_,cy,NR);
+        g.addColorStop(0,pd.color+'ff'); g.addColorStop(1,pd.color+'44');
+        ctx.fillStyle=g; ctx.fill();
+        ctx.strokeStyle=pd.color; ctx.lineWidth=hov?3:2; ctx.stroke();
+      } else if(st==='avail'){
+        ctx.fillStyle='#1a1020'; ctx.fill();
+        ctx.setLineDash([4,4]); ctx.strokeStyle=hov?pd.color:'#555';
+        ctx.lineWidth=hov?2:1; ctx.stroke(); ctx.setLineDash([]);
+      } else {
+        ctx.fillStyle='#0d0a10'; ctx.fill();
+        ctx.strokeStyle='#222'; ctx.lineWidth=1; ctx.stroke();
+      }
+      ctx.font=`${NR-6}px serif`; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.globalAlpha=st==='lock'?0.2:1;
+      ctx.fillText(nd.icon,cx_,cy); ctx.globalAlpha=1;
+      if(st!=='on'){
+        ctx.font='7px "Courier New"';
+        ctx.fillStyle=st==='avail'?'#888':'#333';
+        ctx.fillText(`${nd.cost}SP`,cx_,cy+NR+11);
+      }
+    });
+  }
+}
+
+function getNodeAt(mx,my){
+  for(const path of ['ninjutsu','taijutsu','genjutsu']){
+    const cx=PATH_X[path];
+    for(let i=0;i<SKILLS[path].nodes.length;i++){
+      const dx=mx-cx,dy=my-NODE_Y[i];
+      if(dx*dx+dy*dy<=(NR+6)*(NR+6)) return {path,ni:i};
+    }
+  }
+  return null;
+}
+
+function canvasXY(canvas,e){
+  const r=canvas.getBoundingClientRect();
+  return [(e.clientX-r.left)*(SCW/r.width),(e.clientY-r.top)*(SCH/r.height)];
+}
+
+function onSkHover(e){
+  const canvas=this; const[mx,my]=canvasXY(canvas,e);
+  const nd=getNodeAt(mx,my);
+  hovNode=nd;
+  if(nd){
+    const n=SKILLS[nd.path].nodes[nd.ni]; const st=nodeState(nd.path,nd.ni);
+    const stateStr=st==='on'?'<span style="color:#44ff88">✓ Unlocked</span>'
+      :st==='avail'?`<span style="color:#ffaa00">${n.cost} SP to unlock</span>`
+      :'<span style="color:#555">🔒 Unlock previous node first</span>';
+    $('skill-info').innerHTML=`<div class="skill-info-name">${n.icon} ${n.name}</div>${n.desc}<br/><br/>${stateStr}`;
+    canvas.style.cursor=st==='avail'?'pointer':'default';
+  } else {
+    canvas.style.cursor='default';
+  }
+  drawSkTree();
+}
+
+function onSkClick(e){
+  const canvas=this; const[mx,my]=canvasXY(canvas,e);
+  const nd=getNodeAt(mx,my); if(!nd) return;
+  action('UNLOCK_SKILL',{path:nd.path,ni:nd.ni});
+}
+
+function _unlockSkill(path,ni){
+  const p=G.player; if(!p) return;
+  const nd=SKILLS[path].nodes[ni]; const st=nodeState(path,ni);
+  if(st==='on') { msg(`${nd.name} already unlocked.`,'info'); return; }
+  if(st==='lock') { msg('Unlock the previous node first!','bad'); return; }
+  if(p.skillPoints<nd.cost) { msg(`Need ${nd.cost} SP, have ${p.skillPoints}.`,'bad'); return; }
+  p.skillPoints -= nd.cost;
+  G.unlockedSkills[path].push(nd.id);
+  msg(`Unlocked: ${nd.name}!`,'good');
+  _recalc(); _refreshSpDisplay(); drawSkTree();
+}
+
+function _refreshSpDisplay(){
+  const p=G.player; if(!p) return;
+  const sp=p.skillPoints;
+  ['sp-hud','sp-count'].forEach(id=>{ const el=$(id); if(el) el.textContent=sp; });
+}
+
+// ============================================================
+// ACHIEVEMENTS
+// ============================================================
+function _checkAch(id){
+  if(G.achievements.includes(id)) return;
+  const p=G.player;
+  let ok=false;
+  switch(id){
+    case 'level_5':    ok=p&&p.level>=5; break;
+    case 'level_10':   ok=p&&p.level>=10; break;
+    case 'first_blood':ok=G.enemiesKilled>=1; break;
+    case 'boss_slayer':ok=G.bossesKilled>=1; break;
+    case 'collector':  ok=G.inventory.filter(i=>{const x=ITEMS.find(t=>t.id===i.id);return x&&x.type==='weapon';}).length>=5; break;
+    case 'floor_5':    ok=G.floor>=5; break;
+    case 'rich':       ok=G.chestsOpened>=10; break;
+    case 'shadow':     ok=G.tilesMoved>=100; break;
+    case 'secret':     ok=true; break;
+    default:           ok=true;
+  }
+  if(ok) _grantAch(id);
+}
+
+function _grantAch(id){
+  if(G.achievements.includes(id)) return;
+  G.achievements.push(id);
+  const def=ACHIEVEMENTS.find(a=>a.id===id); if(!def) return;
+  // popup
+  $('ap-ico').textContent=def.icon; $('ap-name').textContent=def.name;
+  const popup=$('ach-popup'); popup.classList.add('show');
+  setTimeout(()=>popup.classList.remove('show'),3500);
+  renderAch();
+}
+
+function renderAch(){
+  const grid=$('ach-grid'); if(!grid) return;
+  grid.innerHTML='';
+  ACHIEVEMENTS.forEach(a=>{
+    const on=G.achievements.includes(a.id);
+    const el=document.createElement('div');
+    el.className=`ach-card${on?' unlocked':''}`;
+    el.innerHTML=`<div class="ach-ico">${a.icon}</div>
+      <div><div class="ach-nm">${on?a.name:'???'}</div>
+      <div class="ach-ds">${on?a.desc:'Keep playing to unlock...'}</div></div>`;
+    grid.appendChild(el);
+  });
+  $('ach-done').textContent=G.achievements.length;
+}
+
+// ============================================================
+// EASTER EGGS
+// ============================================================
+let typeBuf=''; let konamiIdx=0;
+const KONAMI_SEQ=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+
+document.addEventListener('keydown',e=>{
+  // Konami
+  if(e.key===KONAMI_SEQ[konamiIdx]){ konamiIdx++; if(konamiIdx===KONAMI_SEQ.length){ konamiIdx=0; action('EASTER_EGG',{egg:'konami'}); } }
+  else konamiIdx=0;
+  // believe it
+  if(e.key.length===1){ typeBuf=(typeBuf+e.key.toLowerCase()).slice(-10); if(typeBuf.includes('believeit')){ typeBuf=''; action('EASTER_EGG',{egg:'believeit'}); } }
+});
+
+function _applyEgg(egg){
+  if(egg==='believeit'&&!G.eggs.believeit){
+    G.eggs.believeit=true; _recalc();
+    msg('Believe it! ATK+2 unlocked!','gold');
+    openModal('🍥 Believe It!','You typed the secret phrase!\n\nNaruto\'s spirit grants you +2 ATK permanently.',[]);
+    _checkAch('secret');
+  } else if(egg==='konami'&&!G.eggs.konami){
+    G.eggs.konami=true; _recalc();
+    const p=G.player; if(p){ p.hp=Math.min(p.maxHp,p.hp+200); p.chakra=Math.min(p.maxChakra,p.chakra+200); }
+    msg('Konami Code! +200 HP & Chakra!','gold');
+    openModal('🎮 Konami Code!','+200 HP and +200 Chakra activated.\nYou found the secret!',[]);
+  } else {
+    msg('Already activated!','info');
+  }
+}
+
+// ============================================================
+// MESSAGE LOG
+// ============================================================
+function msg(text, type=''){
+  const log=$('msg-log');
+  const el=document.createElement('div');
+  el.className='msg'+(type?' '+type:''); el.textContent=text;
+  log.appendChild(el);
+  while(log.children.length>5) log.removeChild(log.firstChild);
+  setTimeout(()=>el.remove(),4200);
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(title,body,actions){
+  $('modal-title').textContent=title;
+  $('modal-body').textContent=body;
+  const ac=$('modal-actions'); ac.innerHTML='';
+  const close=document.createElement('button');
+  close.className='btn btn-sm'; close.textContent='Close';
+  close.onclick=closeModal; ac.appendChild(close);
+  (actions||[]).forEach(a=>{
+    const b=document.createElement('button');
+    b.className=`btn btn-sm ${a.cls||''}`; b.textContent=a.label;
+    b.onclick=()=>{closeModal();a.cb();}; ac.appendChild(b);
+  });
+  $('modal-overlay').classList.remove('hidden');
+}
+function closeModal(){ $('modal-overlay').classList.add('hidden'); }
+$('modal-overlay').addEventListener('click',e=>{ if(e.target===$('modal-overlay')) closeModal(); });
+
+// ============================================================
+// LOBBY REFRESH
+// ============================================================
+function _refreshLobby(){
+  const p=G.player; if(!p) return;
+  $('disp-name').textContent=p.name;
+  const xpN=xpNeeded(p.level);
+  $('xp-bar').style.width=(Math.min(1,p.xp/xpN)*100)+'%';
+  $('xp-lbl').textContent=`Lv.${p.level}  ${p.xp}/${xpN} XP`;
+  $('lobby-stat-grid').innerHTML=`
+    <div class="stat-cell"><div class="stat-lbl">HP</div><div class="stat-val" style="color:#ff5555">${p.maxHp}</div></div>
+    <div class="stat-cell"><div class="stat-lbl">CK</div><div class="stat-val" style="color:var(--ck)">${p.maxChakra}</div></div>
+    <div class="stat-cell"><div class="stat-lbl">ATK</div><div class="stat-val">${p.atk}</div></div>
+    <div class="stat-cell"><div class="stat-lbl">DEF</div><div class="stat-val">${p.def}</div></div>
+    <div class="stat-cell"><div class="stat-lbl">SPD</div><div class="stat-val">${p.spd}</div></div>
+    <div class="stat-cell"><div class="stat-lbl">RYO</div><div class="stat-val" style="color:var(--gold);font-size:9px">${G.ryo}</div></div>`;
+}
+
+function _refreshRyo(){
+  const el=$('shop-ryo'); if(el) el.textContent=G.ryo;
+  _refreshLobby();
+}
+
+// ============================================================
+// SCREEN NAV
+// ============================================================
+function goScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  if(id==='screen-shop')   { renderShop(); renderInv(); _refreshRyo(); }
+  if(id==='screen-skills') { initSkillCanvas(); _refreshSpDisplay(); }
+  if(id==='screen-ach')    renderAch();
+  if(id==='screen-lobby')  _refreshLobby();
+  if(id==='screen-game')   drawGamePlaceholder();
+}
+
+// ============================================================
+// GAME PLACEHOLDER CANVAS
+// ============================================================
+function drawGamePlaceholder(){
+  const canvas=$('game-canvas'); if(!canvas) return;
+  canvas.width=700; canvas.height=380;
+  const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#040209'; ctx.fillRect(0,0,700,380);
+  // grid
+  ctx.strokeStyle='#0f0520'; ctx.lineWidth=1;
+  const cs=32;
+  for(let x=0;x<700;x+=cs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,380);ctx.stroke();}
+  for(let y=0;y<380;y+=cs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(700,y);ctx.stroke();}
+  // text
+  ctx.textAlign='center';
+  ctx.font='14px "Courier New"'; ctx.fillStyle='#ff7a00';
+  ctx.fillText(`FLOOR ${G.floor} — DUNGEON`,350,140);
+  ctx.font='9px "Courier New"'; ctx.fillStyle='#333';
+  ctx.fillText('Phase 2: Full dungeon generation coming soon!',350,170);
+  // player pixel
+  const px=348,py=200;
+  ctx.fillStyle='#ff7a00'; ctx.fillRect(px,py,16,16);
+  ctx.fillStyle='#ffcc44'; ctx.fillRect(px+3,py-7,10,9);
+  // whiskers
+  ctx.fillStyle='#ff6600';
+  ctx.fillRect(px+2,py-4,2,2); ctx.fillRect(px+12,py-4,2,2);
+  ctx.font='8px "Courier New"'; ctx.fillStyle='#444';
+  const p=G.player;
+  ctx.fillText(p?`${p.name} | ATK:${p.atk} DEF:${p.def} SPD:${p.spd}`:'No player',350,252);
+  $('floor-num').textContent=G.floor;
+}
+
+// ============================================================
+// LOBBY PARTICLE ANIMATION
+// ============================================================
+function initParticles(){
+  const canvas=$('lobby-canvas');
+  const ctx=canvas.getContext('2d');
+  const resize=()=>{ canvas.width=canvas.offsetWidth||740; canvas.height=canvas.offsetHeight||window.innerHeight; };
+  resize(); window.addEventListener('resize',resize);
+
+  const LEAF_COUNT=35;
+  const leaves=[];
+  const mkLeaf=(rand=false)=>({
+    x: Math.random()*canvas.width,
+    y: rand ? Math.random()*canvas.height : -12,
+    sz: 3+Math.random()*9,
+    vy: .3+Math.random()*.7,
+    vx: (Math.random()-.5)*.5,
+    rot: Math.random()*Math.PI*2,
+    rv: (Math.random()-.5)*.04,
+    a: .25+Math.random()*.5,
+    col: ['#ff7a00','#ffd700','#cc4400','#ff9933'][Math.floor(Math.random()*4)]
+  });
+
+  for(let i=0;i<LEAF_COUNT;i++) leaves.push(mkLeaf(true));
+
+  (function loop(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    leaves.forEach((l,i)=>{
+      l.x+=l.vx; l.y+=l.vy; l.rot+=l.rv;
+      if(l.y>canvas.height+16) leaves[i]=mkLeaf(false);
+      ctx.save();
+      ctx.translate(l.x,l.y); ctx.rotate(l.rot); ctx.globalAlpha=l.a;
+      ctx.fillStyle=l.col; ctx.beginPath();
+      ctx.ellipse(0,0,l.sz,l.sz*.45,0,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    });
+    requestAnimationFrame(loop);
+  })();
+}
+
+// ============================================================
+// INIT & EVENT WIRING
+// ============================================================
+const $ = id => document.getElementById(id);
+
+function confirmName(){
+  const name=$('name-input').value.trim()||'Shinobi';
+  action('INIT_PLAYER',{name});
+  $('name-setup').classList.add('hidden');
+  $('player-card').classList.remove('hidden');
+  $('lobby-menu').classList.remove('hidden');
+  _refreshLobby();
+  msg(`Welcome, ${name}! Your legend begins.`,'good');
+  msg('Hint: type "believeit" for a secret...','info');
+}
+
+// Button wiring
+$('begin-btn').onclick = confirmName;
+$('name-input').addEventListener('keydown',e=>{ if(e.key==='Enter') confirmName(); });
+$('start-btn').onclick  = ()=>goScreen('screen-game');
+$('shop-btn').onclick   = ()=>goScreen('screen-shop');
+$('skills-btn').onclick = ()=>goScreen('screen-skills');
+$('ach-btn').onclick    = ()=>goScreen('screen-ach');
+$('shop-back').onclick  = ()=>goScreen('screen-lobby');
+$('skills-back').onclick= ()=>goScreen('screen-lobby');
+$('ach-back').onclick   = ()=>goScreen('screen-lobby');
+$('game-back').onclick  = ()=>goScreen('screen-lobby');
+$('test-xp-btn').onclick  = ()=>{ action('GAIN_XP',{amt:80}); msg('+80 XP','good'); };
+$('test-ryo-btn').onclick = ()=>{ action('GAIN_RYO',{amt:200}); msg('+200 Ryo','gold'); };
+
+// Shop buy delegation
+$('shop-grid').addEventListener('click',e=>{
+  const btn=e.target.closest('[data-buy]'); if(!btn) return;
+  action('BUY_ITEM',{itemId:btn.dataset.buy});
+});
+
+// Inventory click delegation
+$('inv-grid').addEventListener('click',e=>{
+  const slot=e.target.closest('[data-idx]'); if(!slot) return;
+  showItemModal(parseInt(slot.dataset.idx,10));
+});
+
+// Skill canvas — bind after screen shown (initSkillCanvas handles it)
+
+// Boot
+initParticles();
+msg('Welcome to Shinobi Dungeon!','info');
+msg('Enter your name to begin.','info');
+</script>
+</body>
+</html>

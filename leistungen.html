@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Leistungen &amp; Preise · LORRAINE Haarstudio · Landau in der Pfalz</title>
+<meta name="description" content="Alle Leistungen und Preise von LORRAINE Haarstudio in Landau in der Pfalz — Schnitt & Styling, Coloration, Dauerwelle, Kosmetik." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- TOKENS ---------- */
+  :root {
+    --bg:        #161310;
+    --bg-soft:   #1E1A16;
+    --bg-card:   #252018;
+    --cream:     #F2EBE0;
+    --cream-dim: #C4B9AB;
+    --gold:      #C9A06A;
+    --gold-pale: #3A2D1E;
+    --muted:     #7A6F64;
+    --line:      rgba(201,160,106,0.18);
+    --line-soft: rgba(242,235,224,0.08);
+    --ff-display: "Cormorant Garamond", "Times New Roman", serif;
+    --ff-body:    "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+    --container: 1320px;
+    --pad-x:     clamp(20px, 5vw, 64px);
+  }
+
+  /* ---------- RESET ---------- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--ff-body);
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  button { background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: var(--bg); }
+
+  /* ---------- TYPO ---------- */
+  h1, h2, h3, h4, h5 {
+    font-family: var(--ff-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    line-height: 1.04;
+    color: var(--cream);
+    text-wrap: balance;
+  }
+  .eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .eyebrow::after {
+    content: "";
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  /* ---------- LAYOUT ---------- */
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px var(--pad-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    transition: padding 0.4s var(--ease), background 0.4s var(--ease), border-color 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.is-scrolled {
+    padding: 12px var(--pad-x);
+    background: rgba(22,19,16,0.72);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border-bottom-color: var(--line);
+  }
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .nav-brand img {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+    display: block;
+  }
+  .nav-brand-text {
+    font-family: var(--ff-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1;
+  }
+  .nav-brand-text sup {
+    font-size: 0.55rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-left: 2px;
+    top: -0.9em;
+    font-family: var(--ff-body);
+    font-weight: 400;
+  }
+  .nav-back {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s var(--ease);
+    margin-right: auto;
+    padding-left: 32px;
+  }
+  .nav-back:hover { color: var(--gold); }
+  .nav-back svg { flex-shrink: 0; }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    background: var(--gold);
+    color: var(--bg);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease);
+    flex-shrink: 0;
+  }
+  .nav-cta:hover { background: var(--cream); transform: translateY(-1px); }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 28px;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: transform 0.4s var(--ease), background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+    cursor: pointer;
+  }
+  .btn .arrow { display: inline-block; transition: transform 0.4s var(--ease); }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .btn-primary { background: var(--gold); color: var(--bg); }
+  .btn-primary:hover { background: var(--cream); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(242,235,224,0.32);
+    color: var(--cream);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+  /* ---------- REVEAL ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+  }
+  .reveal.is-in { opacity: 1; transform: translateY(0); }
+  .reveal[data-d="1"] { transition-delay: 0.1s; }
+  .reveal[data-d="2"] { transition-delay: 0.2s; }
+  .reveal[data-d="3"] { transition-delay: 0.3s; }
+  .reveal[data-d="4"] { transition-delay: 0.4s; }
+
+  /* ---------- PAGE HERO ---------- */
+  .page-hero {
+    position: relative;
+    background: var(--bg-soft);
+    padding: clamp(140px, 18vw, 220px) 0 clamp(64px, 10vw, 120px);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero::before {
+    content: "PREISE";
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.22em;
+    font-family: var(--ff-display);
+    font-size: clamp(8rem, 22vw, 20rem);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201,160,106,0.08);
+    pointer-events: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .page-hero-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero-title {
+    font-size: clamp(3rem, 7.5vw, 6.4rem);
+    line-height: 0.98;
+    margin: 18px 0 24px;
+    max-width: 18ch;
+  }
+  .page-hero-title em { font-style: italic; color: var(--cream-dim); font-weight: 300; }
+  .page-hero-sub {
+    font-size: 0.95rem;
+    color: var(--cream-dim);
+    max-width: 50ch;
+    line-height: 1.7;
+  }
+  .page-hero-meta {
+    display: flex;
+    gap: clamp(32px, 5vw, 64px);
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .page-hero-meta-item dt {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .page-hero-meta-item dd {
+    font-family: var(--ff-display);
+    font-size: 1.2rem;
+    color: var(--cream);
+  }
+
+  /* ---------- PRICE PAGE ---------- */
+  .price-page {
+    background: var(--bg);
+    padding: clamp(80px, 10vw, 140px) 0;
+  }
+
+  /* ---------- PRICE LIST ---------- */
+  .price-note {
+    background: var(--gold-pale);
+    border-left: 2px solid var(--gold);
+    padding: 14px 20px;
+    font-size: 0.82rem;
+    color: var(--cream-dim);
+    margin-bottom: clamp(40px, 6vw, 64px);
+    line-height: 1.6;
+  }
+  .price-block { margin-bottom: clamp(56px, 7vw, 88px); }
+  .price-block:last-child { margin-bottom: 0; }
+  .price-block-head {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+  }
+  .price-block-head h2 {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    margin-top: 10px;
+  }
+  .price-sub-title {
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 8px;
+    display: block;
+  }
+  .price-subsection { margin-bottom: 8px; }
+  .price-thead {
+    display: grid;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2px;
+  }
+  .price-thead span {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+  .price-thead span:first-child { text-align: left; }
+  .price-row {
+    display: grid;
+    padding: 13px 0;
+    border-bottom: 1px solid rgba(201,160,106,0.07);
+    align-items: baseline;
+    transition: background 0.3s var(--ease);
+  }
+  .price-row:hover { background: rgba(201,160,106,0.04); margin: 0 -8px; padding-left: 8px; padding-right: 8px; }
+  .price-name { font-size: 0.9rem; color: var(--cream-dim); }
+  .price-cell {
+    font-family: var(--ff-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    text-align: right;
+  }
+  .price-cell.dash { color: var(--muted); font-family: var(--ff-body); font-size: 0.8rem; }
+  .pc-4 { grid-template-columns: 1fr 88px 88px 88px; }
+  .pc-3 { grid-template-columns: 1fr 88px 88px; }
+  .pc-2 { grid-template-columns: 1fr 88px; }
+
+  /* ---------- PRICE CTA ---------- */
+  .price-cta {
+    background: var(--bg-soft);
+    padding: clamp(64px, 10vw, 120px) 0;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .price-cta h2 {
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+    margin-bottom: 16px;
+  }
+  .price-cta h2 em { font-style: italic; color: var(--cream-dim); }
+  .price-cta p {
+    color: var(--cream-dim);
+    max-width: 46ch;
+    margin: 0 auto 36px;
+    line-height: 1.75;
+  }
+  .price-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .call-big {
+    font-family: var(--ff-display);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    display: block;
+    margin-bottom: 32px;
+  }
+  .call-big small {
+    display: block;
+    font-family: var(--ff-body);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--bg-soft);
+    padding-top: clamp(48px, 8vw, 96px);
+    border-top: 1px solid var(--line);
+  }
+  .foot-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line-soft);
+    margin-top: clamp(32px, 4vw, 48px);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  .foot-bottom a { color: var(--cream-dim); transition: color 0.3s; }
+  .foot-bottom a:hover { color: var(--gold); }
+  .legal { display: flex; gap: 24px; }
+  .foot-credit a { color: var(--muted); border-bottom: 1px solid rgba(201,160,106,0.2); transition: color 0.3s, border-color 0.3s; }
+  .foot-credit a:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* ---------- MODALS ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(22,19,16,0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s var(--ease);
+  }
+  .modal-backdrop.is-open { opacity: 1; pointer-events: auto; }
+  .modal-box {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-bottom: none;
+    width: 100%;
+    max-width: 780px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(40px);
+    transition: transform 0.5s var(--ease);
+  }
+  .modal-backdrop.is-open .modal-box { transform: translateY(0); }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 36px 24px;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .modal-head h2 {
+    font-family: var(--ff-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+  }
+  .modal-close {
+    width: 36px; height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--cream-dim);
+    flex-shrink: 0;
+    transition: border-color 0.3s, color 0.3s;
+    cursor: pointer;
+  }
+  .modal-close:hover { border-color: var(--gold); color: var(--gold); }
+  .modal-body {
+    overflow-y: auto;
+    padding: 36px 36px 48px;
+    color: var(--cream-dim);
+    font-size: 0.88rem;
+    line-height: 1.85;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-pale) transparent;
+  }
+  .modal-body::-webkit-scrollbar { width: 4px; }
+  .modal-body::-webkit-scrollbar-track { background: transparent; }
+  .modal-body::-webkit-scrollbar-thumb { background: var(--gold-pale); border-radius: 2px; }
+  .modal-body h3 {
+    font-family: var(--ff-display);
+    font-size: 1.25rem;
+    color: var(--cream);
+    font-weight: 300;
+    margin: 32px 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .modal-body h3:first-child { margin-top: 0; }
+  .modal-body p { margin-bottom: 14px; }
+  .modal-body a { color: var(--gold); border-bottom: 1px solid rgba(201,160,106,0.3); }
+  .modal-body a:hover { border-bottom-color: var(--gold); }
+
+  /* ---------- COOKIE BANNER ---------- */
+  .cookie-banner {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 20px var(--pad-x);
+    background: rgba(22,19,16,0.95);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-top: 1px solid var(--line);
+    transform: translateY(100%);
+    transition: transform 0.5s var(--ease);
+  }
+  .cookie-banner.is-visible { transform: translateY(0); }
+  .cookie-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cookie-text { flex: 1; min-width: 220px; }
+  .cookie-title {
+    font-family: var(--ff-display);
+    font-size: 1rem;
+    color: var(--cream);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .cookie-text p { font-size: 0.78rem; color: var(--cream-dim); line-height: 1.65; max-width: 68ch; }
+  .cookie-link { color: var(--gold); border-bottom: 1px solid rgba(201,160,106,0.3); transition: border-color 0.3s; }
+  .cookie-link:hover { border-bottom-color: var(--gold); }
+  .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; }
+  .cookie-btn {
+    padding: 11px 22px;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease), transform 0.35s var(--ease);
+    white-space: nowrap;
+  }
+  .cookie-decline {
+    background: transparent;
+    border: 1px solid rgba(242,235,224,0.22);
+    color: var(--cream-dim);
+  }
+  .cookie-decline:hover { border-color: var(--cream-dim); color: var(--cream); transform: translateY(-1px); }
+  .cookie-accept {
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--bg);
+  }
+  .cookie-accept:hover { background: var(--cream); border-color: var(--cream); transform: translateY(-1px); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 768px) {
+    .nav-back { display: none; }
+    .modal-head { padding: 20px 20px 16px; }
+    .modal-body { padding: 24px 20px 40px; }
+    .modal-box { max-height: 92vh; }
+  }
+  @media (max-width: 640px) {
+    .pc-4 { grid-template-columns: 1fr repeat(3, 56px); }
+    .pc-3 { grid-template-columns: 1fr repeat(2, 64px); }
+    .pc-2 { grid-template-columns: 1fr 72px; }
+    .price-cell { font-size: 0.9rem; }
+    .price-name { font-size: 0.82rem; }
+  }
+  @media (max-width: 420px) {
+    .pc-4 .price-cell:nth-child(4) { display: none; }
+    .pc-4 .price-thead span:nth-child(4) { display: none; }
+    .pc-4 { grid-template-columns: 1fr repeat(2, 56px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav" aria-label="Hauptnavigation">
+  <a href="index.html" class="nav-brand" aria-label="LORRAINE Haarstudio — zur Startseite">
+    <img src="logo-circle.png" alt="" width="44" height="44" />
+    <span class="nav-brand-text">LORRAINE<sup>HS</sup></span>
+  </a>
+  <a href="index.html" class="nav-back" aria-label="Zurück zur Startseite">
+    <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+      <path d="M5 1 L1 5 L5 9 M1 5 H13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Zurück zur Startseite
+  </a>
+  <a href="tel:063419029615" class="nav-cta">Jetzt anrufen</a>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner">
+      <span class="eyebrow reveal">— Leistungen &amp; Preise</span>
+      <h1 class="page-hero-title reveal" data-d="1">Was wir für dich <em>tun können.</em></h1>
+      <p class="page-hero-sub reveal" data-d="2">Preise sind Richtwerte — die endgültige Abrechnung erfolgt nach persönlicher Beratung im Studio.</p>
+      <div class="page-hero-meta reveal" data-d="3">
+        <dl class="page-hero-meta-item">
+          <dt>Telefon</dt>
+          <dd>06341 · 9029615</dd>
+        </dl>
+        <dl class="page-hero-meta-item">
+          <dt>Erreichbar</dt>
+          <dd>Di–Fr 09:30–18:00</dd>
+        </dl>
+        <dl class="page-hero-meta-item">
+          <dt>Standort</dt>
+          <dd>Landau in der Pfalz</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- PRICE LIST -->
+<main class="price-page" id="preisliste">
+  <div class="container">
+
+    <div class="price-note reveal">
+      Alle Preise sind Richtwerte und hängen von Haarlänge, Struktur und Aufwand ab. Die genaue Abrechnung besprechen wir vor dem Start — kein böses Erwachen an der Kasse.
+    </div>
+
+    <!-- SCHNITT & STYLING -->
+    <div class="price-block reveal" id="schnitt">
+      <div class="price-block-head">
+        <span class="eyebrow">01</span>
+        <h2>Schnitt &amp; Styling</h2>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Damen</span>
+        <div class="price-thead pc-4">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span><span>Extra</span>
+        </div>
+        <div class="price-row pc-4"><span class="price-name">Haarschnitt + Waschen + GO</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span><span class="price-cell">32 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Haarschnitt + Waschen + Föhnen</span><span class="price-cell">41 €</span><span class="price-cell">51 €</span><span class="price-cell">61 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Waschen + Föhnen</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span><span class="price-cell">32 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Glätten / Locken</span><span class="price-cell">15 €</span><span class="price-cell">ab 20 €</span><span class="price-cell">ab 30 €</span></div>
+        <div class="price-row pc-4"><span class="price-name">Steckfrisuren</span><span class="price-cell">ab 45 €</span><span class="price-cell dash">—</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-4"><span class="price-name">Pony Schnitt</span><span class="price-cell">6 €</span><span class="price-cell dash">—</span><span class="price-cell dash">—</span></div>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Herren</span>
+        <div class="price-thead pc-3">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span>
+        </div>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt + Waschen</span><span class="price-cell">22 €</span><span class="price-cell">27 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Maschinenschnitt</span><span class="price-cell">18 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bartrasur</span><span class="price-cell">12 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">W / S / F + Bartrasur</span><span class="price-cell">31 €</span><span class="price-cell">36 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bart kürzen mit Maschine</span><span class="price-cell">5 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bart färben</span><span class="price-cell">15 €</span><span class="price-cell dash">—</span></div>
+        <div class="price-row pc-3"><span class="price-name">Bartkonturen schneiden</span><span class="price-cell">9 €</span><span class="price-cell dash">—</span></div>
+      </div>
+
+      <div class="price-subsection">
+        <span class="price-sub-title">Kinder</span>
+        <div class="price-thead pc-3">
+          <span>Leistung</span><span>Kurz</span><span>Lang</span>
+        </div>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt bis 2 Jahre</span><span class="price-cell">13 €</span><span class="price-cell">13 €</span></div>
+        <div class="price-row pc-3"><span class="price-name">Haarschnitt 2 – 6 Jahre</span><span class="price-cell">18 €</span><span class="price-cell">21 €</span></div>
+      </div>
+    </div>
+
+    <!-- COLORATION -->
+    <div class="price-block reveal" id="coloration">
+      <div class="price-block-head">
+        <span class="eyebrow">02</span>
+        <h2>Coloration</h2>
+      </div>
+      <div class="price-thead pc-4">
+        <span>Leistung</span><span>Kurz</span><span>Lang</span><span>Extra</span>
+      </div>
+      <div class="price-row pc-4"><span class="price-name">Ansatz Farbe</span><span class="price-cell">24 €</span><span class="price-cell">29 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Färbung (komplett)</span><span class="price-cell">30 €</span><span class="price-cell">40 €</span><span class="price-cell">50 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Tönung (komplett)</span><span class="price-cell">25 €</span><span class="price-cell">35 €</span><span class="price-cell">45 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Strähnen (10 Folien)</span><span class="price-cell">18 €</span><span class="price-cell">23 €</span><span class="price-cell">33 €</span></div>
+      <div class="price-row pc-4"><span class="price-name">Haubensträhnen</span><span class="price-cell">35 €</span><span class="price-cell">45 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Kammsträhnen</span><span class="price-cell">25 €</span><span class="price-cell">45 €</span><span class="price-cell dash">—</span></div>
+      <div class="price-row pc-4"><span class="price-name">Balayage Neu inkl. Tönung o. Glossing</span><span class="price-cell">89 €</span><span class="price-cell">109 €</span><span class="price-cell">144 €</span></div>
+    </div>
+
+    <!-- DAUERHAFTE UMFORMUNG -->
+    <div class="price-block reveal" id="umformung">
+      <div class="price-block-head">
+        <span class="eyebrow">03</span>
+        <h2>Dauerhafte Umformung</h2>
+      </div>
+      <div class="price-thead pc-3">
+        <span>Leistung</span><span>Kurz</span><span>Lang</span>
+      </div>
+      <div class="price-row pc-3"><span class="price-name">Dauerwelle</span><span class="price-cell">ab 35 €</span><span class="price-cell">ab 50 €</span></div>
+    </div>
+
+    <!-- KOSMETIK -->
+    <div class="price-block reveal" id="kosmetik">
+      <div class="price-block-head">
+        <span class="eyebrow">04</span>
+        <h2>Kosmetik</h2>
+      </div>
+      <div class="price-thead pc-2">
+        <span>Leistung</span><span>Preis</span>
+      </div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen formen mit Faden</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen formen mit Messer</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Augenbrauen färben</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Wimpern färben</span><span class="price-cell">9 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Gesichtsenthaarung m. Faden inkl. Augenbrauen</span><span class="price-cell">24 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Gesichtsenthaarung m. Heißwachs inkl. Augenbrauen</span><span class="price-cell">24 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Ohrenhaare mit Heißwachs</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Nasenhaare mit Heißwachs</span><span class="price-cell">4 €</span></div>
+      <div class="price-row pc-2"><span class="price-name">Damenbart-Entfernung</span><span class="price-cell">4 €</span></div>
+    </div>
+
+  </div>
+</main>
+
+<!-- CALL CTA -->
+<section class="price-cta">
+  <div class="container">
+    <span class="eyebrow reveal" style="justify-content:center; margin-bottom:24px;">Termin vereinbaren</span>
+    <h2 class="reveal" data-d="1">Einfach <em>anrufen.</em></h2>
+    <p class="reveal" data-d="2">Kein Formular, kein Warten. Ein kurzer Anruf — und wir finden gemeinsam den perfekten Termin.</p>
+    <a href="tel:063419029615" class="call-big reveal" data-d="3">
+      <small>Telefon</small>
+      06341 · 9029615
+    </a>
+    <div class="price-cta-actions reveal" data-d="4">
+      <a href="tel:063419029615" class="btn btn-primary">Jetzt anrufen <span class="arrow">→</span></a>
+      <a href="index.html" class="btn btn-outline">Zur Startseite</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-bottom">
+      <span>© 2019 — 2026 · Lorraine Haarstudio</span>
+      <div class="legal">
+        <a href="#" data-modal="impressum">Impressum</a>
+        <a href="#" data-modal="datenschutz">Datenschutz</a>
+      </div>
+      <span class="foot-credit">Webdesign by <a href="https://bisnero.de" target="_blank" rel="noopener">Bisnero</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL: Impressum -->
+<div class="modal-backdrop" id="modal-impressum" role="dialog" aria-modal="true" aria-label="Impressum">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Impressum</h2>
+      <button class="modal-close" aria-label="Schließen">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h3>Angaben gemäß § 5 TMG</h3>
+      <p><strong style="color:var(--cream)">Lorraine Padberg</strong><br>LORRAINE Haarstudio<br>Theaterstraße 16<br>76829 Landau in der Pfalz</p>
+      <h3>Kontakt</h3>
+      <p>Telefon: <a href="tel:063419029615">06341 · 9029615</a><br>E-Mail: <a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a></p>
+      <h3>Berufsbezeichnung &amp; berufsrechtliche Regelungen</h3>
+      <p>Berufsbezeichnung: Friseurmeisterin (verliehen in der Bundesrepublik Deutschland)<br>Zuständige Kammer: Handwerkskammer der Pfalz<br>Am Altenhof 15, 67655 Kaiserslautern<br><a href="https://www.hwk-pfalz.de" target="_blank" rel="noopener">www.hwk-pfalz.de</a></p>
+      <h3>Umsatzsteuer-ID</h3>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br><!-- TODO: USt-IdNr. eintragen --><em style="color:var(--muted)">wird nachgereicht</em></p>
+      <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+      <p>Lorraine Padberg<br>Theaterstraße 16<br>76829 Landau in der Pfalz</p>
+      <h3>Streitschlichtung</h3>
+      <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a></p>
+      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: Datenschutzerklärung -->
+<div class="modal-backdrop" id="modal-datenschutz" role="dialog" aria-modal="true" aria-label="Datenschutzerklärung">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>Datenschutzerklärung</h2>
+      <button class="modal-close" aria-label="Schließen">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 1 L13 13 M13 1 L1 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h3>1. Datenschutz auf einen Blick</h3>
+      <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.</p>
+      <h3>2. Verantwortliche Stelle</h3>
+      <p>Lorraine Padberg · LORRAINE Haarstudio · Theaterstraße 16 · 76829 Landau in der Pfalz<br>Telefon: <a href="tel:063419029615">06341 · 9029615</a><br>E-Mail: <a href="mailto:hallo@lorraine-haarstudio.de">hallo@lorraine-haarstudio.de</a></p>
+      <h3>3. Datenerfassung auf dieser Website</h3>
+      <p>Diese Website erfasst automatisch technische Daten (Server-Log-Dateien), die Ihr Browser übermittelt, u.&thinsp;a. Browsertyp, Betriebssystem, Referrer-URL und IP-Adresse. Diese Daten werden ausschließlich zur technischen Bereitstellung der Website genutzt und nicht mit anderen Datenquellen zusammengeführt.</p>
+      <h3>4. Cookies</h3>
+      <p>Diese Website verwendet ausschließlich technisch notwendige Cookies sowie ein optionales Consent-Cookie zur Speicherung Ihrer Cookie-Einstellung. Es werden keine Tracking- oder Analyse-Cookies gesetzt, sofern Sie nicht ausdrücklich zustimmen.</p>
+      <h3>5. Google Fonts</h3>
+      <p>Diese Seite nutzt Google Fonts. Beim Aufruf der Seite werden Schriftarten von Google-Servern geladen, wobei Ihre IP-Adresse an Google übertragen werden kann. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einheitlicher Darstellung).</p>
+      <h3>6. Ihre Rechte</h3>
+      <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer gespeicherten personenbezogenen Daten sowie ein Widerspruchsrecht. Wenden Sie sich dazu an die oben genannte E-Mail-Adresse.</p>
+    </div>
+  </div>
+</div>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie-Hinweis">
+  <div class="cookie-inner">
+    <div class="cookie-text">
+      <div class="cookie-title">Cookies &amp; Datenschutz</div>
+      <p>Wir verwenden technisch notwendige Cookies sowie optionale Cookies zur Verbesserung der Website. Mehr dazu in unserer <a href="#" class="cookie-link" data-modal="datenschutz">Datenschutzerklärung</a>.</p>
+    </div>
+    <div class="cookie-actions">
+      <button class="cookie-btn cookie-decline" id="cookieDecline">Nur notwendige</button>
+      <button class="cookie-btn cookie-accept" id="cookieAccept">Alle akzeptieren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+  // Modals
+  (function () {
+    function openModal(id) {
+      const el = document.getElementById('modal-' + id);
+      if (!el) return;
+      el.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      el.querySelector('.modal-close').focus();
+    }
+    function closeModal(el) {
+      el.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-modal]');
+      if (trigger) { e.preventDefault(); openModal(trigger.dataset.modal); return; }
+      const closeBtn = e.target.closest('.modal-close');
+      if (closeBtn) { closeModal(closeBtn.closest('.modal-backdrop')); return; }
+      if (e.target.classList.contains('modal-backdrop')) { closeModal(e.target); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.is-open').forEach(closeModal);
+    });
+  })();
+
+  // Cookie banner
+  (function () {
+    const banner = document.getElementById('cookieBanner');
+    const KEY = 'lorraine_cookie_consent';
+    function setCookie(val) {
+      const d = new Date();
+      d.setFullYear(d.getFullYear() + 1);
+      document.cookie = KEY + '=' + val + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+    }
+    function getCookie() {
+      return document.cookie.split('; ').reduce((a, c) => {
+        const [k, v] = c.split('=');
+        return k === KEY ? v : a;
+      }, null);
+    }
+    function dismiss() {
+      banner.classList.remove('is-visible');
+      banner.addEventListener('transitionend', () => banner.remove(), { once: true });
+    }
+    if (!getCookie()) setTimeout(() => banner.classList.add('is-visible'), 800);
+    else banner.remove();
+    document.getElementById('cookieAccept').addEventListener('click', () => { setCookie('all'); dismiss(); });
+    document.getElementById('cookieDecline').addEventListener('click', () => { setCookie('necessary'); dismiss(); });
+  })();
+</script>
+</body>
+</html>

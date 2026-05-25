@@ -201,6 +201,27 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 #fs-btn{font-size:14px;padding:4px 8px;border-color:#3a2a5a;color:#7c3aed;margin-left:6px}
 #fs-btn:hover{border-color:var(--or);color:var(--or)}
 
+/* ══════════════════════ LOBBY WORLD ══════════════════════ */
+.lhud{position:absolute;top:12px;left:12px;background:#08051099;border:1px solid var(--border);padding:10px 12px;min-width:160px;backdrop-filter:blur(6px);z-index:10}
+.lhud-row{display:flex;align-items:center;gap:5px;margin-top:4px}
+.lhud-lbl{font-size:6px;color:#555;width:16px}
+.lhud-bg{flex:1;height:5px;background:#ffffff0d}
+.lhud-fill{height:100%}
+.lhud-hp{background:linear-gradient(90deg,#cc0022,#ff2244)}
+.lhud-ck{background:linear-gradient(90deg,#0055cc,#00b4ff)}
+.lhud-xp{background:linear-gradient(90deg,var(--or),var(--gold))}
+#lhud-name{font-size:9px;color:var(--gold);margin-bottom:2px}
+#lhud-meta{font-size:6px;color:#4a3a6a;margin-top:5px}
+
+#iprompt{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);background:#08051099;border:1px solid var(--border);padding:12px 20px;text-align:center;backdrop-filter:blur(8px);z-index:10;pointer-events:none;animation:fadeIn .2s ease-out}
+#ip-icon{font-size:26px;line-height:1;margin-bottom:4px}
+#ip-name{font-size:10px;color:var(--gold);margin-bottom:3px}
+#ip-sub{font-size:7px;color:#666;margin-bottom:8px}
+.ip-key{font-size:8px;color:var(--purple);border:1px solid var(--border);padding:3px 10px;display:inline-block}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+#lctrl{position:absolute;bottom:12px;right:12px;font-size:6px;color:#2a2040;z-index:10}
+
 /* ══════════════════════ SCROLLBAR ══════════════════════ */
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#080510}::-webkit-scrollbar-thumb{background:var(--purple)}
 .hidden{display:none!important}
@@ -209,38 +230,26 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 <body>
 <div id="app">
 
-<!-- ═══════════════ LOBBY ═══════════════ -->
-<div id="screen-lobby" class="screen active">
-  <canvas id="lobby-canvas"></canvas>
-  <div class="lobby-inner">
-    <div class="title-wrap">
-      <div class="title-kanji">忍</div>
-      <div class="title-main">SHINOBI DUNGEON</div>
-      <div class="title-sub">~ A Naruto Roguelike ~</div>
-    </div>
-
-    <div id="name-setup" class="name-setup">
-      <label>Enter your Shinobi name:</label>
-      <input type="text" id="name-input" maxlength="16" placeholder="e.g. Naruto..."/>
-      <button class="btn btn-gold btn-lg" id="begin-btn">Begin Journey</button>
-    </div>
-
-    <div id="player-card" class="pcard hidden">
-      <div class="pcard-greet">Welcome back, Shinobi</div>
-      <div class="pcard-name" id="disp-name"></div>
-      <div class="stat-row" id="lobby-stats"></div>
-      <div class="bar-wrap bar-hp"><div class="bar-lbl"><span>HP</span><span id="hp-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-hp"></div></div></div>
-      <div class="bar-wrap bar-ck"><div class="bar-lbl"><span>CHAKRA</span><span id="ck-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-ck"></div></div></div>
-      <div class="bar-wrap bar-xp"><div class="bar-lbl"><span>XP</span><span id="xp-lbl-txt"></span></div><div class="bar-bg"><div class="bar-fill" id="bar-xp"></div></div></div>
-    </div>
-
-    <nav class="lobby-menu hidden" id="lobby-menu">
-      <button class="btn btn-or btn-lg" id="start-btn">⚔ ENTER DUNGEON</button>
-      <button class="btn" id="shop-btn">🛒 SHOP</button>
-      <button class="btn btn-ck" id="skills-btn">✦ SKILL TREE</button>
-      <button class="btn btn-gold" id="ach-btn">🏆 ACHIEVEMENTS</button>
-    </nav>
+<!-- ═══════════════ LOBBY WORLD ═══════════════ -->
+<div id="screen-lobby" class="screen active" style="position:relative;overflow:hidden">
+  <canvas id="lobby-canvas" style="display:block;width:100%;height:100vh;image-rendering:pixelated"></canvas>
+  <!-- Mini HUD top-left -->
+  <div id="lhud" class="lhud hidden">
+    <div id="lhud-name"></div>
+    <div class="lhud-row"><span class="lhud-lbl">HP</span><div class="lhud-bg"><div class="lhud-fill lhud-hp" id="lhud-hp"></div></div></div>
+    <div class="lhud-row"><span class="lhud-lbl">CK</span><div class="lhud-bg"><div class="lhud-fill lhud-ck" id="lhud-ck"></div></div></div>
+    <div class="lhud-row"><span class="lhud-lbl">XP</span><div class="lhud-bg"><div class="lhud-fill lhud-xp" id="lhud-xp"></div></div></div>
+    <div id="lhud-meta"></div>
   </div>
+  <!-- Interact prompt bottom-center -->
+  <div id="iprompt" class="hidden">
+    <div id="ip-icon"></div>
+    <div id="ip-name"></div>
+    <div id="ip-sub"></div>
+    <div class="ip-key">[ E ] Enter</div>
+  </div>
+  <!-- Controls hint bottom-right -->
+  <div id="lctrl">WASD Move &nbsp;·&nbsp; E Interact</div>
 </div>
 
 <!-- ═══════════════ SHOP ═══════════════ -->
@@ -734,23 +743,8 @@ $('modal-overlay').addEventListener('click',e=>{if(e.target===$('modal-overlay')
    LOBBY SYNC
 ════════════════════════════════════════════════════ */
 function _syncLobby(){
-  const p=G.player; if(!p) return;
-  $('disp-name').textContent=p.name;
-  const xn=xpNeed(p.level);
-  $('bar-hp').style.width=(p.hp/p.maxHp*100)+'%';
-  $('bar-ck').style.width=(p.chakra/p.maxChakra*100)+'%';
-  $('bar-xp').style.width=(Math.min(1,p.xp/xn)*100)+'%';
-  $('hp-lbl-txt').textContent=`${p.hp}/${p.maxHp}`;
-  $('ck-lbl-txt').textContent=`${p.chakra}/${p.maxChakra}`;
-  $('xp-lbl-txt').textContent=`${p.xp}/${xn} (Lv.${p.level})`;
-  $('lobby-stats').innerHTML=`
-    <div class="sc"><div class="sc-l">ATK</div><div class="sc-v">${p.atk}</div></div>
-    <div class="sc"><div class="sc-l">DEF</div><div class="sc-v">${p.def}</div></div>
-    <div class="sc"><div class="sc-l">SPD</div><div class="sc-v">${p.spd}</div></div>
-    <div class="sc"><div class="sc-l">HP</div><div class="sc-v" style="color:#ff4466">${p.maxHp}</div></div>
-    <div class="sc"><div class="sc-l">CK</div><div class="sc-v" style="color:var(--ck)">${p.maxChakra}</div></div>
-    <div class="sc"><div class="sc-l">RYO</div><div class="sc-v" style="color:var(--gold);font-size:8px">${G.ryo}</div></div>`;
-  $('shop-ryo').textContent=G.ryo;
+  // lobby HUD is updated live in lobbyLoop; just sync ryo display
+  const e=$('shop-ryo'); if(e) e.textContent=G.ryo;
 }
 
 /* ════════════════════════════════════════════════════
@@ -1190,9 +1184,15 @@ document.addEventListener('webkitfullscreenchange',()=>{resizeGameCanvas(); $('f
 
 document.addEventListener('keydown',e=>{
   KEYS[e.code]=true;
+  // lobby interaction
+  if(lobbyActive&&e.code==='KeyE'){
+    const z=G.lobby?.nearZone;
+    if(z){ e.preventDefault(); if(z.enter) goScreen(z.enter); else msg(`${z.label} — Coming soon!`,'info'); }
+    return;
+  }
   if(gameActive&&e.code==='KeyF'){e.preventDefault();toggleFullscreen();return;}
   if(gameActive&&e.code==='Escape'){
-    if(document.fullscreenElement||document.webkitFullscreenElement) return; // let browser handle ESC to exit FS
+    if(document.fullscreenElement||document.webkitFullscreenElement) return;
     goScreen('screen-lobby'); return;
   }
   if(gameActive&&(e.code==='KeyE'||e.code==='Space')){e.preventDefault();playerAttack();}
@@ -1290,12 +1290,254 @@ function victory(){
 }
 
 /* ════════════════════════════════════════════════════
+   LOBBY WORLD — MAP + ZONES
+════════════════════════════════════════════════════ */
+const LW=48, LH=38, LTSIZE=32;
+const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4};
+
+const LZONES=[
+  {id:'dungeon', icon:'⚔️', label:'DUNGEON GATE',  sub:'Enter and fight',        tx:19,ty:1, tw:10,th:6, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
+  {id:'shop',    icon:'🛒', label:'SHOP',           sub:'Buy weapons & potions',  tx:36,ty:8, tw:9, th:7, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
+  {id:'skills',  icon:'✦',  label:'SKILL DOJO',     sub:'Train your abilities',   tx:3, ty:8, tw:9, th:7, color:'#aa44ff',glow:'#8800ff',enter:'screen-skills'},
+  {id:'quests',  icon:'📋', label:'QUEST BOARD',    sub:'Coming soon...',         tx:19,ty:16,tw:10,th:6, color:'#00aaff',glow:'#0088ff',enter:null},
+  {id:'ach',     icon:'🏆', label:'HALL OF FAME',   sub:'Your achievements',      tx:36,ty:26,tw:9, th:7, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
+  {id:'inv',     icon:'📦', label:'STORAGE',        sub:'Manage inventory',       tx:3, ty:26,tw:9, th:7, color:'#44ff88',glow:'#00ff66',enter:'screen-shop'},
+  {id:'smith',   icon:'⚒️', label:'BLACKSMITH',     sub:'Upgrade gear (soon)',    tx:19,ty:29,tw:10,th:6, color:'#ff8800',glow:'#ff6600',enter:null},
+];
+
+let lobbyTiles=null;
+function buildLobbyMap(){
+  lobbyTiles=Array.from({length:LH},()=>new Uint8Array(LW));
+  // border trees
+  for(let y=0;y<LH;y++) for(let x=0;x<LW;x++){
+    if(x<2||y<2||x>=LW-2||y>=LH-2) lobbyTiles[y][x]=LTILE.TREE;
+  }
+  // Main path cross: vertical x=23-24, horizontal y=18-19
+  for(let y=2;y<LH-2;y++){lobbyTiles[y][23]=LTILE.PATH;lobbyTiles[y][24]=LTILE.PATH;}
+  for(let x=2;x<LW-2;x++){lobbyTiles[18][x]=LTILE.PATH;lobbyTiles[19][x]=LTILE.PATH;}
+  // Building footprints + branches
+  LZONES.forEach(z=>{
+    for(let y=z.ty;y<z.ty+z.th;y++) for(let x=z.tx;x<z.tx+z.tw;x++)
+      if(y>=0&&y<LH&&x>=0&&x<LW) lobbyTiles[y][x]=LTILE.BLDG;
+    // entrance tile
+    const ex=z.tx+Math.floor(z.tw/2), ey=z.ty+z.th;
+    if(ey<LH) lobbyTiles[ey][ex]=LTILE.PATH;
+    // branch to horizontal spine
+    const mnX=Math.min(ex,24), mxX=Math.max(ex,23);
+    for(let x=mnX;x<=mxX;x++) for(let dy=0;dy<2;dy++) if(ey+dy<LH) lobbyTiles[ey+dy < 18||ey+dy>19?ey:ey][x]=LTILE.PATH;
+    // vertical branch from building entrance row to horizontal spine
+    const sy2=Math.min(ey,18), ey2=Math.max(ey,19);
+    for(let y=sy2;y<=ey2;y++){lobbyTiles[y][ex]=LTILE.PATH;if(ex+1<LW)lobbyTiles[y][ex+1]=LTILE.PATH;}
+  });
+  // decorative water pool center
+  for(let y=20;y<23;y++) for(let x=21;x<27;x++) if(lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.WATER;
+  // scatter trees
+  [[8,5],[9,5],[38,5],[39,5],[7,15],[8,15],[39,15],[40,15],[7,30],[8,30],[39,30],[40,30],[14,12],[14,13],[33,12],[33,13]].forEach(([x,y])=>{
+    if(y>=0&&y<LH&&x>=0&&x<LW&&lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.TREE;
+  });
+}
+
+function isLobbyWall(wx,wy){
+  if(!lobbyTiles) return false;
+  const hw=7,hh=6;
+  return [[wx-hw,wy-hh],[wx+hw,wy-hh],[wx-hw,wy+hh],[wx+hw,wy+hh]].some(([cx,cy])=>{
+    const tx=cx/LTSIZE|0,ty=cy/LTSIZE|0;
+    if(tx<0||ty<0||tx>=LW||ty>=LH) return true;
+    return lobbyTiles[ty][tx]===LTILE.BLDG||lobbyTiles[ty][tx]===LTILE.TREE;
+  });
+}
+
+/* ════════════════════════════════════════════════════
+   LOBBY RENDER
+════════════════════════════════════════════════════ */
+const LCAM={x:0,y:0};
+let lobbyActive=false, lobbyLoopId=null, lastLobbyTs=0, lobbyTick=0;
+const LINTERACT=54;
+
+function drawLobbyTile(ctx,sx,sy,tile,tx,ty){
+  const T=LTSIZE;
+  if(tile===LTILE.TREE){ctx.fillStyle='#0d1a06';ctx.fillRect(sx,sy,T,T);return;}
+  if(tile===LTILE.BLDG){ctx.fillStyle='#100e1a';ctx.fillRect(sx,sy,T,T);return;}
+  if(tile===LTILE.WATER){
+    const wave=Math.sin(lobbyTick*.04+(tx+ty)*.5)*.3+.7;
+    ctx.fillStyle=`rgba(0,60,120,${wave*.6})`;ctx.fillRect(sx,sy,T,T);
+    ctx.fillStyle=`rgba(0,100,200,${wave*.25})`;ctx.fillRect(sx+4,sy+8,T-8,4);
+    return;
+  }
+  if(tile===LTILE.PATH){
+    ctx.fillStyle=(tx+ty)%2===0?'#28223a':'#231e33';ctx.fillRect(sx,sy,T,T);
+    ctx.fillStyle='#1a162a';ctx.fillRect(sx,sy,T,1);ctx.fillRect(sx,sy,1,T);
+    return;
+  }
+  // GRASS
+  const v=(tx*3+ty*7)%4;
+  ctx.fillStyle=v===0?'#1a3a0a':v===1?'#1e4010':'#183208';ctx.fillRect(sx,sy,T,T);
+  if((tx*5+ty*11)%13===0){ctx.fillStyle='#2a5010';ctx.fillRect(sx+5,sy+10,2,6);ctx.fillRect(sx+9,sy+7,2,8);}
+}
+
+function drawLobbyBuilding(ctx,z,camX,camY){
+  const sx=z.tx*LTSIZE-camX, sy=z.ty*LTSIZE-camY;
+  const bw=z.tw*LTSIZE, bh=z.th*LTSIZE;
+  // shadow
+  ctx.fillStyle='#00000033';ctx.fillRect(sx+6,sy+6,bw,bh);
+  // wall
+  ctx.fillStyle='#1a1428';ctx.fillRect(sx,sy,bw,bh);
+  // tinted face
+  ctx.fillStyle=z.color+'18';ctx.fillRect(sx+2,sy+8,bw-4,bh-10);
+  // roof bar
+  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=14;
+  ctx.fillRect(sx,sy,bw,8);ctx.shadowBlur=0;
+  // windows
+  ctx.fillStyle=z.color+'55';
+  ctx.fillRect(sx+8,sy+bh/2-8,12,10);ctx.fillRect(sx+bw-20,sy+bh/2-8,12,10);
+  // door
+  const dw=14,dh=22,dx2=sx+bw/2-dw/2;
+  ctx.fillStyle='#08040f';ctx.fillRect(dx2,sy+bh-dh,dw,dh);
+  ctx.strokeStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
+  ctx.lineWidth=1.5;ctx.strokeRect(dx2-1,sy+bh-dh-1,dw+2,dh+1);ctx.shadowBlur=0;
+  // torch flicker
+  const flicker=.8+Math.sin(lobbyTick*.18+z.tx)*.2;
+  ctx.fillStyle=`rgba(255,160,0,${flicker*.7})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=12*flicker;
+  ctx.fillRect(sx+5,sy+bh-dh-8,4,6);ctx.fillRect(sx+bw-9,sy+bh-dh-8,4,6);ctx.shadowBlur=0;
+  // label above building
+  ctx.font='bold 7px "Press Start 2P","Courier New"';
+  ctx.textAlign='center';ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
+  ctx.fillText(z.label,sx+bw/2,sy-14);
+  ctx.font='16px serif';ctx.fillText(z.icon,sx+bw/2,sy-24);ctx.shadowBlur=0;
+}
+
+function drawLobbyTree(ctx,sx,sy){
+  ctx.fillStyle='#2a1408';ctx.fillRect(sx+12,sy+16,8,16);
+  ctx.shadowColor='#1a5008';ctx.shadowBlur=8;
+  ctx.fillStyle='#163808';ctx.beginPath();ctx.arc(sx+16,sy+12,14,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#1e4a0a';ctx.beginPath();ctx.arc(sx+10,sy+8,10,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#2a6010';ctx.beginPath();ctx.arc(sx+22,sy+10,8,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+}
+
+function renderLobbyWorld(){
+  const cv=$('lobby-canvas');if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const CW=cv.width,CH=cv.height;
+  const lp=G.lobby;
+
+  // smooth camera
+  const tx=lp.x-CW/2,ty=lp.y-CH/2;
+  LCAM.x+=(tx-LCAM.x)*.1;LCAM.y+=(ty-LCAM.y)*.1;
+
+  ctx.clearRect(0,0,CW,CH);
+  ctx.fillStyle='#0d1a06';ctx.fillRect(0,0,CW,CH);
+
+  const t0x=Math.max(0,(LCAM.x/LTSIZE)|0),t0y=Math.max(0,(LCAM.y/LTSIZE)|0);
+  const t1x=Math.min(LW,t0x+(CW/LTSIZE|0)+3),t1y=Math.min(LH,t0y+(CH/LTSIZE|0)+3);
+
+  // tiles
+  for(let ty=t0y;ty<t1y;ty++) for(let tx=t0x;tx<t1x;tx++){
+    drawLobbyTile(ctx,tx*LTSIZE-LCAM.x,ty*LTSIZE-LCAM.y,lobbyTiles[ty][tx],tx,ty);
+  }
+  // trees on top
+  for(let ty=t0y;ty<t1y;ty++) for(let tx=t0x;tx<t1x;tx++){
+    if(lobbyTiles[ty][tx]===LTILE.TREE) drawLobbyTree(ctx,tx*LTSIZE-LCAM.x,ty*LTSIZE-LCAM.y);
+  }
+  // buildings
+  LZONES.forEach(z=>drawLobbyBuilding(ctx,z,LCAM.x,LCAM.y));
+
+  // zone interaction rings
+  LZONES.forEach(z=>{
+    const ex=(z.tx+z.tw/2)*LTSIZE, ey=(z.ty+z.th+.5)*LTSIZE;
+    const dist=Math.hypot(lp.x-ex,lp.y-ey);
+    if(dist<LINTERACT*2){
+      const a=Math.max(0,1-(dist/(LINTERACT*2)));
+      ctx.beginPath();ctx.arc(ex-LCAM.x,ey-LCAM.y,20+Math.sin(lobbyTick*.08)*4,0,Math.PI*2);
+      ctx.strokeStyle=z.color+(Math.floor(a*80).toString(16).padStart(2,'0'));
+      ctx.lineWidth=2;ctx.stroke();
+    }
+  });
+
+  // player sprite
+  drawPlayerSprite(ctx,lp.x-LCAM.x,lp.y-LCAM.y,lobbyTick,0);
+
+  // dark vignette
+  const grd=ctx.createRadialGradient(lp.x-LCAM.x,lp.y-LCAM.y,0,lp.x-LCAM.x,lp.y-LCAM.y,240);
+  grd.addColorStop(0,'rgba(0,0,0,0)');grd.addColorStop(.6,'rgba(0,0,0,0.1)');grd.addColorStop(1,'rgba(0,0,0,.75)');
+  ctx.fillStyle=grd;ctx.fillRect(0,0,CW,CH);
+}
+
+/* ════════════════════════════════════════════════════
+   LOBBY LOOP
+════════════════════════════════════════════════════ */
+function lobbyLoop(ts){
+  if(!lobbyActive){lobbyLoopId=null;return;}
+  const dt=Math.min((ts-lastLobbyTs)/1000,.05);lastLobbyTs=ts;lobbyTick++;
+  const lp=G.lobby; const spd=110;
+  let dx=0,dy=0;
+  if(KEYS['KeyA']||KEYS['ArrowLeft'])  {dx=-1;lp.facing=-1;}
+  if(KEYS['KeyD']||KEYS['ArrowRight']) {dx= 1;lp.facing= 1;}
+  if(KEYS['KeyW']||KEYS['ArrowUp'])    dy=-1;
+  if(KEYS['KeyS']||KEYS['ArrowDown'])  dy= 1;
+  if(dx&&dy){dx*=.707;dy*=.707;}
+  const nx=lp.x+dx*spd*dt,ny=lp.y+dy*spd*dt;
+  if(!isLobbyWall(nx,lp.y)) lp.x=nx;
+  if(!isLobbyWall(lp.x,ny)) lp.y=ny;
+
+  // nearest zone
+  let best=null,bestDist=Infinity;
+  LZONES.forEach(z=>{
+    const ex=(z.tx+z.tw/2)*LTSIZE,ey=(z.ty+z.th+.5)*LTSIZE;
+    const d=Math.hypot(lp.x-ex,lp.y-ey);
+    if(d<LINTERACT&&d<bestDist){bestDist=d;best=z;}
+  });
+  lp.nearZone=best;
+
+  // update interact prompt
+  const ip=$('iprompt');
+  if(best){
+    $('ip-icon').textContent=best.icon;
+    $('ip-name').textContent=best.label;
+    $('ip-sub').textContent=best.sub;
+    ip.classList.remove('hidden');
+  } else {
+    ip.classList.add('hidden');
+  }
+
+  // update mini HUD
+  if(G.player){
+    const p=G.player;
+    $('lhud-name').textContent=p.name;
+    $('lhud-hp').style.width=(p.hp/p.maxHp*100)+'%';
+    $('lhud-ck').style.width=(p.chakra/p.maxChakra*100)+'%';
+    $('lhud-xp').style.width=(Math.min(1,p.xp/xpNeed(p.level))*100)+'%';
+    $('lhud-meta').textContent=`Lv.${p.level}  ATK:${p.atk}  💰${G.ryo}`;
+  }
+
+  renderLobbyWorld();
+  lobbyLoopId=requestAnimationFrame(lobbyLoop);
+}
+
+function startLobbyLoop(){
+  const cv=$('lobby-canvas');
+  cv.width=cv.offsetWidth||740; cv.height=window.innerHeight||600;
+  lobbyActive=true; lastLobbyTs=performance.now();
+  if(lobbyLoopId) cancelAnimationFrame(lobbyLoopId);
+  lobbyLoopId=requestAnimationFrame(lobbyLoop);
+}
+function stopLobbyLoop(){lobbyActive=false;}
+
+/* ════════════════════════════════════════════════════
    SCREEN NAV
 ════════════════════════════════════════════════════ */
 function goScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   $(id).classList.add('active');
-  if(id==='screen-lobby')  {stopGameLoop(); _syncLobby();}
+  if(id==='screen-lobby'){
+    stopGameLoop();
+    if(!lobbyTiles) buildLobbyMap();
+    if(!G.lobby){ G.lobby={x:24*LTSIZE,y:19*LTSIZE,facing:1,nearZone:null}; LCAM.x=G.lobby.x-370;LCAM.y=G.lobby.y-300; }
+    if(G.player) $('lhud').classList.remove('hidden');
+    startLobbyLoop();
+  } else {
+    stopLobbyLoop();
+  }
   if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
   if(id==='screen-skills') {initSkCanvas();_syncSP();}
   if(id==='screen-ach')    renderAch();
@@ -1315,57 +1557,30 @@ function goScreen(id){
 /* ════════════════════════════════════════════════════
    LOBBY PARTICLES
 ════════════════════════════════════════════════════ */
-function initLobbyParticles(){
-  const cv=$('lobby-canvas'); const ctx=cv.getContext('2d');
-  const rsz=()=>{cv.width=cv.offsetWidth||740;cv.height=cv.offsetHeight||window.innerHeight;};
-  rsz(); window.addEventListener('resize',rsz);
-  const LF=40; const leaves=[];
-  const mk=(rand=false)=>({
-    x:Math.random()*cv.width, y:rand?Math.random()*cv.height:-12,
-    sz:3+Math.random()*9, vy:.25+Math.random()*.65, vx:(Math.random()-.5)*.4,
-    rot:Math.random()*Math.PI*2, rv:(Math.random()-.5)*.035,
-    a:.15+Math.random()*.4,
-    col:['#ff6a00','#ffaa00','#cc4400','#ff9933','#7c3aed44'][Math.floor(Math.random()*5)]
-  });
-  for(let i=0;i<LF;i++) leaves.push(mk(true));
-  (function loop(){
-    ctx.clearRect(0,0,cv.width,cv.height);
-    // dim radial
-    const g=ctx.createRadialGradient(cv.width/2,cv.height/2,0,cv.width/2,cv.height/2,cv.width*.8);
-    g.addColorStop(0,'rgba(20,0,40,0.4)'); g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.fillRect(0,0,cv.width,cv.height);
-    leaves.forEach((l,i)=>{
-      l.x+=l.vx; l.y+=l.vy; l.rot+=l.rv;
-      if(l.y>cv.height+14) leaves[i]=mk(false);
-      ctx.save(); ctx.translate(l.x,l.y); ctx.rotate(l.rot); ctx.globalAlpha=l.a;
-      ctx.fillStyle=l.col; ctx.shadowColor=l.col; ctx.shadowBlur=6;
-      ctx.beginPath(); ctx.ellipse(0,0,l.sz,l.sz*.4,0,0,Math.PI*2); ctx.fill();
-      ctx.restore();
-    });
-    requestAnimationFrame(loop);
-  })();
-}
-
 /* ════════════════════════════════════════════════════
    INIT & WIRING
 ════════════════════════════════════════════════════ */
 function confirmName(){
-  const name=$('name-input').value.trim()||'Shinobi';
+  const inp=$('name-modal-input');
+  const name=(inp?inp.value.trim():'')||'Shinobi';
   action('INIT_PLAYER',{name});
-  $('name-setup').classList.add('hidden');
-  $('player-card').classList.remove('hidden');
-  $('lobby-menu').classList.remove('hidden');
-  _syncLobby();
-  msg(`Welcome, ${name}! Your legend begins.`,'good');
-  msg('Hint: type "believeit" for a secret.','info');
+  closeModal();
+  $('lhud').classList.remove('hidden');
+  msg(`Welcome to Konoha, ${name}!`,'good');
+  msg('Walk to a building and press E to enter.','info');
 }
 
-$('begin-btn').onclick=confirmName;
-$('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')confirmName();});
-$('start-btn').onclick  =()=>goScreen('screen-game');
-$('shop-btn').onclick   =()=>goScreen('screen-shop');
-$('skills-btn').onclick =()=>goScreen('screen-skills');
-$('ach-btn').onclick    =()=>goScreen('screen-ach');
+function showNameModal(){
+  $('modal-title').textContent='🍥 Welcome, Shinobi';
+  $('modal-body').innerHTML='<div style="margin-bottom:10px;line-height:2">Enter your shinobi name:</div><input type="text" id="name-modal-input" maxlength="16" placeholder="e.g. Naruto..." style="background:#0f082099;border:1px solid var(--purple);color:var(--gold);font-family:inherit;font-size:10px;padding:8px 12px;outline:none;width:100%"/>';
+  const ac=$('modal-actions'); ac.innerHTML='';
+  const b=document.createElement('button');b.className='btn btn-gold';b.textContent='Begin Journey';
+  b.onclick=confirmName; ac.appendChild(b);
+  $('modal-overlay').classList.remove('hidden');
+  setTimeout(()=>$('name-modal-input')?.focus(),50);
+  $('modal-overlay').addEventListener('keydown',function h(e){if(e.key==='Enter'){confirmName();$('modal-overlay').removeEventListener('keydown',h);}});
+}
+
 $('shop-back').onclick  =()=>goScreen('screen-lobby');
 $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
@@ -1373,9 +1588,12 @@ $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 
-initLobbyParticles();
-msg('Welcome to Shinobi Dungeon!','info');
-msg('Enter your name to begin.','info');
+// Boot: build map, start lobby, show name modal
+buildLobbyMap();
+G.lobby={x:24*LTSIZE,y:21*LTSIZE,facing:1,nearZone:null};
+LCAM.x=G.lobby.x-370; LCAM.y=G.lobby.y-300;
+goScreen('screen-lobby');
+setTimeout(showNameModal,200);
 </script>
 </body>
 </html>

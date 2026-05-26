@@ -1092,27 +1092,18 @@ function drawWeaponPixel(ctx,bx,by,weapId,facing,tick){
     for(let r=0;r<4;r++) ctx.fillRect(kx-10+(r%2===0?0:2),ky+3+r*2,3,1);
     ctx.fillStyle='#4455bb'; ctx.fillRect(kx-10,ky+11,5,3);
     ctx.fillStyle='#7788ee'; ctx.fillRect(kx-9,ky+11,3,1);
-    // Lightning arcs along blade
-    ctx.shadowColor='#66aaff'; ctx.shadowBlur=6;
-    ctx.lineWidth=1;
-    for(let arc=0;arc<5;arc++){
-      const ai=arc*3;
-      const jx=Math.sin(tick*3.1+arc*1.7)*3;
-      const jy=Math.cos(tick*2.8+arc*1.3)*3;
-      const al=0.55+Math.sin(tick*4.2+arc*0.9)*.35;
-      ctx.strokeStyle=`rgba(120,190,255,${al})`;
-      ctx.beginPath();
-      ctx.moveTo(kx+ai,     (ky-ai)|0);
-      ctx.lineTo(kx+ai+3+(jx|0), (ky-ai)|0-3+(jy|0));
-      ctx.lineTo(kx+ai+6,   (ky-ai-5.1)|0);
-      ctx.stroke();
+    // Small pixel lightning sparks along blade — no shadow/stroke, just pixels
+    const _lc=['#ffffff','#bbddff','#88bbff','#5599ee'];
+    for(let sp=0;sp<10;sp++){
+      const ai=sp*1.4|0;           // position along blade
+      const phase=tick*0.22+sp*0.8;
+      if(Math.sin(phase)<0) continue; // flicker: skip ~half the time
+      const jx=(Math.sin(phase*2.3)*2.5)|0;
+      const jy=(Math.cos(phase*1.9)*2.5)|0;
+      ctx.fillStyle=_lc[sp%4];
+      ctx.fillRect(kx+ai+jx, (ky-ai)|0+jy, 1, 1);
+      if(sp%3===0) ctx.fillRect(kx+ai+jx+1,(ky-ai)|0+jy,1,1); // occasional 2-wide
     }
-    ctx.shadowBlur=8;
-    ctx.fillStyle='rgba(200,230,255,0.9)';
-    for(let s=0;s<5;s++){
-      ctx.fillRect(kx+14+(Math.sin(tick*6.1+s*1.9)*6)|0, ky-14+(Math.cos(tick*5.3+s*2.4)*6)|0, 1,1);
-    }
-    ctx.shadowBlur=0;
   }
   ctx.restore();
 }

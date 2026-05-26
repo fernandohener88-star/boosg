@@ -238,15 +238,29 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 
 <!-- ═══════════════ SHOP ═══════════════ -->
 <div id="screen-shop" class="screen">
-  <div class="ph"><h2>🛒 SHOP</h2><div style="color:var(--gold);font-size:9px">💰 <span id="shop-ryo">0</span> Ryo</div></div>
+  <div class="ph"><h2 id="shop-heading">🛒 SHOP</h2><div style="color:var(--gold);font-size:9px">💰 <span id="shop-ryo">0</span> Ryo</div></div>
   <div class="pb">
-    <div class="sec">Items for Sale</div>
+    <div class="sec" id="shop-section-title">Items for Sale</div>
     <div class="shop-grid" id="shop-grid"></div>
     <hr class="div"/>
     <div class="inv-ttl">📦 Inventory (<span id="inv-count">0</span>/8)</div>
     <div class="inv-grid" id="inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Back</button></div>
+</div>
+
+<!-- ═══════════════ ACADEMY ═══════════════ -->
+<div id="screen-academy" class="screen">
+  <div class="ph"><h2>📚 AKADEMIE</h2><div style="color:var(--gold);font-size:9px">💰 <span id="aca-ryo">0</span> Ryo</div></div>
+  <div class="pb">
+    <div class="sec">Jutsu erlernen</div>
+    <div style="font-size:7px;color:#6a5a8a;margin-bottom:8px">Lerne mächtige Techniken. Erlernte Jutsu werden automatisch deinem Inventar hinzugefügt.</div>
+    <div class="shop-grid" id="aca-grid"></div>
+    <hr class="div"/>
+    <div class="inv-ttl">📦 Inventory (<span id="aca-inv-count">0</span>/8)</div>
+    <div class="inv-grid" id="aca-inv-grid"></div>
+  </div>
+  <div class="pf"><button class="btn btn-sm" id="aca-back">◀ Back</button></div>
 </div>
 
 <!-- ═══════════════ SKILLS ═══════════════ -->
@@ -389,6 +403,8 @@ const G = {
   floor: 1,
   chestsOpened:0, tilesMoved:0, enemiesKilled:0, bossesKilled:0,
   eggs:{ believeit:false, konami:false },
+  shopMode:'all',
+  learnedJutsu:[],
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
 
@@ -511,8 +527,16 @@ function _itemAct(idx){
 }
 
 function renderShop(){
+  const mode=G.shopMode||'all';
+  const titles={all:'Items for Sale',consume:'🍜 Ichiraku — Verbrauchsgüter',weapon:'⚒️ Tenten — Waffen & Ausrüstung'};
+  const h=$('shop-section-title'); if(h) h.textContent=titles[mode]||titles.all;
+  const shopH=$('shop-heading');
+  if(shopH){
+    shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 STORAGE':'🛒 SHOP';
+  }
   const g=$('shop-grid'); g.innerHTML='';
-  ITEMS.forEach(it=>{
+  const list=ITEMS.filter(it=>mode==='all'||(mode==='consume'&&it.type==='consume')||(mode==='weapon'&&(it.type==='weapon'||it.type==='jutsu')));
+  list.forEach(it=>{
     const ok=G.ryo>=it.price&&G.inventory.length<8;
     const sts=Object.entries(it.stats).map(([k,v])=>{
       const l={atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k;
@@ -526,6 +550,12 @@ function renderShop(){
 <div class="item-foot"><span class="item-price">💰 ${it.price}</span><button class="btn btn-sm btn-gold" ${ok?'':'disabled'} data-buy="${it.id}">Buy</button></div>`;
     g.appendChild(el);
   });
+  if(list.length===0){
+    const el=document.createElement('div');
+    el.style.cssText='color:#4a3a6a;text-align:center;padding:24px;font-size:8px';
+    el.textContent='Keine Artikel verfügbar.';
+    g.appendChild(el);
+  }
 }
 
 function renderInv(){
@@ -545,6 +575,94 @@ function renderInv(){
     g.appendChild(s);
   }
   $('inv-count').textContent=G.inventory.length;
+}
+
+/* ════════════════════════════════════════════════════
+   ACADEMY — JUTSU SYSTEM
+════════════════════════════════════════════════════ */
+const JUTSU_LIST=[
+  {id:'rasengan_scroll',  name:'Rasengan',        icon:'🌀', rar:'rare',
+   cost:800, chakraCost:20, desc:'Formiere Chakra in deiner Handfläche zu einer rotierenden Kugel reiner Kraft.',
+   effect:'Fügt massiven Schaden zu und knockt Gegner zurück.',
+   itemId:'rasengan_scroll'},
+  {id:'shadow_clone',     name:'Kage Bunshin',    icon:'👥', rar:'rare',
+   cost:1200, chakraCost:30, desc:'Erschaffe echte Klone deiner selbst aus Chakra — nicht nur Illusionen.',
+   effect:'Coming soon…', locked:true},
+  {id:'chidori',          name:'Chidori',         icon:'⚡', rar:'legendary',
+   cost:2500, chakraCost:40, desc:'Bündele Blitzchakra in deiner Hand. Nur für fortgeschrittene Shinobi.',
+   effect:'Coming soon…', locked:true},
+  {id:'fire_style',       name:'Goukakyuu no Jutsu',icon:'🔥',rar:'uncommon',
+   cost:600, chakraCost:25, desc:'Speie eine gewaltige Feuerkugel auf deine Feinde.',
+   effect:'Coming soon…', locked:true},
+  {id:'eight_trigrams',   name:'Hakke Hyakunijuuhachishō',icon:'☯️',rar:'legendary',
+   cost:4000, chakraCost:50, desc:'Treffe alle 64 Chakrapunkte des Gegners mit absoluter Präzision.',
+   effect:'Coming soon…', locked:true},
+  {id:'summoning',        name:'Kuchiyose no Jutsu',icon:'🐸',rar:'uncommon',
+   cost:1000, chakraCost:35, desc:'Beschwöre mächtige Wächter durch einen Pakt.',
+   effect:'Coming soon…', locked:true},
+];
+
+function renderAcademy(){
+  const rEl=$('aca-ryo'); if(rEl) rEl.textContent=G.ryo;
+  const g=$('aca-grid'); if(!g) return; g.innerHTML='';
+  JUTSU_LIST.forEach(jt=>{
+    const learned=G.learnedJutsu.includes(jt.id);
+    const inInv=G.inventory.some(iv=>iv.id===jt.itemId||iv.id===jt.id);
+    const canAfford=G.ryo>=jt.cost;
+    const invFull=G.inventory.length>=8;
+    const el=document.createElement('div');
+    el.className='shop-item'+(jt.locked?' style="opacity:.5"':'');
+    const rarColor={common:'#888',uncommon:'#44cc88',rare:'#4488ff',legendary:'#ffd700'}[jt.rar]||'#888';
+    const statusBtn=learned||inInv
+      ? `<button class="btn btn-sm" disabled style="background:#1a3a1a;color:#44ff88">✓ Gelernt</button>`
+      : jt.locked
+        ? `<button class="btn btn-sm" disabled style="opacity:.5">🔒 Gesperrt</button>`
+        : `<button class="btn btn-sm btn-gold" ${(!canAfford||invFull)?'disabled':''} data-learn="${jt.id}">Lernen</button>`;
+    el.innerHTML=`
+<div class="item-head">
+  <span class="item-icon">${jt.icon}</span>
+  <span class="item-name">${jt.name}</span>
+  <span class="rar" style="color:${rarColor};border-color:${rarColor}40">${jt.rar}</span>
+</div>
+<div class="item-stats"><span style="color:#88aaff">CK: ${jt.chakraCost}</span></div>
+<div class="item-desc">${jt.desc}</div>
+<div style="font-size:7px;color:#6a8aaa;margin:2px 0 4px">${jt.effect}</div>
+<div class="item-foot"><span class="item-price">${jt.locked?'???':`💰 ${jt.cost}`}</span>${statusBtn}</div>`;
+    g.appendChild(el);
+  });
+  // Academy inventory display
+  const ig=$('aca-inv-grid'); if(!ig) return; ig.innerHTML='';
+  for(let i=0;i<8;i++){
+    const inv=G.inventory[i];
+    const s=document.createElement('div');
+    if(inv){
+      const it=ITEMS.find(x=>x.id===inv.id);
+      s.className=`inv-slot occ${inv.eq?' eq':''}`;
+      s.dataset.idx=i; s.dataset.src='aca';
+      s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
+    } else {
+      s.className='inv-slot';
+      s.innerHTML='<span style="font-size:18px;color:#1a1030">＋</span>';
+    }
+    ig.appendChild(s);
+  }
+  $('aca-inv-count').textContent=G.inventory.length;
+}
+
+function _learnJutsu(id){
+  const jt=JUTSU_LIST.find(j=>j.id===id); if(!jt||jt.locked) return;
+  if(G.learnedJutsu.includes(jt.id)){msg('Bereits gelernt!','info');return;}
+  if(G.inventory.length>=8){msg('Inventar voll!','bad');return;}
+  if(G.ryo<jt.cost){msg('Nicht genug Ryo!','bad');return;}
+  G.ryo-=jt.cost;
+  G.learnedJutsu.push(jt.id);
+  // Add as item to inventory (uses the linked itemId or the jutsu id itself)
+  const itemId=jt.itemId||jt.id;
+  const itDef=ITEMS.find(x=>x.id===itemId);
+  if(itDef) G.inventory.push({id:itemId,eq:false});
+  msg(`✦ ${jt.name} erlernt! Schau in dein Inventar.`,'good');
+  renderAcademy();
+  _syncRyo();
 }
 
 function _invModal(idx){
@@ -1636,7 +1754,7 @@ document.addEventListener('keydown',e=>{
   // lobby interaction
   if(lobbyActive&&e.code==='KeyE'){
     const z=G.lobby?.nearZone;
-    if(z){ e.preventDefault(); if(z.enter) goScreen(z.enter); else msg(`${z.label} — Coming soon!`,'info'); }
+    if(z){ e.preventDefault(); if(z.enter){ if(z.shopMode) G.shopMode=z.shopMode; goScreen(z.enter); } else msg(`${z.label} — Coming soon!`,'info'); }
     return;
   }
   if(gameActive&&e.code==='KeyF'){e.preventDefault();toggleFullscreen();return;}
@@ -1787,16 +1905,16 @@ const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4,SAND:5};
 const LZONES=[
   // North buildings — above horizontal spine (y=9,10)
   {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',  sub:'Coming soon...',        tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:null},
-  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Coming soon...',        tx:2, ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:null},
+  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Lerne Jutsu hier',      tx:2, ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:'screen-academy'},
   {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON GATE',   sub:'Enter the dark forest', tx:23,ty:3, tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
   // South buildings — below horizontal spine
-  {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',         sub:'Manage inventory',      tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop'},
-  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Buy items & potions',   tx:10,ty:13,tw:6,th:3, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
+  {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',         sub:'Manage inventory',      tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop',shopMode:'all'},
+  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Verbrauchsgüter kaufen', tx:10,ty:13,tw:6,th:3, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop',shopMode:'consume'},
   {id:'ach',    type:'shrine',icon:'🏆',label:'HALL OF FAME',   sub:'Your achievements',     tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
   // NPCs in south plaza (near spine intersection, not blocking spine paths)
   {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Train your abilities',  nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
   {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Accept missions',       nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:null},
-  {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Upgrade gear (soon)',   nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:null},
+  {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Waffen kaufen',         nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:'screen-shop',shopMode:'weapon'},
 ];
 
 function zoneEnter(z){
@@ -2450,6 +2568,7 @@ function goScreen(id){
     stopLobbyLoop();
   }
   if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
+  if(id==='screen-academy'){renderAcademy();}
   if(id==='screen-skills') {initSkCanvas();_syncSP();}
   if(id==='screen-ach')    renderAch();
   if(id==='screen-game')   {
@@ -2496,9 +2615,12 @@ function showNameModal(){
 $('shop-back').onclick  =()=>goScreen('screen-lobby');
 $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
+$('aca-back').onclick   =()=>goScreen('screen-lobby');
 $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
+$('aca-grid').addEventListener('click',e=>{const b=e.target.closest('[data-learn]');if(b)_learnJutsu(b.dataset.learn);});
+$('aca-inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 
 // Boot: build map, start lobby, show name modal
 buildLobbyMap();

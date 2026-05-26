@@ -424,6 +424,15 @@ function _initPlayer(name){
     x:0, y:0, facing:1, anim:0,
     atkCd:0, ckCd:0, hitFlash:0, invuln:0
   };
+  if(name.toLowerCase()==='boosg'){
+    const p=G.players[G.localPlayerId];
+    G.ryo=999999;
+    p.level=99; p.skillPoints=98;
+    p.base.maxHp=2000; p.base.maxChakra=500; p.base.atk=999; p.base.def=99; p.base.spd=20;
+    p.maxHp=2000; p.hp=2000; p.maxChakra=500; p.chakra=500;
+    p.atk=999; p.def=99; p.spd=20;
+    setTimeout(()=>msg('🍥 CHEAT ACTIVATED — Welcome back, Hokage!','gold'),400);
+  }
 }
 
 function xpNeed(lv){ return lv>=XP_TABLE.length?XP_TABLE.at(-1)+(lv-XP_TABLE.length+1)*1200:XP_TABLE[lv]; }

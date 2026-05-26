@@ -932,12 +932,11 @@ function drawDashSprite(ctx,sx,sy,facing,flash){
   if(f>0){ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
   else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
   ctx.shadowBlur=0;
-  // weapon in hand during sprint: rasengan orb on phase 1, otherwise equipped weapon
-  // Position at trailing arm (arms stream BACK opposite to facing direction)
+  // weapon in hand during sprint
   {let wid=null;
   if(RAS.active&&RAS.phase===1){wid='rasengan_scroll';}
   else{const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;wid=wEq?.id||null;}
-  if(wid){const dbx=bx+(f>0?-18:16);drawWeaponPixel(ctx,dbx,by,wid,f,typeof animTick!=='undefined'?animTick:0);}}
+  if(wid){drawWeaponPixel(ctx,bx,by,wid,f,typeof animTick!=='undefined'?animTick:0);}}
 }
 
 function drawDashAfterimage(ctx,sx,sy,facing){
@@ -957,229 +956,165 @@ let screenFlash=0, screenFlashColor='#aaddff';
 
 function drawWeaponPixel(ctx,bx,by,weapId,facing,tick){
   const f=facing||1;
-  const hx=bx+(f>0?14:-2), hy=by+14;
   ctx.shadowBlur=0;
+  ctx.save();
+  // Mirror all weapon drawing around body center so facing-left is automatic
+  if(f<0){ ctx.translate(bx*2+16,0); ctx.scale(-1,1); }
+  // All coords below are as-if facing right; transform handles left mirror
+  const hx=bx+13, hy=by+16;
 
   if(weapId==='kunai'){
-    ctx.save();
-    const kx=hx+(f>0?0:-5), ky=hy-12;
-    // Tip
-    ctx.fillStyle='#f2f6ff'; ctx.fillRect(kx+1,ky,2,2);
-    ctx.fillStyle='#dae2f0'; ctx.fillRect(kx+1,ky+2,2,1);
-    // Blade highlight edge
-    ctx.fillStyle='#c8d8e8'; ctx.fillRect(kx,ky+3,2,9);
-    // Blade mid
-    ctx.fillStyle='#8898b0'; ctx.fillRect(kx+2,ky+3,2,9);
-    // Blade shadow edge
-    ctx.fillStyle='#445566'; ctx.fillRect(kx+3,ky+4,1,7);
-    // Blood groove
-    ctx.fillStyle='#5580a0'; ctx.fillRect(kx+1,ky+5,1,6);
-    // Guard ring
-    ctx.fillStyle='#99bb88'; ctx.fillRect(kx-1,ky+12,6,2);
-    ctx.fillStyle='#667755'; ctx.fillRect(kx-1,ky+13,6,1);
-    // Handle (dark base)
-    ctx.fillStyle='#221810'; ctx.fillRect(kx,ky+14,4,8);
-    // Wrap bands
-    ctx.fillStyle='#44301c'; ctx.fillRect(kx,ky+15,4,1);
-    ctx.fillStyle='#44301c'; ctx.fillRect(kx,ky+17,4,1);
-    ctx.fillStyle='#44301c'; ctx.fillRect(kx,ky+19,4,1);
-    // Handle highlight
-    ctx.fillStyle='#332214'; ctx.fillRect(kx+3,ky+14,1,8);
-    // Pommel ring
-    ctx.fillStyle='#99bb88'; ctx.fillRect(kx,ky+22,4,2);
-    ctx.fillStyle='#667755'; ctx.fillRect(kx+1,ky+22,2,1);
-    ctx.restore();
+    // Vertical dagger, tip up, handle at right hand
+    const kx=hx, ky=hy-14;
+    ctx.fillStyle='#f4f8ff'; ctx.fillRect(kx+1,ky,2,2);
+    ctx.fillStyle='#dce8f4'; ctx.fillRect(kx+1,ky+2,2,1);
+    ctx.fillStyle='#c8d8ea'; ctx.fillRect(kx,ky+3,2,10);
+    ctx.fillStyle='#8898b2'; ctx.fillRect(kx+2,ky+3,2,10);
+    ctx.fillStyle='#445568'; ctx.fillRect(kx+3,ky+4,1,8);
+    ctx.fillStyle='#5580a2'; ctx.fillRect(kx+1,ky+5,1,7);
+    ctx.fillStyle='#aabb88'; ctx.fillRect(kx-1,ky+13,6,2);
+    ctx.fillStyle='#778855'; ctx.fillRect(kx-1,ky+14,6,1);
+    ctx.fillStyle='#221810'; ctx.fillRect(kx,ky+15,4,8);
+    ctx.fillStyle='#44301e'; ctx.fillRect(kx,ky+16,4,1);
+    ctx.fillStyle='#44301e'; ctx.fillRect(kx,ky+18,4,1);
+    ctx.fillStyle='#44301e'; ctx.fillRect(kx,ky+20,4,1);
+    ctx.fillStyle='#332214'; ctx.fillRect(kx+3,ky+15,1,8);
+    ctx.fillStyle='#aabb88'; ctx.fillRect(kx,ky+23,4,2);
+    ctx.fillStyle='#778855'; ctx.fillRect(kx+1,ky+23,2,1);
 
   } else if(weapId==='shuriken'){
-    const cx=hx+(f>0?2:-2), cy=hy-4;
-    const a=tick*.10;
-    ctx.save(); ctx.translate(cx,cy); ctx.rotate(a);
-    // Arm shadows
+    const cx=hx+2, cy=hy-5;
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(tick*.10);
     ctx.fillStyle='#3a5568';
     ctx.fillRect(-1,-6,2,12); ctx.fillRect(-6,-1,12,2);
-    // Diagonal arms
     ctx.fillStyle='#5a7888';
     for(let d=0;d<4;d++){
       ctx.save(); ctx.rotate(d*Math.PI*.5+Math.PI*.25);
-      ctx.fillRect(-1,-5,2,5);
-      ctx.restore();
+      ctx.fillRect(-1,-5,2,5); ctx.restore();
     }
-    // Blade mid-tone
     ctx.fillStyle='#88aec0';
     ctx.fillRect(-1,-6,1,12); ctx.fillRect(-6,-1,12,1);
-    // Blade highlights
     ctx.fillStyle='#c8e0ec';
     ctx.fillRect(0,-6,1,3); ctx.fillRect(5,0,3,1);
     ctx.fillRect(0,3,1,3);  ctx.fillRect(-8,0,3,1);
-    // Center ring
     ctx.fillStyle='#8aaabb'; ctx.fillRect(-2,-2,4,4);
     ctx.fillStyle='#cce0ec'; ctx.fillRect(-1,-1,2,2);
     ctx.fillStyle='#223344'; ctx.fillRect(0,0,1,1);
     ctx.restore();
 
   } else if(weapId==='katana'){
-    ctx.save();
-    const kx=hx+(f>0?-1:-17), ky=hy-17;
-    const dir=f>0?1:-1;
-    // Blade (16 segments)
+    // Blade goes upper-right (tip), handle at hand
+    const kx=hx, ky=hy-2;
     for(let i=0;i<16;i++){
-      const ox=(dir*i)|0;
       const c=i<2?'#ffffff':i<5?'#eef6ff':i<13?'#c0d4e8':'#8aa4bc';
-      ctx.fillStyle=c; ctx.fillRect(kx+ox, (ky+i*.85)|0, 2, 3);
-      if(i>1&&i<14){ ctx.fillStyle='#d8ecff'; ctx.fillRect(kx+ox+(dir>0?0:1), (ky+i*.85)|0, 1,1); }
+      ctx.fillStyle=c; ctx.fillRect(kx+i,(ky-i)|0,2,3);
+      if(i>1&&i<14){ ctx.fillStyle='#d8ecff'; ctx.fillRect(kx+i,(ky-i)|0,1,1); }
     }
-    // Blood groove
     ctx.fillStyle='#6090b8';
-    for(let i=3;i<14;i++){ const ox=(dir*i)|0; ctx.fillRect(kx+ox+(dir>0?1:0),(ky+i*.85)|0+1,1,1); }
-    // Habaki
-    const hbx=kx+(dir>0?-2:15), hby=(ky+16*.85)|0;
-    ctx.fillStyle='#ccaa44'; ctx.fillRect(hbx,hby,5,4);
-    ctx.fillStyle='#eedd66'; ctx.fillRect(hbx+(dir>0?0:1),hby,2,2);
-    ctx.fillStyle='#998822'; ctx.fillRect(hbx,hby+3,5,1);
-    // Tsuba
-    const tbx=hx+(f>0?-3:-5), tby=hy-2;
-    ctx.fillStyle='#996622'; ctx.fillRect(tbx,tby,8,5);
-    ctx.fillStyle='#bb8833'; ctx.fillRect(tbx+1,tby,6,3);
-    ctx.fillStyle='#ddaa44'; ctx.fillRect(tbx+2,tby,4,1);
-    ctx.fillStyle='#221100'; ctx.fillRect(tbx,tby+4,8,1);
-    // Handle
-    const hndx=hx+(f>0?-4:-6), hndy=hy+2;
-    ctx.fillStyle='#1a1208'; ctx.fillRect(hndx,hndy,5,8);
-    ctx.fillStyle='#5a3a18'; ctx.fillRect(hndx,hndy,5,1);
-    // Diamond wrap
+    for(let i=3;i<14;i++) ctx.fillRect(kx+i+1,(ky-i)|0+1,1,1);
+    ctx.fillStyle='#ccaa44'; ctx.fillRect(kx-4,ky,5,4);
+    ctx.fillStyle='#eedd66'; ctx.fillRect(kx-4,ky,3,2);
+    ctx.fillStyle='#998822'; ctx.fillRect(kx-4,ky+3,5,1);
+    ctx.fillStyle='#996622'; ctx.fillRect(kx-7,ky+1,8,5);
+    ctx.fillStyle='#bb8833'; ctx.fillRect(kx-6,ky+1,6,3);
+    ctx.fillStyle='#ddaa44'; ctx.fillRect(kx-5,ky+1,4,1);
+    ctx.fillStyle='#221100'; ctx.fillRect(kx-7,ky+5,8,1);
+    ctx.fillStyle='#1a1208'; ctx.fillRect(kx-10,ky+2,5,9);
+    ctx.fillStyle='#5a3a18'; ctx.fillRect(kx-10,ky+2,5,1);
     ctx.fillStyle='#7c5028';
-    for(let r=0;r<4;r++) ctx.fillRect(hndx+(r%2===0?0:2),hndy+1+r*2,3,1);
-    ctx.fillStyle='#9a6838'; ctx.fillRect(hndx+1,hndy+1,1,1);
-    ctx.fillStyle='#9a6838'; ctx.fillRect(hndx+1,hndy+5,1,1);
-    // Kashira
-    ctx.fillStyle='#ccaa44'; ctx.fillRect(hndx,hndy+8,5,3);
-    ctx.fillStyle='#eedd55'; ctx.fillRect(hndx+1,hndy+8,3,1);
-    ctx.restore();
+    for(let r=0;r<4;r++) ctx.fillRect(kx-10+(r%2===0?0:2),ky+3+r*2,3,1);
+    ctx.fillStyle='#ccaa44'; ctx.fillRect(kx-10,ky+11,5,3);
+    ctx.fillStyle='#eedd55'; ctx.fillRect(kx-9,ky+11,3,1);
 
   } else if(weapId==='bo_staff'){
-    ctx.save();
-    const sx2=hx+(f>0?-2:-15), sy2=hy-17;
-    // Shaft base
-    ctx.fillStyle='#4a2e0e'; ctx.fillRect(sx2,sy2,4,32);
-    // Wood grain
-    ctx.fillStyle='#7a4e1e'; ctx.fillRect(sx2+1,sy2,2,32);
-    ctx.fillStyle='#6a3e14'; ctx.fillRect(sx2+2,sy2,1,32);
-    // Grain lines
+    const sx2=hx, sy2=hy-18;
+    ctx.fillStyle='#4a2e0e'; ctx.fillRect(sx2,sy2,4,34);
+    ctx.fillStyle='#7a4e1e'; ctx.fillRect(sx2+1,sy2,2,34);
+    ctx.fillStyle='#6a3e14'; ctx.fillRect(sx2+2,sy2,1,34);
     ctx.fillStyle='#3a2208';
     for(let g=0;g<6;g++){ ctx.fillRect(sx2+1,sy2+g*5+2,1,2); ctx.fillRect(sx2+2,sy2+g*5+4,1,2); }
-    // Top ferrule
     ctx.fillStyle='#909090'; ctx.fillRect(sx2-1,sy2,6,3);
     ctx.fillStyle='#cccccc'; ctx.fillRect(sx2-1,sy2,6,1);
     ctx.fillStyle='#606060'; ctx.fillRect(sx2-1,sy2+2,6,1);
-    // Bottom ferrule
-    ctx.fillStyle='#909090'; ctx.fillRect(sx2-1,sy2+29,6,3);
-    ctx.fillStyle='#cccccc'; ctx.fillRect(sx2-1,sy2+29,6,1);
-    ctx.fillStyle='#606060'; ctx.fillRect(sx2-1,sy2+31,6,1);
-    // Grip wrap
-    const gmy=sy2+12;
-    ctx.fillStyle='#1a1208'; ctx.fillRect(sx2-1,gmy,6,8);
+    ctx.fillStyle='#909090'; ctx.fillRect(sx2-1,sy2+31,6,3);
+    ctx.fillStyle='#cccccc'; ctx.fillRect(sx2-1,sy2+31,6,1);
+    ctx.fillStyle='#606060'; ctx.fillRect(sx2-1,sy2+33,6,1);
+    ctx.fillStyle='#1a1208'; ctx.fillRect(sx2-1,sy2+13,6,8);
     ctx.fillStyle='#3a2a14';
-    for(let w=0;w<4;w++) ctx.fillRect(sx2-1,gmy+w*2,6,1);
-    // Grip accent bands
-    ctx.fillStyle='#aa8844'; ctx.fillRect(sx2-1,gmy-1,6,1);
-    ctx.fillStyle='#aa8844'; ctx.fillRect(sx2-1,gmy+8,6,1);
-    ctx.restore();
+    for(let w=0;w<4;w++) ctx.fillRect(sx2-1,sy2+13+w*2,6,1);
+    ctx.fillStyle='#aa8844'; ctx.fillRect(sx2-1,sy2+12,6,1);
+    ctx.fillStyle='#aa8844'; ctx.fillRect(sx2-1,sy2+21,6,1);
 
   } else if(weapId==='rasengan_scroll'){
-    const cx=hx+(f>0?4:-4), cy=hy-5;
+    const cx=hx+5, cy=hy-5;
     const pulse=Math.sin(tick*.18)*1.5;
-    ctx.save();
     ctx.shadowColor='#0055ee'; ctx.shadowBlur=22+pulse*3;
-    // Outer halos
     ctx.strokeStyle='rgba(0,80,220,0.15)'; ctx.lineWidth=3;
     ctx.beginPath(); ctx.arc(cx,cy,14+pulse,0,Math.PI*2); ctx.stroke();
     ctx.strokeStyle='rgba(0,130,255,0.28)'; ctx.lineWidth=2;
     ctx.beginPath(); ctx.arc(cx,cy,11+pulse*.7,0,Math.PI*2); ctx.stroke();
     ctx.strokeStyle='rgba(60,180,255,0.55)'; ctx.lineWidth=1.5;
     ctx.beginPath(); ctx.arc(cx,cy,8+pulse*.4,0,Math.PI*2); ctx.stroke();
-    // Core
     ctx.fillStyle='rgba(10,45,180,0.78)'; ctx.beginPath(); ctx.arc(cx,cy,7,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='rgba(40,100,230,0.88)'; ctx.beginPath(); ctx.arc(cx,cy,5,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='rgba(100,180,255,0.92)'; ctx.beginPath(); ctx.arc(cx,cy,3,0,Math.PI*2); ctx.fill();
     ctx.fillStyle='rgba(210,235,255,0.97)'; ctx.beginPath(); ctx.arc(cx,cy,1.5,0,Math.PI*2); ctx.fill();
-    // Inner swirl arcs
-    ctx.shadowBlur=8;
-    ctx.strokeStyle='rgba(140,210,255,0.72)'; ctx.lineWidth=1;
+    ctx.shadowBlur=8; ctx.strokeStyle='rgba(140,210,255,0.72)'; ctx.lineWidth=1;
     for(let sw=0;sw<4;sw++){
       const sa=tick*.15+sw*Math.PI*.5;
       ctx.beginPath(); ctx.arc(cx,cy,4,sa,sa+Math.PI*.7); ctx.stroke();
     }
-    // Orbiting particles
     ctx.shadowBlur=4;
     for(let i=0;i<8;i++){
-      const a=tick*.12+i*Math.PI*.25;
-      const r=7+Math.sin(tick*.08+i)*.8;
+      const a=tick*.12+i*Math.PI*.25, r=7+Math.sin(tick*.08+i)*.8;
       ctx.fillStyle=i%2===0?'#ffffff':'#88ccff';
       ctx.fillRect(cx+Math.cos(a)*r-1,cy+Math.sin(a)*r-1,2,2);
     }
     ctx.shadowBlur=0;
-    ctx.restore();
 
   } else if(weapId==='chidori_blade'){
-    ctx.save();
-    const kx=hx+(f>0?-1:-17), ky=hy-17;
-    const dir=f>0?1:-1;
-    // Draw blade WITHOUT glow so pixels stay crisp
+    const kx=hx, ky=hy-2;
     ctx.shadowBlur=0;
     for(let i=0;i<16;i++){
-      const ox=(dir*i)|0;
       const c=i<2?'#e8f0ff':i<5?'#b0ccff':i<13?'#7aa0ee':'#3366aa';
-      ctx.fillStyle=c; ctx.fillRect(kx+ox,(ky+i*.85)|0,2,3);
-      if(i>1&&i<14){ ctx.fillStyle='#aaccff'; ctx.fillRect(kx+ox+(dir>0?0:1),(ky+i*.85)|0,1,1); }
+      ctx.fillStyle=c; ctx.fillRect(kx+i,(ky-i)|0,2,3);
+      if(i>1&&i<14){ ctx.fillStyle='#aaccff'; ctx.fillRect(kx+i,(ky-i)|0,1,1); }
     }
-    // Blood groove
     ctx.fillStyle='#2255bb';
-    for(let i=3;i<14;i++){ const ox=(dir*i)|0; ctx.fillRect(kx+ox+(dir>0?1:0),(ky+i*.85)|0+1,1,1); }
-    // Habaki
-    const hbx=kx+(dir>0?-2:15), hby=(ky+16*.85)|0;
-    ctx.fillStyle='#4455bb'; ctx.fillRect(hbx,hby,5,4);
-    ctx.fillStyle='#7788ee'; ctx.fillRect(hbx+(dir>0?0:1),hby,2,2);
-    // Tsuba
-    const tbx=hx+(f>0?-3:-5), tby=hy-2;
-    ctx.fillStyle='#223388'; ctx.fillRect(tbx,tby,8,5);
-    ctx.fillStyle='#4455aa'; ctx.fillRect(tbx+1,tby,6,3);
-    ctx.fillStyle='#7788cc'; ctx.fillRect(tbx+2,tby,4,1);
-    // Handle
-    const hndx=hx+(f>0?-4:-6), hndy=hy+2;
-    ctx.fillStyle='#080814'; ctx.fillRect(hndx,hndy,5,8);
+    for(let i=3;i<14;i++) ctx.fillRect(kx+i+1,(ky-i)|0+1,1,1);
+    ctx.fillStyle='#4455bb'; ctx.fillRect(kx-4,ky,5,4);
+    ctx.fillStyle='#7788ee'; ctx.fillRect(kx-4,ky,3,2);
+    ctx.fillStyle='#223388'; ctx.fillRect(kx-7,ky+1,8,5);
+    ctx.fillStyle='#4455aa'; ctx.fillRect(kx-6,ky+1,6,3);
+    ctx.fillStyle='#7788cc'; ctx.fillRect(kx-5,ky+1,4,1);
+    ctx.fillStyle='#080814'; ctx.fillRect(kx-10,ky+2,5,9);
     ctx.fillStyle='#1a2255';
-    for(let r=0;r<4;r++) ctx.fillRect(hndx+(r%2===0?0:2),hndy+1+r*2,3,1);
-    ctx.fillStyle='#4455bb'; ctx.fillRect(hndx,hndy+8,5,3);
-    ctx.fillStyle='#7788ee'; ctx.fillRect(hndx+1,hndy+8,3,1);
-    // Lightning arcs — always on, opacity animated via sin
+    for(let r=0;r<4;r++) ctx.fillRect(kx-10+(r%2===0?0:2),ky+3+r*2,3,1);
+    ctx.fillStyle='#4455bb'; ctx.fillRect(kx-10,ky+11,5,3);
+    ctx.fillStyle='#7788ee'; ctx.fillRect(kx-9,ky+11,3,1);
+    // Lightning arcs along blade
     ctx.shadowColor='#66aaff'; ctx.shadowBlur=6;
     ctx.lineWidth=1;
     for(let arc=0;arc<5;arc++){
-      const ai=(arc*3)|0;
-      const ox=(dir*ai)|0;
-      // perpendicular jitter (rotated 90° from blade dir)
+      const ai=arc*3;
       const jx=Math.sin(tick*3.1+arc*1.7)*3;
       const jy=Math.cos(tick*2.8+arc*1.3)*3;
       const al=0.55+Math.sin(tick*4.2+arc*0.9)*.35;
       ctx.strokeStyle=`rgba(120,190,255,${al})`;
       ctx.beginPath();
-      ctx.moveTo(kx+ox,          (ky+ai*.85)|0);
-      ctx.lineTo(kx+ox+(dir*3)|0+jx|0, (ky+ai*.85)|0+3+jy|0);
-      ctx.lineTo(kx+ox+(dir*6)|0,      (ky+ai*.85+5.1)|0);
+      ctx.moveTo(kx+ai,     (ky-ai)|0);
+      ctx.lineTo(kx+ai+3+(jx|0), (ky-ai)|0-3+(jy|0));
+      ctx.lineTo(kx+ai+6,   (ky-ai-5.1)|0);
       ctx.stroke();
     }
-    // Tip sparks (deterministic pixel dots)
     ctx.shadowBlur=8;
     ctx.fillStyle='rgba(200,230,255,0.9)';
-    const tipx=kx+(dir>0?14:-2), tipy=ky;
     for(let s=0;s<5;s++){
-      const sx3=(Math.sin(tick*6.1+s*1.9)*6)|0;
-      const sy3=(Math.cos(tick*5.3+s*2.4)*6)|0;
-      ctx.fillRect(tipx+sx3, tipy+sy3, 1,1);
+      ctx.fillRect(kx+14+(Math.sin(tick*6.1+s*1.9)*6)|0, ky-14+(Math.cos(tick*5.3+s*2.4)*6)|0, 1,1);
     }
     ctx.shadowBlur=0;
-    ctx.restore();
   }
+  ctx.restore();
 }
 
 /* ─── RASENGAN CINEMATIC ─── */

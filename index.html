@@ -1634,12 +1634,12 @@ const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4,SAND:5};
 
 const LZONES=[
   // North buildings — above horizontal spine (y=9,10)
-  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',  sub:'Coming soon...',        tx:2, ty:2, tw:8,th:7, color:'#dd3388',glow:'#aa1166',enter:null},
-  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Coming soon...',        tx:15,ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:null},
+  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',  sub:'Coming soon...',        tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:null},
+  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Coming soon...',        tx:2, ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:null},
   {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON GATE',   sub:'Enter the dark forest', tx:23,ty:3, tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
   // South buildings — below horizontal spine
   {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',         sub:'Manage inventory',      tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop'},
-  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Buy items & potions',   tx:10,ty:13,tw:6,th:4, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
+  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Buy items & potions',   tx:10,ty:13,tw:6,th:3, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
   {id:'ach',    type:'shrine',icon:'🏆',label:'HALL OF FAME',   sub:'Your achievements',     tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
   // NPCs in south plaza (near spine intersection, not blocking spine paths)
   {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Train your abilities',  nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
@@ -1662,39 +1662,42 @@ function buildLobbyMap(){
   lobbyTiles=Array.from({length:LH},()=>new Uint8Array(LW));
   for(let y=0;y<LH;y++) for(let x=0;x<LW;x++)
     lobbyTiles[y][x]=x<2||y<2||x>=LW-2||y>=LH-2?LTILE.TREE:LTILE.GRASS;
-  // Training ground (sand) — Kakashi's west field
-  for(let y=6;y<13;y++) for(let x=2;x<9;x++)
+  // Sand training yard — south of academy, west side
+  for(let y=8;y<12;y++) for(let x=2;x<9;x++)
     if(lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.SAND;
-  // Decorative pond (north center, between towers)
-  for(let y=3;y<8;y++) for(let x=9;x<13;x++)
+  // Narrow moat between academy and hokage
+  for(let y=3;y<8;y++) for(let x=8;x<10;x++)
+    if(lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.WATER;
+  // Pond east of hokage (between hokage and dungeon area)
+  for(let y=4;y<8;y++) for(let x=19;x<22;x++)
     if(lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.WATER;
   // Buildings as BLDG tiles
   LZONES.filter(z=>z.type!=='npc').forEach(z=>{
     for(let ry=z.ty;ry<z.ty+z.th;ry++) for(let rx=z.tx;rx<z.tx+z.tw;rx++)
       if(ry>=0&&ry<LH&&rx>=0&&rx<LW) lobbyTiles[ry][rx]=LTILE.BLDG;
   });
-  // Branch paths: connect each building toward both spines (x=13,14 | y=9,10)
+  // Branch paths
   LZONES.filter(z=>z.type!=='npc').forEach(z=>{
     const cx=z.tx+Math.floor(z.tw/2);
-    const cy=z.ty+z.th<=9?z.ty+z.th:z.ty-1; // row at spine-facing edge
-    // Vertical path: from building edge to horizontal spine
+    const cy=z.ty+z.th<=9?z.ty+z.th:z.ty-1;
     const ya=Math.min(cy,9),yb=Math.max(cy,10);
     for(let y=ya;y<=yb;y++) if(y>=0&&y<LH){
       if(cx>=0&&cx<LW)lobbyTiles[y][cx]=LTILE.PATH;
       if(cx+1<LW)lobbyTiles[y][cx+1]=LTILE.PATH;
     }
-    // Horizontal path: along cy-row to vertical spine — skip for gate (reached via spine walk)
     if(z.type!=='gate'){
       const xa=Math.min(cx,13),xb=Math.max(cx,14);
       for(let x=xa;x<=xb;x++) if(x>=0&&x<LW&&cy>=0&&cy<LH) lobbyTiles[cy][x]=LTILE.PATH;
     }
   });
+  // Hokage grand courtyard — wide PATH plaza at row 8 in front of tower
+  for(let x=10;x<18;x++) if(lobbyTiles[8][x]!==LTILE.BLDG) lobbyTiles[8][x]=LTILE.PATH;
   // Decorative trees
-  [[8,3],[9,3],[14,3],[8,8],[14,8],[8,16],[16,16],[22,8],[22,2]].forEach(([x,y])=>{
+  [[9,2],[9,3],[22,2],[22,3],[8,13],[8,14],[20,13],[20,14],[2,14],[25,8]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW&&lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.TREE;
   });
-  // Training posts in the sand area (2 posts only, clear of buildings)
-  [[4,8],[6,8]].forEach(([x,y])=>{
+  // Training posts in sand yard
+  [[4,9],[6,9]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW) lobbyTiles[y][x]=LTILE.TREE;
   });
   // Spines LAST — always walkable
@@ -1998,7 +2001,7 @@ function renderLobbyWorld(){
   for(let ry=t0y;ry<t1y;ry++) for(let rx=t0x;rx<t1x;rx++)
     drawLobbyTile(ctx,rx*LTSIZE-LCAM.x,ry*LTSIZE-LCAM.y,lobbyTiles[ry][rx],rx,ry);
 
-  [[4,8],[6,8]].forEach(([px,py])=>
+  [[4,9],[6,9]].forEach(([px,py])=>
     drawTrainingPost(ctx,px*LTSIZE-LCAM.x,py*LTSIZE-LCAM.y));
 
   LZONES.filter(z=>z.type!=='npc').sort((a,b)=>a.ty-b.ty)

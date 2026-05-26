@@ -1048,9 +1048,10 @@ const RAS_DUR=[0.38,0.28,0.55,0.22]; // phase durations
 function triggerRasengan(){
   const p=G.player;if(!p)return;
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
-  if(!enemies.length){msg('No targets!','bad');return;}
+  const RAS_RANGE=200;
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<RAS_RANGE&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('No target in range!','bad');return;}
   const cost=p.chakra<20&&G.skills?.nj3?10:20;
   if(p.chakra<cost){msg('Not enough Chakra!','bad');return;}
   p.chakra-=cost;p.ckCd=RAS_DUR.reduce((a,b)=>a+b,0)+0.3;

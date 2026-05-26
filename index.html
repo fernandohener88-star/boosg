@@ -233,7 +233,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div class="ip-key">[ E ] Enter</div>
   </div>
   <!-- Controls hint bottom-right -->
-  <div id="lctrl">WASD Move &nbsp;·&nbsp; E Interact</div>
+  <div id="lctrl">WASD Bewegen &nbsp;·&nbsp; E Interagieren</div>
 </div>
 
 <!-- ═══════════════ SHOP ═══════════════ -->
@@ -243,10 +243,10 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div class="sec" id="shop-section-title">Items for Sale</div>
     <div class="shop-grid" id="shop-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventory (<span id="inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="inv-count">0</span>/8)</div>
     <div class="inv-grid" id="inv-grid"></div>
   </div>
-  <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Back</button></div>
+  <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Zurück</button></div>
 </div>
 
 <!-- ═══════════════ ACADEMY ═══════════════ -->
@@ -257,33 +257,33 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div style="font-size:7px;color:#6a5a8a;margin-bottom:8px">Lerne mächtige Techniken. Erlernte Jutsu werden automatisch deinem Inventar hinzugefügt.</div>
     <div class="shop-grid" id="aca-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventory (<span id="aca-inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="aca-inv-count">0</span>/8)</div>
     <div class="inv-grid" id="aca-inv-grid"></div>
   </div>
-  <div class="pf"><button class="btn btn-sm" id="aca-back">◀ Back</button></div>
+  <div class="pf"><button class="btn btn-sm" id="aca-back">◀ Zurück</button></div>
 </div>
 
 <!-- ═══════════════ SKILLS ═══════════════ -->
 <div id="screen-skills" class="screen">
-  <div class="ph"><h2>✦ SKILL TREE</h2><div style="color:var(--grn);font-size:9px">SP: <span id="sp-hud">0</span></div></div>
+  <div class="ph"><h2>✦ FÄHIGKEITSBAUM</h2><div style="color:var(--grn);font-size:9px">FP: <span id="sp-hud">0</span></div></div>
   <div class="pb">
-    <div class="sp-row">Available Skill Points: <span id="sp-count">0</span></div>
+    <div class="sp-row">Verfügbare Fähigkeitspunkte: <span id="sp-count">0</span></div>
     <div class="path-labels">
       <span style="font-size:8px;color:#ff5555">NINJUTSU</span>
       <span style="font-size:8px;color:var(--or)">TAIJUTSU</span>
       <span style="font-size:8px;color:#aa44ff">GENJUTSU</span>
     </div>
     <canvas id="skill-canvas" width="700" height="430"></canvas>
-    <div class="skill-info" id="skill-info"><div style="text-align:center;padding-top:16px;color:#2a2a3a">Click a node to inspect</div></div>
+    <div class="skill-info" id="skill-info"><div style="text-align:center;padding-top:16px;color:#2a2a3a">Klicke auf einen Knoten zur Ansicht</div></div>
   </div>
-  <div class="pf"><button class="btn btn-sm" id="skills-back">◀ Back</button></div>
+  <div class="pf"><button class="btn btn-sm" id="skills-back">◀ Zurück</button></div>
 </div>
 
 <!-- ═══════════════ ACHIEVEMENTS ═══════════════ -->
 <div id="screen-ach" class="screen">
-  <div class="ph"><h2>🏆 ACHIEVEMENTS</h2><div style="color:var(--gold);font-size:9px"><span id="ach-done">0</span>/10</div></div>
+  <div class="ph"><h2>🏆 ERFOLGE</h2><div style="color:var(--gold);font-size:9px"><span id="ach-done">0</span>/10</div></div>
   <div class="pb"><div class="ach-grid" id="ach-grid"></div></div>
-  <div class="pf"><button class="btn btn-sm" id="ach-back">◀ Back</button></div>
+  <div class="pf"><button class="btn btn-sm" id="ach-back">◀ Zurück</button></div>
 </div>
 
 <!-- ═══════════════ GAME ═══════════════ -->
@@ -295,7 +295,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
       <div class="hud-bar-row"><span class="hud-bar-lbl">CK</span><div class="hud-bar-bg"><div class="hud-bar-fill hud-ck" id="hud-ck" style="width:100%"></div></div><span class="hud-bar-val" id="hud-ck-v">50/50</span></div>
     </div>
     <div class="hud-right">
-      <div class="hud-floor">Floor <span id="hud-floor">1</span></div>
+      <div class="hud-floor">Etage <span id="hud-floor">1</span></div>
       <div class="hud-ryo">💰 <span id="hud-ryo">0</span></div>
       <div style="font-size:6px;color:#4a3a6a">Lv.<span id="hud-lv">1</span> ATK:<span id="hud-atk">10</span></div>
     </div>
@@ -303,11 +303,11 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
   </div>
   <canvas id="game-canvas" height="480"></canvas>
   <div class="game-controls">
-    <span class="ctrl-hint"><span class="ctrl-key">WASD</span> Move</span>
-    <span class="ctrl-hint"><span class="ctrl-key">E / Space</span> Attack</span>
-    <span class="ctrl-hint"><span class="ctrl-key">Q</span> Chakra Strike</span>
-    <span class="ctrl-hint"><span class="ctrl-key">F</span> Fullscreen</span>
-    <span class="ctrl-hint"><span class="ctrl-key">ESC</span> Retreat</span>
+    <span class="ctrl-hint"><span class="ctrl-key">WASD</span> Bewegen</span>
+    <span class="ctrl-hint"><span class="ctrl-key">E / Space</span> Angriff</span>
+    <span class="ctrl-hint"><span class="ctrl-key">Q</span> Chakra-Angriff</span>
+    <span class="ctrl-hint"><span class="ctrl-key">F</span> Vollbild</span>
+    <span class="ctrl-hint"><span class="ctrl-key">ESC</span> Rückzug</span>
   </div>
 </div>
 
@@ -334,51 +334,56 @@ const NET = {
 const XP_TABLE = [0,100,250,450,700,1000,1400,1900,2500,3200,4000];
 
 const ITEMS = [
-  {id:'kunai',          name:'Kunai',         icon:'🗡️', rar:'common',    type:'weapon',    stats:{atk:3},        price:80,   desc:'Fast and light. +3 ATK.'},
-  {id:'shuriken',       name:'Shuriken',       icon:'✴️', rar:'common',    type:'weapon',    stats:{atk:2,rng:2},  price:100,  desc:'Strike from range. +2 ATK, +2 RNG.'},
-  {id:'katana',         name:'Katana',         icon:'⚔️', rar:'uncommon',  type:'weapon',    stats:{atk:8,spd:-1}, price:220,  desc:'Heavy blade. +8 ATK, -1 SPD.'},
-  {id:'bo_staff',       name:'Bo Staff',       icon:'🥢', rar:'uncommon',  type:'weapon',    stats:{atk:5,rng:2},  price:180,  desc:'Wide reach. +5 ATK, +2 RNG.'},
-  {id:'hp_pot',         name:'Health Potion',  icon:'🧪', rar:'common',    type:'consume',   stats:{},             price:60,   desc:'Restore 50 HP.',  fx:{hp:50}},
-  {id:'ck_pot',         name:'Chakra Potion',  icon:'💧', rar:'common',    type:'consume',   stats:{},             price:60,   desc:'Restore 30 Chakra.',fx:{ck:30}},
-  {id:'rasengan_scroll',name:'Rasengan Scroll',icon:'📜', rar:'rare',      type:'jutsu',     stats:{atk:15},       price:600,  desc:'+15 ATK. Chakra/use: 20', ckCost:20},
-  {id:'chidori_blade',  name:'Chidori Blade',  icon:'⚡', rar:'legendary', type:'weapon',    stats:{atk:20},       price:1200, desc:"+20 ATK. Chakra/use: 15", ckCost:15}
+  {id:'kunai',          name:'Kunai',              icon:'🗡️', rar:'häufig',     type:'weapon',  stats:{atk:3},        price:80,   desc:'Schnell und leicht. +3 ATK.'},
+  {id:'shuriken',       name:'Shuriken',            icon:'✴️', rar:'häufig',     type:'weapon',  stats:{atk:2,rng:2},  price:100,  desc:'Trifft aus der Distanz. +2 ATK, +2 RNG.'},
+  {id:'katana',         name:'Katana',              icon:'⚔️', rar:'ungewöhnlich',type:'weapon', stats:{atk:8,spd:-1}, price:220,  desc:'Schwere Klinge. +8 ATK, -1 GES.'},
+  {id:'bo_staff',       name:'Bo-Stab',             icon:'🥢', rar:'ungewöhnlich',type:'weapon', stats:{atk:5,rng:2},  price:180,  desc:'Große Reichweite. +5 ATK, +2 RNG.'},
+  {id:'hp_pot',         name:'Lebenstrank',           icon:'🧪', rar:'häufig',     type:'consume', stats:{}, price:60,   desc:'Stellt 50 HP wieder her.', fx:{hp:50}},
+  {id:'ck_pot',         name:'Chakra-Trank',          icon:'💧', rar:'häufig',     type:'consume', stats:{}, price:60,   desc:'Stellt 30 Chakra wieder her.', fx:{ck:30}},
+  {id:'ramen_miso',     name:'Ichiraku Miso Ramen',   icon:'🍜', rar:'häufig',     type:'consume', stats:{}, price:80,   desc:'Narutos Lieblingsramen. Stellt 80 HP wieder her.', fx:{hp:80}},
+  {id:'ramen_tonkotsu', name:'Tonkotsu Ramen',        icon:'🍥', rar:'häufig',     type:'consume', stats:{}, price:70,   desc:'Reichhaltige Brühe aus Konoha. Stellt 60 HP & 20 Chakra wieder her.', fx:{hp:60,ck:20}},
+  {id:'onigiri',        name:'Onigiri',               icon:'🍙', rar:'häufig',     type:'consume', stats:{}, price:40,   desc:'Schneller Snack. Stellt 30 HP wieder her.', fx:{hp:30}},
+  {id:'dango',          name:'Dango',                 icon:'🍡', rar:'ungewöhnlich',type:'consume',stats:{}, price:100,  desc:'Süße Reisbällchen. Stellt 50 Chakra wieder her.', fx:{ck:50}},
+  {id:'beef_stew',      name:'Rindfleisch-Eintopf',   icon:'🥩', rar:'ungewöhnlich',type:'consume',stats:{}, price:150,  desc:'Seltenes Rinderfilet aus dem Land des Feuers. Stellt 150 HP wieder her.', fx:{hp:150}},
+  {id:'rasengan_scroll',name:'Rasengan-Schriftrolle',icon:'📜',rar:'selten',     type:'jutsu',   stats:{atk:15},       price:600,  desc:'+15 ATK. Chakra/Einsatz: 20', ckCost:20},
+  {id:'chidori_blade',  name:'Chidori-Klinge',      icon:'⚡', rar:'legendär',   type:'weapon',  stats:{atk:20},       price:1200, desc:'+20 ATK. Chakra/Einsatz: 15', ckCost:15}
 ];
 
 const SKILLS = {
   ninjutsu:{label:'Ninjutsu',color:'#ff5555',nodes:[
-    {id:'nj1',name:'Chakra Amplify',  icon:'💠',desc:'Max Chakra +10',      fx:{ck:10},  cost:1},
-    {id:'nj2',name:'Fireball Jutsu',  icon:'🔥',desc:'Unlock Fireball, ATK+5',fx:{atk:5}, cost:1},
-    {id:'nj3',name:'Rasengan Mastery',icon:'🌀',desc:'Rasengan costs -10 CK',fx:{s:'rasengan_reduce'},cost:2},
-    {id:'nj4',name:'Shadow Clone',    icon:'👥',desc:'ATK+8',               fx:{atk:8},  cost:2},
+    {id:'nj1',name:'Chakra-Verstärkung', icon:'💠',desc:'Max. Chakra +10',           fx:{ck:10},  cost:1},
+    {id:'nj2',name:'Feuerball-Jutsu',    icon:'🔥',desc:'Feuerball freischalten, ATK+5',fx:{atk:5}, cost:1},
+    {id:'nj3',name:'Rasengan-Meisterschaft',icon:'🌀',desc:'Rasengan kostet -10 CK',fx:{s:'rasengan_reduce'},cost:2},
+    {id:'nj4',name:'Schattenklon',       icon:'👥',desc:'ATK+8',                    fx:{atk:8},  cost:2},
     {id:'nj5',name:'Sage Mode',       icon:'🐸',desc:'ATK+15, DEF+10',      fx:{atk:15,def:10},cost:3}
   ]},
   taijutsu:{label:'Taijutsu',color:'#ff7a00',nodes:[
-    {id:'tj1',name:'Combat Training', icon:'👊',desc:'ATK+3',               fx:{atk:3},  cost:1},
-    {id:'tj2',name:'Combo Strike',    icon:'💥',desc:'ATK+5',               fx:{atk:5},  cost:1},
-    {id:'tj3',name:'Iron Body',       icon:'🛡️',desc:'DEF+8, HP+20',        fx:{def:8,hp:20},cost:2},
+    {id:'tj1',name:'Kampftraining',    icon:'👊',desc:'ATK+3',               fx:{atk:3},  cost:1},
+    {id:'tj2',name:'Komboangriff',     icon:'💥',desc:'ATK+5',               fx:{atk:5},  cost:1},
+    {id:'tj3',name:'Eiserner Körper',  icon:'🛡️',desc:'DEF+8, HP+20',       fx:{def:8,hp:20},cost:2},
     {id:'tj4',name:'Eight Gates',     icon:'🔴',desc:'ATK+20',              fx:{atk:20}, cost:2},
     {id:'tj5',name:'Leaf Whirlwind',  icon:'🍃',desc:'SPD+5',               fx:{spd:5},  cost:3}
   ]},
   genjutsu:{label:'Genjutsu',color:'#aa44ff',nodes:[
-    {id:'gj1',name:'Quick Steps',     icon:'💨',desc:'SPD+2',               fx:{spd:2},  cost:1},
-    {id:'gj2',name:'Illusion Veil',   icon:'🌫️',desc:'DEF+4',              fx:{def:4},  cost:1},
-    {id:'gj3',name:'Mind Crush',      icon:'🧠',desc:'ATK+6',               fx:{atk:6},  cost:2},
+    {id:'gj1',name:'Schnelle Schritte',icon:'💨',desc:'GES+2',              fx:{spd:2},  cost:1},
+    {id:'gj2',name:'Illusionsschleier',icon:'🌫️',desc:'DEF+4',             fx:{def:4},  cost:1},
+    {id:'gj3',name:'Gedankenbrecher', icon:'🧠',desc:'ATK+6',               fx:{atk:6},  cost:2},
     {id:'gj4',name:'Tsukuyomi',       icon:'🌙',desc:'Stun 2 turns',        fx:{s:'tsukuyomi'},cost:2},
     {id:'gj5',name:'Inf. Tsukuyomi', icon:'🌑',desc:'Enemy stats halved',   fx:{s:'inf_tsukuyomi'},cost:3}
   ]}
 };
 
 const ACHLIST = [
-  {id:'first_blood',icon:'🩸',name:'First Blood',    desc:'Defeat your first enemy.'},
-  {id:'level_5',    icon:'⭐',name:'Genin Rank',     desc:'Reach Level 5.'},
-  {id:'level_10',   icon:'🌟',name:'Chunin Rank',    desc:'Reach Level 10.'},
-  {id:'boss_slayer',icon:'💀',name:'Boss Slayer',    desc:'Defeat a floor boss.'},
-  {id:'collector',  icon:'🎒',name:'Collector',      desc:'Own 5 or more weapons.'},
-  {id:'floor_5',    icon:'🏯',name:'Deep Diver',     desc:'Reach Floor 5.'},
-  {id:'kage',       icon:'👑',name:'Kage',           desc:'Complete the game.'},
-  {id:'rich',       icon:'💰',name:'Money Bags',     desc:'Open 10 treasure chests.'},
-  {id:'shadow',     icon:'🌑',name:'Shadow Stalker', desc:'Move 100 tiles in stealth.'},
-  {id:'secret',     icon:'🍥',name:'Believe It!',    desc:'Type the secret phrase.'}
+  {id:'first_blood',icon:'🩸',name:'Erstes Blut',     desc:'Besiege deinen ersten Feind.'},
+  {id:'level_5',    icon:'⭐',name:'Genin-Rang',      desc:'Erreiche Level 5.'},
+  {id:'level_10',   icon:'🌟',name:'Chunin-Rang',     desc:'Erreiche Level 10.'},
+  {id:'boss_slayer',icon:'💀',name:'Bossbesieger',    desc:'Besiege einen Etagenboss.'},
+  {id:'collector',  icon:'🎒',name:'Sammler',         desc:'Besitze 5 oder mehr Waffen.'},
+  {id:'floor_5',    icon:'🏯',name:'Tieftaucher',     desc:'Erreiche Etage 5.'},
+  {id:'kage',       icon:'👑',name:'Kage',            desc:'Beende das Spiel.'},
+  {id:'rich',       icon:'💰',name:'Geldsack',        desc:'Öffne 10 Schatztruhen.'},
+  {id:'shadow',     icon:'🌑',name:'Schattenjäger',   desc:'Bewege dich 100 Felder.'},
+  {id:'secret',     icon:'🍥',name:'Glaub dran!',     desc:'Gib die geheime Phrase ein.'}
 ];
 
 const ENEMY_DEF = {
@@ -447,7 +452,7 @@ function _initPlayer(name){
     p.base.maxHp=2000; p.base.maxChakra=500; p.base.atk=999; p.base.def=99; p.base.spd=20;
     p.maxHp=2000; p.hp=2000; p.maxChakra=500; p.chakra=500;
     p.atk=999; p.def=99; p.spd=20;
-    setTimeout(()=>msg('🍥 CHEAT ACTIVATED — Welcome back, Hokage!','gold'),400);
+    setTimeout(()=>msg('🍥 CHEAT AKTIVIERT — Willkommen zurück, Hokage!','gold'),400);
   }
 }
 
@@ -460,7 +465,7 @@ function _gainXp(amt){
     p.xp-=xpNeed(p.level); p.level++;
     p.base.maxHp+=10; p.base.maxChakra+=5; p.skillPoints++;
     _recalc(); p.hp=p.maxHp; p.chakra=p.maxChakra;
-    msg(`Level Up! Lv.${p.level} — +1 Skill Point`,'gold');
+    msg(`Level Aufstieg! Lv.${p.level} — +1 Fähigkeitspunkt`,'gold');
     spawnBurst(p.x,p.y,'#ffd700',20);
     _chkAch('level_5'); _chkAch('level_10'); _syncSP();
   }
@@ -495,11 +500,11 @@ function _recalc(){
 ════════════════════════════════════════════════════ */
 function _buyItem(id){
   const it=ITEMS.find(i=>i.id===id); if(!it) return;
-  if(G.ryo<it.price){ msg('Not enough Ryo!','bad'); return; }
-  if(G.inventory.length>=8){ msg('Inventory full!','bad'); return; }
+  if(G.ryo<it.price){ msg('Nicht genug Ryo!','bad'); return; }
+  if(G.inventory.length>=8){ msg('Inventar voll!','bad'); return; }
   G.ryo-=it.price;
   G.inventory.push({id:it.id,eq:false});
-  msg(`Bought ${it.name}!`,'gold');
+  msg(`${it.name} gekauft!`,'gold');
   _syncRyo(); renderShop(); renderInv();
   if(G.inventory.filter(i=>{const x=ITEMS.find(t=>t.id===i.id);return x&&x.type==='weapon';}).length>=5) _chkAch('collector');
 }
@@ -514,12 +519,12 @@ function _itemAct(idx){
       if(it.fx.ck)  p.chakra=Math.min(p.maxChakra,p.chakra+it.fx.ck);
     }
     G.inventory.splice(idx,1);
-    msg(`Used ${it.name}.`,'good');
+    msg(`${it.name} benutzt.`,'good');
   } else {
-    if(inv.eq){ inv.eq=false; msg(`Unequipped ${it.name}.`,'info'); }
+    if(inv.eq){ inv.eq=false; msg(`${it.name} abgelegt.`,'info'); }
     else {
       G.inventory.forEach((iv,i)=>{ if(i!==idx&&iv.eq){ const ot=ITEMS.find(x=>x.id===iv.id); if(ot&&ot.type===it.type) iv.eq=false; } });
-      inv.eq=true; msg(`Equipped ${it.name}!`,'good');
+      inv.eq=true; msg(`${it.name} ausgerüstet!`,'good');
     }
     _recalc();
   }
@@ -535,7 +540,7 @@ function renderShop(){
     shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 STORAGE':'🛒 SHOP';
   }
   const g=$('shop-grid'); g.innerHTML='';
-  const list=ITEMS.filter(it=>mode==='all'||(mode==='consume'&&it.type==='consume')||(mode==='weapon'&&(it.type==='weapon'||it.type==='jutsu')));
+  const list=ITEMS.filter(it=>mode==='all'||(mode==='consume'&&it.type==='consume')||(mode==='weapon'&&it.type==='weapon'));
   list.forEach(it=>{
     const ok=G.ryo>=it.price&&G.inventory.length<8;
     const sts=Object.entries(it.stats).map(([k,v])=>{
@@ -587,19 +592,19 @@ const JUTSU_LIST=[
    itemId:'rasengan_scroll'},
   {id:'shadow_clone',     name:'Kage Bunshin',    icon:'👥', rar:'rare',
    cost:1200, chakraCost:30, desc:'Erschaffe echte Klone deiner selbst aus Chakra — nicht nur Illusionen.',
-   effect:'Coming soon…', locked:true},
+   effect:'Demnächst verfügbar…', locked:true},
   {id:'chidori',          name:'Chidori',         icon:'⚡', rar:'legendary',
    cost:2500, chakraCost:40, desc:'Bündele Blitzchakra in deiner Hand. Nur für fortgeschrittene Shinobi.',
-   effect:'Coming soon…', locked:true},
+   effect:'Demnächst verfügbar…', locked:true},
   {id:'fire_style',       name:'Goukakyuu no Jutsu',icon:'🔥',rar:'uncommon',
    cost:600, chakraCost:25, desc:'Speie eine gewaltige Feuerkugel auf deine Feinde.',
-   effect:'Coming soon…', locked:true},
+   effect:'Demnächst verfügbar…', locked:true},
   {id:'eight_trigrams',   name:'Hakke Hyakunijuuhachishō',icon:'☯️',rar:'legendary',
    cost:4000, chakraCost:50, desc:'Treffe alle 64 Chakrapunkte des Gegners mit absoluter Präzision.',
-   effect:'Coming soon…', locked:true},
+   effect:'Demnächst verfügbar…', locked:true},
   {id:'summoning',        name:'Kuchiyose no Jutsu',icon:'🐸',rar:'uncommon',
    cost:1000, chakraCost:35, desc:'Beschwöre mächtige Wächter durch einen Pakt.',
-   effect:'Coming soon…', locked:true},
+   effect:'Demnächst verfügbar…', locked:true},
 ];
 
 function renderAcademy(){
@@ -669,8 +674,8 @@ function _invModal(idx){
   const inv=G.inventory[idx]; if(!inv) return;
   const it=ITEMS.find(i=>i.id===inv.id); if(!it) return;
   const sts=Object.entries(it.stats).map(([k,v])=>`${k.toUpperCase()}: ${v>=0?'+':''}${v}`).join('\n')||'No stat bonus';
-  openModal(`${it.icon} ${it.name}`,`[${it.rar}]\n\n${it.desc}\n\n${sts}${it.ckCost?'\nChakra/use: '+it.ckCost:''}`,
-    [{label:it.type==='consume'?'Use':(inv.eq?'Unequip':'Equip'),cls:'btn-gold',cb:()=>action('ITEM_ACT',{idx})}]);
+  openModal(`${it.icon} ${it.name}`,`[${it.rar}]\n\n${it.desc}\n\n${sts}${it.ckCost?'\nChakra/Einsatz: '+it.ckCost:''}`,
+    [{label:it.type==='consume'?'Benutzen':(inv.eq?'Ablegen':'Ausrüsten'),cls:'btn-gold',cb:()=>action('ITEM_ACT',{idx})}]);
 }
 
 function _syncRyo(){ const e=$('shop-ryo'); if(e) e.textContent=G.ryo; _syncLobby(); }
@@ -767,11 +772,11 @@ function _skClk(e){const[mx,my]=_skXY(this,e);const n=_nodeAt(mx,my);if(n) actio
 function _unlockSkill(path,ni){
   const p=G.player; if(!p) return;
   const n=SKILLS[path].nodes[ni]; const st=_nState(path,ni);
-  if(st==='on'){msg(`${n.name} already unlocked.`,'info');return;}
-  if(st==='lk'){msg('Unlock the previous node first!','bad');return;}
-  if(p.skillPoints<n.cost){msg(`Need ${n.cost} SP, have ${p.skillPoints}.`,'bad');return;}
+  if(st==='on'){msg(`${n.name} bereits freigeschaltet.`,'info');return;}
+  if(st==='lk'){msg('Schalte zuerst den vorherigen Knoten frei!','bad');return;}
+  if(p.skillPoints<n.cost){msg(`Benötige ${n.cost} FP, du hast ${p.skillPoints}.`,'bad');return;}
   p.skillPoints-=n.cost; G.skills[path].push(n.id);
-  msg(`Unlocked: ${n.name}!`,'good'); _recalc(); _syncSP(); _drawSk();
+  msg(`Freigeschaltet: ${n.name}!`,'good'); _recalc(); _syncSP(); _drawSk();
 }
 function _syncSP(){const p=G.player;if(!p)return;['sp-hud','sp-count'].forEach(id=>{const e=$(id);if(e)e.textContent=p.skillPoints;});}
 
@@ -826,9 +831,9 @@ document.addEventListener('keydown',e=>{
   }
 });
 function _applyEgg(egg){
-  if(egg==='believeit'&&!G.eggs.believeit){G.eggs.believeit=true;_recalc();msg('Believe it! ATK+2!','gold');openModal('🍥 Believe It!','Naruto\'s spirit: +2 ATK permanent!',[]);_chkAch('secret');}
+  if(egg==='believeit'&&!G.eggs.believeit){G.eggs.believeit=true;_recalc();msg('Glaub dran! ATK+2!','gold');openModal('🍥 Glaub dran!','Narutos Geist: +2 ATK dauerhaft!',[]);_chkAch('secret');}
   else if(egg==='konami'&&!G.eggs.konami){G.eggs.konami=true;_recalc();const p=G.player;if(p){p.hp=p.maxHp+200;p.chakra=p.maxChakra+200;}msg('Konami! +200 HP & CK!','gold');}
-  else msg('Already activated!','info');
+  else msg('Bereits aktiviert!','info');
 }
 
 /* ════════════════════════════════════════════════════
@@ -1237,9 +1242,9 @@ function triggerRasengan(){
   const RAS_RANGE=200;
   let best=null,bestD=Infinity;
   enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<RAS_RANGE&&d<bestD){bestD=d;best=e;}});
-  if(!best){msg('No target in range!','bad');return;}
+  if(!best){msg('Kein Ziel in Reichweite!','bad');return;}
   const cost=p.chakra<20&&G.skills?.nj3?10:20;
-  if(p.chakra<cost){msg('Not enough Chakra!','bad');return;}
+  if(p.chakra<cost){msg('Nicht genug Chakra!','bad');return;}
   p.chakra-=cost;p.ckCd=RAS_DUR.reduce((a,b)=>a+b,0)+0.3;
   RAS.active=true;RAS.phase=0;RAS.timer=0;RAS.hit=false;
   RAS.ox=p.x;RAS.oy=p.y;RAS.ex=best.x;RAS.ey=best.y;RAS.target=best;
@@ -1277,7 +1282,7 @@ function updateRasengan(dt){
         RAS.target.alive=false;spawnBurst(RAS.ex,RAS.ey,'#ffffff',40,150);
         action('GAIN_XP',{amt:RAS.target.xp});action('GAIN_RYO',{amt:RAS.target.ryo});
         G.enemiesKilled++;if(RAS.target.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
-        _chkAch('first_blood');msg(`DEFEATED! +${RAS.target.xp}XP +${RAS.target.ryo}Ryo`,'gold');
+        _chkAch('first_blood');msg(`BESIEGT! +${RAS.target.xp}XP +${RAS.target.ryo}Ryo`,'gold');
       }
     }
     if(Math.random()<.6){const a=Math.random()*Math.PI*2,r=20+Math.random()*30;PARTS.push({x:RAS.ex+Math.cos(a)*r*.3,y:RAS.ey+Math.sin(a)*r*.3,vx:Math.cos(a)*40,vy:Math.sin(a)*40-20,life:.35,maxLife:.35,color:Math.random()<.5?'#22aaff':'#ffffff',sz:2+Math.random()*3});}
@@ -1345,11 +1350,11 @@ function triggerChidori(p){
     for(let i=0;i<22;i++){const a=Math.random()*Math.PI*2,sp=60+Math.random()*90;PARTS.push({x:best.x,y:best.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:.3,maxLife:.3,color:Math.random()<.5?'#44aaff':'#ffffff',sz:1+Math.random()*4});}
     spawnDmgNum(best.x,best.y-20,`-${dmg} ⚡`,'#88ccff');
     shake(11);msg('CHIDORI!','gold');
-    if(best.hp<=0){best.alive=false;spawnBurst(best.x,best.y,'#88aaff',28,110);action('GAIN_XP',{amt:best.xp});action('GAIN_RYO',{amt:best.ryo});G.enemiesKilled++;if(best.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}_chkAch('first_blood');msg(`DEFEATED! +${best.xp}XP`,'gold');}
+    if(best.hp<=0){best.alive=false;spawnBurst(best.x,best.y,'#88aaff',28,110);action('GAIN_XP',{amt:best.xp});action('GAIN_RYO',{amt:best.ryo});G.enemiesKilled++;if(best.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}_chkAch('first_blood');msg(`BESIEGT! +${best.xp}XP`,'gold');}
   } else {
     spawnBurst(p.x+p.facing*30,p.y,'#66aaff',12,70);
     spawnDmgNum(p.x+p.facing*30,p.y-20,'MISS','#446688');
-    msg('CHIDORI — no target in range','bad');
+    msg('CHIDORI — kein Ziel in Reichweite','bad');
   }
 }
 
@@ -1514,7 +1519,7 @@ function playerAttack(){
         G.enemiesKilled++;
         if(e.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
         _chkAch('first_blood');
-        msg(`Defeated ${ENEMY_DEF[e.type].name}! +${e.xp}XP +${e.ryo}Ryo`,'good');
+        msg(`${ENEMY_DEF[e.type].name} besiegt! +${e.xp}XP +${e.ryo}Ryo`,'good');
       }
     }
   });
@@ -1529,7 +1534,7 @@ function chakraAttack(){
   if(eqs.some(iv=>iv.id==='rasengan_scroll')){triggerRasengan();return;}
   if(eqs.some(iv=>iv.id==='chidori_blade')){triggerChidori(p);return;}
   // default chakra burst
-  if(p.chakra<15){msg('Not enough Chakra!','bad');return;}
+  if(p.chakra<15){msg('Nicht genug Chakra!','bad');return;}
   p.ckCd=0.8; p.chakra=Math.max(0,p.chakra-15);
   const range=90;
   G.dungeon.enemies.filter(e=>e.alive).forEach(e=>{
@@ -1549,7 +1554,7 @@ function chakraAttack(){
     }
   });
   spawnBurst(p.x,p.y,'#00b4ff',8,60);
-  msg('Chakra Burst!','good');
+  msg('Chakra-Ausbruch!','good');
 }
 
 function updateEnemies(dt){
@@ -1754,7 +1759,7 @@ document.addEventListener('keydown',e=>{
   // lobby interaction
   if(lobbyActive&&e.code==='KeyE'){
     const z=G.lobby?.nearZone;
-    if(z){ e.preventDefault(); if(z.enter){ if(z.shopMode) G.shopMode=z.shopMode; goScreen(z.enter); } else msg(`${z.label} — Coming soon!`,'info'); }
+    if(z){ e.preventDefault(); if(z.enter){ if(z.shopMode) G.shopMode=z.shopMode; goScreen(z.enter); } else msg(`${z.label} — Demnächst verfügbar!`,'info'); }
     return;
   }
   if(gameActive&&e.code==='KeyF'){e.preventDefault();toggleFullscreen();return;}
@@ -1850,7 +1855,7 @@ function gameLoop(ts){
         const ryoGain=30+Math.floor(Math.random()*80)+G.floor*10;
         action('GAIN_RYO',{amt:ryoGain});
         spawnBurst(cx,cy,'#ffd700',16,70);
-        msg(`Chest! +${ryoGain} Ryo`,'gold');
+        msg(`Schatztruhe! +${ryoGain} Ryo`,'gold');
         _chkAch('rich');
       }
     });
@@ -1874,7 +1879,7 @@ function stopGameLoop(){gameActive=false;}
 function nextFloor(){
   G.floor++;
   if(G.floor>10){victory();return;}
-  msg(`Floor ${G.floor}!`,'gold');
+  msg(`Etage ${G.floor}!`,'gold');
   spawnBurst(G.player.x,G.player.y,'#ffd700',20);
   _chkAch('floor_5');
   const data=genFloor(G.floor);
@@ -1885,12 +1890,12 @@ function nextFloor(){
 
 function gameOver(){
   stopGameLoop();
-  openModal('💀 You Died',`Floor ${G.floor} — Defeated in battle.\n\nEnemies killed: ${G.enemiesKilled}\nRyo: ${G.ryo}`,
+  openModal('💀 Du bist gefallen',`Etage ${G.floor} — Im Kampf besiegt.\n\nFeinde besiegt: ${G.enemiesKilled}\nRyo: ${G.ryo}`,
     [{label:'Lobby',cls:'btn-or',cb:()=>goScreen('screen-lobby')}]);
 }
 function victory(){
   stopGameLoop(); _chkAch('kage');
-  openModal('👑 Victory!',`You conquered all floors!\n\nTrue Kage of the Hidden Village.\nLevel: ${G.player.level}`,
+  openModal('👑 Sieg!',`Du hast alle Etagen bezwungen!\n\nWahres Kage des verborgenen Dorfes.\nLevel: ${G.player.level}`,
     [{label:'Lobby',cls:'btn-gold',cb:()=>goScreen('screen-lobby')}]);
 }
 
@@ -1904,16 +1909,16 @@ const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4,SAND:5};
 
 const LZONES=[
   // North buildings — above horizontal spine (y=9,10)
-  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',  sub:'Coming soon...',        tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:null},
+  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE-TURM',    sub:'Demnächst...',           tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:null},
   {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Lerne Jutsu hier',      tx:2, ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:'screen-academy'},
-  {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON GATE',   sub:'Enter the dark forest', tx:23,ty:3, tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
+  {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON-TOR',     sub:'Betritt den dunklen Wald',tx:23,ty:3,tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
   // South buildings — below horizontal spine
-  {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',         sub:'Manage inventory',      tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop',shopMode:'all'},
+  {id:'storage',type:'shed',  icon:'📦',label:'LAGER',            sub:'Inventar verwalten',    tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop',shopMode:'all'},
   {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Verbrauchsgüter kaufen', tx:10,ty:13,tw:6,th:3, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop',shopMode:'consume'},
-  {id:'ach',    type:'shrine',icon:'🏆',label:'HALL OF FAME',   sub:'Your achievements',     tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
+  {id:'ach',    type:'shrine',icon:'🏆',label:'RUHMESHALLE',     sub:'Deine Erfolge',         tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
   // NPCs in south plaza (near spine intersection, not blocking spine paths)
-  {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Train your abilities',  nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
-  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Accept missions',       nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:null},
+  {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Trainiere deine Fähigkeiten', nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
+  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Missionen annehmen',    nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:null},
   {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Waffen kaufen',         nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:'screen-shop',shopMode:'weapon'},
 ];
 
@@ -2572,7 +2577,7 @@ function goScreen(id){
   if(id==='screen-skills') {initSkCanvas();_syncSP();}
   if(id==='screen-ach')    renderAch();
   if(id==='screen-game')   {
-    if(!G.player){msg('Enter your name first!','bad');goScreen('screen-lobby');return;}
+    if(!G.player){msg('Gib zuerst deinen Namen ein!','bad');goScreen('screen-lobby');return;}
     const cv=$('game-canvas'); cv.width=window.innerWidth||1280; cv.height=window.innerHeight-52-28;
     // start new floor if coming fresh
     if(!G.dungeon.tiles.length){
@@ -2597,8 +2602,8 @@ function confirmName(){
   closeModal();
   $('lhud').classList.remove('hidden');
   goFullscreen();
-  msg(`Welcome to Konoha, ${name}!`,'good');
-  msg('Walk to a building and press E to enter.','info');
+  msg(`Willkommen in Konoha, ${name}!`,'good');
+  msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
 }
 
 function showNameModal(){

@@ -763,6 +763,8 @@ function _updateFX(dt){
     const d=DNUMS[i]; d.y+=d.vy*dt; d.vy*=0.94; d.life-=dt;
     if(d.life<=0) DNUMS.splice(i,1);
   }
+  if(screenFlashTimer>0){screenFlashTimer-=dt;screenFlash=Math.max(0,screenFlash-dt*2.5);}
+  else screenFlash=0;
 }
 
 /* ════════════════════════════════════════════════════
@@ -852,7 +854,7 @@ function genFloor(floorNum){
 /* ════════════════════════════════════════════════════
    DRAWING HELPERS
 ════════════════════════════════════════════════════ */
-function drawPlayerSprite(ctx,sx,sy,anim,flash){
+function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
   const T=TSIZE;
   const bob=Math.sin(anim*.12)*2;
   const bx=sx-8, by=sy-16+bob;
@@ -881,6 +883,7 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash){
   const legOff=Math.sin(anim*.12)*3|0;
   ctx.fillRect(bx+2,by+23,4,7-legOff); ctx.fillRect(bx+8,by+23,4,7+legOff);
   ctx.shadowBlur=0;
+  if(facing){const eq=G.inventory?.find(iv=>iv.eq);if(eq)drawWeaponPixel(ctx,bx,by,eq.id,facing,anim);}
 }
 
 function drawDashSprite(ctx,sx,sy,facing,flash){
@@ -925,6 +928,233 @@ function drawDashAfterimage(ctx,sx,sy,facing){
   ctx.fillRect(bx+(f>0?3:1),by+11,10,8);       // torso
   if(f>0){ctx.fillRect(bx-6,by+9,8,5);ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
   else   {ctx.fillRect(bx+12,by+9,8,5);ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
+}
+
+/* ═══════════════════════════════════════════
+   PIXEL WEAPONS & JUTSU EFFECTS
+═══════════════════════════════════════════ */
+let screenFlash=0, screenFlashColor='#aaddff';
+
+function drawWeaponPixel(ctx,bx,by,weapId,facing,tick){
+  const f=facing||1;
+  // hand anchor: right side when facing right, left side when facing left
+  const hx=bx+(f>0?14:-2), hy=by+14;
+  ctx.shadowBlur=0;
+  if(weapId==='kunai'){
+    // slim dagger: bright tip → blade → guard → wrap handle
+    const kx=hx+(f>0?0:-4), ky=hy-10;
+    ctx.fillStyle='#e8eef8';ctx.fillRect(kx+1,ky,2,3);        // tip
+    ctx.fillStyle='#c0ccd8';ctx.fillRect(kx,ky+3,4,7);         // blade
+    ctx.fillStyle='#8899aa';ctx.fillRect(kx-1,ky+3,1,7);       // edge shadow
+    ctx.fillStyle='#554433';ctx.fillRect(kx+1,ky+10,2,1);      // guard
+    ctx.fillStyle='#443322';ctx.fillRect(kx+1,ky+11,2,5);      // handle wrap
+    ctx.fillStyle='#665544';ctx.fillRect(kx+1,ky+12,2,1);ctx.fillRect(kx+1,ky+14,2,1); // wrap lines
+  } else if(weapId==='shuriken'){
+    // spinning 4-pointed star
+    const cx=hx+(f>0?0:-2), cy=hy-4;
+    const a=tick*.14;
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(a);
+    ctx.fillStyle='#99b8cc';
+    ctx.fillRect(-1,-5,2,10);ctx.fillRect(-5,-1,10,2);   // cross arms
+    ctx.fillStyle='#ccd8e0';ctx.fillRect(-1,-5,1,2);ctx.fillRect(0,-5,1,2); // tip highlights
+    ctx.fillStyle='#66889a';ctx.fillRect(-4,-1,2,1);ctx.fillRect(2,-1,2,1); // arm shadows
+    ctx.restore();
+  } else if(weapId==='katana'){
+    // long blade along diagonal
+    const kx=hx+(f>0?0:-14), ky=hy-14;
+    for(let i=0;i<13;i++){
+      const ox=f>0?i:-i;
+      ctx.fillStyle=i<2?'#ffffff':i<10?'#dde8f0':'#99aabb';
+      ctx.fillRect(kx+ox,ky+i*0.9|0,2,3);
+    }
+    ctx.fillStyle='#aabbcc';
+    for(let i=0;i<13;i++){const ox=f>0?i:-i;ctx.fillRect(kx+ox+1,ky+i*0.9|0,1,1);} // edge shine
+    ctx.fillStyle='#cc9944';ctx.fillRect(hx+(f>0?-2:-4),hy-2,5,3); // tsuba
+    ctx.fillStyle='#7a5522';ctx.fillRect(hx+(f>0?-1:-3),hy+1,4,6); // handle
+    ctx.fillStyle='#996633';ctx.fillRect(hx+(f>0?-1:-3),hy+2,4,1);ctx.fillRect(hx+(f>0?-1:-3),hy+4,4,1);
+  } else if(weapId==='bo_staff'){
+    const sx2=hx+(f>0?-2:-12), sy2=hy-14;
+    ctx.fillStyle='#7a5522';ctx.fillRect(sx2,sy2,3,26);
+    ctx.fillStyle='#9a7744';ctx.fillRect(sx2+1,sy2,1,26); // highlight stripe
+    ctx.fillStyle='#cc9944';ctx.fillRect(sx2,sy2,3,2);ctx.fillRect(sx2,sy2+24,3,2); // tips
+    ctx.fillStyle='#554411';ctx.fillRect(sx2,sy2+11,3,4); // grip wrap
+  } else if(weapId==='rasengan_scroll'){
+    // glowing blue orb of swirling chakra in palm
+    const cx=hx+(f>0?3:-3), cy=hy-4;
+    const pulse=Math.sin(tick*.12)*1.5;
+    ctx.shadowColor='#0088ff';ctx.shadowBlur=16+pulse*2;
+    // outer halo rings
+    ctx.strokeStyle='rgba(0,140,255,0.25)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(cx,cy,11+pulse,0,Math.PI*2);ctx.stroke();
+    ctx.strokeStyle='rgba(0,180,255,0.4)';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.arc(cx,cy,8+pulse*.5,0,Math.PI*2);ctx.stroke();
+    // core fill
+    ctx.fillStyle='rgba(30,100,220,0.7)';ctx.beginPath();ctx.arc(cx,cy,6,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(120,190,255,0.9)';ctx.beginPath();ctx.arc(cx,cy,3,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,0.95)';ctx.beginPath();ctx.arc(cx,cy,1,0,Math.PI*2);ctx.fill();
+    // rotating pixel dots on rim
+    for(let i=0;i<8;i++){
+      const a=tick*.1+i*Math.PI*.25;
+      ctx.fillStyle=i%2===0?'#ffffff':'#88ccff';
+      ctx.fillRect(cx+Math.cos(a)*7-1,cy+Math.sin(a)*7-1,2,2);
+    }
+    ctx.shadowBlur=0;
+  } else if(weapId==='chidori_blade'){
+    // katana with electric blue tint + crackling arcs
+    const kx=hx+(f>0?0:-14), ky=hy-14;
+    for(let i=0;i<13;i++){
+      const ox=f>0?i:-i;
+      ctx.fillStyle=i<2?'#eef4ff':i<10?'#b8d0ee':'#6688aa';
+      ctx.fillRect(kx+ox,ky+i*0.9|0,2,3);
+    }
+    ctx.fillStyle='#cc9944';ctx.fillRect(hx+(f>0?-2:-4),hy-2,5,3);
+    ctx.fillStyle='#7a5522';ctx.fillRect(hx+(f>0?-1:-3),hy+1,4,6);
+    // lightning arcs flicker on blade
+    if(tick%4<3){
+      ctx.shadowColor='#44aaff';ctx.shadowBlur=10;
+      for(let arc=0;arc<3;arc++){
+        const ai=arc*(13/3)|0;
+        const ox=f>0?ai:-ai;
+        ctx.strokeStyle=`rgba(${80+arc*50},${160+arc*30},255,${0.5+Math.random()*.5})`;
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.moveTo(kx+ox,ky+ai*.9|0);
+        ctx.lineTo(kx+ox+(Math.random()*6-3|0),ky+ai*.9+(Math.random()*5-2)|0);
+        ctx.stroke();
+      }
+      // spark pixels at tip
+      ctx.fillStyle='#ffffff';
+      const tx2=kx+(f>0?12:-12),ty2=ky;
+      for(let s=0;s<3;s++) ctx.fillRect(tx2+(Math.random()*6-3|0),ty2+(Math.random()*6-3|0),1,1);
+      ctx.shadowBlur=0;
+    }
+  }
+}
+
+/* ─── RASENGAN CINEMATIC ─── */
+let screenFlashTimer=0;
+const RAS={active:false,phase:0,timer:0,hit:false,ox:0,oy:0,ex:0,ey:0,target:null,dmg:0};
+const RAS_DUR=[0.38,0.28,0.55,0.22]; // phase durations
+
+function triggerRasengan(){
+  const p=G.player;if(!p)return;
+  const enemies=G.dungeon.enemies.filter(e=>e.alive);
+  if(!enemies.length){msg('No targets!','bad');return;}
+  let best=null,bestD=Infinity;
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
+  const cost=p.chakra<20&&G.skills?.nj3?10:20;
+  if(p.chakra<cost){msg('Not enough Chakra!','bad');return;}
+  p.chakra-=cost;p.ckCd=RAS_DUR.reduce((a,b)=>a+b,0)+0.3;
+  RAS.active=true;RAS.phase=0;RAS.timer=0;RAS.hit=false;
+  RAS.ox=p.x;RAS.oy=p.y;RAS.ex=best.x;RAS.ey=best.y;RAS.target=best;
+  RAS.dmg=Math.max(35,(p.atk*2.8|0)+Math.floor(Math.random()*18));
+  msg('RASENGAN!!','gold');shake(4);
+}
+
+function updateRasengan(dt){
+  if(!RAS.active)return;
+  RAS.timer+=dt;
+  const p=G.player;const pDur=RAS_DUR[RAS.phase];
+  if(RAS.phase===0){
+    // charge: player glows, chakra orbs converge
+    if(Math.random()<.5){
+      const a=Math.random()*Math.PI*2,r=50+Math.random()*30;
+      PARTS.push({x:p.x+Math.cos(a)*r,y:p.y+Math.sin(a)*r,vx:-Math.cos(a)*80,vy:-Math.sin(a)*80,life:.35,maxLife:.35,color:Math.random()<.6?'#44aaff':'#aaddff',sz:3});
+    }
+  } else if(RAS.phase===1){
+    // dash: smoothly move player to enemy
+    const t=Math.min(1,RAS.timer/pDur);
+    const ease=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    p.x=RAS.ox+(RAS.ex-RAS.ox)*ease;p.y=RAS.oy+(RAS.ey-RAS.oy)*ease;
+    p.facing=RAS.ex>RAS.ox?1:-1;
+    if(Math.random()<.7) PARTS.push({x:p.x+(Math.random()*10-5),y:p.y+(Math.random()*10-5),vx:0,vy:-15,life:.2,maxLife:.2,color:'#4488ff',sz:2+Math.random()*2});
+  } else if(RAS.phase===2){
+    const t=RAS.timer/pDur;
+    if(!RAS.hit&&t>.08&&RAS.target?.alive){
+      RAS.hit=true;
+      RAS.target.hp-=RAS.dmg;RAS.target.hitFlash=.6;RAS.target.stunTick=2;
+      for(let i=0;i<35;i++){const a=Math.random()*Math.PI*2,sp=40+Math.random()*100;PARTS.push({x:RAS.ex,y:RAS.ey,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:.5,maxLife:.5,color:Math.random()<.5?'#44aaff':'#ffffff',sz:2+Math.random()*5});}
+      spawnDmgNum(RAS.ex,RAS.ey-30,`-${RAS.dmg}!!!`,'#66ddff');
+      screenFlash=1;screenFlashColor='#aaddff';screenFlashTimer=.55;
+      shake(18);
+      if(RAS.target.hp<=0){
+        RAS.target.alive=false;spawnBurst(RAS.ex,RAS.ey,'#ffffff',40,150);
+        action('GAIN_XP',{amt:RAS.target.xp});action('GAIN_RYO',{amt:RAS.target.ryo});
+        G.enemiesKilled++;if(RAS.target.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
+        _chkAch('first_blood');msg(`DEFEATED! +${RAS.target.xp}XP +${RAS.target.ryo}Ryo`,'gold');
+      }
+    }
+    if(Math.random()<.6){const a=Math.random()*Math.PI*2,r=20+Math.random()*30;PARTS.push({x:RAS.ex+Math.cos(a)*r*.3,y:RAS.ey+Math.sin(a)*r*.3,vx:Math.cos(a)*40,vy:Math.sin(a)*40-20,life:.35,maxLife:.35,color:Math.random()<.5?'#22aaff':'#ffffff',sz:2+Math.random()*3});}
+  }
+  if(RAS.timer>=pDur){RAS.timer=0;RAS.phase++;if(RAS.phase>=RAS_DUR.length){RAS.active=false;}}
+}
+
+function drawRasAnim(ctx,camX,camY){
+  if(!RAS.active)return;
+  const p=G.player;
+  const px=p.x-camX,py=p.y-camY,ex=RAS.ex-camX,ey=RAS.ey-camY;
+  const t=Math.min(1,RAS.timer/(RAS_DUR[RAS.phase]||1));
+  if(RAS.phase===0){
+    const r=8+t*28;
+    ctx.shadowColor='#0088ff';ctx.shadowBlur=20*t;
+    ctx.strokeStyle=`rgba(0,160,255,${t*.6})`;ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(px,py,r,0,Math.PI*2);ctx.stroke();
+    ctx.strokeStyle=`rgba(0,200,255,${t*.4})`;ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(px,py,r*.6,0,Math.PI*2);ctx.stroke();
+    for(let i=0;i<6;i++){const a=RAS.timer*4+i*Math.PI/3;const rc=55*(1-t)+8;ctx.fillStyle='rgba(120,200,255,.8)';ctx.fillRect(px+Math.cos(a)*rc-2,py+Math.sin(a)*rc-2,3,3);}
+    ctx.shadowBlur=0;
+  } else if(RAS.phase===1){
+    const sz=10+t*8;
+    const wox=p.facing>0?12:-12;
+    ctx.shadowColor='#0088ff';ctx.shadowBlur=18;
+    ctx.fillStyle='rgba(20,100,220,.75)';ctx.beginPath();ctx.arc(px+wox,py-4,sz,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(160,210,255,.85)';ctx.beginPath();ctx.arc(px+wox,py-4,sz*.45,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.95)';ctx.beginPath();ctx.arc(px+wox,py-4,2,0,Math.PI*2);ctx.fill();
+    for(let i=0;i<10;i++){const a=RAS.timer*12+i*Math.PI*.2;ctx.fillStyle='#fff';ctx.fillRect(px+wox+Math.cos(a)*(sz-.5)-1,py-4+Math.sin(a)*(sz-.5)-1,2,2);}
+    ctx.shadowBlur=0;
+  } else if(RAS.phase===2){
+    const et=RAS.timer/RAS_DUR[2];
+    const sz=Math.max(4,62*(1-et*.6));
+    ctx.shadowColor='#00ccff';ctx.shadowBlur=36;
+    // concentric rings
+    for(let r2=sz;r2>2;r2-=5){
+      const al=(r2/sz)*(1-et*.7)*.65;
+      ctx.fillStyle=`rgba(${30+(r2)|0},${130+(r2*.8)|0},255,${al})`;
+      ctx.beginPath();ctx.arc(ex,ey,r2,0,Math.PI*2);ctx.fill();
+    }
+    // rotating pixel rim
+    for(let i=0;i<16;i++){const a=RAS.timer*18+i*Math.PI/8;const al=(1-et*.8)*.9;ctx.fillStyle=`rgba(255,255,255,${al})`;ctx.fillRect(ex+Math.cos(a)*(sz-.5)-1,ey+Math.sin(a)*(sz-.5)-1,2,2);}
+    // expanding shockwave ring
+    ctx.strokeStyle=`rgba(0,200,255,${(1-et)*.6})`;ctx.lineWidth=2;
+    ctx.beginPath();ctx.arc(ex,ey,sz*1.4+et*30,0,Math.PI*2);ctx.stroke();
+    ctx.strokeStyle=`rgba(180,230,255,${(1-et)*.3})`;ctx.lineWidth=3;
+    ctx.beginPath();ctx.arc(ex,ey,sz*1.8+et*50,0,Math.PI*2);ctx.stroke();
+    ctx.shadowBlur=0;
+  } else if(RAS.phase===3){
+    const r3=(1-t)*18;
+    ctx.fillStyle=`rgba(0,160,255,${(1-t)*.25})`;ctx.beginPath();ctx.arc(ex,ey,r3,0,Math.PI*2);ctx.fill();
+  }
+}
+
+function triggerChidori(p){
+  const cost=15;if(p.chakra<cost){msg('Not enough Chakra!','bad');return;}
+  p.chakra-=cost;p.ckCd=0.9;
+  const enemies=G.dungeon.enemies.filter(e=>e.alive);
+  let best=null,bestD=Infinity;
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<220&&d<bestD){bestD=d;best=e;}});
+  const dmg=Math.max(18,(p.atk*1.9|0)+Math.floor(Math.random()*14));
+  if(best){
+    best.hp-=dmg;best.hitFlash=.4;best.stunTick=.9;
+    screenFlash=.55;screenFlashColor='#99ccff';screenFlashTimer=.3;
+    for(let i=0;i<22;i++){const a=Math.random()*Math.PI*2,sp=60+Math.random()*90;PARTS.push({x:best.x,y:best.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:.3,maxLife:.3,color:Math.random()<.5?'#44aaff':'#ffffff',sz:1+Math.random()*4});}
+    spawnDmgNum(best.x,best.y-20,`-${dmg} ⚡`,'#88ccff');
+    shake(11);msg('CHIDORI!','gold');
+    if(best.hp<=0){best.alive=false;spawnBurst(best.x,best.y,'#88aaff',28,110);action('GAIN_XP',{amt:best.xp});action('GAIN_RYO',{amt:best.ryo});G.enemiesKilled++;if(best.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}_chkAch('first_blood');msg(`DEFEATED! +${best.xp}XP`,'gold');}
+  } else {
+    spawnBurst(p.x+p.facing*30,p.y,'#66aaff',12,70);
+    spawnDmgNum(p.x+p.facing*30,p.y-20,'MISS','#446688');
+    msg('CHIDORI — no target in range','bad');
+  }
 }
 
 function drawEnemy(ctx,e,sx,sy){
@@ -1031,6 +1261,11 @@ function playerAttack(){
 
 function chakraAttack(){
   const p=G.player; if(!p||p.ckCd>0) return;
+  if(RAS.active) return;
+  const eq=G.inventory?.find(iv=>iv.eq);
+  if(eq?.id==='rasengan_scroll'){triggerRasengan();return;}
+  if(eq?.id==='chidori_blade'){triggerChidori(p);return;}
+  // default chakra burst
   if(p.chakra<15){msg('Not enough Chakra!','bad');return;}
   p.ckCd=0.8; p.chakra=Math.max(0,p.chakra-15);
   const range=90;
@@ -1051,6 +1286,7 @@ function chakraAttack(){
     }
   });
   spawnBurst(p.x,p.y,'#00b4ff',8,60);
+  msg('Chakra Burst!','good');
 }
 
 function updateEnemies(dt){
@@ -1137,12 +1373,15 @@ function renderDungeon(){
     drawDashAfterimage(ctx,x-CAM.x,y-CAM.y,facing);
     ctx.globalAlpha=1;
   });
-  // player (dash pose when dashing)
-  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0){/* blink — skip draw */}
-  else if(dashTimer>0) drawDashSprite(ctx,p.x-CAM.x,p.y-CAM.y,p.facing,p.hitFlash);
-  else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash);
+  // player (dash/rasengan sprint pose when moving fast)
+  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0&&!RAS.active){/* blink — skip draw */}
+  else if(dashTimer>0||(RAS.active&&RAS.phase===1)) drawDashSprite(ctx,p.x-CAM.x,p.y-CAM.y,p.facing,p.hitFlash);
+  else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash,p.facing||1);
   if(p.hitFlash>0) p.hitFlash-=0.016;
   if(p.invuln>0) p.invuln-=0.016;
+
+  // rasengan cinematic overlay
+  drawRasAnim(ctx,CAM.x,CAM.y);
 
   // particles
   PARTS.forEach(pt=>{
@@ -1167,6 +1406,14 @@ function renderDungeon(){
   grd.addColorStop(0.55,'rgba(0,0,0,0.15)');
   grd.addColorStop(1,'rgba(0,0,0,0.88)');
   ctx.fillStyle=grd; ctx.fillRect(0,0,CW,CH);
+
+  // jutsu screen flash
+  if(screenFlash>0){
+    ctx.globalAlpha=screenFlash*.7;
+    ctx.fillStyle=screenFlashColor;
+    ctx.fillRect(0,0,CW,CH);
+    ctx.globalAlpha=1;
+  }
 
   ctx.restore();
   _drawDashHUD(ctx,CW,CH);
@@ -1293,6 +1540,10 @@ function gameLoop(ts){
 
   const p=G.player;
   if(p){
+    if(RAS.active){
+      updateRasengan(dt);
+      p.invuln=Math.max(p.invuln||0,0.05);
+    } else {
     // movement
     const spd=100+p.spd*8;
     let dx=0,dy=0;
@@ -1308,6 +1559,7 @@ function gameLoop(ts){
       if(!isWall(nx,p.y)) p.x=nx;
       if(!isWall(p.x,ny)) p.y=ny;
     }
+    } // end !RAS.active
 
     // cooldowns
     if(p.atkCd>0) p.atkCd-=dt;

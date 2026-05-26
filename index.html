@@ -1504,7 +1504,7 @@ function updateRanton(dt){
           if(e.hp<=0){e.alive=false;spawnBurst(e.x,e.y,'#9966ff',22,100);
             action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
             G.enemiesKilled++;_chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');}
-          break;}});});
+          break;}}});
   }
   if(RANTON.timer>=pDur){RANTON.timer=0;RANTON.phase++;if(RANTON.phase>=RANTON_DUR.length)RANTON.active=false;}
 }

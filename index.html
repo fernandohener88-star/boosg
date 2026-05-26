@@ -933,10 +933,11 @@ function drawDashSprite(ctx,sx,sy,facing,flash){
   else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
   ctx.shadowBlur=0;
   // weapon in hand during sprint: rasengan orb on phase 1, otherwise equipped weapon
+  // Position at trailing arm (arms stream BACK opposite to facing direction)
   {let wid=null;
   if(RAS.active&&RAS.phase===1){wid='rasengan_scroll';}
   else{const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;wid=wEq?.id||null;}
-  if(wid)drawWeaponPixel(ctx,bx,by,wid,f,0);}
+  if(wid){const dbx=bx+(f>0?-18:16);drawWeaponPixel(ctx,dbx,by,wid,f,typeof animTick!=='undefined'?animTick:0);}}
 }
 
 function drawDashAfterimage(ctx,sx,sy,facing){

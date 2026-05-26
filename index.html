@@ -892,7 +892,12 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
   const legOff=Math.sin(anim*.12)*3|0;
   ctx.fillRect(bx+2,by+23,4,7-legOff); ctx.fillRect(bx+8,by+23,4,7+legOff);
   ctx.shadowBlur=0;
-  if(facing){const eq=G.inventory?.find(iv=>iv.eq);if(eq)drawWeaponPixel(ctx,bx,by,eq.id,facing,anim);}
+  if(facing){
+    let wid=null;
+    if(RAS.active&&RAS.phase<3){wid='rasengan_scroll';}
+    else{const wEq=G.inventory?.find(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});wid=wEq?.id||null;}
+    if(wid)drawWeaponPixel(ctx,bx,by,wid,facing,anim);
+  }
 }
 
 function drawDashSprite(ctx,sx,sy,facing,flash){
@@ -927,6 +932,11 @@ function drawDashSprite(ctx,sx,sy,facing,flash){
   if(f>0){ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
   else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
   ctx.shadowBlur=0;
+  // weapon in hand during sprint: rasengan orb on phase 1, otherwise equipped weapon
+  {let wid=null;
+  if(RAS.active&&RAS.phase===1){wid='rasengan_scroll';}
+  else{const wEq=G.inventory?.find(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});wid=wEq?.id||null;}
+  if(wid)drawWeaponPixel(ctx,bx,by,wid,f,0);}
 }
 
 function drawDashAfterimage(ctx,sx,sy,facing){

@@ -1123,8 +1123,8 @@ function drawWeaponPixel(ctx,bx,by,weapId,facing,tick){
     ctx.save();
     const kx=hx+(f>0?-1:-17), ky=hy-17;
     const dir=f>0?1:-1;
-    ctx.shadowColor='#4488ff'; ctx.shadowBlur=14;
-    // Blade (blue-tinted)
+    // Draw blade WITHOUT glow so pixels stay crisp
+    ctx.shadowBlur=0;
     for(let i=0;i<16;i++){
       const ox=(dir*i)|0;
       const c=i<2?'#e8f0ff':i<5?'#b0ccff':i<13?'#7aa0ee':'#3366aa';
@@ -1150,27 +1150,33 @@ function drawWeaponPixel(ctx,bx,by,weapId,facing,tick){
     for(let r=0;r<4;r++) ctx.fillRect(hndx+(r%2===0?0:2),hndy+1+r*2,3,1);
     ctx.fillStyle='#4455bb'; ctx.fillRect(hndx,hndy+8,5,3);
     ctx.fillStyle='#7788ee'; ctx.fillRect(hndx+1,hndy+8,3,1);
-    // Lightning arcs
-    if((tick%6)<4){
-      ctx.shadowColor='#66aaff'; ctx.shadowBlur=10;
-      ctx.lineWidth=1;
-      for(let arc=0;arc<5;arc++){
-        const ai=(arc*(14/5))|0;
-        const ox=(dir*ai)|0;
-        const j=Math.sin(tick*3.7+arc*1.3);
-        ctx.strokeStyle=`rgba(${100+arc*25},${160+arc*18},255,${0.5+Math.abs(j)*.5})`;
-        ctx.beginPath();
-        ctx.moveTo(kx+ox,(ky+ai*.85)|0);
-        ctx.lineTo(kx+ox+(j*5)|0,(ky+ai*.85)|0+(Math.cos(tick*2.1+arc)*4)|0);
-        ctx.stroke();
-      }
-      ctx.fillStyle='#ffffff';
-      const tipx=kx+(dir>0?15:-15), tipy=ky;
-      for(let s=0;s<4;s++){
-        ctx.fillRect(tipx+(Math.sin(tick*5.3+s*1.7)*5)|0, tipy+(Math.cos(tick*4.1+s*2.3)*5)|0, 1,1);
-      }
-      ctx.shadowBlur=0;
+    // Lightning arcs — always on, opacity animated via sin
+    ctx.shadowColor='#66aaff'; ctx.shadowBlur=6;
+    ctx.lineWidth=1;
+    for(let arc=0;arc<5;arc++){
+      const ai=(arc*3)|0;
+      const ox=(dir*ai)|0;
+      // perpendicular jitter (rotated 90° from blade dir)
+      const jx=Math.sin(tick*3.1+arc*1.7)*3;
+      const jy=Math.cos(tick*2.8+arc*1.3)*3;
+      const al=0.55+Math.sin(tick*4.2+arc*0.9)*.35;
+      ctx.strokeStyle=`rgba(120,190,255,${al})`;
+      ctx.beginPath();
+      ctx.moveTo(kx+ox,          (ky+ai*.85)|0);
+      ctx.lineTo(kx+ox+(dir*3)|0+jx|0, (ky+ai*.85)|0+3+jy|0);
+      ctx.lineTo(kx+ox+(dir*6)|0,      (ky+ai*.85+5.1)|0);
+      ctx.stroke();
     }
+    // Tip sparks (deterministic pixel dots)
+    ctx.shadowBlur=8;
+    ctx.fillStyle='rgba(200,230,255,0.9)';
+    const tipx=kx+(dir>0?14:-2), tipy=ky;
+    for(let s=0;s<5;s++){
+      const sx3=(Math.sin(tick*6.1+s*1.9)*6)|0;
+      const sy3=(Math.cos(tick*5.3+s*2.4)*6)|0;
+      ctx.fillRect(tipx+sx3, tipy+sy3, 1,1);
+    }
+    ctx.shadowBlur=0;
     ctx.restore();
   }
 }

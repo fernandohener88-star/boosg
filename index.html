@@ -1633,21 +1633,26 @@ const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4,SAND:5};
 // Player start: (13*32+16, 9*32+16)
 
 const LZONES=[
-  {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON GATE',  sub:'Enter the dark forest',tx:23,ty:7, tw:3,th:5,color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
-  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN',sub:'Buy items & potions',  tx:10,ty:13,tw:8,th:5,color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
-  {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',        sub:'Manage inventory',     tx:2, ty:11,tw:6,th:5,color:'#44ff88',glow:'#00ff66',enter:'screen-shop'},
-  {id:'ach',    type:'shrine',icon:'🏆',label:'HALL OF FAME',   sub:'Your achievements',    tx:20,ty:11,tw:6,th:5,color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
-  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',   sub:'Coming soon...',       tx:2, ty:2, tw:7,th:6,color:'#dd3388',glow:'#aa1166',enter:null},
-  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Coming soon...',       tx:19,ty:2, tw:7,th:6,color:'#2266ff',glow:'#0044cc',enter:null},
-  {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Train your abilities', nx:5*32+16,  ny:9*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
-  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Accept missions',      nx:13*32+16, ny:5*32,    color:'#88ddff',glow:'#0088ff',enter:null},
-  {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',         sub:'Upgrade gear (soon)',  nx:8*32+16,  ny:12*32,   color:'#ffaa44',glow:'#ff6600',enter:null},
+  // North buildings — above horizontal spine (y=9,10)
+  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE TOWER',  sub:'Coming soon...',        tx:2, ty:2, tw:8,th:7, color:'#dd3388',glow:'#aa1166',enter:null},
+  {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Coming soon...',        tx:15,ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:null},
+  {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON GATE',   sub:'Enter the dark forest', tx:23,ty:3, tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
+  // South buildings — below horizontal spine
+  {id:'storage',type:'shed',  icon:'📦',label:'STORAGE',         sub:'Manage inventory',      tx:2, ty:12,tw:5,th:4, color:'#44ff88',glow:'#00ff66',enter:'screen-shop'},
+  {id:'ramen',  type:'stall', icon:'🍜',label:'ICHIRAKU RAMEN', sub:'Buy items & potions',   tx:10,ty:13,tw:6,th:4, color:'#ffd700',glow:'#ffaa00',enter:'screen-shop'},
+  {id:'ach',    type:'shrine',icon:'🏆',label:'HALL OF FAME',   sub:'Your achievements',     tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
+  // NPCs in south plaza (near spine intersection, not blocking spine paths)
+  {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Train your abilities',  nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
+  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Accept missions',       nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:null},
+  {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Upgrade gear (soon)',   nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:null},
 ];
 
 function zoneEnter(z){
   if(z.type==='npc') return [z.nx,z.ny];
-  if(z.type==='gate') return [z.tx*LTSIZE-20,(z.ty+Math.floor(z.th/2))*LTSIZE+16];
+  // Gate: approach from below (south face), reachable via vertical path at cx
+  if(z.type==='gate') return [(z.tx*LTSIZE+z.tw*LTSIZE/2), (z.ty+z.th)*LTSIZE];
   const cx=(z.tx+Math.floor(z.tw/2))*LTSIZE;
+  // Entry at the spine-facing edge: south face for north buildings, north face for south buildings
   if(z.ty+z.th<=9) return [cx,(z.ty+z.th)*LTSIZE+8];
   return [cx,z.ty*LTSIZE-8];
 }
@@ -1671,19 +1676,25 @@ function buildLobbyMap(){
   // Branch paths: connect each building toward both spines (x=13,14 | y=9,10)
   LZONES.filter(z=>z.type!=='npc').forEach(z=>{
     const cx=z.tx+Math.floor(z.tw/2);
-    const cy=z.ty+z.th<=9?z.ty+z.th:z.ty-1;
+    const cy=z.ty+z.th<=9?z.ty+z.th:z.ty-1; // row at spine-facing edge
+    // Vertical path: from building edge to horizontal spine
     const ya=Math.min(cy,9),yb=Math.max(cy,10);
-    for(let y=ya;y<=yb;y++) if(y>=0&&y<LH){if(cx>=0&&cx<LW)lobbyTiles[y][cx]=LTILE.PATH;if(cx+1<LW)lobbyTiles[y][cx+1]=LTILE.PATH;}
-    const midY=z.ty+Math.floor(z.th/2);
-    const xa=Math.min(cx,13),xb=Math.max(cx,14);
-    for(let x=xa;x<=xb;x++) if(x>=0&&x<LW&&midY>=0&&midY<LH) lobbyTiles[midY][x]=LTILE.PATH;
+    for(let y=ya;y<=yb;y++) if(y>=0&&y<LH){
+      if(cx>=0&&cx<LW)lobbyTiles[y][cx]=LTILE.PATH;
+      if(cx+1<LW)lobbyTiles[y][cx+1]=LTILE.PATH;
+    }
+    // Horizontal path: along cy-row to vertical spine — skip for gate (reached via spine walk)
+    if(z.type!=='gate'){
+      const xa=Math.min(cx,13),xb=Math.max(cx,14);
+      for(let x=xa;x<=xb;x++) if(x>=0&&x<LW&&cy>=0&&cy<LH) lobbyTiles[cy][x]=LTILE.PATH;
+    }
   });
-  // Decorative trees (mix of pine and cherry blossom)
-  [[8,3],[9,3],[15,3],[16,3],[17,3],[8,7],[17,7],[8,16],[16,16],[18,7]].forEach(([x,y])=>{
+  // Decorative trees
+  [[8,3],[9,3],[14,3],[8,8],[14,8],[8,16],[16,16],[22,8],[22,2]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW&&lobbyTiles[y][x]===LTILE.GRASS) lobbyTiles[y][x]=LTILE.TREE;
   });
-  // Training posts (solid for collision)
-  [[3,7],[7,7],[3,11],[7,11]].forEach(([x,y])=>{
+  // Training posts in the sand area (2 posts only, clear of buildings)
+  [[4,8],[6,8]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW) lobbyTiles[y][x]=LTILE.TREE;
   });
   // Spines LAST — always walkable
@@ -1863,8 +1874,10 @@ function _drawGenericBldg(ctx,sx,sy,bw,bh,z,t){
     ctx.fillStyle='#a08838';ctx.fillRect(sx+bw/2-11,sy+bh*.38|0,22,4);
     ctx.fillRect(sx+bw/2-11,sy+bh*.38+18|0,22,4);
   } else {
-    ctx.fillStyle='#05080a';ctx.fillRect(sx+bw/2-7,sy+bh-20,14,20);
-    ctx.strokeStyle=z.color;ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-8,sy+bh-21,16,21);
+    // door on the face toward the path: north face for south-of-spine buildings
+    const doorY=z.ty>=10?sy+8:sy+bh-20;
+    ctx.fillStyle='#05080a';ctx.fillRect(sx+bw/2-7,doorY,14,20);
+    ctx.strokeStyle=z.color;ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-8,doorY-1,16,21);
   }
   const fl=.8+Math.sin(t*.18+z.tx)*.2;
   ctx.fillStyle=`rgba(255,155,0,${fl*.7})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=12*fl;
@@ -1985,7 +1998,7 @@ function renderLobbyWorld(){
   for(let ry=t0y;ry<t1y;ry++) for(let rx=t0x;rx<t1x;rx++)
     drawLobbyTile(ctx,rx*LTSIZE-LCAM.x,ry*LTSIZE-LCAM.y,lobbyTiles[ry][rx],rx,ry);
 
-  [[3,7],[7,7],[3,11],[7,11]].forEach(([px,py])=>
+  [[4,8],[6,8]].forEach(([px,py])=>
     drawTrainingPost(ctx,px*LTSIZE-LCAM.x,py*LTSIZE-LCAM.y));
 
   LZONES.filter(z=>z.type!=='npc').sort((a,b)=>a.ty-b.ty)

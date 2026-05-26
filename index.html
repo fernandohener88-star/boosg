@@ -910,6 +910,7 @@ function shake(n){shakeAmt=Math.max(shakeAmt,n);}
 ════════════════════════════════════════════════════ */
 const TILE={EMPTY:0,FLOOR:1,WALL:2,STAIRS:3,CHEST:4};
 const TSIZE=32;
+const GAME_SCALE=1.5;
 
 function genFloor(floorNum){
   const W=70,H=55;
@@ -1740,11 +1741,11 @@ function toggleFullscreen(){
 }
 
 function resizeAllCanvas(){
-  const W=window.innerWidth, H=window.innerHeight;
+  const W=(window.innerWidth/GAME_SCALE)|0, H=(window.innerHeight/GAME_SCALE)|0;
   const lc=$('lobby-canvas');
   if(lc){lc.width=W;lc.height=H;}
   const gc=$('game-canvas');
-  if(gc){gc.width=W;gc.height=H-52-28;}
+  if(gc){gc.width=W;gc.height=H-((52+28)/GAME_SCALE|0);}
 }
 
 document.addEventListener('fullscreenchange',    ()=>{resizeAllCanvas(); $('fs-btn').textContent=document.fullscreenElement?'✕':'⛶';});
@@ -2550,7 +2551,7 @@ function lobbyLoop(ts){
 
 function startLobbyLoop(){
   const cv=$('lobby-canvas');
-  cv.width=window.innerWidth||1280; cv.height=window.innerHeight||720;
+  cv.width=((window.innerWidth||1280)/GAME_SCALE)|0; cv.height=((window.innerHeight||720)/GAME_SCALE)|0;
   lobbyActive=true; lastLobbyTs=performance.now();
   if(lobbyLoopId) cancelAnimationFrame(lobbyLoopId);
   lobbyLoopId=requestAnimationFrame(lobbyLoop);
@@ -2566,7 +2567,7 @@ function goScreen(id){
   if(id==='screen-lobby'){
     stopGameLoop();
     if(!lobbyTiles) buildLobbyMap();
-    if(!G.lobby){ G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null}; LCAM.x=G.lobby.x-(window.innerWidth/2);LCAM.y=G.lobby.y-(window.innerHeight/2); }
+    if(!G.lobby){ G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null}; LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM));LCAM.y=G.lobby.y-((window.innerHeight/GAME_SCALE)/(2*LZOOM)); }
     if(G.player) $('lhud').classList.remove('hidden');
     startLobbyLoop();
   } else {
@@ -2578,7 +2579,7 @@ function goScreen(id){
   if(id==='screen-ach')    renderAch();
   if(id==='screen-game')   {
     if(!G.player){msg('Gib zuerst deinen Namen ein!','bad');goScreen('screen-lobby');return;}
-    const cv=$('game-canvas'); cv.width=window.innerWidth||1280; cv.height=window.innerHeight-52-28;
+    const cv=$('game-canvas'); cv.width=((window.innerWidth||1280)/GAME_SCALE)|0; cv.height=((window.innerHeight-52-28)/GAME_SCALE)|0;
     // start new floor if coming fresh
     if(!G.dungeon.tiles.length){
       const data=genFloor(G.floor); Object.assign(G.dungeon,data);
@@ -2630,7 +2631,7 @@ $('aca-inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-i
 // Boot: build map, start lobby, show name modal
 buildLobbyMap();
 G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null};
-LCAM.x=G.lobby.x-(window.innerWidth/2); LCAM.y=G.lobby.y-(window.innerHeight/2);
+LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM)); LCAM.y=G.lobby.y-((window.innerHeight/GAME_SCALE)/(2*LZOOM));
 goScreen('screen-lobby');
 setTimeout(showNameModal,200);
 </script>

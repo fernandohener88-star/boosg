@@ -883,6 +883,50 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash){
   ctx.shadowBlur=0;
 }
 
+function drawDashSprite(ctx,sx,sy,facing,flash){
+  // Classic Naruto ninja-run: body pitched forward, arms streaming back
+  const f=facing||1;
+  const bx=sx-8+(f>0?3:-3); // shift body in run direction
+  const by=sy-15;
+  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  else{ctx.shadowColor='#44aaff';ctx.shadowBlur=20;}
+  // hair — spiky, tilted forward
+  ctx.fillStyle='#ffcc00';
+  ctx.fillRect(bx+(f>0?2:6),by-5,2,5);ctx.fillRect(bx+(f>0?5:3),by-7,3,6);
+  ctx.fillRect(bx+(f>0?9:1),by-6,2,5);ctx.fillRect(bx+(f>0?12:0),by-4,2,4);
+  // headband
+  ctx.fillStyle='#2255cc';ctx.fillRect(bx+1,by,13,3);
+  ctx.fillStyle='#aabbee';ctx.fillRect(bx+4,by+1,6,1);
+  // face tilted toward run direction
+  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
+  ctx.fillRect(bx+(f>0?2:0),by+3,11,8);
+  ctx.fillStyle='#111';ctx.fillRect(bx+(f>0?4:2),by+5,2,2);ctx.fillRect(bx+(f>0?8:6),by+5,2,2);
+  ctx.fillStyle='#bb7744';ctx.fillRect(bx+(f>0?3:1),by+8,3,1);ctx.fillRect(bx+(f>0?8:6),by+8,3,1);
+  // body leaning forward
+  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillRect(bx+(f>0?3:1),by+11,10,8);
+  ctx.fillStyle='#fff';ctx.fillRect(bx+(f>0?6:4),by+13,3,3);
+  // arms streaming BACK (opposite facing)
+  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  if(f>0){ctx.fillRect(bx-6,by+9,8,3);ctx.fillRect(bx-4,by+13,7,3);}
+  else   {ctx.fillRect(bx+14,by+9,8,3);ctx.fillRect(bx+11,by+13,7,3);}
+  // legs in stride
+  ctx.fillStyle='#1a3a6a';
+  if(f>0){ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
+  else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
+  ctx.shadowBlur=0;
+}
+
+function drawDashAfterimage(ctx,sx,sy,facing){
+  // Black silhouette in ninja-run pose
+  const f=facing||1;
+  const bx=sx-8+(f>0?3:-3), by=sy-15;
+  ctx.fillRect(bx+(f>0?1:0),by-1,13,12);      // head+neck
+  ctx.fillRect(bx+(f>0?3:1),by+11,10,8);       // torso
+  if(f>0){ctx.fillRect(bx-6,by+9,8,5);ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
+  else   {ctx.fillRect(bx+12,by+9,8,5);ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
+}
+
 function drawEnemy(ctx,e,sx,sy){
   const flash=e.hitFlash>0;
   ctx.shadowColor=flash?'#ffffff':e.glow; ctx.shadowBlur=flash?20:12;
@@ -1086,8 +1130,16 @@ function renderDungeon(){
     drawEnemy(ctx,e,e.x-CAM.x,e.y-CAM.y);
   });
 
-  // player
+  // dash afterimage trail
+  dashTrail.forEach(({x,y,age,facing})=>{
+    const a=Math.max(0,.65-age/.3);
+    ctx.globalAlpha=a;ctx.fillStyle='#000a20';
+    drawDashAfterimage(ctx,x-CAM.x,y-CAM.y,facing);
+    ctx.globalAlpha=1;
+  });
+  // player (dash pose when dashing)
   if(p.invuln>0&&Math.floor(p.invuln*8)%2===0){/* blink — skip draw */}
+  else if(dashTimer>0) drawDashSprite(ctx,p.x-CAM.x,p.y-CAM.y,p.facing,p.hitFlash);
   else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash);
   if(p.hitFlash>0) p.hitFlash-=0.016;
   if(p.invuln>0) p.invuln-=0.016;
@@ -1117,6 +1169,25 @@ function renderDungeon(){
   ctx.fillStyle=grd; ctx.fillRect(0,0,CW,CH);
 
   ctx.restore();
+  _drawDashHUD(ctx,CW,CH);
+}
+
+function _drawDashHUD(ctx,CW,CH){
+  const ready=dashTimer<=0&&dashCd<=0;
+  const pct=dashCd>0?1-dashCd/DASH_CD:1;
+  const bw=72,bh=11,bx=12,by=CH-26;
+  ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(bx-2,by-2,bw+4,bh+4);
+  ctx.fillStyle=dashTimer>0?'rgba(100,200,255,0.55)':ready?'#1a6688':'#0e2233';
+  ctx.fillRect(bx,by,Math.round(bw*pct),bh);
+  ctx.strokeStyle=ready?'#55ccff':'#224455';ctx.lineWidth=1;ctx.strokeRect(bx,by,bw,bh);
+  if(dashTimer>0){
+    ctx.fillStyle='rgba(160,230,255,0.25)';ctx.fillRect(bx,by,bw,bh);
+  }
+  ctx.font='5px "Press Start 2P","Courier New"';ctx.textAlign='left';
+  ctx.fillStyle=ready?'#88eeff':dashTimer>0?'#aaddff':'#446677';
+  ctx.shadowColor=ready?'#44aaff':'transparent';ctx.shadowBlur=ready?6:0;
+  ctx.fillText(dashTimer>0?'DASHING':ready?'SHIFT DASH':'DASH CD',bx+3,by+8);
+  ctx.shadowBlur=0;
 }
 
 /* ════════════════════════════════════════════════════
@@ -1167,6 +1238,9 @@ window.addEventListener('resize', resizeAllCanvas);
 
 document.addEventListener('keydown',e=>{
   KEYS[e.code]=true;
+  if((e.code==='ShiftLeft'||e.code==='ShiftRight')&&dashCd<=0&&dashTimer<=0){
+    dashPressed=true; e.preventDefault(); return;
+  }
   // lobby interaction
   if(lobbyActive&&e.code==='KeyE'){
     const z=G.lobby?.nearZone;
@@ -1188,6 +1262,30 @@ document.addEventListener('keyup',e=>{KEYS[e.code]=false;});
 ════════════════════════════════════════════════════ */
 let lastTs=0, animTick=0, loopId=null;
 
+// Dash system
+const DASH_DUR=0.2, DASH_CD=1.3, DASH_SPD=460;
+let dashTimer=0, dashCd=0, dashDX=1, dashDY=0;
+let dashTrail=[], dashPressed=false;
+
+function triggerDash(entity,dx,dy){
+  dashDX=dx||entity.facing||1; dashDY=dy;
+  const len=Math.hypot(dashDX,dashDY)||1;
+  dashDX/=len; dashDY/=len;
+  dashTimer=DASH_DUR; dashCd=DASH_CD;
+}
+function tickDash(dt,entity,wallFn){
+  if(dashTimer>0){
+    dashTrail.push({x:entity.x,y:entity.y,age:0,facing:entity.facing||1});
+    dashTimer=Math.max(0,dashTimer-dt);
+    const nx=entity.x+dashDX*DASH_SPD*dt, ny=entity.y+dashDY*DASH_SPD*dt;
+    if(!wallFn(nx,entity.y)) entity.x=nx;
+    if(!wallFn(entity.x,ny)) entity.y=ny;
+  }
+  dashCd=Math.max(0,dashCd-dt);
+  dashTrail.forEach(t=>t.age+=dt);
+  dashTrail=dashTrail.filter(t=>t.age<0.3);
+}
+
 function gameLoop(ts){
   if(!gameActive){loopId=null;return;}
   const dt=Math.min((ts-lastTs)/1000,0.05); lastTs=ts;
@@ -1203,7 +1301,9 @@ function gameLoop(ts){
     if(KEYS['KeyW']||KEYS['ArrowUp'])    dy=-1;
     if(KEYS['KeyS']||KEYS['ArrowDown'])  dy=1;
     if(dx&&dy){dx*=0.707;dy*=0.707;}
-    if(dx||dy){
+    if(dashPressed){triggerDash(p,dx,dy);dashPressed=false;p.invuln=Math.max(p.invuln||0,DASH_DUR+0.12);}
+    tickDash(dt,p,isWall);
+    if(dashTimer<=0&&(dx||dy)){
       const nx=p.x+dx*spd*dt, ny=p.y+dy*spd*dt;
       if(!isWall(nx,p.y)) p.x=nx;
       if(!isWall(p.x,ny)) p.y=ny;
@@ -1655,9 +1755,19 @@ function renderLobbyWorld(){
     }
   });
 
-  drawPlayerSprite(ctx,lp.x-LCAM.x,lp.y-LCAM.y,lobbyTick,0);
+  // dash afterimage trail
+  dashTrail.forEach(({x,y,age,facing})=>{
+    const a=Math.max(0,.65-age/.3);
+    ctx.globalAlpha=a;ctx.fillStyle='#000a20';
+    drawDashAfterimage(ctx,x-LCAM.x,y-LCAM.y,facing);
+    ctx.globalAlpha=1;
+  });
+  // player (dash pose when dashing)
+  if(dashTimer>0) drawDashSprite(ctx,lp.x-LCAM.x,lp.y-LCAM.y,lp.facing,0);
+  else drawPlayerSprite(ctx,lp.x-LCAM.x,lp.y-LCAM.y,lobbyTick,0);
 
   ctx.restore();
+  _drawDashHUD(ctx,CW,CH);
 
   // vignette in screen-space (centered on player screen pos)
   const psx=(lp.x-LCAM.x)*LZOOM,psy=(lp.y-LCAM.y)*LZOOM;
@@ -1680,9 +1790,13 @@ function lobbyLoop(ts){
   if(KEYS['KeyW']||KEYS['ArrowUp'])    dy=-1;
   if(KEYS['KeyS']||KEYS['ArrowDown'])  dy= 1;
   if(dx&&dy){dx*=.707;dy*=.707;}
-  const nx=lp.x+dx*spd*dt,ny=lp.y+dy*spd*dt;
-  if(!isLobbyWall(nx,lp.y)) lp.x=nx;
-  if(!isLobbyWall(lp.x,ny)) lp.y=ny;
+  if(dashPressed){triggerDash(lp,dx,dy);dashPressed=false;}
+  tickDash(dt,lp,isLobbyWall);
+  if(dashTimer<=0){
+    const nx=lp.x+dx*spd*dt,ny=lp.y+dy*spd*dt;
+    if(!isLobbyWall(nx,lp.y)) lp.x=nx;
+    if(!isLobbyWall(lp.x,ny)) lp.y=ny;
+  }
 
   // nearest zone
   let best=null,bestDist=Infinity;

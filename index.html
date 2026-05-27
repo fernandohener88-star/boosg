@@ -3452,7 +3452,15 @@ $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
 $('aca-back').onclick   =()=>goScreen('screen-lobby');
 $('ms-back').onclick    =()=>goScreen('screen-lobby');
-$('ms-dungeon-btn').onclick=()=>{G.missionMode=null;if(G.dungeon?.isMission)Object.assign(G.dungeon,{tiles:[],enemies:[],chests:[],W:0,H:0,isMission:false});goScreen('screen-game');};
+$('ms-dungeon-btn').onclick=()=>{
+  if(!G.player){showNameModal();return;}
+  G.missionMode=null;
+  const data=genFloor(G.floor||1);
+  Object.assign(G.dungeon,data);G.dungeon.isMission=false;
+  G.player.x=data.startX;G.player.y=data.startY;
+  CAM.x=data.startX-350;CAM.y=data.startY-240;
+  goScreen('screen-game');
+};
 $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});

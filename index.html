@@ -2647,14 +2647,16 @@ function buildMissionLevel(missionId){
 
   // Helper spawn enemy
   function spawnE(tx,ty,type,isBoss){
-    const hp=isBoss?Math.max(120,80+G.floor*18):Math.max(28,18+G.floor*6);
+    const fl=G.floor||1;
+    const hp=isBoss?Math.max(140,100+fl*18):Math.max(30,20+fl*6);
+    const spd=isBoss?38:type==='fast'?68:50;
     enemies.push({type:isBoss?'boss':type,
       x:tx*TSIZE+TSIZE/2,y:ty*TSIZE+TSIZE/2,
-      hp,maxHp:hp,atk:isBoss?18+G.floor*3:8+G.floor*2,
-      spd:type==='fast'?1.6:1,col:isBoss?'#cc2200':type==='fast'?'#44aaff':'#cc4422',
-      glow:isBoss?'#ff4400':'#aa2200',sz:isBoss?14:10,
-      xp:isBoss?220+G.floor*30:40+G.floor*8,ryo:isBoss?160+G.floor*20:25+G.floor*5,
-      alive:true,hitFlash:0,stunTick:0,isMissionBoss:isBoss});
+      hp,maxHp:hp,atk:isBoss?18+fl*3:8+fl*2,spd,
+      col:isBoss?'#cc2200':type==='fast'?'#4488ff':'#cc4422',
+      glow:isBoss?'#ff4400':'#aa2200',sz:isBoss?16:11,
+      xp:isBoss?220+fl*30:40+fl*8,ryo:isBoss?160+fl*20:25+fl*5,
+      alive:true,hitFlash:0,stunTick:0,moveTick:0,isMissionBoss:isBoss});
   }
 
   // Room 1: 2 enemies
@@ -2677,11 +2679,13 @@ function buildMissionLevel(missionId){
 }
 
 function startMission(missionId){
-  const p=G.player;if(!p){msg('Gib zuerst deinen Namen ein!','bad');return;}
+  if(!G.player){showNameModal();return;}
+  const p=G.player;
   G.missionMode=missionId;
   const data=buildMissionLevel(missionId);
   G.dungeon=data;
   RAS.active=KATON.active=RANTON.active=CHI.active=RSEN.active=SUITON.active=AMAT.active=false;
+  AMAT_BURN.active=false;
   p.x=data.startX;p.y=data.startY;
   CAM.x=data.startX-350;CAM.y=data.startY-240;
   goScreen('screen-game');

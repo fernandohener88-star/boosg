@@ -3182,293 +3182,358 @@ function drawTrainingPost(ctx,sx,sy){
 }
 
 function _drawTower(ctx,sx,sy,bw,bh,z,t){
-  // Cast shadow
-  ctx.fillStyle='rgba(0,0,0,0.45)';ctx.fillRect(sx+7,sy+8,bw,bh);
-  // Tier 3 — top narrowest
-  const t3w=bw*.42|0,t3x=sx+(bw-t3w)/2|0;
-  ctx.fillStyle='#100d1e';ctx.fillRect(t3x,sy,t3w,bh*.3|0);
-  ctx.fillStyle='#1c1730';ctx.fillRect(t3x+2,sy+2,t3w-4,bh*.27|0);
-  // Tier 2 — middle
-  const t2w=bw*.67|0,t2x=sx+(bw-t2w)/2|0;
-  ctx.fillStyle='#0e0b1a';ctx.fillRect(t2x,sy+bh*.3|0,t2w,bh*.27|0);
-  ctx.fillStyle='#191430';ctx.fillRect(t2x+2,sy+bh*.32|0,t2w-4,bh*.24|0);
-  // Tier 1 — base full width
-  ctx.fillStyle='#0c0918';ctx.fillRect(sx,sy+bh*.57|0,bw,bh*.43|0);
-  ctx.fillStyle='#161228';ctx.fillRect(sx+2,sy+bh*.59|0,bw-4,bh*.4|0);
-  // Brick pattern on base
-  for(let i=0;i<3;i++) for(let j=0;j<Math.ceil(bw/22);j++){
-    ctx.fillStyle=j%2===0?'#121020':'#100e1c';
-    ctx.fillRect(sx+4+j*22+(i%2)*11,sy+bh*.61|0+i*10,20,8);
-  }
-  // Glowing eave bands (3 tiers)
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=24;
-  ctx.fillRect(t3x-7,sy+bh*.28|0,t3w+14,6);
-  ctx.fillRect(t2x-7,sy+bh*.55|0,t2w+14,6);
-  ctx.fillRect(sx-5,sy+bh*.58|0,bw+10,5);
-  ctx.shadowBlur=0;
-  // Small eave corner squares
-  ctx.fillStyle=z.color+'cc';
-  [[-8,bh*.28|0],[t3w+1,bh*.28|0]].forEach(([ox,oy])=>ctx.fillRect(t3x+ox,sy+oy-4,8,10));
-  [[-8,bh*.55|0],[t2w+1,bh*.55|0]].forEach(([ox,oy])=>ctx.fillRect(t2x+ox,sy+oy-4,8,10));
-  // Windows — amber glow
-  const wg=`rgba(255,195,70,${.5+Math.sin(t*.09)*.18})`;
-  ctx.fillStyle=wg;
-  [[t3x+t3w*.22|0,sy+bh*.09|0,7,9],[t3x+t3w*.65|0,sy+bh*.09|0,7,9],
-   [t2x+t2w*.1|0,sy+bh*.38|0,8,10],[t2x+t2w*.4|0,sy+bh*.38|0,8,10],
-   [t2x+t2w*.64|0,sy+bh*.38|0,8,10],[t2x+t2w*.88|0,sy+bh*.38|0,8,10],
-   [sx+bw*.07|0,sy+bh*.67|0,10,13],[sx+bw*.25|0,sy+bh*.67|0,10,13],
-   [sx+bw*.65|0,sy+bh*.67|0,10,13],[sx+bw*.84|0,sy+bh*.67|0,10,13]
-  ].forEach(([wx,wy,ww,wh])=>ctx.fillRect(wx,wy,ww,wh));
-  // Window frames
-  ctx.strokeStyle='rgba(255,210,100,0.3)';ctx.lineWidth=1;
-  [[t3x+t3w*.22|0,sy+bh*.09|0,7,9],[t3x+t3w*.65|0,sy+bh*.09|0,7,9]].forEach(([wx,wy,ww,wh])=>ctx.strokeRect(wx,wy,ww,wh));
-  // Hanging banners
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  [[t2x+t2w*.18|0,sy+bh*.56|0],[t2x+t2w*.75|0,sy+bh*.56|0]].forEach(([bx2,by2])=>{
-    ctx.fillRect(bx2,by2,7,22);
-    ctx.fillStyle='rgba(255,255,255,0.18)';ctx.fillRect(bx2+1,by2+2,5,4);
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;
+  // Drop shadow
+  ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(sx+10,sy+10,bw,bh);
+  // ── BASE TIER (full width) ──
+  // Stone wall — warm off-white like real Hokage Tower
+  ctx.fillStyle='#c8bfa8';ctx.fillRect(sx,sy+bh*.54|0,bw,bh*.46|0);
+  ctx.fillStyle='#b8af98';ctx.fillRect(sx+2,sy+bh*.56|0,bw-4,bh*.42|0);
+  // Stone row seams
+  for(let i=0;i<4;i++){ctx.fillStyle='#a09888';ctx.fillRect(sx,sy+bh*.58|0+i*12,bw,2);}
+  // Vertical column lines
+  for(let i=1;i<4;i++){ctx.fillStyle='#a89f88';ctx.fillRect(sx+bw*.25|0*i,sy+bh*.56|0,2,bh*.42|0);}
+  // Red CURVED roof overhang tier 1
+  ctx.fillStyle='#880000';ctx.fillRect(sx-8,sy+bh*.52|0,bw+16,10);
+  ctx.fillStyle='#aa1100';ctx.fillRect(sx-6,sy+bh*.52|0,bw+12,6);
+  ctx.fillStyle='#cc2200';ctx.fillRect(sx-4,sy+bh*.52|0,bw+8,3);
+  // Roof tiles detail
+  for(let i=0;i<(bw+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(sx-8+i*10,sy+bh*.52|0,9,10);}
+  // Corner caps
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=12;
+  ctx.fillRect(sx-10,sy+bh*.50|0,8,14);ctx.fillRect(sx+bw+2,sy+bh*.50|0,8,14);ctx.shadowBlur=0;
+  // Big entrance arch at base
+  ctx.fillStyle='#1a0a0a';ctx.fillRect(sx+bw/2-18,sy+bh-38,36,38);
+  ctx.fillStyle='#cc4400';ctx.shadowColor='#ff3300';ctx.shadowBlur=14;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-38,18,Math.PI,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#1a0a0a';ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-38,13,Math.PI,Math.PI*2);ctx.fill();
+  // Base windows — warm amber light
+  const wglow=`rgba(255,200,80,${0.55+Math.sin(t*.09)*0.2})`;
+  [[sx+bw*.1|0,sy+bh*.62|0,14,16],[sx+bw*.3|0,sy+bh*.62|0,14,16],
+   [sx+bw*.62|0,sy+bh*.62|0,14,16],[sx+bw*.82|0,sy+bh*.62|0,14,16]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wglow;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+    ctx.strokeStyle='#cc8800';ctx.lineWidth=1.5;ctx.strokeRect(wx,wy,ww,wh);
   });
-  ctx.shadowBlur=0;
-  // Central gate arch at base
-  ctx.fillStyle='#040310';ctx.fillRect(sx+bw/2-13,sy+bh-29,26,29);
-  ctx.strokeStyle=z.color+'88';ctx.lineWidth=2;ctx.shadowColor=z.glow;ctx.shadowBlur=8;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-29,13,Math.PI,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+  // ── MIDDLE TIER ──
+  const t2w=bw*.68|0,t2x=sx+(bw-t2w)/2|0;
+  ctx.fillStyle='#c0b7a0';ctx.fillRect(t2x,sy+bh*.28|0,t2w,bh*.24|0);
+  ctx.fillStyle='#b0a890';ctx.fillRect(t2x+2,sy+bh*.30|0,t2w-4,bh*.20|0);
+  for(let i=0;i<2;i++){ctx.fillStyle='#989080';ctx.fillRect(t2x,sy+bh*.34|0+i*10,t2w,2);}
+  // Red roof mid
+  ctx.fillStyle='#880000';ctx.fillRect(t2x-8,sy+bh*.27|0,t2w+16,10);
+  for(let i=0;i<(t2w+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(t2x-8+i*10,sy+bh*.27|0,9,10);}
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(t2x-10,sy+bh*.25|0,8,14);ctx.fillRect(t2x+t2w+2,sy+bh*.25|0,8,14);ctx.shadowBlur=0;
+  // Mid windows
+  const wg2=`rgba(255,195,70,${0.5+Math.sin(t*.08+1)*0.18})`;
+  [[t2x+t2w*.12|0,sy+bh*.34|0,10,12],[t2x+t2w*.42|0,sy+bh*.34|0,10,12],[t2x+t2w*.72|0,sy+bh*.34|0,10,12]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wg2;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+  });
+  // Hanging red banners mid
+  [[t2x+t2w*.2|0,sy+bh*.28|0],[t2x+t2w*.72|0,sy+bh*.28|0]].forEach(([bx2,by2])=>{
+    ctx.fillStyle='#aa0000';ctx.fillRect(bx2,by2,9,28);
+    ctx.fillStyle='#cc2200';ctx.fillRect(bx2+1,by2+2,7,4);
+    ctx.fillStyle='rgba(255,200,80,0.6)';ctx.fillRect(bx2+2,by2+8,5,2);ctx.fillRect(bx2+2,by2+14,5,2);
+  });
+  // ── TOP TIER ──
+  const t3w=bw*.42|0,t3x=sx+(bw-t3w)/2|0;
+  ctx.fillStyle='#b8af98';ctx.fillRect(t3x,sy+bh*.06|0,t3w,bh*.22|0);
+  ctx.fillStyle='#a8a088';ctx.fillRect(t3x+2,sy+bh*.08|0,t3w-4,bh*.18|0);
+  // Red roof top
+  ctx.fillStyle='#880000';ctx.fillRect(t3x-8,sy+bh*.05|0,t3w+16,9);
+  for(let i=0;i<(t3w+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(t3x-8+i*10,sy+bh*.05|0,9,9);}
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(t3x-10,sy+bh*.03|0,7,12);ctx.fillRect(t3x+t3w+3,sy+bh*.03|0,7,12);ctx.shadowBlur=0;
+  // Top windows
+  const wg3=`rgba(255,200,80,${0.6+Math.sin(t*.1+2)*0.22})`;
+  [[t3x+t3w*.18|0,sy+bh*.1|0,9,11],[t3x+t3w*.62|0,sy+bh*.1|0,9,11]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wg3;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+  });
+  // Gold spire finial
+  ctx.fillStyle='#ffdd22';ctx.shadowColor='#ffaa00';ctx.shadowBlur=28;
+  ctx.beginPath();ctx.moveTo(sx+bw/2,sy-18);ctx.lineTo(sx+bw/2-7,sy+bh*.04|0);ctx.lineTo(sx+bw/2+7,sy+bh*.04|0);ctx.closePath();ctx.fill();
+  ctx.fillRect(sx+bw/2-9,sy+bh*.03|0,18,6);ctx.shadowBlur=0;
   // Flanking torches
   const fl=.7+Math.sin(t*.2+z.tx)*.3;
-  ctx.fillStyle=`rgba(255,160,30,${fl})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=26*fl;
-  ctx.fillRect(sx+7,sy+bh-40,5,11);ctx.fillRect(sx+bw-12,sy+bh-40,5,11);
-  ctx.fillStyle=`rgba(255,220,80,${fl*.7})`;
-  ctx.fillRect(sx+8,sy+bh-41,3,6);ctx.fillRect(sx+bw-11,sy+bh-41,3,6);ctx.shadowBlur=0;
-  // Gold finial at top
-  ctx.fillStyle='#ffdd33';ctx.shadowColor='#ffaa00';ctx.shadowBlur=22;
-  ctx.fillRect(sx+bw/2-4,sy-7,8,9);ctx.fillRect(sx+bw/2-7,sy-1,14,5);ctx.shadowBlur=0;
-  // Label + icon
+  ctx.fillStyle=`rgba(255,150,20,${fl})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=26*fl;
+  ctx.fillRect(sx+6,sy+bh-44,6,14);ctx.fillRect(sx+bw-12,sy+bh-44,6,14);
+  ctx.fillStyle=`rgba(255,230,80,${fl*.8})`;ctx.fillRect(sx+7,sy+bh-46,4,8);ctx.fillRect(sx+bw-11,sy+bh-46,4,8);ctx.shadowBlur=0;
+  // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=16;
-  ctx.fillText(z.icon,sx+bw/2,sy-23);ctx.fillText(z.label,sx+bw/2,sy-10);ctx.shadowBlur=0;
+  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=16;
+  ctx.fillText(z.icon,sx+bw/2,sy-27);ctx.fillText(z.label,sx+bw/2,sy-13);ctx.shadowBlur=0;
 }
 
 function _drawSchool(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+6,sy+6,bw,bh);
-  // Main body — dark slate blue
-  ctx.fillStyle='#060912';ctx.fillRect(sx,sy,bw,bh);
-  ctx.fillStyle='#0a0e22';ctx.fillRect(sx+2,sy+bh*.22|0,bw-4,bh*.78|0);
-  // Brick grid
-  for(let i=0;i<5;i++) for(let j=0;j<4;j++){
-    ctx.fillStyle=(i+j)%2===0?'#080c1c':'#070a18';
-    ctx.fillRect(sx+3+j*(bw-6)/4+(i%2)*8,sy+bh*.24|0+i*12,(bw-6)/4-2,10);
-  }
-  // Glowing roof parapet
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=18;
-  ctx.fillRect(sx-4,sy,bw+8,7);ctx.shadowBlur=0;
-  // Parapet merlons (battlements)
-  ctx.fillStyle='#0e0b1e';
-  for(let i=0;i<6;i++) ctx.fillRect(sx+5+i*(bw-10)/6,sy-6,8,8);
-  // Arch + dome at top-center
-  ctx.strokeStyle=z.color+'99';ctx.lineWidth=2;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.13|0,12,Math.PI,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
-  // Konoha spiral leaf symbol
-  const lx=sx+bw/2,ly=sy+bh*.21|0;
-  ctx.strokeStyle='rgba(70,130,255,0.65)';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.arc(lx,ly,9,0,Math.PI*2);ctx.stroke();
-  ctx.strokeStyle='rgba(70,130,255,0.4)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(lx,ly-9);ctx.lineTo(lx,ly+9);ctx.moveTo(lx-9,ly);ctx.lineTo(lx+9,ly);ctx.stroke();
-  // Windows — 3×2 grid, blue chakra glow
-  const ww=9,wh=9,cols=3,rows=2;
-  const gx=(bw-16-cols*ww)/(cols-1)|0;
-  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-    const wx=sx+8+c*(ww+gx),wy=sy+bh*.32|0+r*16;
-    const br=.28+Math.sin(t*.07+c*1.2+r)*.14;
-    ctx.fillStyle=`rgba(50,110,255,${br})`;ctx.fillRect(wx,wy,ww,wh);
-    ctx.strokeStyle='rgba(80,155,255,0.5)';ctx.lineWidth=1;ctx.strokeRect(wx,wy,ww,wh);
-    ctx.fillStyle='rgba(60,120,255,0.5)';ctx.fillRect(wx+ww/2-.5,wy,1,wh);ctx.fillRect(wx,wy+wh/2-.5,ww,1);
-  }
-  // Entrance door at south face (building is north of spine)
-  ctx.fillStyle='#03020f';ctx.fillRect(sx+bw/2-9,sy+bh-24,18,24);
-  ctx.strokeStyle=z.color+'77';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-24,9,Math.PI,Math.PI*2);ctx.stroke();
-  ctx.strokeRect(sx+bw/2-10,sy+bh-25,20,25);
-  // Door handle
-  ctx.fillStyle=z.color+'99';ctx.fillRect(sx+bw/2+2,sy+bh-14,2,3);
-  // Flag pole + flag
-  ctx.fillStyle='#553322';ctx.fillRect(sx+bw-12,sy-18,2,22);
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.fillRect(sx+bw-10,sy-18,12,9);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,0,0,0.45)';ctx.fillRect(sx+8,sy+8,bw,bh);
+  // ── Main body: warm tan/wood with dark green roof ──
+  // Dark green curved roof
+  ctx.fillStyle='#1a3a1a';ctx.fillRect(sx-6,sy,bw+12,bh*.24|0);
+  ctx.fillStyle='#224422';ctx.fillRect(sx-4,sy+2,bw+8,bh*.20|0);
+  // Roof ridge
+  ctx.fillStyle='#334433';
+  for(let i=0;i<(bw+12)/14|0;i++) ctx.fillRect(sx-6+i*14,sy,13,bh*.24|0);
+  // Roof tiles
+  ctx.fillStyle='#1a3020';
+  for(let row=0;row<3;row++) for(let col=0;col<(bw+12)/10|0;col++)
+    ctx.fillRect(sx-6+col*10+(row%2)*5,sy+row*8,9,7);
+  // Gold roof ridge cap
+  ctx.fillStyle='#cc8800';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(sx-6,sy,bw+12,4);ctx.shadowBlur=0;
+  // Corner roof spires
+  ctx.fillStyle='#ffcc44';ctx.shadowColor='#ffaa00';ctx.shadowBlur=14;
+  ctx.fillRect(sx-8,sy-10,6,14);ctx.fillRect(sx+bw+2,sy-10,6,14);ctx.shadowBlur=0;
+  // Wood wall — warm tan
+  ctx.fillStyle='#b88840';ctx.fillRect(sx,sy+bh*.22|0,bw,bh*.78|0);
+  ctx.fillStyle='#c89848';ctx.fillRect(sx+3,sy+bh*.24|0,bw-6,bh*.74|0);
+  // Horizontal wood plank lines
+  for(let i=0;i<8;i++){ctx.fillStyle='#a87830';ctx.fillRect(sx+3,sy+bh*.25|0+i*14,bw-6,2);}
+  // Red decorative pillar columns
+  ctx.fillStyle='#880000';
+  ctx.fillRect(sx+3,sy+bh*.22|0,8,bh*.78|0);ctx.fillRect(sx+bw-11,sy+bh*.22|0,8,bh*.78|0);
+  ctx.fillStyle='#aa1100';
+  ctx.fillRect(sx+4,sy+bh*.22|0,4,bh*.78|0);ctx.fillRect(sx+bw-10,sy+bh*.22|0,4,bh*.78|0);
+  // Center red column
+  ctx.fillStyle='#880000';ctx.fillRect(sx+bw/2-4,sy+bh*.22|0,8,bh*.78|0);
+  ctx.fillStyle='#aa1100';ctx.fillRect(sx+bw/2-3,sy+bh*.22|0,4,bh*.78|0);
+  // Windows — 4 large with warm amber glow
+  const wam=`rgba(255,200,100,${0.45+Math.sin(t*.07)*0.15})`;
+  [[sx+bw*.1|0,sy+bh*.34|0,22,24],[sx+bw*.37|0,sy+bh*.34|0,22,24],
+   [sx+bw*.6|0,sy+bh*.34|0,22,24],[sx+bw*.83|0,sy+bh*.34|0,22,24]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a1005';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wam;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+    ctx.strokeStyle='#cc8800';ctx.lineWidth=1.5;ctx.strokeRect(wx,wy,ww,wh);
+    // Cross divider
+    ctx.fillStyle='#996600';ctx.fillRect(wx,wy+wh/2-1,ww,2);ctx.fillRect(wx+ww/2-1,wy,2,wh);
+  });
+  // Big Konoha spiral — center of building
+  const lx=sx+bw/2,ly=sy+bh*.68|0;
+  ctx.strokeStyle='rgba(255,160,30,0.6)';ctx.lineWidth=2;ctx.shadowColor='#ff8800';ctx.shadowBlur=14;
+  ctx.beginPath();ctx.arc(lx,ly,18,0,Math.PI*2);ctx.stroke();
+  for(let i=0;i<4;i++){const a=i*Math.PI*.5;ctx.beginPath();ctx.moveTo(lx+Math.cos(a)*7,ly+Math.sin(a)*7);ctx.lineTo(lx+Math.cos(a)*18,ly+Math.sin(a)*18);ctx.stroke();}
+  ctx.shadowBlur=0;
+  // Entrance — double doors
+  ctx.fillStyle='#1a0a00';ctx.fillRect(sx+bw/2-14,sy+bh-36,28,36);
+  ctx.fillStyle='#aa3300';ctx.shadowColor='#ff4400';ctx.shadowBlur=8;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-36,14,Math.PI,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#1a0800';ctx.fillRect(sx+bw/2-12,sy+bh-36,24,32);
+  // Door center divider
+  ctx.fillStyle='#5a2a00';ctx.fillRect(sx+bw/2-1,sy+bh-36,2,32);
+  // Door handles
+  ctx.fillStyle='#ffcc00';ctx.fillRect(sx+bw/2-8,sy+bh-22,3,3);ctx.fillRect(sx+bw/2+5,sy+bh-22,3,3);
+  // Green flag on flagpole
+  ctx.fillStyle='#442211';ctx.fillRect(sx+bw-10,sy-22,3,28);
+  ctx.fillStyle='#006622';ctx.shadowColor='#00aa44';ctx.shadowBlur=8;
+  ctx.fillRect(sx+bw-7,sy-22,16,11);ctx.fillStyle='#00aa44';ctx.fillRect(sx+bw-6,sy-21,14,7);ctx.shadowBlur=0;
   // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  ctx.fillText(z.icon,sx+bw/2,sy-25);ctx.fillText(z.label,sx+bw/2,sy-11);ctx.shadowBlur=0;
+  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=14;
+  ctx.fillText(z.icon,sx+bw/2,sy-30);ctx.fillText(z.label,sx+bw/2,sy-15);ctx.shadowBlur=0;
 }
 
 function _drawGate(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(sx+5,sy+5,bw,bh);
-  // Iron door — very dark
-  ctx.fillStyle='#09070f';ctx.fillRect(sx,sy,bw,bh);
-  // Stone pillar left
-  ctx.fillStyle='#17152a';ctx.fillRect(sx,sy,9,bh);
-  ctx.fillStyle='#1f1c36';ctx.fillRect(sx+1,sy+2,6,bh-4);
-  ctx.fillStyle='#242040';ctx.fillRect(sx+2,sy+2,2,bh-4);
-  // Stone pillar right
-  ctx.fillStyle='#17152a';ctx.fillRect(sx+bw-9,sy,9,bh);
-  ctx.fillStyle='#1f1c36';ctx.fillRect(sx+bw-7,sy+2,6,bh-4);
-  ctx.fillStyle='#242040';ctx.fillRect(sx+bw-4,sy+2,2,bh-4);
-  // Iron gate bars (center)
-  ctx.fillStyle='#0c0a1a';ctx.fillRect(sx+9,sy,bw-18,bh);
-  ctx.fillStyle='#16132a';
-  for(let i=0;i<3;i++) ctx.fillRect(sx+11+i*10,sy+bh*.22|0,5,bh*.68|0);
-  ctx.fillRect(sx+9,sy+bh*.28|0,bw-18,4);ctx.fillRect(sx+9,sy+bh*.52|0,bw-18,4);
-  // Lintel beam
-  ctx.fillStyle='#1c192e';ctx.fillRect(sx-2,sy,bw+4,bh*.2|0);
-  ctx.fillStyle='#2a2640';ctx.fillRect(sx-1,sy+2,bw+2,bh*.16|0);
-  // Red seal rune — glowing
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=24;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.43|0,11,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle='#cc1100';ctx.shadowColor='#ff0000';ctx.shadowBlur=30;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.43|0,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle='rgba(255,255,255,0.9)';
-  ctx.fillRect(sx+bw/2-1,sy+bh*.37|0,2,14);ctx.fillRect(sx+bw/2-6,sy+bh*.43|0,12,2);
-  // Animated cracks with red glow seeping
-  const cr=.3+Math.sin(t*.18)*.2;
-  ctx.strokeStyle=`rgba(220,40,0,${cr})`;ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(sx+11,sy+bh*.62|0);ctx.lineTo(sx+13,sy+bh*.68|0);ctx.lineTo(sx+10,sy+bh*.74|0);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(sx+bw-11,sy+bh*.57|0);ctx.lineTo(sx+bw-13,sy+bh*.65|0);ctx.stroke();
-  // Torches
-  const fl=.65+Math.sin(t*.22+z.tx)*.35;
-  ctx.fillStyle=`rgba(255,130,20,${fl})`;ctx.shadowColor='#ff7700';ctx.shadowBlur=22*fl;
-  ctx.fillRect(sx+1,sy+bh*.72|0,6,10);ctx.fillRect(sx+bw-7,sy+bh*.72|0,6,10);
-  ctx.fillStyle=`rgba(255,210,80,${fl*.75})`;
-  ctx.fillRect(sx+2,sy+bh*.71|0,4,5);ctx.fillRect(sx+bw-6,sy+bh*.71|0,4,5);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(sx+5,sy+5,bw,bh);
+  // Black stone pillars
+  ctx.fillStyle='#0a0808';ctx.fillRect(sx,sy,bw,bh);
+  // Left pillar — rough stone texture
+  ctx.fillStyle='#181218';ctx.fillRect(sx,sy,10,bh);
+  ctx.fillStyle='#221a22';ctx.fillRect(sx+1,sy+2,7,bh-4);
+  ctx.fillStyle='#1a141a';ctx.fillRect(sx+3,sy,3,bh);
+  for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#1c161c':'#141014';ctx.fillRect(sx,sy+i*(bh/5|0),10,bh/5-1|0);}
+  // Right pillar
+  ctx.fillStyle='#181218';ctx.fillRect(sx+bw-10,sy,10,bh);
+  ctx.fillStyle='#221a22';ctx.fillRect(sx+bw-8,sy+2,7,bh-4);
+  for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#1c161c':'#141014';ctx.fillRect(sx+bw-10,sy+i*(bh/5|0),10,bh/5-1|0);}
+  // Iron gate center
+  ctx.fillStyle='#080608';ctx.fillRect(sx+10,sy+bh*.2|0,bw-20,bh*.8|0);
+  // Vertical iron bars
+  ctx.fillStyle='#1a1422';
+  for(let i=0;i<3;i++) ctx.fillRect(sx+12+i*((bw-24)/3|0),sy+bh*.2|0,6,bh*.8|0);
+  ctx.fillStyle='#120e18';
+  for(let i=0;i<3;i++) ctx.fillRect(sx+14+i*((bw-24)/3|0),sy+bh*.2|0,2,bh*.8|0);
+  // Horizontal crossbars
+  ctx.fillStyle='#241c30';ctx.fillRect(sx+10,sy+bh*.3|0,bw-20,5);
+  ctx.fillStyle='#241c30';ctx.fillRect(sx+10,sy+bh*.55|0,bw-20,5);
+  // Lintel beam — dark with metal sheen
+  ctx.fillStyle='#16121e';ctx.fillRect(sx-3,sy,bw+6,bh*.2|0);
+  ctx.fillStyle='#221c2c';ctx.fillRect(sx-2,sy+2,bw+4,bh*.16|0);
+  ctx.fillStyle='rgba(100,80,140,0.3)';ctx.fillRect(sx-2,sy+2,bw+4,3);
+  // ── BIG RED SEAL RUNE ──
+  const cr=.35+Math.sin(t*.18)*.2;
+  ctx.fillStyle='rgba(180,0,0,0.15)';ctx.shadowColor='#ff0000';ctx.shadowBlur=30;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,16,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.strokeStyle=`rgba(220,0,0,${0.7+cr*.3})`;ctx.lineWidth=2;ctx.shadowColor='#ff0000';ctx.shadowBlur=20;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,13,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle=`rgba(255,20,0,${0.85+cr*.15})`;ctx.shadowColor='#ff0000';ctx.shadowBlur=24;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  // Seal cross mark
+  ctx.fillStyle='rgba(255,240,230,0.9)';
+  ctx.fillRect(sx+bw/2-1,sy+bh*.37|0,2,15);ctx.fillRect(sx+bw/2-7,sy+bh*.44|0,14,2);
+  // Animated seal cracks
+  ctx.strokeStyle=`rgba(255,60,0,${cr})`;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(sx+11,sy+bh*.58|0);ctx.lineTo(sx+9,sy+bh*.68|0);ctx.lineTo(sx+13,sy+bh*.76|0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(sx+bw-11,sy+bh*.54|0);ctx.lineTo(sx+bw-9,sy+bh*.64|0);ctx.lineTo(sx+bw-14,sy+bh*.72|0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(sx+bw/2,sy+bh*.57|0);ctx.lineTo(sx+bw/2+5,sy+bh*.68|0);ctx.stroke();
+  // Torches — intense
+  const fl=.7+Math.sin(t*.22+z.tx)*.3;
+  ctx.fillStyle='#333';ctx.fillRect(sx,sy+bh*.66|0,9,5);ctx.fillRect(sx+bw-9,sy+bh*.66|0,9,5);
+  ctx.fillStyle=`rgba(255,130,20,${fl})`;ctx.shadowColor='#ff6600';ctx.shadowBlur=28*fl;
+  ctx.fillRect(sx+1,sy+bh*.56|0,7,12);ctx.fillRect(sx+bw-8,sy+bh*.56|0,7,12);
+  ctx.fillStyle=`rgba(255,220,60,${fl*.85})`;ctx.fillRect(sx+2,sy+bh*.54|0,5,7);ctx.fillRect(sx+bw-7,sy+bh*.54|0,5,7);
+  ctx.shadowBlur=0;
   // Label
   ctx.font='5px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  ctx.fillText(z.icon,sx+bw/2,sy-18);ctx.fillText(z.label,sx+bw/2,sy-7);ctx.shadowBlur=0;
+  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=14;
+  ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.fillText(z.label,sx+bw/2,sy-8);ctx.shadowBlur=0;
 }
 
 function _drawStall(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+4,sy+4,bw,bh);
-  // Back wall — warm dark wood
-  ctx.fillStyle='#130d04';ctx.fillRect(sx,sy,bw,bh);
-  ctx.fillStyle='#1c1308';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,bh*.52|0);
-  // Counter edge
-  ctx.fillStyle='#2a1c0c';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,5);
-  ctx.fillStyle='#3a2810';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,2);
-  // Striped awning — classic red + cream
+  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+5,sy+5,bw,bh);
+  // Back wall — dark warm wood grain
+  ctx.fillStyle='#1c1106';ctx.fillRect(sx,sy,bw,bh);
+  for(let i=0;i<(bh/8|0);i++){ctx.fillStyle=i%3===0?'#221408':i%3===1?'#1a1005':'#180e04';ctx.fillRect(sx+2,sy+bh*.5|0+i*8,bw-4,7);}
+  // Counter top
+  ctx.fillStyle='#3a2210';ctx.fillRect(sx,sy+bh*.47|0,bw,8);
+  ctx.fillStyle='#4a3018';ctx.fillRect(sx,sy+bh*.47|0,bw,4);
+  ctx.fillStyle='#5a4020';ctx.fillRect(sx+1,sy+bh*.47|0,bw-2,2);
+  // ── ICONIC STRIPED AWNING ──
   const awh=bh*.44|0;
-  ctx.fillStyle='#c01808';ctx.fillRect(sx-3,sy,bw+6,awh);
-  const sw=(bw+6)/8|0;
-  ctx.fillStyle='#e8d5aa';
-  for(let i=0;i<9;i+=2) ctx.fillRect(sx-3+i*sw,sy,sw,awh);
+  ctx.fillStyle='#c01010';ctx.fillRect(sx-4,sy,bw+8,awh);
+  const sw=(bw+8)/7|0;
+  ctx.fillStyle='#f0e0b0';
+  for(let i=0;i<8;i+=2) ctx.fillRect(sx-4+i*sw,sy,sw,awh);
+  // Awning underside shading
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.fillRect(sx-4,sy+awh-8,bw+8,8);
   // Awning scallop edge
-  ctx.fillStyle='#a81200';
-  for(let i=0;i<bw+8;i+=12){
-    ctx.beginPath();ctx.arc(sx-3+i+6,sy+awh,5,0,Math.PI);ctx.fill();
+  for(let i=0;i<bw+8;i+=14){
+    ctx.fillStyle='#a00000';ctx.beginPath();ctx.arc(sx-4+i+7,sy+awh,7,0,Math.PI);ctx.fill();
+    ctx.fillStyle='#c01010';ctx.beginPath();ctx.arc(sx-4+i+7,sy+awh,4,0,Math.PI);ctx.fill();
   }
-  // Noren curtain strips
+  // Noren curtains (hanging cloth strips)
   const nc=5,nw=(bw-6)/nc|0;
   for(let i=0;i<nc;i++){
-    ctx.fillStyle=i%2===0?'#a81400':'#c02000';
-    ctx.fillRect(sx+3+i*nw,sy+awh-1,nw-2,bh*.3|0);
-    // Curtain bottom fringe
-    ctx.fillStyle=i%2===0?'#c01800':'#d42400';
-    ctx.fillRect(sx+3+i*nw,sy+awh-1+bh*.28|0,nw-2,3);
+    const sway=Math.sin(t*.06+i*.7)*2;
+    ctx.fillStyle=i%2===0?'#aa1000':'#cc1a00';
+    ctx.fillRect(sx+3+i*nw+sway,sy+awh-1,nw-2,bh*.29|0);
+    ctx.fillStyle=i%2===0?'#c01400':'#dd2200';ctx.fillRect(sx+3+i*nw+sway,sy+awh-1+bh*.27|0,nw-2,4);
+    // Noren kanji-like lines
+    ctx.fillStyle='rgba(255,200,100,0.25)';ctx.fillRect(sx+4+i*nw+sway,sy+awh+5,nw-4,2);ctx.fillRect(sx+4+i*nw+sway,sy+awh+12,nw-4,2);
   }
-  // Lanterns
-  const ll=.78+Math.sin(t*.12+z.tx)*.22;
-  ctx.fillStyle=`rgba(255,155,40,${ll*.88})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=18*ll;
-  ctx.fillRect(sx+5,sy+awh-4,6,10);ctx.fillRect(sx+bw-11,sy+awh-4,6,10);
-  ctx.fillStyle=`rgba(255,220,100,${ll*.6})`;ctx.fillRect(sx+6,sy+awh-4,4,5);ctx.fillRect(sx+bw-10,sy+awh-4,4,5);
+  // Lanterns — bright amber
+  const ll=.8+Math.sin(t*.12+z.tx)*.2;
+  ctx.fillStyle='#442200';ctx.fillRect(sx+6,sy+awh-10,2,4);ctx.fillRect(sx+bw-8,sy+awh-10,2,4);
+  ctx.fillStyle=`rgba(255,160,40,${ll})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=22*ll;
+  ctx.fillRect(sx+3,sy+awh-6,8,13);ctx.fillRect(sx+bw-11,sy+awh-6,8,13);
+  ctx.fillStyle=`rgba(255,230,120,${ll*.75})`;ctx.fillRect(sx+4,sy+awh-5,6,7);ctx.fillRect(sx+bw-10,sy+awh-5,6,7);
   ctx.shadowBlur=0;
-  // Steam wisps
-  const sv=(t*1.8)%10|0;
-  ctx.fillStyle=`rgba(230,230,230,${.14+Math.sin(t*.09)*.06})`;
-  ctx.fillRect(sx+bw*.33|0,sy+bh*.34|0-sv,2,5);ctx.fillRect(sx+bw*.55|0,sy+bh*.34|0-((t*1.8+6)%10|0),2,5);
-  // Ramen bowl on counter
-  ctx.fillStyle='#281806';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.78|0,18,7,0,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(180,80,20,0.7)';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.76|0,14,5,0,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(255,180,100,0.5)';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.75|0,10,3,0,0,Math.PI*2);ctx.fill();
+  // Extra lanterns center
+  ctx.fillStyle=`rgba(255,150,30,${ll*.7})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=16*ll;
+  ctx.fillRect(sx+bw/2-4,sy+awh-8,8,12);ctx.shadowBlur=0;
+  // Steam wisps rising from kitchen
+  for(let s=0;s<3;s++){
+    const sv=(t*1.4+s*3.3)%12|0;
+    ctx.fillStyle=`rgba(220,220,215,${.12+Math.sin(t*.09+s)*.05})`;
+    ctx.fillRect(sx+bw*.25|0+s*18,sy+bh*.38|0-sv,2+s%2,5);
+  }
+  // Ramen bowl display
+  ctx.fillStyle='#2a1608';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.8|0,14,6,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(200,80,20,0.7)';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.79|0,11,4,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,190,100,0.5)';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.78|0,7,2.5,0,0,Math.PI*2);ctx.fill();
+  // Sign board above awning
+  ctx.fillStyle='#3a1a00';ctx.fillRect(sx+bw*.55|0,sy+2,bw*.35|0,awh-6);
+  ctx.fillStyle='#5a3000';ctx.fillRect(sx+bw*.56|0,sy+3,bw*.33|0,awh-9);
+  ctx.fillStyle='#ffe070';ctx.shadowColor=z.glow;ctx.shadowBlur=10;
+  ctx.font='bold 5px "Press Start 2P","Courier New"';ctx.textAlign='center';
+  ctx.fillText('一楽',sx+bw*.73|0,sy+awh/2+3);ctx.shadowBlur=0;
   // Label
   ctx.font='bold 5px "Press Start 2P","Courier New"';ctx.textAlign='center';
   ctx.fillStyle='#ffe070';ctx.shadowColor=z.glow;ctx.shadowBlur=16;
-  ctx.fillText(z.icon,sx+bw/2,sy-19);ctx.fillText('ICHIRAKU',sx+bw/2,sy-7);ctx.shadowBlur=0;
+  ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.fillText('ICHIRAKU',sx+bw/2,sy-8);ctx.shadowBlur=0;
 }
 
 function _drawGenericBldg(ctx,sx,sy,bw,bh,z,t){
   ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+5,sy+6,bw,bh);
   const southOfSpine=z.ty>=10;
   if(z.type==='shrine'){
-    // Hall of Fame — ornate stone shrine
-    ctx.fillStyle='#1a1406';ctx.fillRect(sx,sy,bw,bh);
-    ctx.fillStyle='#221b0a';ctx.fillRect(sx+2,sy+4,bw-4,bh-6);
-    // Stone tile texture
+    // ── HALL OF FAME: Gold stone shrine ──
+    // Stone base — warm gray
+    ctx.fillStyle='#6a6058';ctx.fillRect(sx,sy,bw,bh);
+    ctx.fillStyle='#787060';ctx.fillRect(sx+2,sy+4,bw-4,bh-6);
+    // Stone tiles
     for(let i=0;i<3;i++) for(let j=0;j<2;j++){
-      ctx.fillStyle=(i+j)%2===0?'#1e1708':'#1a1305';
-      ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,(bh-8)/3-2);
+      const tone=(i+j)%2===0?'#706858':'#686050';
+      ctx.fillStyle=tone;ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,(bh-8)/3-2);
+      ctx.fillStyle='rgba(255,255,255,0.04)';ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,2);
     }
-    // Torii gate top
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=18;
-    ctx.fillRect(sx-5,sy,bw+10,7);ctx.fillRect(sx+5,sy+8,bw-10,4);ctx.shadowBlur=0;
-    // Trophy cup
-    ctx.fillStyle='#ffdd44';ctx.shadowColor='#ffcc00';ctx.shadowBlur=20;
-    // Cup stem
-    ctx.fillRect(sx+bw/2-3,sy+bh*.6|0,6,12);
-    ctx.fillRect(sx+bw/2-7,sy+bh*.72|0,14,4);
-    // Cup body
-    ctx.fillRect(sx+bw/2-11,sy+bh*.3|0,22,bh*.3|0);
-    // Cup arms
-    ctx.fillRect(sx+bw/2-15,sy+bh*.34|0,5,8);ctx.fillRect(sx+bw/2+10,sy+bh*.34|0,5,8);
-    // Glow inner
-    ctx.fillStyle='#fff8';ctx.fillRect(sx+bw/2-8,sy+bh*.33|0,8,bh*.24|0);ctx.shadowBlur=0;
-    // Star particles around trophy
-    for(let i=0;i<4;i++){
-      const a=t*.08+i*Math.PI*.5;const r=bh*.18|0;
-      ctx.fillStyle=`rgba(255,220,50,${.4+Math.sin(t*.1+i)*.3})`;
-      ctx.fillRect(sx+bw/2+Math.cos(a)*r-2,sy+bh*.5|0+Math.sin(a)*r-2,4,4);
+    // Torii gate — red horizontal beams
+    ctx.fillStyle='#cc2200';ctx.shadowColor='#ff3300';ctx.shadowBlur=18;
+    ctx.fillRect(sx-8,sy,bw+16,9);ctx.fillRect(sx-4,sy+12,bw+8,5);ctx.shadowBlur=0;
+    ctx.fillStyle='#aa1500';ctx.fillRect(sx-8,sy,bw+16,4);
+    // Torii pillars
+    ctx.fillStyle='#cc2200';ctx.fillRect(sx+4,sy,7,bh*.4|0);ctx.fillRect(sx+bw-11,sy,7,bh*.4|0);
+    ctx.fillStyle='#aa1500';ctx.fillRect(sx+5,sy,4,bh*.4|0);ctx.fillRect(sx+bw-10,sy,4,bh*.4|0);
+    // Trophy cup — gold
+    ctx.fillStyle='#ffdd22';ctx.shadowColor='#ffcc00';ctx.shadowBlur=24;
+    ctx.fillRect(sx+bw/2-12,sy+bh*.28|0,24,bh*.3|0);
+    ctx.fillRect(sx+bw/2-4,sy+bh*.58|0,8,14);
+    ctx.fillRect(sx+bw/2-10,sy+bh*.72|0,20,5);
+    ctx.fillRect(sx+bw/2-17,sy+bh*.32|0,6,10);ctx.fillRect(sx+bw/2+11,sy+bh*.32|0,6,10);
+    ctx.fillStyle='rgba(255,255,200,0.4)';ctx.fillRect(sx+bw/2-10,sy+bh*.29|0,10,bh*.27|0);ctx.shadowBlur=0;
+    // Star particles
+    for(let i=0;i<5;i++){
+      const a=t*.09+i*Math.PI*.4;const r=bh*.16|0;
+      ctx.fillStyle=`rgba(255,230,50,${.4+Math.sin(t*.1+i)*.3})`;
+      ctx.fillRect(sx+bw/2+Math.cos(a)*r-2,sy+bh*.48|0+Math.sin(a)*r-2,4,4);
     }
     // Lanterns
     const fl=.8+Math.sin(t*.14+z.tx)*.2;
-    ctx.fillStyle=`rgba(255,180,40,${fl*.82})`;ctx.shadowColor='#ffaa00';ctx.shadowBlur=14*fl;
-    ctx.fillRect(sx+4,sy+bh-24,5,9);ctx.fillRect(sx+bw-9,sy+bh-24,5,9);ctx.shadowBlur=0;
+    ctx.fillStyle=`rgba(255,180,40,${fl*.85})`;ctx.shadowColor='#ffaa00';ctx.shadowBlur=16*fl;
+    ctx.fillRect(sx+5,sy+bh-26,6,10);ctx.fillRect(sx+bw-11,sy+bh-26,6,10);ctx.shadowBlur=0;
   } else {
-    // Storage shed — timber planks
-    ctx.fillStyle='#0a0e07';ctx.fillRect(sx,sy,bw,bh);
-    // Horizontal plank stripes
-    for(let i=0;i<(bh/7|0);i++){
-      ctx.fillStyle=i%3===0?'#131a0e':i%3===1?'#111709':'#0f1508';
-      ctx.fillRect(sx+2,sy+2+i*7,bw-4,6);
+    // ── STORAGE SHED: Green wood warehouse ──
+    // Dark green timber walls
+    ctx.fillStyle='#0e1a0a';ctx.fillRect(sx,sy,bw,bh);
+    // Roof — dark with shingles
+    ctx.fillStyle='#1a2a10';ctx.fillRect(sx-4,sy,bw+8,bh*.22|0);
+    for(let i=0;i<(bw+8)/12|0;i++){ctx.fillStyle=i%2?'#162208':'#1c2c0c';ctx.fillRect(sx-4+i*12,sy,11,bh*.22|0);}
+    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;ctx.fillRect(sx-4,sy,bw+8,4);ctx.shadowBlur=0;
+    // Wood plank body
+    for(let i=0;i<(bh*.78/9|0);i++){
+      ctx.fillStyle=i%3===0?'#162210':i%3===1?'#12200e':'#101e0c';
+      ctx.fillRect(sx+2,sy+bh*.22|0+i*9,bw-4,8);
     }
     // Vertical corner beams
-    ctx.fillStyle='#0c1208';ctx.fillRect(sx,sy,4,bh);ctx.fillRect(sx+bw-4,sy,4,bh);
-    ctx.fillStyle='#141e10';ctx.fillRect(sx+1,sy,2,bh);ctx.fillRect(sx+bw-3,sy,2,bh);
+    ctx.fillStyle='#0c1808';ctx.fillRect(sx,sy,5,bh);ctx.fillRect(sx+bw-5,sy,5,bh);
+    ctx.fillStyle='#1a280e';ctx.fillRect(sx+1,sy,3,bh);ctx.fillRect(sx+bw-4,sy,3,bh);
     // Metal band reinforcements
-    ctx.fillStyle=z.color+'55';
-    ctx.fillRect(sx,sy+bh*.3|0,bw,3);ctx.fillRect(sx,sy+bh*.65|0,bw,3);
-    ctx.fillStyle=z.color+'33';ctx.fillRect(sx,sy+bh*.47|0,bw,2);
-    // Glowing roof strip
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-    ctx.fillRect(sx-2,sy,bw+4,5);ctx.shadowBlur=0;
-    // Window with crates visible inside
-    const winX=sx+bw/2-12,winY=southOfSpine?sy+bh*.45|0:sy+bh*.3|0;
-    ctx.fillStyle='rgba(20,35,15,0.9)';ctx.fillRect(winX,winY,24,16);
-    ctx.strokeStyle=z.color+'66';ctx.lineWidth=1;ctx.strokeRect(winX,winY,24,16);
-    ctx.fillStyle='rgba(60,120,60,0.15)';ctx.fillRect(winX+1,winY+1,22,14);
-    // Crate pixels
-    ctx.fillStyle='#3e2c0e';ctx.fillRect(winX+2,winY+6,8,8);ctx.fillRect(winX+12,winY+5,10,9);
-    ctx.fillStyle='#4e3a12';ctx.fillRect(winX+2,winY+6,8,2);ctx.fillRect(winX+12,winY+5,10,2);
-    // Door on correct face (north for south-of-spine buildings)
-    const doorY=southOfSpine?sy+8:sy+bh-22;
-    ctx.fillStyle='#050709';ctx.fillRect(sx+bw/2-7,doorY,14,22);
-    ctx.strokeStyle=z.color+'88';ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-8,doorY-1,16,23);
-    ctx.fillStyle=z.color+'aa';ctx.fillRect(sx+bw/2-7,doorY+6,3,2);ctx.fillRect(sx+bw/2-7,doorY+14,3,2);
-    // Lanterns at lower corners
+    ctx.fillStyle=z.color+'66';ctx.fillRect(sx,sy+bh*.38|0,bw,4);ctx.fillRect(sx,sy+bh*.68|0,bw,4);
+    ctx.fillStyle=z.color+'33';ctx.fillRect(sx,sy+bh*.52|0,bw,2);
+    // Big window — visible crates inside
+    const winX=sx+bw/2-16,winY=southOfSpine?sy+bh*.44|0:sy+bh*.32|0;
+    ctx.fillStyle='#080f06';ctx.fillRect(winX,winY,32,20);
+    ctx.fillStyle='rgba(30,60,20,0.7)';ctx.fillRect(winX+1,winY+1,30,18);
+    ctx.strokeStyle=z.color+'88';ctx.lineWidth=1.5;ctx.strokeRect(winX,winY,32,20);
+    // Crates inside
+    ctx.fillStyle='#5a3c10';ctx.fillRect(winX+2,winY+8,12,10);ctx.fillRect(winX+16,winY+7,13,11);
+    ctx.fillStyle='#6e4e18';ctx.fillRect(winX+2,winY+8,12,3);ctx.fillRect(winX+16,winY+7,13,3);
+    ctx.fillStyle='#4a3008';ctx.fillRect(winX+7,winY+8,2,10);ctx.fillRect(winX+22,winY+7,2,11);
+    // Door on correct face
+    const doorY=southOfSpine?sy+8:sy+bh-28;
+    ctx.fillStyle='#060d04';ctx.fillRect(sx+bw/2-9,doorY,18,28);
+    ctx.strokeStyle=z.color+'99';ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-10,doorY-1,20,29);
+    ctx.fillStyle='#1a2c10';ctx.fillRect(sx+bw/2-1,doorY,2,28);
+    // Door handles
+    ctx.fillStyle=z.color+'cc';ctx.fillRect(sx+bw/2-7,doorY+10,3,2);ctx.fillRect(sx+bw/2+4,doorY+10,3,2);
+    // Lanterns
     const fl2=.78+Math.sin(t*.18+z.tx)*.22;
-    ctx.fillStyle=`rgba(255,145,0,${fl2*.72})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=13*fl2;
-    ctx.fillRect(sx+4,sy+bh-28,4,8);ctx.fillRect(sx+bw-8,sy+bh-28,4,8);ctx.shadowBlur=0;
+    ctx.fillStyle=`rgba(255,155,0,${fl2*.8})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=14*fl2;
+    ctx.fillRect(sx+5,sy+bh-30,5,10);ctx.fillRect(sx+bw-10,sy+bh-30,5,10);ctx.shadowBlur=0;
   }
-  // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
   ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.fillText(z.label,sx+bw/2,sy-8);ctx.fillText(z.icon,sx+bw/2,sy-19);ctx.shadowBlur=0;
+  ctx.fillText(z.label,sx+bw/2,sy-8);ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.shadowBlur=0;
 }
 
 function drawLobbyBuilding(ctx,z,camX,camY){

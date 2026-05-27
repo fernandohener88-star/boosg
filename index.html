@@ -302,7 +302,12 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 <!-- ═══════════════ MISSION SELECT ═══════════════ -->
 <div id="screen-mission-select" class="screen">
   <div class="ph"><h2>📋 MISSIONEN</h2><div style="font-size:8px;color:#888">Dein Rang: <span id="ms-rank-label">Genin</span></div></div>
-  <div class="pb" id="ms-list" style="display:flex;flex-direction:column;gap:10px;padding:16px;overflow-y:auto"></div>
+  <div style="padding:10px 16px 0"><div style="display:flex;align-items:center;gap:12px;background:#0a0518;border:1px solid #2a1a4a;border-radius:4px;padding:10px 14px">
+    <span style="font-size:18px">⚔️</span>
+    <div style="flex:1"><div style="font-size:10px;color:#ff6644;font-weight:bold">FREIER DUNGEON</div><div style="font-size:8px;color:#666;margin-top:2px">Zufällige Etagen — XP & Ryo farmen</div></div>
+    <button class="btn btn-sm" id="ms-dungeon-btn" style="border-color:#ff4444;color:#ff6644">▶ Betreten</button>
+  </div></div>
+  <div class="pb" id="ms-list" style="display:flex;flex-direction:column;gap:10px;padding:12px 16px;overflow-y:auto"></div>
   <div class="pf"><button class="btn btn-sm" id="ms-back">◀ Zurück</button></div>
 </div>
 
@@ -3443,6 +3448,7 @@ $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
 $('aca-back').onclick   =()=>goScreen('screen-lobby');
 $('ms-back').onclick    =()=>goScreen('screen-lobby');
+$('ms-dungeon-btn').onclick=()=>{G.missionMode=null;if(G.dungeon?.isMission)Object.assign(G.dungeon,{tiles:[],enemies:[],chests:[],W:0,H:0,isMission:false});goScreen('screen-game');};
 $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});

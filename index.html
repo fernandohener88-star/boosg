@@ -2037,8 +2037,71 @@ function drawAmaterasuAnim(ctx,camX,camY){
   if(AMAT.active){
     const t=Math.min(1,AMAT.timer/(AMAT_DUR[AMAT.phase]||1));
     const tx2=AMAT.tx-camX,ty2=AMAT.ty-camY;
-    // eye lives center-screen, slightly above midpoint
-    const eyeX=CW/2,eyeY=CH*0.40;
+    // eye sits just above player head — compact, not fullscreen
+    const eyeX=px+4,eyeY=py-30-t*6;
+
+    if(AMAT.phase===0){
+      // subtle dark vignette — doesn't cover the whole screen aggressively
+      ctx.fillStyle=`rgba(0,0,0,${t*0.32})`;ctx.fillRect(0,0,CW,CH);
+      // Mangekyō eye grows above player (max r=18)
+      if(t>0.06){
+        const eyeR=Math.min(18,(t-0.06)/0.94*18);
+        ctx.shadowColor='#cc0000';ctx.shadowBlur=16*Math.min(1,t*2);
+        _drawMangekyo(ctx,eyeX,eyeY,eyeR,-AMAT.timer*3.0);
+        ctx.shadowBlur=0;
+      }
+      // dashed targeting line + ring appear late
+      if(t>0.60){
+        const lf=(t-0.60)/0.40;
+        ctx.strokeStyle=`rgba(130,0,0,${lf*0.65})`;ctx.lineWidth=1;ctx.setLineDash([3,6]);
+        ctx.beginPath();ctx.moveTo(eyeX,eyeY);ctx.lineTo(tx2,ty2);ctx.stroke();ctx.setLineDash([]);
+        ctx.shadowColor='#880000';ctx.shadowBlur=10*lf;
+        ctx.strokeStyle=`rgba(120,0,0,${lf*0.50})`;ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(tx2,ty2,12+lf*5,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+      }
+
+    }else if(AMAT.phase===1){
+      // slightly more darkness in fire phase
+      ctx.fillStyle='rgba(0,0,0,0.38)';ctx.fillRect(0,0,CW,CH);
+      // eye locked at full size
+      ctx.shadowColor='#cc0000';ctx.shadowBlur=14;
+      _drawMangekyo(ctx,eyeX,eyeY,18,Math.PI*0.18);
+      ctx.shadowBlur=0;
+      const ft=AMAT.timer/AMAT_DUR[1];
+      // dark fire beam — thinner than before
+      if(ft>0.05){
+        const bf=Math.min(1,(ft-0.05)/0.42);
+        ctx.shadowColor='#440044';ctx.shadowBlur=14;
+        ctx.strokeStyle=`rgba(3,0,5,${bf*0.92})`;ctx.lineWidth=7; _bolt(ctx,eyeX,eyeY,tx2,ty2,9,13);
+        ctx.strokeStyle=`rgba(18,0,22,${bf*0.78})`;ctx.lineWidth=3; _bolt(ctx,eyeX,eyeY,tx2,ty2,11,8);
+        ctx.strokeStyle=`rgba(38,0,48,${bf*0.55})`;ctx.lineWidth=1.5;_bolt(ctx,eyeX,eyeY,tx2,ty2,13,4);
+        ctx.shadowBlur=0;
+      }
+      // expanding black smear on target
+      if(ft>0.40){
+        const sf=(ft-0.40)/0.60;
+        ctx.shadowColor='#220022';ctx.shadowBlur=10;
+        ctx.fillStyle=`rgba(6,0,8,${sf*0.88})`;
+        ctx.beginPath();ctx.arc(tx2,ty2,4+sf*13,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      }
+    }
+  }
+
+  // draw active burns on all burning enemies
+  AMAT_BURNS.forEach(b=>{
+    const e=b.target;if(!e?.alive)return;
+    const ex=e.x-camX,ey=e.y-camY;
+    const flick=0.65+Math.sin(performance.now()*0.012+e.x)*0.35;
+    ctx.shadowColor='#220022';ctx.shadowBlur=9*flick;
+    ctx.fillStyle=`rgba(7,0,7,${0.72*flick})`;
+    ctx.beginPath();ctx.arc(ex,ey,9,0,Math.PI*2);ctx.fill();
+    for(let i=0;i<4;i++){const a=-Math.PI/2+(i-1.5)*0.38+Math.sin(performance.now()*0.008+i)*0.22;
+      const fl=7+Math.sin(performance.now()*0.011+i*1.4)*3;
+      ctx.fillStyle=`rgba(14,0,14,${0.78*flick})`;
+      ctx.fillRect(ex+Math.cos(a)*fl-2,ey+Math.sin(a)*fl-5,4,9);}
+    ctx.shadowBlur=0;
+  });
+}
 
     if(AMAT.phase===0){
       // ── PHASE 0: cinematic open ──

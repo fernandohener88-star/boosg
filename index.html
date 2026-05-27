@@ -109,11 +109,17 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 
 /* ══════════════════════ INVENTORY ══════════════════════ */
 .inv-ttl{font-size:8px;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1a1a2a}
-.inv-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.inv-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
 .inv-slot{background:#0a0516;border:1px solid #1a1030;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
 .inv-slot.occ{border-color:#2a1a44}
 .inv-slot.eq{border-color:var(--gold);background:linear-gradient(135deg,#1a1200,#0f0820);box-shadow:0 0 10px var(--gold)22}
 .inv-slot.occ:hover{border-color:var(--or)}
+/* ══════════════════════ INV OVERLAY (Tab) ══════════════════════ */
+#inv-overlay{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9000;background:rgba(6,2,18,0.97);border:1px solid #3a1a5a;padding:18px 20px;min-width:480px;max-width:700px;display:none;box-shadow:0 0 40px #330055aa}
+#inv-overlay.open{display:block}
+#inv-overlay .ov-ttl{font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+#inv-overlay .ov-close{font-size:7px;color:#555;cursor:pointer}
+#inv-overlay .inv-grid{grid-template-columns:repeat(5,1fr)}
 .inv-icon{font-size:18px}
 .inv-name{font-size:6px;color:#666;text-align:center}
 .inv-slot.eq .inv-name{color:var(--gold)}
@@ -256,7 +262,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div class="sec" id="shop-section-title">Items for Sale</div>
     <div class="shop-grid" id="shop-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventar (<span id="inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="inv-count">0</span>/20)</div>
     <div class="inv-grid" id="inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Zurück</button></div>
@@ -270,7 +276,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div style="font-size:7px;color:#6a5a8a;margin-bottom:8px">Lerne mächtige Techniken. Erlernte Jutsu werden automatisch deinem Inventar hinzugefügt.</div>
     <div class="shop-grid" id="aca-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventar (<span id="aca-inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="aca-inv-count">0</span>/20)</div>
     <div class="inv-grid" id="aca-inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="aca-back">◀ Zurück</button></div>
@@ -546,7 +552,7 @@ function _recalc(){
 function _buyItem(id){
   const it=ITEMS.find(i=>i.id===id); if(!it) return;
   if(G.ryo<it.price){ msg('Nicht genug Ryo!','bad'); return; }
-  if(G.inventory.length>=8){ msg('Inventar voll!','bad'); return; }
+  if(G.inventory.length>=20){ msg('Inventar voll!','bad'); return; }
   G.ryo-=it.price;
   G.inventory.push({id:it.id,eq:false});
   msg(`${it.name} gekauft!`,'gold');
@@ -578,16 +584,24 @@ function _itemAct(idx){
 
 function renderShop(){
   const mode=G.shopMode||'all';
-  const titles={all:'Items for Sale',consume:'🍜 Ichiraku — Verbrauchsgüter',weapon:'⚒️ Tenten — Waffen & Ausrüstung'};
-  const h=$('shop-section-title'); if(h) h.textContent=titles[mode]||titles.all;
   const shopH=$('shop-heading');
-  if(shopH){
-    shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 STORAGE':'🛒 SHOP';
+  if(shopH) shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 LAGER':'🛒 SHOP';
+  // Lager (all) = only inventory management, hide shop grid
+  const shopSection=$('shop-section-title');
+  const shopGrid=$('shop-grid');
+  const shopHr=shopGrid?.previousElementSibling;
+  if(mode==='all'){
+    if(shopSection) shopSection.style.display='none';
+    if(shopGrid) shopGrid.style.display='none';
+    return;
+  } else {
+    if(shopSection){shopSection.style.display='';shopSection.textContent=mode==='consume'?'🍜 Ichiraku — Verbrauchsgüter':'⚒️ Tenten — Waffen & Ausrüstung';}
+    if(shopGrid) shopGrid.style.display='';
   }
   const g=$('shop-grid'); g.innerHTML='';
   const list=ITEMS.filter(it=>mode==='all'||(mode==='consume'&&it.type==='consume')||(mode==='weapon'&&it.type==='weapon'));
   list.forEach(it=>{
-    const ok=G.ryo>=it.price&&G.inventory.length<8;
+    const ok=G.ryo>=it.price&&G.inventory.length<20;
     const sts=Object.entries(it.stats).map(([k,v])=>{
       const l={atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k;
       return `<span class="${v>=0?'spos':'sneg'}">${l} ${v>=0?'+':''}${v}</span> `;
@@ -610,7 +624,7 @@ function renderShop(){
 
 function renderInv(){
   const g=$('inv-grid'); g.innerHTML='';
-  for(let i=0;i<8;i++){
+  for(let i=0;i<20;i++){
     const inv=G.inventory[i];
     const s=document.createElement('div');
     if(inv){
@@ -718,7 +732,7 @@ function renderAcademy(){
 function _learnJutsu(id){
   const jt=JUTSU_LIST.find(j=>j.id===id); if(!jt||jt.locked) return;
   if(G.learnedJutsu.includes(jt.id)){msg('Bereits gelernt!','info');return;}
-  if(G.inventory.length>=8){msg('Inventar voll!','bad');return;}
+  if(G.inventory.length>=20){msg('Inventar voll!','bad');return;}
   if(G.ryo<jt.cost){msg('Nicht genug Ryo!','bad');return;}
   G.ryo-=jt.cost;
   G.learnedJutsu.push(jt.id);
@@ -2566,7 +2580,7 @@ function renderDungeon(){
   });
   // player (dash/rasengan sprint pose when moving fast)
   const _jActive=RAS.active||KATON.active||RANTON.active||CHI.active||RSEN.active||SUITON.active||AMAT.active;
-  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0&&!_jActive){/* blink — skip draw */}
+  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0&&!_jActive&&!G.infiniteHp){/* blink — skip draw */}
   else if(dashTimer>0||(RAS.active&&RAS.phase===1)||(CHI.active&&CHI.phase===1)) drawDashSprite(ctx,p.x-CAM.x,p.y-CAM.y,p.facing,p.hitFlash);
   else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash,p.facing||1);
   if(p.hitFlash>0) p.hitFlash-=0.016;
@@ -2721,10 +2735,11 @@ let dashTimer=0, dashCd=0, dashDX=1, dashDY=0;
 let dashTrail=[], dashPressed=false;
 
 function triggerDash(entity,dx,dy){
-  dashDX=dx||entity.facing||1; dashDY=dy;
+  if(dx===0&&dy===0){dashDX=entity.facing||1;dashDY=0;}
+  else{dashDX=dx;dashDY=dy;}
   const len=Math.hypot(dashDX,dashDY)||1;
-  dashDX/=len; dashDY/=len;
-  dashTimer=DASH_DUR; dashCd=DASH_CD;
+  dashDX/=len;dashDY/=len;
+  dashTimer=DASH_DUR;dashCd=DASH_CD;
 }
 function tickDash(dt,entity,wallFn){
   if(dashTimer>0){
@@ -2779,7 +2794,7 @@ function gameLoop(ts){
     if(p.ckCd>0)  p.ckCd-=dt;
     // regen chakra
     p.chakra=G.infiniteChakra?p.maxChakra:Math.min(p.maxChakra,p.chakra+dt*2);
-    if(G.infiniteHp){p.hp=p.maxHp;p.invuln=0.1;}
+    if(G.infiniteHp){p.hp=p.maxHp;}
 
     // check stairs
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;
@@ -3749,6 +3764,37 @@ G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null};
 LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM)); LCAM.y=G.lobby.y-((window.innerHeight/GAME_SCALE)/(2*LZOOM));
 goScreen('screen-lobby');
 setTimeout(showNameModal,200);
+// ── TAB INVENTORY OVERLAY ──
+const _invOv=document.createElement('div');
+_invOv.id='inv-overlay';
+_invOv.innerHTML=`<div class="ov-ttl"><span>📦 INVENTAR (<span id="ov-inv-count">0</span>/20)</span><span class="ov-close">[TAB] schließen</span></div><div class="inv-grid" id="ov-inv-grid"></div>`;
+document.body.appendChild(_invOv);
+let _invOvOpen=false;
+function _renderOvInv(){
+  const g=$('ov-inv-grid');if(!g)return;g.innerHTML='';
+  for(let i=0;i<20;i++){
+    const inv=G.inventory[i];
+    const s=document.createElement('div');
+    if(inv){
+      const it=ITEMS.find(x=>x.id===inv.id);
+      s.className=`inv-slot occ${inv.eq?' eq':''}`;
+      s.dataset.idx=i;
+      s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
+    } else {
+      s.className='inv-slot';
+      s.innerHTML='<span style="font-size:18px;color:#1a1030">＋</span>';
+    }
+    g.appendChild(s);
+  }
+  $('ov-inv-count').textContent=G.inventory.length;
+}
+function toggleInvOverlay(){
+  _invOvOpen=!_invOvOpen;
+  if(_invOvOpen){_renderOvInv();_invOv.classList.add('open');}
+  else _invOv.classList.remove('open');
+}
+_invOv.addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s){_invModal(parseInt(s.dataset.idx));_renderOvInv();}});
+document.addEventListener('keydown',e=>{if(e.code==='Tab'){e.preventDefault();toggleInvOverlay();}});
 </script>
 </body>
 </html>

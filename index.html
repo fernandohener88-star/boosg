@@ -443,6 +443,7 @@ const G = {
   learnedJutsu:[],
   missionMode:null,
   infiniteChakra:false,
+  infiniteHp:false,
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
 
@@ -487,6 +488,16 @@ function _initPlayer(name){
     p.atk=999; p.def=99; p.spd=20;
     G.infiniteChakra=true;
     setTimeout(()=>msg('🍥 CHEAT AKTIVIERT — Willkommen zurück, Hokage! ∞CK','gold'),400);
+  }
+  if(name.toLowerCase()==='nando'){
+    const p=G.players[G.localPlayerId];
+    G.ryo=999999;
+    p.level=99; p.skillPoints=98;
+    p.base.maxHp=9999; p.base.maxChakra=9999; p.base.atk=9999; p.base.def=999; p.base.spd=20;
+    p.maxHp=9999; p.hp=9999; p.maxChakra=9999; p.chakra=9999;
+    p.atk=9999; p.def=999; p.spd=20;
+    G.infiniteChakra=true; G.infiniteHp=true;
+    setTimeout(()=>msg('👑 NANDO-MODUS — Unendlich alles. Niemand kann dich aufhalten.','gold'),400);
   }
 }
 
@@ -2768,6 +2779,7 @@ function gameLoop(ts){
     if(p.ckCd>0)  p.ckCd-=dt;
     // regen chakra
     p.chakra=G.infiniteChakra?p.maxChakra:Math.min(p.maxChakra,p.chakra+dt*2);
+    if(G.infiniteHp){p.hp=p.maxHp;p.invuln=0.1;}
 
     // check stairs
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;

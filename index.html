@@ -235,6 +235,29 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 .ms-desc{font-size:8px;color:#888;margin-bottom:6px;line-height:1.4}
 .ms-rew{font-size:8px;color:#aaddff}
 .ms-btn-w{display:flex;align-items:center}
+
+/* ══════ CHARACTER BUILD ══════ */
+#screen-char-build{background:radial-gradient(ellipse at center,#0e0520 0%,#05020d 100%);overflow-y:auto;}
+#cb-wrap{display:flex;gap:20px;max-width:960px;width:100%;margin:0 auto;padding:16px;align-items:flex-start;flex-wrap:wrap;}
+#cb-preview-col{flex:0 0 170px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+#cb-canvas{image-rendering:pixelated;border:1px solid #3a1a5a;background:#08041a;width:170px;height:226px;}
+#cb-options-col{flex:1;min-width:280px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 130px);}
+.cb-section{border:1px solid #2a1a44;padding:12px;background:#0a0516;}
+.cb-sec-title{font-size:6px;color:#aa66ff;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid #1a1030;padding-bottom:5px;text-transform:uppercase;}
+.cb-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.cb-row label{font-size:7px;color:#aaa;min-width:80px;flex-shrink:0;}
+.cb-swatches{display:flex;gap:4px;flex-wrap:wrap;}
+.cb-swatch{width:20px;height:20px;border:2px solid #333;cursor:pointer;transition:transform .1s,border-color .1s;}
+.cb-swatch:hover{transform:scale(1.18);}
+.cb-swatch.sel{border-color:#ffdd44!important;box-shadow:0 0 6px #ffdd44;}
+.cb-style-btn{padding:3px 8px;border:1px solid #2a1a44;background:#0f082066;color:#777;font-family:inherit;font-size:6px;cursor:pointer;transition:all .1s;}
+.cb-style-btn:hover{border-color:#aa66ff;color:#cc99ff;}
+.cb-style-btn.sel{border-color:#ffdd44;color:#ffdd44;background:#1a0d30;}
+.cb-toggle{padding:4px 10px;border:1px solid #2a1a44;background:#0f082066;color:#666;font-family:inherit;font-size:7px;cursor:pointer;transition:all .1s;}
+.cb-toggle.on{border-color:#44ff88!important;color:#44ff88;background:#041a0c;}
+.cb-acc-btn{padding:4px 10px;border:1px solid #2a1a44;background:#0f082066;color:#777;font-family:inherit;font-size:6px;cursor:pointer;transition:all .1s;}
+.cb-acc-btn:hover{border-color:#aa66ff;color:#cc99ff;}
+.cb-acc-btn.sel{border-color:#ffdd44;color:#ffdd44;background:#1a0d30;}
 </style>
 </head>
 <body>
@@ -349,6 +372,57 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
   </div>
 </div>
 
+<!-- ═══════════════ CHARACTER BUILD ═══════════════ -->
+<div id="screen-char-build" class="screen">
+  <div class="ph"><h2>⚔️ CHARAKTER ERSTELLEN</h2></div>
+  <div id="cb-wrap">
+    <div id="cb-preview-col">
+      <canvas id="cb-canvas" width="120" height="160"></canvas>
+      <div id="cb-name-disp" style="font-size:8px;color:#ffdd44;letter-spacing:1px;margin-top:4px;"></div>
+      <button class="btn btn-sm" id="cb-random-btn" style="margin-top:4px;">🎲 Zufällig</button>
+    </div>
+    <div id="cb-options-col">
+      <!-- HAARE -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Haare</div>
+        <div class="cb-row"><label>Stil</label><div class="cb-swatches" id="cb-hair-style-btns"></div></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-hair-color-sw"></div></div>
+      </div>
+      <!-- STIRNBAND -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Stirnband</div>
+        <div class="cb-row"><label>An/Aus</label><button id="cb-hb-toggle" class="cb-toggle on">✓ AN</button></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-hb-color-sw"></div></div>
+      </div>
+      <!-- HAUT -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Haut</div>
+        <div class="cb-row"><label>Hautfarbe</label><div class="cb-swatches" id="cb-skin-color-sw"></div></div>
+      </div>
+      <!-- OUTFIT -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Outfit</div>
+        <div class="cb-row"><label>Oberteil</label><div class="cb-swatches" id="cb-top-color-sw"></div></div>
+        <div class="cb-row"><label>Hose</label><div class="cb-swatches" id="cb-pants-color-sw"></div></div>
+      </div>
+      <!-- HANDSCHUHE -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Handschuhe</div>
+        <div class="cb-row"><label>An/Aus</label><button id="cb-gl-toggle" class="cb-toggle">✗ AUS</button></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-gl-color-sw"></div></div>
+      </div>
+      <!-- ACCESSOIRES -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Accessoires</div>
+        <div class="cb-swatches" id="cb-acc-btns" style="gap:6px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <button class="btn btn-gold" id="cb-confirm-btn">Ins Dorf eintreten →</button>
+  </div>
+</div>
+
 </div>
 <div id="msg-log"></div>
 <div id="ach-popup"><div class="ap-ico" id="ap-ico">🏆</div><div><div class="ap-t">ACHIEVEMENT UNLOCKED</div><div class="ap-n" id="ap-nm"></div></div></div>
@@ -457,8 +531,22 @@ const G = {
   missionMode:null,
   infiniteChakra:false,
   infiniteHp:false,
+  look:{
+    hairStyle:0, hairColor:'#ffcc00',
+    headband:true, headbandColor:'#2255cc',
+    skin:'#f0b070',
+    topColor:'#ff6600', pantsColor:'#1a3a6a',
+    gloves:false, gloveColor:'#222222',
+    accessory:'none'
+  },
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
+
+function _lighten(hex,amt){
+  let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  r=Math.min(255,r+amt);g=Math.min(255,g+amt);b=Math.min(255,b+amt);
+  return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
 
 /* ════════════════════════════════════════════════════
    ACTION DISPATCH
@@ -1110,34 +1198,68 @@ function genFloor(floorNum){
 /* ════════════════════════════════════════════════════
    DRAWING HELPERS
 ════════════════════════════════════════════════════ */
+function _drawHair(ctx,bx,by,style,color,flash){
+  ctx.fillStyle=flash?'#ffffff':color;
+  if(style===0){
+    ctx.fillRect(bx+1,by-5,2,5);ctx.fillRect(bx+4,by-7,3,6);
+    ctx.fillRect(bx+8,by-6,2,5);ctx.fillRect(bx+11,by-4,2,4);
+  }else if(style===1){
+    ctx.fillRect(bx,by-4,14,5);
+    ctx.fillRect(bx-1,by,2,4);ctx.fillRect(bx+12,by,2,4);
+  }else if(style===2){
+    ctx.fillRect(bx+1,by-3,12,4);
+    ctx.fillRect(bx,by-1,2,3);ctx.fillRect(bx+11,by-1,2,3);
+  }else if(style===3){
+    ctx.fillRect(bx+1,by-5,12,5);
+    ctx.fillRect(bx+11,by,3,10);ctx.fillRect(bx+12,by+8,2,6);
+  }else{
+    ctx.fillRect(bx+1,by-5,12,5);
+    ctx.fillRect(bx-1,by,3,14);ctx.fillRect(bx+11,by,3,14);
+  }
+}
+function _drawAccessory(ctx,bx,by,type,flash){
+  if(type==='glasses'){
+    ctx.strokeStyle=flash?'#ffffff':'#999';ctx.lineWidth=1;
+    ctx.strokeRect(bx+2,by+5,4,3);ctx.strokeRect(bx+8,by+5,4,3);
+    ctx.fillStyle=flash?'#ffffff':'#777';ctx.fillRect(bx+6,by+6,2,1);
+  }else if(type==='mask'){
+    ctx.fillStyle=flash?'#ffffff':'#c0c0c0';ctx.fillRect(bx+1,by+9,13,5);
+    ctx.fillStyle=flash?'#ffffff':'#999';ctx.fillRect(bx+1,by+9,13,1);
+  }else if(type==='anbu'){
+    ctx.fillStyle=flash?'#ffffff':'#eeeeee';ctx.fillRect(bx+1,by+3,13,10);
+    ctx.fillStyle=flash?'#ffaaaa':'#cc3333';
+    ctx.fillRect(bx+2,by+5,3,1);ctx.fillRect(bx+9,by+5,3,1);
+    ctx.fillRect(bx+3,by+9,2,2);ctx.fillRect(bx+9,by+9,2,2);
+    ctx.fillStyle=flash?'#ffffff':'#bbb';ctx.fillRect(bx+5,by+11,4,1);
+  }
+}
 function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
-  const T=TSIZE;
+  const lk=G.look;
   const bob=Math.sin(anim*.12)*2;
   const bx=sx-8, by=sy-16+bob;
-  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  const f=flash>0;
+  if(f){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
   else{ctx.shadowColor='#ff6600';ctx.shadowBlur=14;}
-  // hair
-  ctx.fillStyle='#ffcc00';
-  ctx.fillRect(bx+1,by-5,2,5); ctx.fillRect(bx+4,by-7,3,6);
-  ctx.fillRect(bx+8,by-6,2,5); ctx.fillRect(bx+11,by-4,2,4);
-  // headband
-  ctx.fillStyle='#2255cc'; ctx.fillRect(bx+1,by,13,4);
-  ctx.fillStyle='#aabbee'; ctx.fillRect(bx+4,by+1,6,2);
-  // face
-  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
-  ctx.fillRect(bx+1,by+4,13,9);
-  // eyes
-  ctx.fillStyle='#111'; ctx.fillRect(bx+3,by+6,2,2); ctx.fillRect(bx+9,by+6,2,2);
-  // whiskers
-  ctx.fillStyle='#bb7744'; ctx.fillRect(bx+2,by+9,3,1); ctx.fillRect(bx+10,by+9,3,1);
-  // body (jacket)
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
-  ctx.fillRect(bx+2,by+13,11,10);
-  ctx.fillStyle='#fff'; ctx.fillRect(bx+6,by+15,3,3); // spiral
-  // legs
-  ctx.fillStyle='#1a3a6a';
+  _drawHair(ctx,bx,by,lk.hairStyle,lk.hairColor,f);
+  if(lk.headband){
+    ctx.fillStyle=f?'#ffffff':lk.headbandColor;ctx.fillRect(bx+1,by,13,4);
+    const hbL=_lighten(lk.headbandColor,60);
+    ctx.fillStyle=f?'#ffffff':hbL;ctx.fillRect(bx+4,by+1,6,2);
+  }
+  ctx.fillStyle=f?'#ffffff':lk.skin;ctx.fillRect(bx+1,by+4,13,9);
+  ctx.fillStyle='#111';ctx.fillRect(bx+3,by+6,2,2);ctx.fillRect(bx+9,by+6,2,2);
+  ctx.fillStyle=f?'#ffffff':'#bb7744';ctx.fillRect(bx+2,by+9,3,1);ctx.fillRect(bx+10,by+9,3,1);
+  if(lk.accessory!=='anbu'&&lk.accessory!=='mask') {/* skin visible */}
+  _drawAccessory(ctx,bx,by,lk.accessory,f);
+  ctx.fillStyle=f?'#ffffff':lk.topColor;ctx.fillRect(bx+2,by+13,11,10);
+  ctx.fillStyle='#fff';ctx.fillRect(bx+6,by+15,3,3);
+  if(lk.gloves){
+    ctx.fillStyle=f?'#ffffff':lk.gloveColor;
+    ctx.fillRect(bx,by+14,3,4);ctx.fillRect(bx+12,by+14,3,4);
+  }
+  ctx.fillStyle=f?'#ffffff':lk.pantsColor;
   const legOff=Math.sin(anim*.12)*3|0;
-  ctx.fillRect(bx+2,by+23,4,7-legOff); ctx.fillRect(bx+8,by+23,4,7+legOff);
+  ctx.fillRect(bx+2,by+23,4,7-legOff);ctx.fillRect(bx+8,by+23,4,7+legOff);
   ctx.shadowBlur=0;
   if(facing){
     let wid=null;
@@ -1149,38 +1271,35 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
 }
 
 function drawDashSprite(ctx,sx,sy,facing,flash){
-  // Classic Naruto ninja-run: body pitched forward, arms streaming back
+  const lk=G.look;
   const f=facing||1;
-  const bx=sx-8+(f>0?3:-3); // shift body in run direction
+  const bx=sx-8+(f>0?3:-3);
   const by=sy-15;
-  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  const fl=flash>0;
+  if(fl){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
   else{ctx.shadowColor='#44aaff';ctx.shadowBlur=20;}
-  // hair — spiky, tilted forward
-  ctx.fillStyle='#ffcc00';
-  ctx.fillRect(bx+(f>0?2:6),by-5,2,5);ctx.fillRect(bx+(f>0?5:3),by-7,3,6);
-  ctx.fillRect(bx+(f>0?9:1),by-6,2,5);ctx.fillRect(bx+(f>0?12:0),by-4,2,4);
-  // headband
-  ctx.fillStyle='#2255cc';ctx.fillRect(bx+1,by,13,3);
-  ctx.fillStyle='#aabbee';ctx.fillRect(bx+4,by+1,6,1);
-  // face tilted toward run direction
-  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
-  ctx.fillRect(bx+(f>0?2:0),by+3,11,8);
+  _drawHair(ctx,bx,by,lk.hairStyle,lk.hairColor,fl);
+  if(lk.headband){
+    ctx.fillStyle=fl?'#ffffff':lk.headbandColor;ctx.fillRect(bx+1,by,13,3);
+    ctx.fillStyle=fl?'#ffffff':_lighten(lk.headbandColor,60);ctx.fillRect(bx+4,by+1,6,1);
+  }
+  ctx.fillStyle=fl?'#ffffff':lk.skin;ctx.fillRect(bx+(f>0?2:0),by+3,11,8);
   ctx.fillStyle='#111';ctx.fillRect(bx+(f>0?4:2),by+5,2,2);ctx.fillRect(bx+(f>0?8:6),by+5,2,2);
-  ctx.fillStyle='#bb7744';ctx.fillRect(bx+(f>0?3:1),by+8,3,1);ctx.fillRect(bx+(f>0?8:6),by+8,3,1);
-  // body leaning forward
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillStyle=fl?'#ffffff':'#bb7744';ctx.fillRect(bx+(f>0?3:1),by+8,3,1);ctx.fillRect(bx+(f>0?8:6),by+8,3,1);
+  ctx.fillStyle=fl?'#ffffff':lk.topColor;
   ctx.fillRect(bx+(f>0?3:1),by+11,10,8);
   ctx.fillStyle='#fff';ctx.fillRect(bx+(f>0?6:4),by+13,3,3);
-  // arms streaming BACK (opposite facing)
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillStyle=fl?'#ffffff':lk.topColor;
   if(f>0){ctx.fillRect(bx-6,by+9,8,3);ctx.fillRect(bx-4,by+13,7,3);}
   else   {ctx.fillRect(bx+14,by+9,8,3);ctx.fillRect(bx+11,by+13,7,3);}
-  // legs in stride
-  ctx.fillStyle='#1a3a6a';
+  if(lk.gloves){
+    ctx.fillStyle=fl?'#ffffff':lk.gloveColor;
+    if(f>0){ctx.fillRect(bx-6,by+9,4,3);}else{ctx.fillRect(bx+16,by+9,4,3);}
+  }
+  ctx.fillStyle=fl?'#ffffff':lk.pantsColor;
   if(f>0){ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
   else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
   ctx.shadowBlur=0;
-  // weapon in hand during sprint
   {let wid=null;
   if(RAS.active&&RAS.phase===1){wid='rasengan_scroll';}
   else{const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;wid=wEq?.id||null;}
@@ -3777,6 +3896,7 @@ function goScreen(id){
   } else {
     stopLobbyLoop();
   }
+  if(id!=='screen-char-build') _cbStopAnim();
   if(id==='screen-mission-select'){renderMissionSelect();}
   if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
   if(id==='screen-academy'){renderAcademy();}
@@ -3805,12 +3925,8 @@ function goScreen(id){
 function confirmName(){
   const inp=$('name-modal-input');
   const name=(inp?inp.value.trim():'')||'Shinobi';
-  action('INIT_PLAYER',{name});
   closeModal();
-  $('lhud').classList.remove('hidden');
-  goFullscreen();
-  msg(`Willkommen in Konoha, ${name}!`,'good');
-  msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+  initCharBuild(name);
 }
 
 function showNameModal(){
@@ -3835,6 +3951,194 @@ $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 $('aca-grid').addEventListener('click',e=>{const b=e.target.closest('[data-learn]');if(b)_learnJutsu(b.dataset.learn);});
 $('aca-inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
+
+/* ════════════════════════════════════════════════════
+   CHARACTER BUILD SCREEN
+════════════════════════════════════════════════════ */
+const CB_HAIR_STYLES=[
+  {id:0,label:'Spiky'},
+  {id:1,label:'Gerade'},
+  {id:2,label:'Kurz'},
+  {id:3,label:'Zopf'},
+  {id:4,label:'Lang'},
+];
+const CB_HAIR_COLORS=['#ffcc00','#222222','#8b4513','#ffffff','#cc2222','#2244cc','#ff88cc','#aaaaaa'];
+const CB_HB_COLORS  =['#2255cc','#cc2222','#111111','#226622','#cccccc','#cc8822'];
+const CB_SKIN_COLORS=['#f0b070','#fde0c0','#e8a060','#c07040','#8b5a2b'];
+const CB_TOP_COLORS =['#ff6600','#cc2200','#1133cc','#eeeeee','#111111','#227722','#7722cc','#888888'];
+const CB_PANTS_COLORS=['#1a3a6a','#111111','#dddddd','#1a3a1a','#7a1a1a','#555555'];
+const CB_GL_COLORS  =['#222222','#eeeeee','#888888','#1a2a5a'];
+const CB_ACC_LIST   =[
+  {id:'none',label:'Keine'},
+  {id:'glasses',label:'Brille'},
+  {id:'mask',label:'Maske'},
+  {id:'anbu',label:'ANBU'},
+];
+
+let _cbName='Shinobi';
+
+function _cbMakeSwatch(color,container,field){
+  const d=document.createElement('div');
+  d.className='cb-swatch'+(G.look[field]===color?' sel':'');
+  d.style.background=color;
+  d.style.borderColor=color==='#ffffff'?'#999':'transparent';
+  d.onclick=()=>{G.look[field]=color;_cbRefreshSwatches(container,field);_cbRender();};
+  container.appendChild(d);
+}
+function _cbRefreshSwatches(container,field){
+  container.querySelectorAll('.cb-swatch').forEach(s=>{
+    s.classList.toggle('sel',s.style.background===G.look[field]||
+      (G.look[field]==='#ffffff'&&s.style.background==='rgb(255, 255, 255)')||
+      (s.style.background.replace(/\s/g,'')===G.look[field]));
+  });
+}
+function _cbBuildSection(containerId,colors,field){
+  const c=$( containerId);if(!c)return;
+  colors.forEach(col=>_cbMakeSwatch(col,c,field));
+}
+
+function _cbRender(){
+  const canvas=$('cb-canvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,120,160);
+  // background
+  ctx.fillStyle='#08041a';ctx.fillRect(0,0,120,160);
+  // shadow circle under feet
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.beginPath();ctx.ellipse(60,130,18,5,0,0,Math.PI*2);ctx.fill();
+  // draw at 3x scale centered
+  ctx.save();
+  ctx.scale(3,3);
+  drawPlayerSprite(ctx,20,40,Math.sin(Date.now()*.003)*20,0,1);
+  ctx.restore();
+  // name at bottom
+  ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
+  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=8;
+  ctx.fillText(_cbName,60,152);ctx.shadowBlur=0;
+}
+
+let _cbAnimFrame=null;
+function _cbStartAnim(){
+  function loop(){_cbRender();_cbAnimFrame=requestAnimationFrame(loop);}
+  loop();
+}
+function _cbStopAnim(){if(_cbAnimFrame){cancelAnimationFrame(_cbAnimFrame);_cbAnimFrame=null;}}
+
+function _cbSetHairStyle(id){
+  G.look.hairStyle=id;
+  $('cb-hair-style-btns').querySelectorAll('.cb-style-btn').forEach(b=>{
+    b.classList.toggle('sel',+b.dataset.style===id);
+  });
+  _cbRender();
+}
+
+function _cbSetAccessory(id){
+  G.look.accessory=id;
+  $('cb-acc-btns').querySelectorAll('.cb-acc-btn').forEach(b=>{
+    b.classList.toggle('sel',b.dataset.acc===id);
+  });
+  _cbRender();
+}
+
+function _cbRandomize(){
+  const rnd=arr=>arr[Math.random()*arr.length|0];
+  G.look.hairStyle=Math.random()*5|0;
+  G.look.hairColor=rnd(CB_HAIR_COLORS);
+  G.look.headband=Math.random()>.25;
+  G.look.headbandColor=rnd(CB_HB_COLORS);
+  G.look.skin=rnd(CB_SKIN_COLORS);
+  G.look.topColor=rnd(CB_TOP_COLORS);
+  G.look.pantsColor=rnd(CB_PANTS_COLORS);
+  G.look.gloves=Math.random()>.5;
+  G.look.gloveColor=rnd(CB_GL_COLORS);
+  G.look.accessory=rnd(CB_ACC_LIST).id;
+  _cbSyncUI();
+  _cbRender();
+}
+
+function _cbSyncUI(){
+  // hair style buttons
+  $('cb-hair-style-btns').querySelectorAll('.cb-style-btn').forEach(b=>b.classList.toggle('sel',+b.dataset.style===G.look.hairStyle));
+  // swatches
+  [['cb-hair-color-sw','hairColor'],['cb-hb-color-sw','headbandColor'],
+   ['cb-skin-color-sw','skin'],['cb-top-color-sw','topColor'],
+   ['cb-pants-color-sw','pantsColor'],['cb-gl-color-sw','gloveColor']].forEach(([id,field])=>{
+    const c=$(id);if(!c)return;
+    c.querySelectorAll('.cb-swatch').forEach(s=>{
+      const bg=s.style.backgroundColor;
+      const hex='#'+[...bg.match(/\d+/g)].slice(0,3).map(n=>(+n).toString(16).padStart(2,'0')).join('');
+      s.classList.toggle('sel',hex===G.look[field]);
+    });
+  });
+  // toggles
+  const hbt=$('cb-hb-toggle');
+  hbt.className='cb-toggle'+(G.look.headband?' on':'');
+  hbt.textContent=G.look.headband?'✓ AN':'✗ AUS';
+  const glt=$('cb-gl-toggle');
+  glt.className='cb-toggle'+(G.look.gloves?' on':'');
+  glt.textContent=G.look.gloves?'✓ AN':'✗ AUS';
+  // accessories
+  $('cb-acc-btns').querySelectorAll('.cb-acc-btn').forEach(b=>b.classList.toggle('sel',b.dataset.acc===G.look.accessory));
+}
+
+function initCharBuild(name){
+  _cbName=name||'Shinobi';
+  const nd=$('cb-name-disp');if(nd)nd.textContent=_cbName;
+  // build hair style buttons
+  const hsBtns=$('cb-hair-style-btns');hsBtns.innerHTML='';
+  CB_HAIR_STYLES.forEach(s=>{
+    const b=document.createElement('button');
+    b.className='cb-style-btn'+(G.look.hairStyle===s.id?' sel':'');
+    b.textContent=s.label;b.dataset.style=s.id;
+    b.onclick=()=>_cbSetHairStyle(s.id);
+    hsBtns.appendChild(b);
+  });
+  // build color swatches
+  $('cb-hair-color-sw').innerHTML='';  CB_HAIR_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-hair-color-sw'),'hairColor'));
+  $('cb-hb-color-sw').innerHTML='';   CB_HB_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-hb-color-sw'),'headbandColor'));
+  $('cb-skin-color-sw').innerHTML=''; CB_SKIN_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-skin-color-sw'),'skin'));
+  $('cb-top-color-sw').innerHTML='';  CB_TOP_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-top-color-sw'),'topColor'));
+  $('cb-pants-color-sw').innerHTML='';CB_PANTS_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-pants-color-sw'),'pantsColor'));
+  $('cb-gl-color-sw').innerHTML='';   CB_GL_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-gl-color-sw'),'gloveColor'));
+  // accessories
+  const accCont=$('cb-acc-btns');accCont.innerHTML='';
+  CB_ACC_LIST.forEach(a=>{
+    const b=document.createElement('button');
+    b.className='cb-acc-btn'+(G.look.accessory===a.id?' sel':'');
+    b.textContent=a.label;b.dataset.acc=a.id;
+    b.onclick=()=>_cbSetAccessory(a.id);
+    accCont.appendChild(b);
+  });
+  // toggle listeners
+  $('cb-hb-toggle').onclick=()=>{
+    G.look.headband=!G.look.headband;
+    const t=$('cb-hb-toggle');
+    t.className='cb-toggle'+(G.look.headband?' on':'');
+    t.textContent=G.look.headband?'✓ AN':'✗ AUS';
+    _cbRender();
+  };
+  $('cb-gl-toggle').onclick=()=>{
+    G.look.gloves=!G.look.gloves;
+    const t=$('cb-gl-toggle');
+    t.className='cb-toggle'+(G.look.gloves?' on':'');
+    t.textContent=G.look.gloves?'✓ AN':'✗ AUS';
+    _cbRender();
+  };
+  $('cb-random-btn').onclick=_cbRandomize;
+  $('cb-confirm-btn').onclick=confirmCharBuild;
+  goScreen('screen-char-build');
+  _cbStartAnim();
+}
+
+function confirmCharBuild(){
+  _cbStopAnim();
+  action('INIT_PLAYER',{name:_cbName});
+  $('lhud').classList.remove('hidden');
+  goFullscreen();
+  goScreen('screen-lobby');
+  msg(`Willkommen in Konoha, ${_cbName}!`,'good');
+  msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+}
 
 // Boot: build map, start lobby, show name modal
 buildLobbyMap();

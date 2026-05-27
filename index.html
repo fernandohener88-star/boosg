@@ -932,6 +932,47 @@ function spawnSlash(wx,wy,color='#ff8800'){
       life:0.5,maxLife:0.5,sz:4+Math.random()*4,color,gravity:0});
   }
 }
+function spawnWeaponHit(wx,wy,weapId,facing){
+  const dir=facing>0?0:Math.PI;
+  if(weapId==='kunai'){
+    for(let i=0;i<14;i++){
+      const a=dir+(Math.random()-0.5)*0.9,sp=140+Math.random()*100;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-8,life:0.2,maxLife:0.2,sz:2+Math.random()*2,color:Math.random()<0.5?'#ffffaa':'#ffffff',gravity:30});
+    }
+    PARTS.push({x:wx,y:wy,vx:0,vy:0,life:0.07,maxLife:0.07,sz:16,color:'rgba(255,255,180,0.65)',gravity:0});
+  }else if(weapId==='shuriken'){
+    for(let i=0;i<18;i++){
+      const a=Math.PI*2*i/18,sp=80+Math.random()*70;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:0.32,maxLife:0.32,sz:2+Math.random()*3,color:Math.random()<0.5?'#cccccc':'#aaaaaa',gravity:0});
+    }
+    PARTS.push({x:wx,y:wy,vx:0,vy:0,life:0.1,maxLife:0.1,sz:20,color:'rgba(200,200,200,0.55)',gravity:0});
+  }else if(weapId==='katana'){
+    // wide diagonal slash arc
+    for(let i=0;i<22;i++){
+      const a=dir-0.7+(i/22)*1.4,sp=180+Math.random()*130;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-25,life:0.35,maxLife:0.35,sz:1+Math.random()*3,color:Math.random()<0.6?'#ffffff':'#99ccff',gravity:15});
+    }
+    for(let i=0;i<3;i++){
+      const a=dir+(i-1)*0.25;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*240,vy:Math.sin(a)*240-20,life:0.12,maxLife:0.12,sz:4,color:'#ddeeff',gravity:0});
+    }
+  }else if(weapId==='bo_staff'){
+    // blunt shockwave + dust
+    for(let i=0;i<16;i++){
+      const a=Math.PI*2*i/16,sp=90+Math.random()*60;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:0.28,maxLife:0.28,sz:3+Math.random()*4,color:Math.random()<0.5?'#bb8833':'#ddaa55',gravity:25});
+    }
+    for(let i=0;i<8;i++){
+      PARTS.push({x:wx+(Math.random()-0.5)*18,y:wy+(Math.random()-0.5)*8,vx:(Math.random()-0.5)*35,vy:-Math.random()*25,life:0.5,maxLife:0.5,sz:5+Math.random()*5,color:'rgba(170,130,70,0.4)',gravity:5});
+    }
+  }else{
+    // fists / no weapon: forward punch burst
+    for(let i=0;i<12;i++){
+      const a=dir+(Math.random()-0.5)*Math.PI*0.7,sp=110+Math.random()*90;
+      PARTS.push({x:wx,y:wy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-10,life:0.3,maxLife:0.3,sz:3+Math.random()*4,color:Math.random()<0.5?'#ff8800':'#ffcc44',gravity:20});
+    }
+  }
+}
 function spawnDmgNum(wx,wy,text,color='#ff2244'){
   DNUMS.push({x:wx,y:wy,vy:-55,text,color,life:1.2,maxLife:1.2});
 }
@@ -1946,7 +1987,8 @@ function updateAmaterasu(dt){
       AMAT.dotCount=1;AMAT.target.hp-=5;AMAT.target.hitFlash=0.3;
       spawnDmgNum(AMAT.tx,AMAT.ty-26,`-5 🖤`,'#cc44cc');shake(4);
       // add to burn list (supports multiple burning enemies simultaneously)
-      if(!AMAT_BURNS.some(b=>b.target===AMAT.target)) AMAT_BURNS.push({target:AMAT.target,dotTimer:0});
+      const _eb=AMAT_BURNS.find(b=>b.target===AMAT.target);
+      if(_eb){_eb.dotTimer=0;}else{AMAT_BURNS.push({target:AMAT.target,dotTimer:0});}
       spreadFire(AMAT.tx,AMAT.ty);
       if(AMAT.target.hp<=0){AMAT.target.alive=false;const _bi=AMAT_BURNS.findIndex(b=>b.target===AMAT.target);if(_bi>=0)AMAT_BURNS.splice(_bi,1);
         spawnBurst(AMAT.tx,AMAT.ty,'#220022',12,60);
@@ -2105,25 +2147,102 @@ function drawAmaterasuAnim(ctx,camX,camY){
 
 function drawEnemy(ctx,e,sx,sy){
   const flash=e.hitFlash>0;
-  ctx.shadowColor=flash?'#ffffff':e.glow; ctx.shadowBlur=flash?20:12;
-  ctx.fillStyle=flash?'#ffffff':e.col;
-  const hs=e.sz;
-  if(e.type==='boss'){
-    ctx.fillRect(sx-hs,sy-hs*1.5,hs*2,hs*2);
-    ctx.fillStyle='#ff2200'; ctx.fillRect(sx-hs+4,sy-hs,6,6); ctx.fillRect(sx+hs-10,sy-hs,6,6);
-    ctx.fillStyle='#ffcc00'; ctx.fillRect(sx-4,sy-hs-10,8,10);
-  } else {
-    ctx.fillRect(sx-hs,sy-hs,hs*2,hs*2);
-    ctx.fillStyle=flash?'#ff000055':'#ff222255';
-    ctx.fillRect(sx-hs+2,sy-hs+4,4,4); ctx.fillRect(sx+hs-6,sy-hs+4,4,4);
+  ctx.shadowColor=flash?'#ffffff':e.glow;ctx.shadowBlur=flash?20:12;
+  const t=performance.now()*0.003+e.x*0.05;
+  const bob=Math.sin(t)*1.5|0,leg=Math.sin(t)*2.5|0;
+
+  if(e.type==='chunin'){
+    const bx=sx-7,by=sy-14+bob;
+    // spiky dark hair
+    ctx.fillStyle=flash?'#fff':'#3a2010';
+    ctx.fillRect(bx,by-4,3,5);ctx.fillRect(bx+3,by-6,3,6);ctx.fillRect(bx+7,by-5,3,5);ctx.fillRect(bx+11,by-3,3,4);
+    // red enemy headband
+    ctx.fillStyle=flash?'#fff':'#aa1111';ctx.fillRect(bx,by,13,3);
+    ctx.fillStyle=flash?'#ddd':'#cc2222';ctx.fillRect(bx+4,by+1,5,1);
+    // face
+    ctx.fillStyle=flash?'#fff':'#d09060';ctx.fillRect(bx,by+3,13,8);
+    ctx.fillStyle=flash?'#f55':'#110000';ctx.fillRect(bx+2,by+5,2,2);ctx.fillRect(bx+8,by+5,2,2);
+    // dark vest
+    ctx.fillStyle=flash?'#fff':'#252535';ctx.fillRect(bx+1,by+11,11,9);
+    ctx.fillStyle=flash?'#ddd':'#353545';ctx.fillRect(bx+3,by+12,7,6);
+    // legs
+    ctx.fillStyle=flash?'#fff':'#1a2840';
+    ctx.fillRect(bx+1,by+20,4,7-leg);ctx.fillRect(bx+7,by+20,4,7+leg);
+
+  }else if(e.type==='akatsuki'){
+    const bx=sx-8,by=sy-16+bob;
+    // black hair
+    ctx.fillStyle=flash?'#fff':'#100808';
+    ctx.fillRect(bx,by-5,4,7);ctx.fillRect(bx+5,by-7,4,8);ctx.fillRect(bx+10,by-6,4,7);
+    // pale face
+    ctx.fillStyle=flash?'#fff':'#c0a880';ctx.fillRect(bx+1,by+2,13,9);
+    // rinne sharingan eyes (purple)
+    ctx.fillStyle=flash?'#f5f':'#5a0055';ctx.fillRect(bx+2,by+4,3,3);ctx.fillRect(bx+9,by+4,3,3);
+    ctx.fillStyle='#110011';ctx.fillRect(bx+3,by+5,1,1);ctx.fillRect(bx+10,by+5,1,1);
+    // black cloak
+    ctx.fillStyle=flash?'#fff':'#080808';ctx.fillRect(bx,by+11,15,18);
+    // red cloud emblems on cloak
+    if(!flash){
+      ctx.fillStyle='#bb1111';
+      ctx.fillRect(bx+1,by+14,3,2);ctx.fillRect(bx+2,by+13,1,1);
+      ctx.fillRect(bx+8,by+17,4,2);ctx.fillRect(bx+9,by+16,2,1);
+      ctx.fillRect(bx+3,by+22,3,2);ctx.fillRect(bx+4,by+21,1,1);
+    }
+    // feet
+    ctx.fillStyle=flash?'#fff':'#0a0a0a';
+    ctx.fillRect(bx+1,by+29,5,4-leg);ctx.fillRect(bx+8,by+29,5,4+leg);
+
+  }else if(e.type==='anbu'){
+    const bx=sx-7,by=sy-15+bob;
+    // katana on back (behind body, drawn first)
+    ctx.fillStyle=flash?'#777':'#887766';ctx.fillRect(bx+14,by-2,2,24);
+    ctx.fillStyle=flash?'#999':'#554422';ctx.fillRect(bx+13,by-6,4,5);
+    // black armored body
+    ctx.fillStyle=flash?'#fff':'#0e1020';ctx.fillRect(bx,by+9,13,13);
+    ctx.fillStyle=flash?'#888':'#1c2240';
+    ctx.fillRect(bx+1,by+11,11,2);ctx.fillRect(bx+1,by+15,11,2);
+    // arms
+    ctx.fillStyle=flash?'#fff':'#0c0c18';ctx.fillRect(bx-2,by+9,3,10);ctx.fillRect(bx+12,by+9,3,10);
+    // white ANBU cat mask
+    ctx.fillStyle=flash?'#ccc':'#dde0da';ctx.fillRect(bx+1,by,11,10);
+    if(!flash){
+      ctx.fillStyle='#aa2222';ctx.fillRect(bx+2,by+2,2,7);ctx.fillRect(bx+9,by+2,2,7);
+      ctx.fillStyle='#1a1a1a';ctx.fillRect(bx+4,by+6,5,2);
+    }
+    // dark hair above mask
+    ctx.fillStyle=flash?'#fff':'#0c0c0c';
+    ctx.fillRect(bx,by-4,3,5);ctx.fillRect(bx+4,by-5,5,6);ctx.fillRect(bx+10,by-4,3,5);
+    // legs
+    ctx.fillStyle=flash?'#fff':'#0e1020';
+    ctx.fillRect(bx+1,by+22,4,5-leg);ctx.fillRect(bx+7,by+22,4,5+leg);
+
+  }else{// boss / default
+    const bx=sx-11,by=sy-20+bob;
+    // kage hat
+    ctx.fillStyle=flash?'#fff':'#0e0e0e';
+    ctx.beginPath();ctx.moveTo(sx,by-14);ctx.lineTo(bx-5,by+2);ctx.lineTo(bx+27,by+2);ctx.closePath();ctx.fill();
+    ctx.fillStyle=flash?'#888':'#cc1100';ctx.fillRect(bx-3,by,27,3);
+    // face
+    ctx.fillStyle=flash?'#fff':'#c8a070';ctx.fillRect(bx+3,by+3,17,13);
+    ctx.fillStyle=flash?'#f33':'#440000';ctx.fillRect(bx+5,by+7,4,3);ctx.fillRect(bx+14,by+7,4,3);
+    ctx.fillStyle='#110000';ctx.fillRect(bx+6,by+8,2,1);ctx.fillRect(bx+15,by+8,2,1);
+    // white robes
+    ctx.fillStyle=flash?'#fff':'#eeeef0';ctx.fillRect(bx+2,by+16,20,22);
+    ctx.fillStyle=flash?'#888':'#bb1100';
+    ctx.fillRect(bx+2,by+16,20,2);ctx.fillRect(bx+2,by+16,2,22);ctx.fillRect(bx+20,by+16,2,22);
+    ctx.fillStyle=flash?'#888':'#ccaa00';ctx.fillRect(bx+4,by+24,16,3);
+    // legs
+    ctx.fillStyle=flash?'#fff':'#ccccca';
+    ctx.fillRect(bx+4,by+38,6,5-leg);ctx.fillRect(bx+13,by+38,6,5+leg);
   }
+
   ctx.shadowBlur=0;
-  // HP bar above
-  const bw=e.sz*2.5, bh=4;
-  const bx=sx-bw/2, by=sy-e.sz-10;
-  ctx.fillStyle='#1a0010'; ctx.fillRect(bx,by,bw,bh);
+  // HP bar
+  const bw=e.sz*2.5,bh=4;
+  const barX=sx-bw/2,barY=sy-e.sz-(e.type==='boss'?20:10);
+  ctx.fillStyle='#1a0010';ctx.fillRect(barX,barY,bw,bh);
   ctx.fillStyle=e.type==='boss'?'#ff4400':'#cc0022';
-  ctx.fillRect(bx,by,bw*(e.hp/e.maxHp),bh);
+  ctx.fillRect(barX,barY,bw*(e.hp/e.maxHp),bh);
 }
 
 function drawTile(ctx,sx,sy,tile,tx,ty,dungeon){
@@ -2248,13 +2367,16 @@ function playerAttack(){
   const p=G.player; if(!p||p.atkCd>0) return;
   p.atkCd=0.45;
   const range=52+((p.atk/30)|0)*8;
+  const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});
+  const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;
+  const wid=wEq?.id||null;
   let hit=false;
   G.dungeon.enemies.filter(e=>e.alive).forEach(e=>{
     const dx=e.x-p.x, dy=e.y-p.y;
     if(dx*dx+dy*dy<=range*range){
       const dmg=Math.max(1,(p.atk-(e.type==='boss'?8:3))+Math.floor(Math.random()*6));
       e.hp-=dmg; e.hitFlash=0.18;
-      spawnSlash(e.x,e.y,'#ff8800');
+      spawnWeaponHit(e.x,e.y,wid,p.facing);
       spawnDmgNum(e.x,e.y-e.sz,`-${dmg}`,'#ff4444');
       shake(4); hit=true;
       if(e.hp<=0){
@@ -2268,7 +2390,7 @@ function playerAttack(){
       }
     }
   });
-  spawnSlash(p.x+p.facing*20,p.y-6,hit?'#ffaa00':'#ff660055');
+  if(!hit) spawnSlash(p.x+p.facing*20,p.y-6,'#ff660055');
 }
 
 function chakraAttack(){
@@ -2312,6 +2434,24 @@ function updateEnemies(dt){
   G.dungeon.enemies.forEach(e=>{
     if(!e.alive) return;
     if(e.hitFlash>0) e.hitFlash-=dt;
+    // ground fire damage (Amaterasu tiles)
+    if(FIRE_TILES.length>0){
+      if(e.fireCd===undefined)e.fireCd=0;
+      e.fireCd=Math.max(0,e.fireCd-dt);
+      if(e.fireCd<=0){
+        const etx=e.x/TSIZE|0,ety=e.y/TSIZE|0;
+        if(FIRE_TILES.some(f=>f.tx===etx&&f.ty===ety)){
+          e.fireCd=1.0;e.hp-=8;e.hitFlash=0.18;
+          spawnDmgNum(e.x,e.y-16,'-8 🔥','#cc44cc');
+          if(e.hp<=0){
+            e.alive=false;spawnBurst(e.x,e.y,'#ff6600',20,100);
+            action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
+            G.enemiesKilled++;if(e.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
+            _chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');return;
+          }
+        }
+      }
+    }
     if(e.stunTick>0){e.stunTick-=dt;return;}
     e.moveTick-=dt;
     if(e.moveTick>0) return;

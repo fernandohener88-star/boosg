@@ -115,11 +115,18 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 .inv-slot.eq{border-color:var(--gold);background:linear-gradient(135deg,#1a1200,#0f0820);box-shadow:0 0 10px var(--gold)22}
 .inv-slot.occ:hover{border-color:var(--or)}
 /* ══════════════════════ INV OVERLAY (Tab) ══════════════════════ */
-#inv-overlay{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9000;background:rgba(6,2,18,0.97);border:1px solid #3a1a5a;padding:18px 20px;min-width:480px;max-width:700px;display:none;box-shadow:0 0 40px #330055aa}
+#inv-overlay{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9000;background:rgba(5,1,15,0.98);border:1px solid #3a1a5a;padding:18px 22px;width:720px;max-width:96vw;display:none;box-shadow:0 0 50px #330055bb}
 #inv-overlay.open{display:block}
-#inv-overlay .ov-ttl{font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
-#inv-overlay .ov-close{font-size:7px;color:#555;cursor:pointer}
-#inv-overlay .inv-grid{grid-template-columns:repeat(5,1fr)}
+#inv-overlay .ov-ttl{font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a1a44;padding-bottom:10px}
+#inv-overlay .ov-close{font-size:7px;color:#443a5a;cursor:pointer}
+#inv-overlay .ov-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+#inv-overlay .ov-col{}
+#inv-overlay .ov-sec{font-size:7px;color:#8866aa;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #1a1030}
+#inv-overlay .inv-grid{grid-template-columns:repeat(4,1fr);gap:5px}
+#inv-overlay .ov-consume .inv-grid{grid-template-columns:repeat(6,1fr);gap:5px}
+#inv-overlay .ov-consume .ov-sec{color:#8866aa}
+.inv-slot .inv-name{font-size:5.5px;text-align:center;color:#888;word-break:break-word;line-height:1.3}
+.eq-badge{position:absolute;top:3px;right:3px;font-size:6px;color:var(--gold);font-weight:bold}
 .inv-icon{font-size:18px}
 .inv-name{font-size:6px;color:#666;text-align:center}
 .inv-slot.eq .inv-name{color:var(--gold)}
@@ -180,7 +187,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 .ap-n{font-size:9px;color:#fff}
 
 /* ══════════════════════ MODAL ══════════════════════ */
-#modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:10000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 #modal-overlay.hidden{display:none}
 #modal-box{background:linear-gradient(135deg,#0f0820,#1a0d2e);border:1px solid var(--border);padding:20px;max-width:380px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 0 40px var(--purple)44}
 #modal-title{font-size:11px;color:var(--gold);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2a1a44}
@@ -3765,35 +3772,71 @@ LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM)); LCAM.y=G.lobby.y-((
 goScreen('screen-lobby');
 setTimeout(showNameModal,200);
 // ── TAB INVENTORY OVERLAY ──
+// ── TAB INVENTORY OVERLAY ──
 const _invOv=document.createElement('div');
 _invOv.id='inv-overlay';
-_invOv.innerHTML=`<div class="ov-ttl"><span>📦 INVENTAR (<span id="ov-inv-count">0</span>/20)</span><span class="ov-close">[TAB] schließen</span></div><div class="inv-grid" id="ov-inv-grid"></div>`;
+_invOv.innerHTML=`
+<div class="ov-ttl">
+  <span>📦 INVENTAR (<span id="ov-inv-count">0</span>/20) &nbsp;·&nbsp; 💰 <span id="ov-ryo-lbl">0</span></span>
+  <span class="ov-close">[TAB] schließen</span>
+</div>
+<div class="ov-body">
+  <div class="ov-col">
+    <div class="ov-sec">⚔️ Ausrüstung &amp; Waffen</div>
+    <div class="inv-grid" id="ov-weapon-grid"></div>
+  </div>
+  <div class="ov-col">
+    <div class="ov-sec">🌀 Ninjutsu</div>
+    <div class="inv-grid" id="ov-jutsu-grid"></div>
+  </div>
+</div>
+<div class="ov-consume">
+  <div class="ov-sec">🍜 Verbrauchsgegenstände</div>
+  <div class="inv-grid" id="ov-consume-grid"></div>
+</div>`;
 document.body.appendChild(_invOv);
 let _invOvOpen=false;
-function _renderOvInv(){
-  const g=$('ov-inv-grid');if(!g)return;g.innerHTML='';
-  for(let i=0;i<20;i++){
-    const inv=G.inventory[i];
-    const s=document.createElement('div');
-    if(inv){
-      const it=ITEMS.find(x=>x.id===inv.id);
-      s.className=`inv-slot occ${inv.eq?' eq':''}`;
-      s.dataset.idx=i;
-      s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
-    } else {
-      s.className='inv-slot';
-      s.innerHTML='<span style="font-size:18px;color:#1a1030">＋</span>';
-    }
-    g.appendChild(s);
+
+function _makeSlot(inv,idx){
+  const s=document.createElement('div');
+  if(inv){
+    const it=ITEMS.find(x=>x.id===inv.id);
+    s.className=`inv-slot occ${inv.eq?' eq':''}`;
+    s.dataset.idx=idx;
+    s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
+  } else {
+    s.className='inv-slot';
+    s.innerHTML='<span style="font-size:16px;color:#1a1030">＋</span>';
   }
-  $('ov-inv-count').textContent=G.inventory.length;
+  return s;
 }
+
+function _fillSection(gridId,filterFn,emptySlots){
+  const g=$(gridId);if(!g)return;g.innerHTML='';
+  const items=G.inventory.map((inv,i)=>({inv,i})).filter(({inv})=>inv&&filterFn(ITEMS.find(x=>x.id===inv.id)));
+  items.forEach(({inv,i})=>g.appendChild(_makeSlot(inv,i)));
+  const blanks=Math.max(0,emptySlots-items.length);
+  for(let i=0;i<blanks;i++){const s=document.createElement('div');s.className='inv-slot';s.innerHTML='<span style="font-size:16px;color:#1a1030">＋</span>';g.appendChild(s);}
+}
+
+function _renderOvInv(){
+  $('ov-inv-count').textContent=G.inventory.length;
+  $('ov-ryo-lbl').textContent=G.ryo||0;
+  _fillSection('ov-weapon-grid', it=>it&&(it.type==='weapon'), 4);
+  _fillSection('ov-jutsu-grid',  it=>it&&(it.type==='jutsu'),  4);
+  _fillSection('ov-consume-grid',it=>it&&(it.type==='consume'),6);
+}
+
 function toggleInvOverlay(){
   _invOvOpen=!_invOvOpen;
   if(_invOvOpen){_renderOvInv();_invOv.classList.add('open');}
   else _invOv.classList.remove('open');
 }
-_invOv.addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s){_invModal(parseInt(s.dataset.idx));_renderOvInv();}});
+
+_invOv.addEventListener('click',e=>{
+  const s=e.target.closest('[data-idx]');
+  if(s){_invModal(parseInt(s.dataset.idx));setTimeout(_renderOvInv,50);}
+});
 document.addEventListener('keydown',e=>{if(e.code==='Tab'){e.preventDefault();toggleInvOverlay();}});
 </script>
 </body>

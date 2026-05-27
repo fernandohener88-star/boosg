@@ -4160,165 +4160,95 @@ let _introRaf=null,_introLine=0,_introTyping=false;
 let _introTypedChars=0,_introTypingRaf=null,_introCb=null;
 
 function _drawKakashi(ctx,ox,oy,t,P){
-  // P = screen pixels per "game pixel". All coords are in game pixels.
-  // Layout (y=0 is top of hair, character goes DOWN):
-  //   y  0.. 8  → hair spikes
-  //   y  7..10  → hair base (overlaps head top)
-  //   y  8..20  → head (face, hitai-ate, eye, mask)
-  //  y 20..22  → neck
-  //  y 22..34  → vest / body
-  //  y 34..43  → legs
-  //  y 43..47  → boots
-  // Total: 47 game pixels, all connected without gaps.
+  const bob=Math.sin(t*0.9)*1.5;
+  function f(dx,dy,w,h,c){ctx.fillStyle=c;ctx.fillRect(ox+dx*P,oy+dy*P+bob,w*P,h*P);}
 
-  const bob = Math.sin(t*0.9)*2; // smooth float in screen pixels
-  function f(dx,dy,w,h,c){
-    ctx.fillStyle=c;
-    ctx.fillRect(ox+dx*P, oy+dy*P+bob, w*P, h*P);
-  }
+  /* Palette */
+  const SK='#f0d0a0',Hw='#f0f0f0',Hm='#d0d0d0',Hd='#a8a8a8';
+  const BK='#141414',HP='#c4ccd8',HPL='#dce4f0',HPS='#8898a8';
+  const VG='#3e5c24',VL='#4c6e2e',VD='#2c4018';
+  const RD='#7a2020',NV='#14141e',SD='#0e0e18';
 
-  // shadow
-  ctx.fillStyle='rgba(0,0,0,0.25)';
-  ctx.beginPath();ctx.ellipse(ox+9*P,oy+48*P+bob,10*P,2*P,0,0,Math.PI*2);ctx.fill();
+  /* shadow */
+  ctx.fillStyle='rgba(0,0,0,0.2)';
+  ctx.beginPath();ctx.ellipse(ox+8*P,oy+56*P+bob,8*P,2*P,0,0,Math.PI*2);ctx.fill();
 
-  // ── BOOTS y=43..47 ──────────────────────
-  f(3,43, 5,4, '#111');      // left boot
-  f(9,43, 5,4, '#111');      // right boot
-  f(2,45, 6,2, '#0a0a0a');   // left sole overhang
-  f(8,45, 6,2, '#0a0a0a');   // right sole
+  /* ── SANDALS y=52..56 ── */
+  f(3,52, 4,4, SD);   f(9,52, 4,4, SD);
+  f(2,54, 5,2, '#181820');  f(8,54, 5,2, '#181820');
+  f(3,55, 2,1, '#28283a');  f(10,55, 2,1, '#28283a');
 
-  // ── LEGS y=34..43 ───────────────────────
-  f(3,34, 5,10, '#181825'); // left leg
-  f(9,34, 5,10, '#181825'); // right leg
-  f(8,34, 1,10, '#11111e'); // gap between legs
-  f(3,38, 5,2,  '#20203a'); // left knee guard
-  f(9,38, 5,2,  '#20203a'); // right knee guard
+  /* ── LEGS y=42..53 ── */
+  f(3,42, 4,11, NV);  f(9,42, 4,11, NV);
+  f(7,42, 2,11, '#0c0c16');
+  f(3,46, 4,2, '#1c1c2c');  f(9,46, 4,2, '#1c1c2c');
+  /* ninja pouch right thigh */
+  f(9,44, 4,6, '#1a1a28');  f(10,44, 2,6, '#22223a');
+  f(10,44,2,1, HP); f(10,46,2,1, HP); f(10,48,2,1, HP);
 
-  // ── VEST BODY y=21..34 ──────────────────
-  f(2,21, 14,13, '#282c28'); // outer vest — y=21 overlaps collar
-  f(3,22, 12,11, '#32363a'); // vest face
-  // center seam
-  f(8,21, 2,13, '#1e201e');
-  f(8,22, 1,11, '#262826');
-  // left chest pocket
-  f(3,24, 5,5, '#23261e');
-  f(3,24, 5,1, '#1c1e1a');
-  f(4,25, 3,3, '#1a1c17');
-  f(5,26, 1,2, '#111');
-  // right chest pocket
-  f(10,24, 5,5, '#23261e');
-  f(10,24, 5,1, '#1c1e1a');
-  f(11,25, 3,3, '#1a1c17');
-  f(12,26, 1,2, '#111');
-  // shoulder pads
-  f(2,22, 3,3, '#3e423e');
-  f(13,22, 3,3, '#3e423e');
+  /* ── ARMS y=26..44 ── */
+  f(0,26, 3,18, NV);  f(13,26, 3,18, NV);
+  f(0,34, 3,2, '#1c1c2c');  f(13,34, 3,2, '#1c1c2c');
+  f(0,41, 3,3, SK);   f(13,41, 3,3, SK);
 
-  // ── ARMS y=22..37 ───────────────────────
-  f(0,22, 3,13, '#282c28');  // left arm
-  f(15,22, 3,13, '#282c28'); // right arm
-  f(0,28, 3,2,  '#323632');  // elbow
-  f(15,28, 3,2, '#323632');
-  // gloves
-  f(0,33, 3,5, '#1c1c1c');
-  f(15,33, 3,5, '#1c1c1c');
-  // fingertips
-  f(0,37, 3,1, '#a07858');
-  f(15,37, 3,1, '#a07858');
+  /* ── VEST y=24..43 ── */
+  f(1,24, 14,19, VD);
+  f(2,24, 12,19, VG);
+  f(3,25, 10,17, VL);
+  /* seam */
+  f(7,24, 2,19, VD); f(7,25, 1,17, '#364e20');
+  /* LEFT POCKET */
+  f(3,27, 4,10, VD);  f(3,28, 4,9, VG);
+  f(3,29, 4,1, VD);  f(3,32, 4,1, VD);  f(3,35, 4,1, VD);
+  f(4,30, 2,2, VL);  f(4,33, 2,2, VL);
+  /* RIGHT POCKET */
+  f(9,27, 4,10, VD);  f(9,28, 4,9, VG);
+  f(9,29, 4,1, VD);  f(9,32, 4,1, VD);  f(9,35, 4,1, VD);
+  f(10,30, 2,2, VL);  f(10,33, 2,2, VL);
+  /* red shoulder patches */
+  f(1,24, 2,5, RD);  f(13,24, 2,5, RD);
+  /* collar */
+  f(4,22, 8,4, VG);  f(5,22, 6,3, VL);
 
-  // ── COLLAR / NECK y=19..22 ───────────────
-  // Full-width block bridges head bottom to vest top (no gap)
-  f(3,19, 12,4, '#1a1c1a'); // collar full width
-  f(7,20,  4,3, '#c8a070'); // skin showing at collar center
+  /* ── MASK y=17..25 ── */
+  f(3,17, 10,9, BK);
+  f(3,17,10,1,'#1e1e1e'); f(3,20,10,1,'#0c0c0c'); f(3,23,10,1,'#1a1a1a');
+  f(2,20, 2,4, '#181818'); f(12,20, 2,4, '#181818');
 
-  // ── HEAD SKIN y=8..20 ───────────────────
-  // Full face block. Hair will overlap the top rows (y=8,9).
-  f(4,8,  10,12, '#c8a070'); // main skin
-  f(12,9,  2,10, '#b89060'); // right shadow
-  f(4,9,   2,10, '#d0a878'); // left light
+  /* ── FACE SKIN y=12..20 ── */
+  f(3,12, 10,8, SK);
+  f(11,13, 2,6, '#d8b880'); f(3,13, 2,5, '#fcd8a8');
 
-  // ── HITAI-ATE y=8..13 ───────────────────
-  // Black strap across full forehead (covers where left eye would be)
-  f(3,8,  12,5, '#181818');  // strap
-  // Metal plate (left side of strap, since it's tilted toward left eye)
-  f(4,9,   8,3, '#c0c0c8');  // plate
-  f(5,9,   6,2, '#ccccda');  // face
-  f(4,11,  8,1, '#9898a0');  // shadow bottom
-  f(5,9,   6,1, '#d8d8e4');  // plate top shine
-  // frame edges
-  f(4,9,   1,3, '#aaaab0');
-  f(11,9,  1,3, '#aaaab0');
-  // Konoha leaf etching
-  f(7,10,  1,1, '#80808a');
-  f(6,10,  1,1, '#80808a');
-  f(8,10,  1,1, '#80808a');
-  f(7,11,  1,1, '#70707a');
-  f(6,11,  1,1, '#80808a');
-  f(8,11,  1,1, '#80808a');
-  // right strap
-  f(12,9,  3,3, '#181818');
+  /* ── HITAI-ATE y=10..15 ── */
+  f(2,10, 12,5, BK);
+  f(3,11, 8,3, HP); f(4,11, 6,2, HPL);
+  f(3,13, 8,1, HPS); f(4,11, 6,1, '#e8ecf6');
+  /* leaf */
+  f(7,11, 2,2, '#686ea0'); f(6,12, 4,1, '#606698');
+  /* frame edges */
+  f(3,11,1,3,HPS); f(10,11,1,3,HPS);
+  /* drooping left strap over left eye */
+  f(2,12, 2,8, BK);
 
-  // ── RIGHT EYE y=13..17 (x=10..14) ───────
-  // Skin patch around eye
-  f(10,13, 5,5, '#c8a070');
-  // Eye white
-  f(10,14, 5,3, '#ece8e0');
-  // Iris
-  f(11,14, 3,3, '#2c2840');
-  // Pupil
-  f(12,14, 1,2, '#090810');
-  // Catch light
-  f(13,14, 1,1, '#ffffff');
-  // Top eyelid skin
-  f(10,13, 5,1, '#c0a060');
-  // Eyelash (dark line)
-  f(10,13, 5,1, '#2a2a2a');
-  // Lower lid
-  f(10,16, 5,1, '#b09058');
-  // Eyebrow (above hitai-ate bottom on right side)
-  // — hitai-ate ends at y=13 on right side (x=11..14)
-  f(10,12, 5,1, '#555560');
+  /* ── RIGHT EYE y=13..17 ── */
+  f(9,13, 4,4, SK);
+  f(9,14, 4,2, '#e8e0d0'); f(10,14, 2,2, '#28243e');
+  f(11,14,1,1,'#060610'); f(12,14,1,1,'#ffffff');
+  f(9,13, 4,1, '#2a2a2a'); f(9,15, 4,1, '#d0b078');
 
-  // ── BLACK MASK y=15..20 ─────────────────
-  f(4,15, 10,6, '#141414');  // mask
-  f(4,15, 10,1, '#1e1e1e');  // top fold
-  f(4,17, 10,1, '#0e0e0e');  // fold shadow
-  f(4,19, 10,1, '#1a1a1a');  // chin fold
-  // left face under strap (y=13..15, x=4..10) — skin hidden here too
-  f(4,13,  7,3, '#c8a070');  // left face skin below strap
-
-  // ── HAIR y=0..9 (CONNECTED TO HEAD at y=8) ──────
-  // All spikes bottom at y=7 or y=8; head top at y=8.
-  // Hair base row at y=7 bridges spikes to head.
-  const Hm='#d4d4d4',Hl='#f0f0f0',Hd='#a8a8a8',Hb='#c0c0c0';
-
-  // Far left short spike (x=3, y=4..7)
-  f(3, 4, 2,4, Hb);
-  // Left spike (x=5, y=2..7)
-  f(5, 2, 2,6, Hm);
-  // Center-left spike (tallest, x=7, y=0..7)
-  f(7, 0, 3,8, Hm);
-  // Center-right spike (x=9, y=1..7)
-  f(9, 1, 2,7, Hm);
-  // Right spike (x=11, y=3..7)
-  f(11, 3, 2,5, Hb);
-  // Right stub (x=12, y=5..7)
-  f(12, 5, 1,3, Hd);
-
-  // HAIR BASE: solid row at y=7 connecting all spikes to head top
-  f(3,  7, 11,2, Hm);  // this row is at y=7..8, directly above/overlapping head skin at y=8
-
-  // Side hair (hangs past hitai-ate, frames face)
-  f(3,  8, 2,6, Hb);   // left side hair along face edge
-  f(13, 8, 1,4, Hd);   // right side hair
-
-  // Highlights on spikes
-  f(8,  1, 1,5, Hl);
-  f(6,  3, 1,3, Hl);
-  f(10, 2, 1,3, Hl);
-
-  // Hair shadow at very bottom of hair mass
-  f(3,  6, 11,1, Hd);
+  /* ── HAIR y=0..12 ── */
+  f(0,7,  2,5, Hd);  f(1,4,  2,8, Hm);
+  f(2,2,  2,10,Hm);  f(3,1,  2,11,Hw);
+  f(4,0,  2,12,Hw);  f(6,0,  2,12,Hw);
+  f(7,0,  2,12,Hw);  f(9,0,  2,12,Hw);
+  f(10,1, 2,11,Hw);  f(11,2, 2,10,Hm);
+  f(13,4, 2,8, Hm);  f(14,7, 2,5, Hd);
+  /* base */
+  f(2,10, 12,3, Hm);
+  /* hanging side strands */
+  f(2,10, 1,6, Hd);  f(13,10, 1,6, Hd);
+  /* spike highlights */
+  f(6,1,1,5,'#ffffff'); f(8,0,1,5,'#ffffff'); f(4,2,1,4,'#f4f4f4');
 }
 
 function _introLoop(){
@@ -4369,7 +4299,7 @@ function _introLoop(){
     }
   }
   // Kakashi portrait — left side, scaled to ~70% screen height
-  const charGameH=48; // total game-pixel height of character
+  const charGameH=56; // total game-pixel height of character
   const P=Math.max(6, Math.min(14, (H*0.70/charGameH)|0));
   const kX=W*.05, kY=H*.12;
   _drawKakashi(ctx,kX,kY,t,P);

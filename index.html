@@ -3108,9 +3108,15 @@ function buildLobbyMap(){
   [[4,9],[6,9]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW) lobbyTiles[y][x]=LTILE.TREE;
   });
-  // Spines LAST — always walkable
-  for(let y=2;y<LH-2;y++){lobbyTiles[y][13]=LTILE.PATH;lobbyTiles[y][14]=LTILE.PATH;}
-  for(let x=2;x<LW-2;x++){lobbyTiles[9][x]=LTILE.PATH;lobbyTiles[10][x]=LTILE.PATH;}
+  // Spines — walkable but never override solid buildings
+  for(let y=2;y<LH-2;y++){
+    if(lobbyTiles[y][13]!==LTILE.BLDG)lobbyTiles[y][13]=LTILE.PATH;
+    if(lobbyTiles[y][14]!==LTILE.BLDG)lobbyTiles[y][14]=LTILE.PATH;
+  }
+  for(let x=2;x<LW-2;x++){
+    if(lobbyTiles[9][x]!==LTILE.BLDG)lobbyTiles[9][x]=LTILE.PATH;
+    if(lobbyTiles[10][x]!==LTILE.BLDG)lobbyTiles[10][x]=LTILE.PATH;
+  }
 }
 
 function isLobbyWall(wx,wy){

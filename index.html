@@ -2593,6 +2593,22 @@ function victory(){
     [{label:'Lobby',cls:'btn-gold',cb:()=>goScreen('screen-lobby')}]);
 }
 
+function enterFreeDungeon(){
+  if(!G.player){showNameModal();return;}
+  G.missionMode=null;
+  stopLobbyLoop();
+  const data=genFloor(G.floor||1);
+  Object.assign(G.dungeon,data); G.dungeon.isMission=false;
+  G.player.x=data.startX; G.player.y=data.startY;
+  CAM.x=data.startX-350; CAM.y=data.startY-240;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('screen-game').classList.add('active');
+  const cv=$('game-canvas');
+  cv.width=((window.innerWidth||1280)/GAME_SCALE)|0;
+  cv.height=((window.innerHeight-52-28)/GAME_SCALE)|0;
+  updateGameHUD(); startGameLoop();
+}
+
 /* ════════════════════════════════════════════════════
    MISSION SYSTEM
 ════════════════════════════════════════════════════ */
@@ -3452,15 +3468,7 @@ $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
 $('aca-back').onclick   =()=>goScreen('screen-lobby');
 $('ms-back').onclick    =()=>goScreen('screen-lobby');
-$('ms-dungeon-btn').onclick=()=>{
-  if(!G.player){showNameModal();return;}
-  G.missionMode=null;
-  const data=genFloor(G.floor||1);
-  Object.assign(G.dungeon,data);G.dungeon.isMission=false;
-  G.player.x=data.startX;G.player.y=data.startY;
-  CAM.x=data.startX-350;CAM.y=data.startY-240;
-  goScreen('screen-game');
-};
+$('ms-dungeon-btn').onclick=()=>enterFreeDungeon();
 $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});

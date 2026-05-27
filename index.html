@@ -1919,7 +1919,7 @@ function drawSuitonAnim(ctx,camX,camY){
 const AMAT={active:false,phase:0,timer:0,ox:0,oy:0,tx:0,ty:0,target:null,dotCount:0};
 const AMAT_DUR=[0.52,0.40];
 // Separate burn tracker — doesn't block player movement
-const AMAT_BURN={active:false,target:null,dotTimer:0};
+const AMAT_BURNS=[]; // [{target,dotTimer}] — multiple enemies can burn simultaneously
 function triggerAmaterasu(){
   const p=G.player;if(!p)return;
   if(p.chakra<38){msg('Nicht genug Chakra!','bad');return;}
@@ -1945,10 +1945,10 @@ function updateAmaterasu(dt){
     if(t>0.55&&AMAT.dotCount===0&&AMAT.target?.alive){
       AMAT.dotCount=1;AMAT.target.hp-=5;AMAT.target.hitFlash=0.3;
       spawnDmgNum(AMAT.tx,AMAT.ty-26,`-5 🖤`,'#cc44cc');shake(4);
-      // hand off to burn tracker + spread fire on floor
-      AMAT_BURN.active=true;AMAT_BURN.target=AMAT.target;AMAT_BURN.dotTimer=0;
+      // add to burn list (supports multiple burning enemies simultaneously)
+      if(!AMAT_BURNS.some(b=>b.target===AMAT.target)) AMAT_BURNS.push({target:AMAT.target,dotTimer:0});
       spreadFire(AMAT.tx,AMAT.ty);
-      if(AMAT.target.hp<=0){AMAT.target.alive=false;AMAT_BURN.active=false;
+      if(AMAT.target.hp<=0){AMAT.target.alive=false;const _bi=AMAT_BURNS.findIndex(b=>b.target===AMAT.target);if(_bi>=0)AMAT_BURNS.splice(_bi,1);
         spawnBurst(AMAT.tx,AMAT.ty,'#220022',12,60);
         action('GAIN_XP',{amt:AMAT.target.xp});action('GAIN_RYO',{amt:AMAT.target.ryo});
         G.enemiesKilled++;if(AMAT.target.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
@@ -1981,120 +1981,151 @@ function spreadFire(px,py){
   }
 }
 
-// Called every frame outside _anyJutsu — keeps burning while player is free to move
+// Called every frame outside _anyJutsu — each burning enemy tracked independently
 function updateAmatBurn(dt){
-  if(!AMAT_BURN.active)return;
-  const e=AMAT_BURN.target;
-  if(!e?.alive){AMAT_BURN.active=false;return;}
-  // small black fire particles on enemy body
-  if(Math.random()<0.75)PARTS.push({x:e.x+(Math.random()-0.5)*13,y:e.y+(Math.random()-0.5)*11,
-    vx:(Math.random()-0.5)*6,vy:-Math.random()*16-3,
-    life:0.30,maxLife:0.30,color:Math.random()<0.65?'#100010':'#1e001e',sz:2+Math.random()*3.5});
-  AMAT_BURN.dotTimer+=dt;
-  if(AMAT_BURN.dotTimer>=0.75){
-    AMAT_BURN.dotTimer=0;e.hp-=12;e.hitFlash=0.18;
-    spawnDmgNum(e.x,e.y-16,`-12 🖤`,'#cc33cc');
-    if(e.hp<=0){e.alive=false;AMAT_BURN.active=false;
-      spawnBurst(e.x,e.y,'#220022',12,60);
-      action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
-      G.enemiesKilled++;if(e.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
-      _chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');}
+  for(let i=AMAT_BURNS.length-1;i>=0;i--){
+    const b=AMAT_BURNS[i];const e=b.target;
+    if(!e?.alive){AMAT_BURNS.splice(i,1);continue;}
+    // black fire particles on enemy body
+    if(Math.random()<0.75)PARTS.push({x:e.x+(Math.random()-0.5)*13,y:e.y+(Math.random()-0.5)*11,
+      vx:(Math.random()-0.5)*6,vy:-Math.random()*16-3,
+      life:0.30,maxLife:0.30,color:Math.random()<0.65?'#100010':'#1e001e',sz:2+Math.random()*3.5});
+    b.dotTimer+=dt;
+    if(b.dotTimer>=0.75){
+      b.dotTimer=0;e.hp-=12;e.hitFlash=0.18;
+      spawnDmgNum(e.x,e.y-16,`-12 🖤`,'#cc33cc');
+      if(e.hp<=0){e.alive=false;AMAT_BURNS.splice(i,1);
+        spawnBurst(e.x,e.y,'#220022',12,60);
+        action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
+        G.enemiesKilled++;if(e.type==='boss'){G.bossesKilled++;_chkAch('boss_slayer');}
+        _chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');}
+    }
   }
 }
-function _drawSharinganEye(ctx,ex,ey,r,tomoeAngle){
-  // black sclera oval
-  ctx.fillStyle='rgba(6,0,0,0.97)';
-  ctx.beginPath();ctx.ellipse(ex,ey,r*1.7,r*0.92,0,0,Math.PI*2);ctx.fill();
-  // red iris
-  ctx.fillStyle='rgba(215,0,0,0.96)';
-  ctx.beginPath();ctx.arc(ex,ey,r,0,Math.PI*2);ctx.fill();
-  // black pupil
-  ctx.fillStyle='rgba(0,0,0,0.99)';
-  ctx.beginPath();ctx.arc(ex,ey,r*0.35,0,Math.PI*2);ctx.fill();
-  // 3 tomoe (Sharingan comma marks)
+/* ─── ITACHI MANGEKYŌ SHARINGAN ─── */
+function _drawMangekyo(ctx,cx,cy,r,spin){
+  // outer almond-shaped black sclera
+  ctx.fillStyle='rgba(4,0,4,0.98)';
+  ctx.beginPath();ctx.ellipse(cx,cy,r*1.85,r*1.0,0,0,Math.PI*2);ctx.fill();
+  // deep red iris with inner glow
+  const irisg=ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+  irisg.addColorStop(0,'rgba(255,30,30,0.9)');irisg.addColorStop(0.6,'rgba(180,0,0,0.95)');irisg.addColorStop(1,'rgba(90,0,0,0.98)');
+  ctx.fillStyle=irisg;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+  // 3 Itachi-style Mangekyō blades (curved pinwheel wings)
+  ctx.save();ctx.translate(cx,cy);
   for(let i=0;i<3;i++){
-    const a=tomoeAngle+i*Math.PI*2/3;
-    const tr=r*0.58;
-    ctx.fillStyle='rgba(0,0,0,0.94)';
-    ctx.beginPath();ctx.arc(ex+Math.cos(a)*tr,ey+Math.sin(a)*tr,r*0.19,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.arc(ex+Math.cos(a+0.58)*tr*0.70,ey+Math.sin(a+0.58)*tr*0.70,r*0.11,0,Math.PI*2);ctx.fill();
+    ctx.save();ctx.rotate(spin+i*Math.PI*2/3);
+    ctx.fillStyle='rgba(0,0,0,0.97)';
+    ctx.beginPath();
+    ctx.moveTo(r*0.12,0);
+    ctx.bezierCurveTo(r*0.48,-r*0.70,r*0.88,-r*0.28,r*0.88,r*0.14);
+    ctx.bezierCurveTo(r*0.88,r*0.54,r*0.50,r*0.70,r*0.12,r*0.64);
+    ctx.bezierCurveTo(-r*0.20,r*0.58,-r*0.20,r*0.22,r*0.12,0);
+    ctx.fill();ctx.restore();
   }
+  ctx.restore();
+  // black pupil
+  ctx.fillStyle='rgba(0,0,0,0.99)';ctx.beginPath();ctx.arc(cx,cy,r*0.23,0,Math.PI*2);ctx.fill();
+  // tiny deep-red center
+  ctx.fillStyle='rgba(160,0,0,0.85)';ctx.beginPath();ctx.arc(cx,cy,r*0.09,0,Math.PI*2);ctx.fill();
 }
 function drawAmaterasuAnim(ctx,camX,camY){
   const p=G.player;if(!p)return;
-  const px=p.x-camX,py=p.y-camY;
   const CW=ctx.canvas.width,CH=ctx.canvas.height;
+  const px=p.x-camX,py=p.y-camY;
 
   if(AMAT.active){
     const t=Math.min(1,AMAT.timer/(AMAT_DUR[AMAT.phase]||1));
     const tx2=AMAT.tx-camX,ty2=AMAT.ty-camY;
-
-    // — cinematic dark overlay —
-    ctx.fillStyle=`rgba(0,0,0,${(AMAT.phase===0?t*0.55:0.55)})`;
-    ctx.fillRect(0,0,CW,CH);
-    // spotlight keeps player visible through overlay
-    const sg=ctx.createRadialGradient(px,py,0,px,py,95);
-    sg.addColorStop(0,'rgba(0,0,0,0)');sg.addColorStop(1,'rgba(0,0,0,0.3)');
-    ctx.fillStyle=sg;ctx.fillRect(0,0,CW,CH);
+    // eye lives center-screen, slightly above midpoint
+    const eyeX=CW/2,eyeY=CH*0.40;
 
     if(AMAT.phase===0){
-      // — Sharingan eye grows above player head —
-      const eyeX=px+4,eyeY=py-24-t*10;
-      const eyeR=2+t*16;
-      ctx.shadowColor='#bb0000';ctx.shadowBlur=20*t;
-      _drawSharinganEye(ctx,eyeX,eyeY,eyeR,-AMAT.timer*2.8);
-      ctx.shadowBlur=0;
-      // red dashed targeting line to enemy (appears late)
-      if(t>0.62){
-        const lf=(t-0.62)/0.38;
-        ctx.strokeStyle=`rgba(140,0,0,${lf*0.65})`;ctx.lineWidth=1;
-        ctx.setLineDash([4,6]);
-        ctx.beginPath();ctx.moveTo(eyeX,eyeY);ctx.lineTo(tx2,ty2);ctx.stroke();
-        ctx.setLineDash([]);
-        // faint pulse ring around target
-        ctx.shadowColor='#880000';ctx.shadowBlur=10*lf;
-        ctx.strokeStyle=`rgba(100,0,0,${lf*0.45})`;ctx.lineWidth=2;
-        ctx.beginPath();ctx.arc(tx2,ty2,13+lf*5,0,Math.PI*2);ctx.stroke();
+      // ── PHASE 0: cinematic open ──
+      // letterbox bars slide in from top & bottom
+      const barH=CH*0.13*Math.min(1,t*3.5);
+      ctx.fillStyle='#000';ctx.fillRect(0,0,CW,barH);ctx.fillRect(0,CH-barH,CW,barH);
+      // full dark overlay
+      ctx.fillStyle=`rgba(0,0,0,${t*0.65})`;ctx.fillRect(0,0,CW,CH);
+      // player spotlight
+      const sg=ctx.createRadialGradient(px,py,0,px,py,80);
+      sg.addColorStop(0,'rgba(0,0,0,0)');sg.addColorStop(1,'rgba(0,0,0,0.3)');
+      ctx.fillStyle=sg;ctx.fillRect(0,0,CW,CH);
+      // Mangekyō eye grows from nothing at screen center
+      if(t>0.08){
+        const eyeR=Math.min(55,(t-0.08)/0.92*55);
+        const spinSpeed=-AMAT.timer*3.2;
+        ctx.shadowColor='#cc0000';ctx.shadowBlur=28*Math.min(1,t*2);
+        _drawMangekyo(ctx,eyeX,eyeY,eyeR,spinSpeed);
         ctx.shadowBlur=0;
+        // dark mist particles drifting from eye
+        if(Math.random()<0.5)PARTS.push({x:eyeX+(Math.random()-0.5)*eyeR*2,y:eyeY+(Math.random()-0.5)*eyeR,
+          vx:(Math.random()-0.5)*12,vy:-Math.random()*20-5,
+          life:0.5,maxLife:0.5,color:'#0a000a',sz:3+Math.random()*4});
       }
+      // dashed targeting line + enemy ring appear late
+      if(t>0.65){
+        const lf=(t-0.65)/0.35;
+        ctx.strokeStyle=`rgba(140,0,0,${lf*0.7})`;ctx.lineWidth=1;ctx.setLineDash([4,7]);
+        ctx.beginPath();ctx.moveTo(eyeX,eyeY);ctx.lineTo(tx2,ty2);ctx.stroke();ctx.setLineDash([]);
+        ctx.shadowColor='#880000';ctx.shadowBlur=12*lf;
+        ctx.strokeStyle=`rgba(130,0,0,${lf*0.55})`;ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(tx2,ty2,14+lf*6,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+        // "AMATERASU" text fades in below eye
+        ctx.globalAlpha=lf;
+        ctx.font='bold 9px "Press Start 2P","Courier New"';
+        ctx.fillStyle='#cc0000';ctx.textAlign='center';ctx.shadowColor='#ff0000';ctx.shadowBlur=10;
+        ctx.fillText('天 照',eyeX,eyeY+68);ctx.shadowBlur=0;ctx.globalAlpha=1;
+      }
+      // persistent letterbox over everything drawn above
+      ctx.fillStyle='#000';ctx.fillRect(0,0,CW,barH);ctx.fillRect(0,CH-barH,CW,barH);
 
     }else if(AMAT.phase===1){
-      // — frozen Sharingan eye at full size —
-      const eyeX=px+4,eyeY=py-34;
-      ctx.shadowColor='#bb0000';ctx.shadowBlur=18;
-      _drawSharinganEye(ctx,eyeX,eyeY,18,0); // tomoe locked at 0
-      ctx.shadowBlur=0;
-
-      const ft=AMAT.timer/AMAT_DUR[1];
-      // — dark black fire beam from eye to target —
-      if(ft>0.06){
-        const bf=Math.min(1,(ft-0.06)/0.44);
-        ctx.shadowColor='#330033';ctx.shadowBlur=18;
-        ctx.strokeStyle=`rgba(3,0,5,${bf*0.93})`;ctx.lineWidth=10;_bolt(ctx,eyeX,eyeY,tx2,ty2,9,15);
-        ctx.strokeStyle=`rgba(16,0,20,${bf*0.80})`;ctx.lineWidth=5;_bolt(ctx,eyeX,eyeY,tx2,ty2,11,9);
-        ctx.strokeStyle=`rgba(38,0,48,${bf*0.62})`;ctx.lineWidth=2;_bolt(ctx,eyeX,eyeY,tx2,ty2,13,4);
-        ctx.shadowBlur=0;
-      }
-      // spotlight on target
-      const sg2=ctx.createRadialGradient(tx2,ty2,0,tx2,ty2,55);
-      sg2.addColorStop(0,'rgba(0,0,0,0)');sg2.addColorStop(1,'rgba(0,0,0,0.35)');
+      // ── PHASE 1: black fire unleashes ──
+      const barH=CH*0.13;
+      ctx.fillStyle='#000';ctx.fillRect(0,0,CW,barH);ctx.fillRect(0,CH-barH,CW,barH);
+      ctx.fillStyle='rgba(0,0,0,0.62)';ctx.fillRect(0,0,CW,CH);
+      const sg2=ctx.createRadialGradient(px,py,0,px,py,85);
+      sg2.addColorStop(0,'rgba(0,0,0,0)');sg2.addColorStop(1,'rgba(0,0,0,0.28)');
       ctx.fillStyle=sg2;ctx.fillRect(0,0,CW,CH);
-      // black flame smear growing on target
-      if(ft>0.38){
-        const sf=(ft-0.38)/0.62;
-        ctx.shadowColor='#220022';ctx.shadowBlur=12;
-        ctx.fillStyle=`rgba(7,0,9,${sf*0.90})`;
-        ctx.beginPath();ctx.arc(tx2,ty2,5+sf*14,0,Math.PI*2);ctx.fill();
+      // eye locked at full size, pattern frozen
+      ctx.shadowColor='#cc0000';ctx.shadowBlur=22;
+      _drawMangekyo(ctx,eyeX,eyeY,55,Math.PI*0.18);
+      ctx.shadowBlur=0;
+      // "天照" label
+      ctx.font='bold 9px "Press Start 2P","Courier New"';
+      ctx.fillStyle='#cc0000';ctx.textAlign='center';ctx.shadowColor='#ff0000';ctx.shadowBlur=8;
+      ctx.fillText('天 照',eyeX,eyeY+68);ctx.shadowBlur=0;
+      const ft=AMAT.timer/AMAT_DUR[1];
+      // thick dark fire beam from eye center to target
+      if(ft>0.05){
+        const bf=Math.min(1,(ft-0.05)/0.40);
+        ctx.shadowColor='#440044';ctx.shadowBlur=20;
+        ctx.strokeStyle=`rgba(2,0,4,${bf*0.95})`;ctx.lineWidth=12;_bolt(ctx,eyeX,eyeY,tx2,ty2,10,16);
+        ctx.strokeStyle=`rgba(14,0,18,${bf*0.82})`;ctx.lineWidth=6; _bolt(ctx,eyeX,eyeY,tx2,ty2,12,10);
+        ctx.strokeStyle=`rgba(36,0,46,${bf*0.60})`;ctx.lineWidth=2; _bolt(ctx,eyeX,eyeY,tx2,ty2,14,5);
         ctx.shadowBlur=0;
       }
+      // target: spotlight + expanding black smear
+      const stg=ctx.createRadialGradient(tx2,ty2,0,tx2,ty2,60);
+      stg.addColorStop(0,'rgba(0,0,0,0)');stg.addColorStop(1,'rgba(0,0,0,0.38)');
+      ctx.fillStyle=stg;ctx.fillRect(0,0,CW,CH);
+      if(ft>0.35){const sf=(ft-0.35)/0.65;
+        ctx.shadowColor='#220022';ctx.shadowBlur=14;
+        ctx.fillStyle=`rgba(6,0,8,${sf*0.92})`;
+        ctx.beginPath();ctx.arc(tx2,ty2,5+sf*15,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+      // bars stay on top
+      ctx.fillStyle='#000';ctx.fillRect(0,0,CW,barH);ctx.fillRect(0,CH-barH,CW,barH);
+      // white flash at the very end (transition out)
+      if(ft>0.88){ctx.fillStyle=`rgba(255,255,255,${(ft-0.88)/0.12*0.65})`;ctx.fillRect(0,0,CW,CH);}
     }
   }
 
-  // draw active burn on enemy (independent of AMAT.active)
-  if(AMAT_BURN.active&&AMAT_BURN.target?.alive){
-    const e=AMAT_BURN.target;
+  // draw active burns on all burning enemies (independent of AMAT.active)
+  AMAT_BURNS.forEach(b=>{
+    const e=b.target;if(!e?.alive)return;
     const ex=e.x-camX,ey=e.y-camY;
-    const flick=0.65+Math.sin(performance.now()*0.012)*0.35;
+    const flick=0.65+Math.sin(performance.now()*0.012+e.x)*0.35;
     ctx.shadowColor='#220022';ctx.shadowBlur=9*flick;
     ctx.fillStyle=`rgba(7,0,7,${0.72*flick})`;
     ctx.beginPath();ctx.arc(ex,ey,9,0,Math.PI*2);ctx.fill();
@@ -2103,7 +2134,7 @@ function drawAmaterasuAnim(ctx,camX,camY){
       ctx.fillStyle=`rgba(14,0,14,${0.78*flick})`;
       ctx.fillRect(ex+Math.cos(a)*fl-2,ey+Math.sin(a)*fl-5,4,9);}
     ctx.shadowBlur=0;
-  }
+  });
 }
 
 function drawEnemy(ctx,e,sx,sy){
@@ -2695,7 +2726,7 @@ function nextFloor(){
   _chkAch('floor_5');
   const data=genFloor(G.floor);
   Object.assign(G.dungeon,data);
-  FIRE_TILES.length=0;AMAT_BURN.active=false;
+  FIRE_TILES.length=0;AMAT_BURNS.length=0;
   G.player.x=data.startX; G.player.y=data.startY;
   CAM.x=data.startX-350; CAM.y=data.startY-240;
 }
@@ -2717,7 +2748,7 @@ function enterFreeDungeon(){
   stopLobbyLoop();
   const data=genFloor(G.floor||1);
   Object.assign(G.dungeon,data); G.dungeon.isMission=false;
-  FIRE_TILES.length=0;AMAT_BURN.active=false;
+  FIRE_TILES.length=0;AMAT_BURNS.length=0;
   G.player.x=data.startX; G.player.y=data.startY;
   CAM.x=data.startX-350; CAM.y=data.startY-240;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -2820,7 +2851,7 @@ function startMission(missionId){
   const data=buildMissionLevel(missionId);
   G.dungeon=data;
   RAS.active=KATON.active=RANTON.active=CHI.active=RSEN.active=SUITON.active=AMAT.active=false;
-  AMAT_BURN.active=false;FIRE_TILES.length=0;
+  AMAT_BURNS.length=0;FIRE_TILES.length=0;
   p.x=data.startX;p.y=data.startY;
   CAM.x=data.startX-350;CAM.y=data.startY-240;
   goScreen('screen-game');

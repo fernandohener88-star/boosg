@@ -4138,7 +4138,7 @@ function showStartScreen(){
     $('screen-start').removeEventListener('click',handler);
     _doStartTransition(()=>{
       cancelAnimationFrame(_startRaf);
-      showIntroScreen();
+      showMenuScreen();
     });
   };
   $('screen-start').addEventListener('click',handler);
@@ -4148,67 +4148,122 @@ function showStartScreen(){
    KAKASHI INTRO
 ════════════════════════════════════════════════════ */
 const KAKASHI_LINES=[
-  {spk:'',text:'...'},
+  {spk:'KAKASHI HATAKE',text:'...'},
   {spk:'KAKASHI HATAKE',text:'Oh. Du bist es.\nIch hab dich schon erwartet.'},
-  {spk:'KAKASHI HATAKE',text:'Diese Welt da draußen ist gefährlich.\nFeinde lauern in jeder Gasse Konohas.'},
-  {spk:'KAKASHI HATAKE',text:'Aber mit dem richtigen Willen...\nund ein bisschen Glück...'},
+  {spk:'KAKASHI HATAKE',text:'Diese Welt ist gefährlich.\nFeinde lauern überall in Konoha.'},
+  {spk:'KAKASHI HATAKE',text:'Aber mit dem richtigen Willen...\nund Entschlossenheit...'},
   {spk:'KAKASHI HATAKE',text:'...übersteht man alles.\nGlaub mir. Ich spreche aus Erfahrung.'},
-  {spk:'KAKASHI HATAKE',text:'Ich bin Hatake Kakashi.\nKopie-Ninja. Jonin. Dein Ansprechpartner hier.'},
-  {spk:'KAKASHI HATAKE',text:'Dann lass uns beginnen.\nViel Erfolg, Shinobi. ✦'},
+  {spk:'KAKASHI HATAKE',text:'Ich bin Hatake Kakashi.\nKopie-Ninja. Jonin. Schau nicht zu oft hin.'},
+  {spk:'KAKASHI HATAKE',text:'Na dann. Viel Erfolg, Shinobi. ✦'},
 ];
-let _introRaf=null, _introLine=0, _introTyping=false, _introDone=false;
-let _introTypedChars=0, _introTypingRaf=null;
+let _introRaf=null,_introLine=0,_introTyping=false;
+let _introTypedChars=0,_introTypingRaf=null,_introCb=null;
 
-function _drawKakashi(ctx,sx,sy,t,bookOpen){
-  const bx=sx,by=sy;
-  const bob=Math.sin(t*1.2)*.8;
-  // shadow
-  ctx.fillStyle='rgba(0,0,0,.35)';
-  ctx.beginPath();ctx.ellipse(bx+20,by+80,22,6,0,0,Math.PI*2);ctx.fill();
-  // legs
-  ctx.fillStyle='#1a1a1a';ctx.fillRect(bx+10,by+60,10,22);ctx.fillRect(bx+22,by+60,10,22);
-  ctx.fillStyle='#111';ctx.fillRect(bx+10,by+78,10,4);ctx.fillRect(bx+22,by+78,10,4);
-  // body — jonin vest
-  ctx.fillStyle='#2a2a2a';ctx.fillRect(bx+8,by+32+bob,28,30);
-  ctx.fillStyle='#3a3a3a';ctx.fillRect(bx+10,by+34+bob,24,26);
-  // vest pockets
-  ctx.fillStyle='#222';ctx.fillRect(bx+11,by+36+bob,8,6);ctx.fillRect(bx+25,by+36+bob,8,6);
-  // arms
-  ctx.fillStyle='#2a2a2a';
-  if(bookOpen){
-    // holding icha-icha open
-    ctx.fillRect(bx-2,by+38+bob,12,6);
-    ctx.fillStyle='#ff8800';ctx.fillRect(bx-8,by+32+bob,10,14); // book cover
-    ctx.fillStyle='#ffe';ctx.fillRect(bx-7,by+33+bob,8,12);     // pages
-    ctx.fillStyle='#cc6600';ctx.fillRect(bx-8,by+32+bob,10,2);  // top edge
-  }else{
-    ctx.fillRect(bx-2,by+38+bob,12,6); // left arm relaxed
-  }
-  ctx.fillStyle='#2a2a2a';ctx.fillRect(bx+34,by+38+bob,12,6);
-  // neck + head bob
-  ctx.fillStyle='#1a1a1a';ctx.fillRect(bx+18,by+28+bob,8,6);
-  // black mask (lower face)
-  ctx.fillStyle='#111';ctx.fillRect(bx+10,by+14+bob,24,20);
-  // head
-  ctx.fillStyle='#c8a87a';ctx.fillRect(bx+10,by+4+bob,24,16); // forehead skin
-  // hitai-ate covering left eye
-  ctx.fillStyle='#111';ctx.fillRect(bx+10,by+10+bob,14,8); // left headband block
-  ctx.fillStyle='#aaa';ctx.fillRect(bx+12,by+11+bob,10,5); // metal plate
-  ctx.fillStyle='#888';ctx.fillRect(bx+14,by+12+bob,6,3);  // engraving
-  ctx.fillStyle='#333';ctx.fillRect(bx+15,by+12+bob,1,3);  // leaf scratch
-  // right eye (visible)
-  ctx.fillStyle='#000';ctx.fillRect(bx+26,by+10+bob,6,4);
-  ctx.fillStyle='#333';ctx.fillRect(bx+27,by+11+bob,4,2);
-  // silver hair — spiky pointing up+left
-  ctx.fillStyle='#d0d0d0';
-  ctx.fillRect(bx+8,by-8+bob,8,14);  // left spike
-  ctx.fillRect(bx+14,by-12+bob,6,16); // center spike tall
-  ctx.fillRect(bx+20,by-6+bob,10,12); // right cluster
-  ctx.fillRect(bx+6,by-2+bob,5,8);   // far left hang
-  // glint on hair
-  ctx.fillStyle='#eeeeee';
-  ctx.fillRect(bx+15,by-10+bob,2,4);
-  ctx.fillRect(bx+9,by-5+bob,2,3);
+function _drawKakashi(ctx,ox,oy,t){
+  const P=4; // each "pixel" = 4 screen pixels
+  const bob=Math.round(Math.sin(t*1.15)*1.5)*P;
+  function R(dx,dy,w,h,c){ctx.fillStyle=c;ctx.fillRect(ox+dx*P,oy+dy*P+bob,w*P,h*P);}
+  function Rn(dx,dy,w,h,c){ctx.fillStyle=c;ctx.fillRect(ox+dx*P,oy+dy*P,w*P,h*P);}// no bob
+
+  // ── Ground shadow ──
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.beginPath();ctx.ellipse(ox+10*P,oy+44*P,9*P,2*P,0,0,Math.PI*2);ctx.fill();
+
+  // ── Boots ──
+  R(3,40,4,4,'#111');R(8,40,4,4,'#111');
+  R(2,42,5,2,'#0a0a0a');R(7,42,5,2,'#0a0a0a');
+
+  // ── Legs — dark pants ──
+  R(3,32,4,10,'#1a1a28');R(8,32,4,10,'#1a1a28');
+  R(3,37,4,2,'#13131f');R(8,37,4,2,'#13131f'); // knee seam
+
+  // ── Jonin vest body ──
+  R(2,18,15,16,'#2a2d2a'); // outer vest
+  R(3,19,13,14,'#333836'); // vest face
+  // Chest pocket left
+  R(3,20,5,5,'#22251f');R(3,20,5,1,'#1a1c18');
+  R(4,21,3,3,'#191c16');R(5,22,1,2,'#111');
+  // Chest pocket right
+  R(10,20,5,5,'#22251f');R(10,20,5,1,'#1a1c18');
+  R(11,21,3,3,'#191c16');R(12,22,1,2,'#111');
+  // Center chest zipper/collar
+  R(8,18,3,16,'#1e211e');R(9,19,1,14,'#252821');
+  // Shoulder guards (slightly lighter)
+  R(2,18,3,4,'#3a3d3a');R(14,18,3,4,'#3a3d3a');
+
+  // ── Arms ──
+  R(0,19,3,10,'#2a2d2a'); // left arm
+  R(16,19,3,10,'#2a2d2a');// right arm
+  // Gloves / hands
+  R(0,27,3,4,'#1a1a1a');R(16,27,3,4,'#1a1a1a');
+  R(0,30,3,2,'#888');R(16,30,3,2,'#888'); // finger tips
+
+  // ── Neck ──
+  R(7,14,5,5,'#c8a070');
+
+  // ── HEAD ──
+  // Head base (skin visible on right side of face above mask)
+  R(5,5,11,13,'#c8a070');
+  // Jaw / chin shape
+  R(5,16,11,2,'#c09060');R(6,17,9,2,'#b08050');
+
+  // ── MASK — black cloth covers nose+mouth+chin ──
+  R(5,12,11,7,'#111');
+  R(5,12,11,1,'#1c1c1c'); // mask top edge (fold)
+  R(5,15,11,1,'#0d0d0d'); // mask shadow fold
+  R(5,17,11,1,'#181818'); // chin fold
+
+  // ── HITAI-ATE — tilt-covering left eye ──
+  // Black cloth straps
+  R(5,7,6,7,'#111');       // left strap (covers left eye region)
+  R(14,7,4,4,'#111');      // right strap
+  // Metal plate (slightly off-center, leaning left)
+  R(5,8,10,5,'#b8b8b8');   // plate base
+  R(6,8,8,4,'#cccccc');    // plate face
+  R(6,9,8,2,'#d8d8d8');    // plate highlight row
+  // Leaf symbol etched on plate (simplified)
+  R(8,9,1,2,'#888');R(9,8,1,3,'#888');R(10,9,1,2,'#888'); // V shape
+  R(9,9,1,1,'#777');       // center mark
+  // Plate edge/rim
+  R(5,8,1,5,'#999');R(14,8,1,5,'#999');
+  R(5,8,10,1,'#aaa');R(5,12,10,1,'#999');
+
+  // ── VISIBLE RIGHT EYE ──
+  // Eye socket
+  R(13,11,4,4,'#b89060');  // skin around eye
+  // Eye white + iris
+  R(13,12,4,2,'#f0f0f0');  // white
+  R(14,12,2,2,'#2a2a6a');  // dark iris
+  R(14,12,1,1,'#111');     // pupil
+  R(15,12,1,1,'#4444aa');  // iris highlight
+  R(15,11,1,1,'#f8f8f8');  // catch light
+  // Eyelid / brow
+  R(13,11,4,1,'#b89060');  // upper lid skin
+  R(13,10,5,1,'#555');     // eyebrow
+
+  // ── SILVER HAIR ──
+  // Kakashi's hair is spiky, all swept to one side (his right = screen left)
+  // Main hair mass above headband
+  R(4,-5,3,7,'#d8d8d8');    // far left spike
+  R(5,-9,4,11,'#e0e0e0');   // left-center spike (tall)
+  R(7,-11,4,13,'#e8e8e8');  // center-left spike (tallest)
+  R(9,-9,4,10,'#ddd');      // center spike
+  R(11,-7,4,8,'#d0d0d0');   // center-right
+  R(13,-5,3,6,'#c8c8c8');   // right edge
+  // Hair at sides below headband (frames the face)
+  R(4,7,3,8,'#d8d8d8');     // left side hair
+  R(14,7,2,6,'#c8c8c8');    // right side tuft
+  // Hair highlights
+  R(7,-10,1,6,'#f8f8f8');
+  R(10,-8,1,5,'#f0f0f0');
+  R(5,-7,1,4,'#eee');
+  // Hair shadow underside
+  R(4,-1,4,3,'#bbb');
+  R(11,-2,4,2,'#b8b8b8');
+
+  // ── HEADBAND STRAPS going behind head ──
+  R(3,8,3,3,'#111');  // strap left of plate
+  R(15,8,3,3,'#111'); // strap right of plate
 }
 
 function _introLoop(){
@@ -4216,38 +4271,66 @@ function _introLoop(){
   cv.width=window.innerWidth;cv.height=window.innerHeight;
   const ctx=cv.getContext('2d');
   const W=cv.width,H=cv.height,t=Date.now()*.001;
-  // dark BG with subtle gradient
+  // dark BG
   const bg=ctx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#000');bg.addColorStop(1,'#0a0514');
+  bg.addColorStop(0,'#030008');bg.addColorStop(1,'#0a0518');
   ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  // faint stars
-  for(let i=0;i<60;i++){
+  // stars
+  for(let i=0;i<80;i++){
     const sx=((11111*i*7919)%W+W)%W;
-    const sy=((11111*i*6271)%H/2+H*.1)%(H*.9);
-    ctx.fillStyle=`rgba(255,255,255,${.08+.08*Math.abs(Math.sin(t*.5+i))})`;
-    ctx.fillRect(sx,sy,1,1);
-  }
-  // village silhouette at bottom
-  ctx.fillStyle='#0a0514';
-  for(let i=0;i<20;i++){
-    const bw=20+i*3,bh=30+((i*17)%40);
-    ctx.fillRect(i*(W/20),H*.72-bh,bw,bh+H*.28);
+    const sy=((11111*i*6271)%(H*.75)+H*.02);
+    const br=.1+.15*Math.abs(Math.sin(t*.4+i));
+    ctx.fillStyle=`rgba(255,255,255,${br})`;
+    ctx.fillRect(sx,sy,i%5===0?2:1,i%5===0?2:1);
   }
   // moon
-  const mx=W*.82,my=H*.18;
-  ctx.fillStyle='#ffe8a0';ctx.shadowColor='#ffe090';ctx.shadowBlur=30;
-  ctx.beginPath();ctx.arc(mx,my,28,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-  // Kakashi — large left side portrait
-  const kScale=3.2;
+  const mx=W*.8,my=H*.16;
+  const moonGr=ctx.createRadialGradient(mx,my,0,mx,my,34);
+  moonGr.addColorStop(0,'#fffae8');moonGr.addColorStop(1,'#ffe8a0');
+  ctx.fillStyle=moonGr;ctx.shadowColor='#ffd060';ctx.shadowBlur=40;
+  ctx.beginPath();ctx.arc(mx,my,30,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  // cloud wisps near moon
+  ctx.fillStyle='rgba(255,230,150,0.06)';
+  for(let i=0;i<3;i++){
+    ctx.beginPath();ctx.ellipse(mx+40+i*30,my+10+i*5,25+i*10,8,-.2,0,Math.PI*2);ctx.fill();
+  }
+  // village silhouette layers
+  for(let layer=0;layer<3;layer++){
+    const alpha=[0.9,0.7,0.5][layer];
+    const ybase=H*[.78,.72,.68][layer];
+    ctx.fillStyle=`rgba(5,2,14,${alpha})`;
+    for(let i=0;i<28;i++){
+      const bw=14+((i*13+layer*7)%16);
+      const bh=24+((i*19+layer*11)%52);
+      const bx=i*(W/26)-layer*8;
+      ctx.fillRect(bx,ybase-bh,bw,bh+H*.25);
+      // windows
+      if(layer===0){
+        ctx.fillStyle=`rgba(255,200,80,${.12+.08*Math.sin(t*.7+i)})`;
+        ctx.fillRect(bx+3,ybase-bh+8,3,4);
+        if(bw>18)ctx.fillRect(bx+9,ybase-bh+14,3,4);
+        ctx.fillStyle=`rgba(5,2,14,${alpha})`;
+      }
+    }
+  }
+  // Kakashi portrait — left side, tall
+  const kH=H*.72; // target height for Kakashi (72% of screen)
+  // character is 44px tall (from -11 to 44 = 55 game-px) at P=4 → 220px
+  // scale to fill kH: scale = kH/220
+  const kScale=Math.min(kH/220,3.2);
+  const kX=W*.08,kY=H*.18;
   ctx.save();ctx.scale(kScale,kScale);
-  const bookOpen=_introLine===0;
-  _drawKakashi(ctx,Math.min(W*.09,80)/kScale,(H*.18)/kScale,t,bookOpen);
+  _drawKakashi(ctx,kX/kScale,kY/kScale,t);
   ctx.restore();
-  // atmospheric left glow
-  const glow=ctx.createRadialGradient(W*.25,H*.5,0,W*.25,H*.5,W*.3);
-  glow.addColorStop(0,`rgba(100,80,200,${.06+Math.sin(t*.4)*.02})`);
+  // Kakashi atmospheric glow
+  const glow=ctx.createRadialGradient(W*.22,H*.55,0,W*.22,H*.55,W*.28);
+  glow.addColorStop(0,`rgba(80,60,160,${.07+Math.sin(t*.3)*.025})`);
   glow.addColorStop(1,'transparent');
   ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+  // bottom vignette
+  const vig=ctx.createLinearGradient(0,H*.65,0,H);
+  vig.addColorStop(0,'transparent');vig.addColorStop(1,'rgba(3,0,8,.85)');
+  ctx.fillStyle=vig;ctx.fillRect(0,H*.65,W,H*.35);
   _introRaf=requestAnimationFrame(_introLoop);
 }
 
@@ -4257,55 +4340,45 @@ function _introTypeText(fullText){
   if(_introTypingRaf)clearInterval(_introTypingRaf);
   _introTypingRaf=setInterval(()=>{
     _introTypedChars++;
-    el.textContent=fullText.slice(0,_introTypedChars).replace(/\n/g,'\n');
+    el.textContent=fullText.slice(0,_introTypedChars);
     el.style.whiteSpace='pre-line';
-    if(_introTypedChars>=fullText.length){
-      clearInterval(_introTypingRaf);_introTyping=false;
-    }
-  },28);
+    if(_introTypedChars>=fullText.length){clearInterval(_introTypingRaf);_introTyping=false;}
+  },30);
 }
 
 function _introAdvance(){
   if(_introTyping){
-    // skip typing — show full text immediately
     clearInterval(_introTypingRaf);_introTyping=false;
-    _introTypedChars=KAKASHI_LINES[_introLine].text.length;
     const el=$('intro-text');
-    el.textContent=KAKASHI_LINES[_introLine].text;
-    el.style.whiteSpace='pre-line';
+    el.textContent=KAKASHI_LINES[_introLine].text;el.style.whiteSpace='pre-line';
     return;
   }
   _introLine++;
-  if(_introLine>=KAKASHI_LINES.length){
-    _endIntro();return;
-  }
+  if(_introLine>=KAKASHI_LINES.length){_endIntro();return;}
   const line=KAKASHI_LINES[_introLine];
-  const spkEl=$('intro-speaker');
-  spkEl.textContent=line.spk;
-  spkEl.style.display=line.spk?'block':'none';
+  $('intro-speaker').textContent=line.spk;
   _introTypeText(line.text);
 }
 
 function _endIntro(){
   clearInterval(_introTypingRaf);
   if(_introRaf)cancelAnimationFrame(_introRaf);_introRaf=null;
-  // fade to black then show menu
   const fl=$('start-flash');
-  fl.style.background='#000';
-  fl.style.transition='opacity .35s';fl.style.opacity='1';
+  fl.style.background='#000';fl.style.transition='opacity .4s';fl.style.opacity='1';
   setTimeout(()=>{
-    showMenuScreen();
-    setTimeout(()=>{fl.style.transition='opacity .5s';fl.style.opacity='0';setTimeout(()=>{fl.style.background='#fff';},600);},60);
-  },380);
+    if(_introCb)_introCb();
+    setTimeout(()=>{fl.style.transition='opacity .6s';fl.style.opacity='0';
+      setTimeout(()=>{fl.style.background='#fff';},700);},80);
+  },420);
 }
 
-function showIntroScreen(){
+function showIntroScreen(onDone){
+  _introCb=onDone||null;
   _introLine=0;_introTyping=false;
   goScreen('screen-intro');
   _introLoop();
-  const line=KAKASHI_LINES[0];
-  const spkEl=$('intro-speaker');spkEl.textContent=line.spk;spkEl.style.display=line.spk?'block':'none';
-  _introTypeText(line.text);
+  $('intro-speaker').textContent=KAKASHI_LINES[0].spk;
+  _introTypeText(KAKASHI_LINES[0].text);
   $('screen-intro').onclick=_introAdvance;
   $('intro-skip').onclick=(e)=>{e.stopPropagation();clearInterval(_introTypingRaf);_endIntro();};
 }
@@ -4549,11 +4622,13 @@ function initCharBuild(name){
 function confirmCharBuild(){
   _cbStopAnim();
   action('INIT_PLAYER',{name:_cbName});
-  $('lhud').classList.remove('hidden');
   goFullscreen();
-  goScreen('screen-lobby');
-  msg(`Willkommen in Konoha, ${_cbName}!`,'good');
-  msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+  showIntroScreen(()=>{
+    $('lhud').classList.remove('hidden');
+    goScreen('screen-lobby');
+    msg(`Willkommen in Konoha, ${_cbName}!`,'good');
+    msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+  });
 }
 
 // Menu button wiring

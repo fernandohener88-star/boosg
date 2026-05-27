@@ -2679,7 +2679,7 @@ document.addEventListener('keydown',e=>{
   // lobby interaction
   if(lobbyActive&&e.code==='KeyE'){
     const z=G.lobby?.nearZone;
-    if(z){ e.preventDefault(); if(z.enter){ if(z.shopMode) G.shopMode=z.shopMode; goScreen(z.enter); } else msg(`${z.label} — Demnächst verfügbar!`,'info'); }
+    if(z){ e.preventDefault(); if(z.enter){ if(z.shopMode) G.shopMode=z.shopMode; goScreen(z.enter); } else msg(z.id==='quests'?'Iruka: „Quest-System ist noch in Arbeit – kommt bald!"':'Demnächst verfügbar!','info'); }
     return;
   }
   if(gameActive&&e.code==='KeyF'){e.preventDefault();toggleFullscreen();return;}
@@ -3017,7 +3017,7 @@ const LZONES=[
   {id:'ach',    type:'shrine',icon:'🏆',label:'RUHMESHALLE',     sub:'Deine Erfolge',         tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
   // NPCs in south plaza (near spine intersection, not blocking spine paths)
   {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Trainiere deine Fähigkeiten', nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
-  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Missionen annehmen',    nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:'screen-mission-select'},
+  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Quests · In Arbeit',    nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff'},
   {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Waffen kaufen',         nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:'screen-shop',shopMode:'weapon'},
 ];
 

@@ -1069,7 +1069,7 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
   if(facing){
     let wid=null;
     if(RAS.active&&RAS.phase<3){wid='rasengan_scroll';}
-    else if((CHI.active&&CHI.phase<3)||(RSEN.active&&RSEN.phase<2)||(KATON.active&&KATON.phase===0)){wid=null;}
+    else if((CHI.active&&CHI.phase<3)||(RSEN.active&&RSEN.phase<2)){wid=null;}
     else{const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;wid=wEq?.id||null;}
     if(wid)drawWeaponPixel(ctx,bx,by,wid,facing,anim);
   }
@@ -1414,9 +1414,9 @@ function triggerChidori(p){
    JUTSU CINEMATICS — KATON, RANTON, CHIDORI, RASENSHURIKEN, SUITON, AMATERASU
 ════════════════════════════════════════════════════ */
 
-/* ─── KATON: GOUKAKYUU NO JUTSU ─── */
+/* ─── KATON: GOUKAKYUU NO JUTSU — small fast projectile, no charge ─── */
 const KATON={active:false,phase:0,timer:0,ox:0,oy:0,fx:0,fy:0,dx:1,dy:0,facing:1,dmg:0,targets:[]};
-const KATON_DUR=[0.42,0.68,0.40];
+const KATON_DUR=[0.58,0.18]; // phase 0=travel, phase 1=impact fade
 function triggerKaton(){
   const p=G.player;if(!p)return;
   if(p.chakra<25){msg('Nicht genug Chakra!','bad');return;}
@@ -1424,77 +1424,68 @@ function triggerKaton(){
   let best=null,bestD=Infinity;
   enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<280&&d<bestD){bestD=d;best=e;}});
   if(!best){msg('Kein Ziel in Reichweite! (max 280px)','bad');return;}
-  p.chakra-=25;p.ckCd=KATON_DUR.reduce((a,b)=>a+b)+0.3;
+  p.chakra-=25;p.ckCd=KATON_DUR.reduce((a,b)=>a+b)+0.2;
   KATON.active=true;KATON.phase=0;KATON.timer=0;
-  KATON.ox=p.x;KATON.oy=p.y-8;KATON.fx=p.x;KATON.fy=p.y-8;
+  // fireball starts right at player hand — no charge
+  KATON.ox=p.x+p.facing*14;KATON.oy=p.y-8;
+  KATON.fx=KATON.ox;KATON.fy=KATON.oy;
   const ddx=best.x-p.x,ddy=best.y-p.y,dlen=Math.hypot(ddx,ddy)||1;
   KATON.dx=ddx/dlen;KATON.dy=ddy/dlen;
   KATON.facing=ddx>=0?1:-1;p.facing=KATON.facing;KATON.targets=[];
   KATON.dmg=Math.max(28,(p.atk*2.2|0)+Math.floor(Math.random()*14));
-  msg('GOUKAKYUU NO JUTSU!!','gold');shake(3);
+  msg('KATON!!','gold');shake(2);
 }
 function updateKaton(dt){
   if(!KATON.active)return;
   KATON.timer+=dt;const pDur=KATON_DUR[KATON.phase];const p=G.player;
   if(KATON.phase===0){
-    if(Math.random()<0.65){const a=Math.random()*Math.PI*2,r=36+Math.random()*24;
-      PARTS.push({x:p.x+Math.cos(a)*r,y:p.y+Math.sin(a)*r-8,vx:-Math.cos(a)*70,vy:-Math.sin(a)*70,
-        life:0.35,maxLife:0.35,color:Math.random()<0.5?'#ff5500':'#ffaa00',sz:3+Math.random()*2});}
-  } else if(KATON.phase===1){
-    KATON.fx+=KATON.dx*395*dt;KATON.fy+=KATON.dy*395*dt;
-    if(Math.random()<0.85)PARTS.push({x:KATON.fx+(Math.random()-0.5)*6,y:KATON.fy+(Math.random()-0.5)*6,
-      vx:(Math.random()-0.5)*22,vy:-(Math.random()*48+14),
-      life:0.22,maxLife:0.22,color:['#ff2200','#ff6600','#ffcc00','#ff4400'][Math.random()*4|0],sz:5+Math.random()*7});
+    // travel — small fast fireball
+    KATON.fx+=KATON.dx*440*dt;KATON.fy+=KATON.dy*440*dt;
+    if(Math.random()<0.8)PARTS.push({x:KATON.fx+(Math.random()-0.5)*4,y:KATON.fy+(Math.random()-0.5)*4,
+      vx:(Math.random()-0.5)*18,vy:-(Math.random()*36+10),
+      life:0.18,maxLife:0.18,color:['#ff2200','#ff6600','#ffdd00','#ff4400'][Math.random()*4|0],sz:3+Math.random()*4});
     G.dungeon.enemies.filter(e=>e.alive&&!KATON.targets.includes(e)).forEach(e=>{
-      if(Math.hypot(e.x-KATON.fx,e.y-KATON.fy)<42){
-        KATON.targets.push(e);e.hp-=KATON.dmg;e.hitFlash=0.5;e.stunTick=0.8;
-        for(let i=0;i<28;i++){const a=Math.random()*Math.PI*2,sp=55+Math.random()*100;
-          PARTS.push({x:e.x,y:e.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-22,life:0.45,maxLife:0.45,
-            color:Math.random()<0.5?'#ff4400':'#ffcc00',sz:4+Math.random()*5});}
+      if(Math.hypot(e.x-KATON.fx,e.y-KATON.fy)<28){
+        KATON.targets.push(e);e.hp-=KATON.dmg;e.hitFlash=0.5;e.stunTick=0.7;
+        for(let i=0;i<24;i++){const a=Math.random()*Math.PI*2,sp=50+Math.random()*90;
+          PARTS.push({x:e.x,y:e.y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-20,life:0.42,maxLife:0.42,
+            color:Math.random()<0.5?'#ff4400':'#ffcc00',sz:3+Math.random()*5});}
         spawnDmgNum(e.x,e.y-e.sz,`-${KATON.dmg} 🔥`,'#ff7700');
-        screenFlash=0.6;screenFlashColor='#ff3300';screenFlashTimer=0.3;shake(10);
-        if(e.hp<=0){e.alive=false;spawnBurst(e.x,e.y,'#ff6600',30,130);
+        screenFlash=0.5;screenFlashColor='#ff3300';screenFlashTimer=0.25;shake(9);
+        if(e.hp<=0){e.alive=false;spawnBurst(e.x,e.y,'#ff6600',26,120);
           action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
           G.enemiesKilled++;_chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');}
         KATON.timer=pDur;}});
     if(Math.hypot(KATON.fx-KATON.ox,KATON.fy-KATON.oy)>390)KATON.timer=pDur;
-  } else if(KATON.phase===2){
+  } else if(KATON.phase===1){
+    // small impact fade
     const t=KATON.timer/pDur;
-    if(Math.random()<0.5*(1-t)){const a=Math.random()*Math.PI*2,r=Math.random()*44;
+    if(Math.random()<0.4*(1-t)){const a=Math.random()*Math.PI*2,r=Math.random()*22;
       PARTS.push({x:KATON.fx+Math.cos(a)*r,y:KATON.fy+Math.sin(a)*r,
-        vx:Math.cos(a)*16,vy:Math.sin(a)*16-26,life:0.28,maxLife:0.28,
-        color:Math.random()<0.5?'#ff4400':'#ffaa00',sz:3+Math.random()*4});}
+        vx:Math.cos(a)*14,vy:Math.sin(a)*14-20,life:0.22,maxLife:0.22,
+        color:Math.random()<0.5?'#ff4400':'#ffaa00',sz:2+Math.random()*3});}
   }
   if(KATON.timer>=pDur){KATON.timer=0;KATON.phase++;if(KATON.phase>=KATON_DUR.length)KATON.active=false;}
 }
 function drawKatonAnim(ctx,camX,camY){
   if(!KATON.active)return;
   const t=Math.min(1,KATON.timer/(KATON_DUR[KATON.phase]||1));
-  const p=G.player;const px=p.x-camX,py=p.y-camY-8;
   if(KATON.phase===0){
-    const r=5+t*22;ctx.shadowColor='#ff5500';ctx.shadowBlur=20*t;
-    ctx.fillStyle=`rgba(255,${60+t*100|0},0,${t*0.85})`;
-    ctx.beginPath();ctx.arc(px+KATON.facing*10,py,r,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=`rgba(255,210,60,${t*0.95})`;
-    ctx.beginPath();ctx.arc(px+KATON.facing*10,py,r*0.35,0,Math.PI*2);ctx.fill();
+    const fx=KATON.fx-camX,fy=KATON.fy-camY;
+    const sz=10+Math.sin(animTick*0.3)*2; // small ~10px fireball
+    ctx.shadowColor='#ff4400';ctx.shadowBlur=20;
+    ctx.fillStyle='rgba(255,60,0,0.90)';ctx.beginPath();ctx.arc(fx,fy,sz,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,150,0,0.95)';ctx.beginPath();ctx.arc(fx,fy,sz*0.55,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='rgba(255,230,80,0.98)';ctx.beginPath();ctx.arc(fx,fy,sz*0.22,0,Math.PI*2);ctx.fill();
+    // tiny pixel sparks orbiting
+    for(let i=0;i<5;i++){const a=animTick*0.22+i*Math.PI*0.4;
+      ctx.fillStyle='rgba(255,160,0,0.75)';ctx.fillRect(fx+Math.cos(a)*(sz+2)-1,fy+Math.sin(a)*(sz+2)-1,2,2);}
     ctx.shadowBlur=0;
   } else if(KATON.phase===1){
-    const fx=KATON.fx-camX,fy=KATON.fy-camY;const sz=21+Math.sin(animTick*0.25)*4;
-    ctx.shadowColor='#ff4400';ctx.shadowBlur=32;
-    ctx.fillStyle='rgba(255,50,0,0.72)';ctx.beginPath();ctx.arc(fx,fy,sz,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='rgba(255,130,0,0.88)';ctx.beginPath();ctx.arc(fx,fy,sz*0.6,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='rgba(255,230,80,0.96)';ctx.beginPath();ctx.arc(fx,fy,sz*0.28,0,Math.PI*2);ctx.fill();
-    for(let i=0;i<10;i++){const a=animTick*0.18+i*Math.PI*0.2;
-      ctx.fillStyle='rgba(255,180,0,0.7)';ctx.fillRect(fx+Math.cos(a)*(sz+3)-2,fy+Math.sin(a)*(sz+3)-2,3,3);}
+    const fx=KATON.fx-camX,fy=KATON.fy-camY;const sz=32*(1-t*0.8);
+    ctx.shadowColor='#ff5500';ctx.shadowBlur=22;
+    ctx.fillStyle=`rgba(255,80,0,${(1-t)*0.6})`;ctx.beginPath();ctx.arc(fx,fy,sz,0,Math.PI*2);ctx.fill();
     ctx.shadowBlur=0;
-  } else if(KATON.phase===2){
-    const fx=KATON.fx-camX,fy=KATON.fy-camY;const sz=58*(1-t*0.75);
-    ctx.shadowColor='#ff5500';ctx.shadowBlur=38;
-    for(let r=sz;r>3;r-=9){const al=(r/sz)*(1-t*0.8)*0.55;
-      ctx.fillStyle=`rgba(255,${(r/sz*140)|0},0,${al})`;
-      ctx.beginPath();ctx.arc(fx,fy,r,0,Math.PI*2);ctx.fill();}
-    ctx.strokeStyle=`rgba(255,140,0,${(1-t)*0.55})`;ctx.lineWidth=3;
-    ctx.beginPath();ctx.arc(fx,fy,sz*1.6+t*45,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
   }
 }
 
@@ -1506,8 +1497,8 @@ function triggerRanton(){
   if(p.chakra<30){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<340&&d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Kein Ziel in Reichweite! (max 340px)','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<160&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 160px)','bad');return;}
   p.chakra-=30;p.ckCd=RANTON_DUR.reduce((a,b)=>a+b)+0.3;
   RANTON.active=true;RANTON.phase=0;RANTON.timer=0;RANTON.hit=false;
   RANTON.ox=p.x;RANTON.oy=p.y;RANTON.tx=best.x;RANTON.ty=best.y;RANTON.target=best;
@@ -1934,8 +1925,8 @@ function triggerAmaterasu(){
   if(p.chakra<38){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<300&&d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Kein Ziel in Reichweite! (max 300px)','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<220&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 220px)','bad');return;}
   p.chakra-=38;p.ckCd=AMAT_DUR[0]+AMAT_DUR[1]+0.4;
   AMAT.active=true;AMAT.phase=0;AMAT.timer=0;AMAT.dotCount=0;
   AMAT.ox=p.x;AMAT.oy=p.y;AMAT.tx=best.x;AMAT.ty=best.y;AMAT.target=best;
@@ -1953,8 +1944,9 @@ function updateAmaterasu(dt){
     if(t>0.55&&AMAT.dotCount===0&&AMAT.target?.alive){
       AMAT.dotCount=1;AMAT.target.hp-=5;AMAT.target.hitFlash=0.3;
       spawnDmgNum(AMAT.tx,AMAT.ty-26,`-5 🖤`,'#cc44cc');shake(4);
-      // hand off to burn tracker
+      // hand off to burn tracker + spread fire on floor
       AMAT_BURN.active=true;AMAT_BURN.target=AMAT.target;AMAT_BURN.dotTimer=0;
+      spreadFire(AMAT.tx,AMAT.ty);
       if(AMAT.target.hp<=0){AMAT.target.alive=false;AMAT_BURN.active=false;
         spawnBurst(AMAT.tx,AMAT.ty,'#220022',12,60);
         action('GAIN_XP',{amt:AMAT.target.xp});action('GAIN_RYO',{amt:AMAT.target.ryo});
@@ -1964,6 +1956,30 @@ function updateAmaterasu(dt){
   }
   if(AMAT.timer>=pDur){AMAT.timer=0;AMAT.phase++;if(AMAT.phase>=AMAT_DUR.length)AMAT.active=false;}
 }
+/* ─── AMATERASU GROUND FIRE ─── */
+const FIRE_TILES=[];   // {tx,ty,phase} — persistent, never expire
+let playerBurnCd=0;
+function spreadFire(px,py){
+  const cx=px/TSIZE|0,cy=py/TSIZE|0;
+  const cands=[];
+  for(let dx=-2;dx<=2;dx++) for(let dy=-2;dy<=2;dy++){
+    if(Math.abs(dx)+Math.abs(dy)>3) continue;
+    cands.push({tx:cx+dx,ty:cy+dy});
+  }
+  cands.forEach(c=>{
+    if(Math.random()>0.55) return;
+    const tile=G.dungeon.tiles[c.ty]?.[c.tx];
+    if((tile===TILE.FLOOR||tile===TILE.STAIRS)&&!FIRE_TILES.some(f=>f.tx===c.tx&&f.ty===c.ty)){
+      FIRE_TILES.push({tx:c.tx,ty:c.ty,phase:Math.random()*Math.PI*2});
+    }
+  });
+  // always burn center tile
+  const ct=G.dungeon.tiles[cy]?.[cx];
+  if((ct===TILE.FLOOR||ct===TILE.STAIRS)&&!FIRE_TILES.some(f=>f.tx===cx&&f.ty===cy)){
+    FIRE_TILES.push({tx:cx,ty:cy,phase:0});
+  }
+}
+
 // Called every frame outside _anyJutsu — keeps burning while player is free to move
 function updateAmatBurn(dt){
   if(!AMAT_BURN.active)return;
@@ -2305,6 +2321,28 @@ function renderDungeon(){
     drawChest(ctx,c.tx*TSIZE-CAM.x,c.ty*TSIZE-CAM.y);
   });
 
+  // Amaterasu ground fire (persistent, never expire)
+  const _now=performance.now();
+  FIRE_TILES.forEach(f=>{
+    const sx=f.tx*TSIZE-CAM.x,sy=f.ty*TSIZE-CAM.y;
+    if(sx<-TSIZE||sx>CW+TSIZE||sy<-TSIZE||sy>CH+TSIZE) return;
+    const flick=0.5+Math.sin(_now*0.009+f.phase)*0.5;
+    // dark smear on floor
+    ctx.globalAlpha=0.55+flick*0.25;
+    ctx.fillStyle='#0d0012';
+    ctx.fillRect(sx+3,sy+4,TSIZE-6,TSIZE-5);
+    // 3 dark flame tongues
+    ctx.globalAlpha=0.7+flick*0.3;
+    for(let i=0;i<3;i++){
+      const fa=-Math.PI*0.55+(i-1)*0.38+Math.sin(_now*0.007+i*1.6+f.phase)*0.3;
+      const fh=5+Math.sin(_now*0.010+i*1.9+f.phase)*2.5;
+      ctx.fillStyle=i===1?'#250030':'#180020';
+      ctx.shadowColor='#550055';ctx.shadowBlur=4;
+      ctx.fillRect(sx+TSIZE/2+Math.cos(fa)*5-2,sy+TSIZE/2+Math.sin(fa)*fh-4,4,7);
+    }
+    ctx.shadowBlur=0;ctx.globalAlpha=1;
+  });
+
   // enemies
   d.enemies.filter(e=>e.alive).forEach(e=>{
     drawEnemy(ctx,e,e.x-CAM.x,e.y-CAM.y);
@@ -2537,6 +2575,17 @@ function gameLoop(ts){
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;
     if(!G.missionMode&&G.dungeon.tiles[pty]?.[ptx]===TILE.STAIRS) nextFloor();
 
+    // Amaterasu ground fire damage
+    if(FIRE_TILES.length>0){
+      playerBurnCd=Math.max(0,playerBurnCd-dt);
+      if(FIRE_TILES.some(f=>f.tx===ptx&&f.ty===pty)&&playerBurnCd<=0&&p.invuln<=0){
+        const dmg=8;p.hp=Math.max(0,p.hp-dmg);p.invuln=0.5;p.hitFlash=0.2;
+        playerBurnCd=0.9;
+        spawnDmgNum(p.x,p.y-20,`-${dmg} 🔥`,'#cc44cc');shake(3);updateGameHUD();
+        if(p.hp<=0){p.hp=0;gameOver();}
+      }
+    }
+
     // Mission: check if boss is dead
     if(G.missionMode&&G.dungeon.isMission){
       const boss=G.dungeon.enemies.find(e=>e.isMissionBoss);
@@ -2585,6 +2634,7 @@ function nextFloor(){
   _chkAch('floor_5');
   const data=genFloor(G.floor);
   Object.assign(G.dungeon,data);
+  FIRE_TILES.length=0;AMAT_BURN.active=false;
   G.player.x=data.startX; G.player.y=data.startY;
   CAM.x=data.startX-350; CAM.y=data.startY-240;
 }
@@ -2606,6 +2656,7 @@ function enterFreeDungeon(){
   stopLobbyLoop();
   const data=genFloor(G.floor||1);
   Object.assign(G.dungeon,data); G.dungeon.isMission=false;
+  FIRE_TILES.length=0;AMAT_BURN.active=false;
   G.player.x=data.startX; G.player.y=data.startY;
   CAM.x=data.startX-350; CAM.y=data.startY-240;
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -2708,7 +2759,7 @@ function startMission(missionId){
   const data=buildMissionLevel(missionId);
   G.dungeon=data;
   RAS.active=KATON.active=RANTON.active=CHI.active=RSEN.active=SUITON.active=AMAT.active=false;
-  AMAT_BURN.active=false;
+  AMAT_BURN.active=false;FIRE_TILES.length=0;
   p.x=data.startX;p.y=data.startY;
   CAM.x=data.startX-350;CAM.y=data.startY-240;
   goScreen('screen-game');

@@ -442,6 +442,7 @@ const G = {
   shopMode:'all',
   learnedJutsu:[],
   missionMode:null,
+  infiniteChakra:false,
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
 
@@ -484,7 +485,8 @@ function _initPlayer(name){
     p.base.maxHp=2000; p.base.maxChakra=500; p.base.atk=999; p.base.def=99; p.base.spd=20;
     p.maxHp=2000; p.hp=2000; p.maxChakra=500; p.chakra=500;
     p.atk=999; p.def=99; p.spd=20;
-    setTimeout(()=>msg('🍥 CHEAT AKTIVIERT — Willkommen zurück, Hokage!','gold'),400);
+    G.infiniteChakra=true;
+    setTimeout(()=>msg('🍥 CHEAT AKTIVIERT — Willkommen zurück, Hokage! ∞CK','gold'),400);
   }
 }
 
@@ -1420,8 +1422,8 @@ function triggerKaton(){
   if(p.chakra<25){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Kein Ziel in Reichweite!','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<280&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 280px)','bad');return;}
   p.chakra-=25;p.ckCd=KATON_DUR.reduce((a,b)=>a+b)+0.3;
   KATON.active=true;KATON.phase=0;KATON.timer=0;
   KATON.ox=p.x;KATON.oy=p.y-8;KATON.fx=p.x;KATON.fy=p.y-8;
@@ -1504,8 +1506,8 @@ function triggerRanton(){
   if(p.chakra<30){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Kein Ziel in Reichweite!','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<340&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 340px)','bad');return;}
   p.chakra-=30;p.ckCd=RANTON_DUR.reduce((a,b)=>a+b)+0.3;
   RANTON.active=true;RANTON.phase=0;RANTON.timer=0;RANTON.hit=false;
   RANTON.ox=p.x;RANTON.oy=p.y;RANTON.tx=best.x;RANTON.ty=best.y;RANTON.target=best;
@@ -1654,6 +1656,14 @@ function drawChidoriAnim(ctx,camX,camY){
       ctx.beginPath();ctx.moveTo(hx,hy);
       ctx.lineTo(hx+Math.cos(a)*r+(Math.random()-0.5)*3,hy+Math.sin(a)*r+(Math.random()-0.5)*3);ctx.stroke();}
     ctx.fillStyle='rgba(255,255,255,0.95)';ctx.beginPath();ctx.arc(hx,hy,1.5,0,Math.PI*2);ctx.fill();
+    // 2-3 short dash-trail bolts behind the player
+    ctx.shadowColor='#88ccff';ctx.shadowBlur=9;
+    if(Math.random()<0.6){const bx=hx-p.facing*(12+Math.random()*20),by=hy+(Math.random()-0.5)*14;
+      ctx.strokeStyle=`rgba(140,210,255,${0.45+Math.random()*0.4})`;ctx.lineWidth=1.2;
+      _bolt(ctx,hx,hy,bx,by,4,5);}
+    if(Math.random()<0.4){const bx=hx-p.facing*(8+Math.random()*14),by=hy+(Math.random()-0.5)*18;
+      ctx.strokeStyle=`rgba(200,235,255,${0.35+Math.random()*0.3})`;ctx.lineWidth=1;
+      _bolt(ctx,hx,hy,bx,by,3,4);}
     ctx.shadowBlur=0;
   } else if(CHI.phase===2){
     // sharp lightning crack at contact — small jagged spokes only, no circles
@@ -1678,8 +1688,8 @@ function triggerRasenshuriken(){
   if(p.chakra<45){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Kein Ziel in Reichweite!','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<460&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 460px)','bad');return;}
   p.chakra-=45;p.ckCd=RSEN_DUR.reduce((a,b)=>a+b)+0.3;
   RSEN.active=true;RSEN.phase=0;RSEN.timer=0;RSEN.ox=p.x;RSEN.oy=p.y;
   RSEN.fx=p.x;RSEN.fy=p.y;RSEN.targets=[];
@@ -1742,25 +1752,22 @@ function drawRasenShurikenAnim(ctx,camX,camY){
     // Flying: proper 8-blade shuriken, white with blue edges, spins fast
     const spin=animTick*0.38;
     ctx.save();ctx.translate(fx,fy);
-    // Faint blue aura ring — small, not dominant
-    ctx.shadowColor='#6699ff';ctx.shadowBlur=10;
-    ctx.strokeStyle='rgba(130,180,255,0.35)';ctx.lineWidth=2;
-    ctx.beginPath();ctx.arc(0,0,20,0,Math.PI*2);ctx.stroke();
-    // 4 main blades (+ pattern)
+    // 4 main blades (+ pattern) — long white blades
+    ctx.shadowColor='#aaccff';ctx.shadowBlur=12;
     ctx.rotate(spin);
     for(let i=0;i<4;i++){ctx.save();ctx.rotate(i*Math.PI/2);
-      // blade body white
-      ctx.fillStyle='rgba(240,248,255,0.96)';ctx.fillRect(-3,-20,6,14);
+      // blade body white — elongated
+      ctx.fillStyle='rgba(240,248,255,0.97)';ctx.fillRect(-3,-30,6,22);
       // blue tip
-      ctx.fillStyle='rgba(100,160,255,0.85)';ctx.fillRect(-2,-20,4,5);
+      ctx.fillStyle='rgba(100,160,255,0.90)';ctx.fillRect(-2,-30,4,7);
       // notch at root
-      ctx.fillStyle='rgba(160,200,255,0.5)';ctx.fillRect(-1,-7,2,3);
+      ctx.fillStyle='rgba(160,200,255,0.5)';ctx.fillRect(-1,-9,2,3);
       ctx.restore();}
-    // 4 diagonal blades (× pattern, shorter)
+    // 4 diagonal blades (× pattern, also elongated)
     ctx.rotate(Math.PI/4);
     for(let i=0;i<4;i++){ctx.save();ctx.rotate(i*Math.PI/2);
-      ctx.fillStyle='rgba(210,230,255,0.78)';ctx.fillRect(-2,-15,4,10);
-      ctx.fillStyle='rgba(100,160,255,0.6)';ctx.fillRect(-1,-15,2,4);
+      ctx.fillStyle='rgba(210,230,255,0.82)';ctx.fillRect(-2,-22,4,16);
+      ctx.fillStyle='rgba(100,160,255,0.65)';ctx.fillRect(-1,-22,2,5);
       ctx.restore();}
     // Bright white center
     ctx.shadowColor='#ffffff';ctx.shadowBlur=18;
@@ -1793,8 +1800,8 @@ function triggerSuiton(){
   if(p.chakra<28){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Keine Feinde!','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<360&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 360px)','bad');return;}
   p.chakra-=28;p.ckCd=SUITON_DUR.reduce((a,b)=>a+b)+0.3;
   SUITON.active=true;SUITON.phase=0;SUITON.timer=0;SUITON.hit=false;
   SUITON.ox=p.x;SUITON.oy=p.y;SUITON.tx=best.x;SUITON.ty=best.y;SUITON.target=best;
@@ -1927,8 +1934,8 @@ function triggerAmaterasu(){
   if(p.chakra<38){msg('Nicht genug Chakra!','bad');return;}
   const enemies=G.dungeon.enemies.filter(e=>e.alive);
   let best=null,bestD=Infinity;
-  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<bestD){bestD=d;best=e;}});
-  if(!best){msg('Keine Feinde!','bad');return;}
+  enemies.forEach(e=>{const d=Math.hypot(e.x-p.x,e.y-p.y);if(d<300&&d<bestD){bestD=d;best=e;}});
+  if(!best){msg('Kein Ziel in Reichweite! (max 300px)','bad');return;}
   p.chakra-=38;p.ckCd=AMAT_DUR[0]+AMAT_DUR[1]+0.4;
   AMAT.active=true;AMAT.phase=0;AMAT.timer=0;AMAT.dotCount=0;
   AMAT.ox=p.x;AMAT.oy=p.y;AMAT.tx=best.x;AMAT.ty=best.y;AMAT.target=best;
@@ -1967,9 +1974,9 @@ function updateAmatBurn(dt){
     vx:(Math.random()-0.5)*6,vy:-Math.random()*16-3,
     life:0.30,maxLife:0.30,color:Math.random()<0.65?'#100010':'#1e001e',sz:2+Math.random()*3.5});
   AMAT_BURN.dotTimer+=dt;
-  if(AMAT_BURN.dotTimer>=0.45){
-    AMAT_BURN.dotTimer=0;e.hp-=8;e.hitFlash=0.18;
-    spawnDmgNum(e.x,e.y-16,`-8 🖤`,'#aa22aa');
+  if(AMAT_BURN.dotTimer>=0.30){
+    AMAT_BURN.dotTimer=0;e.hp-=12;e.hitFlash=0.18;
+    spawnDmgNum(e.x,e.y-16,`-12 🖤`,'#cc33cc');
     if(e.hp<=0){e.alive=false;AMAT_BURN.active=false;
       spawnBurst(e.x,e.y,'#220022',12,60);
       action('GAIN_XP',{amt:e.xp});action('GAIN_RYO',{amt:e.ryo});
@@ -2524,7 +2531,7 @@ function gameLoop(ts){
     if(p.atkCd>0) p.atkCd-=dt;
     if(p.ckCd>0)  p.ckCd-=dt;
     // regen chakra
-    p.chakra=Math.min(p.maxChakra,p.chakra+dt*2);
+    p.chakra=G.infiniteChakra?p.maxChakra:Math.min(p.maxChakra,p.chakra+dt*2);
 
     // check stairs
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;

@@ -1917,7 +1917,7 @@ function drawSuitonAnim(ctx,camX,camY){
 
 /* ─── AMATERASU ─── */
 const AMAT={active:false,phase:0,timer:0,ox:0,oy:0,tx:0,ty:0,target:null,dotCount:0};
-const AMAT_DUR=[0.38,0.28];
+const AMAT_DUR=[0.52,0.40];
 // Separate burn tracker — doesn't block player movement
 const AMAT_BURN={active:false,target:null,dotTimer:0};
 function triggerAmaterasu(){
@@ -1930,7 +1930,8 @@ function triggerAmaterasu(){
   p.chakra-=38;p.ckCd=AMAT_DUR[0]+AMAT_DUR[1]+0.4;
   AMAT.active=true;AMAT.phase=0;AMAT.timer=0;AMAT.dotCount=0;
   AMAT.ox=p.x;AMAT.oy=p.y;AMAT.tx=best.x;AMAT.ty=best.y;AMAT.target=best;
-  msg('AMATERASU!!','gold');shake(3);
+  msg('AMATERASU!!','gold');shake(4);
+  screenFlash=0.65;screenFlashColor='#030003';screenFlashTimer=0.3;
 }
 function updateAmaterasu(dt){
   if(!AMAT.active)return;
@@ -2000,34 +2001,95 @@ function updateAmatBurn(dt){
       _chkAch('first_blood');msg(`BESIEGT! +${e.xp}XP +${e.ryo}Ryo`,'gold');}
   }
 }
+function _drawSharinganEye(ctx,ex,ey,r,tomoeAngle){
+  // black sclera oval
+  ctx.fillStyle='rgba(6,0,0,0.97)';
+  ctx.beginPath();ctx.ellipse(ex,ey,r*1.7,r*0.92,0,0,Math.PI*2);ctx.fill();
+  // red iris
+  ctx.fillStyle='rgba(215,0,0,0.96)';
+  ctx.beginPath();ctx.arc(ex,ey,r,0,Math.PI*2);ctx.fill();
+  // black pupil
+  ctx.fillStyle='rgba(0,0,0,0.99)';
+  ctx.beginPath();ctx.arc(ex,ey,r*0.35,0,Math.PI*2);ctx.fill();
+  // 3 tomoe (Sharingan comma marks)
+  for(let i=0;i<3;i++){
+    const a=tomoeAngle+i*Math.PI*2/3;
+    const tr=r*0.58;
+    ctx.fillStyle='rgba(0,0,0,0.94)';
+    ctx.beginPath();ctx.arc(ex+Math.cos(a)*tr,ey+Math.sin(a)*tr,r*0.19,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(ex+Math.cos(a+0.58)*tr*0.70,ey+Math.sin(a+0.58)*tr*0.70,r*0.11,0,Math.PI*2);ctx.fill();
+  }
+}
 function drawAmaterasuAnim(ctx,camX,camY){
-  const p=G.player;const px=p.x-camX,py=p.y-camY;
+  const p=G.player;if(!p)return;
+  const px=p.x-camX,py=p.y-camY;
+  const CW=ctx.canvas.width,CH=ctx.canvas.height;
+
   if(AMAT.active){
     const t=Math.min(1,AMAT.timer/(AMAT_DUR[AMAT.phase]||1));
     const tx2=AMAT.tx-camX,ty2=AMAT.ty-camY;
+
+    // — cinematic dark overlay —
+    ctx.fillStyle=`rgba(0,0,0,${(AMAT.phase===0?t*0.55:0.55)})`;
+    ctx.fillRect(0,0,CW,CH);
+    // spotlight keeps player visible through overlay
+    const sg=ctx.createRadialGradient(px,py,0,px,py,95);
+    sg.addColorStop(0,'rgba(0,0,0,0)');sg.addColorStop(1,'rgba(0,0,0,0.3)');
+    ctx.fillStyle=sg;ctx.fillRect(0,0,CW,CH);
+
     if(AMAT.phase===0){
-      // red eye glow on player — calm, no particles
-      ctx.shadowColor='#cc0000';ctx.shadowBlur=18*t;
-      ctx.fillStyle=`rgba(200,0,0,${t*0.9})`;
-      ctx.beginPath();ctx.arc(px+3,py+2,2+t*1.5,0,Math.PI*2);ctx.fill();
-      ctx.beginPath();ctx.arc(px+9,py+2,2+t*1.5,0,Math.PI*2);ctx.fill();
-      if(t>0.55){ctx.strokeStyle=`rgba(180,0,0,${(t-0.55)*2.2*0.4})`;ctx.lineWidth=1;
-        ctx.beginPath();ctx.moveTo(px+6,py+2);ctx.lineTo(tx2,ty2);ctx.stroke();}
+      // — Sharingan eye grows above player head —
+      const eyeX=px+4,eyeY=py-24-t*10;
+      const eyeR=2+t*16;
+      ctx.shadowColor='#bb0000';ctx.shadowBlur=20*t;
+      _drawSharinganEye(ctx,eyeX,eyeY,eyeR,-AMAT.timer*2.8);
       ctx.shadowBlur=0;
-    } else if(AMAT.phase===1){
-      // red eyes on player + small black smear appearing on target
-      ctx.shadowColor='#cc0000';ctx.shadowBlur=14;
-      ctx.fillStyle='rgba(200,0,0,0.9)';
-      ctx.beginPath();ctx.arc(px+3,py+2,3.5,0,Math.PI*2);ctx.fill();
-      ctx.beginPath();ctx.arc(px+9,py+2,3.5,0,Math.PI*2);ctx.fill();
+      // red dashed targeting line to enemy (appears late)
+      if(t>0.62){
+        const lf=(t-0.62)/0.38;
+        ctx.strokeStyle=`rgba(140,0,0,${lf*0.65})`;ctx.lineWidth=1;
+        ctx.setLineDash([4,6]);
+        ctx.beginPath();ctx.moveTo(eyeX,eyeY);ctx.lineTo(tx2,ty2);ctx.stroke();
+        ctx.setLineDash([]);
+        // faint pulse ring around target
+        ctx.shadowColor='#880000';ctx.shadowBlur=10*lf;
+        ctx.strokeStyle=`rgba(100,0,0,${lf*0.45})`;ctx.lineWidth=2;
+        ctx.beginPath();ctx.arc(tx2,ty2,13+lf*5,0,Math.PI*2);ctx.stroke();
+        ctx.shadowBlur=0;
+      }
+
+    }else if(AMAT.phase===1){
+      // — frozen Sharingan eye at full size —
+      const eyeX=px+4,eyeY=py-34;
+      ctx.shadowColor='#bb0000';ctx.shadowBlur=18;
+      _drawSharinganEye(ctx,eyeX,eyeY,18,0); // tomoe locked at 0
       ctx.shadowBlur=0;
+
       const ft=AMAT.timer/AMAT_DUR[1];
-      if(ft>0.3){ctx.shadowColor='#220022';ctx.shadowBlur=7;
-        ctx.fillStyle=`rgba(8,0,8,${(ft-0.3)*1.4*0.75})`;
-        ctx.beginPath();ctx.arc(tx2,ty2,5+(ft-0.3)*9,0,Math.PI*2);ctx.fill();
-        ctx.shadowBlur=0;}
+      // — dark black fire beam from eye to target —
+      if(ft>0.06){
+        const bf=Math.min(1,(ft-0.06)/0.44);
+        ctx.shadowColor='#330033';ctx.shadowBlur=18;
+        ctx.strokeStyle=`rgba(3,0,5,${bf*0.93})`;ctx.lineWidth=10;_bolt(ctx,eyeX,eyeY,tx2,ty2,9,15);
+        ctx.strokeStyle=`rgba(16,0,20,${bf*0.80})`;ctx.lineWidth=5;_bolt(ctx,eyeX,eyeY,tx2,ty2,11,9);
+        ctx.strokeStyle=`rgba(38,0,48,${bf*0.62})`;ctx.lineWidth=2;_bolt(ctx,eyeX,eyeY,tx2,ty2,13,4);
+        ctx.shadowBlur=0;
+      }
+      // spotlight on target
+      const sg2=ctx.createRadialGradient(tx2,ty2,0,tx2,ty2,55);
+      sg2.addColorStop(0,'rgba(0,0,0,0)');sg2.addColorStop(1,'rgba(0,0,0,0.35)');
+      ctx.fillStyle=sg2;ctx.fillRect(0,0,CW,CH);
+      // black flame smear growing on target
+      if(ft>0.38){
+        const sf=(ft-0.38)/0.62;
+        ctx.shadowColor='#220022';ctx.shadowBlur=12;
+        ctx.fillStyle=`rgba(7,0,9,${sf*0.90})`;
+        ctx.beginPath();ctx.arc(tx2,ty2,5+sf*14,0,Math.PI*2);ctx.fill();
+        ctx.shadowBlur=0;
+      }
     }
   }
+
   // draw active burn on enemy (independent of AMAT.active)
   if(AMAT_BURN.active&&AMAT_BURN.target?.alive){
     const e=AMAT_BURN.target;
@@ -2036,7 +2098,6 @@ function drawAmaterasuAnim(ctx,camX,camY){
     ctx.shadowColor='#220022';ctx.shadowBlur=9*flick;
     ctx.fillStyle=`rgba(7,0,7,${0.72*flick})`;
     ctx.beginPath();ctx.arc(ex,ey,9,0,Math.PI*2);ctx.fill();
-    // 4 small flame tongues on enemy body — compact, not huge
     for(let i=0;i<4;i++){const a=-Math.PI/2+(i-1.5)*0.38+Math.sin(performance.now()*0.008+i)*0.22;
       const fl=7+Math.sin(performance.now()*0.011+i*1.4)*3;
       ctx.fillStyle=`rgba(14,0,14,${0.78*flick})`;

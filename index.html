@@ -209,6 +209,19 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 /* ══════════════════════ SCROLLBAR ══════════════════════ */
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#080510}::-webkit-scrollbar-thumb{background:var(--purple)}
 .hidden{display:none!important}
+
+/* ── MISSION SELECT ── */
+#screen-mission-select{display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+.ms-card{display:flex;align-items:flex-start;gap:10px;background:#12082088;border:1px solid #2a1a4a;border-radius:4px;padding:12px;transition:border-color 0.15s}
+.ms-card:hover:not(.ms-locked){border-color:#ffd700}
+.ms-locked{opacity:0.5}
+.ms-rank{font-size:14px;font-weight:bold;min-width:24px;text-align:center;padding-top:2px}
+.rank-D{color:#88ff88}.rank-C{color:#44aaff}.rank-B{color:#aa44ff}.rank-A{color:#ffaa00}.rank-S{color:#ff4444}
+.ms-info{flex:1}
+.ms-name{font-size:11px;color:#ffd700;margin-bottom:4px}
+.ms-desc{font-size:8px;color:#888;margin-bottom:6px;line-height:1.4}
+.ms-rew{font-size:8px;color:#aaddff}
+.ms-btn-w{display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -284,6 +297,13 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
   <div class="ph"><h2>🏆 ERFOLGE</h2><div style="color:var(--gold);font-size:9px"><span id="ach-done">0</span>/10</div></div>
   <div class="pb"><div class="ach-grid" id="ach-grid"></div></div>
   <div class="pf"><button class="btn btn-sm" id="ach-back">◀ Zurück</button></div>
+</div>
+
+<!-- ═══════════════ MISSION SELECT ═══════════════ -->
+<div id="screen-mission-select" class="screen">
+  <div class="ph"><h2>📋 MISSIONEN</h2><div style="font-size:8px;color:#888">Dein Rang: <span id="ms-rank-label">Genin</span></div></div>
+  <div class="pb" id="ms-list" style="display:flex;flex-direction:column;gap:10px;padding:16px;overflow-y:auto"></div>
+  <div class="pf"><button class="btn btn-sm" id="ms-back">◀ Zurück</button></div>
 </div>
 
 <!-- ═══════════════ GAME ═══════════════ -->
@@ -416,6 +436,7 @@ const G = {
   eggs:{ believeit:false, konami:false },
   shopMode:'all',
   learnedJutsu:[],
+  missionMode:null,
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
 
@@ -2501,7 +2522,16 @@ function gameLoop(ts){
 
     // check stairs
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;
-    if(G.dungeon.tiles[pty]?.[ptx]===TILE.STAIRS) nextFloor();
+    if(!G.missionMode&&G.dungeon.tiles[pty]?.[ptx]===TILE.STAIRS) nextFloor();
+
+    // Mission: check if boss is dead
+    if(G.missionMode&&G.dungeon.isMission){
+      const boss=G.dungeon.enemies.find(e=>e.isMissionBoss);
+      if(boss&&!boss.alive){
+        const mission=MISSIONS.find(m=>m.id===G.missionMode);
+        if(mission)missionComplete(mission);
+      }
+    }
 
     // check chest
     G.dungeon.chests.filter(c=>!c.opened).forEach(c=>{
@@ -2558,6 +2588,135 @@ function victory(){
 }
 
 /* ════════════════════════════════════════════════════
+   MISSION SYSTEM
+════════════════════════════════════════════════════ */
+const MISSIONS=[
+  {id:'m1',rank:'D',name:'Räuber im Wald',
+   desc:'Ein Bandit versteckt sich im Konoha-Wald. Besiege ihn und seine Handlanger.',
+   levelReq:1,bossName:'Banditenführer',
+   rewards:{xp:300,ryo:220,item:null}},
+  {id:'m2',rank:'D',name:'Wildes Tier',
+   desc:'Ein riesiges Tier terrorisiert die Bauern am Stadtrand.',
+   levelReq:2,bossName:'Waldbestie',
+   rewards:{xp:400,ryo:280,item:null}},
+  {id:'m3',rank:'C',name:'Entlaufener Krimineller',
+   desc:'Ein gefährlicher Krimineller ist aus dem Gefängnis entkommen.',
+   levelReq:4,bossName:'Gefangener Ninja',
+   rewards:{xp:600,ryo:400,item:null}},
+];
+
+function buildMissionLevel(missionId){
+  const W=70,H=14;
+  const tiles=Array.from({length:H},()=>new Uint8Array(W).fill(TILE.WALL));
+  const enemies=[];const chests=[];
+
+  function carve(x,y,w,h){
+    for(let ry=y;ry<y+h;ry++)for(let rx=x;rx<x+w;rx++)
+      if(rx>=0&&rx<W&&ry>=0&&ry<H)tiles[ry][rx]=TILE.FLOOR;
+  }
+
+  // === MISSION 1 MAP LAYOUT ===
+  // Main corridor y=6-7 left to right
+  carve(1,6,W-2,2);
+  // Start room
+  carve(1,4,7,6);
+  // Room 1 (first encounter)
+  carve(12,4,8,6);
+  // North branch off room 1 → chest
+  carve(14,2,3,2);
+  // Room 2 (second encounter)
+  carve(28,4,9,6);
+  // South branch off room 2 → enemy
+  carve(30,10,3,2);
+  // Room 3 (third encounter)
+  carve(44,3,8,8);
+  // Boss room (wide)
+  carve(57,3,12,9);
+  // Narrow passage to boss room
+  carve(55,6,2,2);
+
+  // Enemy type by mission
+  const typeMap={m1:['basic','basic','basic'],m2:['fast','fast','basic'],m3:['basic','fast','elite']};
+  const types=typeMap[missionId]||['basic','basic','basic'];
+
+  // Helper spawn enemy
+  function spawnE(tx,ty,type,isBoss){
+    const hp=isBoss?Math.max(120,80+G.floor*18):Math.max(28,18+G.floor*6);
+    enemies.push({type:isBoss?'boss':type,
+      x:tx*TSIZE+TSIZE/2,y:ty*TSIZE+TSIZE/2,
+      hp,maxHp:hp,atk:isBoss?18+G.floor*3:8+G.floor*2,
+      spd:type==='fast'?1.6:1,col:isBoss?'#cc2200':type==='fast'?'#44aaff':'#cc4422',
+      glow:isBoss?'#ff4400':'#aa2200',sz:isBoss?14:10,
+      xp:isBoss?220+G.floor*30:40+G.floor*8,ryo:isBoss?160+G.floor*20:25+G.floor*5,
+      alive:true,hitFlash:0,stunTick:0,isMissionBoss:isBoss});
+  }
+
+  // Room 1: 2 enemies
+  spawnE(14,6,types[0],false);spawnE(17,7,types[0],false);
+  // North branch: 1 enemy guarding chest
+  spawnE(15,3,'basic',false);
+  chests.push({tx:14,ty:2,opened:false});
+  // Room 2: 2-3 enemies
+  spawnE(30,6,types[1],false);spawnE(33,5,types[1],false);spawnE(34,8,types[0],false);
+  // South branch: 1 enemy
+  spawnE(31,11,'basic',false);
+  // Room 3: 2 enemies
+  spawnE(47,5,types[2],false);spawnE(49,8,types[2],false);
+  // Boss
+  spawnE(62,7,'boss',true);
+
+  return{W,H,tiles,enemies,chests,
+    startX:3*TSIZE+TSIZE/2,startY:7*TSIZE-TSIZE/2,
+    isMission:true,missionId};
+}
+
+function startMission(missionId){
+  const p=G.player;if(!p){msg('Gib zuerst deinen Namen ein!','bad');return;}
+  G.missionMode=missionId;
+  const data=buildMissionLevel(missionId);
+  G.dungeon=data;
+  RAS.active=KATON.active=RANTON.active=CHI.active=RSEN.active=SUITON.active=AMAT.active=false;
+  p.x=data.startX;p.y=data.startY;
+  CAM.x=data.startX-350;CAM.y=data.startY-240;
+  goScreen('screen-game');
+}
+
+function missionComplete(mission){
+  stopGameLoop();
+  const r=mission.rewards;
+  action('GAIN_XP',{amt:r.xp});action('GAIN_RYO',{amt:r.ryo});
+  G.missionMode=null;
+  G.dungeon={tiles:[],enemies:[],chests:[],W:0,H:0};
+  openModal('🎉 Mission abgeschlossen!',
+    `${mission.name}\n\nBelohnungen:\n+${r.xp} XP  +${r.ryo} Ryo`,
+    [{label:'Lobby',cls:'btn-gold',cb:()=>goScreen('screen-lobby')}]);
+}
+
+function renderMissionSelect(){
+  const p=G.player;
+  const el=$('ms-list');if(!el)return;
+  el.innerHTML='';
+  // rank label
+  const rankName=p?['Genin','Chunin','Jonin','ANBU','Kage'][Math.min(4,(p.level/5)|0)]:'Genin';
+  const rl=$('ms-rank-label');if(rl)rl.textContent=rankName;
+  MISSIONS.forEach(m=>{
+    const locked=p&&p.level<m.levelReq;
+    const card=document.createElement('div');
+    card.className='ms-card'+(locked?' ms-locked':'');
+    card.innerHTML=`<div class="ms-rank rank-${m.rank}">${m.rank}</div>
+      <div class="ms-info"><div class="ms-name">${m.name}</div>
+      <div class="ms-desc">${m.desc}</div>
+      <div class="ms-rew">+${m.rewards.xp}XP  +${m.rewards.ryo}Ryo${locked?'  <span style="color:#ff4444">Lv.'+m.levelReq+' benötigt</span>':''}</div></div>
+      ${locked?'<div class="ms-btn-w"><button class="btn btn-sm" disabled>🔒 Gesperrt</button></div>':
+               '<div class="ms-btn-w"><button class="btn btn-gold ms-start" data-id="'+m.id+'">▶ Starten</button></div>'}`;
+    el.appendChild(card);
+  });
+  el.querySelectorAll('.ms-start').forEach(b=>{
+    b.onclick=()=>startMission(b.dataset.id);
+  });
+}
+
+/* ════════════════════════════════════════════════════
    LOBBY WORLD — MAP + ZONES
 ════════════════════════════════════════════════════ */
 const LW=28, LH=20, LTSIZE=32, LZOOM=1.6;
@@ -2567,7 +2726,7 @@ const LTILE={GRASS:0,PATH:1,BLDG:2,TREE:3,WATER:4,SAND:5};
 
 const LZONES=[
   // North buildings — above horizontal spine (y=9,10)
-  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE-TURM',    sub:'Demnächst...',           tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:null},
+  {id:'hokage', type:'tower', icon:'🏯',label:'HOKAGE-TURM',    sub:'Missionen & Aufträge',   tx:10,ty:2, tw:8,th:6, color:'#dd3388',glow:'#aa1166',enter:'screen-mission-select'},
   {id:'academy',type:'school',icon:'📚',label:'ACADEMY',        sub:'Lerne Jutsu hier',      tx:2, ty:2, tw:6,th:6, color:'#2266ff',glow:'#0044cc',enter:'screen-academy'},
   {id:'dungeon',type:'gate',  icon:'⚔️',label:'DUNGEON-TOR',     sub:'Betritt den dunklen Wald',tx:23,ty:3,tw:2,th:5, color:'#ff4444',glow:'#ff0000',enter:'screen-game'},
   // South buildings — below horizontal spine
@@ -2576,7 +2735,7 @@ const LZONES=[
   {id:'ach',    type:'shrine',icon:'🏆',label:'RUHMESHALLE',     sub:'Deine Erfolge',         tx:21,ty:12,tw:4,th:4, color:'#ffd700',glow:'#ffcc00',enter:'screen-ach'},
   // NPCs in south plaza (near spine intersection, not blocking spine paths)
   {id:'skills', type:'npc',   icon:'✦', label:'KAKASHI SENSEI',sub:'Trainiere deine Fähigkeiten', nx:9*32+16,  ny:11*32+16, color:'#ccccff',glow:'#8888ff',enter:'screen-skills'},
-  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Missionen annehmen',    nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:null},
+  {id:'quests', type:'npc',   icon:'📋',label:'IRUKA SENSEI',   sub:'Missionen annehmen',    nx:16*32+16, ny:11*32+16, color:'#88ddff',glow:'#0088ff',enter:'screen-mission-select'},
   {id:'smith',  type:'npc',   icon:'⚒️',label:'TENTEN',          sub:'Waffen kaufen',         nx:13*32,    ny:11*32+16, color:'#ffaa44',glow:'#ff6600',enter:'screen-shop',shopMode:'weapon'},
 ];
 
@@ -3223,6 +3382,7 @@ function goScreen(id){
   $(id).classList.add('active');
   if(id==='screen-lobby'){
     stopGameLoop();
+    G.missionMode=null;
     if(!lobbyTiles) buildLobbyMap();
     if(!G.lobby){ G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null}; LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM));LCAM.y=G.lobby.y-((window.innerHeight/GAME_SCALE)/(2*LZOOM)); }
     if(G.player) $('lhud').classList.remove('hidden');
@@ -3230,6 +3390,7 @@ function goScreen(id){
   } else {
     stopLobbyLoop();
   }
+  if(id==='screen-mission-select'){renderMissionSelect();}
   if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
   if(id==='screen-academy'){renderAcademy();}
   if(id==='screen-skills') {initSkCanvas();_syncSP();}
@@ -3279,6 +3440,7 @@ $('shop-back').onclick  =()=>goScreen('screen-lobby');
 $('skills-back').onclick=()=>goScreen('screen-lobby');
 $('ach-back').onclick   =()=>goScreen('screen-lobby');
 $('aca-back').onclick   =()=>goScreen('screen-lobby');
+$('ms-back').onclick    =()=>goScreen('screen-lobby');
 $('fs-btn').onclick     =toggleFullscreen;
 $('shop-grid').addEventListener('click',e=>{const b=e.target.closest('[data-buy]');if(b)action('BUY_ITEM',{id:b.dataset.buy});});
 $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});

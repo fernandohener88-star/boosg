@@ -315,7 +315,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
       <div class="hud-bar-row"><span class="hud-bar-lbl">CK</span><div class="hud-bar-bg"><div class="hud-bar-fill hud-ck" id="hud-ck" style="width:100%"></div></div><span class="hud-bar-val" id="hud-ck-v">50/50</span></div>
     </div>
     <div class="hud-right">
-      <div class="hud-floor">Etage <span id="hud-floor">1</span></div>
+      <div class="hud-floor" id="hud-floor-wrap">Etage <span id="hud-floor">1</span></div>
       <div class="hud-ryo">💰 <span id="hud-ryo">0</span></div>
       <div style="font-size:6px;color:#4a3a6a">Lv.<span id="hud-lv">1</span> ATK:<span id="hud-atk">10</span></div>
     </div>
@@ -2386,7 +2386,8 @@ function updateGameHUD(){
   $('hud-ck').style.width=(p.chakra/p.maxChakra*100)+'%';
   $('hud-hp-v').textContent=`${p.hp}/${p.maxHp}`;
   $('hud-ck-v').textContent=`${Math.floor(p.chakra)}/${p.maxChakra}`;
-  $('hud-floor').textContent=G.floor;
+  if(G.missionMode){const ms=MISSIONS.find(m=>m.id===G.missionMode);$('hud-floor-wrap').style.maxWidth='140px';$('hud-floor').textContent=ms?`📋 ${ms.name}`:G.missionMode;}
+  else{$('hud-floor-wrap').style.maxWidth='';$('hud-floor').textContent=G.floor;}
   $('hud-ryo').textContent=G.ryo;
   $('hud-lv').textContent=p.level;
   $('hud-atk').textContent=p.atk;
@@ -3398,7 +3399,8 @@ function goScreen(id){
   if(id==='screen-game')   {
     if(!G.player){msg('Gib zuerst deinen Namen ein!','bad');goScreen('screen-lobby');return;}
     const cv=$('game-canvas'); cv.width=((window.innerWidth||1280)/GAME_SCALE)|0; cv.height=((window.innerHeight-52-28)/GAME_SCALE)|0;
-    // start new floor if coming fresh
+    // dungeon mode: clear any leftover mission map so it regenerates fresh
+    if(!G.missionMode&&G.dungeon.isMission) Object.assign(G.dungeon,{tiles:[],enemies:[],chests:[],W:0,H:0,isMission:false});
     if(!G.dungeon.tiles.length){
       const data=genFloor(G.floor); Object.assign(G.dungeon,data);
       G.player.x=data.startX; G.player.y=data.startY;

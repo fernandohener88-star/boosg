@@ -109,11 +109,24 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 
 /* ══════════════════════ INVENTORY ══════════════════════ */
 .inv-ttl{font-size:8px;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #1a1a2a}
-.inv-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.inv-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
 .inv-slot{background:#0a0516;border:1px solid #1a1030;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;cursor:pointer;transition:all .15s;position:relative}
 .inv-slot.occ{border-color:#2a1a44}
 .inv-slot.eq{border-color:var(--gold);background:linear-gradient(135deg,#1a1200,#0f0820);box-shadow:0 0 10px var(--gold)22}
 .inv-slot.occ:hover{border-color:var(--or)}
+/* ══════════════════════ INV OVERLAY (Tab) ══════════════════════ */
+#inv-overlay{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9000;background:rgba(5,1,15,0.98);border:1px solid #3a1a5a;padding:18px 22px;width:720px;max-width:96vw;display:none;box-shadow:0 0 50px #330055bb}
+#inv-overlay.open{display:block}
+#inv-overlay .ov-ttl{font-size:9px;color:var(--gold);letter-spacing:2px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a1a44;padding-bottom:10px}
+#inv-overlay .ov-close{font-size:7px;color:#443a5a;cursor:pointer}
+#inv-overlay .ov-body{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px}
+#inv-overlay .ov-col{}
+#inv-overlay .ov-sec{font-size:7px;color:#8866aa;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid #1a1030}
+#inv-overlay .inv-grid{grid-template-columns:repeat(4,1fr);gap:5px}
+#inv-overlay .ov-consume .inv-grid{grid-template-columns:repeat(6,1fr);gap:5px}
+#inv-overlay .ov-consume .ov-sec{color:#8866aa}
+.inv-slot .inv-name{font-size:5.5px;text-align:center;color:#888;word-break:break-word;line-height:1.3}
+.eq-badge{position:absolute;top:3px;right:3px;font-size:6px;color:var(--gold);font-weight:bold}
 .inv-icon{font-size:18px}
 .inv-name{font-size:6px;color:#666;text-align:center}
 .inv-slot.eq .inv-name{color:var(--gold)}
@@ -174,7 +187,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 .ap-n{font-size:9px;color:#fff}
 
 /* ══════════════════════ MODAL ══════════════════════ */
-#modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#modal-overlay{position:fixed;inset:0;background:#000000cc;z-index:10000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 #modal-overlay.hidden{display:none}
 #modal-box{background:linear-gradient(135deg,#0f0820,#1a0d2e);border:1px solid var(--border);padding:20px;max-width:380px;width:90%;max-height:80vh;overflow-y:auto;box-shadow:0 0 40px var(--purple)44}
 #modal-title{font-size:11px;color:var(--gold);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #2a1a44}
@@ -222,13 +235,92 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 .ms-desc{font-size:8px;color:#888;margin-bottom:6px;line-height:1.4}
 .ms-rew{font-size:8px;color:#aaddff}
 .ms-btn-w{display:flex;align-items:center}
+
+/* ══════ START / MENU ══════ */
+@keyframes startPulse{0%,100%{opacity:.25;transform:scale(1);}50%{opacity:1;transform:scale(1.04);}}
+@keyframes sharinganSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes introFadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+#screen-start,#screen-menu,#screen-intro{background:#05020d;}
+#intro-dlg{animation:introFadeIn .4s ease-out;}
+#intro-skip:hover{border-color:#664488;color:#aa88cc;}
+#start-flash{position:fixed;inset:0;pointer-events:none;z-index:9999;background:#fff;opacity:0;transition:opacity .08s;}
+.menu-btn{border-radius:0;transition:all .15s;position:relative;overflow:hidden;}
+.menu-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);transform:translateX(-100%);transition:transform .4s;}
+.menu-btn:hover::after{transform:translateX(100%);}
+.menu-btn:hover{box-shadow:0 0 20px rgba(255,200,50,.3);}
+
+/* ══════ CHARACTER BUILD ══════ */
+#screen-char-build{background:radial-gradient(ellipse at center,#0e0520 0%,#05020d 100%);overflow-y:auto;}
+#cb-wrap{display:flex;gap:20px;max-width:960px;width:100%;margin:0 auto;padding:16px;align-items:flex-start;flex-wrap:wrap;}
+#cb-preview-col{flex:0 0 170px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+#cb-canvas{image-rendering:pixelated;border:1px solid #3a1a5a;background:#08041a;width:170px;height:226px;}
+#cb-options-col{flex:1;min-width:280px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 130px);}
+.cb-section{border:1px solid #2a1a44;padding:12px;background:#0a0516;}
+.cb-sec-title{font-size:6px;color:#aa66ff;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid #1a1030;padding-bottom:5px;text-transform:uppercase;}
+.cb-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.cb-row label{font-size:7px;color:#aaa;min-width:80px;flex-shrink:0;}
+.cb-swatches{display:flex;gap:4px;flex-wrap:wrap;}
+.cb-swatch{width:20px;height:20px;border:2px solid #333;cursor:pointer;transition:transform .1s,border-color .1s;}
+.cb-swatch:hover{transform:scale(1.18);}
+.cb-swatch.sel{border-color:#ffdd44!important;box-shadow:0 0 6px #ffdd44;}
+.cb-style-btn{padding:3px 8px;border:1px solid #2a1a44;background:#0f082066;color:#777;font-family:inherit;font-size:6px;cursor:pointer;transition:all .1s;}
+.cb-style-btn:hover{border-color:#aa66ff;color:#cc99ff;}
+.cb-style-btn.sel{border-color:#ffdd44;color:#ffdd44;background:#1a0d30;}
+.cb-toggle{padding:4px 10px;border:1px solid #2a1a44;background:#0f082066;color:#666;font-family:inherit;font-size:7px;cursor:pointer;transition:all .1s;}
+.cb-toggle.on{border-color:#44ff88!important;color:#44ff88;background:#041a0c;}
+.cb-acc-btn{padding:4px 10px;border:1px solid #2a1a44;background:#0f082066;color:#777;font-family:inherit;font-size:6px;cursor:pointer;transition:all .1s;}
+.cb-acc-btn:hover{border-color:#aa66ff;color:#cc99ff;}
+.cb-acc-btn.sel{border-color:#ffdd44;color:#ffdd44;background:#1a0d30;}
 </style>
 </head>
 <body>
 <div id="app">
 
+<!-- ═══════════════ START SCREEN ═══════════════ -->
+<div id="screen-start" class="screen active" style="position:relative;overflow:hidden;cursor:pointer;">
+  <canvas id="start-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  <div id="start-ui" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+    <div id="start-logo" style="text-align:center;margin-bottom:40px;">
+      <div style="font-size:9px;color:#ff6600;letter-spacing:4px;margin-bottom:6px;text-shadow:0 0 20px #ff6600;">NARUTO · YUGEN</div>
+      <div id="start-title" style="font-size:28px;color:#ffd700;letter-spacing:6px;text-shadow:0 0 40px #ff8800,0 0 80px #ff4400;line-height:1.2;">BOOSG</div>
+      <div style="font-size:7px;color:#cc8844;letter-spacing:3px;margin-top:8px;">TALES OF THE NINJA WORLD</div>
+    </div>
+    <div id="start-click" style="font-size:8px;color:#ffffff;letter-spacing:3px;animation:startPulse 1.4s ease-in-out infinite;">KLICKE ZUM STARTEN</div>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN MENU ═══════════════ -->
+<div id="screen-menu" class="screen" style="position:relative;overflow:hidden;">
+  <canvas id="menu-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div style="font-size:8px;color:#ff6600;letter-spacing:4px;margin-bottom:6px;text-shadow:0 0 16px #ff6600;">NARUTO · YUGEN</div>
+      <div style="font-size:22px;color:#ffd700;letter-spacing:5px;text-shadow:0 0 30px #ff8800,0 0 60px #ff4400;">BOOSG</div>
+      <div style="font-size:6px;color:#886633;letter-spacing:3px;margin-top:6px;">TALES OF THE NINJA WORLD</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;min-width:280px;">
+      <button class="btn btn-gold menu-btn" id="menu-start-btn" style="width:100%;padding:14px 0;font-size:9px;letter-spacing:2px;">⚔️ SPIEL STARTEN</button>
+      <button class="btn menu-btn" id="menu-char-btn" style="width:100%;padding:12px 0;font-size:8px;letter-spacing:2px;">🎨 CHARAKTER ERSTELLEN</button>
+      <button class="btn menu-btn" id="menu-credits-btn" style="width:100%;padding:12px 0;font-size:8px;letter-spacing:2px;">📜 CREDITS</button>
+    </div>
+    <div style="margin-top:32px;font-size:6px;color:#332244;letter-spacing:2px;">v0.1 ALPHA · KONOHA STUDIOS</div>
+  </div>
+</div>
+
+<!-- ═══════════════ KAKASHI INTRO ═══════════════ -->
+<div id="screen-intro" class="screen" style="position:relative;overflow:hidden;cursor:pointer;background:#000;">
+  <canvas id="intro-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+  <!-- dialogue box -->
+  <div id="intro-dlg" style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:min(680px,90vw);background:rgba(5,2,18,0.94);border:1px solid #3a1a5a;padding:20px 24px 16px;pointer-events:none;">
+    <div id="intro-speaker" style="font-size:8px;color:#ccccff;letter-spacing:2px;margin-bottom:10px;text-shadow:0 0 10px #8888ff;">KAKASHI HATAKE</div>
+    <div id="intro-text" style="font-size:8px;color:#ffffff;line-height:2;min-height:36px;"></div>
+    <div id="intro-next" style="margin-top:10px;font-size:6px;color:#554466;letter-spacing:2px;text-align:right;animation:startPulse 1.2s ease-in-out infinite;">[ KLICK ZUM WEITER ]</div>
+  </div>
+  <button id="intro-skip" style="position:absolute;top:16px;right:20px;background:transparent;border:1px solid #332244;color:#443355;font-family:inherit;font-size:6px;padding:5px 12px;cursor:pointer;letter-spacing:1px;">ÜBERSPRINGEN ▶▶</button>
+</div>
+
 <!-- ═══════════════ LOBBY WORLD ═══════════════ -->
-<div id="screen-lobby" class="screen active" style="position:relative;overflow:hidden">
+<div id="screen-lobby" class="screen" style="position:relative;overflow:hidden">
   <canvas id="lobby-canvas" style="display:block;width:100%;height:100vh;image-rendering:pixelated"></canvas>
   <!-- Mini HUD top-left -->
   <div id="lhud" class="lhud hidden">
@@ -256,7 +348,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div class="sec" id="shop-section-title">Items for Sale</div>
     <div class="shop-grid" id="shop-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventar (<span id="inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="inv-count">0</span>/20)</div>
     <div class="inv-grid" id="inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="shop-back">◀ Zurück</button></div>
@@ -270,7 +362,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
     <div style="font-size:7px;color:#6a5a8a;margin-bottom:8px">Lerne mächtige Techniken. Erlernte Jutsu werden automatisch deinem Inventar hinzugefügt.</div>
     <div class="shop-grid" id="aca-grid"></div>
     <hr class="div"/>
-    <div class="inv-ttl">📦 Inventar (<span id="aca-inv-count">0</span>/8)</div>
+    <div class="inv-ttl">📦 Inventar (<span id="aca-inv-count">0</span>/20)</div>
     <div class="inv-grid" id="aca-inv-grid"></div>
   </div>
   <div class="pf"><button class="btn btn-sm" id="aca-back">◀ Zurück</button></div>
@@ -336,7 +428,59 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
   </div>
 </div>
 
+<!-- ═══════════════ CHARACTER BUILD ═══════════════ -->
+<div id="screen-char-build" class="screen">
+  <div class="ph"><h2>⚔️ CHARAKTER ERSTELLEN</h2></div>
+  <div id="cb-wrap">
+    <div id="cb-preview-col">
+      <canvas id="cb-canvas" width="120" height="160"></canvas>
+      <div id="cb-name-disp" style="font-size:8px;color:#ffdd44;letter-spacing:1px;margin-top:4px;"></div>
+      <button class="btn btn-sm" id="cb-random-btn" style="margin-top:4px;">🎲 Zufällig</button>
+    </div>
+    <div id="cb-options-col">
+      <!-- HAARE -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Haare</div>
+        <div class="cb-row"><label>Stil</label><div class="cb-swatches" id="cb-hair-style-btns"></div></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-hair-color-sw"></div></div>
+      </div>
+      <!-- STIRNBAND -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Stirnband</div>
+        <div class="cb-row"><label>An/Aus</label><button id="cb-hb-toggle" class="cb-toggle on">✓ AN</button></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-hb-color-sw"></div></div>
+      </div>
+      <!-- HAUT -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Haut</div>
+        <div class="cb-row"><label>Hautfarbe</label><div class="cb-swatches" id="cb-skin-color-sw"></div></div>
+      </div>
+      <!-- OUTFIT -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Outfit</div>
+        <div class="cb-row"><label>Oberteil</label><div class="cb-swatches" id="cb-top-color-sw"></div></div>
+        <div class="cb-row"><label>Hose</label><div class="cb-swatches" id="cb-pants-color-sw"></div></div>
+      </div>
+      <!-- HANDSCHUHE -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Handschuhe</div>
+        <div class="cb-row"><label>An/Aus</label><button id="cb-gl-toggle" class="cb-toggle">✗ AUS</button></div>
+        <div class="cb-row"><label>Farbe</label><div class="cb-swatches" id="cb-gl-color-sw"></div></div>
+      </div>
+      <!-- ACCESSOIRES -->
+      <div class="cb-section">
+        <div class="cb-sec-title">Accessoires</div>
+        <div class="cb-swatches" id="cb-acc-btns" style="gap:6px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="pf">
+    <button class="btn btn-gold" id="cb-confirm-btn">Ins Dorf eintreten →</button>
+  </div>
 </div>
+
+</div>
+<div id="start-flash"></div>
 <div id="msg-log"></div>
 <div id="ach-popup"><div class="ap-ico" id="ap-ico">🏆</div><div><div class="ap-t">ACHIEVEMENT UNLOCKED</div><div class="ap-n" id="ap-nm"></div></div></div>
 <div id="modal-overlay" class="hidden"><div id="modal-box"><div id="modal-title"></div><div id="modal-body"></div><div id="modal-actions"></div></div></div>
@@ -443,8 +587,23 @@ const G = {
   learnedJutsu:[],
   missionMode:null,
   infiniteChakra:false,
+  infiniteHp:false,
+  look:{
+    hairStyle:0, hairColor:'#ffcc00',
+    headband:true, headbandColor:'#2255cc',
+    skin:'#f0b070',
+    topColor:'#ff6600', pantsColor:'#1a3a6a',
+    gloves:false, gloveColor:'#222222',
+    accessory:'none'
+  },
   dungeon:{ tiles:[], W:0, H:0, rooms:[], enemies:[], chests:[], stx:0, sty:0 }
 };
+
+function _lighten(hex,amt){
+  let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  r=Math.min(255,r+amt);g=Math.min(255,g+amt);b=Math.min(255,b+amt);
+  return '#'+[r,g,b].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
 
 /* ════════════════════════════════════════════════════
    ACTION DISPATCH
@@ -487,6 +646,16 @@ function _initPlayer(name){
     p.atk=999; p.def=99; p.spd=20;
     G.infiniteChakra=true;
     setTimeout(()=>msg('🍥 CHEAT AKTIVIERT — Willkommen zurück, Hokage! ∞CK','gold'),400);
+  }
+  if(name.toLowerCase()==='nando'){
+    const p=G.players[G.localPlayerId];
+    G.ryo=999999;
+    p.level=99; p.skillPoints=98;
+    p.base.maxHp=9999; p.base.maxChakra=9999; p.base.atk=9999; p.base.def=999; p.base.spd=20;
+    p.maxHp=9999; p.hp=9999; p.maxChakra=9999; p.chakra=9999;
+    p.atk=9999; p.def=999; p.spd=20;
+    G.infiniteChakra=true; G.infiniteHp=true;
+    setTimeout(()=>msg('👑 NANDO-MODUS — Unendlich alles. Niemand kann dich aufhalten.','gold'),400);
   }
 }
 
@@ -535,7 +704,7 @@ function _recalc(){
 function _buyItem(id){
   const it=ITEMS.find(i=>i.id===id); if(!it) return;
   if(G.ryo<it.price){ msg('Nicht genug Ryo!','bad'); return; }
-  if(G.inventory.length>=8){ msg('Inventar voll!','bad'); return; }
+  if(G.inventory.length>=20){ msg('Inventar voll!','bad'); return; }
   G.ryo-=it.price;
   G.inventory.push({id:it.id,eq:false});
   msg(`${it.name} gekauft!`,'gold');
@@ -567,16 +736,24 @@ function _itemAct(idx){
 
 function renderShop(){
   const mode=G.shopMode||'all';
-  const titles={all:'Items for Sale',consume:'🍜 Ichiraku — Verbrauchsgüter',weapon:'⚒️ Tenten — Waffen & Ausrüstung'};
-  const h=$('shop-section-title'); if(h) h.textContent=titles[mode]||titles.all;
   const shopH=$('shop-heading');
-  if(shopH){
-    shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 STORAGE':'🛒 SHOP';
+  if(shopH) shopH.textContent=mode==='consume'?'🍜 ICHIRAKU RAMEN':mode==='weapon'?'⚒️ TENTEN':mode==='all'?'📦 LAGER':'🛒 SHOP';
+  // Lager (all) = only inventory management, hide shop grid
+  const shopSection=$('shop-section-title');
+  const shopGrid=$('shop-grid');
+  const shopHr=shopGrid?.previousElementSibling;
+  if(mode==='all'){
+    if(shopSection) shopSection.style.display='none';
+    if(shopGrid) shopGrid.style.display='none';
+    return;
+  } else {
+    if(shopSection){shopSection.style.display='';shopSection.textContent=mode==='consume'?'🍜 Ichiraku — Verbrauchsgüter':'⚒️ Tenten — Waffen & Ausrüstung';}
+    if(shopGrid) shopGrid.style.display='';
   }
   const g=$('shop-grid'); g.innerHTML='';
   const list=ITEMS.filter(it=>mode==='all'||(mode==='consume'&&it.type==='consume')||(mode==='weapon'&&it.type==='weapon'));
   list.forEach(it=>{
-    const ok=G.ryo>=it.price&&G.inventory.length<8;
+    const ok=G.ryo>=it.price&&G.inventory.length<20;
     const sts=Object.entries(it.stats).map(([k,v])=>{
       const l={atk:'ATK',def:'DEF',spd:'SPD',rng:'RNG'}[k]||k;
       return `<span class="${v>=0?'spos':'sneg'}">${l} ${v>=0?'+':''}${v}</span> `;
@@ -599,7 +776,7 @@ function renderShop(){
 
 function renderInv(){
   const g=$('inv-grid'); g.innerHTML='';
-  for(let i=0;i<8;i++){
+  for(let i=0;i<20;i++){
     const inv=G.inventory[i];
     const s=document.createElement('div');
     if(inv){
@@ -707,7 +884,7 @@ function renderAcademy(){
 function _learnJutsu(id){
   const jt=JUTSU_LIST.find(j=>j.id===id); if(!jt||jt.locked) return;
   if(G.learnedJutsu.includes(jt.id)){msg('Bereits gelernt!','info');return;}
-  if(G.inventory.length>=8){msg('Inventar voll!','bad');return;}
+  if(G.inventory.length>=20){msg('Inventar voll!','bad');return;}
   if(G.ryo<jt.cost){msg('Nicht genug Ryo!','bad');return;}
   G.ryo-=jt.cost;
   G.learnedJutsu.push(jt.id);
@@ -1078,34 +1255,68 @@ function genFloor(floorNum){
 /* ════════════════════════════════════════════════════
    DRAWING HELPERS
 ════════════════════════════════════════════════════ */
+function _drawHair(ctx,bx,by,style,color,flash){
+  ctx.fillStyle=flash?'#ffffff':color;
+  if(style===0){
+    ctx.fillRect(bx+1,by-5,2,5);ctx.fillRect(bx+4,by-7,3,6);
+    ctx.fillRect(bx+8,by-6,2,5);ctx.fillRect(bx+11,by-4,2,4);
+  }else if(style===1){
+    ctx.fillRect(bx,by-4,14,5);
+    ctx.fillRect(bx-1,by,2,4);ctx.fillRect(bx+12,by,2,4);
+  }else if(style===2){
+    ctx.fillRect(bx+1,by-3,12,4);
+    ctx.fillRect(bx,by-1,2,3);ctx.fillRect(bx+11,by-1,2,3);
+  }else if(style===3){
+    ctx.fillRect(bx+1,by-5,12,5);
+    ctx.fillRect(bx+11,by,3,10);ctx.fillRect(bx+12,by+8,2,6);
+  }else{
+    ctx.fillRect(bx+1,by-5,12,5);
+    ctx.fillRect(bx-1,by,3,14);ctx.fillRect(bx+11,by,3,14);
+  }
+}
+function _drawAccessory(ctx,bx,by,type,flash){
+  if(type==='glasses'){
+    ctx.strokeStyle=flash?'#ffffff':'#999';ctx.lineWidth=1;
+    ctx.strokeRect(bx+2,by+5,4,3);ctx.strokeRect(bx+8,by+5,4,3);
+    ctx.fillStyle=flash?'#ffffff':'#777';ctx.fillRect(bx+6,by+6,2,1);
+  }else if(type==='mask'){
+    ctx.fillStyle=flash?'#ffffff':'#c0c0c0';ctx.fillRect(bx+1,by+9,13,5);
+    ctx.fillStyle=flash?'#ffffff':'#999';ctx.fillRect(bx+1,by+9,13,1);
+  }else if(type==='anbu'){
+    ctx.fillStyle=flash?'#ffffff':'#eeeeee';ctx.fillRect(bx+1,by+3,13,10);
+    ctx.fillStyle=flash?'#ffaaaa':'#cc3333';
+    ctx.fillRect(bx+2,by+5,3,1);ctx.fillRect(bx+9,by+5,3,1);
+    ctx.fillRect(bx+3,by+9,2,2);ctx.fillRect(bx+9,by+9,2,2);
+    ctx.fillStyle=flash?'#ffffff':'#bbb';ctx.fillRect(bx+5,by+11,4,1);
+  }
+}
 function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
-  const T=TSIZE;
+  const lk=G.look;
   const bob=Math.sin(anim*.12)*2;
   const bx=sx-8, by=sy-16+bob;
-  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  const f=flash>0;
+  if(f){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
   else{ctx.shadowColor='#ff6600';ctx.shadowBlur=14;}
-  // hair
-  ctx.fillStyle='#ffcc00';
-  ctx.fillRect(bx+1,by-5,2,5); ctx.fillRect(bx+4,by-7,3,6);
-  ctx.fillRect(bx+8,by-6,2,5); ctx.fillRect(bx+11,by-4,2,4);
-  // headband
-  ctx.fillStyle='#2255cc'; ctx.fillRect(bx+1,by,13,4);
-  ctx.fillStyle='#aabbee'; ctx.fillRect(bx+4,by+1,6,2);
-  // face
-  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
-  ctx.fillRect(bx+1,by+4,13,9);
-  // eyes
-  ctx.fillStyle='#111'; ctx.fillRect(bx+3,by+6,2,2); ctx.fillRect(bx+9,by+6,2,2);
-  // whiskers
-  ctx.fillStyle='#bb7744'; ctx.fillRect(bx+2,by+9,3,1); ctx.fillRect(bx+10,by+9,3,1);
-  // body (jacket)
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
-  ctx.fillRect(bx+2,by+13,11,10);
-  ctx.fillStyle='#fff'; ctx.fillRect(bx+6,by+15,3,3); // spiral
-  // legs
-  ctx.fillStyle='#1a3a6a';
+  _drawHair(ctx,bx,by,lk.hairStyle,lk.hairColor,f);
+  if(lk.headband){
+    ctx.fillStyle=f?'#ffffff':lk.headbandColor;ctx.fillRect(bx+1,by,13,4);
+    const hbL=_lighten(lk.headbandColor,60);
+    ctx.fillStyle=f?'#ffffff':hbL;ctx.fillRect(bx+4,by+1,6,2);
+  }
+  ctx.fillStyle=f?'#ffffff':lk.skin;ctx.fillRect(bx+1,by+4,13,9);
+  ctx.fillStyle='#111';ctx.fillRect(bx+3,by+6,2,2);ctx.fillRect(bx+9,by+6,2,2);
+  ctx.fillStyle=f?'#ffffff':'#bb7744';ctx.fillRect(bx+2,by+9,3,1);ctx.fillRect(bx+10,by+9,3,1);
+  if(lk.accessory!=='anbu'&&lk.accessory!=='mask') {/* skin visible */}
+  _drawAccessory(ctx,bx,by,lk.accessory,f);
+  ctx.fillStyle=f?'#ffffff':lk.topColor;ctx.fillRect(bx+2,by+13,11,10);
+  ctx.fillStyle='#fff';ctx.fillRect(bx+6,by+15,3,3);
+  if(lk.gloves){
+    ctx.fillStyle=f?'#ffffff':lk.gloveColor;
+    ctx.fillRect(bx,by+14,3,4);ctx.fillRect(bx+12,by+14,3,4);
+  }
+  ctx.fillStyle=f?'#ffffff':lk.pantsColor;
   const legOff=Math.sin(anim*.12)*3|0;
-  ctx.fillRect(bx+2,by+23,4,7-legOff); ctx.fillRect(bx+8,by+23,4,7+legOff);
+  ctx.fillRect(bx+2,by+23,4,7-legOff);ctx.fillRect(bx+8,by+23,4,7+legOff);
   ctx.shadowBlur=0;
   if(facing){
     let wid=null;
@@ -1117,38 +1328,35 @@ function drawPlayerSprite(ctx,sx,sy,anim,flash,facing){
 }
 
 function drawDashSprite(ctx,sx,sy,facing,flash){
-  // Classic Naruto ninja-run: body pitched forward, arms streaming back
+  const lk=G.look;
   const f=facing||1;
-  const bx=sx-8+(f>0?3:-3); // shift body in run direction
+  const bx=sx-8+(f>0?3:-3);
   const by=sy-15;
-  if(flash>0){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
+  const fl=flash>0;
+  if(fl){ctx.shadowColor='#ffffff';ctx.shadowBlur=20;}
   else{ctx.shadowColor='#44aaff';ctx.shadowBlur=20;}
-  // hair — spiky, tilted forward
-  ctx.fillStyle='#ffcc00';
-  ctx.fillRect(bx+(f>0?2:6),by-5,2,5);ctx.fillRect(bx+(f>0?5:3),by-7,3,6);
-  ctx.fillRect(bx+(f>0?9:1),by-6,2,5);ctx.fillRect(bx+(f>0?12:0),by-4,2,4);
-  // headband
-  ctx.fillStyle='#2255cc';ctx.fillRect(bx+1,by,13,3);
-  ctx.fillStyle='#aabbee';ctx.fillRect(bx+4,by+1,6,1);
-  // face tilted toward run direction
-  ctx.fillStyle=flash>0?'#ffffff':'#f0b070';
-  ctx.fillRect(bx+(f>0?2:0),by+3,11,8);
+  _drawHair(ctx,bx,by,lk.hairStyle,lk.hairColor,fl);
+  if(lk.headband){
+    ctx.fillStyle=fl?'#ffffff':lk.headbandColor;ctx.fillRect(bx+1,by,13,3);
+    ctx.fillStyle=fl?'#ffffff':_lighten(lk.headbandColor,60);ctx.fillRect(bx+4,by+1,6,1);
+  }
+  ctx.fillStyle=fl?'#ffffff':lk.skin;ctx.fillRect(bx+(f>0?2:0),by+3,11,8);
   ctx.fillStyle='#111';ctx.fillRect(bx+(f>0?4:2),by+5,2,2);ctx.fillRect(bx+(f>0?8:6),by+5,2,2);
-  ctx.fillStyle='#bb7744';ctx.fillRect(bx+(f>0?3:1),by+8,3,1);ctx.fillRect(bx+(f>0?8:6),by+8,3,1);
-  // body leaning forward
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillStyle=fl?'#ffffff':'#bb7744';ctx.fillRect(bx+(f>0?3:1),by+8,3,1);ctx.fillRect(bx+(f>0?8:6),by+8,3,1);
+  ctx.fillStyle=fl?'#ffffff':lk.topColor;
   ctx.fillRect(bx+(f>0?3:1),by+11,10,8);
   ctx.fillStyle='#fff';ctx.fillRect(bx+(f>0?6:4),by+13,3,3);
-  // arms streaming BACK (opposite facing)
-  ctx.fillStyle=flash>0?'#ffffff':'#ff6600';
+  ctx.fillStyle=fl?'#ffffff':lk.topColor;
   if(f>0){ctx.fillRect(bx-6,by+9,8,3);ctx.fillRect(bx-4,by+13,7,3);}
   else   {ctx.fillRect(bx+14,by+9,8,3);ctx.fillRect(bx+11,by+13,7,3);}
-  // legs in stride
-  ctx.fillStyle='#1a3a6a';
+  if(lk.gloves){
+    ctx.fillStyle=fl?'#ffffff':lk.gloveColor;
+    if(f>0){ctx.fillRect(bx-6,by+9,4,3);}else{ctx.fillRect(bx+16,by+9,4,3);}
+  }
+  ctx.fillStyle=fl?'#ffffff':lk.pantsColor;
   if(f>0){ctx.fillRect(bx+6,by+19,4,9);ctx.fillRect(bx+2,by+21,3,5);}
   else   {ctx.fillRect(bx+4,by+19,4,9);ctx.fillRect(bx+9,by+21,3,5);}
   ctx.shadowBlur=0;
-  // weapon in hand during sprint
   {let wid=null;
   if(RAS.active&&RAS.phase===1){wid='rasengan_scroll';}
   else{const wAll=(G.inventory||[]).filter(iv=>{if(!iv.eq)return false;const it=ITEMS.find(x=>x.id===iv.id);return it&&it.type==='weapon';});const wEq=wAll.find(iv=>!ITEMS.find(x=>x.id===iv.id)?.ckCost)||wAll[0]||null;wid=wEq?.id||null;}
@@ -2555,7 +2763,7 @@ function renderDungeon(){
   });
   // player (dash/rasengan sprint pose when moving fast)
   const _jActive=RAS.active||KATON.active||RANTON.active||CHI.active||RSEN.active||SUITON.active||AMAT.active;
-  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0&&!_jActive){/* blink — skip draw */}
+  if(p.invuln>0&&Math.floor(p.invuln*8)%2===0&&!_jActive&&!G.infiniteHp){/* blink — skip draw */}
   else if(dashTimer>0||(RAS.active&&RAS.phase===1)||(CHI.active&&CHI.phase===1)) drawDashSprite(ctx,p.x-CAM.x,p.y-CAM.y,p.facing,p.hitFlash);
   else drawPlayerSprite(ctx,p.x-CAM.x,p.y-CAM.y,animTick,p.hitFlash,p.facing||1);
   if(p.hitFlash>0) p.hitFlash-=0.016;
@@ -2710,10 +2918,11 @@ let dashTimer=0, dashCd=0, dashDX=1, dashDY=0;
 let dashTrail=[], dashPressed=false;
 
 function triggerDash(entity,dx,dy){
-  dashDX=dx||entity.facing||1; dashDY=dy;
+  if(dx===0&&dy===0){dashDX=entity.facing||1;dashDY=0;}
+  else{dashDX=dx;dashDY=dy;}
   const len=Math.hypot(dashDX,dashDY)||1;
-  dashDX/=len; dashDY/=len;
-  dashTimer=DASH_DUR; dashCd=DASH_CD;
+  dashDX/=len;dashDY/=len;
+  dashTimer=DASH_DUR;dashCd=DASH_CD;
 }
 function tickDash(dt,entity,wallFn){
   if(dashTimer>0){
@@ -2768,6 +2977,7 @@ function gameLoop(ts){
     if(p.ckCd>0)  p.ckCd-=dt;
     // regen chakra
     p.chakra=G.infiniteChakra?p.maxChakra:Math.min(p.maxChakra,p.chakra+dt*2);
+    if(G.infiniteHp){p.hp=p.maxHp;}
 
     // check stairs
     const ptx=p.x/TSIZE|0, pty=p.y/TSIZE|0;
@@ -3074,9 +3284,15 @@ function buildLobbyMap(){
   [[4,9],[6,9]].forEach(([x,y])=>{
     if(y>=0&&y<LH&&x>=0&&x<LW) lobbyTiles[y][x]=LTILE.TREE;
   });
-  // Spines LAST — always walkable
-  for(let y=2;y<LH-2;y++){lobbyTiles[y][13]=LTILE.PATH;lobbyTiles[y][14]=LTILE.PATH;}
-  for(let x=2;x<LW-2;x++){lobbyTiles[9][x]=LTILE.PATH;lobbyTiles[10][x]=LTILE.PATH;}
+  // Spines — walkable but never override solid buildings
+  for(let y=2;y<LH-2;y++){
+    if(lobbyTiles[y][13]!==LTILE.BLDG)lobbyTiles[y][13]=LTILE.PATH;
+    if(lobbyTiles[y][14]!==LTILE.BLDG)lobbyTiles[y][14]=LTILE.PATH;
+  }
+  for(let x=2;x<LW-2;x++){
+    if(lobbyTiles[9][x]!==LTILE.BLDG)lobbyTiles[9][x]=LTILE.PATH;
+    if(lobbyTiles[10][x]!==LTILE.BLDG)lobbyTiles[10][x]=LTILE.PATH;
+  }
 }
 
 function isLobbyWall(wx,wy){
@@ -3148,293 +3364,358 @@ function drawTrainingPost(ctx,sx,sy){
 }
 
 function _drawTower(ctx,sx,sy,bw,bh,z,t){
-  // Cast shadow
-  ctx.fillStyle='rgba(0,0,0,0.45)';ctx.fillRect(sx+7,sy+8,bw,bh);
-  // Tier 3 — top narrowest
-  const t3w=bw*.42|0,t3x=sx+(bw-t3w)/2|0;
-  ctx.fillStyle='#100d1e';ctx.fillRect(t3x,sy,t3w,bh*.3|0);
-  ctx.fillStyle='#1c1730';ctx.fillRect(t3x+2,sy+2,t3w-4,bh*.27|0);
-  // Tier 2 — middle
-  const t2w=bw*.67|0,t2x=sx+(bw-t2w)/2|0;
-  ctx.fillStyle='#0e0b1a';ctx.fillRect(t2x,sy+bh*.3|0,t2w,bh*.27|0);
-  ctx.fillStyle='#191430';ctx.fillRect(t2x+2,sy+bh*.32|0,t2w-4,bh*.24|0);
-  // Tier 1 — base full width
-  ctx.fillStyle='#0c0918';ctx.fillRect(sx,sy+bh*.57|0,bw,bh*.43|0);
-  ctx.fillStyle='#161228';ctx.fillRect(sx+2,sy+bh*.59|0,bw-4,bh*.4|0);
-  // Brick pattern on base
-  for(let i=0;i<3;i++) for(let j=0;j<Math.ceil(bw/22);j++){
-    ctx.fillStyle=j%2===0?'#121020':'#100e1c';
-    ctx.fillRect(sx+4+j*22+(i%2)*11,sy+bh*.61|0+i*10,20,8);
-  }
-  // Glowing eave bands (3 tiers)
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=24;
-  ctx.fillRect(t3x-7,sy+bh*.28|0,t3w+14,6);
-  ctx.fillRect(t2x-7,sy+bh*.55|0,t2w+14,6);
-  ctx.fillRect(sx-5,sy+bh*.58|0,bw+10,5);
-  ctx.shadowBlur=0;
-  // Small eave corner squares
-  ctx.fillStyle=z.color+'cc';
-  [[-8,bh*.28|0],[t3w+1,bh*.28|0]].forEach(([ox,oy])=>ctx.fillRect(t3x+ox,sy+oy-4,8,10));
-  [[-8,bh*.55|0],[t2w+1,bh*.55|0]].forEach(([ox,oy])=>ctx.fillRect(t2x+ox,sy+oy-4,8,10));
-  // Windows — amber glow
-  const wg=`rgba(255,195,70,${.5+Math.sin(t*.09)*.18})`;
-  ctx.fillStyle=wg;
-  [[t3x+t3w*.22|0,sy+bh*.09|0,7,9],[t3x+t3w*.65|0,sy+bh*.09|0,7,9],
-   [t2x+t2w*.1|0,sy+bh*.38|0,8,10],[t2x+t2w*.4|0,sy+bh*.38|0,8,10],
-   [t2x+t2w*.64|0,sy+bh*.38|0,8,10],[t2x+t2w*.88|0,sy+bh*.38|0,8,10],
-   [sx+bw*.07|0,sy+bh*.67|0,10,13],[sx+bw*.25|0,sy+bh*.67|0,10,13],
-   [sx+bw*.65|0,sy+bh*.67|0,10,13],[sx+bw*.84|0,sy+bh*.67|0,10,13]
-  ].forEach(([wx,wy,ww,wh])=>ctx.fillRect(wx,wy,ww,wh));
-  // Window frames
-  ctx.strokeStyle='rgba(255,210,100,0.3)';ctx.lineWidth=1;
-  [[t3x+t3w*.22|0,sy+bh*.09|0,7,9],[t3x+t3w*.65|0,sy+bh*.09|0,7,9]].forEach(([wx,wy,ww,wh])=>ctx.strokeRect(wx,wy,ww,wh));
-  // Hanging banners
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  [[t2x+t2w*.18|0,sy+bh*.56|0],[t2x+t2w*.75|0,sy+bh*.56|0]].forEach(([bx2,by2])=>{
-    ctx.fillRect(bx2,by2,7,22);
-    ctx.fillStyle='rgba(255,255,255,0.18)';ctx.fillRect(bx2+1,by2+2,5,4);
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;
+  // Drop shadow
+  ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillRect(sx+10,sy+10,bw,bh);
+  // ── BASE TIER (full width) ──
+  // Stone wall — warm off-white like real Hokage Tower
+  ctx.fillStyle='#c8bfa8';ctx.fillRect(sx,sy+bh*.54|0,bw,bh*.46|0);
+  ctx.fillStyle='#b8af98';ctx.fillRect(sx+2,sy+bh*.56|0,bw-4,bh*.42|0);
+  // Stone row seams
+  for(let i=0;i<4;i++){ctx.fillStyle='#a09888';ctx.fillRect(sx,sy+bh*.58|0+i*12,bw,2);}
+  // Vertical column lines
+  for(let i=1;i<4;i++){ctx.fillStyle='#a89f88';ctx.fillRect(sx+bw*.25|0*i,sy+bh*.56|0,2,bh*.42|0);}
+  // Red CURVED roof overhang tier 1
+  ctx.fillStyle='#880000';ctx.fillRect(sx-8,sy+bh*.52|0,bw+16,10);
+  ctx.fillStyle='#aa1100';ctx.fillRect(sx-6,sy+bh*.52|0,bw+12,6);
+  ctx.fillStyle='#cc2200';ctx.fillRect(sx-4,sy+bh*.52|0,bw+8,3);
+  // Roof tiles detail
+  for(let i=0;i<(bw+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(sx-8+i*10,sy+bh*.52|0,9,10);}
+  // Corner caps
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=12;
+  ctx.fillRect(sx-10,sy+bh*.50|0,8,14);ctx.fillRect(sx+bw+2,sy+bh*.50|0,8,14);ctx.shadowBlur=0;
+  // Big entrance arch at base
+  ctx.fillStyle='#1a0a0a';ctx.fillRect(sx+bw/2-18,sy+bh-38,36,38);
+  ctx.fillStyle='#cc4400';ctx.shadowColor='#ff3300';ctx.shadowBlur=14;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-38,18,Math.PI,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#1a0a0a';ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-38,13,Math.PI,Math.PI*2);ctx.fill();
+  // Base windows — warm amber light
+  const wglow=`rgba(255,200,80,${0.55+Math.sin(t*.09)*0.2})`;
+  [[sx+bw*.1|0,sy+bh*.62|0,14,16],[sx+bw*.3|0,sy+bh*.62|0,14,16],
+   [sx+bw*.62|0,sy+bh*.62|0,14,16],[sx+bw*.82|0,sy+bh*.62|0,14,16]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wglow;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+    ctx.strokeStyle='#cc8800';ctx.lineWidth=1.5;ctx.strokeRect(wx,wy,ww,wh);
   });
-  ctx.shadowBlur=0;
-  // Central gate arch at base
-  ctx.fillStyle='#040310';ctx.fillRect(sx+bw/2-13,sy+bh-29,26,29);
-  ctx.strokeStyle=z.color+'88';ctx.lineWidth=2;ctx.shadowColor=z.glow;ctx.shadowBlur=8;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-29,13,Math.PI,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+  // ── MIDDLE TIER ──
+  const t2w=bw*.68|0,t2x=sx+(bw-t2w)/2|0;
+  ctx.fillStyle='#c0b7a0';ctx.fillRect(t2x,sy+bh*.28|0,t2w,bh*.24|0);
+  ctx.fillStyle='#b0a890';ctx.fillRect(t2x+2,sy+bh*.30|0,t2w-4,bh*.20|0);
+  for(let i=0;i<2;i++){ctx.fillStyle='#989080';ctx.fillRect(t2x,sy+bh*.34|0+i*10,t2w,2);}
+  // Red roof mid
+  ctx.fillStyle='#880000';ctx.fillRect(t2x-8,sy+bh*.27|0,t2w+16,10);
+  for(let i=0;i<(t2w+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(t2x-8+i*10,sy+bh*.27|0,9,10);}
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(t2x-10,sy+bh*.25|0,8,14);ctx.fillRect(t2x+t2w+2,sy+bh*.25|0,8,14);ctx.shadowBlur=0;
+  // Mid windows
+  const wg2=`rgba(255,195,70,${0.5+Math.sin(t*.08+1)*0.18})`;
+  [[t2x+t2w*.12|0,sy+bh*.34|0,10,12],[t2x+t2w*.42|0,sy+bh*.34|0,10,12],[t2x+t2w*.72|0,sy+bh*.34|0,10,12]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wg2;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+  });
+  // Hanging red banners mid
+  [[t2x+t2w*.2|0,sy+bh*.28|0],[t2x+t2w*.72|0,sy+bh*.28|0]].forEach(([bx2,by2])=>{
+    ctx.fillStyle='#aa0000';ctx.fillRect(bx2,by2,9,28);
+    ctx.fillStyle='#cc2200';ctx.fillRect(bx2+1,by2+2,7,4);
+    ctx.fillStyle='rgba(255,200,80,0.6)';ctx.fillRect(bx2+2,by2+8,5,2);ctx.fillRect(bx2+2,by2+14,5,2);
+  });
+  // ── TOP TIER ──
+  const t3w=bw*.42|0,t3x=sx+(bw-t3w)/2|0;
+  ctx.fillStyle='#b8af98';ctx.fillRect(t3x,sy+bh*.06|0,t3w,bh*.22|0);
+  ctx.fillStyle='#a8a088';ctx.fillRect(t3x+2,sy+bh*.08|0,t3w-4,bh*.18|0);
+  // Red roof top
+  ctx.fillStyle='#880000';ctx.fillRect(t3x-8,sy+bh*.05|0,t3w+16,9);
+  for(let i=0;i<(t3w+16)/10|0;i++){ctx.fillStyle=i%2===0?'#770000':'#880000';ctx.fillRect(t3x-8+i*10,sy+bh*.05|0,9,9);}
+  ctx.fillStyle='#ffcc00';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(t3x-10,sy+bh*.03|0,7,12);ctx.fillRect(t3x+t3w+3,sy+bh*.03|0,7,12);ctx.shadowBlur=0;
+  // Top windows
+  const wg3=`rgba(255,200,80,${0.6+Math.sin(t*.1+2)*0.22})`;
+  [[t3x+t3w*.18|0,sy+bh*.1|0,9,11],[t3x+t3w*.62|0,sy+bh*.1|0,9,11]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a0505';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wg3;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+  });
+  // Gold spire finial
+  ctx.fillStyle='#ffdd22';ctx.shadowColor='#ffaa00';ctx.shadowBlur=28;
+  ctx.beginPath();ctx.moveTo(sx+bw/2,sy-18);ctx.lineTo(sx+bw/2-7,sy+bh*.04|0);ctx.lineTo(sx+bw/2+7,sy+bh*.04|0);ctx.closePath();ctx.fill();
+  ctx.fillRect(sx+bw/2-9,sy+bh*.03|0,18,6);ctx.shadowBlur=0;
   // Flanking torches
   const fl=.7+Math.sin(t*.2+z.tx)*.3;
-  ctx.fillStyle=`rgba(255,160,30,${fl})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=26*fl;
-  ctx.fillRect(sx+7,sy+bh-40,5,11);ctx.fillRect(sx+bw-12,sy+bh-40,5,11);
-  ctx.fillStyle=`rgba(255,220,80,${fl*.7})`;
-  ctx.fillRect(sx+8,sy+bh-41,3,6);ctx.fillRect(sx+bw-11,sy+bh-41,3,6);ctx.shadowBlur=0;
-  // Gold finial at top
-  ctx.fillStyle='#ffdd33';ctx.shadowColor='#ffaa00';ctx.shadowBlur=22;
-  ctx.fillRect(sx+bw/2-4,sy-7,8,9);ctx.fillRect(sx+bw/2-7,sy-1,14,5);ctx.shadowBlur=0;
-  // Label + icon
+  ctx.fillStyle=`rgba(255,150,20,${fl})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=26*fl;
+  ctx.fillRect(sx+6,sy+bh-44,6,14);ctx.fillRect(sx+bw-12,sy+bh-44,6,14);
+  ctx.fillStyle=`rgba(255,230,80,${fl*.8})`;ctx.fillRect(sx+7,sy+bh-46,4,8);ctx.fillRect(sx+bw-11,sy+bh-46,4,8);ctx.shadowBlur=0;
+  // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=16;
-  ctx.fillText(z.icon,sx+bw/2,sy-23);ctx.fillText(z.label,sx+bw/2,sy-10);ctx.shadowBlur=0;
+  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=16;
+  ctx.fillText(z.icon,sx+bw/2,sy-27);ctx.fillText(z.label,sx+bw/2,sy-13);ctx.shadowBlur=0;
 }
 
 function _drawSchool(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+6,sy+6,bw,bh);
-  // Main body — dark slate blue
-  ctx.fillStyle='#060912';ctx.fillRect(sx,sy,bw,bh);
-  ctx.fillStyle='#0a0e22';ctx.fillRect(sx+2,sy+bh*.22|0,bw-4,bh*.78|0);
-  // Brick grid
-  for(let i=0;i<5;i++) for(let j=0;j<4;j++){
-    ctx.fillStyle=(i+j)%2===0?'#080c1c':'#070a18';
-    ctx.fillRect(sx+3+j*(bw-6)/4+(i%2)*8,sy+bh*.24|0+i*12,(bw-6)/4-2,10);
-  }
-  // Glowing roof parapet
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=18;
-  ctx.fillRect(sx-4,sy,bw+8,7);ctx.shadowBlur=0;
-  // Parapet merlons (battlements)
-  ctx.fillStyle='#0e0b1e';
-  for(let i=0;i<6;i++) ctx.fillRect(sx+5+i*(bw-10)/6,sy-6,8,8);
-  // Arch + dome at top-center
-  ctx.strokeStyle=z.color+'99';ctx.lineWidth=2;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.13|0,12,Math.PI,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
-  // Konoha spiral leaf symbol
-  const lx=sx+bw/2,ly=sy+bh*.21|0;
-  ctx.strokeStyle='rgba(70,130,255,0.65)';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.arc(lx,ly,9,0,Math.PI*2);ctx.stroke();
-  ctx.strokeStyle='rgba(70,130,255,0.4)';ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(lx,ly-9);ctx.lineTo(lx,ly+9);ctx.moveTo(lx-9,ly);ctx.lineTo(lx+9,ly);ctx.stroke();
-  // Windows — 3×2 grid, blue chakra glow
-  const ww=9,wh=9,cols=3,rows=2;
-  const gx=(bw-16-cols*ww)/(cols-1)|0;
-  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
-    const wx=sx+8+c*(ww+gx),wy=sy+bh*.32|0+r*16;
-    const br=.28+Math.sin(t*.07+c*1.2+r)*.14;
-    ctx.fillStyle=`rgba(50,110,255,${br})`;ctx.fillRect(wx,wy,ww,wh);
-    ctx.strokeStyle='rgba(80,155,255,0.5)';ctx.lineWidth=1;ctx.strokeRect(wx,wy,ww,wh);
-    ctx.fillStyle='rgba(60,120,255,0.5)';ctx.fillRect(wx+ww/2-.5,wy,1,wh);ctx.fillRect(wx,wy+wh/2-.5,ww,1);
-  }
-  // Entrance door at south face (building is north of spine)
-  ctx.fillStyle='#03020f';ctx.fillRect(sx+bw/2-9,sy+bh-24,18,24);
-  ctx.strokeStyle=z.color+'77';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-24,9,Math.PI,Math.PI*2);ctx.stroke();
-  ctx.strokeRect(sx+bw/2-10,sy+bh-25,20,25);
-  // Door handle
-  ctx.fillStyle=z.color+'99';ctx.fillRect(sx+bw/2+2,sy+bh-14,2,3);
-  // Flag pole + flag
-  ctx.fillStyle='#553322';ctx.fillRect(sx+bw-12,sy-18,2,22);
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.fillRect(sx+bw-10,sy-18,12,9);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,0,0,0.45)';ctx.fillRect(sx+8,sy+8,bw,bh);
+  // ── Main body: warm tan/wood with dark green roof ──
+  // Dark green curved roof
+  ctx.fillStyle='#1a3a1a';ctx.fillRect(sx-6,sy,bw+12,bh*.24|0);
+  ctx.fillStyle='#224422';ctx.fillRect(sx-4,sy+2,bw+8,bh*.20|0);
+  // Roof ridge
+  ctx.fillStyle='#334433';
+  for(let i=0;i<(bw+12)/14|0;i++) ctx.fillRect(sx-6+i*14,sy,13,bh*.24|0);
+  // Roof tiles
+  ctx.fillStyle='#1a3020';
+  for(let row=0;row<3;row++) for(let col=0;col<(bw+12)/10|0;col++)
+    ctx.fillRect(sx-6+col*10+(row%2)*5,sy+row*8,9,7);
+  // Gold roof ridge cap
+  ctx.fillStyle='#cc8800';ctx.shadowColor='#ffaa00';ctx.shadowBlur=10;
+  ctx.fillRect(sx-6,sy,bw+12,4);ctx.shadowBlur=0;
+  // Corner roof spires
+  ctx.fillStyle='#ffcc44';ctx.shadowColor='#ffaa00';ctx.shadowBlur=14;
+  ctx.fillRect(sx-8,sy-10,6,14);ctx.fillRect(sx+bw+2,sy-10,6,14);ctx.shadowBlur=0;
+  // Wood wall — warm tan
+  ctx.fillStyle='#b88840';ctx.fillRect(sx,sy+bh*.22|0,bw,bh*.78|0);
+  ctx.fillStyle='#c89848';ctx.fillRect(sx+3,sy+bh*.24|0,bw-6,bh*.74|0);
+  // Horizontal wood plank lines
+  for(let i=0;i<8;i++){ctx.fillStyle='#a87830';ctx.fillRect(sx+3,sy+bh*.25|0+i*14,bw-6,2);}
+  // Red decorative pillar columns
+  ctx.fillStyle='#880000';
+  ctx.fillRect(sx+3,sy+bh*.22|0,8,bh*.78|0);ctx.fillRect(sx+bw-11,sy+bh*.22|0,8,bh*.78|0);
+  ctx.fillStyle='#aa1100';
+  ctx.fillRect(sx+4,sy+bh*.22|0,4,bh*.78|0);ctx.fillRect(sx+bw-10,sy+bh*.22|0,4,bh*.78|0);
+  // Center red column
+  ctx.fillStyle='#880000';ctx.fillRect(sx+bw/2-4,sy+bh*.22|0,8,bh*.78|0);
+  ctx.fillStyle='#aa1100';ctx.fillRect(sx+bw/2-3,sy+bh*.22|0,4,bh*.78|0);
+  // Windows — 4 large with warm amber glow
+  const wam=`rgba(255,200,100,${0.45+Math.sin(t*.07)*0.15})`;
+  [[sx+bw*.1|0,sy+bh*.34|0,22,24],[sx+bw*.37|0,sy+bh*.34|0,22,24],
+   [sx+bw*.6|0,sy+bh*.34|0,22,24],[sx+bw*.83|0,sy+bh*.34|0,22,24]].forEach(([wx,wy,ww,wh])=>{
+    ctx.fillStyle='#1a1005';ctx.fillRect(wx,wy,ww,wh);
+    ctx.fillStyle=wam;ctx.fillRect(wx+1,wy+1,ww-2,wh-2);
+    ctx.strokeStyle='#cc8800';ctx.lineWidth=1.5;ctx.strokeRect(wx,wy,ww,wh);
+    // Cross divider
+    ctx.fillStyle='#996600';ctx.fillRect(wx,wy+wh/2-1,ww,2);ctx.fillRect(wx+ww/2-1,wy,2,wh);
+  });
+  // Big Konoha spiral — center of building
+  const lx=sx+bw/2,ly=sy+bh*.68|0;
+  ctx.strokeStyle='rgba(255,160,30,0.6)';ctx.lineWidth=2;ctx.shadowColor='#ff8800';ctx.shadowBlur=14;
+  ctx.beginPath();ctx.arc(lx,ly,18,0,Math.PI*2);ctx.stroke();
+  for(let i=0;i<4;i++){const a=i*Math.PI*.5;ctx.beginPath();ctx.moveTo(lx+Math.cos(a)*7,ly+Math.sin(a)*7);ctx.lineTo(lx+Math.cos(a)*18,ly+Math.sin(a)*18);ctx.stroke();}
+  ctx.shadowBlur=0;
+  // Entrance — double doors
+  ctx.fillStyle='#1a0a00';ctx.fillRect(sx+bw/2-14,sy+bh-36,28,36);
+  ctx.fillStyle='#aa3300';ctx.shadowColor='#ff4400';ctx.shadowBlur=8;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh-36,14,Math.PI,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#1a0800';ctx.fillRect(sx+bw/2-12,sy+bh-36,24,32);
+  // Door center divider
+  ctx.fillStyle='#5a2a00';ctx.fillRect(sx+bw/2-1,sy+bh-36,2,32);
+  // Door handles
+  ctx.fillStyle='#ffcc00';ctx.fillRect(sx+bw/2-8,sy+bh-22,3,3);ctx.fillRect(sx+bw/2+5,sy+bh-22,3,3);
+  // Green flag on flagpole
+  ctx.fillStyle='#442211';ctx.fillRect(sx+bw-10,sy-22,3,28);
+  ctx.fillStyle='#006622';ctx.shadowColor='#00aa44';ctx.shadowBlur=8;
+  ctx.fillRect(sx+bw-7,sy-22,16,11);ctx.fillStyle='#00aa44';ctx.fillRect(sx+bw-6,sy-21,14,7);ctx.shadowBlur=0;
   // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  ctx.fillText(z.icon,sx+bw/2,sy-25);ctx.fillText(z.label,sx+bw/2,sy-11);ctx.shadowBlur=0;
+  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=14;
+  ctx.fillText(z.icon,sx+bw/2,sy-30);ctx.fillText(z.label,sx+bw/2,sy-15);ctx.shadowBlur=0;
 }
 
 function _drawGate(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.55)';ctx.fillRect(sx+5,sy+5,bw,bh);
-  // Iron door — very dark
-  ctx.fillStyle='#09070f';ctx.fillRect(sx,sy,bw,bh);
-  // Stone pillar left
-  ctx.fillStyle='#17152a';ctx.fillRect(sx,sy,9,bh);
-  ctx.fillStyle='#1f1c36';ctx.fillRect(sx+1,sy+2,6,bh-4);
-  ctx.fillStyle='#242040';ctx.fillRect(sx+2,sy+2,2,bh-4);
-  // Stone pillar right
-  ctx.fillStyle='#17152a';ctx.fillRect(sx+bw-9,sy,9,bh);
-  ctx.fillStyle='#1f1c36';ctx.fillRect(sx+bw-7,sy+2,6,bh-4);
-  ctx.fillStyle='#242040';ctx.fillRect(sx+bw-4,sy+2,2,bh-4);
-  // Iron gate bars (center)
-  ctx.fillStyle='#0c0a1a';ctx.fillRect(sx+9,sy,bw-18,bh);
-  ctx.fillStyle='#16132a';
-  for(let i=0;i<3;i++) ctx.fillRect(sx+11+i*10,sy+bh*.22|0,5,bh*.68|0);
-  ctx.fillRect(sx+9,sy+bh*.28|0,bw-18,4);ctx.fillRect(sx+9,sy+bh*.52|0,bw-18,4);
-  // Lintel beam
-  ctx.fillStyle='#1c192e';ctx.fillRect(sx-2,sy,bw+4,bh*.2|0);
-  ctx.fillStyle='#2a2640';ctx.fillRect(sx-1,sy+2,bw+2,bh*.16|0);
-  // Red seal rune — glowing
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=24;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.43|0,11,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle='#cc1100';ctx.shadowColor='#ff0000';ctx.shadowBlur=30;
-  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.43|0,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
-  ctx.fillStyle='rgba(255,255,255,0.9)';
-  ctx.fillRect(sx+bw/2-1,sy+bh*.37|0,2,14);ctx.fillRect(sx+bw/2-6,sy+bh*.43|0,12,2);
-  // Animated cracks with red glow seeping
-  const cr=.3+Math.sin(t*.18)*.2;
-  ctx.strokeStyle=`rgba(220,40,0,${cr})`;ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(sx+11,sy+bh*.62|0);ctx.lineTo(sx+13,sy+bh*.68|0);ctx.lineTo(sx+10,sy+bh*.74|0);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(sx+bw-11,sy+bh*.57|0);ctx.lineTo(sx+bw-13,sy+bh*.65|0);ctx.stroke();
-  // Torches
-  const fl=.65+Math.sin(t*.22+z.tx)*.35;
-  ctx.fillStyle=`rgba(255,130,20,${fl})`;ctx.shadowColor='#ff7700';ctx.shadowBlur=22*fl;
-  ctx.fillRect(sx+1,sy+bh*.72|0,6,10);ctx.fillRect(sx+bw-7,sy+bh*.72|0,6,10);
-  ctx.fillStyle=`rgba(255,210,80,${fl*.75})`;
-  ctx.fillRect(sx+2,sy+bh*.71|0,4,5);ctx.fillRect(sx+bw-6,sy+bh*.71|0,4,5);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,0,0,0.6)';ctx.fillRect(sx+5,sy+5,bw,bh);
+  // Black stone pillars
+  ctx.fillStyle='#0a0808';ctx.fillRect(sx,sy,bw,bh);
+  // Left pillar — rough stone texture
+  ctx.fillStyle='#181218';ctx.fillRect(sx,sy,10,bh);
+  ctx.fillStyle='#221a22';ctx.fillRect(sx+1,sy+2,7,bh-4);
+  ctx.fillStyle='#1a141a';ctx.fillRect(sx+3,sy,3,bh);
+  for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#1c161c':'#141014';ctx.fillRect(sx,sy+i*(bh/5|0),10,bh/5-1|0);}
+  // Right pillar
+  ctx.fillStyle='#181218';ctx.fillRect(sx+bw-10,sy,10,bh);
+  ctx.fillStyle='#221a22';ctx.fillRect(sx+bw-8,sy+2,7,bh-4);
+  for(let i=0;i<5;i++){ctx.fillStyle=i%2?'#1c161c':'#141014';ctx.fillRect(sx+bw-10,sy+i*(bh/5|0),10,bh/5-1|0);}
+  // Iron gate center
+  ctx.fillStyle='#080608';ctx.fillRect(sx+10,sy+bh*.2|0,bw-20,bh*.8|0);
+  // Vertical iron bars
+  ctx.fillStyle='#1a1422';
+  for(let i=0;i<3;i++) ctx.fillRect(sx+12+i*((bw-24)/3|0),sy+bh*.2|0,6,bh*.8|0);
+  ctx.fillStyle='#120e18';
+  for(let i=0;i<3;i++) ctx.fillRect(sx+14+i*((bw-24)/3|0),sy+bh*.2|0,2,bh*.8|0);
+  // Horizontal crossbars
+  ctx.fillStyle='#241c30';ctx.fillRect(sx+10,sy+bh*.3|0,bw-20,5);
+  ctx.fillStyle='#241c30';ctx.fillRect(sx+10,sy+bh*.55|0,bw-20,5);
+  // Lintel beam — dark with metal sheen
+  ctx.fillStyle='#16121e';ctx.fillRect(sx-3,sy,bw+6,bh*.2|0);
+  ctx.fillStyle='#221c2c';ctx.fillRect(sx-2,sy+2,bw+4,bh*.16|0);
+  ctx.fillStyle='rgba(100,80,140,0.3)';ctx.fillRect(sx-2,sy+2,bw+4,3);
+  // ── BIG RED SEAL RUNE ──
+  const cr=.35+Math.sin(t*.18)*.2;
+  ctx.fillStyle='rgba(180,0,0,0.15)';ctx.shadowColor='#ff0000';ctx.shadowBlur=30;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,16,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.strokeStyle=`rgba(220,0,0,${0.7+cr*.3})`;ctx.lineWidth=2;ctx.shadowColor='#ff0000';ctx.shadowBlur=20;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,13,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle=`rgba(255,20,0,${0.85+cr*.15})`;ctx.shadowColor='#ff0000';ctx.shadowBlur=24;
+  ctx.beginPath();ctx.arc(sx+bw/2,sy+bh*.44|0,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  // Seal cross mark
+  ctx.fillStyle='rgba(255,240,230,0.9)';
+  ctx.fillRect(sx+bw/2-1,sy+bh*.37|0,2,15);ctx.fillRect(sx+bw/2-7,sy+bh*.44|0,14,2);
+  // Animated seal cracks
+  ctx.strokeStyle=`rgba(255,60,0,${cr})`;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(sx+11,sy+bh*.58|0);ctx.lineTo(sx+9,sy+bh*.68|0);ctx.lineTo(sx+13,sy+bh*.76|0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(sx+bw-11,sy+bh*.54|0);ctx.lineTo(sx+bw-9,sy+bh*.64|0);ctx.lineTo(sx+bw-14,sy+bh*.72|0);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(sx+bw/2,sy+bh*.57|0);ctx.lineTo(sx+bw/2+5,sy+bh*.68|0);ctx.stroke();
+  // Torches — intense
+  const fl=.7+Math.sin(t*.22+z.tx)*.3;
+  ctx.fillStyle='#333';ctx.fillRect(sx,sy+bh*.66|0,9,5);ctx.fillRect(sx+bw-9,sy+bh*.66|0,9,5);
+  ctx.fillStyle=`rgba(255,130,20,${fl})`;ctx.shadowColor='#ff6600';ctx.shadowBlur=28*fl;
+  ctx.fillRect(sx+1,sy+bh*.56|0,7,12);ctx.fillRect(sx+bw-8,sy+bh*.56|0,7,12);
+  ctx.fillStyle=`rgba(255,220,60,${fl*.85})`;ctx.fillRect(sx+2,sy+bh*.54|0,5,7);ctx.fillRect(sx+bw-7,sy+bh*.54|0,5,7);
+  ctx.shadowBlur=0;
   // Label
   ctx.font='5px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-  ctx.fillText(z.icon,sx+bw/2,sy-18);ctx.fillText(z.label,sx+bw/2,sy-7);ctx.shadowBlur=0;
+  ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=14;
+  ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.fillText(z.label,sx+bw/2,sy-8);ctx.shadowBlur=0;
 }
 
 function _drawStall(ctx,sx,sy,bw,bh,z,t){
-  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+4,sy+4,bw,bh);
-  // Back wall — warm dark wood
-  ctx.fillStyle='#130d04';ctx.fillRect(sx,sy,bw,bh);
-  ctx.fillStyle='#1c1308';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,bh*.52|0);
-  // Counter edge
-  ctx.fillStyle='#2a1c0c';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,5);
-  ctx.fillStyle='#3a2810';ctx.fillRect(sx+3,sy+bh*.48|0,bw-6,2);
-  // Striped awning — classic red + cream
+  ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+5,sy+5,bw,bh);
+  // Back wall — dark warm wood grain
+  ctx.fillStyle='#1c1106';ctx.fillRect(sx,sy,bw,bh);
+  for(let i=0;i<(bh/8|0);i++){ctx.fillStyle=i%3===0?'#221408':i%3===1?'#1a1005':'#180e04';ctx.fillRect(sx+2,sy+bh*.5|0+i*8,bw-4,7);}
+  // Counter top
+  ctx.fillStyle='#3a2210';ctx.fillRect(sx,sy+bh*.47|0,bw,8);
+  ctx.fillStyle='#4a3018';ctx.fillRect(sx,sy+bh*.47|0,bw,4);
+  ctx.fillStyle='#5a4020';ctx.fillRect(sx+1,sy+bh*.47|0,bw-2,2);
+  // ── ICONIC STRIPED AWNING ──
   const awh=bh*.44|0;
-  ctx.fillStyle='#c01808';ctx.fillRect(sx-3,sy,bw+6,awh);
-  const sw=(bw+6)/8|0;
-  ctx.fillStyle='#e8d5aa';
-  for(let i=0;i<9;i+=2) ctx.fillRect(sx-3+i*sw,sy,sw,awh);
+  ctx.fillStyle='#c01010';ctx.fillRect(sx-4,sy,bw+8,awh);
+  const sw=(bw+8)/7|0;
+  ctx.fillStyle='#f0e0b0';
+  for(let i=0;i<8;i+=2) ctx.fillRect(sx-4+i*sw,sy,sw,awh);
+  // Awning underside shading
+  ctx.fillStyle='rgba(0,0,0,0.25)';ctx.fillRect(sx-4,sy+awh-8,bw+8,8);
   // Awning scallop edge
-  ctx.fillStyle='#a81200';
-  for(let i=0;i<bw+8;i+=12){
-    ctx.beginPath();ctx.arc(sx-3+i+6,sy+awh,5,0,Math.PI);ctx.fill();
+  for(let i=0;i<bw+8;i+=14){
+    ctx.fillStyle='#a00000';ctx.beginPath();ctx.arc(sx-4+i+7,sy+awh,7,0,Math.PI);ctx.fill();
+    ctx.fillStyle='#c01010';ctx.beginPath();ctx.arc(sx-4+i+7,sy+awh,4,0,Math.PI);ctx.fill();
   }
-  // Noren curtain strips
+  // Noren curtains (hanging cloth strips)
   const nc=5,nw=(bw-6)/nc|0;
   for(let i=0;i<nc;i++){
-    ctx.fillStyle=i%2===0?'#a81400':'#c02000';
-    ctx.fillRect(sx+3+i*nw,sy+awh-1,nw-2,bh*.3|0);
-    // Curtain bottom fringe
-    ctx.fillStyle=i%2===0?'#c01800':'#d42400';
-    ctx.fillRect(sx+3+i*nw,sy+awh-1+bh*.28|0,nw-2,3);
+    const sway=Math.sin(t*.06+i*.7)*2;
+    ctx.fillStyle=i%2===0?'#aa1000':'#cc1a00';
+    ctx.fillRect(sx+3+i*nw+sway,sy+awh-1,nw-2,bh*.29|0);
+    ctx.fillStyle=i%2===0?'#c01400':'#dd2200';ctx.fillRect(sx+3+i*nw+sway,sy+awh-1+bh*.27|0,nw-2,4);
+    // Noren kanji-like lines
+    ctx.fillStyle='rgba(255,200,100,0.25)';ctx.fillRect(sx+4+i*nw+sway,sy+awh+5,nw-4,2);ctx.fillRect(sx+4+i*nw+sway,sy+awh+12,nw-4,2);
   }
-  // Lanterns
-  const ll=.78+Math.sin(t*.12+z.tx)*.22;
-  ctx.fillStyle=`rgba(255,155,40,${ll*.88})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=18*ll;
-  ctx.fillRect(sx+5,sy+awh-4,6,10);ctx.fillRect(sx+bw-11,sy+awh-4,6,10);
-  ctx.fillStyle=`rgba(255,220,100,${ll*.6})`;ctx.fillRect(sx+6,sy+awh-4,4,5);ctx.fillRect(sx+bw-10,sy+awh-4,4,5);
+  // Lanterns — bright amber
+  const ll=.8+Math.sin(t*.12+z.tx)*.2;
+  ctx.fillStyle='#442200';ctx.fillRect(sx+6,sy+awh-10,2,4);ctx.fillRect(sx+bw-8,sy+awh-10,2,4);
+  ctx.fillStyle=`rgba(255,160,40,${ll})`;ctx.shadowColor='#ff9900';ctx.shadowBlur=22*ll;
+  ctx.fillRect(sx+3,sy+awh-6,8,13);ctx.fillRect(sx+bw-11,sy+awh-6,8,13);
+  ctx.fillStyle=`rgba(255,230,120,${ll*.75})`;ctx.fillRect(sx+4,sy+awh-5,6,7);ctx.fillRect(sx+bw-10,sy+awh-5,6,7);
   ctx.shadowBlur=0;
-  // Steam wisps
-  const sv=(t*1.8)%10|0;
-  ctx.fillStyle=`rgba(230,230,230,${.14+Math.sin(t*.09)*.06})`;
-  ctx.fillRect(sx+bw*.33|0,sy+bh*.34|0-sv,2,5);ctx.fillRect(sx+bw*.55|0,sy+bh*.34|0-((t*1.8+6)%10|0),2,5);
-  // Ramen bowl on counter
-  ctx.fillStyle='#281806';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.78|0,18,7,0,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(180,80,20,0.7)';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.76|0,14,5,0,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='rgba(255,180,100,0.5)';ctx.beginPath();ctx.ellipse(sx+bw/2,sy+bh*.75|0,10,3,0,0,Math.PI*2);ctx.fill();
+  // Extra lanterns center
+  ctx.fillStyle=`rgba(255,150,30,${ll*.7})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=16*ll;
+  ctx.fillRect(sx+bw/2-4,sy+awh-8,8,12);ctx.shadowBlur=0;
+  // Steam wisps rising from kitchen
+  for(let s=0;s<3;s++){
+    const sv=(t*1.4+s*3.3)%12|0;
+    ctx.fillStyle=`rgba(220,220,215,${.12+Math.sin(t*.09+s)*.05})`;
+    ctx.fillRect(sx+bw*.25|0+s*18,sy+bh*.38|0-sv,2+s%2,5);
+  }
+  // Ramen bowl display
+  ctx.fillStyle='#2a1608';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.8|0,14,6,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(200,80,20,0.7)';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.79|0,11,4,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,190,100,0.5)';ctx.beginPath();ctx.ellipse(sx+bw*.35|0,sy+bh*.78|0,7,2.5,0,0,Math.PI*2);ctx.fill();
+  // Sign board above awning
+  ctx.fillStyle='#3a1a00';ctx.fillRect(sx+bw*.55|0,sy+2,bw*.35|0,awh-6);
+  ctx.fillStyle='#5a3000';ctx.fillRect(sx+bw*.56|0,sy+3,bw*.33|0,awh-9);
+  ctx.fillStyle='#ffe070';ctx.shadowColor=z.glow;ctx.shadowBlur=10;
+  ctx.font='bold 5px "Press Start 2P","Courier New"';ctx.textAlign='center';
+  ctx.fillText('一楽',sx+bw*.73|0,sy+awh/2+3);ctx.shadowBlur=0;
   // Label
   ctx.font='bold 5px "Press Start 2P","Courier New"';ctx.textAlign='center';
   ctx.fillStyle='#ffe070';ctx.shadowColor=z.glow;ctx.shadowBlur=16;
-  ctx.fillText(z.icon,sx+bw/2,sy-19);ctx.fillText('ICHIRAKU',sx+bw/2,sy-7);ctx.shadowBlur=0;
+  ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.fillText('ICHIRAKU',sx+bw/2,sy-8);ctx.shadowBlur=0;
 }
 
 function _drawGenericBldg(ctx,sx,sy,bw,bh,z,t){
   ctx.fillStyle='rgba(0,0,0,0.4)';ctx.fillRect(sx+5,sy+6,bw,bh);
   const southOfSpine=z.ty>=10;
   if(z.type==='shrine'){
-    // Hall of Fame — ornate stone shrine
-    ctx.fillStyle='#1a1406';ctx.fillRect(sx,sy,bw,bh);
-    ctx.fillStyle='#221b0a';ctx.fillRect(sx+2,sy+4,bw-4,bh-6);
-    // Stone tile texture
+    // ── HALL OF FAME: Gold stone shrine ──
+    // Stone base — warm gray
+    ctx.fillStyle='#6a6058';ctx.fillRect(sx,sy,bw,bh);
+    ctx.fillStyle='#787060';ctx.fillRect(sx+2,sy+4,bw-4,bh-6);
+    // Stone tiles
     for(let i=0;i<3;i++) for(let j=0;j<2;j++){
-      ctx.fillStyle=(i+j)%2===0?'#1e1708':'#1a1305';
-      ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,(bh-8)/3-2);
+      const tone=(i+j)%2===0?'#706858':'#686050';
+      ctx.fillStyle=tone;ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,(bh-8)/3-2);
+      ctx.fillStyle='rgba(255,255,255,0.04)';ctx.fillRect(sx+3+j*(bw-6)/2,sy+6+i*(bh-8)/3,(bw-6)/2-2,2);
     }
-    // Torii gate top
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=18;
-    ctx.fillRect(sx-5,sy,bw+10,7);ctx.fillRect(sx+5,sy+8,bw-10,4);ctx.shadowBlur=0;
-    // Trophy cup
-    ctx.fillStyle='#ffdd44';ctx.shadowColor='#ffcc00';ctx.shadowBlur=20;
-    // Cup stem
-    ctx.fillRect(sx+bw/2-3,sy+bh*.6|0,6,12);
-    ctx.fillRect(sx+bw/2-7,sy+bh*.72|0,14,4);
-    // Cup body
-    ctx.fillRect(sx+bw/2-11,sy+bh*.3|0,22,bh*.3|0);
-    // Cup arms
-    ctx.fillRect(sx+bw/2-15,sy+bh*.34|0,5,8);ctx.fillRect(sx+bw/2+10,sy+bh*.34|0,5,8);
-    // Glow inner
-    ctx.fillStyle='#fff8';ctx.fillRect(sx+bw/2-8,sy+bh*.33|0,8,bh*.24|0);ctx.shadowBlur=0;
-    // Star particles around trophy
-    for(let i=0;i<4;i++){
-      const a=t*.08+i*Math.PI*.5;const r=bh*.18|0;
-      ctx.fillStyle=`rgba(255,220,50,${.4+Math.sin(t*.1+i)*.3})`;
-      ctx.fillRect(sx+bw/2+Math.cos(a)*r-2,sy+bh*.5|0+Math.sin(a)*r-2,4,4);
+    // Torii gate — red horizontal beams
+    ctx.fillStyle='#cc2200';ctx.shadowColor='#ff3300';ctx.shadowBlur=18;
+    ctx.fillRect(sx-8,sy,bw+16,9);ctx.fillRect(sx-4,sy+12,bw+8,5);ctx.shadowBlur=0;
+    ctx.fillStyle='#aa1500';ctx.fillRect(sx-8,sy,bw+16,4);
+    // Torii pillars
+    ctx.fillStyle='#cc2200';ctx.fillRect(sx+4,sy,7,bh*.4|0);ctx.fillRect(sx+bw-11,sy,7,bh*.4|0);
+    ctx.fillStyle='#aa1500';ctx.fillRect(sx+5,sy,4,bh*.4|0);ctx.fillRect(sx+bw-10,sy,4,bh*.4|0);
+    // Trophy cup — gold
+    ctx.fillStyle='#ffdd22';ctx.shadowColor='#ffcc00';ctx.shadowBlur=24;
+    ctx.fillRect(sx+bw/2-12,sy+bh*.28|0,24,bh*.3|0);
+    ctx.fillRect(sx+bw/2-4,sy+bh*.58|0,8,14);
+    ctx.fillRect(sx+bw/2-10,sy+bh*.72|0,20,5);
+    ctx.fillRect(sx+bw/2-17,sy+bh*.32|0,6,10);ctx.fillRect(sx+bw/2+11,sy+bh*.32|0,6,10);
+    ctx.fillStyle='rgba(255,255,200,0.4)';ctx.fillRect(sx+bw/2-10,sy+bh*.29|0,10,bh*.27|0);ctx.shadowBlur=0;
+    // Star particles
+    for(let i=0;i<5;i++){
+      const a=t*.09+i*Math.PI*.4;const r=bh*.16|0;
+      ctx.fillStyle=`rgba(255,230,50,${.4+Math.sin(t*.1+i)*.3})`;
+      ctx.fillRect(sx+bw/2+Math.cos(a)*r-2,sy+bh*.48|0+Math.sin(a)*r-2,4,4);
     }
     // Lanterns
     const fl=.8+Math.sin(t*.14+z.tx)*.2;
-    ctx.fillStyle=`rgba(255,180,40,${fl*.82})`;ctx.shadowColor='#ffaa00';ctx.shadowBlur=14*fl;
-    ctx.fillRect(sx+4,sy+bh-24,5,9);ctx.fillRect(sx+bw-9,sy+bh-24,5,9);ctx.shadowBlur=0;
+    ctx.fillStyle=`rgba(255,180,40,${fl*.85})`;ctx.shadowColor='#ffaa00';ctx.shadowBlur=16*fl;
+    ctx.fillRect(sx+5,sy+bh-26,6,10);ctx.fillRect(sx+bw-11,sy+bh-26,6,10);ctx.shadowBlur=0;
   } else {
-    // Storage shed — timber planks
-    ctx.fillStyle='#0a0e07';ctx.fillRect(sx,sy,bw,bh);
-    // Horizontal plank stripes
-    for(let i=0;i<(bh/7|0);i++){
-      ctx.fillStyle=i%3===0?'#131a0e':i%3===1?'#111709':'#0f1508';
-      ctx.fillRect(sx+2,sy+2+i*7,bw-4,6);
+    // ── STORAGE SHED: Green wood warehouse ──
+    // Dark green timber walls
+    ctx.fillStyle='#0e1a0a';ctx.fillRect(sx,sy,bw,bh);
+    // Roof — dark with shingles
+    ctx.fillStyle='#1a2a10';ctx.fillRect(sx-4,sy,bw+8,bh*.22|0);
+    for(let i=0;i<(bw+8)/12|0;i++){ctx.fillStyle=i%2?'#162208':'#1c2c0c';ctx.fillRect(sx-4+i*12,sy,11,bh*.22|0);}
+    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;ctx.fillRect(sx-4,sy,bw+8,4);ctx.shadowBlur=0;
+    // Wood plank body
+    for(let i=0;i<(bh*.78/9|0);i++){
+      ctx.fillStyle=i%3===0?'#162210':i%3===1?'#12200e':'#101e0c';
+      ctx.fillRect(sx+2,sy+bh*.22|0+i*9,bw-4,8);
     }
     // Vertical corner beams
-    ctx.fillStyle='#0c1208';ctx.fillRect(sx,sy,4,bh);ctx.fillRect(sx+bw-4,sy,4,bh);
-    ctx.fillStyle='#141e10';ctx.fillRect(sx+1,sy,2,bh);ctx.fillRect(sx+bw-3,sy,2,bh);
+    ctx.fillStyle='#0c1808';ctx.fillRect(sx,sy,5,bh);ctx.fillRect(sx+bw-5,sy,5,bh);
+    ctx.fillStyle='#1a280e';ctx.fillRect(sx+1,sy,3,bh);ctx.fillRect(sx+bw-4,sy,3,bh);
     // Metal band reinforcements
-    ctx.fillStyle=z.color+'55';
-    ctx.fillRect(sx,sy+bh*.3|0,bw,3);ctx.fillRect(sx,sy+bh*.65|0,bw,3);
-    ctx.fillStyle=z.color+'33';ctx.fillRect(sx,sy+bh*.47|0,bw,2);
-    // Glowing roof strip
-    ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=12;
-    ctx.fillRect(sx-2,sy,bw+4,5);ctx.shadowBlur=0;
-    // Window with crates visible inside
-    const winX=sx+bw/2-12,winY=southOfSpine?sy+bh*.45|0:sy+bh*.3|0;
-    ctx.fillStyle='rgba(20,35,15,0.9)';ctx.fillRect(winX,winY,24,16);
-    ctx.strokeStyle=z.color+'66';ctx.lineWidth=1;ctx.strokeRect(winX,winY,24,16);
-    ctx.fillStyle='rgba(60,120,60,0.15)';ctx.fillRect(winX+1,winY+1,22,14);
-    // Crate pixels
-    ctx.fillStyle='#3e2c0e';ctx.fillRect(winX+2,winY+6,8,8);ctx.fillRect(winX+12,winY+5,10,9);
-    ctx.fillStyle='#4e3a12';ctx.fillRect(winX+2,winY+6,8,2);ctx.fillRect(winX+12,winY+5,10,2);
-    // Door on correct face (north for south-of-spine buildings)
-    const doorY=southOfSpine?sy+8:sy+bh-22;
-    ctx.fillStyle='#050709';ctx.fillRect(sx+bw/2-7,doorY,14,22);
-    ctx.strokeStyle=z.color+'88';ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-8,doorY-1,16,23);
-    ctx.fillStyle=z.color+'aa';ctx.fillRect(sx+bw/2-7,doorY+6,3,2);ctx.fillRect(sx+bw/2-7,doorY+14,3,2);
-    // Lanterns at lower corners
+    ctx.fillStyle=z.color+'66';ctx.fillRect(sx,sy+bh*.38|0,bw,4);ctx.fillRect(sx,sy+bh*.68|0,bw,4);
+    ctx.fillStyle=z.color+'33';ctx.fillRect(sx,sy+bh*.52|0,bw,2);
+    // Big window — visible crates inside
+    const winX=sx+bw/2-16,winY=southOfSpine?sy+bh*.44|0:sy+bh*.32|0;
+    ctx.fillStyle='#080f06';ctx.fillRect(winX,winY,32,20);
+    ctx.fillStyle='rgba(30,60,20,0.7)';ctx.fillRect(winX+1,winY+1,30,18);
+    ctx.strokeStyle=z.color+'88';ctx.lineWidth=1.5;ctx.strokeRect(winX,winY,32,20);
+    // Crates inside
+    ctx.fillStyle='#5a3c10';ctx.fillRect(winX+2,winY+8,12,10);ctx.fillRect(winX+16,winY+7,13,11);
+    ctx.fillStyle='#6e4e18';ctx.fillRect(winX+2,winY+8,12,3);ctx.fillRect(winX+16,winY+7,13,3);
+    ctx.fillStyle='#4a3008';ctx.fillRect(winX+7,winY+8,2,10);ctx.fillRect(winX+22,winY+7,2,11);
+    // Door on correct face
+    const doorY=southOfSpine?sy+8:sy+bh-28;
+    ctx.fillStyle='#060d04';ctx.fillRect(sx+bw/2-9,doorY,18,28);
+    ctx.strokeStyle=z.color+'99';ctx.lineWidth=1;ctx.strokeRect(sx+bw/2-10,doorY-1,20,29);
+    ctx.fillStyle='#1a2c10';ctx.fillRect(sx+bw/2-1,doorY,2,28);
+    // Door handles
+    ctx.fillStyle=z.color+'cc';ctx.fillRect(sx+bw/2-7,doorY+10,3,2);ctx.fillRect(sx+bw/2+4,doorY+10,3,2);
+    // Lanterns
     const fl2=.78+Math.sin(t*.18+z.tx)*.22;
-    ctx.fillStyle=`rgba(255,145,0,${fl2*.72})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=13*fl2;
-    ctx.fillRect(sx+4,sy+bh-28,4,8);ctx.fillRect(sx+bw-8,sy+bh-28,4,8);ctx.shadowBlur=0;
+    ctx.fillStyle=`rgba(255,155,0,${fl2*.8})`;ctx.shadowColor='#ff8800';ctx.shadowBlur=14*fl2;
+    ctx.fillRect(sx+5,sy+bh-30,5,10);ctx.fillRect(sx+bw-10,sy+bh-30,5,10);ctx.shadowBlur=0;
   }
-  // Label
   ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
   ctx.fillStyle=z.color;ctx.shadowColor=z.glow;ctx.shadowBlur=10;
-  ctx.fillText(z.label,sx+bw/2,sy-8);ctx.fillText(z.icon,sx+bw/2,sy-19);ctx.shadowBlur=0;
+  ctx.fillText(z.label,sx+bw/2,sy-8);ctx.fillText(z.icon,sx+bw/2,sy-20);ctx.shadowBlur=0;
 }
 
 function drawLobbyBuilding(ctx,z,camX,camY){
@@ -3672,6 +3953,10 @@ function goScreen(id){
   } else {
     stopLobbyLoop();
   }
+  if(id!=='screen-char-build') _cbStopAnim();
+  if(id!=='screen-menu'){if(_menuRaf){cancelAnimationFrame(_menuRaf);_menuRaf=null;}}
+  if(id!=='screen-start'){if(_startRaf){cancelAnimationFrame(_startRaf);_startRaf=null;}}
+  if(id!=='screen-intro'){if(_introRaf){cancelAnimationFrame(_introRaf);_introRaf=null;}}
   if(id==='screen-mission-select'){renderMissionSelect();}
   if(id==='screen-shop')   {renderShop();renderInv();$('shop-ryo').textContent=G.ryo;}
   if(id==='screen-academy'){renderAcademy();}
@@ -3700,12 +3985,8 @@ function goScreen(id){
 function confirmName(){
   const inp=$('name-modal-input');
   const name=(inp?inp.value.trim():'')||'Shinobi';
-  action('INIT_PLAYER',{name});
   closeModal();
-  $('lhud').classList.remove('hidden');
-  goFullscreen();
-  msg(`Willkommen in Konoha, ${name}!`,'good');
-  msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+  initCharBuild(name);
 }
 
 function showNameModal(){
@@ -3731,12 +4012,753 @@ $('inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]'
 $('aca-grid').addEventListener('click',e=>{const b=e.target.closest('[data-learn]');if(b)_learnJutsu(b.dataset.learn);});
 $('aca-inv-grid').addEventListener('click',e=>{const s=e.target.closest('[data-idx]');if(s)_invModal(parseInt(s.dataset.idx));});
 
-// Boot: build map, start lobby, show name modal
+/* ════════════════════════════════════════════════════
+   START SCREEN
+════════════════════════════════════════════════════ */
+let _startRaf=null;
+function _startLoop(){
+  const cv=$('start-canvas');if(!cv)return;
+  cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height,t=Date.now()*.001;
+  ctx.fillStyle='#05020d';ctx.fillRect(0,0,W,H);
+  // Stars
+  const seed=12345;
+  for(let i=0;i<120;i++){
+    const sx=((seed*i*7919)%W+W)%W;
+    const sy=((seed*i*6271)%H+H)%H;
+    const br=.3+.7*Math.abs(Math.sin(t*.8+i));
+    ctx.fillStyle=`rgba(255,255,255,${br*.6})`;
+    ctx.fillRect(sx,sy,i%4===0?2:1,i%4===0?2:1);
+  }
+  // Background fire pillars
+  for(let i=0;i<6;i++){
+    const px=W*.1+i*(W*.16);
+    const h=60+Math.sin(t*1.4+i*1.1)*30;
+    const gr=ctx.createLinearGradient(px,H,px,H-h);
+    gr.addColorStop(0,`rgba(255,80,0,${.4+Math.sin(t+i)*.2})`);
+    gr.addColorStop(1,'rgba(255,80,0,0)');
+    ctx.fillStyle=gr;
+    ctx.fillRect(px-8,H-h,16,h);
+  }
+  // Konoha leaf symbol (simplified)
+  const lx=W*.5,ly=H*.38,lr=Math.min(W,H)*.18;
+  ctx.save();ctx.translate(lx,ly);
+  const leafGr=ctx.createRadialGradient(0,0,0,0,0,lr);
+  leafGr.addColorStop(0,`rgba(255,160,0,${.07+Math.sin(t*.4)*.03})`);
+  leafGr.addColorStop(1,'rgba(255,80,0,0)');
+  ctx.fillStyle=leafGr;ctx.beginPath();ctx.arc(0,0,lr,0,Math.PI*2);ctx.fill();
+  // leaf swirl lines
+  ctx.strokeStyle=`rgba(255,120,0,${.12+Math.sin(t*.3)*.06})`;ctx.lineWidth=1.5;
+  for(let a=0;a<8;a++){
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    const ang=a*Math.PI*.25+t*.05;
+    ctx.quadraticCurveTo(Math.cos(ang+.5)*lr*.6,Math.sin(ang+.5)*lr*.6,Math.cos(ang)*lr*.92,Math.sin(ang)*lr*.92);
+    ctx.stroke();
+  }
+  ctx.restore();
+  // Particle embers
+  for(let i=0;i<40;i++){
+    const px=((W*.5+(Math.sin(t*.7+i*2.3)*W*.4))%W+W)%W;
+    const py=H-((t*30*(.5+i*.05)+i*H/40)%H);
+    const br=.5+.5*Math.sin(t*2+i);
+    ctx.fillStyle=`rgba(255,${150+i%100},0,${br*.6})`;
+    ctx.fillRect(px,py,i%3===0?2:1,i%3===0?2:1);
+  }
+  // Bottom vignette
+  const vig=ctx.createLinearGradient(0,H*.6,0,H);
+  vig.addColorStop(0,'transparent');vig.addColorStop(1,'rgba(5,2,13,.9)');
+  ctx.fillStyle=vig;ctx.fillRect(0,H*.6,W,H*.4);
+  _startRaf=requestAnimationFrame(_startLoop);
+}
+
+function _doStartTransition(cb){
+  // 1. white flash
+  const fl=$('start-flash');
+  fl.style.transition='opacity .07s';
+  fl.style.opacity='1';
+  setTimeout(()=>{
+    fl.style.transition='opacity .18s';
+    fl.style.opacity='0';
+  },80);
+  // 2. sharingan overlay on start canvas
+  const cv=$('start-canvas');
+  let phase=0, spin=0, sr=0;
+  const W=cv.width,H=cv.height;
+  function sharinganAnim(){
+    const ctx=cv.getContext('2d');
+    phase+=0.07; spin+=0.06; sr+=phase<1?W*.025:W*.06;
+    const maxR=Math.hypot(W,H)*.6;
+    ctx.save();
+    // black wipe expanding circle
+    ctx.fillStyle='#000';
+    ctx.beginPath();ctx.arc(W*.5,H*.5,sr,0,Math.PI*2);ctx.fill();
+    // Sharingan drawn inside
+    if(sr>20){
+      const cx=W*.5,cy=H*.5,r=Math.min(sr*.7,100);
+      // outer ring
+      ctx.fillStyle='#cc0000';
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#000';
+      ctx.beginPath();ctx.arc(cx,cy,r*.7,0,Math.PI*2);ctx.fill();
+      // 3 tomoe spinning
+      ctx.save();ctx.translate(cx,cy);ctx.rotate(spin);
+      for(let i=0;i<3;i++){
+        ctx.save();ctx.rotate(i*Math.PI*2/3);
+        ctx.fillStyle='#cc0000';
+        ctx.beginPath();ctx.arc(r*.48,0,r*.18,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='#000';
+        ctx.beginPath();ctx.arc(r*.48,0,r*.1,0,Math.PI*2);ctx.fill();
+        ctx.restore();
+      }
+      ctx.restore();
+      // pupil
+      ctx.fillStyle='#cc0000';
+      ctx.beginPath();ctx.arc(cx,cy,r*.15,0,Math.PI*2);ctx.fill();
+      // red glow rim
+      ctx.shadowColor='#ff0000';ctx.shadowBlur=Math.min(sr*.3,40);
+      ctx.strokeStyle='#ff2200';ctx.lineWidth=2;
+      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+      ctx.shadowBlur=0;
+    }
+    ctx.restore();
+    if(sr<maxR) requestAnimationFrame(sharinganAnim);
+    else setTimeout(cb,120);
+  }
+  setTimeout(sharinganAnim, 60);
+}
+
+function showStartScreen(){
+  goScreen('screen-start');
+  _startLoop();
+  let clicked=false;
+  const handler=()=>{
+    if(clicked)return; clicked=true;
+    $('screen-start').removeEventListener('click',handler);
+    _doStartTransition(()=>{
+      cancelAnimationFrame(_startRaf);
+      showMenuScreen();
+    });
+  };
+  $('screen-start').addEventListener('click',handler);
+}
+
+/* ════════════════════════════════════════════════════
+   KAKASHI INTRO
+════════════════════════════════════════════════════ */
+const KAKASHI_LINES=[
+  {spk:'KAKASHI HATAKE',text:'...'},
+  {spk:'KAKASHI HATAKE',text:'Oh. Du bist es.\nIch hab dich schon erwartet.'},
+  {spk:'KAKASHI HATAKE',text:'Diese Welt ist gefährlich.\nFeinde lauern überall in Konoha.'},
+  {spk:'KAKASHI HATAKE',text:'Aber mit dem richtigen Willen...\nund Entschlossenheit...'},
+  {spk:'KAKASHI HATAKE',text:'...übersteht man alles.\nGlaub mir. Ich spreche aus Erfahrung.'},
+  {spk:'KAKASHI HATAKE',text:'Ich bin Hatake Kakashi.\nKopie-Ninja. Jonin. Schau nicht zu oft hin.'},
+  {spk:'KAKASHI HATAKE',text:'Na dann. Viel Erfolg, Shinobi. ✦'},
+];
+let _introRaf=null,_introLine=0,_introTyping=false;
+let _introTypedChars=0,_introTypingRaf=null,_introCb=null;
+
+function _drawKakashi(ctx,ox,oy,t,P){
+  // P = screen pixels per "game pixel". All coords are in game pixels.
+  // Layout (y=0 is top of hair, character goes DOWN):
+  //   y  0.. 8  → hair spikes
+  //   y  7..10  → hair base (overlaps head top)
+  //   y  8..20  → head (face, hitai-ate, eye, mask)
+  //  y 20..22  → neck
+  //  y 22..34  → vest / body
+  //  y 34..43  → legs
+  //  y 43..47  → boots
+  // Total: 47 game pixels, all connected without gaps.
+
+  const bob = Math.sin(t*0.9)*2; // smooth float in screen pixels
+  function f(dx,dy,w,h,c){
+    ctx.fillStyle=c;
+    ctx.fillRect(ox+dx*P, oy+dy*P+bob, w*P, h*P);
+  }
+
+  // shadow
+  ctx.fillStyle='rgba(0,0,0,0.25)';
+  ctx.beginPath();ctx.ellipse(ox+9*P,oy+48*P+bob,10*P,2*P,0,0,Math.PI*2);ctx.fill();
+
+  // ── BOOTS y=43..47 ──────────────────────
+  f(3,43, 5,4, '#111');      // left boot
+  f(9,43, 5,4, '#111');      // right boot
+  f(2,45, 6,2, '#0a0a0a');   // left sole overhang
+  f(8,45, 6,2, '#0a0a0a');   // right sole
+
+  // ── LEGS y=34..43 ───────────────────────
+  f(3,34, 5,10, '#181825'); // left leg
+  f(9,34, 5,10, '#181825'); // right leg
+  f(8,34, 1,10, '#11111e'); // gap between legs
+  f(3,38, 5,2,  '#20203a'); // left knee guard
+  f(9,38, 5,2,  '#20203a'); // right knee guard
+
+  // ── VEST BODY y=21..34 ──────────────────
+  f(2,21, 14,13, '#282c28'); // outer vest — y=21 overlaps collar
+  f(3,22, 12,11, '#32363a'); // vest face
+  // center seam
+  f(8,21, 2,13, '#1e201e');
+  f(8,22, 1,11, '#262826');
+  // left chest pocket
+  f(3,24, 5,5, '#23261e');
+  f(3,24, 5,1, '#1c1e1a');
+  f(4,25, 3,3, '#1a1c17');
+  f(5,26, 1,2, '#111');
+  // right chest pocket
+  f(10,24, 5,5, '#23261e');
+  f(10,24, 5,1, '#1c1e1a');
+  f(11,25, 3,3, '#1a1c17');
+  f(12,26, 1,2, '#111');
+  // shoulder pads
+  f(2,22, 3,3, '#3e423e');
+  f(13,22, 3,3, '#3e423e');
+
+  // ── ARMS y=22..37 ───────────────────────
+  f(0,22, 3,13, '#282c28');  // left arm
+  f(15,22, 3,13, '#282c28'); // right arm
+  f(0,28, 3,2,  '#323632');  // elbow
+  f(15,28, 3,2, '#323632');
+  // gloves
+  f(0,33, 3,5, '#1c1c1c');
+  f(15,33, 3,5, '#1c1c1c');
+  // fingertips
+  f(0,37, 3,1, '#a07858');
+  f(15,37, 3,1, '#a07858');
+
+  // ── COLLAR / NECK y=19..22 ───────────────
+  // Full-width block bridges head bottom to vest top (no gap)
+  f(3,19, 12,4, '#1a1c1a'); // collar full width
+  f(7,20,  4,3, '#c8a070'); // skin showing at collar center
+
+  // ── HEAD SKIN y=8..20 ───────────────────
+  // Full face block. Hair will overlap the top rows (y=8,9).
+  f(4,8,  10,12, '#c8a070'); // main skin
+  f(12,9,  2,10, '#b89060'); // right shadow
+  f(4,9,   2,10, '#d0a878'); // left light
+
+  // ── HITAI-ATE y=8..13 ───────────────────
+  // Black strap across full forehead (covers where left eye would be)
+  f(3,8,  12,5, '#181818');  // strap
+  // Metal plate (left side of strap, since it's tilted toward left eye)
+  f(4,9,   8,3, '#c0c0c8');  // plate
+  f(5,9,   6,2, '#ccccda');  // face
+  f(4,11,  8,1, '#9898a0');  // shadow bottom
+  f(5,9,   6,1, '#d8d8e4');  // plate top shine
+  // frame edges
+  f(4,9,   1,3, '#aaaab0');
+  f(11,9,  1,3, '#aaaab0');
+  // Konoha leaf etching
+  f(7,10,  1,1, '#80808a');
+  f(6,10,  1,1, '#80808a');
+  f(8,10,  1,1, '#80808a');
+  f(7,11,  1,1, '#70707a');
+  f(6,11,  1,1, '#80808a');
+  f(8,11,  1,1, '#80808a');
+  // right strap
+  f(12,9,  3,3, '#181818');
+
+  // ── RIGHT EYE y=13..17 (x=10..14) ───────
+  // Skin patch around eye
+  f(10,13, 5,5, '#c8a070');
+  // Eye white
+  f(10,14, 5,3, '#ece8e0');
+  // Iris
+  f(11,14, 3,3, '#2c2840');
+  // Pupil
+  f(12,14, 1,2, '#090810');
+  // Catch light
+  f(13,14, 1,1, '#ffffff');
+  // Top eyelid skin
+  f(10,13, 5,1, '#c0a060');
+  // Eyelash (dark line)
+  f(10,13, 5,1, '#2a2a2a');
+  // Lower lid
+  f(10,16, 5,1, '#b09058');
+  // Eyebrow (above hitai-ate bottom on right side)
+  // — hitai-ate ends at y=13 on right side (x=11..14)
+  f(10,12, 5,1, '#555560');
+
+  // ── BLACK MASK y=15..20 ─────────────────
+  f(4,15, 10,6, '#141414');  // mask
+  f(4,15, 10,1, '#1e1e1e');  // top fold
+  f(4,17, 10,1, '#0e0e0e');  // fold shadow
+  f(4,19, 10,1, '#1a1a1a');  // chin fold
+  // left face under strap (y=13..15, x=4..10) — skin hidden here too
+  f(4,13,  7,3, '#c8a070');  // left face skin below strap
+
+  // ── HAIR y=0..9 (CONNECTED TO HEAD at y=8) ──────
+  // All spikes bottom at y=7 or y=8; head top at y=8.
+  // Hair base row at y=7 bridges spikes to head.
+  const Hm='#d4d4d4',Hl='#f0f0f0',Hd='#a8a8a8',Hb='#c0c0c0';
+
+  // Far left short spike (x=3, y=4..7)
+  f(3, 4, 2,4, Hb);
+  // Left spike (x=5, y=2..7)
+  f(5, 2, 2,6, Hm);
+  // Center-left spike (tallest, x=7, y=0..7)
+  f(7, 0, 3,8, Hm);
+  // Center-right spike (x=9, y=1..7)
+  f(9, 1, 2,7, Hm);
+  // Right spike (x=11, y=3..7)
+  f(11, 3, 2,5, Hb);
+  // Right stub (x=12, y=5..7)
+  f(12, 5, 1,3, Hd);
+
+  // HAIR BASE: solid row at y=7 connecting all spikes to head top
+  f(3,  7, 11,2, Hm);  // this row is at y=7..8, directly above/overlapping head skin at y=8
+
+  // Side hair (hangs past hitai-ate, frames face)
+  f(3,  8, 2,6, Hb);   // left side hair along face edge
+  f(13, 8, 1,4, Hd);   // right side hair
+
+  // Highlights on spikes
+  f(8,  1, 1,5, Hl);
+  f(6,  3, 1,3, Hl);
+  f(10, 2, 1,3, Hl);
+
+  // Hair shadow at very bottom of hair mass
+  f(3,  6, 11,1, Hd);
+}
+
+function _introLoop(){
+  const cv=$('intro-canvas');if(!cv)return;
+  cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height,t=Date.now()*.001;
+  // dark BG
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#030008');bg.addColorStop(1,'#0a0518');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  // stars
+  for(let i=0;i<80;i++){
+    const sx=((11111*i*7919)%W+W)%W;
+    const sy=((11111*i*6271)%(H*.75)+H*.02);
+    const br=.1+.15*Math.abs(Math.sin(t*.4+i));
+    ctx.fillStyle=`rgba(255,255,255,${br})`;
+    ctx.fillRect(sx,sy,i%5===0?2:1,i%5===0?2:1);
+  }
+  // moon
+  const mx=W*.8,my=H*.16;
+  const moonGr=ctx.createRadialGradient(mx,my,0,mx,my,34);
+  moonGr.addColorStop(0,'#fffae8');moonGr.addColorStop(1,'#ffe8a0');
+  ctx.fillStyle=moonGr;ctx.shadowColor='#ffd060';ctx.shadowBlur=40;
+  ctx.beginPath();ctx.arc(mx,my,30,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  // cloud wisps near moon
+  ctx.fillStyle='rgba(255,230,150,0.06)';
+  for(let i=0;i<3;i++){
+    ctx.beginPath();ctx.ellipse(mx+40+i*30,my+10+i*5,25+i*10,8,-.2,0,Math.PI*2);ctx.fill();
+  }
+  // village silhouette layers
+  for(let layer=0;layer<3;layer++){
+    const alpha=[0.9,0.7,0.5][layer];
+    const ybase=H*[.78,.72,.68][layer];
+    ctx.fillStyle=`rgba(5,2,14,${alpha})`;
+    for(let i=0;i<28;i++){
+      const bw=14+((i*13+layer*7)%16);
+      const bh=24+((i*19+layer*11)%52);
+      const bx=i*(W/26)-layer*8;
+      ctx.fillRect(bx,ybase-bh,bw,bh+H*.25);
+      // windows
+      if(layer===0){
+        ctx.fillStyle=`rgba(255,200,80,${.12+.08*Math.sin(t*.7+i)})`;
+        ctx.fillRect(bx+3,ybase-bh+8,3,4);
+        if(bw>18)ctx.fillRect(bx+9,ybase-bh+14,3,4);
+        ctx.fillStyle=`rgba(5,2,14,${alpha})`;
+      }
+    }
+  }
+  // Kakashi portrait — left side, scaled to ~70% screen height
+  const charGameH=48; // total game-pixel height of character
+  const P=Math.max(6, Math.min(14, (H*0.70/charGameH)|0));
+  const kX=W*.05, kY=H*.12;
+  _drawKakashi(ctx,kX,kY,t,P);
+  // Kakashi atmospheric glow
+  const glow=ctx.createRadialGradient(W*.22,H*.55,0,W*.22,H*.55,W*.28);
+  glow.addColorStop(0,`rgba(80,60,160,${.07+Math.sin(t*.3)*.025})`);
+  glow.addColorStop(1,'transparent');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+  // bottom vignette
+  const vig=ctx.createLinearGradient(0,H*.65,0,H);
+  vig.addColorStop(0,'transparent');vig.addColorStop(1,'rgba(3,0,8,.85)');
+  ctx.fillStyle=vig;ctx.fillRect(0,H*.65,W,H*.35);
+  _introRaf=requestAnimationFrame(_introLoop);
+}
+
+function _introTypeText(fullText){
+  _introTypedChars=0;_introTyping=true;
+  const el=$('intro-text');
+  if(_introTypingRaf)clearInterval(_introTypingRaf);
+  _introTypingRaf=setInterval(()=>{
+    _introTypedChars++;
+    el.textContent=fullText.slice(0,_introTypedChars);
+    el.style.whiteSpace='pre-line';
+    if(_introTypedChars>=fullText.length){clearInterval(_introTypingRaf);_introTyping=false;}
+  },30);
+}
+
+function _introAdvance(){
+  if(_introTyping){
+    clearInterval(_introTypingRaf);_introTyping=false;
+    const el=$('intro-text');
+    el.textContent=KAKASHI_LINES[_introLine].text;el.style.whiteSpace='pre-line';
+    return;
+  }
+  _introLine++;
+  if(_introLine>=KAKASHI_LINES.length){_endIntro();return;}
+  const line=KAKASHI_LINES[_introLine];
+  $('intro-speaker').textContent=line.spk;
+  _introTypeText(line.text);
+}
+
+function _endIntro(){
+  clearInterval(_introTypingRaf);
+  if(_introRaf)cancelAnimationFrame(_introRaf);_introRaf=null;
+  const fl=$('start-flash');
+  fl.style.background='#000';fl.style.transition='opacity .4s';fl.style.opacity='1';
+  setTimeout(()=>{
+    if(_introCb)_introCb();
+    setTimeout(()=>{fl.style.transition='opacity .6s';fl.style.opacity='0';
+      setTimeout(()=>{fl.style.background='#fff';},700);},80);
+  },420);
+}
+
+function showIntroScreen(onDone){
+  _introCb=onDone||null;
+  _introLine=0;_introTyping=false;
+  goScreen('screen-intro');
+  _introLoop();
+  $('intro-speaker').textContent=KAKASHI_LINES[0].spk;
+  _introTypeText(KAKASHI_LINES[0].text);
+  $('screen-intro').onclick=_introAdvance;
+  $('intro-skip').onclick=(e)=>{e.stopPropagation();clearInterval(_introTypingRaf);_endIntro();};
+}
+
+/* ════════════════════════════════════════════════════
+   MAIN MENU SCREEN
+════════════════════════════════════════════════════ */
+let _menuRaf=null;
+function _menuLoop(){
+  const cv=$('menu-canvas');if(!cv)return;
+  cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');
+  const W=cv.width,H=cv.height,t=Date.now()*.001;
+  ctx.fillStyle='#05020d';ctx.fillRect(0,0,W,H);
+  // Same star field
+  for(let i=0;i<100;i++){
+    const sx=((54321*i*7919)%W+W)%W;
+    const sy=((54321*i*6271)%H+H)%H;
+    const br=.2+.5*Math.abs(Math.sin(t*.6+i));
+    ctx.fillStyle=`rgba(255,255,255,${br*.5})`;
+    ctx.fillRect(sx,sy,1,1);
+  }
+  // Subtle bottom ember glow
+  const vig=ctx.createRadialGradient(W*.5,H,0,W*.5,H,W*.6);
+  vig.addColorStop(0,`rgba(255,80,0,${.06+Math.sin(t*.5)*.02})`);
+  vig.addColorStop(1,'transparent');
+  ctx.fillStyle=vig;ctx.fillRect(0,0,W,H);
+  // Edge vignette
+  const ev=ctx.createRadialGradient(W*.5,H*.5,H*.2,W*.5,H*.5,H*.8);
+  ev.addColorStop(0,'transparent');ev.addColorStop(1,'rgba(5,2,13,.7)');
+  ctx.fillStyle=ev;ctx.fillRect(0,0,W,H);
+  _menuRaf=requestAnimationFrame(_menuLoop);
+}
+
+function showMenuScreen(){
+  if(_menuRaf)cancelAnimationFrame(_menuRaf);
+  goScreen('screen-menu');
+  _menuLoop();
+}
+
+function showCreditsModal(){
+  $('modal-title').textContent='📜 CREDITS';
+  $('modal-body').innerHTML=`
+    <div style="font-size:7px;line-height:2.2;color:#aaa;">
+      <div style="color:#ffd700;margin-bottom:10px;font-size:8px;">BOOSG — Naruto Yugen</div>
+      <div>Tales of the Ninja World</div>
+      <div style="color:#666;margin:8px 0 4px;">── ENTWICKLUNG ──</div>
+      <div>Game Design &amp; Code: <span style="color:#ff6600;">Fernando</span></div>
+      <div>Pixel Art &amp; Lore: <span style="color:#ff6600;">Fernando</span></div>
+      <div style="color:#666;margin:8px 0 4px;">── TECHNOLOGIE ──</div>
+      <div>Vanilla HTML5 Canvas</div>
+      <div>Kein Framework · Pure JS</div>
+      <div style="color:#666;margin:8px 0 4px;">── INSPIRIERT VON ──</div>
+      <div style="color:#ffcc44;">Naruto © Masashi Kishimoto</div>
+      <div style="font-size:6px;color:#444;margin-top:14px;">Fan-Projekt · Kein kommerzieller Zweck</div>
+    </div>`;
+  const ac=$('modal-actions');ac.innerHTML='';
+  const b=document.createElement('button');b.className='btn btn-sm';b.textContent='◀ Zurück';
+  b.onclick=closeModal;ac.appendChild(b);
+  $('modal-overlay').classList.remove('hidden');
+}
+
+/* ════════════════════════════════════════════════════
+   CHARACTER BUILD SCREEN
+════════════════════════════════════════════════════ */
+const CB_HAIR_STYLES=[
+  {id:0,label:'Spiky'},
+  {id:1,label:'Gerade'},
+  {id:2,label:'Kurz'},
+  {id:3,label:'Zopf'},
+  {id:4,label:'Lang'},
+];
+const CB_HAIR_COLORS=['#ffcc00','#222222','#8b4513','#ffffff','#cc2222','#2244cc','#ff88cc','#aaaaaa'];
+const CB_HB_COLORS  =['#2255cc','#cc2222','#111111','#226622','#cccccc','#cc8822'];
+const CB_SKIN_COLORS=['#f0b070','#fde0c0','#e8a060','#c07040','#8b5a2b'];
+const CB_TOP_COLORS =['#ff6600','#cc2200','#1133cc','#eeeeee','#111111','#227722','#7722cc','#888888'];
+const CB_PANTS_COLORS=['#1a3a6a','#111111','#dddddd','#1a3a1a','#7a1a1a','#555555'];
+const CB_GL_COLORS  =['#222222','#eeeeee','#888888','#1a2a5a'];
+const CB_ACC_LIST   =[
+  {id:'none',label:'Keine'},
+  {id:'glasses',label:'Brille'},
+  {id:'mask',label:'Maske'},
+  {id:'anbu',label:'ANBU'},
+];
+
+let _cbName='Shinobi';
+
+function _cbMakeSwatch(color,container,field){
+  const d=document.createElement('div');
+  d.className='cb-swatch'+(G.look[field]===color?' sel':'');
+  d.style.background=color;
+  d.style.borderColor=color==='#ffffff'?'#999':'transparent';
+  d.onclick=()=>{G.look[field]=color;_cbRefreshSwatches(container,field);_cbRender();};
+  container.appendChild(d);
+}
+function _cbRefreshSwatches(container,field){
+  container.querySelectorAll('.cb-swatch').forEach(s=>{
+    s.classList.toggle('sel',s.style.background===G.look[field]||
+      (G.look[field]==='#ffffff'&&s.style.background==='rgb(255, 255, 255)')||
+      (s.style.background.replace(/\s/g,'')===G.look[field]));
+  });
+}
+function _cbBuildSection(containerId,colors,field){
+  const c=$( containerId);if(!c)return;
+  colors.forEach(col=>_cbMakeSwatch(col,c,field));
+}
+
+function _cbRender(){
+  const canvas=$('cb-canvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,120,160);
+  // background
+  ctx.fillStyle='#08041a';ctx.fillRect(0,0,120,160);
+  // shadow circle under feet
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.beginPath();ctx.ellipse(60,130,18,5,0,0,Math.PI*2);ctx.fill();
+  // draw at 3x scale centered
+  ctx.save();
+  ctx.scale(3,3);
+  drawPlayerSprite(ctx,20,40,Math.sin(Date.now()*.003)*20,0,1);
+  ctx.restore();
+  // name at bottom
+  ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
+  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=8;
+  ctx.fillText(_cbName,60,152);ctx.shadowBlur=0;
+}
+
+let _cbAnimFrame=null;
+function _cbStartAnim(){
+  function loop(){_cbRender();_cbAnimFrame=requestAnimationFrame(loop);}
+  loop();
+}
+function _cbStopAnim(){if(_cbAnimFrame){cancelAnimationFrame(_cbAnimFrame);_cbAnimFrame=null;}}
+
+function _cbSetHairStyle(id){
+  G.look.hairStyle=id;
+  $('cb-hair-style-btns').querySelectorAll('.cb-style-btn').forEach(b=>{
+    b.classList.toggle('sel',+b.dataset.style===id);
+  });
+  _cbRender();
+}
+
+function _cbSetAccessory(id){
+  G.look.accessory=id;
+  $('cb-acc-btns').querySelectorAll('.cb-acc-btn').forEach(b=>{
+    b.classList.toggle('sel',b.dataset.acc===id);
+  });
+  _cbRender();
+}
+
+function _cbRandomize(){
+  const rnd=arr=>arr[Math.random()*arr.length|0];
+  G.look.hairStyle=Math.random()*5|0;
+  G.look.hairColor=rnd(CB_HAIR_COLORS);
+  G.look.headband=Math.random()>.25;
+  G.look.headbandColor=rnd(CB_HB_COLORS);
+  G.look.skin=rnd(CB_SKIN_COLORS);
+  G.look.topColor=rnd(CB_TOP_COLORS);
+  G.look.pantsColor=rnd(CB_PANTS_COLORS);
+  G.look.gloves=Math.random()>.5;
+  G.look.gloveColor=rnd(CB_GL_COLORS);
+  G.look.accessory=rnd(CB_ACC_LIST).id;
+  _cbSyncUI();
+  _cbRender();
+}
+
+function _cbSyncUI(){
+  // hair style buttons
+  $('cb-hair-style-btns').querySelectorAll('.cb-style-btn').forEach(b=>b.classList.toggle('sel',+b.dataset.style===G.look.hairStyle));
+  // swatches
+  [['cb-hair-color-sw','hairColor'],['cb-hb-color-sw','headbandColor'],
+   ['cb-skin-color-sw','skin'],['cb-top-color-sw','topColor'],
+   ['cb-pants-color-sw','pantsColor'],['cb-gl-color-sw','gloveColor']].forEach(([id,field])=>{
+    const c=$(id);if(!c)return;
+    c.querySelectorAll('.cb-swatch').forEach(s=>{
+      const bg=s.style.backgroundColor;
+      const hex='#'+[...bg.match(/\d+/g)].slice(0,3).map(n=>(+n).toString(16).padStart(2,'0')).join('');
+      s.classList.toggle('sel',hex===G.look[field]);
+    });
+  });
+  // toggles
+  const hbt=$('cb-hb-toggle');
+  hbt.className='cb-toggle'+(G.look.headband?' on':'');
+  hbt.textContent=G.look.headband?'✓ AN':'✗ AUS';
+  const glt=$('cb-gl-toggle');
+  glt.className='cb-toggle'+(G.look.gloves?' on':'');
+  glt.textContent=G.look.gloves?'✓ AN':'✗ AUS';
+  // accessories
+  $('cb-acc-btns').querySelectorAll('.cb-acc-btn').forEach(b=>b.classList.toggle('sel',b.dataset.acc===G.look.accessory));
+}
+
+function initCharBuild(name){
+  _cbName=name||'Shinobi';
+  const nd=$('cb-name-disp');if(nd)nd.textContent=_cbName;
+  // build hair style buttons
+  const hsBtns=$('cb-hair-style-btns');hsBtns.innerHTML='';
+  CB_HAIR_STYLES.forEach(s=>{
+    const b=document.createElement('button');
+    b.className='cb-style-btn'+(G.look.hairStyle===s.id?' sel':'');
+    b.textContent=s.label;b.dataset.style=s.id;
+    b.onclick=()=>_cbSetHairStyle(s.id);
+    hsBtns.appendChild(b);
+  });
+  // build color swatches
+  $('cb-hair-color-sw').innerHTML='';  CB_HAIR_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-hair-color-sw'),'hairColor'));
+  $('cb-hb-color-sw').innerHTML='';   CB_HB_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-hb-color-sw'),'headbandColor'));
+  $('cb-skin-color-sw').innerHTML=''; CB_SKIN_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-skin-color-sw'),'skin'));
+  $('cb-top-color-sw').innerHTML='';  CB_TOP_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-top-color-sw'),'topColor'));
+  $('cb-pants-color-sw').innerHTML='';CB_PANTS_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-pants-color-sw'),'pantsColor'));
+  $('cb-gl-color-sw').innerHTML='';   CB_GL_COLORS.forEach(c=>_cbMakeSwatch(c,$('cb-gl-color-sw'),'gloveColor'));
+  // accessories
+  const accCont=$('cb-acc-btns');accCont.innerHTML='';
+  CB_ACC_LIST.forEach(a=>{
+    const b=document.createElement('button');
+    b.className='cb-acc-btn'+(G.look.accessory===a.id?' sel':'');
+    b.textContent=a.label;b.dataset.acc=a.id;
+    b.onclick=()=>_cbSetAccessory(a.id);
+    accCont.appendChild(b);
+  });
+  // toggle listeners
+  $('cb-hb-toggle').onclick=()=>{
+    G.look.headband=!G.look.headband;
+    const t=$('cb-hb-toggle');
+    t.className='cb-toggle'+(G.look.headband?' on':'');
+    t.textContent=G.look.headband?'✓ AN':'✗ AUS';
+    _cbRender();
+  };
+  $('cb-gl-toggle').onclick=()=>{
+    G.look.gloves=!G.look.gloves;
+    const t=$('cb-gl-toggle');
+    t.className='cb-toggle'+(G.look.gloves?' on':'');
+    t.textContent=G.look.gloves?'✓ AN':'✗ AUS';
+    _cbRender();
+  };
+  $('cb-random-btn').onclick=_cbRandomize;
+  $('cb-confirm-btn').onclick=confirmCharBuild;
+  goScreen('screen-char-build');
+  _cbStartAnim();
+}
+
+function confirmCharBuild(){
+  _cbStopAnim();
+  action('INIT_PLAYER',{name:_cbName});
+  goFullscreen();
+  showIntroScreen(()=>{
+    $('lhud').classList.remove('hidden');
+    goScreen('screen-lobby');
+    msg(`Willkommen in Konoha, ${_cbName}!`,'good');
+    msg('Gehe zu einem Gebäude und drücke E zum Betreten.','info');
+  });
+}
+
+// Menu button wiring
+$('menu-start-btn').onclick=()=>{ if(_menuRaf){cancelAnimationFrame(_menuRaf);_menuRaf=null;} showNameModal(); };
+$('menu-char-btn').onclick=()=>{ if(_menuRaf){cancelAnimationFrame(_menuRaf);_menuRaf=null;} initCharBuild(_cbName||'Shinobi'); };
+$('menu-credits-btn').onclick=showCreditsModal;
+
+// Boot: pre-build lobby map, then show start screen
 buildLobbyMap();
 G.lobby={x:13*LTSIZE+16,y:9*LTSIZE+16,facing:1,nearZone:null};
 LCAM.x=G.lobby.x-((window.innerWidth/GAME_SCALE)/(2*LZOOM)); LCAM.y=G.lobby.y-((window.innerHeight/GAME_SCALE)/(2*LZOOM));
-goScreen('screen-lobby');
-setTimeout(showNameModal,200);
+showStartScreen();
+// ── TAB INVENTORY OVERLAY ──
+// ── TAB INVENTORY OVERLAY ──
+const _invOv=document.createElement('div');
+_invOv.id='inv-overlay';
+_invOv.innerHTML=`
+<div class="ov-ttl">
+  <span>📦 INVENTAR (<span id="ov-inv-count">0</span>/20) &nbsp;·&nbsp; 💰 <span id="ov-ryo-lbl">0</span></span>
+  <span class="ov-close">[TAB] schließen</span>
+</div>
+<div class="ov-body">
+  <div class="ov-col">
+    <div class="ov-sec">⚔️ Ausrüstung &amp; Waffen</div>
+    <div class="inv-grid" id="ov-weapon-grid"></div>
+  </div>
+  <div class="ov-col">
+    <div class="ov-sec">🌀 Ninjutsu</div>
+    <div class="inv-grid" id="ov-jutsu-grid"></div>
+  </div>
+</div>
+<div class="ov-consume">
+  <div class="ov-sec">🍜 Verbrauchsgegenstände</div>
+  <div class="inv-grid" id="ov-consume-grid"></div>
+</div>`;
+document.body.appendChild(_invOv);
+let _invOvOpen=false;
+
+function _makeSlot(inv,idx){
+  const s=document.createElement('div');
+  if(inv){
+    const it=ITEMS.find(x=>x.id===inv.id);
+    s.className=`inv-slot occ${inv.eq?' eq':''}`;
+    s.dataset.idx=idx;
+    s.innerHTML=`${inv.eq?'<span class="eq-badge">E</span>':''}<span class="inv-icon">${it?it.icon:'?'}</span><span class="inv-name">${it?it.name:'?'}</span>`;
+  } else {
+    s.className='inv-slot';
+    s.innerHTML='<span style="font-size:16px;color:#1a1030">＋</span>';
+  }
+  return s;
+}
+
+function _fillSection(gridId,filterFn,emptySlots){
+  const g=$(gridId);if(!g)return;g.innerHTML='';
+  const items=G.inventory.map((inv,i)=>({inv,i})).filter(({inv})=>inv&&filterFn(ITEMS.find(x=>x.id===inv.id)));
+  items.forEach(({inv,i})=>g.appendChild(_makeSlot(inv,i)));
+  const blanks=Math.max(0,emptySlots-items.length);
+  for(let i=0;i<blanks;i++){const s=document.createElement('div');s.className='inv-slot';s.innerHTML='<span style="font-size:16px;color:#1a1030">＋</span>';g.appendChild(s);}
+}
+
+function _renderOvInv(){
+  $('ov-inv-count').textContent=G.inventory.length;
+  $('ov-ryo-lbl').textContent=G.ryo||0;
+  _fillSection('ov-weapon-grid', it=>it&&(it.type==='weapon'), 4);
+  _fillSection('ov-jutsu-grid',  it=>it&&(it.type==='jutsu'),  4);
+  _fillSection('ov-consume-grid',it=>it&&(it.type==='consume'),6);
+}
+
+function toggleInvOverlay(){
+  _invOvOpen=!_invOvOpen;
+  if(_invOvOpen){_renderOvInv();_invOv.classList.add('open');}
+  else _invOv.classList.remove('open');
+}
+
+_invOv.addEventListener('click',e=>{
+  const s=e.target.closest('[data-idx]');
+  if(s){_invModal(parseInt(s.dataset.idx));setTimeout(_renderOvInv,50);}
+});
+document.addEventListener('keydown',e=>{if(e.code==='Tab'){e.preventDefault();toggleInvOverlay();}});
 </script>
 </body>
 </html>

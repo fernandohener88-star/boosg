@@ -98,6 +98,11 @@
   .btn-y{background:var(--y);color:#000}.btn-y:hover{background:var(--y2)}
   .btn-o{border:1px solid var(--line);color:var(--g)}.btn-o:hover{border-color:rgba(255,255,255,.28);color:var(--w)}
 
+  /* ── NEUSTADT GALLERY ── */
+  .ns-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+  .ns-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .2s,transform .2s}
+  .ns-dot.on{background:var(--y);transform:scale(1.3)}
+
   /* ── ÜBER UNS ── */
   section.about{background:var(--b0);padding:120px 48px;position:relative;overflow:hidden}
   .about-deco{position:absolute;top:-30px;left:-10px;font-family:var(--display);font-size:340px;font-weight:900;text-transform:uppercase;color:rgba(255,255,255,.022);pointer-events:none;white-space:nowrap;line-height:1;z-index:0}
@@ -273,10 +278,17 @@
     </div>
   </article>
 
-  <article class="card">
-    <div class="card-img">
-      <img src="https://images.unsplash.com/photo-1504807417934-b49a5a1f6a0e?auto=format&fit=crop&w=800&q=75" alt="Neustadt" onerror="this.parentElement.style.background='#1f1f1f'">
+  <article class="card" id="card-neustadt">
+    <div class="card-img" style="position:relative;overflow:hidden">
+      <img id="ns-img" src="img/filiale_00.webp" alt="Neustadt Außenansicht" style="width:100%;height:100%;object-fit:cover;display:block;transition:opacity .35s">
       <span class="status open">Geöffnet</span>
+      <div class="ns-dots">
+        <span class="ns-dot on" onclick="nsSwitch(0)"></span>
+        <span class="ns-dot" onclick="nsSwitch(1)"></span>
+        <span class="ns-dot" onclick="nsSwitch(2)"></span>
+        <span class="ns-dot" onclick="nsSwitch(3)"></span>
+        <span class="ns-dot" onclick="nsSwitch(4)"></span>
+      </div>
     </div>
     <div class="card-body">
       <h3>Neustadt<small>an der Weinstraße</small></h3>
@@ -461,5 +473,24 @@
   </div>
 </footer>
 
+<script>
+  const nsSrcs = [
+    'img/filiale_00.webp',
+    'img/filiale_01.webp',
+    'img/filiale_02.webp',
+    'img/filiale_03.webp',
+    'img/filiale_04.webp'
+  ];
+  const nsAlts = ['Außenansicht','Innenraum','Screens & Tresen','Spielbereich','Einzelplätze'];
+  function nsSwitch(i) {
+    const img = document.getElementById('ns-img');
+    img.style.opacity = '0';
+    setTimeout(() => { img.src = nsSrcs[i]; img.alt = nsAlts[i]; img.style.opacity = '1'; }, 200);
+    document.querySelectorAll('.ns-dot').forEach((d,j) => d.classList.toggle('on', i===j));
+  }
+  // Auto-cycle every 4s
+  let nsCur = 0;
+  setInterval(() => { nsCur = (nsCur + 1) % nsSrcs.length; nsSwitch(nsCur); }, 4000);
+</script>
 </body>
 </html>

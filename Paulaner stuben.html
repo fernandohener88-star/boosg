@@ -239,17 +239,19 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 /* ════════════════════════════════════════════════════════════
    SECTION: HIGHLIGHTS
    ════════════════════════════════════════════════════════════ */
-.highlights{background:linear-gradient(180deg,#1a2a4a,#243552);color:var(--brand-cream)}
+.highlights{background:var(--brand-stone);color:var(--ink)}
 .hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.highlights .sec-head h2{color:var(--brand-navy)}
+.highlights .sec-head .kicker{color:var(--brand-gold)}
 .hl-card{
-  background:rgba(255,255,255,.06);border:1px solid rgba(184,152,46,.25);border-radius:8px;padding:44px 34px;
+  background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:44px 34px;
   text-align:center;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s;
 }
 .hl-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--brand-gold),transparent)}
-.hl-card:hover{transform:translateY(-8px);border-color:var(--brand-gold);box-shadow:0 26px 50px -24px rgba(0,0,0,.5)}
-.hl-card .icon{width:70px;height:70px;margin:0 auto 24px;color:var(--brand-gold-lt)}
-.hl-card h3{font-size:27px;color:var(--brand-gold-lt);margin-bottom:14px}
-.hl-card p{color:var(--cream-soft);font-size:15.5px}
+.hl-card:hover{transform:translateY(-8px);border-color:var(--brand-gold);box-shadow:0 20px 40px -16px rgba(184,152,46,.25)}
+.hl-card .icon{width:70px;height:70px;margin:0 auto 24px;color:var(--brand-navy)}
+.hl-card h3{font-size:27px;color:var(--brand-navy);margin-bottom:14px}
+.hl-card p{color:var(--ink-soft);font-size:15.5px}
 .hl-cta{text-align:center;margin-top:54px}
 
 /* ════════════════════════════════════════════════════════════
@@ -330,12 +332,12 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 /* ════════════════════════════════════════════════════════════
    SECTION: ÖFFNUNGSZEITEN
    ════════════════════════════════════════════════════════════ */
-.zeiten{background:linear-gradient(160deg,#e8f0fb,#d6e4f7);color:var(--ink)}
+.zeiten{background:var(--brand-cream);color:var(--ink)}
 .zeiten-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:46px}
 .zeiten .sec-head h2{color:var(--brand-navy)}
 .zeiten .sec-head .kicker{color:var(--brand-gold)}
-.zeit-card{background:#fff;border:1px solid rgba(0,48,135,.15);border-radius:10px;padding:38px 32px;text-align:center;box-shadow:0 4px 20px rgba(0,48,135,.08)}
-.zeit-card .icon{width:48px;height:48px;margin:0 auto 18px;color:var(--brand-navy)}
+.zeit-card{background:#fff;border:1px solid rgba(184,152,46,.25);border-radius:10px;padding:38px 32px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.zeit-card .icon{width:48px;height:48px;margin:0 auto 18px;color:var(--brand-gold)}
 .zeit-card h3{font-size:23px;color:var(--brand-navy);margin-bottom:14px}
 .zeit-card .big{font-family:var(--font-serif);font-size:30px;color:var(--brand-navy);font-weight:700}
 .zeit-card .small{color:var(--ink-soft);font-size:15px;margin-top:6px}

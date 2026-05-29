@@ -10,40 +10,20 @@
 <script src="image-slot.js"></script>
 <style>
   :root {
-    --bg: #F1ECDF;
-    --bg-deep: #E7E0CE;
-    --ink: #14110F;
-    --ink-soft: #5C544A;
-    --line: #1411101A;
-    --surface: #FFFFFF;
-    --green: #1E4A37;
-    --green-deep: #143226;
-    --red: #D8431B;
-    --gold: #C8964A;
+    --bg: #111111;
+    --bg-deep: #0A0A0A;
+    --ink: #F5F5F5;
+    --ink-soft: #999999;
+    --line: #FFFFFF18;
+    --surface: #1A1A1A;
+    --green: #F5C400;
+    --green-deep: #C9A000;
+    --red: #F5C400;
+    --gold: #F5C400;
 
     --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
     --body: 'Manrope', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-  [data-theme="night"] {
-    --bg: #14110F;
-    --bg-deep: #0B0908;
-    --ink: #F4EFE3;
-    --ink-soft: #A89F90;
-    --line: #F4EFE320;
-    --surface: #1E1B17;
-    --green: #4A9C7A;
-    --green-deep: #2C6B53;
-    --red: #FF6A3D;
-    --gold: #E8B968;
-  }
-  [data-theme="pfalz"] {
-    --bg: #EFE9DB;
-    --bg-deep: #DCD2B8;
-    --green: #6E1F2B;
-    --green-deep: #4A1219;
-    --red: #C8964A;
-    --gold: #1E4A37;
   }
 
   * { box-sizing: border-box; }
@@ -212,8 +192,8 @@
 
   /* ───── TICKER ───── */
   .ticker {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--gold);
+    color: #111111;
     padding: 18px 0;
     overflow: hidden;
     border-top: 1px solid var(--line);
@@ -232,7 +212,7 @@
   }
   .ticker-track span { display: inline-flex; align-items: center; gap: 56px; }
   .ticker-track span::after {
-    content: '●'; color: var(--red); font-size: 14px;
+    content: '●'; color: #111111; opacity: 0.4; font-size: 14px;
   }
   @keyframes scroll {
     from { transform: translateX(0); }
@@ -365,27 +345,26 @@
 
   /* ───── ÜBER UNS ───── */
   section.about {
-    background: var(--ink);
-    color: var(--bg);
+    background: #0A0A0A;
+    color: var(--ink);
     padding: 100px 40px;
   }
-  section.about [data-theme] { color: var(--bg); }
   .about-inner {
     max-width: 1440px; margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 64px; align-items: start;
   }
-  .about-inner .eyebrow { color: #FFFFFF80; }
+  .about-inner .eyebrow { color: #FFFFFF60; }
   .about-inner h2 {
-    color: var(--bg);
+    color: var(--ink);
     font-size: clamp(56px, 7vw, 120px);
     margin-top: 16px;
   }
-  .about-inner h2 .red { color: var(--red); }
+  .about-inner h2 .red { color: var(--gold); }
   .about-text { display: flex; flex-direction: column; gap: 24px; padding-top: 64px; }
   .about-text p { font-size: 18px; line-height: 1.6; color: #FFFFFFB0; margin: 0; }
-  .about-text p b { color: var(--bg); font-weight: 600; }
+  .about-text p b { color: #FFFFFF; font-weight: 600; }
   .about-stats {
     grid-column: 1 / -1;
     margin-top: 64px; padding-top: 48px;
@@ -396,9 +375,9 @@
     display: block;
     font-family: var(--display); font-size: 88px;
     font-weight: 800; line-height: 1;
-    color: var(--bg);
+    color: #FFFFFF;
   }
-  .about-stats div .accent { color: var(--red); }
+  .about-stats div .accent { color: var(--gold); }
   .about-stats div span {
     display: block; margin-top: 8px;
     font-size: 13px; color: #FFFFFF90;
@@ -406,8 +385,8 @@
 
   /* ───── JOBS ───── */
   section.jobs {
-    background: var(--green);
-    color: #fff;
+    background: var(--gold);
+    color: #111111;
     padding: 0;
     position: relative; overflow: hidden;
   }
@@ -420,27 +399,27 @@
     position: relative; z-index: 2;
   }
   .jobs h2 {
-    color: #fff;
+    color: #111111;
     font-size: clamp(64px, 9vw, 144px);
     line-height: 0.9;
   }
   .jobs h2 em {
     font-style: italic;
-    color: var(--bg);
+    color: #111111;
+    opacity: 0.6;
   }
   .jobs .lede {
     margin-top: 24px;
     font-size: 18px;
-    color: #FFFFFFC0;
+    color: #11111190;
     max-width: 460px;
   }
   .openings {
     display: flex; flex-direction: column; gap: 12px;
   }
   .opening {
-    background: #FFFFFF10;
-    backdrop-filter: blur(8px);
-    border: 1px solid #FFFFFF20;
+    background: #00000010;
+    border: 1px solid #00000020;
     padding: 24px;
     border-radius: 10px;
     display: flex; justify-content: space-between; align-items: center;
@@ -448,23 +427,24 @@
     transition: background .2s;
     cursor: pointer;
   }
-  .opening:hover { background: #FFFFFF20; }
+  .opening:hover { background: #00000018; }
   .opening .role {
     font-family: var(--display);
     font-size: 26px;
     font-weight: 700;
     text-transform: uppercase;
+    color: #111111;
   }
   .opening .loc {
     font-family: var(--mono); font-size: 12px;
     letter-spacing: 0.1em; text-transform: uppercase;
-    color: #FFFFFFB0;
+    color: #11111170;
     margin-top: 4px;
   }
   .opening .arrow {
     width: 44px; height: 44px;
     border-radius: 50%;
-    background: var(--bg); color: var(--green);
+    background: #111111; color: var(--gold);
     display: grid; place-items: center;
     font-size: 18px; flex: 0 0 44px;
   }
@@ -473,7 +453,7 @@
     transform: translateY(-50%) rotate(-12deg);
     font-family: var(--display);
     font-size: 320px; font-weight: 900;
-    color: #FFFFFF06;
+    color: #00000008;
     pointer-events: none;
     white-space: nowrap;
     z-index: 1;
@@ -526,53 +506,6 @@
     letter-spacing: 0.08em;
   }
   .age-badge b { font-size: 16px; }
-
-  /* ───── TWEAKS PANEL ───── */
-  .tweaks-panel {
-    position: fixed; right: 24px; bottom: 24px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 18px;
-    width: 240px;
-    box-shadow: 0 16px 40px #14110F30;
-    z-index: 100;
-    display: none;
-  }
-  .tweaks-panel.on { display: block; }
-  .tweaks-panel header {
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: var(--mono); font-size: 12px;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: var(--ink-soft); margin-bottom: 14px;
-  }
-  .tweaks-panel header button {
-    background: none; border: none; color: var(--ink-soft);
-    cursor: pointer; font-size: 18px; padding: 0;
-  }
-  .tweaks-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-  .tweaks-row label { font-size: 12px; color: var(--ink-soft); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; }
-  .tweaks-row .swatches { display: flex; gap: 6px; }
-  .swatch {
-    flex: 1; height: 38px; border-radius: 6px;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: transform .15s;
-    position: relative;
-    overflow: hidden;
-  }
-  .swatch.on { border-color: var(--ink); }
-  .swatch::after {
-    content: attr(data-label);
-    position: absolute; bottom: 2px; left: 0; right: 0;
-    text-align: center;
-    font-family: var(--mono); font-size: 9px;
-    color: rgba(255,255,255,0.95);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-  .swatch.light { background: linear-gradient(135deg, #1E4A37 50%, #D8431B 50%); }
-  .swatch.night { background: linear-gradient(135deg, #14110F 50%, #FF6A3D 50%); }
-  .swatch.pfalz { background: linear-gradient(135deg, #6E1F2B 50%, #C8964A 50%); }
 
   /* ───── RESPONSIVE ───── */
   @media (max-width: 1024px) {
@@ -860,7 +793,7 @@
   <div class="jobs-decor">JOBS · JOBS · JOBS</div>
   <div class="jobs-inner">
     <div>
-      <span class="eyebrow" style="color:#FFFFFF80">03 — Wir suchen dich</span>
+      <span class="eyebrow" style="color:#11111170">03 — Wir suchen dich</span>
       <h2>Komm<br />ans <em>Tresen.</em></h2>
       <p class="lede">
         Wir wachsen — und brauchen Leute, die Fußball lieben,
@@ -957,45 +890,6 @@
   </div>
 </footer>
 
-<!-- ─────────────── TWEAKS ─────────────── -->
-<div class="tweaks-panel" id="tweaksPanel">
-  <header>
-    <span>Tweaks</span>
-    <button id="closeTweaks">×</button>
-  </header>
-  <div class="tweaks-row">
-    <label>Farbschema</label>
-    <div class="swatches">
-      <div class="swatch light on" data-theme="" data-label="Hell"></div>
-      <div class="swatch night" data-theme="night" data-label="Nacht"></div>
-      <div class="swatch pfalz" data-theme="pfalz" data-label="Pfalz"></div>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ── Edit mode protocol ──
-  const panel = document.getElementById('tweaksPanel');
-  window.addEventListener('message', (e) => {
-    if (e.data?.type === '__activate_edit_mode') panel.classList.add('on');
-    if (e.data?.type === '__deactivate_edit_mode') panel.classList.remove('on');
-  });
-  document.getElementById('closeTweaks').addEventListener('click', () => {
-    panel.classList.remove('on');
-    window.parent.postMessage({type: '__edit_mode_dismissed'}, '*');
-  });
-  window.parent.postMessage({type: '__edit_mode_available'}, '*');
-
-  // ── Theme switch ──
-  const swatches = document.querySelectorAll('.swatch');
-  swatches.forEach(sw => sw.addEventListener('click', () => {
-    swatches.forEach(s => s.classList.remove('on'));
-    sw.classList.add('on');
-    const theme = sw.dataset.theme;
-    if (theme) document.documentElement.setAttribute('data-theme', theme);
-    else document.documentElement.removeAttribute('data-theme');
-  }));
-</script>
 
 </body>
 </html>

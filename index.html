@@ -61,7 +61,7 @@
     "opens": "11:00",
     "closes": "21:00"
   }],
-  "hasMap": "https://www.google.com/maps?q=Schleusenstra%C3%9Fe+3,+76829+Landau+in+der+Pfalz"
+  "hasMap": "https://maps.app.goo.gl/JTs9JQk6CjFRWrWS7"
 }
 </script>
 
@@ -156,7 +156,7 @@ button{font-family:inherit}
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
 .brand{display:flex;align-items:center;gap:13px;z-index:1002}
-.brand .crest{width:48px;height:48px;flex:none;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.brand .crest{width:52px;height:52px;flex:none;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
 .brand .word{font-family:var(--font-serif);font-style:italic;font-weight:700;font-size:25px;color:var(--brand-gold-lt);white-space:nowrap;letter-spacing:.3px}
 .nav-links{display:flex;align-items:center;gap:4px;list-style:none}
 .nav-links a{
@@ -476,13 +476,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a href="#home" class="brand" aria-label="Paulanerstuben – zur Startseite">
-      <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
-        <circle cx="50" cy="50" r="48" fill="#021c4d" stroke="#B8982E" stroke-width="3"/>
-        <circle cx="50" cy="50" r="33" fill="#C8102E" stroke="#B8982E" stroke-width="1.5"/>
-        <text x="50" y="51" text-anchor="middle" dominant-baseline="central" font-family="Playfair Display,serif" font-weight="800" font-size="40" fill="#FAF6EE">P</text>
-        <path id="navArc" d="M 18 50 A 32 32 0 0 1 82 50" fill="none"/>
-        <text font-family="Lato,sans-serif" font-weight="900" font-size="8.5" letter-spacing="2.5" fill="#D4AF55"><textPath href="#navArc" startOffset="50%" text-anchor="middle">PAULANER</textPath></text>
-      </svg>
+      <img src="assets/img/logo-crest.png" class="crest" alt="Paulaner München Wappen"/>
       <span class="word">Paulanerstuben</span>
     </a>
     <nav aria-label="Hauptnavigation">
@@ -567,7 +561,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     </div>
     <div class="will-illus reveal fade-left">
       <div class="logo-card">
-        <img src="assets/img/logo-full.png" alt="Paulanerstuben Logo – Paulaner München Wappen mit Schriftzug Paulanerstuben"/>
+        <img src="assets/img/logo-transparent.png" alt="Paulanerstuben Logo – Paulaner München Wappen mit Schriftzug Paulanerstuben"/>
       </div>
     </div>
   </div>
@@ -769,7 +763,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
       <div class="map-card reveal fade-left">
         <iframe
           title="Standort Paulanerstuben – Schleusenstraße 3, 76829 Landau in der Pfalz"
-          src="https://www.google.com/maps?q=Schleusenstra%C3%9Fe%203%2C%2076829%20Landau%20in%20der%20Pfalz&output=embed"
+          src="https://www.google.com/maps?q=Paulanerstuben+Landau+Schleusenstra%C3%9Fe+3+76829&output=embed"
           loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
       </div>
     </div>
@@ -784,11 +778,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     <div class="wrap foot-grid">
       <div class="foot-brand">
         <div class="brand">
-          <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="48" fill="#021c4d" stroke="#B8982E" stroke-width="3"/>
-            <circle cx="50" cy="50" r="33" fill="#C8102E" stroke="#B8982E" stroke-width="1.5"/>
-            <text x="50" y="51" text-anchor="middle" dominant-baseline="central" font-family="Playfair Display,serif" font-weight="800" font-size="40" fill="#FAF6EE">P</text>
-          </svg>
+          <img src="assets/img/logo-crest.png" class="crest" alt="Paulaner München Wappen"/>
           <span class="word">Paulanerstuben</span>
         </div>
         <address>

@@ -239,14 +239,14 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 /* ════════════════════════════════════════════════════════════
    SECTION: HIGHLIGHTS
    ════════════════════════════════════════════════════════════ */
-.highlights{background:linear-gradient(180deg,var(--brand-dark),#120c05);color:var(--brand-cream)}
+.highlights{background:linear-gradient(180deg,#1a2a4a,#243552);color:var(--brand-cream)}
 .hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 .hl-card{
-  background:rgba(255,255,255,.03);border:1px solid rgba(184,152,46,.25);border-radius:8px;padding:44px 34px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(184,152,46,.25);border-radius:8px;padding:44px 34px;
   text-align:center;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s;
 }
 .hl-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--brand-gold),transparent)}
-.hl-card:hover{transform:translateY(-8px);border-color:var(--brand-gold);box-shadow:0 26px 50px -24px rgba(0,0,0,.7)}
+.hl-card:hover{transform:translateY(-8px);border-color:var(--brand-gold);box-shadow:0 26px 50px -24px rgba(0,0,0,.5)}
 .hl-card .icon{width:70px;height:70px;margin:0 auto 24px;color:var(--brand-gold-lt)}
 .hl-card h3{font-size:27px;color:var(--brand-gold-lt);margin-bottom:14px}
 .hl-card p{color:var(--cream-soft);font-size:15.5px}
@@ -323,20 +323,22 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 .tl-item:not(:last-child) .tl-dot::after{content:"";position:absolute;left:50%;top:18px;transform:translateX(-50%);width:2px;height:calc(100% + 10px);background:linear-gradient(180deg,var(--brand-gold),rgba(184,152,46,.3))}
 .tl-body h4{font-family:var(--font-serif);font-size:20px;color:var(--brand-navy);margin-bottom:4px}
 .tl-body p{font-size:15px;color:var(--ink-soft);margin:0}
-.ueber-illus{background:linear-gradient(160deg,var(--brand-navy),var(--brand-navy-deep));border-radius:12px;padding:50px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-lift);position:relative;overflow:hidden}
-.ueber-illus::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 70% 20%,rgba(184,152,46,.22),transparent 60%)}
-.ueber-illus svg{width:100%;max-width:320px;position:relative;z-index:1}
+.ueber-illus{border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lift);position:relative;min-height:400px}
+.ueber-illus img{width:100%;height:100%;object-fit:cover;display:block}
+.ueber-illus::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(2,16,42,.4));pointer-events:none}
 
 /* ════════════════════════════════════════════════════════════
    SECTION: ÖFFNUNGSZEITEN
    ════════════════════════════════════════════════════════════ */
-.zeiten{background:linear-gradient(160deg,var(--brand-navy),var(--brand-navy-deep));color:var(--brand-cream)}
+.zeiten{background:linear-gradient(160deg,#e8f0fb,#d6e4f7);color:var(--ink)}
 .zeiten-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:46px}
-.zeit-card{background:rgba(0,0,0,.2);border:1px solid rgba(184,152,46,.3);border-radius:10px;padding:38px 32px;text-align:center}
-.zeit-card .icon{width:48px;height:48px;margin:0 auto 18px;color:var(--brand-gold-lt)}
-.zeit-card h3{font-size:23px;color:var(--brand-gold-lt);margin-bottom:14px}
-.zeit-card .big{font-family:var(--font-serif);font-size:30px;color:#fff;font-weight:700}
-.zeit-card .small{color:var(--cream-soft);font-size:15px;margin-top:6px}
+.zeiten .sec-head h2{color:var(--brand-navy)}
+.zeiten .sec-head .kicker{color:var(--brand-gold)}
+.zeit-card{background:#fff;border:1px solid rgba(0,48,135,.15);border-radius:10px;padding:38px 32px;text-align:center;box-shadow:0 4px 20px rgba(0,48,135,.08)}
+.zeit-card .icon{width:48px;height:48px;margin:0 auto 18px;color:var(--brand-navy)}
+.zeit-card h3{font-size:23px;color:var(--brand-navy);margin-bottom:14px}
+.zeit-card .big{font-family:var(--font-serif);font-size:30px;color:var(--brand-navy);font-weight:700}
+.zeit-card .small{color:var(--ink-soft);font-size:15px;margin-top:6px}
 .zeit-card .ruhe-badge{display:inline-block;background:var(--brand-red);color:#fff;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;font-size:14px;padding:8px 20px;border-radius:30px;margin-top:4px}
 .zeiten-cta{text-align:center}
 
@@ -658,33 +660,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
       </div>
       <p>Vom Holzkohlegrill kommen saftige Lendenspieße und Bifteki, aus dem Backofen knusprige Flammkuchen — Pfälzer Saumagen trifft auf gegrillten Schafskäse. Eine herzliche Einladung, sich Zeit zu nehmen.</p>
     </div>
-    <div class="ueber-illus reveal fade-left" aria-hidden="true">
-      <svg viewBox="0 0 300 300" fill="none">
-        <g stroke="#D4AF55" stroke-width="2.4" stroke-linecap="round">
-          <path d="M62 252 C 118 198, 150 128, 168 54"/>
-          <g fill="#B8982E" stroke="none">
-            <ellipse cx="118" cy="180" rx="13" ry="7" transform="rotate(-40 118 180)"/>
-            <ellipse cx="142" cy="150" rx="13" ry="7" transform="rotate(-30 142 150)"/>
-            <ellipse cx="158" cy="116" rx="13" ry="7" transform="rotate(-20 158 116)"/>
-            <ellipse cx="98" cy="204" rx="13" ry="7" transform="rotate(-50 98 204)"/>
-          </g>
-          <circle cx="166" cy="84" r="6" fill="#C8102E" stroke="none"/>
-          <circle cx="150" cy="135" r="6" fill="#C8102E" stroke="none"/>
-          <circle cx="130" cy="170" r="6" fill="#C8102E" stroke="none"/>
-        </g>
-        <g stroke="#D4AF55" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M150 120 h70 v110 a14 14 0 0 1 -14 14 h-42 a14 14 0 0 1 -14 -14 z" fill="rgba(212,175,85,.1)"/>
-          <path d="M220 145 h26 a14 14 0 0 1 14 14 v40 a14 14 0 0 1 -14 14 h-26"/>
-          <path d="M150 120 q35 -22 70 0" fill="#FAF6EE" stroke="#FAF6EE"/>
-          <circle cx="168" cy="112" r="11" fill="#FAF6EE" stroke="#FAF6EE"/>
-          <circle cx="190" cy="104" r="13" fill="#FAF6EE" stroke="#FAF6EE"/>
-          <circle cx="210" cy="112" r="10" fill="#FAF6EE" stroke="#FAF6EE"/>
-          <path d="M162 165 h46 M162 185 h46 M162 205 h46" stroke-width="1.6" opacity=".5"/>
-        </g>
-        <g stroke="#D4AF55" stroke-width="2" opacity=".7" fill="none">
-          <path d="M40 270 h8 v-8 h8 v8 h8 v-8 h8 M40 270 v-16 h24"/>
-        </g>
-      </svg>
+    <div class="ueber-illus reveal fade-left">
+      <img src="assets/img/restaurant.jpg" alt="Gemütliche Atmosphäre in den Paulanerstuben Landau"/>
     </div>
   </div>
 </section>

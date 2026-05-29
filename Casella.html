@@ -67,6 +67,9 @@ h2{ font-size:clamp(2.2rem, 5.2vw, 4.2rem); line-height:1.08; }
 h3{ font-size:clamp(1.4rem, 2.4vw, 1.9rem); line-height:1.18; }
 em, .it{ font-style:italic; color:var(--cream); }
 
+/* em in dark sections must stay light */
+.hero em, .reservado em{ color:rgba(210,120,80,0.95) !important; }
+
 p{ margin:0; }
 p + p{ margin-top:1.15em; }
 
@@ -1131,6 +1134,35 @@ footer .footer-mark{
   .nav-links, .nav .btn{ display:none; }
   .hamburger{ display:inline-block; }
 }
+
+/* ─────────────────────────────────────────────
+   Dark-section text overrides
+   (Hero & Reservado sit on dark photo overlays —
+   all text must be forced back to light)
+   ───────────────────────────────────────────── */
+.hero h1,
+.hero h2,
+.hero h3{ color:#F0E8DC; }
+.hero h1 em,
+.hero h2 em,
+.hero h1 .accent{ color:rgba(210,120,80,0.95); }
+.hero .eyebrow{ color:rgba(196,103,58,0.9); }
+.hero-sub{ color:rgba(240,232,220,0.82) !important; }
+.hero-meta{ color:rgba(240,232,220,0.62) !important; }
+.hero-meta b{ color:rgba(196,103,58,0.95); }
+.scroll-ind{ color:rgba(240,232,220,0.52) !important; }
+.scroll-ind .line{ background:rgba(240,232,220,0.28) !important; }
+
+.reservado h2,
+.reservado h3{ color:#F0E8DC; }
+.reservado .eyebrow{ color:rgba(210,120,90,0.9); }
+.reservado .res-head h2 em{ color:rgba(210,120,90,0.9); }
+.res-card h3{ color:#F0E8DC !important; }
+.res-card .lead{ color:rgba(240,232,220,0.74) !important; }
+.res-card li{ color:rgba(240,232,220,0.64) !important; border-bottom-color:rgba(240,232,220,0.12) !important; }
+.res-card li b{ color:#F0E8DC !important; }
+.res-card ul{ border-top-color:rgba(240,232,220,0.18) !important; }
+.res-card .icon{ color:rgba(210,120,90,0.9); border-color:rgba(210,120,90,0.7); }
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }

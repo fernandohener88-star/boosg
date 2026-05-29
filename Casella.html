@@ -589,6 +589,32 @@ section{ padding:clamp(80px, 11vw, 160px) 0; position:relative; }
   .menu-bar .cell:last-child{ border-bottom:0; }
 }
 
+/* Speisekarte Vorschau / Aufklapp */
+.dish-extra{ display:none; }
+.dish-extra.is-open{ display:block; }
+
+.carta-cta{
+  display:flex; align-items:center; gap:36px;
+  margin:72px 0 0;
+  justify-content:center;
+}
+.carta-cta-line{
+  flex:1; height:1px;
+  background:linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.carta-expand-btn{
+  white-space:nowrap;
+  background:transparent;
+  border-color:var(--terracotta);
+  color:var(--terracotta);
+}
+.carta-expand-btn:hover{
+  background:var(--terracotta);
+  color:#FEFCF8;
+  border-color:var(--terracotta);
+}
+.carta-cta.is-hidden{ display:none; }
+
 /* ─────────────────────────────────────────────
    Die Familie
    ───────────────────────────────────────────── */
@@ -597,8 +623,9 @@ section{ padding:clamp(80px, 11vw, 160px) 0; position:relative; }
   display:grid;
   grid-template-columns:0.85fr 1fr;
   gap:clamp(36px, 6vw, 90px);
-  align-items:stretch;
+  align-items:start;
 }
+.chef-grid > *{ min-width:0; }
 .chef-card{
   position:relative;
   aspect-ratio: 4/5;
@@ -1267,7 +1294,7 @@ footer .footer-mark{
 
 <!-- ─────────────── DIE KARTE ─────────────── -->
 <section id="karte" class="carta" data-screen-label="03 Die Karte">
-  <div class="wrap">
+  <div class="wrap" id="karteWrap">
     <div class="sec-num reveal">— 02 · Die Karte</div>
 
     <div class="carta-head">
@@ -1277,233 +1304,158 @@ footer .footer-mark{
 
     <div class="carta-grid">
 
+      <!-- I. Antipasti -->
       <div class="cat reveal d1">
         <h3 class="cat-title"><span class="n">I.</span> Antipasti</h3>
         <div class="cat-sub">Zum Ankommen</div>
 
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Vitello tonnato</span>
-            <span class="dish-price">14,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Vitello tonnato</span><span class="dish-price">14,50 €</span></div>
           <p class="dish-desc">Dünn aufgeschnittenes Kalbfleisch unter klassischer Thunfisch-Kapern-Crème.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Bruschetta al pomodoro e basilico</span>
-            <span class="dish-price">8,90 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Bruschetta al pomodoro e basilico</span><span class="dish-price">8,90 €</span></div>
           <p class="dish-desc">Geröstetes Landbrot, sonnengereifte Tomaten, Knoblauch, Basilikum, gutes Öl.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Caprese di bufala</span>
-            <span class="dish-price">13,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Caprese di bufala</span><span class="dish-price">13,50 €</span></div>
           <p class="dish-desc">Büffelmozzarella, Tomaten, Basilikum — wie es sein muss, ohne Effekt.</p>
         </article>
 
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Carpaccio di manzo, rucola e grana</span>
-            <span class="dish-price">15,90 €</span>
-          </div>
-          <p class="dish-desc">Hauchdünnes Rinderfilet, Rucola, Parmesan, Zitrone, Olivenöl.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Antipasto della casa <span class="tag">Für 2</span></span>
-            <span class="dish-price">19,50 €</span>
-          </div>
-          <p class="dish-desc">Eine Auswahl vom Haus aus Feinkost-Lager und Küche, wechselnd.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Insalata di rucola, pere e grana</span>
-            <span class="dish-price">11,50 €</span>
-          </div>
-          <p class="dish-desc">Rucola, Birne, Parmesan, Walnuss, Balsamico.</p>
-        </article>
+        <div class="dish-extra">
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Carpaccio di manzo, rucola e grana</span><span class="dish-price">15,90 €</span></div>
+            <p class="dish-desc">Hauchdünnes Rinderfilet, Rucola, Parmesan, Zitrone, Olivenöl.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Antipasto della casa <span class="tag">Für 2</span></span><span class="dish-price">19,50 €</span></div>
+            <p class="dish-desc">Eine Auswahl vom Haus aus Feinkost-Lager und Küche, wechselnd.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Insalata di rucola, pere e grana</span><span class="dish-price">11,50 €</span></div>
+            <p class="dish-desc">Rucola, Birne, Parmesan, Walnuss, Balsamico.</p>
+          </article>
+        </div>
       </div>
 
+      <!-- II. Pasta & Risotti -->
       <div class="cat reveal d2">
         <h3 class="cat-title"><span class="n">II.</span> Pasta &amp; Risotti</h3>
         <div class="cat-sub">Fatta in casa · täglich frisch</div>
 
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Tagliatelle al ragù bolognese</span>
-            <span class="dish-price">14,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Tagliatelle al ragù bolognese</span><span class="dish-price">14,50 €</span></div>
           <p class="dish-desc">Lang geschmortes Rinderragù auf hausgemachten Tagliatelle.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Spaghetti alle vongole veraci</span>
-            <span class="dish-price">17,90 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Spaghetti alle vongole veraci</span><span class="dish-price">17,90 €</span></div>
           <p class="dish-desc">Venusmuscheln, Knoblauch, Petersilie, Weißwein, Olivenöl.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Ravioli ricotta e spinaci, burro e salvia</span>
-            <span class="dish-price">15,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Ravioli ricotta e spinaci, burro e salvia</span><span class="dish-price">15,50 €</span></div>
           <p class="dish-desc">Hausgemachte Ravioli mit Ricotta und Spinat, brauner Salbeibutter.</p>
         </article>
 
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Pappardelle ai funghi porcini</span>
-            <span class="dish-price">17,50 €</span>
-          </div>
-          <p class="dish-desc">Breite Bandnudeln, Steinpilze, Knoblauch, Petersilie, Grana.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Linguine all'arrabbiata</span>
-            <span class="dish-price">13,50 €</span>
-          </div>
-          <p class="dish-desc">Tomaten, Knoblauch, Peperoncino — schlicht und mit Schärfe.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Risotto allo zafferano</span>
-            <span class="dish-price">15,90 €</span>
-          </div>
-          <p class="dish-desc">Carnaroli-Reis, Safran, Parmesan, Butter — minutengenau gerührt.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Pasta della casa <span class="tag">Wechselnd</span></span>
-            <span class="dish-price">Tagespreis</span>
-          </div>
-          <p class="dish-desc">Was Adriano heute morgen vom Markt mitgebracht hat — fragen Sie uns.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Glutenfreie Pasta</span>
-            <span class="dish-price">+ 2,50 €</span>
-          </div>
-          <p class="dish-desc">Jedes Pasta-Gericht auch glutenfrei zubereitbar.</p>
-        </article>
+        <div class="dish-extra">
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Pappardelle ai funghi porcini</span><span class="dish-price">17,50 €</span></div>
+            <p class="dish-desc">Breite Bandnudeln, Steinpilze, Knoblauch, Petersilie, Grana.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Linguine all'arrabbiata</span><span class="dish-price">13,50 €</span></div>
+            <p class="dish-desc">Tomaten, Knoblauch, Peperoncino — schlicht und mit Schärfe.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Risotto allo zafferano</span><span class="dish-price">15,90 €</span></div>
+            <p class="dish-desc">Carnaroli-Reis, Safran, Parmesan, Butter — minutengenau gerührt.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Pasta della casa <span class="tag">Wechselnd</span></span><span class="dish-price">Tagespreis</span></div>
+            <p class="dish-desc">Was Adriano heute morgen vom Markt mitgebracht hat — fragen Sie uns.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Glutenfreie Pasta</span><span class="dish-price">+ 2,50 €</span></div>
+            <p class="dish-desc">Jedes Pasta-Gericht auch glutenfrei zubereitbar.</p>
+          </article>
+        </div>
       </div>
 
+      <!-- III. Secondi -->
       <div class="cat reveal d3">
         <h3 class="cat-title"><span class="n">III.</span> Secondi</h3>
         <div class="cat-sub">Vom Herd und aus dem Ofen</div>
 
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Saltimbocca alla romana</span>
-            <span class="dish-price">22,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Saltimbocca alla romana</span><span class="dish-price">22,50 €</span></div>
           <p class="dish-desc">Kalbsschnitzel, Parmaschinken, Salbei, Marsala — mit Rosmarinkartoffeln.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Filetto di manzo al rosmarino</span>
-            <span class="dish-price">28,90 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Filetto di manzo al rosmarino</span><span class="dish-price">28,90 €</span></div>
           <p class="dish-desc">Rinderfilet, Rosmarinjus, geschmortes Gemüse der Saison.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Branzino al forno</span>
-            <span class="dish-price">24,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Branzino al forno</span><span class="dish-price">24,50 €</span></div>
           <p class="dish-desc">Ganzer Wolfsbarsch aus dem Ofen, Zitrone, Olivenöl, Kräuter.</p>
         </article>
 
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Scaloppine al limone</span>
-            <span class="dish-price">19,90 €</span>
-          </div>
-          <p class="dish-desc">Kalbsschnitzelchen mit Zitrone, Kapern und Petersilie.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Tagliata di manzo, rucola e grana</span>
-            <span class="dish-price">26,50 €</span>
-          </div>
-          <p class="dish-desc">Aufgeschnittenes Rinderfilet, Rucola, Parmesan, Balsamico.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Pollo al limone con verdure</span>
-            <span class="dish-price">17,50 €</span>
-          </div>
-          <p class="dish-desc">Hähnchenbrust, Zitrone, Knoblauch, geröstetes Saisongemüse.</p>
-        </article>
+        <div class="dish-extra">
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Scaloppine al limone</span><span class="dish-price">19,90 €</span></div>
+            <p class="dish-desc">Kalbsschnitzelchen mit Zitrone, Kapern und Petersilie.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Tagliata di manzo, rucola e grana</span><span class="dish-price">26,50 €</span></div>
+            <p class="dish-desc">Aufgeschnittenes Rinderfilet, Rucola, Parmesan, Balsamico.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Pollo al limone con verdure</span><span class="dish-price">17,50 €</span></div>
+            <p class="dish-desc">Hähnchenbrust, Zitrone, Knoblauch, geröstetes Saisongemüse.</p>
+          </article>
+        </div>
       </div>
 
+      <!-- IV. Dolci & Caffè -->
       <div class="cat reveal d4">
         <h3 class="cat-title"><span class="n">IV.</span> Dolci &amp; Caffè</h3>
         <div class="cat-sub">Hausgemacht</div>
 
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Tiramisù della casa</span>
-            <span class="dish-price">7,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Tiramisù della casa</span><span class="dish-price">7,50 €</span></div>
           <p class="dish-desc">Mascarpone, Espresso, Marsala, Kakao — wie Mama es gemacht hat.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Panna cotta ai frutti di bosco</span>
-            <span class="dish-price">6,90 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Panna cotta ai frutti di bosco</span><span class="dish-price">6,90 €</span></div>
           <p class="dish-desc">Mit Waldbeeren-Coulis und Vanille.</p>
         </article>
-
         <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Cantucci e Vin Santo</span>
-            <span class="dish-price">8,50 €</span>
-          </div>
+          <div class="dish-row"><span class="dish-name">Cantucci e Vin Santo</span><span class="dish-price">8,50 €</span></div>
           <p class="dish-desc">Toskanische Mandelkekse mit einem Glas süßem Vin Santo zum Eintunken.</p>
         </article>
 
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Affogato al caffè</span>
-            <span class="dish-price">6,50 €</span>
-          </div>
-          <p class="dish-desc">Vanilleeis, heißer Espresso, optional ein Schuss Amaretto.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Espresso · Cappuccino · Macchiato</span>
-            <span class="dish-price">2,80 – 3,80 €</span>
-          </div>
-          <p class="dish-desc">Bohne von einer Familienrösterei in Triest — die seit Jahrzehnten dieselbe ist.</p>
-        </article>
-
-        <article class="dish">
-          <div class="dish-row">
-            <span class="dish-name">Grappa, Amaro, Limoncello</span>
-            <span class="dish-price">4,50 – 7,50 €</span>
-          </div>
-          <p class="dish-desc">Zum Abschluss — fragen Sie nach der kleinen Karte.</p>
-        </article>
+        <div class="dish-extra">
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Affogato al caffè</span><span class="dish-price">6,50 €</span></div>
+            <p class="dish-desc">Vanilleeis, heißer Espresso, optional ein Schuss Amaretto.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Espresso · Cappuccino · Macchiato</span><span class="dish-price">2,80 – 3,80 €</span></div>
+            <p class="dish-desc">Bohne von einer Familienrösterei in Triest — die seit Jahrzehnten dieselbe ist.</p>
+          </article>
+          <article class="dish">
+            <div class="dish-row"><span class="dish-name">Grappa, Amaro, Limoncello</span><span class="dish-price">4,50 – 7,50 €</span></div>
+            <p class="dish-desc">Zum Abschluss — fragen Sie nach der kleinen Karte.</p>
+          </article>
+        </div>
       </div>
+    </div>
+
+    <!-- CTA: vollständige Karte -->
+    <div class="carta-cta reveal" id="cartaCta">
+      <div class="carta-cta-line"></div>
+      <button class="btn carta-expand-btn" id="cartaExpandBtn" data-cursor="hover">
+        Vollständige Speisekarte ansehen <span class="arrow">→</span>
+      </button>
+      <div class="carta-cta-line"></div>
     </div>
 
     <div class="menu-bar reveal">
@@ -1991,6 +1943,16 @@ footer .footer-mark{
     const d = new Date();
     const pad = (n) => String(n).padStart(2,'0');
     fdate.min = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  }
+
+  /* Speisekarte Vorschau aufklappen */
+  const expandBtn = document.getElementById('cartaExpandBtn');
+  const cartaCta  = document.getElementById('cartaCta');
+  if (expandBtn){
+    expandBtn.addEventListener('click', () => {
+      document.querySelectorAll('.dish-extra').forEach(el => el.classList.add('is-open'));
+      cartaCta.classList.add('is-hidden');
+    });
   }
 })();
 </script>

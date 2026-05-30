@@ -21,7 +21,7 @@
    "Underground Diner meets Editorial Magazine"
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Barlow+Condensed:wght@700&display=swap');
 
 /* ---------- Tokens ---------- */
 :root {
@@ -192,23 +192,22 @@ img { display: block; max-width: 100%; }
 .hero__repeat {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   overflow: hidden;
-  padding-top: 60px;
+  padding-top: 56px;
+  line-height: 0.72;
+  text-align: center;
+  user-select: none;
 }
 .hero__repeat span {
-  font-size: 22vw;
-  line-height: 0.70;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 23vw;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: #000;
   display: block;
-  text-align: center;
+  width: 100%;
   white-space: nowrap;
-  user-select: none;
+  overflow: hidden;
 }
 .hero__inner {
   position: relative;

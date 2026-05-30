@@ -705,7 +705,7 @@ section { position: relative; }
   <div class="nav__right">
     <nav class="nav__links" aria-label="Hauptnavigation">
       <a href="#about">Über uns</a>
-      <a href="#menu">Menü</a>
+      <a href="#" onclick="openSpeisekarte(event)">Menü</a>
       <a href="#location">Kontakt</a>
     </nav>
     <span class="openbadge" data-openbadge><span class="pip"></span><span class="txt">Öffnungszeiten</span></span>
@@ -717,7 +717,7 @@ section { position: relative; }
 <div class="scrim"></div>
 <nav class="mobile-menu" aria-label="Mobile Navigation">
   <a href="#about"><span>01</span>Über uns</a>
-  <a href="#menu"><span>02</span>Menü</a>
+  <a href="#" onclick="openSpeisekarte(event)"><span>02</span>Menü</a>
   <a href="#location"><span>03</span>Kontakt</a>
 </nav>
 
@@ -745,7 +745,7 @@ section { position: relative; }
     <div class="hero__rule"></div>
     <div class="hero__sub">
       <p class="hero__tag">Ehrlich. Regional. Lecker. — <b>handgemacht in Landau.</b></p>
-      <a href="#menu" class="btn">Zur Speisekarte <span class="arr">→</span></a>
+      <a href="#" onclick="openSpeisekarte(event)" class="btn">Zur Speisekarte <span class="arr">→</span></a>
     </div>
   </div>
 
@@ -844,7 +844,7 @@ section { position: relative; }
 
     <div class="teaser__cta reveal" data-delay="80">
       <p class="teaser__cta-text">Burger, Fritten, Salate, Drinks &amp; mehr —<br><b>alles handgemacht, alles regional.</b></p>
-      <a href="#menu" class="btn btn--big">Speisekarte ansehen <span class="arr">→</span></a>
+      <a href="#" onclick="openSpeisekarte(event)" class="btn btn--big">Speisekarte ansehen <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -1193,7 +1193,7 @@ section { position: relative; }
       <div class="footer__col">
         <h4>Navigation</h4>
         <a href="#about">Über uns</a>
-        <a href="#menu">Menü</a>
+        <a href="#" onclick="openSpeisekarte(event)">Menü</a>
         <a href="#location">Kontakt &amp; Anfahrt</a>
       </div>
       <div class="footer__col">
@@ -1392,6 +1392,1207 @@ section { position: relative; }
     });
   });
 })();
+/* ---------- Open Speisekarte in new tab ---------- */
+function openSpeisekarte(e) {
+  if (e) e.preventDefault();
+  var html = `<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speisekarte — Bagage Burger Landau</title>
+<meta name="description" content="Die vollständige Speisekarte von Bagage Burger Landau: Burger, Fritten, Salate, Drinks. Alles handgemacht.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ============================================================
+   BAGAGE BURGER — Stylesheet
+   "Underground Diner meets Editorial Magazine"
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg:        #ffffff;
+  --bg-2:      #f4f4f2;
+  --cream:     #0a0a0a;
+  --cream-dim: #555555;
+  --red:       #0a0a0a;
+  --gold:      #0a0a0a;
+  --card:      #ebebeb;
+  --line:      #d0d0d0;
+
+  --ff-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --ff-body:    'Libre Baskerville', Georgia, serif;
+  --ff-mono:    'Space Mono', ui-monospace, monospace;
+
+  --pad-x: clamp(20px, 5vw, 96px);
+  --maxw: 1280px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--ff-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* fine film-grain over everything */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection { background: #0a0a0a; color: #ffffff; }
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+.label {
+  font-family: var(--ff-mono);
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.shell { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad-x); }
+
+/* ---------- Scroll progress ---------- */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: var(--red); z-index: 10000;
+  box-shadow: none;
+}
+
+/* ---------- Custom cursor ---------- */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0; z-index: 9999;
+  pointer-events: none; border-radius: 50%;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+}
+.cursor-dot  { width: 7px;  height: 7px; background: var(--red); }
+.cursor-ring { width: 34px; height: 34px; border: 1px solid var(--gold);
+  transition: width .25s var(--ease), height .25s var(--ease), background .25s; }
+.cursor-ring.hot { width: 54px; height: 54px; background: rgba(0,0,0,0.06); }
+@media (hover: none), (max-width: 900px) { .cursor-dot, .cursor-ring { display: none; } }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 8000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px var(--pad-x);
+  transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav.solid {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding-top: 12px; padding-bottom: 12px;
+}
+.nav__brand {
+  font-family: var(--ff-display);
+  font-size: 34px; letter-spacing: 0.04em; line-height: 1;
+  display: flex; align-items: center; gap: 12px;
+}
+.nav__brand .dotmark { color: var(--red); }
+.nav__right { display: flex; align-items: center; gap: 30px; }
+.nav__links { display: flex; gap: 28px; }
+.nav__links a {
+  font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream-dim);
+  position: relative; padding: 4px 0; transition: color .25s;
+}
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0;
+  background: var(--red); transition: width .3s var(--ease);
+}
+.nav__links a:hover { color: var(--cream); }
+.nav__links a:hover::after { width: 100%; }
+
+.openbadge {
+  display: flex; align-items: center; gap: 9px;
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--cream-dim);
+  border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px;
+  white-space: nowrap;
+}
+.openbadge .pip {
+  width: 8px; height: 8px; border-radius: 50%; background: #777; flex: none;
+}
+.openbadge.open .pip { background: #57c97e; box-shadow: 0 0 0 0 rgba(87,201,126,0.6); animation: pulse 2.2s infinite; }
+.openbadge.closed .pip { background: var(--red); }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(87,201,126,0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(87,201,126,0); }
+  100% { box-shadow: 0 0 0 0 rgba(87,201,126,0); }
+}
+
+.burger-btn {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer;
+  background: none; border: 0; padding: 6px;
+}
+.burger-btn span { width: 26px; height: 2px; background: var(--cream); transition: transform .3s var(--ease), opacity .3s; }
+.burger-btn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger-btn.open span:nth-child(2) { opacity: 0; }
+.burger-btn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile slide-in menu */
+.mobile-menu {
+  position: fixed; inset: 0 0 0 auto; width: min(82vw, 360px); z-index: 8500;
+  background: var(--bg-2); border-left: 1px solid var(--line);
+  transform: translateX(100%); transition: transform .45s var(--ease);
+  display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  padding: 0 40px;
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu a {
+  font-family: var(--ff-display); font-size: 44px; letter-spacing: 0.03em;
+  padding: 10px 0; border-bottom: 1px solid var(--line); color: var(--cream);
+}
+.mobile-menu a span { color: var(--red); font-size: 18px; vertical-align: super; margin-right: 8px;
+  font-family: var(--ff-mono); }
+.scrim {
+  position: fixed; inset: 0; z-index: 8400; background: rgba(0,0,0,0.55);
+  opacity: 0; visibility: hidden; transition: opacity .4s;
+}
+.scrim.show { opacity: 1; visibility: visible; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 120px var(--pad-x) 80px;
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: -10%; z-index: 0;
+  background: linear-gradient(180deg, #f4f4f2 0%, #ffffff 100%);
+  animation: meshmove 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes meshmove {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  100% { transform: translate3d(-3%, 2%, 0) scale(1.08); }
+}
+.hero__grid {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.5;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000 30%, transparent 80%);
+          mask-image: radial-gradient(70% 70% at 50% 45%, #000 30%, transparent 80%);
+}
+
+.hero__inner { position: relative; z-index: 2; width: 100%; max-width: var(--maxw); margin: 0 auto; }
+
+.hero__kicker {
+  display: inline-flex; align-items: center; gap: 12px; margin-bottom: 24px;
+  opacity: 0; animation: fadeUp .8s var(--ease) .1s forwards;
+}
+.hero__kicker .ln { width: 46px; height: 1px; background: var(--gold); }
+
+.hero__type { line-height: 0.84; }
+.hero__word {
+  font-family: var(--ff-display);
+  font-size: clamp(78px, 17vw, 260px);
+  letter-spacing: 0.01em; display: block; will-change: transform, opacity;
+}
+.hero__word .em { color: var(--red); }
+.hero__word--1 { opacity: 0; transform: translateX(-120px); animation: slideInL .8s var(--ease) .25s forwards; }
+.hero__word--2 { opacity: 0; transform: translateX(120px);  animation: slideInR .8s var(--ease) .45s forwards;
+  text-align: right; }
+@keyframes slideInL { to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInR { to { opacity: 1; transform: translateX(0); } }
+
+.hero__rule {
+  height: 4px; background: #0a0a0a;
+  transform: scaleX(0); transform-origin: left; margin: 26px 0 30px;
+  animation: ruleGrow .9s var(--ease) .9s forwards;
+}
+@keyframes ruleGrow { to { transform: scaleX(1); } }
+
+.hero__sub {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 20px 34px;
+  justify-content: space-between;
+  opacity: 0; transform: translateY(20px); animation: fadeUp .9s var(--ease) 1.05s forwards;
+}
+.hero__tag {
+  font-family: var(--ff-body); font-style: italic;
+  font-size: clamp(17px, 2vw, 23px); color: var(--cream);
+}
+.hero__tag b { font-style: normal; font-weight: 700; color: var(--gold); }
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* CTA button */
+.btn {
+  position: relative; overflow: hidden; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--ff-mono); font-weight: 700; font-size: 13px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 17px 30px; border: 1px solid var(--red); color: var(--cream);
+  background: transparent; z-index: 1;
+}
+.btn::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--red); transform: scaleX(0); transform-origin: left;
+  transition: transform .4s var(--ease);
+}
+.btn:hover::before { transform: scaleX(1); }
+.btn .arr { transition: transform .35s var(--ease); }
+.btn:hover .arr { transform: translateX(5px); }
+
+/* floating 3D emblem */
+.hero__emblem {
+  position: absolute; z-index: 1; right: clamp(10px, 6vw, 110px); top: 50%;
+  width: clamp(120px, 16vw, 230px); aspect-ratio: 1;
+  transform: translateY(-50%);
+  perspective: 700px; opacity: 0; animation: fadeUp 1s var(--ease) .8s forwards;
+}
+.hero__emblem .coin {
+  width: 100%; height: 100%; transform-style: preserve-3d;
+  animation: float3d 7s ease-in-out infinite;
+  display: grid; place-items: center; border-radius: 50%;
+  border: 2px solid var(--gold);
+  background: radial-gradient(circle at 35% 30%, rgba(0,0,0,0.06), transparent 55%), var(--bg-2);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15), inset 0 0 20px rgba(0,0,0,0.04);
+}
+.hero__emblem .coin span {
+  font-family: var(--ff-display); font-size: clamp(60px,8vw,120px); color: var(--gold);
+}
+.hero__emblem .ringtext {
+  position: absolute; inset: -7%; animation: spin 26s linear infinite;
+}
+@keyframes float3d {
+  0%   { transform: rotateY(-12deg) rotateX(6deg) translateY(0); }
+  50%  { transform: rotateY(14deg) rotateX(-6deg) translateY(-16px); }
+  100% { transform: rotateY(-12deg) rotateX(6deg) translateY(0); }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ringtext text { font-family: var(--ff-mono); font-size: 8.5px; letter-spacing: 4px; fill: var(--cream-dim); }
+@media (max-width: 900px) { .hero__emblem { display: none; } }
+
+.scrollcue {
+  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+  z-index: 3; font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.3em;
+  color: var(--cream-dim); text-transform: uppercase; text-align: center;
+  opacity: 0; animation: fadeUp 1s var(--ease) 1.4s forwards;
+}
+.scrollcue .bar { width: 1px; height: 34px; background: var(--cream-dim); margin: 10px auto 0; transform-origin: top;
+  animation: cue 1.8s var(--ease) infinite; }
+@keyframes cue { 0%,100% { transform: scaleY(0.35); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
+
+/* ============================================================
+   SECTION SCAFFOLD
+   ============================================================ */
+section { position: relative; }
+.sec { padding: clamp(72px, 11vw, 150px) 0; }
+.sec__head { margin-bottom: clamp(40px, 6vw, 72px); }
+.sec__title {
+  font-family: var(--ff-display); line-height: 0.92;
+  font-size: clamp(46px, 8vw, 110px); letter-spacing: 0.01em;
+}
+.sec__title .em { color: var(--red); }
+.sec__num { font-family: var(--ff-mono); font-size: 12px; color: var(--gold); letter-spacing: 0.2em; }
+
+/* reveal util */
+.reveal { opacity: 0; transform: translateY(38px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-l { opacity: 0; transform: translateX(-50px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal-l.in { opacity: 1; transform: none; }
+.reveal-r { opacity: 0; transform: translateX(50px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal-r.in { opacity: 1; transform: none; }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about { background:
+  linear-gradient(var(--bg), var(--bg)); }
+.about__grid {
+  display: grid; grid-template-columns: 1.7fr 1fr; gap: clamp(30px, 5vw, 70px);
+  align-items: start;
+}
+.about__quote {
+  position: absolute; font-family: var(--ff-display); color: var(--red);
+  font-size: 360px; line-height: 0.6; opacity: 0.10; top: -40px; left: -20px;
+  z-index: 0; pointer-events: none; user-select: none;
+}
+.about__text { position: relative; z-index: 1; }
+.about__text p { margin-bottom: 22px; font-size: clamp(18px, 1.5vw, 22px); color: #444444; }
+.about__text p.lead { font-size: clamp(22px, 2.2vw, 30px); line-height: 1.5; color: #111111; font-style: italic; }
+.about__text .sig { font-family: var(--ff-mono); font-size: 13px; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; }
+
+.about__card {
+  background: var(--card); border: 1px solid var(--line); padding: 0;
+  position: relative; z-index: 1; overflow: hidden;
+}
+.about__card .photo { aspect-ratio: 4/3; object-fit: cover; width: 100%; filter: grayscale(0.15) contrast(1.05); }
+.about__facts { padding: 26px; display: flex; flex-direction: column; gap: 22px; }
+.about__fact .k { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--cream-dim); text-transform: uppercase; }
+.about__fact .v { font-family: var(--ff-display); font-size: 46px; line-height: 1; color: var(--cream); }
+.about__fact .v.sm { font-size: 30px; }
+.about__divline { height: 1px; background: var(--line); }
+
+/* ============================================================
+   PHILOSOPHY
+   ============================================================ */
+.phil__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+.phil__card {
+  position: relative; padding: 40px 30px 36px; background: var(--bg-2);
+  border: 1px solid var(--line); overflow: hidden;
+}
+.phil__card::before {
+  content: ""; position: absolute; top: 0; left: 0; height: 4px; width: 0;
+  background: #0a0a0a; transition: width .7s var(--ease) .15s;
+}
+.phil__card.in::before { width: 100%; }
+.phil__card .pn { font-family: var(--ff-mono); font-size: 12px; color: var(--gold); letter-spacing: 0.2em; }
+.phil__card h3 { font-family: var(--ff-display); font-size: clamp(40px, 4vw, 60px); margin: 18px 0 14px; letter-spacing: 0.02em; }
+.phil__card p { color: var(--cream-dim); font-size: 16px; line-height: 1.65; }
+.phil__card:hover { border-color: var(--gold); }
+
+/* ============================================================
+   MENU
+   ============================================================ */
+.menu { background: var(--bg-2); }
+.menu__tabs {
+  position: relative; display: flex; flex-wrap: wrap; gap: 6px;
+  border-bottom: 1px solid var(--line); margin-bottom: 12px;
+}
+.menu__tab {
+  position: relative; background: none; border: 0; cursor: pointer;
+  font-family: var(--ff-display); font-size: clamp(26px, 3vw, 40px);
+  letter-spacing: 0.04em; color: var(--cream-dim); padding: 6px 18px 18px;
+  transition: color .3s;
+}
+.menu__tab:hover { color: var(--cream); }
+.menu__tab.active { color: var(--cream); }
+.menu__ink {
+  position: absolute; bottom: -1px; left: 0; height: 3px; background: var(--red);
+  transition: transform .4s var(--ease), width .4s var(--ease);
+  box-shadow: none;
+}
+
+.menu__panel { display: none; padding-top: 30px; }
+.menu__panel.active { display: block; animation: panelIn .5s var(--ease); }
+@keyframes panelIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* patty info box */
+.infobox {
+  border: 1px solid var(--line); background: #ffffff;
+  padding: 22px 26px; margin-bottom: 36px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px 30px;
+}
+.infobox .ib-h { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; grid-column: 1/-1; }
+.infobox .patty .n { font-family: var(--ff-mono); font-size: 13px; color: var(--cream); }
+.infobox .patty .d { color: var(--cream-dim); font-size: 14px; }
+
+/* menu list */
+.mlist { display: flex; flex-direction: column; }
+.mhead {
+  display: grid; grid-template-columns: 1fr auto; gap: 20px;
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream-dim);
+  padding: 0 14px 12px; border-bottom: 1px solid var(--line);
+}
+.mhead .prices { display: flex; gap: 28px; }
+.mhead .prices span { width: 56px; text-align: right; }
+
+.mrow {
+  display: grid; grid-template-columns: 1fr auto; gap: 12px 20px; align-items: baseline;
+  padding: 20px 14px; border-bottom: 1px solid var(--line);
+  transition: background .3s var(--ease); position: relative;
+}
+.mrow::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--red); transform: scaleY(0); transition: transform .3s var(--ease); transform-origin: top;
+}
+.mrow:hover { background: #f4f4f2; }
+.mrow:hover::before { transform: scaleY(1); }
+.mrow:hover .mrow__price.main { color: var(--cream); font-weight: 700; }
+
+.mrow__name {
+  font-family: var(--ff-display); font-size: clamp(26px, 2.6vw, 36px);
+  letter-spacing: 0.02em; line-height: 1; display: flex; align-items: baseline; gap: 12px;
+}
+.mrow__name .vtag {
+  font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.1em; color: var(--bg);
+  background: var(--gold); padding: 2px 6px; border-radius: 3px; transform: translateY(-3px);
+}
+.mrow__desc { font-size: 14.5px; color: var(--cream-dim); line-height: 1.55; max-width: 60ch; margin-top: 7px; grid-column: 1; }
+.mrow__prices { display: flex; gap: 28px; align-items: baseline; grid-row: 1; grid-column: 2; }
+.mrow__price {
+  font-family: var(--ff-mono); font-weight: 700; width: 56px; text-align: right;
+  transition: color .3s, text-shadow .3s;
+}
+.mrow__price.main { font-size: 21px; color: var(--cream); }
+.mrow__price.alt  { font-size: 16px; color: var(--cream-dim); }
+.mrow__price .cur { font-size: 0.7em; color: var(--cream-dim); margin-left: 2px; }
+
+/* chip lists (extras / sauces / drinks compact) */
+.chipgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.chip {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  background: var(--bg-2); padding: 14px 18px; transition: background .25s;
+}
+.chip:hover { background: var(--card); }
+.chip .cn { font-family: var(--ff-body); font-size: 15px; }
+.chip .cn sup { color: var(--gold); }
+.chip .cp { font-family: var(--ff-mono); font-weight: 700; font-size: 14px; color: var(--gold); white-space: nowrap; }
+
+.subhead { font-family: var(--ff-display); font-size: clamp(28px,3vw,40px); margin: 44px 0 18px; letter-spacing: 0.03em; }
+.subhead:first-child { margin-top: 0; }
+.subnote { font-family: var(--ff-mono); font-size: 11px; color: var(--cream-dim); letter-spacing: 0.12em; margin-left: 12px; }
+
+/* menu footnote */
+.menu__notes {
+  margin-top: 40px; border-top: 1px solid var(--line); padding-top: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px 30px;
+}
+.menu__notes p { font-family: var(--ff-mono); font-size: 12px; color: var(--cream-dim); letter-spacing: 0.04em; line-height: 1.6; }
+.menu__notes p::before { content: "→ "; color: var(--red); }
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+.loc__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(20px,3vw,48px); align-items: stretch; }
+.loc__map {
+  position: relative; min-height: 420px; border: 1px solid var(--line); overflow: hidden;
+  background: #f4f4f2;
+}
+.loc__map .road1, .loc__map .road2, .loc__map .road3 {
+  position: absolute; background: var(--line);
+}
+.loc__map .road1 { left: 0; right: 0; top: 38%; height: 14px; transform: rotate(-4deg); }
+.loc__map .road2 { top: 0; bottom: 0; left: 56%; width: 11px; }
+.loc__map .road3 { left: 0; right: 0; bottom: 22%; height: 8px; transform: rotate(2deg); }
+.loc__pin {
+  position: absolute; left: 56%; top: 38%; transform: translate(-50%,-100%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 3;
+}
+.loc__pin .needle {
+  width: 30px; height: 30px; border-radius: 50% 50% 50% 0; background: var(--red);
+  transform: rotate(-45deg); display: grid; place-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+.loc__pin .needle b { transform: rotate(45deg); font-family: var(--ff-display); font-size: 18px; color: var(--cream); }
+.loc__pin .plate { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.1em; background: var(--bg); border: 1px solid var(--line); padding: 5px 10px; color: var(--cream); white-space: nowrap; }
+.loc__pin .pulse { position: absolute; top: 4px; width: 30px; height: 30px; border-radius: 50%; background: var(--red); opacity: 0.5; animation: ping 2.4s var(--ease) infinite; }
+@keyframes ping { 0% { transform: scale(0.6); opacity: .5; } 100% { transform: scale(3); opacity: 0; } }
+.loc__maplink {
+  position: absolute; bottom: 16px; left: 16px; z-index: 4;
+  font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--bg); border: 1px solid var(--gold); color: var(--gold); padding: 10px 16px;
+  transition: background .3s, color .3s;
+}
+.loc__maplink:hover { background: var(--gold); color: var(--bg); }
+
+.loc__info { display: flex; flex-direction: column; gap: 34px; }
+.loc__block .label { display: block; margin-bottom: 14px; }
+.loc__addr { font-family: var(--ff-display); font-size: clamp(34px,4vw,56px); line-height: 0.96; letter-spacing: 0.02em; }
+.loc__addr small { display: block; font-family: var(--ff-body); font-size: 17px; letter-spacing: 0; color: var(--cream-dim); font-style: italic; margin-top: 8px; }
+
+.hours { width: 100%; border-collapse: collapse; }
+.hours td { padding: 13px 0; border-bottom: 1px solid var(--line); }
+.hours td.day { font-family: var(--ff-body); font-size: 17px; }
+.hours td.time { font-family: var(--ff-mono); font-size: 16px; color: var(--gold); text-align: right; }
+.hours tr.now td { color: var(--cream); }
+.hours tr.now td.day::before { content: "● "; color: #57c97e; font-size: 11px; vertical-align: middle; }
+
+.contactlinks { display: flex; flex-direction: column; gap: 12px; }
+.contactlinks a { font-family: var(--ff-mono); font-size: 16px; color: var(--cream); display: inline-flex; align-items: center; gap: 12px; transition: color .25s; width: fit-content; }
+.contactlinks a .ic { color: var(--red); }
+.contactlinks a:hover { color: var(--gold); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer { position: relative; background: var(--bg-2); border-top: 1px solid var(--line); padding: clamp(60px,8vw,100px) 0 40px; overflow: hidden; }
+.footer__big { font-family: var(--ff-display); font-size: clamp(90px, 22vw, 340px); line-height: 0.8; letter-spacing: 0.02em; color: var(--cream); opacity: 0.96; }
+.footer__big .em { color: var(--red); }
+.footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 50px 0 40px; }
+.footer__col h4 { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+.footer__col a, .footer__col p { display: block; color: var(--cream-dim); font-size: 15px; margin-bottom: 9px; transition: color .25s; }
+.footer__col a:hover { color: var(--cream); }
+.footer__bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; border-top: 1px solid var(--line); padding-top: 26px; }
+.footer__bottom p { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--cream-dim); }
+
+/* ============================================================
+   STICKY MOBILE CTA
+   ============================================================ */
+.sticky-cta {
+  position: fixed; right: 18px; bottom: 18px; z-index: 7000;
+  display: none; align-items: center; gap: 10px;
+  background: var(--red); color: var(--cream); padding: 14px 20px;
+  font-family: var(--ff-mono); font-weight: 700; font-size: 13px; letter-spacing: 0.1em;
+  text-transform: uppercase; box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+
+/* hidden visually but in DOM for SEO */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1000px) {
+  .about__grid { grid-template-columns: 1fr; }
+  .phil__grid { grid-template-columns: 1fr; }
+  .loc__grid { grid-template-columns: 1fr; }
+  .footer__cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .nav__links, .openbadge { display: none; }
+  .burger-btn { display: flex; }
+  .hero__word--2 { text-align: left; }
+  .hero__sub { flex-direction: column; align-items: flex-start; }
+  .mhead .prices span, .mrow__price { width: 46px; }
+  .mrow__prices { gap: 16px; }
+  .footer__cols { grid-template-columns: 1fr; }
+  .sticky-cta { display: flex; }
+  .about__quote { font-size: 200px; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  .reveal, .reveal-l, .reveal-r { opacity: 1 !important; transform: none !important; }
+  .hero__word, .hero__kicker, .hero__sub, .hero__rule, .hero__emblem, .scrollcue { opacity: 1 !important; transform: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+
+/* ============================================================
+   MENU TEASER
+   ============================================================ */
+.menu-teaser { background: var(--bg); border-top: 1px solid var(--line); }
+.teaser__photo {
+  position: relative; overflow: hidden; margin-bottom: clamp(48px,6vw,72px);
+  border: 1px solid var(--line);
+}
+.teaser__photo img {
+  width: 100%; aspect-ratio: 16/7; object-fit: cover;
+  filter: grayscale(0.08) contrast(1.04);
+  display: block;
+  transition: transform 1.2s var(--ease);
+}
+.teaser__photo:hover img { transform: scale(1.025); }
+.teaser__photo-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 18px 26px;
+  background: linear-gradient(transparent, rgba(255,255,255,0.92));
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cream-dim);
+}
+
+.teaser__items {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+  background: var(--line); border: 1px solid var(--line);
+  margin-bottom: clamp(40px,5vw,64px);
+}
+.teaser__item {
+  background: var(--bg); padding: 36px 30px 32px;
+  position: relative; transition: background .3s var(--ease);
+}
+.teaser__item::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--red); transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--ease);
+}
+.teaser__item:hover { background: var(--bg-2); }
+.teaser__item:hover::before { transform: scaleX(1); }
+.teaser__item-num {
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em;
+  color: var(--cream-dim); margin-bottom: 14px; display: block;
+}
+.teaser__n {
+  font-family: var(--ff-display); font-size: clamp(38px,4vw,56px);
+  letter-spacing: 0.02em; line-height: 0.95; display: block; margin-bottom: 14px;
+}
+.teaser__item p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 22px; }
+.teaser__price {
+  font-family: var(--ff-mono); font-weight: 700; font-size: 15px;
+  color: var(--cream); letter-spacing: 0.08em;
+  border: 1px solid var(--line); display: inline-block; padding: 6px 14px;
+}
+
+.teaser__cta {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: 24px; padding-top: clamp(24px,4vw,48px); border-top: 1px solid var(--line);
+}
+.teaser__cta-text {
+  font-family: var(--ff-body); font-style: italic;
+  font-size: clamp(18px,2vw,26px); color: #555;
+}
+.teaser__cta-text b { font-style: normal; color: var(--cream); }
+.btn--big { padding: 20px 38px; font-size: 14px; }
+
+@media (max-width: 760px) {
+  .teaser__items { grid-template-columns: 1fr; }
+  .teaser__cta { flex-direction: column; align-items: flex-start; }
+  .teaser__photo img { aspect-ratio: 4/3; }
+}
+
+
+/* Speisekarte page overrides */
+body { padding-top: 0; }
+.sk-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 22px clamp(20px,5vw,96px);
+  border-bottom: 1px solid var(--line); background: var(--bg);
+  position: sticky; top: 0; z-index: 8000;
+}
+.sk-header__brand {
+  font-family: var(--ff-display); font-size: 32px; letter-spacing: 0.04em;
+  color: var(--cream); text-decoration: none; display: flex; align-items: center; gap: 10px;
+}
+.sk-header__brand .dot { color: var(--red); }
+.sk-back {
+  font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream-dim);
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--line); padding: 9px 18px;
+  transition: color .25s, border-color .25s; cursor: pointer; background: none;
+}
+.sk-back:hover { color: var(--cream); border-color: var(--cream); }
+.sk-hero {
+  padding: clamp(40px,6vw,72px) clamp(20px,5vw,96px) 0;
+  max-width: var(--maxw); margin: 0 auto;
+}
+.sk-hero h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(56px,10vw,130px);
+  letter-spacing: 0.01em; line-height: 0.88;
+  margin-bottom: clamp(24px,3vw,40px);
+}
+.sk-hero h1 .em { color: var(--red); }
+.sk-hero p {
+  font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cream-dim);
+  padding-bottom: clamp(24px,3vw,40px); border-bottom: 1px solid var(--line);
+}
+.menu { background: var(--bg-2); }
+</style>
+</head>
+<body>
+
+<header class="sk-header">
+  <a class="sk-header__brand" href="javascript:window.close()">BAGAGE<span class="dot">.</span></a>
+  <button class="sk-back" onclick="window.close()">← Zurück</button>
+</header>
+
+<div class="sk-hero shell">
+  <h1>Speise<span class="em">karte</span></h1>
+  <p>Landau in der Pfalz &nbsp;·&nbsp; Mo–Sa 11:30–22:00 &nbsp;·&nbsp; So 17:00–22:00 &nbsp;·&nbsp; Alle Preise in Euro inkl. MwSt.</p>
+</div>
+
+<main>
+<!-- ============ MENU ============ -->
+<section class="sec menu" id="menu">
+  <div class="shell">
+    <header class="sec__head reveal">
+      <span class="sec__num">04 — Die Karte</span>
+      <h2 class="sec__title">Speise<span class="em">karte</span></h2>
+    </header>
+
+    <div class="menu__tabs" role="tablist">
+      <button class="menu__tab active" data-tab="burger" role="tab">Burger</button>
+      <button class="menu__tab" data-tab="fritten" role="tab">Fritten</button>
+      <button class="menu__tab" data-tab="salate" role="tab">Salate</button>
+      <button class="menu__tab" data-tab="extras" role="tab">Extras</button>
+      <button class="menu__tab" data-tab="drinks" role="tab">Drinks</button>
+      <span class="menu__ink"></span>
+    </div>
+
+    <!-- BURGER -->
+    <div class="menu__panel active" data-panel="burger" role="tabpanel">
+      <div class="infobox reveal">
+        <span class="ib-h">Wähle dein Patty — zwei Preise pro Burger</span>
+        <div class="patty"><span class="n">Original-Patty</span><span class="d">150g Beef · linke Spalte</span></div>
+        <div class="patty"><span class="n">Smash / Veggie</span><span class="d">75g Smash · rechte Spalte</span></div>
+        <div class="patty"><span class="n">Veggiemeat</span><span class="d">130g · vegan</span></div>
+        <div class="patty"><span class="n">Veggie-Patty</span><span class="d">110g · vegan</span></div>
+      </div>
+
+      <div class="mlist">
+        <div class="mhead">
+          <span>Burger</span>
+          <span class="prices"><span>Original</span><span>Smash</span></span>
+        </div>
+
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Classic</div>
+          <div class="mrow__prices"><span class="mrow__price main">12<span class="cur">€</span></span><span class="mrow__price alt">9</span></div>
+          <p class="mrow__desc">Beef, Salat, Tomate, Zwiebelringe, Gewürzgurke, Mayo, Ketchup.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Cheese</div>
+          <div class="mrow__prices"><span class="mrow__price main">13<span class="cur">€</span></span><span class="mrow__price alt">10</span></div>
+          <p class="mrow__desc">Der Classic — plus cremiger Cheddar.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">BBQ Bacon</div>
+          <div class="mrow__prices"><span class="mrow__price main">13,5<span class="cur">€</span></span><span class="mrow__price alt">10,5</span></div>
+          <p class="mrow__desc">Beef, BBQ-Sauce, Bacon, karamellisierte Zwiebel.</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Chili Cheese</div>
+          <div class="mrow__prices"><span class="mrow__price main">13<span class="cur">€</span></span><span class="mrow__price alt">10</span></div>
+          <p class="mrow__desc">Beef, Chili con Carne, Cheddar, Jalapeños, Zwiebelringe, Salat, Chili-Mayo.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Ziegenkäse</div>
+          <div class="mrow__prices"><span class="mrow__price main">15<span class="cur">€</span></span><span class="mrow__price alt">12</span></div>
+          <p class="mrow__desc">Beef, Ziegenkäse, Rucola, Feigen-Zwiebel-Chutney, frische Gurke, Tomate — auf Vollkorn-Bun.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">Toskana</div>
+          <div class="mrow__prices"><span class="mrow__price main">14<span class="cur">€</span></span><span class="mrow__price alt">11</span></div>
+          <p class="mrow__desc">Beef, Mozzarella, Salatgurke, Tomate, Rucola, Zwiebel, Limetten-Mayo, Tomatenpesto.</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Bagamole</div>
+          <div class="mrow__prices"><span class="mrow__price main">13<span class="cur">€</span></span><span class="mrow__price alt">10</span></div>
+          <p class="mrow__desc">Beef, Salat, Tomaten, frische Gurke, Rucola, Zwiebel, hausgemachte Bagamole.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Chorizo</div>
+          <div class="mrow__prices"><span class="mrow__price main">14<span class="cur">€</span></span><span class="mrow__price alt">11</span></div>
+          <p class="mrow__desc">Beef, Rucola, gegrillte Chorizo, Lauchzwiebel, Chimi Churri, gegrillte Paprika, Chili-Mayo, Parmesan.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">Kinder Burger</div>
+          <div class="mrow__prices"><span class="mrow__price main">—</span><span class="mrow__price alt">7</span></div>
+          <p class="mrow__desc">Bun, Smash-Patty, Ketchup. Für die kleinen Gäste.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FRITTEN -->
+    <div class="menu__panel" data-panel="fritten" role="tabpanel">
+      <div class="mlist">
+        <div class="mhead">
+          <span>Fritten</span>
+          <span class="prices"><span>Klein</span><span>Groß</span></span>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Hausfritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">4,5<span class="cur">€</span></span><span class="mrow__price alt">—</span></div>
+          <p class="mrow__desc">Knusprig, mit einer Soße deiner Wahl.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Knobi-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">5<span class="cur">€</span></span><span class="mrow__price alt">—</span></div>
+          <p class="mrow__desc">Mit einer Soße, frischer Petersilie und ordentlich Knoblauch.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">Champignon-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">8<span class="cur">€</span></span><span class="mrow__price alt">11</span></div>
+          <p class="mrow__desc">Champignon-Rahm-Soße, Lauchzwiebel, Parmesan.</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Chili Cheese-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">8,5<span class="cur">€</span></span><span class="mrow__price alt">11,5</span></div>
+          <p class="mrow__desc">Chili con Carne, Cheddar, Jalapeños, Sour Cream, Chili-Soße, Lauchzwiebel.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Bagamole-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">8,5<span class="cur">€</span></span><span class="mrow__price alt">11,5</span></div>
+          <p class="mrow__desc">Knoblauch-Fritten, Bagamole, Limetten-Mayo, Tomaten, frische Limette.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">Chorizo-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">8,5<span class="cur">€</span></span><span class="mrow__price alt">11,5</span></div>
+          <p class="mrow__desc">Gegrillte Chorizo, Parmesan, Rucola, gegrillte Paprika, Chimi Churri, Chili-Mayo.</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Käse-Fritten</div>
+          <div class="mrow__prices"><span class="mrow__price main">8<span class="cur">€</span></span><span class="mrow__price alt">11</span></div>
+          <p class="mrow__desc">Käsesoße, Jalapeños, Röstzwiebeln.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SALATE -->
+    <div class="menu__panel" data-panel="salate" role="tabpanel">
+      <div class="mlist">
+        <div class="mhead"><span>Salate</span><span class="prices"><span>Preis</span></span></div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Weißkrautsalat</div>
+          <div class="mrow__prices"><span class="mrow__price main">4,8<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Hausgemacht, frisch & knackig.</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Beilagensalat</div>
+          <div class="mrow__prices"><span class="mrow__price main">5,5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Die perfekte kleine Begleitung.</p>
+        </div>
+        <div class="mrow reveal" data-delay="80">
+          <div class="mrow__name">Gemischter Salat</div>
+          <div class="mrow__prices"><span class="mrow__price main">9<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Gemischter Salat, Rucola, Tomate, Gurke, Zwiebel, eingelegtes Gemüse.</p>
+        </div>
+      </div>
+
+      <h3 class="subhead">Currywurst</h3>
+      <div class="mlist">
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Currywurst <span class="vtag">mit Brötchen</span></div>
+          <div class="mrow__prices"><span class="mrow__price main">6<span class="cur">€</span></span></div>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Currywurst <span class="vtag">mit Fritten</span></div>
+          <div class="mrow__prices"><span class="mrow__price main">9,5<span class="cur">€</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXTRAS -->
+    <div class="menu__panel" data-panel="extras" role="tabpanel">
+      <h3 class="subhead reveal">Burger-Extras</h3>
+      <div class="chipgrid reveal" data-delay="60">
+        <div class="chip"><span class="cn">Bacon</span><span class="cp">2 €</span></div>
+        <div class="chip"><span class="cn">Mozzarella</span><span class="cp">1,5 €</span></div>
+        <div class="chip"><span class="cn">Parmesan</span><span class="cp">2 €</span></div>
+        <div class="chip"><span class="cn">Spiegelei</span><span class="cp">2 €</span></div>
+        <div class="chip"><span class="cn">Jalapeños</span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Extra Cheese</span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Extra Beef</span><span class="cp">4 €</span></div>
+        <div class="chip"><span class="cn">Double Beef</span><span class="cp">7 €</span></div>
+        <div class="chip"><span class="cn">Bagamole</span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Tomatenpesto</span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Extra Gemüse</span><span class="cp">0,5 €</span></div>
+        <div class="chip"><span class="cn">Extra Chorizo</span><span class="cp">2 €</span></div>
+        <div class="chip"><span class="cn">Ziegenkäse</span><span class="cp">2 €</span></div>
+      </div>
+
+      <h3 class="subhead reveal">Soßen <span class="subnote">* = vegan · je 1 €</span></h3>
+      <div class="chipgrid reveal" data-delay="60">
+        <div class="chip"><span class="cn">Ketchup<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Chili-Soße<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Sour Cream</span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Mayo<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Chili-Mayo<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Trüffel-Mayo<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Limetten-Mayo<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">BBQ-Soße<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Chimi Churri<sup>*</sup></span><span class="cp">1 €</span></div>
+        <div class="chip"><span class="cn">Käse-Soße</span><span class="cp">1 €</span></div>
+      </div>
+    </div>
+
+    <!-- DRINKS -->
+    <div class="menu__panel" data-panel="drinks" role="tabpanel">
+      <h3 class="subhead reveal">Alkoholfrei</h3>
+      <div class="mlist">
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">fritz-kola &amp; limo</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">fritz-kola, super Zero, Mischmasch, Apfel-Kirsch-Holunder, Orange, Zitrone · 0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">fritz-spritz <span class="vtag">bio</span></div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Bio-Rhabarberschorle, Bio-Apfelschorle · 0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Club Mate</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">AiLaike Eistee</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Zitrone-Minze, Blaubeere, Pfirsich-Mango</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Viva con Agua</div>
+          <div class="mrow__prices"><span class="mrow__price main">2,8<span class="cur">€</span></span></div>
+          <p class="mrow__desc">laut, leise · 0,33l</p>
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Bier</h3>
+      <div class="mlist">
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Bitburger <span class="vtag">alkoholfrei</span></div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Astra</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Astra Radler</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Flensburger</div>
+          <div class="mrow__prices"><span class="mrow__price main">3,6<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,33l</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Chiemseer Helles</div>
+          <div class="mrow__prices"><span class="mrow__price main">5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">0,5l</p>
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Wein <span class="subnote">aus der Pfalz</span></h3>
+      <div class="mlist">
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Riesling Bagage</div>
+          <div class="mrow__prices"><span class="mrow__price main">5<span class="cur">€</span></span><span class="mrow__price alt">13</span></div>
+          <p class="mrow__desc">Felix Wein, Bad Bergzabern · 0,25l / 0,75l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Portugieser Rosé</div>
+          <div class="mrow__prices"><span class="mrow__price main">4,5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Kimmle, Kapellen · 0,25l</p>
+        </div>
+        <div class="mrow reveal" data-delay="0">
+          <div class="mrow__name">Grauburgunder</div>
+          <div class="mrow__prices"><span class="mrow__price main">5,5<span class="cur">€</span></span></div>
+          <p class="mrow__desc">Kimmle, Kapellen · 0,25l</p>
+        </div>
+        <div class="mrow reveal" data-delay="40">
+          <div class="mrow__name">Schorle</div>
+          <div class="mrow__prices"><span class="mrow__price main">−0,6</span><span class="mrow__price alt">+0,5</span></div>
+          <p class="mrow__desc">Aufpreis je nach Größe · 0,25l / 0,5l</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- notes -->
+    <div class="menu__notes">
+      <p>Bei Allergien wende dich bitte an das Bagage-Team.</p>
+      <p>Reservierungen sind leider nicht möglich.</p>
+      <p>Alle Preise in Euro (€), inkl. MwSt.</p>
+      <p>Alle Speisen gibt es auch zum Mitnehmen.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer style="border-top:1px solid var(--line);padding:32px clamp(20px,5vw,96px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;background:var(--bg-2);">
+  <p style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.1em;color:var(--cream-dim);">© 2025 Bagage Burger — Julius Kimmle e.K.</p>
+  <p style="font-family:var(--ff-mono);font-size:11px;letter-spacing:0.1em;color:var(--cream-dim);">Königstraße 2 · 76829 Landau in der Pfalz · +49 6341 5496844</p>
+</footer>
+
+<script>
+
+/* ============================================================
+   BAGAGE BURGER — Interactions
+   ============================================================ */
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Scroll progress + nav state ---------- */
+  var nav = document.querySelector('.nav');
+  var progress = document.getElementById('progress');
+  function onScroll() {
+    var st = window.scrollY || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (progress) progress.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+    if (nav) nav.classList.toggle('solid', st > 40);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Mobile menu ---------- */
+  var burger = document.querySelector('.burger-btn');
+  var mobile = document.querySelector('.mobile-menu');
+  var scrim = document.querySelector('.scrim');
+  function setMenu(open) {
+    if (!burger) return;
+    burger.classList.toggle('open', open);
+    mobile.classList.toggle('open', open);
+    scrim.classList.toggle('show', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  if (burger) {
+    burger.addEventListener('click', function () { setMenu(!mobile.classList.contains('open')); });
+    scrim.addEventListener('click', function () { setMenu(false); });
+    mobile.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        var el = e.target;
+        var delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+        setTimeout(function () { el.classList.add('in'); }, reduce ? 0 : delay);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .phil__card').forEach(function (el) { io.observe(el); });
+
+  /* ---------- Menu tabs ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.menu__tab'));
+  var panels = document.querySelectorAll('.menu__panel');
+  var ink = document.querySelector('.menu__ink');
+  function moveInk(tab) {
+    if (!ink || !tab) return;
+    ink.style.width = tab.offsetWidth + 'px';
+    ink.style.transform = 'translateX(' + tab.offsetLeft + 'px)';
+  }
+  function activate(name, tab) {
+    tabs.forEach(function (t) { t.classList.toggle('active', t === tab); });
+    panels.forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-panel') === name); });
+    moveInk(tab);
+    // re-run reveal for newly shown rows
+    var active = document.querySelector('.menu__panel.active');
+    if (active) active.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(function (el) { el.classList.add('in'); });
+    showToast(name);
+  }
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () { activate(tab.getAttribute('data-tab'), tab); });
+  });
+  // init
+  var first = tabs.find ? tabs.find(function (t) { return t.classList.contains('active'); }) : tabs.filter(function(t){return t.classList.contains('active');})[0];
+  if (!first) first = tabs[0];
+  if (first) { requestAnimationFrame(function(){ moveInk(first); }); }
+  window.addEventListener('resize', function () {
+    var act = document.querySelector('.menu__tab.active');
+    moveInk(act);
+  });
+
+  /* ---------- Toast on tab change ---------- */
+  var toast;
+  var toastTimer;
+  function showToast(text) {
+    if (reduce) return;
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);z-index:9500;background:#f4f4f2;border:1px solid #d0d0d0;color:#0a0a0a;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:11px 22px;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = text;
+    requestAnimationFrame(function () { toast.style.opacity = '1'; toast.style.transform = 'translate(-50%,0)'; });
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.style.opacity = '0'; toast.style.transform = 'translate(-50%,20px)'; }, 1100);
+  }
+
+  /* ---------- Open / closed badge (live) ---------- */
+  // Mo-Sa 11:30-22:00 ; So 17:00-22:00
+  function isOpen(d) {
+    var day = d.getDay(); // 0 Sun .. 6 Sat
+    var mins = d.getHours() * 60 + d.getMinutes();
+    if (day === 0) return mins >= 17 * 60 && mins < 22 * 60;
+    return mins >= 11 * 60 + 30 && mins < 22 * 60;
+  }
+  function refreshBadges() {
+    var open = isOpen(new Date());
+    document.querySelectorAll('[data-openbadge]').forEach(function (b) {
+      b.classList.toggle('open', open);
+      b.classList.toggle('closed', !open);
+      var t = b.querySelector('.txt');
+      if (t) t.textContent = open ? 'Jetzt geöffnet' : 'Jetzt geschlossen';
+    });
+  }
+  refreshBadges();
+  setInterval(refreshBadges, 30000);
+
+  // highlight today's hours row
+  (function () {
+    var day = new Date().getDay();
+    var rowSel = (day === 0) ? '[data-hours="so"]' : '[data-hours="mosa"]';
+    var row = document.querySelector(rowSel);
+    if (row) row.classList.add('now');
+  })();
+
+  /* ---------- Custom cursor ---------- */
+  if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    var dot = document.querySelector('.cursor-dot');
+    var ring = document.querySelector('.cursor-ring');
+    if (dot && ring) {
+      var mx = window.innerWidth / 2, my = window.innerHeight / 2;
+      var rx = mx, ry = my;
+      window.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      });
+      (function loop() {
+        rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+        requestAnimationFrame(loop);
+      })();
+      document.querySelectorAll('a, button, .mrow, .phil__card').forEach(function (el) {
+        el.addEventListener('mouseenter', function () { ring.classList.add('hot'); });
+        el.addEventListener('mouseleave', function () { ring.classList.remove('hot'); });
+      });
+    }
+  }
+
+  /* ---------- Hero parallax (desktop) ---------- */
+  if (!reduce && window.matchMedia('(hover: hover) and (min-width: 900px)').matches) {
+    var hero = document.querySelector('.hero');
+    var heroBg = document.querySelector('.hero__bg');
+    var emblem = document.querySelector('.hero__emblem');
+    if (hero && heroBg) {
+      hero.addEventListener('mousemove', function (e) {
+        var cx = (e.clientX / window.innerWidth - 0.5);
+        var cy = (e.clientY / window.innerHeight - 0.5);
+        heroBg.style.transform = 'translate3d(' + (-cx * 26) + 'px,' + (-cy * 26) + 'px,0)';
+        if (emblem) emblem.style.transform = 'translateY(-50%) translate3d(' + (cx * 30) + 'px,' + (cy * 30) + 'px,0)';
+      });
+    }
+  }
+
+  /* ---------- Smooth anchor offset for sticky nav ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      ev.preventDefault();
+      var y = target.getBoundingClientRect().top + window.scrollY - 64;
+      window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+})();
+
+
+</script>
+</body>
+</html>`;
+  var blob = new Blob([html], {type: 'text/html'});
+  var url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+}
+
 
 </script>
 

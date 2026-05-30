@@ -499,8 +499,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     <nav aria-label="Hauptnavigation">
       <ul class="nav-links">
         <li><a href="#home" data-spy="home" class="active">Startseite</a></li>
-        <li><a href="speisekarte.html" data-spy="speisekarte">Speisekarte</a></li>
-        <li><a href="speisekarte.html#mittag" data-spy="mittag">Mittagsangebot</a></li>
+        <li><a href="#speisekarte" data-spy="speisekarte" href="#speisekarte">Speisekarte</a></li>
+        <li><a href="#speisekarte" data-spy="mittag">Mittagsangebot</a></li>
         <li><a href="#ueber-uns" data-spy="ueber-uns">Über uns</a></li>
         <li><a href="#kontakt" data-spy="kontakt">Kontakt</a></li>
       </ul>
@@ -517,8 +517,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 <!-- Mobile fullscreen overlay menu -->
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
   <a href="#home">Startseite</a>
-  <a href="speisekarte.html">Speisekarte</a>
-  <a href="speisekarte.html#mittag">Mittagsangebot</a>
+  <a href="#speisekarte">Speisekarte</a>
+  <a href="#speisekarte">Mittagsangebot</a>
   <a href="#ueber-uns">Über uns</a>
   <a href="#kontakt">Kontakt</a>
   <a href="#kontakt" class="btn btn-gold">Jetzt reservieren</a>
@@ -541,7 +541,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     </div>
     <p class="tag h-stagger d3">Deutsche &amp; griechische Küche &middot; Landau in der Pfalz</p>
     <div class="cta-row h-stagger d4">
-      <a href="speisekarte.html" class="btn btn-gold">Zur Speisekarte
+      <a href="#speisekarte" class="btn btn-gold">Zur Speisekarte
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
       <a href="#kontakt" class="btn btn-ghost">Tisch reservieren</a>
@@ -633,41 +633,26 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
   </div>
 </section>
 
-<!-- SECTION: SPEISEKARTE CTA -->
-<section class="speise-cta sec-pad" id="speisekarte" style="background:var(--brand-stone)">
-  <div class="wrap" style="text-align:center">
-    <div class="sec-head reveal">
+
+<!-- ════════════════════════════════════════════════════════════
+     SECTION: SPEISEKARTE (INLINE)
+     ════════════════════════════════════════════════════════════ -->
+<section class="speisekarte sec-pad" id="speisekarte">
+  <div class="wrap">
+    <div class="sec-head light reveal">
       <p class="kicker">Guten Appetit</p>
-      <h2 style="color:var(--brand-navy)">Unsere Speisekarte</h2>
-      <p class="sub" style="color:var(--ink-soft)">Deutsche &amp; griechische Küche · 15 Kategorien · frisch zubereitet</p>
+      <h2>Unsere Speisekarte</h2>
+      <p class="sub">Deutsche &amp; griechische Küche &middot; frisch zubereitet</p>
     </div>
-    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:40px" class="reveal">
-      <a href="speisekarte.html" class="btn btn-navy" style="font-size:16px;padding:18px 40px">
-        Zur vollständigen Speisekarte
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="speisekarte.html#mittag" class="btn btn-gold" style="font-size:16px;padding:18px 40px">Mittagskarte ansehen</a>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-top:54px;max-width:900px;margin-left:auto;margin-right:auto" class="reveal">
-      <div style="background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:20px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🥩</div>
-        <div style="font-weight:700;color:var(--brand-navy);font-size:14px">Vom Rind & Schwein</div>
-      </div>
-      <div style="background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:20px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🍗</div>
-        <div style="font-weight:700;color:var(--brand-navy);font-size:14px">Geflügel & Grill</div>
-      </div>
-      <div style="background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:20px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🥗</div>
-        <div style="font-weight:700;color:var(--brand-navy);font-size:14px">Salate & Vorspeisen</div>
-      </div>
-      <div style="background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:20px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🍺</div>
-        <div style="font-weight:700;color:var(--brand-navy);font-size:14px">Paulaner Bier</div>
-      </div>
-      <div style="background:#fff;border:1px solid rgba(184,152,46,.3);border-radius:8px;padding:20px;text-align:center">
-        <div style="font-size:28px;margin-bottom:8px">🥨</div>
-        <div style="font-weight:700;color:var(--brand-navy);font-size:14px">Pfälzer Spezialitäten</div>
+    <div class="tabbar" id="tabbar" role="tablist" aria-label="Speisekarten-Kategorien"></div>
+    <div id="menuPanels"></div>
+    <div class="allergene reveal">
+      <h4>Zusatzstoffe &amp; Allergene</h4>
+      <div class="leg-grid">
+        <p><b>1</b> mit Farbstoff &nbsp;<b>2</b> mit Konservierungsstoff &nbsp;<b>3</b> mit Antioxidationsmittel &nbsp;<b>4</b> mit Geschmacksverstärker</p>
+        <p><b>A</b> Gluten &nbsp;<b>B</b> Krebstiere &nbsp;<b>C</b> Eier &nbsp;<b>D</b> Fisch &nbsp;<b>E</b> Erdnüsse &nbsp;<b>F</b> Soja</p>
+        <p><b>G</b> Milch/Laktose &nbsp;<b>H</b> Schalenfrüchte &nbsp;<b>L</b> Sellerie &nbsp;<b>M</b> Senf &nbsp;<b>N</b> Sesam &nbsp;<b>O</b> SO₂/Sulfite</p>
+        <p>Alle Preise in Euro inkl. gesetzl. MwSt. &middot; Irrtümer &amp; Preisänderungen vorbehalten.</p>
       </div>
     </div>
   </div>
@@ -870,8 +855,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         <h4>Navigation</h4>
         <ul>
           <li><a href="#home">Startseite</a></li>
-          <li><a href="speisekarte.html">Speisekarte</a></li>
-          <li><a href="speisekarte.html#mittag">Mittagsangebot</a></li>
+          <li><a href="#speisekarte">Speisekarte</a></li>
+          <li><a href="#speisekarte">Mittagsangebot</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
           <li><a href="#" data-modal="modal-impressum">Impressum</a></li>
@@ -1501,6 +1486,443 @@ const MENU = [
     form.querySelectorAll("input,textarea,button").forEach(el=>{ if(el.type!=="submit"&&el.tagName!=="BUTTON") el.value=""; });
     success.scrollIntoView?null:null;
   });
+})();
+
+/* ════════ FOOTER YEAR ════════ */
+document.getElementById("year").textContent=new Date().getFullYear();
+
+/* ════════ LEGAL MODALS ════════ */
+(function(){
+  function openModal(id){
+    const m=document.getElementById(id);
+    if(!m) return;
+    m.classList.add("open");
+    document.body.style.overflow="hidden";
+    m.querySelector(".legal-modal-close").focus();
+  }
+  function closeModal(id){
+    const m=document.getElementById(id);
+    if(!m) return;
+    m.classList.remove("open");
+    document.body.style.overflow="";
+  }
+
+  /* trigger links */
+  document.querySelectorAll("[data-modal]").forEach(function(a){
+    a.addEventListener("click",function(e){
+      e.preventDefault();
+      openModal(this.dataset.modal);
+    });
+  });
+
+  /* close buttons */
+  document.querySelectorAll("[data-close]").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      closeModal(this.dataset.close);
+    });
+  });
+
+  /* click outside box */
+  document.querySelectorAll(".legal-modal").forEach(function(m){
+    m.addEventListener("click",function(e){
+      if(e.target===m) closeModal(m.id);
+    });
+  });
+
+  /* ESC key */
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"){
+      document.querySelectorAll(".legal-modal.open").forEach(function(m){
+        closeModal(m.id);
+      });
+    }
+  });
+})();
+
+
+const MENU = [
+  { id:"mittag", tab:"Mittagskarte", banner:"assets/img/steak.jpg",
+    note:"Montag bis Freitag bis 14:00 Uhr · außer an Feiertagen", dayBadge:"Heute bis 14:00 Uhr",
+    sections:[{ items:[
+      ["Schweinemedaillons","Pilzrahmsauce, Pommes & Salat","12,90 €"],
+      ["Schweinelendchen","Käsesauce, Pommes & Salat","12,90 €"],
+      ["Schweinesteak","Käsesauce, Pommes & Salat","11,90 €"],
+      ["Bauernspieß","Paprikasauce (pikant), Pommes & Salat","11,90 €"],
+      ["Gegrillte Rinderleber","Zwiebeln, Buttersauce, Pommes & Salat","11,90 €"],
+      ["Gegrilltes Putensteak","Buttersauce, Pommes & Salat","11,90 €"],
+      ["Paniertes Schnitzel","Pute oder Schwein, Pommes & Salat","11,90 €"],
+      ["Paniertes Schnitzel mit Sauce","Paprika / Pilzrahm / Käse, Pommes & Salat","12,90 €"],
+      ["½ Knuspriges Hähnchen","Pommes & Salat · normal / mittel / extrascharf","11,90 €"],
+      ["6 Chicken Wings","Knoblauchdip, Pommes & Salat","10,90 €"],
+      ["Bifteki","Mit Schafskäse gefüllt, Pommes & Salat","11,90 €"],
+      ["Hackfleischröllchen","Pommes & Salat","10,90 €"],
+      ["Extra Sauce","","3,00 €"],
+    ]}]
+  },
+  { id:"hunger", tab:"Kleiner Hunger",
+    sections:[{ items:[
+      ["Tzaziki","Mit frischen Baguettescheiben","5,90 €"],
+      ["1 Paar Weißwürste","Süßer Senf & Brot","8,90 €"],
+      ["Weißer Käse","Zwiebeln, Schnittlauch & Brot","8,90 €"],
+    ]}]
+  },
+  { id:"vorspeisen", tab:"Warme Vorspeisen",
+    sections:[{ items:[
+      ["Gegrillte Peperoni","Knoblauch-Kräutersauce & Brot","6,90 €"],
+      ["Gebackener Schafskäse","Tomaten, Peperoni, Oliven & Brot","10,90 €"],
+      ["Gegrillter Schafskäse","Tomaten, Peperoni, Zwiebeln, Knoblauchsauce & Brot","11,90 €"],
+      ["Weißer Käse","Bratkartoffeln, Zwiebeln & Schnittlauch","13,90 €"],
+      ["Gegrillte Champignons","Knoblauchsauce & Brot","9,90 €"],
+      ["Gegrillte Champignons","Mit Käsefüllung & Brot","10,90 €"],
+      ["Garnelen (6 Stück)","Knoblauchsauce & Brot","18,90 €"],
+    ]}]
+  },
+  { id:"salate", tab:"Salate",
+    sections:[{ items:[
+      ["&bdquo;Paulaner&ldquo;-Salatteller","Hähnchenbruststreifen, Essig & Olivenöl","14,90 €"],
+      ["Griechischer Bauernsalat","Schafskäse, Peperoni, Oliven, Tomaten, Gurken, Zwiebeln","13,90 €"],
+      ["Wurstsalat","Mit Brot","9,90 €"],
+      ["Wurstsalat","Mit Pommes","11,90 €"],
+      ["Wurstsalat","Mit Bratkartoffeln","13,90 €"],
+      ["Kleiner gemischter Salat","Hausgemachtes Joghurtdressing","4,50 €"],
+      ["Großer gemischter Salat","Hausgemachtes Joghurtdressing","9,90 €"],
+      ["Kleiner Krautsalat","Frisch eingelegt","4,50 €"],
+    ]}]
+  },
+  { id:"schwein", tab:"Vom Schwein", banner:"assets/img/steak.jpg",
+    sections:[
+      { title:"Schnitzel, Spieße & Steaks", note:"Alle Gerichte mit Pommes & Salat", items:[
+        ["Paniertes Schnitzel &bdquo;Wiener Art&ldquo;","","14,90 €"],
+        ["Paniertes Schnitzel &bdquo;Paprika Art&ldquo;","","16,90 €"],
+        ["Paniertes Schnitzel","Pilzrahmsauce","16,90 €"],
+        ["Paniertes Schnitzel","Käsesauce","16,90 €"],
+        ["Lendenspieß","Buttersauce","15,90 €"],
+        ["Lendenspieß","Paprikasauce","17,90 €"],
+        ["Lendenspieß","Pilzrahmsauce","17,90 €"],
+        ["Lendenspieß","Käsesauce","17,90 €"],
+        ["Lendensteak","Buttersauce","15,90 €"],
+        ["Lendensteak","Paprikasauce","17,90 €"],
+        ["Lendensteak","Pilzrahmsauce","17,90 €"],
+        ["Lendensteak","Käsesauce","17,90 €"],
+        ["Bauernspieß","Peperoni, Zwiebeln & Buttersauce","14,90 €"],
+        ["Bauernspieß","Peperoni, Zwiebeln & Paprikasauce","16,90 €"],
+        ["Bifteki","Mit Schafskäse gefüllt","15,90 €"],
+        ["Hackfleischröllchen","","14,90 €"],
+      ]},
+      { title:"Beilagen & Hinweise", items:[
+        ["Pommes","","4,50 €"],["Spätzle","","4,90 €"],["Bratkartoffeln","","4,90 €"],["Extra Sauce","","3,00 €"],
+        ["Beilagentausch","Spätzle +0,50 € · Bratkartoffeln +1,50 €","",["note"]],
+        ["Seniorenteller","−1,50 € auf alle Hauptgerichte","",["note"]],
+      ]}
+    ]
+  },
+  { id:"gefluegel", tab:"Vom Geflügel", banner:"assets/img/haehnchen.jpg",
+    sections:[
+      { title:"Pute & Hähnchen", note:"Alle Gerichte mit Pommes & Salat", items:[
+        ["Paniertes Putenschnitzel &bdquo;Wiener Art&ldquo;","","14,90 €"],
+        ["Paniertes Putenschnitzel &bdquo;Paprika Art&ldquo;","","16,90 €"],
+        ["Paniertes Putenschnitzel","Pilzrahmsauce","16,90 €"],
+        ["Paniertes Putenschnitzel","Käsesauce","16,90 €"],
+        ["Putensteak natur","","15,90 €"],
+        ["Putensteak","Paprikasauce","17,90 €"],
+        ["Putensteak","Pilzrahmsauce","17,90 €"],
+        ["Putensteak","Käsesauce","17,90 €"],
+        ["Hähnchenfilet natur","","15,90 €"],
+        ["Hähnchenfilet","Paprikasauce","17,90 €"],
+        ["Hähnchenfilet","Pilzrahmsauce","17,90 €"],
+        ["Hähnchenfilet","Käsesauce","17,90 €"],
+      ]},
+      { title:"Knusprige Spezialitäten", note:"Würzung wählbar: normal · mittel · extrascharf", items:[
+        ["½ Knuspriges Hähnchen","Mit Brot · Spezialität des Hauses","10,90 €"],
+        ["1 Dutzend Chicken Wings","Knoblauchdip & Brot","10,90 €"],
+        ["½ Dutzend Chicken Wings","Knoblauchdip & Brot","7,90 €"],
+        ["Knoblauchdip extra","","2,00 €"],
+      ]}
+    ]
+  },
+  { id:"rind", tab:"Vom Rind", banner:"assets/img/steak.jpg",
+    sections:[
+      { title:"Argentinisches Rumpsteak · 250 g", note:"Saftig gegrillt — nach Ihrer Wahl serviert", items:[
+        ["Rumpsteak &bdquo;Pfälzer Art&ldquo;","Zwiebelsauce, mit Brot","24,90 €"],
+        ["Rumpsteak mit Kräuterbutter","Mit Brot","23,90 €"],
+        ["Rumpsteak mit Pfefferrahmsauce","Mit Brot","24,90 €"],
+        ["Rumpsteak &bdquo;Pfälzer Art&ldquo;","Mit Brot & Salat","26,90 €"],
+        ["Rumpsteak mit Kräuterbutter","Mit Brot & Salat","25,90 €"],
+        ["Rumpsteak mit Pfefferrahmsauce","Mit Brot & Salat","26,90 €"],
+        ["Rumpsteak &bdquo;Pfälzer Art&ldquo;","Mit Pommes & Salat","29,90 €"],
+        ["Rumpsteak mit Kräuterbutter","Mit Pommes & Salat","28,90 €"],
+        ["Rumpsteak mit Pfefferrahmsauce","Mit Pommes & Salat","29,90 €"],
+      ]},
+      { title:"Außerdem", items:[
+        ["Gegrillte Rinderleber","Zwiebeln, Pommes & Salat","14,90 €"],
+      ]}
+    ]
+  },
+  { id:"pfaelzer", tab:"Pfälzer Spezialitäten",
+    sections:[
+      { title:"Aus der Pfalz", items:[
+        ["1 Paar Pfälzer Bratwürste","Sauerkraut & Brot","12,90 €"],
+        ["1 Paar Pfälzer Bratwürste","Mit Pommes","13,90 €"],
+        ["1 Paar Pfälzer Leberknödel","Sauerkraut, Zwiebelsauce, Speck & Brot","12,90 €"],
+        ["Pfälzer Saumagen","Sauerkraut & Brot","13,90 €"],
+        ["&bdquo;Schiefer Sack&ldquo;","1 Leberknödel, 1 Bratwurst, Sauerkraut & Brot","12,90 €"],
+        ["Pfälzer Platte","1 Leberknödel, 1 Saumagen, 1 Bratwurst, Sauerkraut & Brot","14,90 €"],
+      ]},
+      { title:"Für Senioren & Kinder", items:[
+        ["Pommes","Ketchup oder Mayo","4,50 €"],
+        ["Paniertes Putenschnitzel","Mit Pommes","9,90 €"],
+        ["Paniertes Schweineschnitzel","Mit Pommes","9,90 €"],
+        ["6 Chicken Wings","Knoblauchdip & Pommes","9,90 €"],
+        ["Spätzle","Mit Pilzrahmsauce","6,90 €"],
+      ]}
+    ]
+  },
+  { id:"backofen", tab:"Backofen & Neu",
+    sections:[
+      { title:"Neu · Paulaner Platte zum Teilen", items:[
+        ["Paulaner Platte für 2 Personen","2 Bifteki, 6 Chicken Wings, 2 Schweinemedaillons (Käsesauce), 2 Putensteaks (Champignonsauce), Pommes & Salat","36,00 €",["Neu"]],
+        ["Paulaner Platte für 4 Personen","Das große Festmahl — doppelte Menge","72,00 €",["Neu"]],
+      ]},
+      { title:"Flammkuchen aus dem Backofen", items:[
+        ["Flammkuchen &bdquo;Elsässer Art&ldquo;","Saure Sahne, Zwiebeln & Speck","13,90 €"],
+        ["Flammkuchen &bdquo;Süße Verführung&ldquo;","Apfelstückchen & Zimt","13,90 €"],
+        ["Vegetarischer Flammkuchen","Hirtenkäse & Peperoni","13,90 €"],
+      ]}
+    ]
+  },
+  { id:"nachspeisen", tab:"Nachspeisen",
+    sections:[{ items:[
+      ["Gemischtes Eis","Mit Sahne","5,90 €"],
+      ["Eis mit Feige und Eierlikör","","6,90 €"],
+      ["Vanilleeis mit heißen Himbeeren","","6,90 €"],
+      ["Vanilleeis mit heißer Schokosauce","","6,90 €"],
+      ["1 Kugel Eis","","1,50 €"],
+    ]}]
+  },
+  { id:"bier", tab:"Paulaner Bier", note:"Frisch vom Fass & aus der Flasche",
+    sections:[
+      { title:"Vom Fass", note:"je 0,3 l / 0,5 l", items:[
+        ["Premium Pils","","3,50 € / 4,50 €"],
+        ["Münchner Hell","","3,50 € / 4,50 €"],
+        ["Hefeweizen","","3,50 € / 4,50 €"],
+        ["Zwickel-Kellerbier","Natürtrüb","3,50 € / 4,50 €"],
+      ]},
+      { title:"Bier-Mixgetränke", note:"je 0,3 l / 0,5 l", items:[
+        ["Cola-Bier","","3,50 € / 4,50 €"],
+        ["Radler","","3,50 € / 4,50 €"],
+        ["Cola-Weizen","","3,50 € / 4,50 €"],
+        ["Weizenradler","","3,50 € / 4,50 €"],
+      ]},
+      { title:"Flaschenbiere · 0,5 l", items:[
+        ["Salvator Starkbier","","4,50 €"],
+        ["Münchner Hell alkoholfrei","","4,50 €"],
+        ["Weizen alkoholfrei","","4,50 €"],
+        ["Kristallweizen","","4,50 €"],
+        ["Hefe-Weizen dunkel","","4,50 €"],
+        ["Weizen-Zitrone alkoholfrei","","4,50 €"],
+        ["Münchner UR-Dunkel","","4,50 €"],
+      ]}
+    ]
+  },
+  { id:"weine", tab:"Weine", note:"Pfälzer & griechische Auswahl",
+    sections:[
+      { title:"Weißweine · 0,25 l", items:[
+        ["Müller-Thurgau","Trocken","4,50 €"],
+        ["Müller-Thurgau","Halbtrocken","4,50 €"],
+        ["Silvaner","Halbtrocken","4,50 €"],
+        ["Riesling","Trocken","4,50 €"],
+        ["Weißburgunder","Trocken","5,90 €"],
+        ["Grauburgunder","","5,90 €"],
+        ["Chardonnay","Trocken","5,90 €"],
+      ]},
+      { title:"Rosé & Rotweine · 0,25 l", items:[
+        ["Portugieser Rosé","Pfälzer Landwein, halbtrocken","4,50 €"],
+        ["Dornfelder Rosé","Trocken","5,90 €"],
+        ["Pfälzer Rotwein","Halbtrocken","5,90 €"],
+        ["Spätburgunder Spätlese","Trocken","6,00 €"],
+        ["Dornfelder","Trocken","6,00 €"],
+        ["Merlot","Trocken","6,00 €"],
+      ]},
+      { title:"Griechische Weine · 0,25 l", items:[
+        ["Imiglikos","Lieblich · weiß / rosé / rot","4,50 €"],
+        ["Nausa","Trocken, rot","4,50 €"],
+        ["Macedonikos","Halbtrocken, weiß","4,50 €"],
+      ]},
+      { title:"Weinschorlen", note:"je 0,25 l / 0,5 l", items:[
+        ["Weißweinschorle","","3,50 € / 5,30 €"],
+        ["Weiß-/Grauburgunderschorle","","3,90 € / 5,90 €"],
+        ["Roséschorle","","3,50 € / 5,30 €"],
+        ["Rotweinschorle","","3,50 € / 5,30 €"],
+      ]}
+    ]
+  },
+  { id:"afg", tab:"Alkoholfrei",
+    sections:[
+      { title:"Limonaden · 0,3 l / 0,5 l", items:[
+        ["Coca Cola / Cola light","","3,00 € / 3,90 €"],
+        ["Fanta","","3,00 € / 3,90 €"],
+        ["Sprite","","3,00 € / 3,90 €"],
+        ["Mezzo Mix","","3,00 € / 3,90 €"],
+      ]},
+      { title:"Säfte & Schorlen", note:"0,2 l / 0,5 l", items:[
+        ["Schweppes Bitter Lemon","","3,50 € / 4,50 €"],
+        ["Apfel- / Orangen- / Maracujasaft","","3,50 € / 4,50 €"],
+        ["Roter Traubensaft","","3,50 € / 4,50 €"],
+        ["Johannisbeernektar","","3,50 € / 4,50 €"],
+        ["Saftschorle","","2,90 € / 4,20 €"],
+      ]},
+      { title:"Mineralwasser · 0,25 l / 0,75 l", items:[
+        ["Gerolsteiner Classic","","2,90 € / 6,90 €"],
+        ["Gerolsteiner Medium","","2,90 € / 6,90 €"],
+        ["Gerolsteiner Naturell","","2,90 € / 6,90 €"],
+      ]}
+    ]
+  },
+  { id:"spirituosen", tab:"Spirituosen",
+    sections:[
+      { title:"Edelbrände & Schnäpse · 2 cl", items:[
+        ["Williams Christ","","3,50 €"],["Mirabellenbrand","","3,50 €"],["Doppelkorn","","3,00 €"],
+        ["Ouzo","","3,50 €"],["Sambuca","","3,50 €"],["Metaxa 7 Sterne","","3,50 €"],
+        ["Asbach Uralt","","3,50 €"],["Wodka Gorbatschow","","3,50 €"],["Bacardi","","3,50 €"],
+        ["Tequila","","3,50 €"],["Barack Palinka mit Feige","","3,90 €"],
+        ["Magenbitter","Underberg / Jägermeister / Fernet / Ramazzotti","ab 3,50 €"],
+      ]},
+      { title:"Liköre, Aperitifs & Whiskey", items:[
+        ["Liköre","Baileys / Amaretto / Bananenlikör","ab 4,50 €"],
+        ["Aperitifs · 4 cl","Martini Bianco / Campari","4,50 €"],
+        ["Whiskey · 4 cl","Jack Daniel's / Johnnie Walker","4,50 €"],
+        ["Winzersekt · 0,1 l","","5,00 €"],
+      ]},
+      { title:"Longdrinks & Cocktails", items:[
+        ["Longdrinks","Bacardi-Cola / -Orange, Asbach-Cola, Wodka-Lemon, Whiskey-Cola, Campari-Orange · 0,2 l / 0,5 l","4,90 € / 11,50 €"],
+        ["Aperol Spritz","0,4 l","6,50 €"],
+      ]}
+    ]
+  },
+  { id:"kaffee", tab:"Kaffee & Tee",
+    sections:[{ items:[
+      ["Tasse Kaffee","","2,90 €"],
+      ["Espresso","","2,50 €"],
+      ["Doppelter Espresso","","4,50 €"],
+      ["Cappuccino","","4,50 €"],
+      ["Milchkaffee","","4,50 €"],
+      ["Latte Macchiato","","4,50 €"],
+      ["Earl Grey","","2,50 €"],
+      ["Kamillen- / Pfefferminz- / Früchtetee","","2,50 €"],
+    ]}]
+  },
+];
+
+
+const tabbar=document.getElementById("tabbar");
+  const panels=document.getElementById("panels");
+  const banner=document.getElementById("menuBanner");
+
+  MENU.forEach((cat,i)=>{
+    const tab=document.createElement("button");
+    tab.className="tab"+(i===0?" active":"");
+    tab.textContent=cat.tab.replace(/&bdquo;|&ldquo;/g,'"');
+    tab.setAttribute("role","tab");
+    tab.id="tab-"+cat.id;
+    tab.setAttribute("aria-selected",i===0?"true":"false");
+    tab.addEventListener("click",()=>activate(cat.id,true));
+    tabbar.appendChild(tab);
+
+    const panel=document.createElement("div");
+    panel.className="menu-panel"+(i===0?" active":"");
+    panel.id="panel-"+cat.id;
+    panel.setAttribute("role","tabpanel");
+
+    let html='<div class="panel-head"><h3>'+cat.tab+'</h3>';
+    if(cat.note) html+='<p class="note">'+cat.note+'</p>';
+    if(cat.dayBadge) html+='<span class="badge-day">'+cat.dayBadge+'</span>';
+    html+='</div>';
+
+    cat.sections.forEach(sec=>{
+      html+='<div class="menu-section">';
+      if(sec.title) html+='<h4>'+sec.title+'</h4>';
+      if(sec.note) html+='<p class="sec-note">'+sec.note+'</p>';
+      html+='<div class="menu-grid">';
+      sec.items.forEach(it=>{
+        const [name,desc,price,flags]=it;
+        const isNote=flags&&flags.indexOf("note")>-1;
+        const multi=price&&price.indexOf("/")>-1;
+        html+='<div class="dish'+(isNote?' note-row':'')+'"><div class="info"><span class="name">'+name;
+        if(flags) flags.forEach(f=>{ if(f!=="note") html+='<span class="badge">'+f+'</span>'; });
+        html+='</span>';
+        if(desc) html+='<div class="desc">'+desc+'</div>';
+        html+='</div>';
+        if(price) html+='<span class="price'+(multi?' multi':'')+'">'+price+'</span>';
+        html+='</div>';
+      });
+      html+='</div></div>';
+    });
+    panel.innerHTML=html;
+    panels.appendChild(panel);
+  });
+
+  function activate(id,scroll){
+    document.querySelectorAll(".tab").forEach(t=>{
+      const on=t.id==="tab-"+id;
+      t.classList.toggle("active",on);
+      t.setAttribute("aria-selected",on?"true":"false");
+      if(on) t.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+    });
+    document.querySelectorAll(".menu-panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+id));
+    const cat=MENU.find(c=>c.id===id);
+    if(cat&&cat.banner) banner.style.backgroundImage="url('"+cat.banner+"')";
+  }
+  // expose for nav deep-links
+  window.__activateTab=activate;
+
+  // Deep-link helpers: any [data-tab] opens that menu category
+  document.querySelectorAll("[data-tab]").forEach(el=>{
+    el.addEventListener("click",()=>{ setTimeout(()=>window.__activateTab(el.dataset.tab),120); });
+  });
+
+  // Check URL hash for tab deep-link on page load
+  if(window.location.hash){
+    const hash=window.location.hash.slice(1);
+    const cat=MENU.find(c=>c.id===hash);
+    if(cat) setTimeout(()=>activate(hash),200);
+  }
+})();
+
+/* ════════════════════════════════════════════════════════════
+   NAVIGATION: scroll state, hamburger
+   ════════════════════════════════════════════════════════════ */
+(function navigation(){
+  const nav=document.getElementById("nav");
+  const burger=document.getElementById("burger");
+  const onScroll=()=>nav.classList.toggle("scrolled",window.scrollY>40);
+  onScroll(); window.addEventListener("scroll",onScroll,{passive:true});
+
+  burger.addEventListener("click",()=>{
+    const open=document.body.classList.toggle("menu-open");
+    burger.setAttribute("aria-expanded",open?"true":"false");
+    burger.setAttribute("aria-label",open?"Menü schließen":"Menü öffnen");
+  });
+  document.querySelectorAll("#mobileMenu a").forEach(a=>a.addEventListener("click",()=>{
+    document.body.classList.remove("menu-open");
+    burger.setAttribute("aria-expanded","false");
+  }));
+})();
+
+/* ════════════════════════════════════════════════════════════
+   SCROLL REVEAL (IntersectionObserver) + staggered cards
+   ════════════════════════════════════════════════════════════ */
+(function scrollReveal(){
+  const els=document.querySelectorAll(".reveal, .ornament.draw");
+  const obs=new IntersectionObserver((entries,o)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const d=e.target.dataset.delay?parseInt(e.target.dataset.delay):0;
+        setTimeout(()=>e.target.classList.add("in"),d);
+        o.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12,rootMargin:"0px 0px -8% 0px"});
+  els.forEach(el=>obs.observe(el));
 })();
 
 /* ════════ FOOTER YEAR ════════ */

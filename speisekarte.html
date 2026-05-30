@@ -188,6 +188,9 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 .tab.active{background:var(--brand-gold);color:#1a1305;border-color:var(--brand-gold);box-shadow:var(--shadow-gold)}
 .menu-panel{display:none}
 .menu-panel.active{display:block;animation:panelIn .35s var(--ease)}
+.menu-cat-section{padding:56px 0 48px;border-bottom:1px solid rgba(184,152,46,.15)}
+.menu-cat-section:last-child{border-bottom:0}
+.tab{text-decoration:none}
 @keyframes panelIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .panel-head{text-align:center;margin:36px 0 40px}
 .panel-head h3{font-family:var(--font-serif);font-style:italic;font-size:clamp(28px,4vw,42px);color:var(--brand-gold-lt)}
@@ -787,81 +790,69 @@ const MENU = [
 ];
 
 /* ════════════════════════════════════════════════════════════
-   SPEISEKARTE — RENDERING & TABS
+   SPEISEKARTE — VOLLSTÄNDIGE LISTE + ANKER-NAVIGATION
    ════════════════════════════════════════════════════════════ */
 (function renderMenu(){
-  const tabbar=document.getElementById("tabbar");
-  const panels=document.getElementById("panels");
-  const banner=document.getElementById("menuBanner");
+  const tabbar = document.getElementById("tabbar");
+  const panels = document.getElementById("panels");
+  if(!tabbar || !panels) return;
 
-  MENU.forEach((cat,i)=>{
-    const tab=document.createElement("button");
-    tab.className="tab"+(i===0?" active":"");
-    tab.textContent=cat.tab.replace(/&bdquo;|&ldquo;/g,'"');
-    tab.setAttribute("role","tab");
-    tab.id="tab-"+cat.id;
-    tab.setAttribute("aria-selected",i===0?"true":"false");
-    tab.addEventListener("click",()=>activate(cat.id,true));
-    tabbar.appendChild(tab);
+  /* — Anker-Links oben — */
+  MENU.forEach(cat=>{
+    const a = document.createElement("a");
+    a.className = "tab";
+    a.textContent = cat.tab;
+    a.href = "#section-" + cat.id;
+    tabbar.appendChild(a);
+  });
 
-    const panel=document.createElement("div");
-    panel.className="menu-panel"+(i===0?" active":"");
-    panel.id="panel-"+cat.id;
-    panel.setAttribute("role","tabpanel");
+  /* — Alle Kategorien untereinander rendern — */
+  MENU.forEach(cat=>{
+    const section = document.createElement("div");
+    section.className = "menu-cat-section";
+    section.id = "section-" + cat.id;
 
-    let html='<div class="panel-head"><h3>'+cat.tab+'</h3>';
-    if(cat.note) html+='<p class="note">'+cat.note+'</p>';
-    if(cat.dayBadge) html+='<span class="badge-day">'+cat.dayBadge+'</span>';
-    html+='</div>';
+    let html = '<div class="panel-head"><h3>' + cat.tab + '</h3>';
+    if(cat.note) html += '<p class="note">' + cat.note + '</p>';
+    if(cat.dayBadge) html += '<span class="badge-day">' + cat.dayBadge + '</span>';
+    html += '</div>';
 
     cat.sections.forEach(sec=>{
-      html+='<div class="menu-section">';
-      if(sec.title) html+='<h4>'+sec.title+'</h4>';
-      if(sec.note) html+='<p class="sec-note">'+sec.note+'</p>';
-      html+='<div class="menu-grid">';
+      html += '<div class="menu-section">';
+      if(sec.title) html += '<h4>' + sec.title + '</h4>';
+      if(sec.note) html += '<p class="sec-note">' + sec.note + '</p>';
+      html += '<div class="menu-grid">';
       sec.items.forEach(it=>{
-        const [name,desc,price,flags]=it;
-        const isNote=flags&&flags.indexOf("note")>-1;
-        const multi=price&&price.indexOf("/")>-1;
-        html+='<div class="dish'+(isNote?' note-row':'')+'"><div class="info"><span class="name">'+name;
-        if(flags) flags.forEach(f=>{ if(f!=="note") html+='<span class="badge">'+f+'</span>'; });
-        html+='</span>';
-        if(desc) html+='<div class="desc">'+desc+'</div>';
-        html+='</div>';
-        if(price) html+='<span class="price'+(multi?' multi':'')+'">'+price+'</span>';
-        html+='</div>';
+        const [name,desc,price,flags] = it;
+        const isNote = flags && flags.indexOf("note") > -1;
+        const multi = price && price.indexOf("/") > -1;
+        html += '<div class="dish' + (isNote?' note-row':'') + '"><div class="info"><span class="name">' + name;
+        if(flags) flags.forEach(f=>{ if(f!=="note") html += '<span class="badge">'+f+'</span>'; });
+        html += '</span>';
+        if(desc) html += '<div class="desc">' + desc + '</div>';
+        html += '</div>';
+        if(price) html += '<span class="price' + (multi?' multi':'') + '">' + price + '</span>';
+        html += '</div>';
       });
-      html+='</div></div>';
+      html += '</div></div>';
     });
-    panel.innerHTML=html;
-    panels.appendChild(panel);
+    section.innerHTML = html;
+    panels.appendChild(section);
   });
 
-  function activate(id,scroll){
-    document.querySelectorAll(".tab").forEach(t=>{
-      const on=t.id==="tab-"+id;
-      t.classList.toggle("active",on);
-      t.setAttribute("aria-selected",on?"true":"false");
-      if(on) t.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+  /* — Aktiven Tab beim Scrollen hervorheben — */
+  const links = tabbar.querySelectorAll("a.tab");
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id = e.target.id.replace("section-","");
+        links.forEach(l=>l.classList.toggle("active", l.getAttribute("href")==="#section-"+id));
+        const active = tabbar.querySelector(".tab.active");
+        if(active) active.scrollIntoView({behavior:"smooth",inline:"center",block:"nearest"});
+      }
     });
-    document.querySelectorAll(".menu-panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+id));
-    const cat=MENU.find(c=>c.id===id);
-    if(cat&&cat.banner) banner.style.backgroundImage="url('"+cat.banner+"')";
-  }
-  // expose for nav deep-links
-  window.__activateTab=activate;
-
-  // Deep-link helpers: any [data-tab] opens that menu category
-  document.querySelectorAll("[data-tab]").forEach(el=>{
-    el.addEventListener("click",()=>{ setTimeout(()=>window.__activateTab(el.dataset.tab),120); });
-  });
-
-  // Check URL hash for tab deep-link on page load
-  if(window.location.hash){
-    const hash=window.location.hash.slice(1);
-    const cat=MENU.find(c=>c.id===hash);
-    if(cat) setTimeout(()=>activate(hash),200);
-  }
+  },{rootMargin:"-20% 0px -70% 0px"});
+  panels.querySelectorAll(".menu-cat-section").forEach(s=>obs.observe(s));
 })();
 
 /* ════════════════════════════════════════════════════════════

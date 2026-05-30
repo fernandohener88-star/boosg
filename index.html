@@ -191,11 +191,12 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
   color:var(--brand-cream);overflow:hidden;
-  background:#0a0604;
+  background:#08060300;
 }
-.hero .bg-photo{position:absolute;inset:0;background:url("assets/img/restaurant.jpg") center/cover no-repeat;opacity:.55;z-index:0}
-#particles{position:absolute;inset:0;z-index:1;pointer-events:none}
-.hero .vignette{position:absolute;inset:0;z-index:2;box-shadow:inset 0 -150px 140px -50px rgba(10,6,4,.95),inset 0 90px 90px -40px rgba(2,16,42,.6)}
+.hero .bg-photo{position:absolute;inset:0;background:url("assets/img/restaurant.jpg") center/cover no-repeat;opacity:.7;z-index:0}
+.hero .bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,5,2,.55) 0%,rgba(8,5,2,.3) 45%,rgba(8,5,2,.75) 100%)}
+#particles{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hero .vignette{display:none}
 .hero-content{position:relative;z-index:3;padding:96px 24px;max-width:920px;will-change:transform}
 .hero .eyebrow{font-size:13px;letter-spacing:6px;text-transform:uppercase;color:var(--brand-gold-lt);font-weight:700;margin-bottom:26px}
 .hero h1{font-size:clamp(56px,11vw,128px);color:#fff;font-weight:800;letter-spacing:.5px;line-height:.92;text-shadow:0 4px 40px rgba(0,0,0,.5)}
@@ -529,8 +530,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
      ════════════════════════════════════════════════════════════ -->
 <section class="hero" id="home">
   <div class="bg-photo" aria-hidden="true"></div>
+  <div class="bg-overlay" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="vignette" aria-hidden="true"></div>
   <div class="hero-content" id="heroContent">
     <p class="eyebrow h-stagger d0">Willkommen in den</p>
     <h1 class="h-stagger d1">Paulaner<span class="gold">stuben</span></h1>

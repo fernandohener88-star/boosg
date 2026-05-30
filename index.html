@@ -190,11 +190,21 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:scale(1)}
    ════════════════════════════════════════════════════════════ */
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
-  color:var(--brand-cream);overflow:hidden;
-  background:#08060300;
+  color:var(--brand-cream);overflow:hidden;background:#0c0804;
 }
-.hero .bg-photo{position:absolute;inset:0;background:url("assets/img/restaurant.jpg") center/cover no-repeat;opacity:.7;z-index:0}
-.hero .bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(8,5,2,.55) 0%,rgba(8,5,2,.3) 45%,rgba(8,5,2,.75) 100%)}
+.hero .bg-photo{
+  position:absolute;inset:0;
+  background:url("assets/img/restaurant.jpg") center/cover no-repeat;
+  opacity:.5;
+  filter:brightness(.85) contrast(1.05) saturate(.7);
+  z-index:0;
+}
+.hero .bg-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(8,5,2,.7) 100%),
+    linear-gradient(180deg, rgba(8,5,2,.5) 0%, rgba(8,5,2,.1) 40%, rgba(8,5,2,.6) 100%);
+}
 #particles{position:absolute;inset:0;z-index:2;pointer-events:none}
 .hero .vignette{display:none}
 .hero-content{position:relative;z-index:3;padding:96px 24px;max-width:920px;will-change:transform}

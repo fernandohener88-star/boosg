@@ -490,36 +490,13 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 .prev-cat{background:#fff;border:1px solid rgba(184,152,46,.25);border-radius:12px;padding:30px 28px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
 .prev-cat:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.1)}
 .prev-cat::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--brand-gold),transparent)}
-.prev-icon{font-size:34px;margin-bottom:12px}
+.prev-icon{margin-bottom:16px}
 .prev-cat h4{font-family:var(--font-serif);font-size:20px;color:var(--brand-navy);margin-bottom:16px}
 .prev-cat ul{list-style:none}
 .prev-cat ul li{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px dotted rgba(184,152,46,.2);font-size:15px;color:var(--ink-soft)}
 .prev-cat ul li:last-child{border-bottom:0}
 .prev-cat ul li span:last-child{color:var(--brand-gold);font-family:var(--font-serif);font-weight:600;white-space:nowrap}
 .prev-cta{text-align:center;padding-top:8px}
-
-/* ════════ SPEISEKARTE VOLLSEITE ════════ */
-#speisePage{
-  display:none;position:fixed;inset:0;z-index:1500;
-  background:#111;overflow-y:auto;color:var(--brand-cream);
-}
-#speisePage.open{display:block;animation:spIn .35s cubic-bezier(.22,.61,.36,1)}
-@keyframes spIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-.sp-topbar{
-  position:sticky;top:0;z-index:10;background:rgba(17,17,17,.97);backdrop-filter:blur(8px);
-  display:flex;align-items:center;gap:16px;padding:14px 28px;
-  border-bottom:1px solid rgba(184,152,46,.3);
-}
-.sp-topbar .sp-title{font-family:var(--font-serif);font-style:italic;font-size:22px;color:var(--brand-gold-lt);flex:1}
-.sp-back{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--brand-gold);color:#1a1305;
-  font-family:var(--font-sans);font-weight:700;font-size:12.5px;letter-spacing:1px;text-transform:uppercase;
-  padding:10px 20px;border-radius:30px;border:0;cursor:pointer;flex:none;
-  transition:background .2s;
-}
-.sp-back:hover{background:var(--brand-gold-lt)}
-.sp-inner{padding:40px 0 80px;max-width:var(--maxw);margin:0 auto;padding-left:28px;padding-right:28px}
 </style>
 </head>
 <body>
@@ -536,8 +513,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     <nav aria-label="Hauptnavigation">
       <ul class="nav-links">
         <li><a href="#home" data-spy="home" class="active">Startseite</a></li>
-        <li><a href="#speisekarte" onclick="openSpeise();return false" data-spy="speisekarte">Speisekarte</a></li>
-        <li><a href="#speisekarte" onclick="openSpeise();return false" data-spy="mittag">Mittagsangebot</a></li>
+        <li><a href="Speisekarte.html" data-spy="speisekarte">Speisekarte</a></li>
+        <li><a href="Speisekarte.html" data-spy="mittag">Mittagsangebot</a></li>
         <li><a href="#ueber-uns" data-spy="ueber-uns">Über uns</a></li>
         <li><a href="#kontakt" data-spy="kontakt">Kontakt</a></li>
       </ul>
@@ -554,8 +531,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 <!-- Mobile fullscreen overlay menu -->
 <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile Navigation">
   <a href="#home">Startseite</a>
-  <a href="#speisekarte" onclick="openSpeise();return false">Speisekarte</a>
-  <a href="#speisekarte" onclick="openSpeise();return false">Mittagsangebot</a>
+  <a href="Speisekarte.html">Speisekarte</a>
+  <a href="Speisekarte.html">Mittagsangebot</a>
   <a href="#ueber-uns">Über uns</a>
   <a href="#kontakt">Kontakt</a>
   <a href="#kontakt" class="btn btn-gold">Jetzt reservieren</a>
@@ -578,7 +555,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     </div>
     <p class="tag h-stagger d3">Deutsche &amp; griechische Küche &middot; Landau in der Pfalz</p>
     <div class="cta-row h-stagger d4">
-      <a href="#speisekarte" onclick="openSpeise();return false" class="btn btn-gold">Zur Speisekarte
+      <a href="Speisekarte.html" class="btn btn-gold">Zur Speisekarte
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
       <a href="#kontakt" class="btn btn-ghost">Tisch reservieren</a>
@@ -682,7 +659,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     </div>
     <div class="prev-grid">
       <div class="prev-cat reveal scale-in" data-delay="0">
-        <div class="prev-icon">🥩</div><h4>Vom Rind &amp; Schwein</h4>
+        <div class="prev-icon"><svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="var(--brand-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 44c0-8 6-20 18-24s26-2 30 8-4 22-16 26S8 52 8 44z"/><path d="M20 36c2-4 8-8 14-8"/><path d="M44 24c2 2 4 6 2 10"/></svg></div>
+        <h4>Vom Rind &amp; Schwein</h4>
         <ul>
           <li><span>Rumpsteak 300g</span><span>24,90 €</span></li>
           <li><span>Schweinemedaillons</span><span>17,90 €</span></li>
@@ -690,7 +668,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         </ul>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="100">
-        <div class="prev-icon">🍗</div><h4>Geflügel &amp; Grill</h4>
+        <div class="prev-icon"><svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="var(--brand-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 14c-4-6 4-12 10-8 2-4 8-4 10 0 4-2 8 2 6 6l-4 8H26z"/><path d="M26 20l-8 28h24l-8-28"/><path d="M24 48h16"/><path d="M28 48v6h8v-6"/></svg></div>
+        <h4>Geflügel &amp; Grill</h4>
         <ul>
           <li><span>½ Knuspriges Hähnchen</span><span>13,90 €</span></li>
           <li><span>Bifteki mit Schafskäse</span><span>14,90 €</span></li>
@@ -698,7 +677,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         </ul>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="200">
-        <div class="prev-icon">🥗</div><h4>Vorspeisen &amp; Salate</h4>
+        <div class="prev-icon"><svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="var(--brand-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 36c0-12 8-24 20-24s20 12 20 24"/><path d="M8 36h48"/><path d="M16 44c0 6 6 10 16 10s16-4 16-10"/><path d="M20 28c2-4 6-6 10-4"/><path d="M38 24c2 2 4 6 2 10"/></svg></div>
+        <h4>Vorspeisen &amp; Salate</h4>
         <ul>
           <li><span>Tzaziki &amp; Baguette</span><span>5,90 €</span></li>
           <li><span>Gegrillter Schafskäse</span><span>9,90 €</span></li>
@@ -706,7 +686,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         </ul>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="300">
-        <div class="prev-icon">🍺</div><h4>Paulaner Bier vom Fass</h4>
+        <div class="prev-icon"><svg width="36" height="36" viewBox="0 0 64 64" fill="none" stroke="var(--brand-gold)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 22h26v30a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4z"/><path d="M42 28h6a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5h-6"/><path d="M21 22V16a5 5 0 0 1 5-5h6a5 5 0 0 1 5 5v6"/><path d="M24 32v12M32 32v12"/></svg></div>
+        <h4>Paulaner Bier vom Fass</h4>
         <ul>
           <li><span>Münchner Hell 0,5 l</span><span>4,50 €</span></li>
           <li><span>Hefeweizen 0,5 l</span><span>4,90 €</span></li>
@@ -922,8 +903,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         <h4>Navigation</h4>
         <ul>
           <li><a href="#home">Startseite</a></li>
-          <li><a href="#speisekarte" onclick="openSpeise();return false">Speisekarte</a></li>
-          <li><a href="#speisekarte" onclick="openSpeise();return false">Mittagsangebot</a></li>
+          <li><a href="Speisekarte.html">Speisekarte</a></li>
+          <li><a href="Speisekarte.html">Mittagsangebot</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
           <li><a href="#" data-modal="modal-impressum">Impressum</a></li>
@@ -1070,30 +1051,6 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     <p>Wir setzen auf unserer Webseite ein Plugin des Internetdienstes Google Maps ein. Betreiber von Google Maps ist Google Inc., ansässig in den USA, CA 94043, 1600 Amphitheatre Parkway, Mountain View. Indem Sie Google Maps auf unserer Webseite nutzen, werden Informationen über die Nutzung dieser Webseite und Ihre IP-Adresse an einen Google-Server in den USA übermittelt und auch auf diesem Server gespeichert. Wir haben keine Kenntnis über den genauen Inhalt der übermittelten Daten, noch über ihre Nutzung durch Google. Das Unternehmen verneint in diesem Kontext die Verbindung der Daten mit Informationen aus anderen Google-Diensten und die Erfassung personenbezogener Daten. Allerdings kann Google die Informationen an Dritte übermitteln. Wenn Sie Javascript in Ihrem Browser deaktivieren, verhindern Sie die Ausführung von Google Maps. Sie können dann aber auch keine Kartenanzeige auf unserer Webseite nutzen. Mit der Nutzung unserer Webseite erklären Sie Ihr Einverständnis mit der beschriebenen Erfassung und Verarbeitung der Informationen durch Google Inc. Näheres zu den Datenschutzbestimmungen und Nutzungsbedingungen für Google Maps erfahren Sie hier: <a href="https://www.google.com/intl/de_de/help/terms_maps.html" target="_blank" rel="noopener">https://www.google.com/intl/de_de/help/terms_maps.html</a>.</p>
 
     <p class="hinweis">Diese Datenschutzerklärung wurde erstellt durch <a href="https://www.datenschutzexperte.de" target="_blank" rel="noopener">www.datenschutzexperte.de</a></p>
-  </div>
-</div>
-
-
-<!-- ════════ SPEISEKARTE VOLLSEITE OVERLAY ════════ -->
-<div id="speisePage" aria-modal="true" aria-label="Vollständige Speisekarte">
-  <div class="sp-topbar">
-    <span class="sp-title">Paulanerstuben &middot; Speisekarte</span>
-    <button class="sp-back" onclick="closeSpeise()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Zurück
-    </button>
-  </div>
-  <div class="sp-inner">
-    <div class="tabbar" id="tabbar" role="tablist"></div>
-    <div id="panels"></div>
-    <div class="allergene" style="margin-top:60px;background:rgba(0,0,0,.3);border:1px solid rgba(184,152,46,.25);border-radius:8px;padding:30px">
-      <h4 style="color:var(--brand-gold);font-family:var(--font-sans);font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:900">Zusatzstoffe &amp; Allergene</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 40px">
-        <p style="color:var(--cream-soft);font-size:13px;line-height:1.8"><b style="color:var(--brand-cream)">A</b> Gluten &nbsp;<b style="color:var(--brand-cream)">C</b> Eier &nbsp;<b style="color:var(--brand-cream)">D</b> Fisch &nbsp;<b style="color:var(--brand-cream)">G</b> Milch/Laktose</p>
-        <p style="color:var(--cream-soft);font-size:13px;line-height:1.8"><b style="color:var(--brand-cream)">H</b> Schalenfrüchte &nbsp;<b style="color:var(--brand-cream)">M</b> Senf &nbsp;<b style="color:var(--brand-cream)">O</b> SO&#8322;/Sulfite</p>
-        <p style="color:var(--cream-soft);font-size:13px;line-height:1.8;grid-column:1/-1">Alle Preise inkl. gesetzl. MwSt. &middot; Irrtümer &amp; Preisänderungen vorbehalten.</p>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -1437,7 +1394,7 @@ const MENU = [
     });
     document.querySelectorAll(".menu-panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+id));
     const cat=MENU.find(c=>c.id===id);
-    if(cat&&cat.banner&&banner) banner.style.backgroundImage="url('"+cat.banner+"')";
+    if(cat&&cat.banner) banner.style.backgroundImage="url('"+cat.banner+"')";
   }
   // expose for nav deep-links
   window.__activateTab=activate;
@@ -1632,24 +1589,5 @@ document.getElementById("year").textContent=new Date().getFullYear();
     }
   });
 })();
-
-/* ════════ SPEISEKARTE OVERLAY OPEN/CLOSE ════════ */
-function openSpeise(){
-  const sp=document.getElementById('speisePage');
-  sp.classList.add('open');
-  sp.scrollTop=0;
-  document.body.style.overflow='hidden';
-  history.pushState({speise:true},'');
-}
-function closeSpeise(){
-  document.getElementById('speisePage').classList.remove('open');
-  document.body.style.overflow='';
-}
-window.addEventListener('popstate',function(e){
-  if(document.getElementById('speisePage').classList.contains('open')&&(!e.state||!e.state.speise)){
-    closeSpeise();
-  }
-});
-
 </script>
 </html>

@@ -107,14 +107,14 @@ button{font-family:inherit}
 .sec-pad{padding:104px 0}
 
 /* ════════ PARALLAX HERO ════════ */
-.hero .bg-photo{will-change:transform}
+.hero .bg-photo{will-change:transform;top:-20% !important;bottom:-20% !important;height:140% !important}
 
 /* ════════ ANGLED SECTION DIVIDERS ════════ */
-.willkommen{clip-path:polygon(0 0,100% 0,100% 92%,0 100%);padding-bottom:140px;margin-bottom:-48px;position:relative;z-index:1}
-.highlights{clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);padding:140px 0;margin:-48px 0;position:relative;z-index:2}
-.speise-prev{clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);padding:140px 0;margin:-48px 0;position:relative;z-index:3}
-.bewertungen{clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);padding:140px 0;margin:-48px 0;position:relative;z-index:4}
-.ueber{clip-path:polygon(0 4%,100% 0,100% 100%,0 100%);padding-top:140px;margin-top:-48px;position:relative;z-index:5}
+.willkommen{clip-path:polygon(0 0,100% 0,100% 93%,0 100%);padding-bottom:140px;margin-bottom:-60px;position:relative;z-index:6}
+.highlights{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:5}
+.speise-prev{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:4}
+.bewertungen{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:3}
+.ueber{clip-path:polygon(0 5%,100% 0,100% 100%,0 100%);padding-top:150px;margin-top:-60px;position:relative;z-index:2}
 
 /* ════════ COUNT-UP NUMBERS ════════ */
 .count-num{font-family:var(--font-serif);font-size:clamp(36px,5vw,58px);font-weight:700;color:var(--brand-gold);display:block;line-height:1}
@@ -1679,7 +1679,7 @@ document.getElementById("year").textContent=new Date().getFullYear();
   window.addEventListener('scroll', ()=>{
     const y = window.scrollY;
     if(y < window.innerHeight * 1.5)
-      bg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
+      bg.style.transform = 'translateY(' + Math.min(y * 0.4, 220) + 'px)';
   }, {passive:true});
 })();
 

@@ -503,10 +503,9 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 .prev-cat::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--brand-gold),transparent)}
 .prev-icon{margin-bottom:20px;opacity:.9}
 .prev-cat h4{font-family:var(--font-serif);font-size:21px;color:var(--brand-navy);margin-bottom:18px;font-weight:700}
-.prev-cat ul{list-style:none}
-.prev-cat ul li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px solid rgba(184,152,46,.15);font-size:15px;color:var(--ink-soft)}
-.prev-cat ul li:last-child{border-bottom:0}
-.prev-cat ul li span:last-child{color:var(--brand-gold);font-family:var(--font-serif);font-weight:600;font-size:15.5px;white-space:nowrap}
+.prev-cat p{font-size:15px;color:var(--ink-soft);line-height:1.65;margin-bottom:20px}
+.prev-cat .prev-tags{display:flex;flex-wrap:wrap;gap:8px}
+.prev-cat .prev-tag{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--brand-gold);background:rgba(184,152,46,.1);border:1px solid rgba(184,152,46,.25);border-radius:20px;padding:4px 12px}
 .prev-cta{text-align:center;padding-top:12px}
 </style>
 </head>
@@ -666,39 +665,43 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
     <div class="prev-grid">
       <div class="prev-cat reveal scale-in" data-delay="0">
         <div class="prev-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--brand-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v4a3 3 0 006 0V2"/><path d="M6 8v14"/><path d="M18 2c0 4.5-2 6-2 9h4c0-3-2-4.5-2-9z"/><path d="M18 11v11"/></svg></div>
-        <h4>Vom Rind &amp; Schwein</h4>
-        <ul>
-          <li><span>Rumpsteak 300g</span><span>24,90 €</span></li>
-          <li><span>Schweinemedaillons</span><span>17,90 €</span></li>
-          <li><span>Pfälzer Saumagen</span><span>14,90 €</span></li>
-        </ul>
+        <h4>Fleisch &amp; Grill</h4>
+        <p>Saftige Steaks, Schweinemedaillons und Pfälzer Spezialitäten — frisch gegrillt und nach Ihrer Wahl serviert.</p>
+        <div class="prev-tags">
+          <span class="prev-tag">Rind</span>
+          <span class="prev-tag">Schwein</span>
+          <span class="prev-tag">Pfälzer Art</span>
+        </div>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="100">
         <div class="prev-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--brand-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 4-6 5.5-6 10a6 6 0 0012 0c0-3-1.5-5-3-6-.5 1.5-1 2.5-3 3 1.5-2 0-5 0-7z"/></svg></div>
-        <h4>Geflügel &amp; Grill</h4>
-        <ul>
-          <li><span>½ Knuspriges Hähnchen</span><span>13,90 €</span></li>
-          <li><span>Bifteki mit Schafskäse</span><span>14,90 €</span></li>
-          <li><span>Lendenspieß griechisch</span><span>16,90 €</span></li>
-        </ul>
+        <h4>Griechische Küche</h4>
+        <p>Bifteki, Lendenspieße und gegrilltes Hähnchen — authentische Rezepte aus der Heimat der Familie Gjoka.</p>
+        <div class="prev-tags">
+          <span class="prev-tag">Geflügel</span>
+          <span class="prev-tag">Bifteki</span>
+          <span class="prev-tag">Griechisch</span>
+        </div>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="200">
         <div class="prev-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--brand-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0020 0"/><path d="M2 12h20"/><path d="M12 2a15 15 0 010 10"/><path d="M12 2a15 15 0 000 10"/></svg></div>
         <h4>Vorspeisen &amp; Salate</h4>
-        <ul>
-          <li><span>Tzaziki &amp; Baguette</span><span>5,90 €</span></li>
-          <li><span>Gegrillter Schafskäse</span><span>9,90 €</span></li>
-          <li><span>Griechischer Bauernsalat</span><span>10,90 €</span></li>
-        </ul>
+        <p>Hausgemachter Tzaziki, gegrillter Schafskäse und frische Salate — der perfekte Start in Ihr Menü.</p>
+        <div class="prev-tags">
+          <span class="prev-tag">Tzaziki</span>
+          <span class="prev-tag">Salate</span>
+          <span class="prev-tag">Vegetarisch</span>
+        </div>
       </div>
       <div class="prev-cat reveal scale-in" data-delay="300">
         <div class="prev-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--brand-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l1.5 18H3.5L5 3z"/><path d="M16 8h3a2 2 0 010 4h-3"/><path d="M8 3V1M12 3V1"/></svg></div>
-        <h4>Paulaner Bier vom Fass</h4>
-        <ul>
-          <li><span>Münchner Hell 0,5 l</span><span>4,50 €</span></li>
-          <li><span>Hefeweizen 0,5 l</span><span>4,90 €</span></li>
-          <li><span>Zwickel naturtrüb 0,5 l</span><span>4,90 €</span></li>
-        </ul>
+        <h4>Paulaner vom Fass</h4>
+        <p>Münchner Hell, Hefeweizen und naturtrübes Zwickel — frisch gezapft und perfekt gepflegt.</p>
+        <div class="prev-tags">
+          <span class="prev-tag">Helles</span>
+          <span class="prev-tag">Weizen</span>
+          <span class="prev-tag">Zwickel</span>
+        </div>
       </div>
     </div>
     <div class="prev-cta reveal">
@@ -706,7 +709,7 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         Speisekarte ansehen
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-      <p style="margin-top:14px;font-family:var(--font-serif);font-style:italic;color:var(--ink-soft);font-size:15px">15 Kategorien &middot; Mittagsangebot &middot; Getränkekarte</p>
+      <p style="margin-top:14px;font-family:var(--font-serif);font-style:italic;color:var(--ink-soft);font-size:15px">15 Kategorien &middot; Getränkekarte &middot; täglich ab 11 Uhr</p>
     </div>
   </div>
 </section>

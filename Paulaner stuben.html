@@ -136,10 +136,10 @@ button{font-family:inherit}
 .btn-navy:hover{background:var(--brand-navy-deep);transform:scale(1.03);box-shadow:var(--shadow-lift)}
 
 /* ════════ SCROLL REVEAL ════════ */
-.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.reveal.fade-left{transform:translateX(-44px)}
-.reveal.fade-right{transform:translateX(44px)}
-.reveal.scale-in{transform:scale(.92)}
+.reveal{opacity:0;transform:translateY(52px);transition:opacity .75s cubic-bezier(.22,.61,.36,1),transform .75s cubic-bezier(.22,.61,.36,1)}
+.reveal.fade-left{transform:translateX(-70px) translateY(0)}
+.reveal.fade-right{transform:translateX(70px) translateY(0)}
+.reveal.scale-in{transform:scale(.88) translateY(24px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
 .reveal.in{opacity:1;transform:none}
 
 /* ════════════════════════════════════════════════════════════
@@ -449,9 +449,17 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 @media(max-width:700px){.legal-modal-box{padding:40px 24px}}
 
 /* ════════ BEWERTUNGEN ════════ */
-.rev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
-.rev-card{background:#fff;border:1px solid rgba(184,152,46,.2);border-radius:12px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s}
+.rev-track-wrap{position:relative;margin-top:48px}
+.rev-grid{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:8px 4px 24px;cursor:grab;user-select:none}
+.rev-grid:active{cursor:grabbing}
+.rev-grid::-webkit-scrollbar{height:4px}
+.rev-grid::-webkit-scrollbar-track{background:rgba(184,152,46,.1);border-radius:2px}
+.rev-grid::-webkit-scrollbar-thumb{background:var(--brand-gold);border-radius:2px}
+.rev-card{background:#fff;border:1px solid rgba(184,152,46,.2);border-radius:12px;padding:28px;box-shadow:0 4px 20px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;flex:0 0 340px;scroll-snap-align:start}
 .rev-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+.rev-arrows{display:flex;justify-content:center;gap:12px;margin-top:8px}
+.rev-arrow{width:40px;height:40px;border-radius:50%;border:1.5px solid rgba(184,152,46,.4);background:transparent;color:var(--brand-gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s}
+.rev-arrow:hover{background:var(--brand-gold);color:#fff;border-color:var(--brand-gold)}
 .rev-top{display:flex;align-items:center;gap:14px;margin-bottom:16px}
 .rev-avatar{width:44px;height:44px;border-radius:50%;background:var(--brand-navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:20px;font-weight:700;flex:none}
 .rev-name{font-weight:700;color:var(--ink);font-size:15px}
@@ -727,7 +735,8 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         <span style="color:var(--ink-soft);font-size:15px">· Google Bewertungen</span>
       </div>
     </div>
-    <div class="rev-grid reveal">
+    <div class="rev-track-wrap reveal">
+    <div class="rev-grid" id="revGrid">
       <div class="rev-card">
         <div class="rev-top">
           <div class="rev-avatar">M</div>
@@ -776,6 +785,11 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
         <p class="rev-text">„Seit Jahren unser Stammlokal in Landau. Die Pfälzer Spezialitäten sind authentisch und köstlich. Besonders der Saumagen mit Sauerkraut ist ein Genuss. Familie Gjoka kümmert sich persönlich um jeden Gast — das merkt man!"</p>
         <div class="rev-date">vor 2 Monaten</div>
       </div>
+    </div>
+    <div class="rev-arrows">
+      <button class="rev-arrow" id="revPrev" aria-label="Zurück">&#8592;</button>
+      <button class="rev-arrow" id="revNext" aria-label="Weiter">&#8594;</button>
+    </div>
     </div>
     <div style="text-align:center;margin-top:40px" class="reveal">
       <a href="https://maps.app.goo.gl/JTs9JQk6CjFRWrWS7" target="_blank" rel="noopener" class="btn btn-navy">
@@ -1596,6 +1610,33 @@ document.getElementById("year").textContent=new Date().getFullYear();
         closeModal(m.id);
       });
     }
+  });
+})();
+
+/* ── Horizontal review carousel: drag + arrow buttons ── */
+(function(){
+  const grid = document.getElementById('revGrid');
+  if(!grid) return;
+  const cardW = () => grid.querySelector('.rev-card') ? grid.querySelector('.rev-card').offsetWidth + 24 : 364;
+
+  document.getElementById('revNext')?.addEventListener('click', () => {
+    grid.scrollBy({left: cardW(), behavior:'smooth'});
+  });
+  document.getElementById('revPrev')?.addEventListener('click', () => {
+    grid.scrollBy({left: -cardW(), behavior:'smooth'});
+  });
+
+  let isDown=false, startX, scrollLeft;
+  grid.addEventListener('mousedown', e=>{
+    isDown=true; grid.classList.add('active');
+    startX=e.pageX-grid.offsetLeft; scrollLeft=grid.scrollLeft;
+  });
+  grid.addEventListener('mouseleave', ()=>{ isDown=false; grid.classList.remove('active'); });
+  grid.addEventListener('mouseup', ()=>{ isDown=false; grid.classList.remove('active'); });
+  grid.addEventListener('mousemove', e=>{
+    if(!isDown) return; e.preventDefault();
+    const x=e.pageX-grid.offsetLeft;
+    grid.scrollLeft = scrollLeft-(x-startX)*1.2;
   });
 })();
 </script>

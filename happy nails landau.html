@@ -202,6 +202,7 @@
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .logo { display: flex; align-items: baseline; gap: 10px; }
+  .logo-img { height: 48px; width: auto; }
   .logo .mark {
     font-family: var(--font-display);
     font-style: italic;
@@ -369,11 +370,12 @@
     border-color: var(--color-accent);
     box-shadow: 0 24px 50px -20px rgba(201,169,110,0.35);
   }
-  .service-card .ico { font-size: 2.2rem; margin-bottom: 20px; display: block; }
   .service-card h3 { font-size: 1.7rem; margin-bottom: 10px; }
-  .service-card p { color: var(--color-text-muted); font-size: 0.96rem; margin-bottom: 22px; min-height: 48px; }
-  .service-card .price { font-family: var(--font-display); font-size: 1.5rem; color: var(--color-accent); letter-spacing: 0.02em; }
-  .service-card .price small { font-size: 0.8rem; color: var(--color-text-muted); font-family: var(--font-body); letter-spacing: 0.05em; }
+  .service-card p { color: var(--color-text-muted); font-size: 0.96rem; margin-bottom: 18px; }
+  .service-price-detail { border-top: 1px solid rgba(201,169,110,0.2); padding-top: 16px; margin-bottom: 22px; }
+  .service-price-detail .price-row { padding: 8px 0; }
+  .service-price-detail .price-row .name { font-size: 0.93rem; }
+  .service-price-detail .price-row .amt { font-size: 1.1rem; }
 
   /* ===================== PRICING ===================== */
   .price-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 50px; }
@@ -409,7 +411,7 @@
   .trust { background: var(--color-bg-2); }
   .trust-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
   .trust-col { text-align: center; padding: 20px; }
-  .trust-col .ico { font-size: 2.4rem; margin-bottom: 18px; }
+  .trust-mark { font-family: var(--font-display); font-style: italic; font-size: 2rem; color: var(--color-accent); margin-bottom: 18px; letter-spacing: 0.1em; }
   .trust-col h3 { font-size: 1.7rem; margin-bottom: 12px; }
   .trust-col p { color: var(--color-text-muted); font-size: 0.98rem; }
 
@@ -464,7 +466,7 @@
   .contact-info h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); margin-bottom: 30px; }
   .contact-info dl { display: grid; gap: 22px; }
   .contact-info .item { display: flex; gap: 16px; align-items: flex-start; }
-  .contact-info .item .ico { color: var(--color-accent); font-size: 1.2rem; margin-top: 2px; width: 24px; text-align:center; }
+  .contact-ico { color: var(--color-accent); font-size: 0.5rem; margin-top: 8px; width: 24px; text-align:center; }
   .contact-info .item dt { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 3px; }
   .contact-info .item dd { font-size: 1.08rem; color: var(--color-text); }
   .contact-info .item dd a:hover { color: var(--color-accent); }
@@ -540,15 +542,18 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="#home" class="logo" aria-label="Happy Nails & Beauty Startseite">
-      <span class="mark">HN&amp;B</span>
-      <span class="stroke"></span>
+      <img src="https://happy-landau.de/wp-content/uploads/2022/11/Happy_nails_logo_web.png" alt="Happy Nails & Beauty Logo" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <span class="logo-fallback" style="display:none;align-items:baseline;gap:10px;">
+        <span class="mark">HN&amp;B</span>
+        <span class="stroke"></span>
+      </span>
     </a>
     <nav aria-label="Hauptnavigation">
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#leistungen">Leistungen</a></li>
-        <li><a href="#preise">Preise</a></li>
-        <li><a href="#wimpern">Wimpern</a></li>
+        <li><a href="#galerie">Galerie</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
         <li><a href="#termin">Termin</a></li>
       </ul>
     </nav>
@@ -565,8 +570,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="#home">Home</a>
   <a href="#leistungen">Leistungen</a>
-  <a href="#preise">Preise</a>
-  <a href="#wimpern">Wimpern</a>
+  <a href="#galerie">Galerie</a>
   <a href="#kontakt">Kontakt</a>
   <a href="#termin" class="btn btn-rose">Jetzt Termin buchen</a>
 </div>
@@ -629,121 +633,87 @@
     </div>
     <div class="service-grid">
       <article class="service-card reveal">
-        <span class="ico">💅</span>
         <h3>Nagelmodellage</h3>
         <p>Acryl, SNS &amp; Gel – langlebig, natürlich schön und individuell gestaltet.</p>
-        <div class="price">ab 37&nbsp;€</div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Neumodellage Gel</span><span class="dots"></span><span class="amt">ab 45 €</span></div>
+          <div class="price-row"><span class="name">Neumodellage Acryl</span><span class="dots"></span><span class="amt">ab 47 €</span></div>
+          <div class="price-row"><span class="name">SNS Dipping Powder</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
+          <div class="price-row"><span class="name">Auffüllen</span><span class="dots"></span><span class="amt">ab 37 €</span></div>
+          <div class="price-row"><span class="name">Shellac / Gellack</span><span class="dots"></span><span class="amt">ab 25 €</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
-        <span class="ico">✨</span>
         <h3>Maniküre</h3>
         <p>Gepflegte Naturnägel und entspannende Handpflege für ein gepflegtes Finish.</p>
-        <div class="price">ab 15&nbsp;€</div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Klassische Maniküre</span><span class="dots"></span><span class="amt">ab 15 €</span></div>
+          <div class="price-row"><span class="name">Maniküre mit Gellack</span><span class="dots"></span><span class="amt">ab 30 €</span></div>
+          <div class="price-row"><span class="name">Spa-Maniküre</span><span class="dots"></span><span class="amt">ab 35 €</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
-        <span class="ico">👁️</span>
         <h3>Wimpernverlängerung</h3>
         <p>Ausdrucksstarke Augen mit hochwertigen Extensions – natürlich bis glamourös.</p>
-        <div class="price">ab 80&nbsp;€</div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Neumodellage 1:1</span><span class="dots"></span><span class="amt">80 €</span></div>
+          <div class="price-row"><span class="name">Volumentechnik</span><span class="dots"></span><span class="amt">ab 95 €</span></div>
+          <div class="price-row"><span class="name">Auffüllen ab</span><span class="dots"></span><span class="amt">ab 35 €</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
-        <span class="ico">🌸</span>
         <h3>Pediküre</h3>
         <p>Wohltuende Fußpflege für gepflegte, schöne Füße zu jeder Jahreszeit.</p>
-        <div class="price">ab 27&nbsp;€</div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Klassische Pediküre</span><span class="dots"></span><span class="amt">ab 27 €</span></div>
+          <div class="price-row"><span class="name">Pediküre mit Gellack</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
+          <div class="price-row"><span class="name">Spa-Pediküre</span><span class="dots"></span><span class="amt">ab 45 €</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
-        <span class="ico">🌿</span>
         <h3>Waxing</h3>
         <p>Sanfte, gründliche Haarentfernung für seidig-glatte Haut.</p>
-        <div class="price">ab 10&nbsp;€</div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Oberlippe</span><span class="dots"></span><span class="amt">ab 10 €</span></div>
+          <div class="price-row"><span class="name">Augenbrauen</span><span class="dots"></span><span class="amt">ab 12 €</span></div>
+          <div class="price-row"><span class="name">Achseln</span><span class="dots"></span><span class="amt">ab 18 €</span></div>
+          <div class="price-row"><span class="name">Beine komplett</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
-        <span class="ico">💎</span>
         <h3>Nageldesign &amp; Extras</h3>
         <p>Strass, French, Ombré, Hand-Painted Art – Ihrer Kreativität sind keine Grenzen gesetzt.</p>
-        <div class="price">ab 1&nbsp;€ <small>/ Nagel</small></div>
+        <div class="service-price-detail">
+          <div class="price-row"><span class="name">Design ab</span><span class="dots"></span><span class="amt">1 € / Nagel</span></div>
+        </div>
+        <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ===================== PRICING ===================== -->
-<section class="section-pad" id="preise">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Preisliste</span>
-      <h2>Transparente Preise</h2>
-      <p>Faire Preise für Premium-Qualität. Alle Preise verstehen sich als Richtwerte – der Endpreis hängt vom gewünschten Design ab.</p>
-    </div>
-    <div class="price-tabs reveal" role="tablist">
-      <button class="price-tab active" data-tab="naegel" role="tab">Nägel</button>
-      <button class="price-tab" data-tab="wimpern" role="tab">Wimpern</button>
-      <button class="price-tab" data-tab="manikuere" role="tab">Maniküre</button>
-      <button class="price-tab" data-tab="pedikuere" role="tab">Pediküre</button>
-      <button class="price-tab" data-tab="waxing" role="tab">Waxing</button>
-    </div>
-
-    <div class="price-panel active" id="naegel">
-      <div class="price-row"><span class="name">Neumodellage Gel<span class="desc">Inkl. Naturnagelvorbereitung</span></span><span class="dots"></span><span class="amt">ab 45 €</span></div>
-      <div class="price-row"><span class="name">Neumodellage Acryl<span class="desc">Langlebig &amp; stabil</span></span><span class="dots"></span><span class="amt">ab 47 €</span></div>
-      <div class="price-row"><span class="name">SNS Dipping Powder</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
-      <div class="price-row"><span class="name">Auffüllen<span class="desc">Bis 5 Wochen möglich</span></span><span class="dots"></span><span class="amt">ab 37 €</span></div>
-      <div class="price-row"><span class="name">Shellac / Gellack auf Naturnagel</span><span class="dots"></span><span class="amt">ab 25 €</span></div>
-      <div class="price-row"><span class="name">Ablösen &amp; Naturnagelpflege</span><span class="dots"></span><span class="amt">ab 15 €</span></div>
-    </div>
-
-    <div class="price-panel" id="wimpern">
-      <div class="price-row"><span class="name">Neumodellage 1:1<span class="desc">Natürlicher Look</span></span><span class="dots"></span><span class="amt">80 €</span></div>
-      <div class="price-row"><span class="name">Volumentechnik</span><span class="dots"></span><span class="amt">ab 95 €</span></div>
-      <div class="price-row"><span class="name">Auffüllen (bis 2 Wochen)</span><span class="dots"></span><span class="amt">ab 35 €</span></div>
-      <div class="price-row"><span class="name">Auffüllen (bis 4 Wochen)</span><span class="dots"></span><span class="amt">ab 45 €</span></div>
-      <div class="price-row"><span class="name">Entfernen der Extensions</span><span class="dots"></span><span class="amt">15 €</span></div>
-    </div>
-
-    <div class="price-panel" id="manikuere">
-      <div class="price-row"><span class="name">Klassische Maniküre</span><span class="dots"></span><span class="amt">ab 15 €</span></div>
-      <div class="price-row"><span class="name">Maniküre mit Gellack</span><span class="dots"></span><span class="amt">ab 30 €</span></div>
-      <div class="price-row"><span class="name">Spa-Maniküre mit Handpeeling</span><span class="dots"></span><span class="amt">ab 35 €</span></div>
-      <div class="price-row"><span class="name">Naturnagelverstärkung</span><span class="dots"></span><span class="amt">ab 25 €</span></div>
-    </div>
-
-    <div class="price-panel" id="pedikuere">
-      <div class="price-row"><span class="name">Klassische Pediküre</span><span class="dots"></span><span class="amt">ab 27 €</span></div>
-      <div class="price-row"><span class="name">Pediküre mit Gellack</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
-      <div class="price-row"><span class="name">Spa-Pediküre mit Fußpeeling</span><span class="dots"></span><span class="amt">ab 45 €</span></div>
-    </div>
-
-    <div class="price-panel" id="waxing">
-      <div class="price-row"><span class="name">Oberlippe</span><span class="dots"></span><span class="amt">ab 10 €</span></div>
-      <div class="price-row"><span class="name">Augenbrauen in Form</span><span class="dots"></span><span class="amt">ab 12 €</span></div>
-      <div class="price-row"><span class="name">Achseln</span><span class="dots"></span><span class="amt">ab 18 €</span></div>
-      <div class="price-row"><span class="name">Unterschenkel</span><span class="dots"></span><span class="amt">ab 25 €</span></div>
-      <div class="price-row"><span class="name">Beine komplett</span><span class="dots"></span><span class="amt">ab 40 €</span></div>
-    </div>
-
-    <div class="price-note reveal">
-      <strong>7 Tage Qualitätsgarantie</strong> auf jede Modellage · Auffüllen bis 5 Wochen möglich
-    </div>
-  </div>
-</section>
 
 <!-- ===================== TRUST ===================== -->
 <section class="trust section-pad">
   <div class="wrap">
     <div class="trust-grid">
       <div class="trust-col reveal">
-        <div class="ico">🏆</div>
+        <div class="trust-mark">I</div>
         <h3>Premium Produkte</h3>
         <p>Wir arbeiten ausschließlich mit kosmetikverordnungskonformen Produkten in bester Qualität.</p>
       </div>
       <div class="trust-col reveal">
-        <div class="ico">⭐</div>
+        <div class="trust-mark">II</div>
         <h3>7 Tage Garantie</h3>
         <p>Qualitätsgarantie auf alle Modellage-Leistungen – für Ihre vollkommene Zufriedenheit.</p>
       </div>
       <div class="trust-col reveal">
-        <div class="ico">💬</div>
+        <div class="trust-mark">III</div>
         <h3>Persönliche Beratung</h3>
         <p>Individuelle Designs für jeden Geschmack – wir nehmen uns Zeit für Ihre Wünsche.</p>
       </div>
@@ -770,33 +740,6 @@
   </div>
 </section>
 
-<!-- ===================== LASHES ===================== -->
-<section class="lashes section-pad" id="wimpern">
-  <div class="wrap lashes-grid">
-    <div class="lashes-text reveal-left">
-      <span class="eyebrow">Wimpernverlängerung</span>
-      <h2>Wach geküsster Blick, jeden Tag</h2>
-      <p>Hochwertige Extensions für ausdrucksstarke Augen – ganz ohne Mascara. Natürlich verstärkt oder voluminös glamourös, ganz wie Sie es wünschen.</p>
-      <div class="lashes-prices">
-        <div class="lp">
-          <div class="l">Neumodellage</div>
-          <div class="v">80 €</div>
-        </div>
-        <div class="lp">
-          <div class="l">Auffüllen ab</div>
-          <div class="v">35 €</div>
-        </div>
-      </div>
-      <span class="badge"><span class="dot"></span>10 € Rabatt für Schüler &amp; Studenten</span>
-      <div style="margin-top:32px;">
-        <a href="#termin" class="btn btn-rose">Wimpern-Termin buchen</a>
-      </div>
-    </div>
-    <div class="lashes-photo reveal-right">
-      <img src="images/u6.jpg" alt="Nahaufnahme einer professionellen Wimpernverlängerung bei Happy Nails & Beauty" loading="lazy" />
-    </div>
-  </div>
-</section>
 
 <!-- ===================== INSTAGRAM ===================== -->
 <section class="section-pad" id="instagram">
@@ -827,16 +770,16 @@
       <span class="eyebrow">Kontakt</span>
       <h2>Besuchen Sie uns</h2>
       <dl>
-        <div class="item"><span class="ico">📍</span><div><dt>Adresse</dt><dd>Königstraße 65<br />76829 Landau in der Pfalz</dd></div></div>
-        <div class="item"><span class="ico">📞</span><div><dt>Telefon</dt><dd><a href="tel:+4915906837207">0159 06837207</a></dd></div></div>
-        <div class="item"><span class="ico">✉️</span><div><dt>E-Mail</dt><dd><a href="mailto:info@happynails.de">info@happynails.de</a></dd></div></div>
-        <div class="item"><span class="ico">🕑</span><div><dt>Öffnungszeiten</dt><dd>Mo–Sa&nbsp;&nbsp;9:30–19:30 Uhr<br />Sonntag geschlossen</dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Adresse</dt><dd>Königstraße 65<br />76829 Landau in der Pfalz</dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Telefon</dt><dd><a href="tel:+4915906837207">0159 06837207</a></dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>E-Mail</dt><dd><a href="mailto:info@happynails.de">info@happynails.de</a></dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Öffnungszeiten</dt><dd>Mo–Sa&nbsp;&nbsp;9:30–19:30 Uhr<br />Sonntag geschlossen</dd></div></div>
       </dl>
       <a class="route-link" href="https://www.google.com/maps/dir/?api=1&destination=Königstraße+65,+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener">→ Route planen</a>
     </div>
     <div class="map-box" id="mapBox">
       <div class="map-placeholder" id="mapPlaceholder">
-        <div class="pin">📍</div>
+        <div class="pin" style="font-size:2.6rem;margin-bottom:16px;color:var(--color-accent);">&#9675;</div>
         <div class="addr">Königstraße 65, 76829 Landau in der Pfalz</div>
         <p>Mit dem Laden der Karte stimmen Sie der Verbindung zu Google Maps zu. Es gelten die Datenschutzbestimmungen von Google.</p>
         <button class="btn btn-outline" id="loadMap">Karte laden</button>

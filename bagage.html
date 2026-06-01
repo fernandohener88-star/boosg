@@ -105,43 +105,43 @@ img { display: block; max-width: 100%; }
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 8000;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px var(--pad-x);
-  transition: background .4s var(--ease), border-color .4s var(--ease), padding .4s var(--ease);
-  border-bottom: 1px solid transparent;
+  padding: 16px var(--pad-x);
+  background: #0a0a0a;
+  border-bottom: 1px solid var(--line);
+  transition: padding .4s var(--ease);
 }
 .nav.solid {
-  background: rgba(10,10,10,0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
   padding-top: 12px; padding-bottom: 12px;
+  border-bottom-color: #3a3a3a;
 }
 .nav__brand {
   font-family: var(--ff-display);
-  font-size: 34px; letter-spacing: 0.04em; line-height: 1;
-  display: flex; align-items: center; gap: 12px;
+  font-size: 32px; letter-spacing: 0.04em; line-height: 1;
+  display: flex; align-items: center; color: #ffffff;
 }
-.nav__brand .dotmark { color: var(--red); }
+.nav__brand .dotmark { color: #ffffff; }
 .nav__right { display: flex; align-items: center; gap: 30px; }
-.nav__links { display: flex; gap: 28px; }
+.nav__links { display: flex; gap: 32px; }
 .nav__links a {
-  font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--cream-dim);
-  position: relative; padding: 4px 0; transition: color .25s;
+  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #aaaaaa;
+  position: relative; padding: 4px 0; transition: color .2s;
 }
 .nav__links a::after {
-  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 0;
-  background: var(--gold); transition: width .3s var(--ease);
+  content: ""; position: absolute; left: 0; bottom: -2px; height: 1px; width: 0;
+  background: #ffffff; transition: width .3s var(--ease);
 }
-.nav__links a:hover { color: var(--cream); }
+.nav__links a:hover { color: #ffffff; }
 .nav__links a:hover::after { width: 100%; }
 
 .openbadge {
-  display: flex; align-items: center; gap: 9px;
-  font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--cream-dim);
-  border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px;
-  white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #aaaaaa;
+  border: 1px solid #3a3a3a; border-radius: 999px; padding: 6px 13px;
+  white-space: nowrap; transition: border-color .2s, color .2s;
 }
+.openbadge:hover { border-color: #666; color: #ccc; }
 .openbadge .pip {
   width: 8px; height: 8px; border-radius: 50%; background: #777; flex: none;
 }
@@ -189,7 +189,7 @@ img { display: block; max-width: 100%; }
 .hero {
   position: relative; min-height: 100svh;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 130px var(--pad-x) 90px;
+  padding: 140px var(--pad-x) 90px;
   overflow: hidden;
 }
 .hero__bg {

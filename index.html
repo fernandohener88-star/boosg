@@ -252,9 +252,9 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
 /* ══════ CHARACTER BUILD ══════ */
 #screen-char-build{background:radial-gradient(ellipse at center,#0e0520 0%,#05020d 100%);overflow-y:auto;}
 #cb-wrap{display:flex;gap:20px;max-width:960px;width:100%;margin:0 auto;padding:16px;align-items:flex-start;flex-wrap:wrap;}
-#cb-preview-col{flex:0 0 170px;display:flex;flex-direction:column;align-items:center;gap:10px;}
-#cb-canvas{image-rendering:pixelated;border:1px solid #3a1a5a;background:#08041a;width:170px;height:226px;}
-#cb-options-col{flex:1;min-width:280px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 130px);}
+#cb-preview-col{flex:0 0 clamp(220px,40vw,420px);display:flex;flex-direction:column;align-items:center;gap:8px;align-self:stretch;}
+#cb-canvas{image-rendering:pixelated;border:2px solid #3a1a5a;background:#08041a;width:100%;flex:1;min-height:200px;display:block;}
+#cb-options-col{flex:1;min-width:260px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:calc(100vh - 130px);}
 .cb-section{border:1px solid #2a1a44;padding:12px;background:#0a0516;}
 .cb-sec-title{font-size:6px;color:#aa66ff;letter-spacing:2px;margin-bottom:10px;border-bottom:1px solid #1a1030;padding-bottom:5px;text-transform:uppercase;}
 .cb-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
@@ -433,7 +433,7 @@ hr.div{border:none;border-top:1px solid #1a1a2a;margin:14px 0}
   <div class="ph"><h2>⚔️ CHARAKTER ERSTELLEN</h2></div>
   <div id="cb-wrap">
     <div id="cb-preview-col">
-      <canvas id="cb-canvas" width="120" height="160"></canvas>
+      <canvas id="cb-canvas" width="280" height="420"></canvas>
       <div id="cb-name-disp" style="font-size:8px;color:#ffdd44;letter-spacing:1px;margin-top:4px;"></div>
       <button class="btn btn-sm" id="cb-random-btn" style="margin-top:4px;">🎲 Zufällig</button>
     </div>
@@ -4469,22 +4469,33 @@ function _cbBuildSection(containerId,colors,field){
 
 function _cbRender(){
   const canvas=$('cb-canvas');if(!canvas)return;
+  const W=canvas.offsetWidth||280, H=canvas.offsetHeight||420;
+  canvas.width=W; canvas.height=H;
   const ctx=canvas.getContext('2d');
-  ctx.clearRect(0,0,120,160);
-  // background
-  ctx.fillStyle='#08041a';ctx.fillRect(0,0,120,160);
-  // shadow circle under feet
-  ctx.fillStyle='rgba(0,0,0,0.3)';
-  ctx.beginPath();ctx.ellipse(60,130,18,5,0,0,Math.PI*2);ctx.fill();
-  // draw at 3x scale centered
-  ctx.save();
-  ctx.scale(3,3);
-  drawPlayerSprite(ctx,20,40,Math.sin(Date.now()*.003)*20,0,1);
+  const t=Date.now()*.001;
+  // BG
+  ctx.fillStyle='#08041a';ctx.fillRect(0,0,W,H);
+  const gr=ctx.createRadialGradient(W/2,H*.5,0,W/2,H*.5,W*.8);
+  gr.addColorStop(0,`rgba(80,30,160,${.12+Math.sin(t*.8)*.04})`);
+  gr.addColorStop(1,'transparent');
+  ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+  // scale: character is ~16px wide game-pixels, fill 78% of width
+  const sc=Math.max(4,Math.min(16,(W*.78/16)|0));
+  const sx=W/2, sy=H*.52;
+  // shadow
+  ctx.fillStyle='rgba(0,0,0,0.45)';
+  ctx.beginPath();ctx.ellipse(sx,sy+sc*14,sc*9,sc*3,0,0,Math.PI*2);ctx.fill();
+  // character
+  ctx.save();ctx.scale(sc,sc);
+  drawPlayerSprite(ctx,sx/sc,sy/sc,Math.sin(t*3)*20,0,1);
   ctx.restore();
-  // name at bottom
-  ctx.font='6px "Press Start 2P","Courier New"';ctx.textAlign='center';
-  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=8;
-  ctx.fillText(_cbName,60,152);ctx.shadowBlur=0;
+  // name
+  const fs=Math.max(8,Math.min(14,(W/18)|0));
+  ctx.font=`${fs}px "Press Start 2P","Courier New"`;
+  ctx.textAlign='center';
+  ctx.fillStyle='#ffdd44';ctx.shadowColor='#ff8800';ctx.shadowBlur=12;
+  ctx.fillText(_cbName,W/2,H-18);
+  ctx.shadowBlur=0;
 }
 
 let _cbAnimFrame=null;

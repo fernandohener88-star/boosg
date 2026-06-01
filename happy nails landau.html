@@ -507,6 +507,22 @@
   .cookie p { color: var(--color-text-muted); font-size: 0.9rem; flex: 1; min-width: 200px; }
   .cookie .btn { padding: 12px 26px; font-size: 0.85rem; }
 
+  /* ===================== PHOTO STRIP ===================== */
+  .photo-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 280px;
+    overflow: hidden;
+  }
+  .strip-item { overflow: hidden; }
+  .strip-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+  .strip-item:hover img { transform: scale(1.07); }
+
+  /* ===================== CARD IMAGE ===================== */
+  .card-img { margin: -40px -34px 24px; overflow: hidden; height: 200px; border-radius: 6px 6px 0 0; }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease); }
+  .service-card:hover .card-img img { transform: scale(1.05); }
+
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 1200px) {
     .service-grid { grid-template-columns: repeat(2, 1fr); }
@@ -529,6 +545,9 @@
     .gallery { columns: 2; }
     .insta-grid { grid-template-columns: repeat(3, 1fr); }
     .hero-bg { background-attachment: scroll; }
+    .photo-strip { grid-template-columns: repeat(3, 1fr); height: 200px; }
+    .photo-strip .strip-item:nth-child(4),
+    .photo-strip .strip-item:nth-child(5) { display: none; }
   }
   @media (max-width: 480px) {
     .gallery { columns: 1; }
@@ -607,7 +626,7 @@
   <div class="wrap about-grid">
     <div class="about-photo reveal-left">
       <div class="frame"></div>
-      <img src="images/u4.jpg" alt="Detailaufnahme einer perfekt gestalteten Nagelmodellage bei Happy Nails & Beauty in Landau" loading="lazy" />
+      <img src="https://happy-landau.de/wp-content/uploads/2022/09/nails.jpg" onerror="this.src='images/u4.jpg'" alt="Nagelstudio Happy Nails & Beauty Landau – Über uns" loading="lazy" />
     </div>
     <div class="about-text reveal-right">
       <span class="eyebrow">Über uns</span>
@@ -623,6 +642,15 @@
   </div>
 </section>
 
+<!-- ===================== PHOTO STRIP ===================== -->
+<div class="photo-strip" aria-hidden="true">
+  <div class="strip-item"><img src="images/u2.jpg" alt="" loading="lazy" /></div>
+  <div class="strip-item"><img src="images/u5.jpg" alt="" loading="lazy" /></div>
+  <div class="strip-item"><img src="https://happy-landau.de/wp-content/uploads/2022/09/nails1.jpg" onerror="this.src='images/u1.jpg'" alt="" loading="lazy" /></div>
+  <div class="strip-item"><img src="images/u3.jpg" alt="" loading="lazy" /></div>
+  <div class="strip-item"><img src="images/u6.jpg" alt="" loading="lazy" /></div>
+</div>
+
 <!-- ===================== SERVICES ===================== -->
 <section class="services section-pad" id="leistungen">
   <div class="wrap">
@@ -633,6 +661,7 @@
     </div>
     <div class="service-grid">
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u1.jpg" alt="Nagelmodellage" loading="lazy" /></div>
         <h3>Nagelmodellage</h3>
         <p>Acryl, SNS &amp; Gel – langlebig, natürlich schön und individuell gestaltet.</p>
         <div class="service-price-detail">
@@ -645,6 +674,7 @@
         <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u3.jpg" alt="Maniküre" loading="lazy" /></div>
         <h3>Maniküre</h3>
         <p>Gepflegte Naturnägel und entspannende Handpflege für ein gepflegtes Finish.</p>
         <div class="service-price-detail">
@@ -655,6 +685,7 @@
         <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u6.jpg" alt="Wimpernverlängerung" loading="lazy" /></div>
         <h3>Wimpernverlängerung</h3>
         <p>Ausdrucksstarke Augen mit hochwertigen Extensions – natürlich bis glamourös.</p>
         <div class="service-price-detail">
@@ -665,6 +696,7 @@
         <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u4.jpg" alt="Pediküre" loading="lazy" /></div>
         <h3>Pediküre</h3>
         <p>Wohltuende Fußpflege für gepflegte, schöne Füße zu jeder Jahreszeit.</p>
         <div class="service-price-detail">
@@ -675,6 +707,7 @@
         <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u2.jpg" alt="Waxing" loading="lazy" /></div>
         <h3>Waxing</h3>
         <p>Sanfte, gründliche Haarentfernung für seidig-glatte Haut.</p>
         <div class="service-price-detail">
@@ -686,6 +719,7 @@
         <a href="#termin" class="btn btn-outline">Termin buchen</a>
       </article>
       <article class="service-card reveal">
+        <div class="card-img"><img src="images/u5.jpg" alt="Nageldesign & Extras" loading="lazy" /></div>
         <h3>Nageldesign &amp; Extras</h3>
         <p>Strass, French, Ombré, Hand-Painted Art – Ihrer Kreativität sind keine Grenzen gesetzt.</p>
         <div class="service-price-detail">
@@ -699,8 +733,9 @@
 
 
 <!-- ===================== TRUST ===================== -->
-<section class="trust section-pad">
-  <div class="wrap">
+<section class="trust section-pad" style="position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background-image:url('https://happy-landau.de/wp-content/uploads/2022/09/nails1.jpg');background-size:cover;background-position:center;opacity:0.08;z-index:0;" onerror="this.style.backgroundImage='url(images/u1.jpg)'"></div>
+  <div class="wrap" style="position:relative;z-index:1;">
     <div class="trust-grid">
       <div class="trust-col reveal">
         <div class="trust-mark">I</div>
@@ -730,12 +765,15 @@
       <p>Ein Blick auf Designs, die in unserem Studio entstanden sind.</p>
     </div>
     <div class="gallery">
-      <div class="item reveal"><img src="images/u1.jpg" alt="Elegantes Nageldesign in Nude-Tönen mit goldenen Akzenten" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
-      <div class="item reveal"><img src="images/u1.jpg" alt="Französische Maniküre mit feinen Details" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="https://happy-landau.de/wp-content/uploads/2022/09/nails1.jpg" onerror="this.src='images/u1.jpg'" alt="Nageldesign im Studio Happy Nails Landau" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
       <div class="item reveal"><img src="images/u2.jpg" alt="Kräftige Farbgestaltung mit glänzendem Finish" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="images/u5.jpg" alt="Detailarbeit – Nailart bei Happy Nails Landau" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
       <div class="item reveal"><img src="images/u3.jpg" alt="Naturnägel mit zarter Pflege und dezentem Glanz" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
-      <div class="item reveal"><img src="images/u3.jpg" alt="Modernes Nageldesign mit Strass-Verzierung" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
       <div class="item reveal"><img src="images/u4.jpg" alt="Roséfarbenes Ombré-Nageldesign" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="images/u6.jpg" alt="Wimpernverlängerung – professionelle Extensions" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="images/u1.jpg" alt="Elegantes Nageldesign in Nude-Tönen" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="https://happy-landau.de/wp-content/uploads/2022/09/nails.jpg" onerror="this.src='images/u3.jpg'" alt="Happy Nails Beauty Landau Studio" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+      <div class="item reveal"><img src="images/u2.jpg" alt="French Maniküre mit feinen Details" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
     </div>
   </div>
 </section>

@@ -202,16 +202,22 @@
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .logo { display: flex; align-items: baseline; gap: 10px; }
-  .logo-img { height: 48px; width: auto; }
-  .logo .mark {
+  .logo-text { display: flex; flex-direction: column; line-height: 1; gap: 2px; }
+  .logo-happy {
     font-family: var(--font-display);
     font-style: italic;
     font-weight: 600;
-    font-size: 1.7rem;
-    color: var(--color-text);
+    font-size: 1.75rem;
+    color: var(--color-accent);
     letter-spacing: 0.02em;
   }
-  .logo .stroke { width: 40px; height: 2px; background: linear-gradient(90deg, var(--color-accent), transparent); align-self: center; }
+  .logo-sub {
+    font-family: var(--font-body);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
 
   .nav-links { display: flex; gap: 38px; list-style: none; }
   .nav-links a {
@@ -652,10 +658,9 @@
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="#home" class="logo" aria-label="Happy Nails & Beauty Startseite">
-      <img src="https://happy-landau.de/wp-content/uploads/2022/11/Happy_nails_logo_web.png" alt="Happy Nails & Beauty Logo" class="logo-img" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-      <span class="logo-fallback" style="display:none;align-items:baseline;gap:10px;">
-        <span class="mark">HN&amp;B</span>
-        <span class="stroke"></span>
+      <span class="logo-text">
+        <span class="logo-happy">Happy</span>
+        <span class="logo-sub">Nails &amp; Beauty</span>
       </span>
     </a>
     <nav aria-label="Hauptnavigation">

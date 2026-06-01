@@ -175,11 +175,11 @@
   .section-head p { color: var(--color-text-muted); font-size: 1.08rem; }
 
   /* ===== Scroll reveal ===== */
-  .reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
   .reveal.visible { opacity: 1; transform: none; }
-  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+  .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
   .reveal-left.visible { opacity: 1; transform: none; }
-  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+  .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
   .reveal-right.visible { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; transition: none; }
@@ -334,6 +334,17 @@
   @keyframes float3 { 0%,100%{ transform: translate(0,0) scale(1); } 50%{ transform: translate(20px,30px) scale(1.25); } }
   @keyframes spin { to { transform: rotate(405deg); } }
 
+  .hero-badge {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 999px;
+    padding: 6px 16px;
+    background: rgba(13,6,8,0.5);
+    backdrop-filter: blur(8px);
+  }
+
   .scroll-ind {
     position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%);
     z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -366,10 +377,11 @@
   .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .service-card {
     background: var(--color-bg);
-    border: 1px solid rgba(212,83,126,0.35);
-    border-radius: 6px;
+    border: 1px solid rgba(212,83,126,0.25);
+    border-radius: 10px;
     padding: 40px 34px;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s ease;
+    overflow: hidden;
   }
   .service-card:hover {
     transform: scale(1.03) translateY(-4px);
@@ -423,6 +435,7 @@
 
   /* ===================== GALLERY ===================== */
   .gallery { columns: 3; column-gap: 16px; }
+  .gallery-cta { text-align: center; margin-top: 40px; }
   .gallery .item { break-inside: avoid; margin-bottom: 16px; position: relative; border-radius: 6px; overflow: hidden; cursor: pointer; }
   .gallery .item img { width: 100%; transition: transform 0.6s var(--ease); }
   .gallery .item:hover img { transform: scale(1.06); }
@@ -555,6 +568,14 @@
   .cookie-table th { text-align: left; padding: 10px 14px; background: rgba(201,169,110,0.1); color: var(--color-accent); font-weight: 500; font-family: var(--font-body); }
   .cookie-table td { padding: 10px 14px; color: var(--color-text-muted); border-top: 1px solid rgba(201,169,110,0.1); }
   @media (max-width: 600px) { .legal-modal-inner { padding: 30px 22px; } }
+
+  /* ===================== HOURS BANNER ===================== */
+  .hours-banner { background: linear-gradient(90deg, var(--color-bg-2), rgba(201,169,110,0.08), var(--color-bg-2)); border-top: 1px solid rgba(201,169,110,0.2); border-bottom: 1px solid rgba(201,169,110,0.2); padding: 22px 0; }
+  .hours-inner { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
+  .hours-label { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); }
+  .hours-days { font-family: var(--font-display); font-size: 1.15rem; color: var(--color-text); }
+  .hours-time { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--color-accent); }
+  .hours-closed { font-size: 0.85rem; color: var(--color-text-muted); }
 
   /* ===================== PHOTO STRIP ===================== */
   .photo-strip {
@@ -723,10 +744,15 @@
       <span class="hero-anim d1" style="display:block;">Schönheit beginnt an</span>
       <span class="hero-anim d2 ital" style="display:block;">Ihren Fingerspitzen.</span>
     </h1>
-    <p class="subline hero-anim d3">Professionelles Nagelstudio in Landau in der Pfalz</p>
+    <p class="subline hero-anim d3">Professionelles Nagelstudio · Königstraße 65 · Landau in der Pfalz</p>
     <div class="hero-ctas hero-anim d4">
-      <a href="#termin" class="btn btn-rose">Termin online buchen</a>
+      <a href="#termin" class="btn btn-rose btn-shimmer">Termin online buchen</a>
       <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+    </div>
+    <div class="hero-badges hero-anim d4" style="display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;">
+      <span class="hero-badge">Mo – Sa &nbsp;9:30 – 19:30 Uhr</span>
+      <span class="hero-badge">7 Tage Qualitätsgarantie</span>
+      <span class="hero-badge">Acrylnägel ab 37 €</span>
     </div>
   </div>
   <a href="#ueber-uns" class="scroll-ind" aria-label="Nach unten scrollen">
@@ -862,6 +888,17 @@
   </div>
 </section>
 
+<!-- ===================== OPENING HOURS BANNER ===================== -->
+<div class="hours-banner">
+  <div class="wrap hours-inner">
+    <span class="hours-label">Öffnungszeiten</span>
+    <span class="hours-days">Montag – Samstag</span>
+    <span class="hours-time">9:30 – 19:30 Uhr</span>
+    <span class="hours-closed">Sonntag geschlossen</span>
+    <a href="tel:+4917906837207" class="btn btn-rose" style="padding:12px 28px;font-size:0.9rem;">Jetzt anrufen</a>
+  </div>
+</div>
+
 <!-- ===================== GALLERY ===================== -->
 <section class="section-pad" id="galerie">
   <div class="wrap">
@@ -880,6 +917,9 @@
       <div class="item reveal"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=800" alt="Elegantes Nageldesign in Nude-Tönen" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
       <div class="item reveal"><img src="https://happy-landau.de/wp-content/uploads/2022/09/nails.jpg" onerror="this.src='https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=800'" alt="Happy Nails Beauty Landau Studio" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
       <div class="item reveal"><img src="https://images.unsplash.com/photo-1604655851838-44c90b4bdce3?w=800" alt="French Maniküre mit feinen Details" loading="lazy" /><div class="ov"><span class="plus"></span></div></div>
+    </div>
+    <div class="gallery-cta reveal">
+      <a href="https://instagram.com/happynailslandau" target="_blank" rel="noopener" class="btn btn-outline">Mehr auf Instagram ansehen</a>
     </div>
   </div>
 </section>
@@ -1028,7 +1068,7 @@
           <h3>Anfrage gesendet!</h3>
           <p id="confirmText"></p>
           <p class="confirm-sub">Wir melden uns schnellstmöglich zur Bestätigung Ihres Termins.</p>
-          <a href="tel:+4917906837207" class="btn btn-outline" style="margin-top:24px;">Oder direkt anrufen</a>
+          <a href="tel:+4917906837207" class="btn btn-outline" style="margin-top:24px;">0179 06837207</a>
         </div>
       </div>
     </div>
@@ -1093,15 +1133,20 @@
       <div class="footer-brand">
         <div class="mark">Happy Nails &amp; Beauty</div>
         <p>Schönheit beginnt an Ihren Fingerspitzen. Ihr Premium-Nagelstudio im Herzen von Landau in der Pfalz.</p>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:0.85rem;color:var(--color-text-muted);">Königstraße 65 · 76829 Landau i.d.Pf.</span>
+          <a href="tel:+4917906837207" style="font-size:0.85rem;color:var(--color-accent);">0179 06837207</a>
+          <a href="https://instagram.com/happynailslandau" target="_blank" rel="noopener" style="font-size:0.85rem;color:var(--color-text-muted);">@happynailslandau</a>
+        </div>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
         <ul>
           <li><a href="#home">Home</a></li>
-          <li><a href="#preise">Preisliste</a></li>
-          <li><a href="#wimpern">Wimpern</a></li>
-          <li><a href="#termin">Termin</a></li>
-          <li><a href="#kontakt">Kontakt</a></li>
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#termin">Termin buchen</a></li>
+          <li><a href="#kontakt">Kontakt &amp; Karte</a></li>
         </ul>
       </div>
       <div class="footer-col">

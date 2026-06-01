@@ -92,12 +92,7 @@ img { display: block; max-width: 100%; }
 }
 
 /* ---------- Custom cursor ---------- */
-.cursor-dot, .cursor-ring {
-  position: fixed; top: 0; left: 0; z-index: 9999;
-  pointer-events: none; border-radius: 50%;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-}
+.cursor-dot, .cursor-ring { display: none !important; }
 .cursor-dot  { width: 7px;  height: 7px; background: var(--red); }
 .cursor-ring { width: 34px; height: 34px; border: 1px solid var(--gold);
   transition: width .25s var(--ease), height .25s var(--ease), background .25s; }

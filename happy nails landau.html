@@ -884,53 +884,6 @@
   </div>
 </section>
 
-<!-- ===================== CONTACT ===================== -->
-<section class="trust section-pad" id="kontakt">
-  <div class="wrap contact-grid">
-    <div class="contact-info reveal-left">
-      <span class="eyebrow">Kontakt</span>
-      <h2>Besuchen Sie uns</h2>
-      <dl>
-        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Adresse</dt><dd>Königstraße 65<br />76829 Landau in der Pfalz</dd></div></div>
-        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Telefon</dt><dd><a href="tel:+4915906837207">0159 06837207</a></dd></div></div>
-        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>E-Mail</dt><dd><a href="mailto:info@happynails.de">info@happynails.de</a></dd></div></div>
-        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Öffnungszeiten</dt><dd>Mo–Sa&nbsp;&nbsp;9:30–19:30 Uhr<br />Sonntag geschlossen</dd></div></div>
-      </dl>
-      <a class="route-link" href="https://www.google.com/maps/dir/?api=1&destination=Königstraße+65,+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener">→ Route planen</a>
-    </div>
-    <div class="contact-form-box reveal-right">
-      <form class="contact-form" onsubmit="handleContactForm(event)">
-        <div class="form-group">
-          <label for="cf-name">Ihr Name <span class="req">*</span></label>
-          <input type="text" id="cf-name" name="name" required placeholder="Maria Müller" />
-        </div>
-        <div class="form-group">
-          <label for="cf-email">E-Mail Adresse <span class="req">*</span></label>
-          <input type="email" id="cf-email" name="email" required placeholder="maria@beispiel.de" />
-        </div>
-        <div class="form-group">
-          <label for="cf-subject">Betreff</label>
-          <input type="text" id="cf-subject" name="subject" placeholder="Terminanfrage Nagelmodellage" />
-        </div>
-        <div class="form-group">
-          <label for="cf-message">Ihre Nachricht <span class="req">*</span></label>
-          <textarea id="cf-message" name="message" rows="5" required placeholder="Ihre Nachricht an uns ..."></textarea>
-        </div>
-        <button type="submit" class="btn btn-rose btn-shimmer" style="width:100%;justify-content:center;">Nachricht senden</button>
-        <div class="form-success" id="formSuccess">Vielen Dank! Wir melden uns bald bei Ihnen.</div>
-      </form>
-    </div>
-    <div class="map-box" id="mapBox">
-      <div class="map-placeholder" id="mapPlaceholder">
-        <div class="pin" style="font-size:2.6rem;margin-bottom:16px;color:var(--color-accent);">&#9675;</div>
-        <div class="addr">Königstraße 65, 76829 Landau in der Pfalz</div>
-        <p>Mit dem Laden der Karte stimmen Sie der Verbindung zu Google Maps zu. Es gelten die Datenschutzbestimmungen von Google.</p>
-        <button class="btn btn-outline" id="loadMap">Karte laden</button>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== FINAL CTA ===================== -->
 <section class="section-pad booking-section" id="termin">
   <div class="wrap">
@@ -1058,6 +1011,55 @@
     </div>
   </div>
 </section>
+
+
+<!-- ===================== CONTACT ===================== -->
+<section class="trust section-pad" id="kontakt">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal-left">
+      <span class="eyebrow">Kontakt</span>
+      <h2>Besuchen Sie uns</h2>
+      <dl>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Adresse</dt><dd>Königstraße 65<br />76829 Landau in der Pfalz</dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Telefon</dt><dd><a href="tel:+4915906837207">0159 06837207</a></dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>E-Mail</dt><dd><a href="mailto:info@happynails.de">info@happynails.de</a></dd></div></div>
+        <div class="item"><span class="ico contact-ico">&#9679;</span><div><dt>Öffnungszeiten</dt><dd>Mo–Sa&nbsp;&nbsp;9:30–19:30 Uhr<br />Sonntag geschlossen</dd></div></div>
+      </dl>
+      <a class="route-link" href="https://www.google.com/maps/dir/?api=1&destination=Königstraße+65,+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener">→ Route planen</a>
+    </div>
+    <div class="contact-form-box reveal-right">
+      <form class="contact-form" onsubmit="handleContactForm(event)">
+        <div class="form-group">
+          <label for="cf-name">Ihr Name <span class="req">*</span></label>
+          <input type="text" id="cf-name" name="name" required placeholder="Maria Müller" />
+        </div>
+        <div class="form-group">
+          <label for="cf-email">E-Mail Adresse <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="email" required placeholder="maria@beispiel.de" />
+        </div>
+        <div class="form-group">
+          <label for="cf-subject">Betreff</label>
+          <input type="text" id="cf-subject" name="subject" placeholder="Terminanfrage Nagelmodellage" />
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Ihre Nachricht <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" rows="5" required placeholder="Ihre Nachricht an uns ..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-rose btn-shimmer" style="width:100%;justify-content:center;">Nachricht senden</button>
+        <div class="form-success" id="formSuccess">Vielen Dank! Wir melden uns bald bei Ihnen.</div>
+      </form>
+    </div>
+    <div class="map-box" id="mapBox">
+      <div class="map-placeholder" id="mapPlaceholder">
+        <div class="pin" style="font-size:2.6rem;margin-bottom:16px;color:var(--color-accent);">&#9675;</div>
+        <div class="addr">Königstraße 65, 76829 Landau in der Pfalz</div>
+        <p>Mit dem Laden der Karte stimmen Sie der Verbindung zu Google Maps zu. Es gelten die Datenschutzbestimmungen von Google.</p>
+        <button class="btn btn-outline" id="loadMap">Karte laden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 </main>
 

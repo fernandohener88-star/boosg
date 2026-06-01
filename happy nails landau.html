@@ -462,7 +462,32 @@
   .insta-cta .handle { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--color-accent); margin-bottom: 14px; }
 
   /* ===================== CONTACT ===================== */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 70px); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: clamp(30px, 4vw, 60px); }
+
+  /* Contact form */
+  .contact-form-box { background: var(--color-bg); border: 1px solid rgba(201,169,110,0.25); border-radius: 8px; padding: 36px 32px; }
+  .contact-form { display: grid; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group label { font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-muted); }
+  .form-group .req { color: var(--color-rose); }
+  .form-group input,
+  .form-group textarea {
+    background: var(--color-bg-2);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 4px;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: vertical;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(168,144,128,0.5); }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--color-accent); }
+  .form-success { display: none; text-align: center; color: var(--color-accent); font-family: var(--font-display); font-style: italic; font-size: 1.1rem; padding-top: 4px; }
   .contact-info h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); margin-bottom: 30px; }
   .contact-info dl { display: grid; gap: 22px; }
   .contact-info .item { display: flex; gap: 16px; align-items: flex-start; }
@@ -534,6 +559,7 @@
     .lashes-grid { grid-template-columns: 1fr; }
     .lashes-photo { order: -1; }
     .contact-grid { grid-template-columns: 1fr; }
+    .contact-form-box { order: -1; }
     .trust-grid { grid-template-columns: 1fr; gap: 40px; }
     .footer-grid { grid-template-columns: 1fr; gap: 30px; }
   }
@@ -807,6 +833,28 @@
       </dl>
       <a class="route-link" href="https://www.google.com/maps/dir/?api=1&destination=Königstraße+65,+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener">→ Route planen</a>
     </div>
+    <div class="contact-form-box reveal-right">
+      <form class="contact-form" onsubmit="handleContactForm(event)">
+        <div class="form-group">
+          <label for="cf-name">Ihr Name <span class="req">*</span></label>
+          <input type="text" id="cf-name" name="name" required placeholder="Maria Müller" />
+        </div>
+        <div class="form-group">
+          <label for="cf-email">E-Mail Adresse <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="email" required placeholder="maria@beispiel.de" />
+        </div>
+        <div class="form-group">
+          <label for="cf-subject">Betreff</label>
+          <input type="text" id="cf-subject" name="subject" placeholder="Terminanfrage Nagelmodellage" />
+        </div>
+        <div class="form-group">
+          <label for="cf-message">Ihre Nachricht <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" rows="5" required placeholder="Ihre Nachricht an uns ..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-rose btn-shimmer" style="width:100%;justify-content:center;">Nachricht senden</button>
+        <div class="form-success" id="formSuccess">Vielen Dank! Wir melden uns bald bei Ihnen.</div>
+      </form>
+    </div>
     <div class="map-box" id="mapBox">
       <div class="map-placeholder" id="mapPlaceholder">
         <div class="pin" style="font-size:2.6rem;margin-bottom:16px;color:var(--color-accent);">&#9675;</div>
@@ -980,6 +1028,19 @@
       box.appendChild(iframe);
     });
   }
+
+  // ---- Contact form ----
+  window.handleContactForm = function(e) {
+    e.preventDefault();
+    var btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = "Wird gesendet ...";
+    btn.disabled = true;
+    setTimeout(function() {
+      e.target.reset();
+      btn.style.display = "none";
+      document.getElementById("formSuccess").style.display = "block";
+    }, 900);
+  };
 
   // ---- Cookie banner ----
   var cookie = document.getElementById("cookie");

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Osahi Sushi Landau – Asiatische Küche | Landau</title>
+<meta name="description" content="Osahi Sushi Landau – Frisches Sushi & asiatische Küche in Landau. Täglich geöffnet. Jetzt Tisch reservieren oder Speisekarte ansehen."/>
+<meta name="email" content="xuanthuongth1705@gmail.com"/>
+<meta name="address" content="Ostring 18, 76829 Landau, Deutschland"/>
+<meta property="og:title" content="Osahi Sushi Landau"/>
+<meta property="og:image" content="https://cdn.website.dish.co/media/a8/f5/3463091/Osahi-Sushi-Landau-240AFE9C-3C67-47DD-810D-1BDDA09C0661.jpg"/>
+<meta property="og:locale" content="de"/>
+<link rel="icon" type="image/x-icon" href="https://cdn.website.dish.co/static/20260409144919/static/icons/favicons/restaurant.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --nav-bg: #e5d3c9;
+    --dark: #2c3134;
+    --accent: #c0977d;
+    --accent-hover: #d1b29f;
+    --text: #485158;
+    --light-bg: #f0f0f0;
+    --warm-bg: #e5d3c9;
+    --opening-bg: #7c5f51;
+    --payment-bg: #e5d3c9;
+    --nav-height: 72px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Spectral', Georgia, serif; color: var(--text); background: #fff; }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-height);
+    background: var(--nav-bg);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .nav-logo {
+    font-family: 'Spectral', serif; font-weight: 600; font-size: 18px;
+    color: var(--dark); text-decoration: none; letter-spacing: 0.5px;
+  }
+  .nav-links {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Spectral', serif; font-size: 14px; font-weight: 700;
+    color: var(--dark); text-decoration: none; text-transform: uppercase;
+    letter-spacing: 0.8px; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    background: var(--accent); color: #fff !important;
+    padding: 10px 22px; border-radius: 8px; transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--accent-hover) !important; }
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 26px; height: 2px; background: var(--dark);
+    border-radius: 2px; transition: all 0.3s;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    margin-top: var(--nav-height);
+    height: calc(100vh - var(--nav-height));
+    min-height: 500px;
+    background-image: url('https://cdn.website.dish.co/media/d6/a8/3463088/Osahi-Sushi-Landau-240AFE9C-3C67-47DD-810D-1BDDA09C0661.jpg');
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative;
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0,0,0,0.28);
+  }
+  .hero-inner { position: relative; z-index: 1; color: #fff; padding: 0 24px; }
+  .hero-inner h1 {
+    font-family: 'Quattrocento', serif; font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700; line-height: 1.15; margin-bottom: 12px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  .hero-inner p {
+    font-family: 'Spectral', serif; font-size: clamp(16px, 2.5vw, 22px);
+    font-weight: 300; margin-bottom: 36px; opacity: 0.9;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 36px; border-radius: 8px;
+    font-family: 'Quattrocento', serif; font-size: 15px; font-weight: 700;
+    text-transform: uppercase; text-decoration: none; cursor: pointer;
+    border: none; letter-spacing: 0.6px; transition: background 0.2s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline-white {
+    background: transparent; color: #fff;
+    border: 2px solid rgba(255,255,255,0.8);
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.15); }
+
+  /* ── FLOATING BUTTONS ── */
+  .float-left, .float-right {
+    position: fixed; z-index: 90; top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+  }
+  .float-left { left: 0; }
+  .float-right { right: 0; }
+  .float-left a, .float-right a {
+    display: block; padding: 18px 10px;
+    font-family: 'Quattrocento', serif; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px;
+    text-decoration: none; color: #fff;
+    transition: opacity 0.2s;
+  }
+  .float-left a { background: var(--dark); }
+  .float-right a { background: var(--accent); }
+  .float-left a:hover, .float-right a:hover { opacity: 0.85; }
+
+  /* ── SECTIONS general ── */
+  section { padding: 80px 32px; }
+  .section-title {
+    font-family: 'Quattrocento', serif; font-size: clamp(22px, 4vw, 36px);
+    font-weight: 700; text-align: center; margin-bottom: 48px;
+    color: var(--text);
+  }
+  .section-subtitle {
+    font-family: 'Spectral', serif; font-size: 16px; text-align: center;
+    margin-top: -36px; margin-bottom: 40px; color: var(--text); opacity: 0.7;
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section { background: var(--light-bg); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px; max-width: 1200px; margin: 0 auto;
+  }
+  .gallery-grid img {
+    width: 100%; aspect-ratio: 1; object-fit: cover;
+    border-radius: 6px; cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .gallery-grid img:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(44,49,52,0.92); align-items: center; justify-content: center;
+  }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 90vw; max-height: 85vh; border-radius: 8px; }
+  .lb-close {
+    position: absolute; top: 24px; right: 32px;
+    font-size: 36px; color: #fff; cursor: pointer; line-height: 1;
+  }
+  .lb-prev, .lb-next {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,0.15); color: #fff; border: none;
+    font-size: 28px; padding: 12px 18px; cursor: pointer; border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.3); }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+
+  /* ── SERVICES & PAYMENTS ── */
+  .services-section { background: var(--light-bg); }
+  .payments-section { background: var(--payment-bg); }
+  .icon-grid {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .icon-item { text-align: center; min-width: 100px; }
+  .icon-item .icon-circle {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(0,0,0,0.07);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px; font-size: 28px;
+  }
+  .icon-item span { font-size: 14px; font-weight: 500; color: var(--text); }
+
+  /* ── OPENING TIMES ── */
+  .times-section { background: var(--opening-bg); color: #fff; }
+  .times-section .section-title { color: #fff; }
+  .times-table {
+    max-width: 600px; margin: 0 auto;
+    border-collapse: collapse; width: 100%;
+  }
+  .times-table tr { border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .times-table tr:last-child { border-bottom: none; }
+  .times-table td { padding: 16px 24px; font-size: 16px; }
+  .times-table td:first-child {
+    font-family: 'Quattrocento', serif; font-weight: 700; font-size: 18px;
+    white-space: nowrap;
+  }
+  .times-table td:last-child { text-align: right; opacity: 0.92; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); color: #fff; padding: 60px 32px 32px; }
+  .footer-grid {
+    max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-col h3 {
+    font-family: 'Quattrocento', serif; font-size: 14px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 20px; opacity: 0.6;
+  }
+  .footer-col p, .footer-col a {
+    font-family: 'Spectral', serif; font-size: 15px; line-height: 1.8;
+    color: #fff; text-decoration: none; display: block; opacity: 0.85;
+  }
+  .footer-col a:hover { opacity: 1; text-decoration: underline; }
+  .footer-nav { list-style: none; }
+  .footer-nav li + li { margin-top: 8px; }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 24px; text-align: center;
+    font-size: 13px; opacity: 0.5;
+  }
+  .btn-map-footer {
+    display: inline-block; margin-top: 16px;
+    padding: 10px 24px; border-radius: 8px;
+    background: #fff; color: var(--text) !important;
+    font-family: 'Quattrocento', serif; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    text-decoration: none !important; opacity: 1 !important;
+    transition: opacity 0.2s;
+  }
+  .btn-map-footer:hover { opacity: 0.85 !important; }
+  .btn-contact-footer {
+    display: inline-block; margin-top: 16px;
+    padding: 10px 24px; border-radius: 8px;
+    background: var(--accent); color: #fff !important;
+    font-family: 'Quattrocento', serif; font-size: 13px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.6px;
+    cursor: pointer; border: none; opacity: 1 !important;
+    transition: background 0.2s;
+  }
+  .btn-contact-footer:hover { background: var(--accent-hover) !important; }
+
+  /* ── MODALS ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 300;
+    background: rgba(51,34,34,0.7); align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: #fff; border-radius: 16px; padding: 40px;
+    max-width: 560px; width: 100%; position: relative;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-box.dark { background: var(--dark); }
+  .modal-close {
+    position: absolute; top: 20px; right: 24px;
+    background: none; border: none; font-size: 28px;
+    cursor: pointer; color: var(--accent); line-height: 1;
+  }
+  .modal-box.dark .modal-close { color: var(--accent); }
+  .modal-title {
+    font-family: 'Quattrocento', serif; font-size: 28px; font-weight: 700;
+    color: var(--accent); margin-bottom: 24px;
+  }
+  .modal-box.dark .modal-title { color: #fff; }
+  .modal-subtitle { font-size: 15px; margin-bottom: 20px; color: var(--text); }
+  .btn-phone {
+    display: block; text-align: center; padding: 14px 28px;
+    background: var(--accent); color: #fff; border-radius: 8px;
+    font-family: 'Quattrocento', serif; font-size: 15px; font-weight: 700;
+    text-decoration: none; text-transform: uppercase; margin-bottom: 12px;
+    transition: background 0.2s;
+  }
+  .btn-phone:hover { background: var(--accent-hover); }
+
+  /* Menu downloads */
+  .menu-items { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+  .menu-item { text-align: center; }
+  .menu-item a { display: block; text-decoration: none; color: var(--text); }
+  .menu-item img { width: 120px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: transform 0.2s; }
+  .menu-item img:hover { transform: scale(1.05); }
+  .menu-item p { margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--accent); }
+
+  /* Contact form */
+  .form-row { margin-bottom: 20px; }
+  .form-row label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--text); letter-spacing: 0.5px; }
+  .form-row input, .form-row textarea {
+    width: 100%; padding: 12px 14px; border: 1px solid #ccc; border-radius: 8px;
+    font-family: 'Spectral', serif; font-size: 15px; color: var(--text);
+    background: #fff; transition: border-color 0.2s; resize: vertical;
+  }
+  .form-row input:focus, .form-row textarea:focus {
+    outline: none; border-color: var(--accent);
+  }
+  .form-row textarea { min-height: 100px; }
+
+  /* Cookie banner */
+  .cookie-banner {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
+    background: rgba(113,89,61,0.95); color: #fff;
+    padding: 20px 32px; display: flex; align-items: center;
+    gap: 24px; flex-wrap: wrap; justify-content: space-between;
+  }
+  .cookie-banner p { font-size: 14px; flex: 1; min-width: 200px; line-height: 1.5; }
+  .cookie-actions { display: flex; gap: 12px; flex-shrink: 0; }
+  .btn-cookie-accept {
+    padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+    font-family: 'Quattrocento', serif; font-size: 14px; font-weight: 700;
+    background: var(--accent); color: #fff; transition: background 0.2s;
+  }
+  .btn-cookie-accept:hover { background: var(--accent-hover); }
+  .btn-cookie-settings {
+    padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer;
+    font-family: 'Quattrocento', serif; font-size: 14px; font-weight: 700;
+    background: #fff; color: var(--text); transition: opacity 0.2s;
+  }
+  .btn-cookie-settings:hover { opacity: 0.85; }
+
+  /* Mobile menu */
+  .mobile-nav {
+    display: none; position: fixed; inset: 0; z-index: 150;
+    background: var(--dark); flex-direction: column;
+    align-items: center; justify-content: center; gap: 32px;
+  }
+  .mobile-nav.active { display: flex; }
+  .mobile-nav a {
+    font-family: 'Spectral', serif; font-size: 24px; font-weight: 500;
+    color: var(--warm-bg); text-decoration: none;
+  }
+  .mobile-nav-close {
+    position: absolute; top: 24px; right: 28px;
+    background: none; border: none; color: var(--warm-bg);
+    font-size: 32px; cursor: pointer;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .float-left, .float-right { display: none; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 60px 20px; }
+    nav { padding: 0 20px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .times-table td { padding: 12px 16px; }
+    .modal-box { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <a href="#home" class="nav-logo">Osahi Sushi Landau</a>
+  <ul class="nav-links">
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#times">Öffnungszeiten</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal('modal-menu'); return false;">Speisekarte</a></li>
+    <li><a href="#" onclick="openModal('modal-reservation'); return false;" style="color:var(--accent);">Reservieren</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mobile-nav').classList.add('active')" aria-label="Menü öffnen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="document.getElementById('mobile-nav').classList.remove('active')">&times;</button>
+  <a href="#gallery" onclick="document.getElementById('mobile-nav').classList.remove('active')">Galerie</a>
+  <a href="#times" onclick="document.getElementById('mobile-nav').classList.remove('active')">Öffnungszeiten</a>
+  <a href="#contact" onclick="document.getElementById('mobile-nav').classList.remove('active')">Kontakt</a>
+  <a href="#" onclick="openModal('modal-menu'); document.getElementById('mobile-nav').classList.remove('active'); return false;">Speisekarte</a>
+  <a href="#" onclick="openModal('modal-reservation'); document.getElementById('mobile-nav').classList.remove('active'); return false;" style="color:var(--accent)">Reservieren</a>
+</div>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-left">
+  <a href="#" onclick="openModal('modal-menu'); return false;">Unsere Speisekarte</a>
+</div>
+<div class="float-right">
+  <a href="#" onclick="openModal('modal-reservation'); return false;">Reservieren Sie einen Tisch</a>
+</div>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <h1>Osahi Sushi Landau</h1>
+    <p>Frisches Sushi &amp; asiatische Küche in Landau</p>
+    <div class="hero-btns">
+      <a href="#" class="btn btn-primary" onclick="openModal('modal-reservation'); return false;">Tisch reservieren</a>
+      <a href="#" class="btn btn-outline-white" onclick="openModal('modal-menu'); return false;">Unsere Speisekarte</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <p class="section-subtitle">Galerie</p>
+  <h2 class="section-title">Le nostre specialità</h2>
+  <div class="gallery-grid">
+    <img src="https://cdn.website.dish.co/media/92/da/3441824/Restaurant-Sushi-Osahi-Landau-E45FEEA4-68AF-46C2-BEAD-02A5821AFC99.jpg"
+         alt="Osahi Sushi Landau" loading="lazy" onclick="openLightbox(0)"/>
+    <img src="https://cdn.website.dish.co/media/a3/8b/3441855/Restaurant-Sushi-Osahi-Landau-EEB5DC2E-8751-4B1D-87C7-B573768F5AB2.jpg"
+         alt="Osahi Sushi Landau" loading="lazy" onclick="openLightbox(1)"/>
+    <img src="https://cdn.website.dish.co/media/32/e4/3463085/Osahi-Sushi-Landau-554D92EB-FB86-40AB-97C5-2B1717D514A4.jpg"
+         alt="Osahi Sushi Landau" loading="lazy" onclick="openLightbox(2)"/>
+    <img src="https://cdn.website.dish.co/media/f2/13/3464860/Osahi-Sushi-Landau-WhatsApp-Image-2021-05-02-at-19-49-36-1.jpg"
+         alt="Osahi Sushi Landau" loading="lazy" onclick="openLightbox(3)"/>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section">
+  <h2 class="section-title">Unsere Services</h2>
+  <div class="icon-grid">
+    <div class="icon-item">
+      <div class="icon-circle">🥡</div>
+      <span>Essen zum Mitnehmen</span>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENTS -->
+<section class="payments-section">
+  <h2 class="section-title">Zahlungsmöglichkeiten</h2>
+  <div class="icon-grid">
+    <div class="icon-item">
+      <div class="icon-circle">💵</div>
+      <span>Barzahlung</span>
+    </div>
+    <div class="icon-item">
+      <div class="icon-circle">📲</div>
+      <span>Kontaktloses Bezahlen</span>
+    </div>
+    <div class="icon-item">
+      <div class="icon-circle">🅿️</div>
+      <span>PayPal</span>
+    </div>
+    <div class="icon-item">
+      <div class="icon-circle">💳</div>
+      <span>EC-Karte</span>
+    </div>
+  </div>
+</section>
+
+<!-- OPENING TIMES -->
+<section id="times" class="times-section">
+  <h2 class="section-title">Öffnungszeiten</h2>
+  <table class="times-table">
+    <tr><td>Montag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Dienstag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Mittwoch</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Donnerstag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Freitag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Samstag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+    <tr><td>Sonntag</td><td>11:30 – 15:00 &amp; 17:00 – 22:30</td></tr>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>Navigation</h3>
+      <ul class="footer-nav">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#gallery">Galerie</a></li>
+        <li><a href="#times">Öffnungszeiten</a></li>
+        <li><a href="#" onclick="openModal('modal-menu'); return false;">Speisekarte</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Kontakt</h3>
+      <a href="mailto:xuanthuongth1705@gmail.com">xuanthuongth1705@gmail.com</a>
+      <a href="tel:+4963419957288">+49 6341 9957288</a>
+      <p>Ostring 18<br/>76829 Landau<br/>Deutschland</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Ostring+18,+76829+Landau" target="_blank" class="btn-map-footer">Karte anzeigen</a>
+    </div>
+    <div class="footer-col">
+      <h3>Nachricht</h3>
+      <p>Haben Sie Fragen oder Wünsche? Wir freuen uns auf Ihre Nachricht.</p>
+      <button class="btn-contact-footer" onclick="openModal('modal-contact')">Kontaktieren Sie uns</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 Osahi Sushi Landau &nbsp;·&nbsp;
+      <a href="#" onclick="openModal('modal-imprint'); return false;" style="color:inherit">Impressum</a> &nbsp;·&nbsp;
+      <a href="https://website.dish.co/privacywebsite/data?id=1221845&standalone=TRUE&lang=de" target="_blank" style="color:inherit">Datenschutz</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ── MODALS ── -->
+
+<!-- Reservation Modal -->
+<div class="modal-overlay" id="modal-reservation">
+  <div class="modal-box dark">
+    <button class="modal-close" onclick="closeModal('modal-reservation')">&times;</button>
+    <h2 class="modal-title">Reservieren Sie einen Tisch</h2>
+    <p class="modal-subtitle" style="color:#e2e2e2;">Möchten Sie telefonisch reservieren?</p>
+    <a href="tel:+4963419957288" class="btn-phone">ANRUFEN &nbsp;+49 6341 9957288</a>
+  </div>
+  <div onclick="closeModal('modal-reservation')" style="position:absolute;inset:0;z-index:-1;"></div>
+</div>
+
+<!-- Menu Modal -->
+<div class="modal-overlay" id="modal-menu">
+  <div class="modal-box" style="background:#000;">
+    <button class="modal-close" onclick="closeModal('modal-menu')" style="color:var(--accent);">&times;</button>
+    <h2 class="modal-title" style="color:#fff;">Speisekarte</h2>
+    <div class="menu-items">
+      <div class="menu-item">
+        <a href="https://cdn.website.dish.co/media/88/de/6063449/Speisekarte.pdf" target="_blank">
+          <img src="https://cdn.website.dish.co/static/20260409144919/static/img/menu/menu-image-2x.png" alt="Speisekarte 1"/>
+          <p>Speisekarte öffnen</p>
+        </a>
+      </div>
+      <div class="menu-item">
+        <a href="https://cdn.website.dish.co/media/ec/d8/6063451/Speisekarte.pdf" target="_blank">
+          <img src="https://cdn.website.dish.co/static/20260409144919/static/img/menu/menu-image-2x.png" alt="Speisekarte 2"/>
+          <p>Speisekarte öffnen</p>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div onclick="closeModal('modal-menu')" style="position:absolute;inset:0;z-index:-1;"></div>
+</div>
+
+<!-- Contact Modal -->
+<div class="modal-overlay" id="modal-contact">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-contact')">&times;</button>
+    <h2 class="modal-title">Senden Sie uns eine Nachricht.</h2>
+    <form onsubmit="handleContact(event)">
+      <div class="form-row"><label>IHR NAME</label><input type="text" name="name" required placeholder="Max Mustermann"/></div>
+      <div class="form-row"><label>IHRE E-MAIL-ADRESSE</label><input type="email" name="email" required placeholder="max@beispiel.de"/></div>
+      <div class="form-row"><label>IHRE TELEFONNUMMER</label><input type="tel" name="phone" placeholder="+49..."/></div>
+      <div class="form-row"><label>BETREFF</label><input type="text" name="subject" required placeholder="Betreff"/></div>
+      <div class="form-row"><label>IHRE NACHRICHT</label><textarea name="message" required placeholder="Ihre Nachricht..." maxlength="500"></textarea></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Senden</button>
+    </form>
+  </div>
+  <div onclick="closeModal('modal-contact')" style="position:absolute;inset:0;z-index:-1;"></div>
+</div>
+
+<!-- Imprint Modal -->
+<div class="modal-overlay" id="modal-imprint">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-imprint')">&times;</button>
+    <h2 class="modal-title">Impressum</h2>
+    <p style="font-size:14px; color:var(--text); margin-bottom:8px;">Verantwortlich für den Inhalt</p>
+    <p style="font-size:20px; font-family:'Quattrocento',serif; font-weight:700;">Thanh Binh Troung</p>
+    <p style="margin-top:16px; font-size:14px; color:var(--text);">Ostring 18, 76829 Landau, Deutschland</p>
+  </div>
+  <div onclick="closeModal('modal-imprint')" style="position:absolute;inset:0;z-index:-1;"></div>
+</div>
+
+<!-- Gallery Lightbox -->
+<div class="lightbox-overlay" id="gallery-lightbox">
+  <span class="lb-close" onclick="closeLightbox()">&times;</span>
+  <button class="lb-prev" onclick="shiftLightbox(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="Galerie"/>
+  <button class="lb-next" onclick="shiftLightbox(1)">&#8250;</button>
+</div>
+
+<!-- Cookie Banner -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>Wir verwenden Cookies für bestimmte Funktionen sowie Statistikzwecke.
+    <a href="https://website.dish.co/privacywebsite/data?id=1221845&standalone=TRUE&lang=de" target="_blank" style="color:#fff; font-weight:700;">Datenschutzerklärung</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="btn-cookie-settings" onclick="document.getElementById('cookie-banner').style.display='none'">Einstellungen</button>
+    <button class="btn-cookie-accept" onclick="acceptCookies()">Zustimmen</button>
+  </div>
+</div>
+
+<script>
+  // Modal
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+      closeLightbox();
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Gallery lightbox
+  const galleryImages = [
+    'https://cdn.website.dish.co/media/4d/d9/3441825/Restaurant-Sushi-Osahi-Landau-E45FEEA4-68AF-46C2-BEAD-02A5821AFC99.jpg',
+    'https://cdn.website.dish.co/media/c5/ed/3441856/Restaurant-Sushi-Osahi-Landau-EEB5DC2E-8751-4B1D-87C7-B573768F5AB2.jpg',
+    'https://cdn.website.dish.co/media/10/a8/3463086/Osahi-Sushi-Landau-554D92EB-FB86-40AB-97C5-2B1717D514A4.jpg',
+    'https://cdn.website.dish.co/media/ae/38/3464861/Osahi-Sushi-Landau-WhatsApp-Image-2021-05-02-at-19-49-36-1.jpg'
+  ];
+  let currentImg = 0;
+  function openLightbox(idx) {
+    currentImg = idx;
+    document.getElementById('lb-img').src = galleryImages[idx];
+    document.getElementById('gallery-lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('gallery-lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function shiftLightbox(dir) {
+    currentImg = (currentImg + dir + galleryImages.length) % galleryImages.length;
+    document.getElementById('lb-img').src = galleryImages[currentImg];
+  }
+  document.getElementById('gallery-lightbox').addEventListener('click', function(e) {
+    if (e.target === this) closeLightbox();
+  });
+
+  // Cookie
+  function acceptCookies() {
+    document.cookie = 'cookiesAccepted=1; max-age=31536000; path=/';
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+  if (document.cookie.indexOf('cookiesAccepted=1') >= 0) {
+    document.getElementById('cookie-banner').style.display = 'none';
+  }
+
+  // Contact form
+  function handleContact(e) {
+    e.preventDefault();
+    e.target.innerHTML = '<p style="text-align:center;color:var(--accent);font-size:18px;padding:40px 0;">&#10003; Ihre Nachricht wurde gesendet.</p>';
+  }
+
+  // Smooth scroll with nav offset
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

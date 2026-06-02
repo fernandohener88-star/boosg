@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,16 +64,70 @@
       gap: 24px;
     }
 
+    /* ─── LOGO COMPONENT ─────────────────────────────── */
     .logo {
-      font-family: var(--ff-head);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--white);
       text-decoration: none;
-      letter-spacing: .02em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
 
-    .logo span { color: var(--gold); }
+    .logo-rooster {
+      font-size: 2rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
+      /* slight upward angle mirrors the image */
+      transform: scaleX(-1);
+    }
+
+    .logo-text-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .logo-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      text-shadow: 1px 2px 6px rgba(0,0,0,.55);
+      letter-spacing: .01em;
+    }
+
+    .logo-city {
+      display: inline-block;
+      background: #1d5c2a;
+      color: #fff;
+      font-family: var(--ff-body);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 2px 10px 2px 8px;
+      border-radius: 3px;
+      margin-top: 1px;
+      /* subtle ribbon ends */
+      clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0% 50%);
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    /* ─── HERO LOGO (large version) ──────────────────── */
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .hero-logo .logo-rooster { font-size: 5rem; }
+    .hero-logo .logo-script  { font-size: 4.5rem; line-height: .95; }
+    .hero-logo .logo-city    { font-size: .78rem; letter-spacing: .22em; padding: 4px 18px; margin-top: 4px; }
 
     .nav-links {
       display: flex;
@@ -510,13 +564,15 @@
     }
 
     .footer-logo {
-      font-family: var(--ff-head);
-      font-size: 1.6rem;
-      color: var(--white);
-      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
-    .footer-logo span { color: var(--gold); }
+    .footer-logo .logo-rooster { font-size: 2.4rem; }
+    .footer-logo .logo-script  { font-size: 2rem; }
+    .footer-logo .logo-city    { font-size: .65rem; }
 
     .footer-desc {
       font-size: .88rem;
@@ -603,7 +659,13 @@
 <!-- ═══ NAV ═══════════════════════════════════════════ -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">Gockel <span>Haus</span></a>
+    <a href="#" class="logo" aria-label="Gockelhaus Landau">
+      <span class="logo-rooster">🐓</span>
+      <div class="logo-text-stack">
+        <span class="logo-script">Gockelhaus</span>
+        <span class="logo-city">Landau</span>
+      </div>
+    </a>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="#speisekarte">Speisekarte</a></li>
@@ -628,8 +690,14 @@
 <!-- ═══ HERO ═══════════════════════════════════════════ -->
 <section class="hero" id="hero">
   <div class="hero-content">
-    <div class="hero-badge">🍽 Landau in der Pfalz</div>
-    <h1>Willkommen im<br><em>Gockel Haus</em></h1>
+    <!-- large logo -->
+    <div class="hero-logo" role="img" aria-label="Gockelhaus Landau">
+      <span class="logo-rooster">🐓</span>
+      <div class="logo-text-stack">
+        <span class="logo-script">Gockelhaus</span>
+        <span class="logo-city">Landau</span>
+      </div>
+    </div>
     <p>Genießen Sie köstliche Gerichte direkt zu Ihnen nach Hause – oder holen Sie bei uns ab. Jetzt bequem online bestellen!</p>
     <div class="hero-btns">
       <a href="#speisekarte" class="btn btn-primary">
@@ -841,7 +909,13 @@
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">Gockel <span>Haus</span></div>
+        <div class="footer-logo">
+          <span class="logo-rooster">🐓</span>
+          <div class="logo-text-stack">
+            <span class="logo-script">Gockelhaus</span>
+            <span class="logo-city">Landau</span>
+          </div>
+        </div>
         <p class="footer-desc">Ihr Restaurant in Landau in der Pfalz. Lecker Essen, schneller Service – online bestellen oder bei uns vorbeikommen.</p>
         <p style="font-size:.85rem;">📍 Königstraße 69, 76829 Landau in der Pfalz</p>
         <p style="font-size:.85rem; margin-top:6px;">📞 <a href="tel:063412671746" style="color:var(--gold); text-decoration:none;">06341 2671746</a></p>

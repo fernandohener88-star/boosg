@@ -3,935 +3,475 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gockel Haus – Landau in der Pfalz</title>
-  <meta name="description" content="Lecker Essen in Landau in der Pfalz. Jetzt online bestellen bei Gockel Haus – Königstraße 69." />
-  <meta name="keywords" content="Gockel Haus, Landau in der Pfalz, Restaurant, Essen bestellen, Lieferservice, Speisekarte" />
-
+  <title>Gockelhaus – Restaurant & Lieferservice · Landau in der Pfalz</title>
+  <meta name="description" content="Lecker Essen in Landau in der Pfalz. Online bestellen oder abholen – Gockelhaus, Königstraße 69." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --brand:       #c8370a;
-      --brand-dark:  #9e2a07;
-      --brand-light: #f9ede8;
-      --gold:        #d4a843;
-      --dark:        #1a1008;
-      --text:        #3a2a1a;
-      --muted:       #7a6a5a;
-      --bg:          #fffdf9;
-      --white:       #ffffff;
-      --border:      #e8ddd0;
-      --radius:      12px;
-      --shadow:      0 4px 24px rgba(26,16,8,.10);
-      --shadow-lg:   0 12px 48px rgba(26,16,8,.18);
-      --ff-head:     'Playfair Display', Georgia, serif;
-      --ff-body:     'Inter', system-ui, sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--ff-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    /* ─── NAV ─────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(26,16,8,.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212,168,67,.25);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    /* ─── LOGO COMPONENT ─────────────────────────────── */
-    .logo {
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-
-    .logo-rooster {
-      font-size: 2rem;
-      line-height: 1;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,.5));
-      /* slight upward angle mirrors the image */
-      transform: scaleX(-1);
-    }
-
-    .logo-text-stack {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0;
-    }
-
-    .logo-script {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      text-shadow: 1px 2px 6px rgba(0,0,0,.55);
-      letter-spacing: .01em;
-    }
-
-    .logo-city {
-      display: inline-block;
-      background: #1d5c2a;
-      color: #fff;
-      font-family: var(--ff-body);
-      font-size: .6rem;
-      font-weight: 700;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      padding: 2px 10px 2px 8px;
-      border-radius: 3px;
-      margin-top: 1px;
-      /* subtle ribbon ends */
-      clip-path: polygon(6px 0%, calc(100% - 6px) 0%, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0% 50%);
-      padding-left: 12px;
-      padding-right: 12px;
-    }
-
-    /* ─── HERO LOGO (large version) ──────────────────── */
-    .hero-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .hero-logo .logo-rooster { font-size: 5rem; }
-    .hero-logo .logo-script  { font-size: 4.5rem; line-height: .95; }
-    .hero-logo .logo-city    { font-size: .78rem; letter-spacing: .22em; padding: 4px 18px; margin-top: 4px; }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,.8);
-      text-decoration: none;
-      font-size: .9rem;
-      font-weight: 500;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      transition: color .2s;
-    }
-
-    .nav-links a:hover { color: var(--gold); }
-
-    .nav-cta {
-      background: var(--brand);
-      color: var(--white) !important;
-      padding: 8px 20px;
-      border-radius: 8px;
-      font-weight: 600 !important;
-      transition: background .2s !important;
-    }
-
-    .nav-cta:hover { background: var(--brand-dark) !important; color: var(--white) !important; }
-
-    .nav-phone {
-      color: rgba(255,255,255,.65);
-      font-size: .85rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-phone a { color: var(--gold); text-decoration: none; font-weight: 600; }
-
-    /* ─── HERO ────────────────────────────────────────── */
-    .hero {
-      min-height: 100vh;
-      background:
-        linear-gradient(to bottom, rgba(26,16,8,.65) 0%, rgba(26,16,8,.30) 50%, rgba(26,16,8,.75) 100%),
-        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-    }
-
-    .hero-content { max-width: 700px; }
-
-    .hero-badge {
-      display: inline-block;
-      background: rgba(212,168,67,.2);
-      border: 1px solid rgba(212,168,67,.5);
-      color: var(--gold);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 100px;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-family: var(--ff-head);
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
-    }
-
-    .hero p {
-      color: rgba(255,255,255,.8);
-      font-size: 1.1rem;
-      margin-bottom: 36px;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all .22s;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--brand);
-      color: var(--white);
-      box-shadow: 0 4px 18px rgba(200,55,10,.35);
-    }
-
-    .btn-primary:hover {
-      background: var(--brand-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(200,55,10,.45);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      border: 2px solid rgba(255,255,255,.5);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--white);
-      background: rgba(255,255,255,.08);
-    }
-
-    /* ─── OPENING HOURS STRIP ─────────────────────────── */
-    .hours-strip {
-      background: var(--dark);
-      border-bottom: 2px solid var(--brand);
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .hours-scroll {
-      display: flex;
-      gap: 0;
-      animation: scroll-left 35s linear infinite;
-      white-space: nowrap;
-    }
-
-    .hours-scroll:hover { animation-play-state: paused; }
-
-    .hours-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 32px;
-      font-size: .82rem;
-      font-weight: 500;
-      color: rgba(255,255,255,.75);
-      border-right: 1px solid rgba(255,255,255,.1);
-    }
-
-    .hours-item .day { color: var(--gold); font-weight: 600; }
-    .hours-item .closed { color: #e05c5c; }
-
-    @keyframes scroll-left {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ─── SECTIONS ────────────────────────────────────── */
-    section { padding: 96px 24px; }
-
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-label {
-      display: inline-block;
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--brand);
-      margin-bottom: 12px;
-    }
-
-    .section-title {
-      font-family: var(--ff-head);
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      color: var(--dark);
-      line-height: 1.2;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 560px;
-      margin-bottom: 48px;
-    }
-
-    /* ─── INFO CARDS ──────────────────────────────────── */
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-    }
-
-    .info-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      box-shadow: var(--shadow);
-      transition: transform .25s, box-shadow .25s;
-    }
-
-    .info-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .info-card-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--brand-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-    }
-
-    .info-card h3 {
-      font-family: var(--ff-head);
-      font-size: 1.15rem;
-      color: var(--dark);
-      margin-bottom: 8px;
-    }
-
-    .info-card p {
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.7;
-    }
-
-    .info-card a { color: var(--brand); text-decoration: none; font-weight: 500; }
-    .info-card a:hover { text-decoration: underline; }
-
-    /* ─── OPENING HOURS TABLE ─────────────────────────── */
-    .hours-section { background: var(--brand-light); }
-
-    .hours-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) { .hours-layout { grid-template-columns: 1fr; gap: 40px; } }
-
-    .hours-table { width: 100%; border-collapse: collapse; }
-
-    .hours-table tr {
-      border-bottom: 1px solid rgba(26,16,8,.08);
-      transition: background .15s;
-    }
-
-    .hours-table tr:last-child { border-bottom: none; }
-    .hours-table tr:hover { background: rgba(200,55,10,.06); }
-
-    .hours-table td {
-      padding: 14px 4px;
-      font-size: .95rem;
-    }
-
-    .hours-table .day-name {
-      font-weight: 600;
-      color: var(--dark);
-      width: 140px;
-    }
-
-    .hours-table .time { color: var(--muted); }
-    .hours-table .ruhetag { color: #c0392b; font-style: italic; }
-
-    .hours-table .pause {
-      font-size: .8rem;
-      color: var(--brand);
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* ─── ABOUT / VISUAL ──────────────────────────────── */
-    .about-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) { .about-layout { grid-template-columns: 1fr; } }
-
-    .about-img-wrap {
-      position: relative;
-      border-radius: 20px;
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .about-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .about-img-badge {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: var(--white);
-      border-radius: 12px;
-      padding: 14px 18px;
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .about-img-badge .num {
-      font-family: var(--ff-head);
-      font-size: 1.8rem;
-      color: var(--brand);
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .about-img-badge .lbl {
-      font-size: .72rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    .about-text .section-sub { margin-bottom: 28px; }
-
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 36px;
-    }
-
-    .feature-list li {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      font-size: .95rem;
-      color: var(--text);
-    }
-
-    .feature-list li::before {
-      content: '✓';
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      background: var(--brand-light);
-      color: var(--brand);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .75rem;
-      font-weight: 700;
-      margin-top: 1px;
-    }
-
-    /* ─── ORDER CTA BANNER ────────────────────────────── */
-    .order-banner {
-      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
-      padding: 80px 24px;
-      text-align: center;
-    }
-
-    .order-banner h2 {
-      font-family: var(--ff-head);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: var(--white);
-      margin-bottom: 12px;
-    }
-
-    .order-banner p {
-      color: rgba(255,255,255,.8);
-      font-size: 1.05rem;
-      margin-bottom: 36px;
-    }
-
-    .btn-white {
-      background: var(--white);
-      color: var(--brand);
-    }
-
-    .btn-white:hover {
-      background: #ffe8e0;
-      transform: translateY(-2px);
-    }
-
-    /* ─── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: var(--dark);
-      color: rgba(255,255,255,.65);
-      padding: 64px 24px 32px;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px;
-      margin-bottom: 48px;
-    }
-
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: 1/-1; }
-    }
-
-    @media (max-width: 480px) {
-      .footer-grid { grid-template-columns: 1fr; }
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .footer-logo .logo-rooster { font-size: 2.4rem; }
-    .footer-logo .logo-script  { font-size: 2rem; }
-    .footer-logo .logo-city    { font-size: .65rem; }
-
-    .footer-desc {
-      font-size: .88rem;
-      line-height: 1.7;
-      max-width: 300px;
-      margin-bottom: 20px;
-    }
-
-    .footer-col h4 {
-      color: var(--white);
-      font-size: .8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: 16px;
-    }
-
-    .footer-col ul { list-style: none; }
-    .footer-col li { margin-bottom: 10px; }
-
-    .footer-col a {
-      color: rgba(255,255,255,.6);
-      text-decoration: none;
-      font-size: .88rem;
-      transition: color .2s;
-    }
-
-    .footer-col a:hover { color: var(--gold); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,.1);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: .8rem;
-    }
-
-    /* ─── MOBILE NAV ──────────────────────────────────── */
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      color: var(--white);
-    }
-
-    @media (max-width: 860px) {
-      .hamburger { display: block; }
-      .nav-links, .nav-phone { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 64px; left: 0; right: 0;
-        background: var(--dark);
-        padding: 24px;
-        gap: 20px;
-        border-bottom: 2px solid var(--brand);
-      }
-    }
-
-    /* ─── NOTICE BOX ──────────────────────────────────── */
-    .notice {
-      background: #fff3cd;
-      border: 1px solid #ffc107;
-      border-left: 4px solid #ffc107;
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      margin: 40px auto;
-      max-width: 800px;
-      font-size: .93rem;
-      color: #5a4200;
-    }
-
-    .notice strong { color: #3d2e00; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --dark:   #120900;
+  --wood:   #251208;
+  --amber:  #bf7a0a;
+  --gold:   #e8a820;
+  --gold2:  #f5c842;
+  --green:  #1c4e24;
+  --green2: #28703a;
+  --cream:  #f5eed8;
+  --cream2: #ede4c6;
+  --white:  #fff;
+  --text:   #1e1006;
+  --muted:  #6e5a3a;
+  --ff-s:'Dancing Script',cursive;
+  --ff-h:'Cormorant Garamond',Georgia,serif;
+  --ff-b:'Inter',system-ui,sans-serif;
+  --r:12px;--r2:20px;
+  --t:.25s ease;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);background:var(--cream);color:var(--text);line-height:1.65;overflow-x:hidden}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:3px}
+::selection{background:var(--amber);color:#fff}
+
+/* ── NAV ─────────────────────────────────────── */
+.nav{position:fixed;inset:0 0 auto 0;z-index:200;transition:background var(--t),box-shadow var(--t)}
+.nav.scrolled{background:rgba(18,9,0,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 2px 30px rgba(0,0,0,.5)}
+
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+.logo{text-decoration:none;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.logo-rooster{font-size:2rem;line-height:1;filter:drop-shadow(0 0 8px rgba(232,168,32,.4));transform:scaleX(-1)}
+.logo-words{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.logo-script{font-family:var(--ff-s);font-weight:700;font-size:1.5rem;color:var(--gold);text-shadow:0 1px 10px rgba(200,130,10,.4);line-height:.9}
+.logo-badge{font-family:var(--ff-b);font-size:.52rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,var(--green),var(--green2),var(--green));padding:2px 12px;border-radius:2px;margin-top:4px;clip-path:polygon(7px 0%,calc(100% - 7px) 0%,100% 50%,calc(100% - 7px) 100%,7px 100%,0 50%)}
+
+.nav-menu{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-menu a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color var(--t)}
+.nav-menu a:hover{color:var(--gold)}
+.nav-cta{background:var(--amber)!important;color:#fff!important;padding:8px 18px;border-radius:var(--r);font-weight:600!important;transition:background var(--t),transform var(--t)!important}
+.nav-cta:hover{background:#a56508!important;transform:translateY(-1px)}
+
+.nav-phone{color:rgba(255,255,255,.55);font-size:.8rem;flex-shrink:0}
+.nav-phone a{color:var(--gold);text-decoration:none;font-weight:600}
+
+.burger{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:4px}
+
+@media(max-width:900px){
+  .burger{display:block}
+  .nav-phone{display:none}
+  .nav-menu{display:none;position:fixed;inset:68px 0 auto 0;background:rgba(10,5,0,.97);flex-direction:column;align-items:stretch;padding:20px 28px 28px;gap:0;border-bottom:2px solid var(--amber)}
+  .nav-menu.open{display:flex}
+  .nav-menu li{border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-menu a{display:block;padding:13px 0;font-size:.88rem}
+  .nav-menu .nav-cta{margin-top:10px;border-bottom:none;text-align:center;display:block;padding:12px}
+}
+
+/* ── HERO ─────────────────────────────────────── */
+.hero{
+  min-height:100svh;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  text-align:center;padding:110px 24px 80px;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 20% 80%,rgba(70,28,6,.75) 0%,transparent 55%),
+    radial-gradient(ellipse at 80% 20%,rgba(50,18,4,.6) 0%,transparent 50%),
+    repeating-linear-gradient(92deg,transparent 0,transparent 5px,rgba(255,255,255,.005) 5px,rgba(255,255,255,.005) 6px),
+    repeating-linear-gradient(88deg,transparent 0,transparent 9px,rgba(0,0,0,.025) 9px,rgba(0,0,0,.025) 10px),
+    linear-gradient(170deg,#1c0d05 0%,#2f1608 25%,#1a0b04 55%,#271406 100%)
+}
+.hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:200px 200px;opacity:.035;pointer-events:none;mix-blend-mode:overlay}
+
+.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(232,168,32,.07);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hero-ring:nth-child(1){width:320px;height:320px}
+.hero-ring:nth-child(2){width:540px;height:540px;border-color:rgba(232,168,32,.04)}
+.hero-ring:nth-child(3){width:780px;height:780px;border-color:rgba(232,168,32,.025)}
+
+.hero-content{position:relative;z-index:1;max-width:700px}
+
+.hero-logo{display:inline-flex;align-items:center;gap:16px;margin-bottom:30px;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-logo .logo-rooster{font-size:6rem;filter:drop-shadow(0 0 30px rgba(232,168,32,.4))}
+.hero-logo .logo-script{font-size:5rem;line-height:.88}
+.hero-logo .logo-badge{font-size:.7rem;letter-spacing:.25em;padding:4px 18px;margin-top:6px;clip-path:polygon(9px 0%,calc(100% - 9px) 0%,100% 50%,calc(100% - 9px) 100%,9px 100%,0 50%)}
+
+.hero-tagline{font-family:var(--ff-h);font-style:italic;font-size:clamp(1rem,2.5vw,1.35rem);color:rgba(255,255,255,.6);margin-bottom:22px;letter-spacing:.02em}
+
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 18px;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:.04em;margin-bottom:36px;border:1px solid currentColor}
+.status-pill.open{color:#5fe87a;background:rgba(95,232,122,.08);border-color:rgba(95,232,122,.3)}
+.status-pill.closed{color:#f0776a;background:rgba(240,119,106,.08);border-color:rgba(240,119,106,.3)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pdot 2s ease-in-out infinite}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:5px;color:rgba(255,255,255,.28);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+/* ── BUTTONS ──────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r);font-family:var(--ff-b);font-size:.88rem;font-weight:600;text-decoration:none;transition:all var(--t);cursor:pointer;border:none;line-height:1}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 4px 20px rgba(191,122,10,.3)}
+.btn-amber:hover{background:#a56508;transform:translateY(-2px);box-shadow:0 8px 28px rgba(191,122,10,.45)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.3)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.75);color:#fff;background:rgba(255,255,255,.06)}
+.btn-cream{background:var(--cream);color:var(--amber)}
+.btn-cream:hover{background:#fff;transform:translateY(-2px)}
+
+/* ── HOURS STRIP ──────────────────────────────── */
+.strip{background:var(--amber);overflow:hidden;height:42px}
+.strip-track{display:flex;width:max-content;animation:marquee 38s linear infinite;height:100%;align-items:center}
+.strip-track:hover{animation-play-state:paused}
+.strip-item{white-space:nowrap;padding:0 26px;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.88);display:flex;align-items:center;gap:8px;border-right:1px solid rgba(255,255,255,.22)}
+.strip-item .day{font-weight:700;color:#fff}
+.strip-item .ruhe{color:rgba(255,255,255,.55);font-style:italic}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── LAYOUT HELPERS ───────────────────────────── */
+section{padding:96px 24px}
+.inner{max-width:1100px;margin:0 auto}
+.inner-sm{max-width:800px;margin:0 auto}
+
+.lbl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.lbl-light{color:rgba(232,168,32,.75)}
+.h2{font-family:var(--ff-h);font-size:clamp(1.9rem,4vw,2.9rem);font-weight:600;line-height:1.15;margin-bottom:14px}
+.h2-light{color:var(--cream)}
+.sub{font-size:1rem;color:var(--muted);max-width:500px;margin-bottom:48px;line-height:1.8}
+.sub-light{color:rgba(255,255,255,.55);max-width:500px}
+
+/* ── NOTICE ───────────────────────────────────── */
+.notice{background:#fffbea;border:1px solid #f5d060;border-left:4px solid var(--gold);border-radius:var(--r);padding:16px 20px;font-size:.87rem;color:#5a4200;margin-bottom:48px;display:flex;gap:12px;align-items:flex-start}
+
+/* ── ORDER SECTION ────────────────────────────── */
+.sec-dark{background:radial-gradient(ellipse at 70% 100%,rgba(60,25,8,.5) 0%,transparent 60%),linear-gradient(160deg,#1e0f06 0%,#2a1408 60%,#1c0d05 100%)}
+
+.order-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:900px){.order-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.order-grid{grid-template-columns:1fr}}
+
+.ocard{background:rgba(255,255,255,.04);border:1px solid rgba(232,168,32,.12);border-radius:var(--r2);padding:36px 28px;transition:all var(--t);position:relative;overflow:hidden}
+.ocard::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(232,168,32,.07) 0%,transparent 70%);opacity:0;transition:opacity var(--t)}
+.ocard:hover{transform:translateY(-6px);border-color:rgba(232,168,32,.35)}
+.ocard:hover::before{opacity:1}
+.ocard-icon{font-size:2.2rem;margin-bottom:18px;display:block}
+.ocard h3{font-family:var(--ff-h);font-size:1.45rem;font-weight:600;color:var(--cream);margin-bottom:10px}
+.ocard p{font-size:.87rem;color:rgba(255,255,255,.48);line-height:1.8;margin-bottom:22px}
+.ocard-link{display:inline-flex;align-items:center;gap:6px;color:var(--gold);font-size:.83rem;font-weight:600;text-decoration:none;transition:gap var(--t),color var(--t)}
+.ocard-link:hover{gap:10px;color:var(--gold2)}
+
+/* ── HOURS + CONTACT ──────────────────────────── */
+.sec-cream{background:var(--cream)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+@media(max-width:768px){.two-col{grid-template-columns:1fr;gap:48px}}
+
+.htable{width:100%;border-collapse:collapse}
+.htable tr{border-bottom:1px solid rgba(30,16,6,.08);transition:background var(--t)}
+.htable tr:last-child{border-bottom:none}
+.htable tr.today{background:rgba(191,122,10,.07)}
+.htable td{padding:13px 6px;font-size:.92rem;vertical-align:top}
+.htable .dn{font-weight:600;color:var(--text);width:135px}
+.htable tr.today .dn{color:var(--amber)}
+.htable .dt{color:var(--muted)}
+.htable .dt .pause{display:block;font-size:.76rem;color:var(--amber);margin-top:2px;opacity:.8}
+.htable .closed-day{color:#c0392b;font-style:italic}
+.today-tag{display:inline-block;background:var(--amber);color:#fff;font-size:.55rem;font-weight:700;letter-spacing:.1em;padding:1px 6px;border-radius:100px;margin-left:7px;vertical-align:middle;text-transform:uppercase}
+
+.ccard{background:var(--wood);border-radius:var(--r2);padding:34px}
+.ccard h3{font-family:var(--ff-h);font-size:1.45rem;color:var(--cream);margin-bottom:22px;font-weight:600}
+.crow{display:flex;gap:13px;margin-bottom:16px;align-items:flex-start;font-size:.88rem;color:rgba(255,255,255,.6)}
+.cicon{font-size:1rem;flex-shrink:0;margin-top:2px}
+.crow a{color:var(--gold);text-decoration:none;font-weight:500}
+.crow a:hover{text-decoration:underline}
+.map-btn{margin-top:22px;width:100%;justify-content:center}
+
+/* ── ABOUT ────────────────────────────────────── */
+.sec-about{background:radial-gradient(ellipse at 30% 50%,rgba(55,22,6,.5) 0%,transparent 55%),linear-gradient(150deg,#1c0e05 0%,#281408 50%,#1a0c04 100%)}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+
+.about-img{position:relative;border-radius:var(--r2);overflow:hidden;aspect-ratio:4/5;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.about-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(.85)}
+.about-img-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,6,0,.75) 0%,transparent 50%)}
+.about-quote{position:absolute;bottom:22px;left:22px;right:22px;color:rgba(255,255,255,.82);font-family:var(--ff-h);font-style:italic;font-size:1rem;line-height:1.55}
+.about-quote::before{content:'"';font-size:2.2rem;line-height:0;vertical-align:-.55em;color:var(--gold);opacity:.65;margin-right:3px}
+
+.feat-list{list-style:none;display:flex;flex-direction:column;gap:15px;margin-bottom:34px}
+.feat-list li{display:flex;gap:13px;align-items:flex-start;color:rgba(255,255,255,.62);font-size:.9rem;line-height:1.65}
+.feat-icon{width:26px;height:26px;flex-shrink:0;background:rgba(232,168,32,.1);border:1px solid rgba(232,168,32,.2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:.8rem;margin-top:1px}
+
+/* ── CTA BANNER ───────────────────────────────── */
+.cta-banner{background:linear-gradient(135deg,#bf7a0a 0%,#8c5a06 100%);padding:88px 24px;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0,transparent 40px,rgba(255,255,255,.018) 40px,rgba(255,255,255,.018) 41px)}
+.cta-banner .inner-sm{position:relative;z-index:1}
+.cta-title{font-family:var(--ff-h);font-size:clamp(2rem,5vw,3.2rem);font-weight:600;color:#fff;margin-bottom:10px}
+.cta-sub{color:rgba(255,255,255,.72);font-size:1.02rem;margin-bottom:36px}
+.cta-phone{display:block;font-family:var(--ff-h);font-size:clamp(1.8rem,4vw,2.5rem);font-weight:600;color:#fff;text-decoration:none;margin-bottom:32px;letter-spacing:.02em;transition:opacity var(--t)}
+.cta-phone:hover{opacity:.8}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ───────────────────────────────────── */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:68px 24px 30px}
+.ft-inner{max-width:1100px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07)}
+@media(max-width:700px){.ft-top{grid-template-columns:1fr 1fr}.ft-brand{grid-column:1/-1}}
+@media(max-width:440px){.ft-top{grid-template-columns:1fr}}
+.ft-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.ft-desc{font-size:.83rem;line-height:1.8;max-width:270px;margin-bottom:16px}
+.ft-addr{font-size:.82rem;line-height:1.9}
+.ft-addr a{color:var(--gold);text-decoration:none}
+.ft-col h4{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-bottom:16px}
+.ft-col ul{list-style:none}
+.ft-col li{margin-bottom:9px}
+.ft-col a{color:rgba(255,255,255,.48);text-decoration:none;font-size:.83rem;transition:color var(--t)}
+.ft-col a:hover{color:var(--gold)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.76rem}
+
+/* ── REVEAL ANIMATIONS ────────────────────────── */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.32s}
   </style>
 </head>
 <body>
 
-<!-- ═══ NAV ═══════════════════════════════════════════ -->
-<nav>
+<!-- NAV -->
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="logo" aria-label="Gockelhaus Landau">
+    <a href="#" class="logo">
       <span class="logo-rooster">🐓</span>
-      <div class="logo-text-stack">
+      <div class="logo-words">
         <span class="logo-script">Gockelhaus</span>
-        <span class="logo-city">Landau</span>
+        <span class="logo-badge">Landau</span>
       </div>
     </a>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#speisekarte">Speisekarte</a></li>
-      <li><a href="#oeffnungszeiten">Öffnungszeiten</a></li>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#bestellen">Bestellen</a></li>
+      <li><a href="#zeiten">Öffnungszeiten</a></li>
       <li><a href="#ueber-uns">Über uns</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
-      <li><a href="#speisekarte" class="nav-cta">Jetzt bestellen</a></li>
+      <li><a href="tel:063412671746" class="nav-cta">📞 Anrufen</a></li>
     </ul>
 
-    <div class="nav-phone">
-      📞 <a href="tel:063412671746">06341 2671746</a>
-    </div>
+    <div class="nav-phone"><a href="tel:063412671746">06341 2671746</a></div>
 
-    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
-      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 6h18M3 12h18M3 18h18"/>
-      </svg>
+    <button class="burger" id="burger" aria-label="Menü">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 12h16M3 18h16"/></svg>
     </button>
   </div>
 </nav>
 
-<!-- ═══ HERO ═══════════════════════════════════════════ -->
+<!-- HERO -->
 <section class="hero" id="hero">
+  <span class="hero-ring"></span>
+  <span class="hero-ring"></span>
+  <span class="hero-ring"></span>
+
   <div class="hero-content">
-    <!-- large logo -->
-    <div class="hero-logo" role="img" aria-label="Gockelhaus Landau">
+    <div class="hero-logo">
       <span class="logo-rooster">🐓</span>
-      <div class="logo-text-stack">
+      <div class="logo-words">
         <span class="logo-script">Gockelhaus</span>
-        <span class="logo-city">Landau</span>
+        <span class="logo-badge">Landau</span>
       </div>
     </div>
-    <p>Genießen Sie köstliche Gerichte direkt zu Ihnen nach Hause – oder holen Sie bei uns ab. Jetzt bequem online bestellen!</p>
-    <div class="hero-btns">
-      <a href="#speisekarte" class="btn btn-primary">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2"/></svg>
-        Zur Speisekarte
-      </a>
-      <a href="#oeffnungszeiten" class="btn btn-outline">Öffnungszeiten</a>
+
+    <p class="hero-tagline">Herzlich willkommen in Landau in der Pfalz</p>
+
+    <div class="status-pill" id="statusPill">
+      <span class="status-dot"></span>
+      <span id="statusTxt">Wird geladen…</span>
     </div>
+
+    <div class="hero-btns">
+      <a href="#bestellen" class="btn btn-amber">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Jetzt bestellen
+      </a>
+      <a href="#zeiten" class="btn btn-ghost">Öffnungszeiten</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll
   </div>
 </section>
 
-<!-- ═══ SCROLLING HOURS STRIP ══════════════════════════ -->
-<div class="hours-strip">
-  <div class="hours-scroll" id="hoursScroll">
-    <span class="hours-item"><span class="day">Mo</span> <span class="closed">Ruhetag</span></span>
-    <span class="hours-item"><span class="day">Di</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Mi</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Do</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Fr</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Sa</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">So</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <!-- duplicate for seamless loop -->
-    <span class="hours-item"><span class="day">Mo</span> <span class="closed">Ruhetag</span></span>
-    <span class="hours-item"><span class="day">Di</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Mi</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Do</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Fr</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">Sa</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
-    <span class="hours-item"><span class="day">So</span> 11:00 – 21:00 · Pause 14:30 – 17:00</span>
+<!-- HOURS STRIP -->
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span class="strip-item"><span class="day">Mo</span><span class="ruhe">Ruhetag</span></span>
+    <span class="strip-item"><span class="day">Di</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Mi</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Do</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Fr</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Sa</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">So</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Mo</span><span class="ruhe">Ruhetag</span></span>
+    <span class="strip-item"><span class="day">Di</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Mi</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Do</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Fr</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">Sa</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
+    <span class="strip-item"><span class="day">So</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
   </div>
 </div>
 
-<!-- ═══ INFO CARDS ══════════════════════════════════════ -->
-<section style="padding:72px 24px; background: var(--bg);" id="speisekarte">
-  <div class="section-inner">
-    <div class="notice">
-      <strong>Hinweis:</strong> Aufgrund der hohen Nachfrage können wir aktuell vorübergehend keine weiteren Bestellungen annehmen. Wir danken für Ihr Verständnis und freuen uns, Sie bald wieder zu bedienen.
+<!-- ORDER OPTIONS -->
+<section class="sec-dark" id="bestellen">
+  <div class="inner">
+    <div class="notice rv">
+      ⚠️&nbsp;<span><strong>Hinweis:</strong> Aufgrund hoher Nachfrage nehmen wir aktuell vorübergehend keine Bestellungen an. Rufen Sie uns an oder kommen Sie direkt vorbei.</span>
     </div>
 
-    <span class="section-label">Jetzt bestellen</span>
-    <h2 class="section-title">Online-Bestellung</h2>
-    <p class="section-sub">Wählen Sie Ihre Lieblingsgerichte und bestellen Sie bequem von zuhause – Lieferung oder Abholung.</p>
+    <span class="lbl lbl-light rv">So erreichen Sie uns</span>
+    <h2 class="h2 h2-light rv d1">Wie möchten Sie bestellen?</h2>
+    <p class="sub sub-light rv d2">Lieferung, Abholung oder telefonisch – wir machen es so einfach wie möglich.</p>
 
-    <div class="info-grid">
-      <div class="info-card">
-        <div class="info-card-icon">🏠</div>
+    <div class="order-grid">
+      <div class="ocard rv">
+        <span class="ocard-icon">🏠</span>
         <h3>Lieferung</h3>
-        <p>Wir liefern Ihre Bestellung direkt an Ihre Haustür. Geben Sie einfach Ihre Adresse an und wir kommen zu Ihnen.</p>
+        <p>Wir bringen Ihre Lieblingsgerichte direkt an die Haustür. Einfach Adresse angeben und bestellen.</p>
+        <a href="#kontakt" class="ocard-link">Mehr erfahren <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
-      <div class="info-card">
-        <div class="info-card-icon">🛍</div>
+
+      <div class="ocard rv d1">
+        <span class="ocard-icon">🛍</span>
         <h3>Selbst abholen</h3>
-        <p>Bestellen Sie online und holen Sie Ihre Speisen direkt bei uns ab – schnell, bequem und ohne Wartezeit.</p>
+        <p>Bestellen Sie vor und holen Sie Ihr Essen frisch zubereitet bei uns auf der Königstraße 69 ab.</p>
+        <a href="#kontakt" class="ocard-link">Standort ansehen <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
-      <div class="info-card">
-        <div class="info-card-icon">📞</div>
-        <h3>Telefonisch bestellen</h3>
-        <p>Sie erreichen uns unter <a href="tel:063412671746">06341 2671746</a>. Wir nehmen Ihre Bestellung gerne entgegen.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-card-icon">⭐</div>
-        <h3>Vorbestellungen</h3>
-        <p>Außerhalb unserer Öffnungszeiten können Sie gerne vorbestellen. Wir bereiten Ihr Essen pünktlich zu.</p>
+
+      <div class="ocard rv d2">
+        <span class="ocard-icon">📞</span>
+        <h3>Telefonisch</h3>
+        <p>Rufen Sie uns einfach an – wir nehmen Ihre Bestellung persönlich entgegen und beraten Sie gerne.</p>
+        <a href="tel:063412671746" class="ocard-link">06341 2671746 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ OPENING HOURS ═══════════════════════════════════ -->
-<section class="hours-section" id="oeffnungszeiten">
-  <div class="section-inner">
-    <div class="hours-layout">
+<!-- HOURS + CONTACT -->
+<section class="sec-cream" id="zeiten">
+  <div class="inner">
+    <div class="two-col">
       <div>
-        <span class="section-label">Bestellzeiten</span>
-        <h2 class="section-title">Öffnungszeiten</h2>
-        <p class="section-sub">Besuchen Sie uns oder bestellen Sie online während unserer Betriebszeiten.</p>
+        <span class="lbl rv">Bestellzeiten</span>
+        <h2 class="h2 rv d1">Öffnungszeiten</h2>
+        <p class="sub rv d2">Montags gönnen wir uns Ruhe. Dienstag bis Sonntag sind wir für Sie da.</p>
 
-        <table class="hours-table">
+        <table class="htable rv d2" id="hoursTable">
           <tbody>
-            <tr>
-              <td class="day-name">Montag</td>
-              <td class="time ruhetag">Ruhetag</td>
-            </tr>
-            <tr>
-              <td class="day-name">Dienstag</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="day-name">Mittwoch</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="day-name">Donnerstag</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="day-name">Freitag</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="day-name">Samstag</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
-            <tr>
-              <td class="day-name">Sonntag</td>
-              <td class="time">
-                11:00 – 21:00
-                <span class="pause">Pause: 14:30 – 17:00</span>
-              </td>
-            </tr>
+            <tr data-day="1"><td class="dn">Montag</td><td class="dt"><span class="closed-day">Ruhetag</span></td></tr>
+            <tr data-day="2"><td class="dn">Dienstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            <tr data-day="3"><td class="dn">Mittwoch</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            <tr data-day="4"><td class="dn">Donnerstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            <tr data-day="5"><td class="dn">Freitag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            <tr data-day="6"><td class="dn">Samstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            <tr data-day="0"><td class="dn">Sonntag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
           </tbody>
         </table>
       </div>
 
-      <div>
-        <span class="section-label">Finden Sie uns</span>
-        <h2 class="section-title">Unser Standort</h2>
-        <p style="color: var(--muted); margin-bottom: 24px; font-size: .95rem; line-height: 1.7;">
-          Wir befinden uns im Herzen von Landau in der Pfalz. Besuchen Sie uns – wir freuen uns auf Sie!
-        </p>
+      <div id="kontakt">
+        <span class="lbl rv">Finden Sie uns</span>
+        <h2 class="h2 rv d1">Kontakt &amp; Adresse</h2>
+        <p class="sub rv d2">Besuchen Sie uns direkt – wir freuen uns auf Sie!</p>
 
-        <div class="info-card" style="margin-bottom: 16px;">
-          <p>
-            <strong style="color:var(--dark)">Gockel Haus</strong><br>
-            Königstraße 69<br>
-            76829 Landau in der Pfalz<br><br>
-            📞 <a href="tel:063412671746">06341 2671746</a>
-          </p>
+        <div class="ccard rv d2">
+          <h3>Gockelhaus</h3>
+          <div class="crow"><span class="cicon">📍</span><span>Königstraße 69<br>76829 Landau in der Pfalz</span></div>
+          <div class="crow"><span class="cicon">📞</span><span><a href="tel:063412671746">06341 2671746</a></span></div>
+          <div class="crow"><span class="cicon">⏰</span><span>Di–So: 11:00 – 21:00<br><span style="opacity:.55;font-size:.82em">Pause 14:30–17:00 · Mo: Ruhetag</span></span></div>
+          <a href="https://maps.google.de/?q=49.19640587234498,8.115703922800247" target="_blank" rel="noopener" class="btn btn-amber map-btn">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <a
-          href="https://maps.google.de/?q=49.19640587234498,8.115703922800247"
-          target="_blank"
-          rel="noopener"
-          class="btn btn-primary"
-          style="display:inline-flex; margin-top:8px;"
-        >
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          In Google Maps öffnen
+<!-- ABOUT -->
+<section class="sec-about" id="ueber-uns">
+  <div class="inner">
+    <div class="about-grid">
+      <div class="about-img rv">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Atmosphäre im Gockelhaus" loading="lazy" />
+        <div class="about-img-ov"></div>
+        <p class="about-quote">Jedes Gericht wird mit Leidenschaft und frischen Zutaten zubereitet.</p>
+      </div>
+
+      <div>
+        <span class="lbl lbl-light rv">Unser Restaurant</span>
+        <h2 class="h2 h2-light rv d1">Herzlich willkommen im Gockelhaus</h2>
+        <p class="sub sub-light rv d2">Im Gockelhaus in Landau in der Pfalz erwartet Sie echte Gastfreundschaft und köstliche Gerichte. Qualität steht bei uns an erster Stelle – ob Lieferung oder Abholung.</p>
+
+        <ul class="feat-list rv d2">
+          <li><span class="feat-icon">🌿</span>Täglich frisch zubereitet mit ausgewählten Zutaten</li>
+          <li><span class="feat-icon">🚴</span>Schneller Lieferservice in Landau und Umgebung</li>
+          <li><span class="feat-icon">📱</span>Einfache Online-Bestellung – jederzeit verfügbar</li>
+          <li><span class="feat-icon">📅</span>Vorbestellungen außerhalb der Öffnungszeiten möglich</li>
+        </ul>
+
+        <a href="tel:063412671746" class="btn btn-amber rv d3">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16l.19.92z"/></svg>
+          06341 2671746
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ ABOUT ════════════════════════════════════════════ -->
-<section id="ueber-uns">
-  <div class="section-inner">
-    <div class="about-layout">
-      <div class="about-img-wrap">
-        <img
-          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"
-          alt="Gockel Haus Restaurant"
-          loading="lazy"
-        />
-        <div class="about-img-badge">
-          <div class="num">100%</div>
-          <div class="lbl">Frische Zutaten</div>
-        </div>
-      </div>
-
-      <div class="about-text">
-        <span class="section-label">Über uns</span>
-        <h2 class="section-title">Herzlich willkommen im Gockel Haus</h2>
-        <p class="section-sub">
-          Bei Gockel Haus in Landau in der Pfalz verwöhnen wir Sie mit köstlichen Gerichten aus frischen Zutaten. Egal ob Sie bei uns speisen oder sich liefern lassen – wir sorgen dafür, dass jeder Bissen ein Genuss ist.
-        </p>
-        <ul class="feature-list">
-          <li>Täglich frisch zubereitete Gerichte</li>
-          <li>Schneller Lieferservice in die Region</li>
-          <li>Bequeme Online-Bestellung rund um die Uhr</li>
-          <li>Vorbestellungen außerhalb der Öffnungszeiten möglich</li>
-        </ul>
-        <a href="tel:063412671746" class="btn btn-primary">Jetzt anrufen</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ORDER BANNER ════════════════════════════════════ -->
-<div class="order-banner">
-  <div class="section-inner" style="max-width: 700px; text-align: center;">
-    <h2>Hunger? Wir liefern!</h2>
-    <p>Bestellen Sie jetzt bequem online oder rufen Sie uns an – wir kümmern uns um den Rest.</p>
-    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
-      <a href="#speisekarte" class="btn btn-white">Zur Speisekarte</a>
-      <a href="tel:063412671746" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,.5);">06341 2671746</a>
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="inner-sm">
+    <p class="cta-title rv">Hunger? Wir liefern!</p>
+    <p class="cta-sub rv d1">Rufen Sie uns an oder kommen Sie einfach vorbei – wir freuen uns auf Sie.</p>
+    <a href="tel:063412671746" class="cta-phone rv d2">📞 06341 2671746</a>
+    <div class="cta-btns rv d2">
+      <a href="#bestellen" class="btn btn-cream">Zur Speisekarte</a>
+      <a href="#zeiten" class="btn btn-ghost">Öffnungszeiten</a>
     </div>
   </div>
 </div>
 
-<!-- ═══ FOOTER ══════════════════════════════════════════ -->
-<footer id="kontakt">
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo">
-          <span class="logo-rooster">🐓</span>
-          <div class="logo-text-stack">
-            <span class="logo-script">Gockelhaus</span>
-            <span class="logo-city">Landau</span>
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="ft-logo">
+          <span class="logo-rooster" style="font-size:1.8rem">🐓</span>
+          <div class="logo-words">
+            <span class="logo-script" style="font-size:1.4rem">Gockelhaus</span>
+            <span class="logo-badge">Landau</span>
           </div>
         </div>
-        <p class="footer-desc">Ihr Restaurant in Landau in der Pfalz. Lecker Essen, schneller Service – online bestellen oder bei uns vorbeikommen.</p>
-        <p style="font-size:.85rem;">📍 Königstraße 69, 76829 Landau in der Pfalz</p>
-        <p style="font-size:.85rem; margin-top:6px;">📞 <a href="tel:063412671746" style="color:var(--gold); text-decoration:none;">06341 2671746</a></p>
+        <p class="ft-desc">Ihr Restaurant und Lieferservice in Landau in der Pfalz. Frisch, lecker, schnell.</p>
+        <p class="ft-addr">Königstraße 69 · 76829 Landau in der Pfalz<br><a href="tel:063412671746">06341 2671746</a></p>
       </div>
 
-      <div class="footer-col">
+      <div class="ft-col">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="#speisekarte">Speisekarte</a></li>
-          <li><a href="#oeffnungszeiten">Öffnungszeiten</a></li>
+          <li><a href="#bestellen">Bestellen</a></li>
+          <li><a href="#zeiten">Öffnungszeiten</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </div>
 
-      <div class="footer-col">
+      <div class="ft-col">
         <h4>Rechtliches</h4>
         <ul>
           <li><a href="/impressum">Impressum</a></li>
@@ -942,19 +482,56 @@
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <span>© 2026 Gockel Haus · Landau in der Pfalz</span>
-      <span style="font-size:.75rem; opacity:.5;">Alle Rechte vorbehalten</span>
+    <div class="ft-bottom">
+      <span>© 2026 Gockelhaus · Landau in der Pfalz</span>
+      <span style="opacity:.35">Alle Rechte vorbehalten</span>
     </div>
   </div>
 </footer>
 
 <script>
-  // Mobile nav toggle
-  const hamburger = document.getElementById('hamburger');
-  const navLinks  = document.getElementById('navLinks');
-  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+/* nav scroll */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60), {passive:true});
+
+/* mobile menu */
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navMenu');
+burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+/* live status */
+(function(){
+  const pill = document.getElementById('statusPill');
+  const txt  = document.getElementById('statusTxt');
+  const now  = new Date();
+  const day  = now.getDay();
+  const m    = now.getHours() * 60 + now.getMinutes();
+  const o1=660, c1=870, o2=1020, c2=1260; /* 11:00 14:30 17:00 21:00 */
+  const open  = day !== 1 && ((m>=o1 && m<c1)||(m>=o2 && m<c2));
+  const pause = day !== 1 && m>=c1 && m<o2;
+  if(open)       { pill.classList.add('open');   txt.textContent='Jetzt geöffnet'; }
+  else if(pause) { pill.classList.add('closed'); txt.textContent='Pause – öffnet wieder 17:00 Uhr'; }
+  else           { pill.classList.add('closed'); txt.textContent= day===1 ? 'Heute Ruhetag (Montag)' : 'Aktuell geschlossen'; }
+})();
+
+/* highlight today */
+(function(){
+  const today = new Date().getDay();
+  document.querySelectorAll('#hoursTable tr[data-day]').forEach(r => {
+    if(+r.dataset.day === today){
+      r.classList.add('today');
+      const dn = r.querySelector('.dn');
+      if(dn) dn.insertAdjacentHTML('beforeend','<span class="today-tag">heute</span>');
+    }
+  });
+})();
+
+/* scroll reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); obs.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>

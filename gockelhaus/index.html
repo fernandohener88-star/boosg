@@ -116,14 +116,6 @@ body{font-family:var(--ff-b);background:var(--cream);color:var(--text);line-heig
 .btn-cream{background:var(--cream);color:var(--amber)}
 .btn-cream:hover{background:#fff;transform:translateY(-2px)}
 
-/* ── HOURS STRIP ──────────────────────────────── */
-.strip{background:var(--amber);overflow:hidden;height:42px}
-.strip-track{display:flex;width:max-content;animation:marquee 38s linear infinite;height:100%;align-items:center}
-.strip-track:hover{animation-play-state:paused}
-.strip-item{white-space:nowrap;padding:0 26px;font-size:.78rem;font-weight:500;color:rgba(255,255,255,.88);display:flex;align-items:center;gap:8px;border-right:1px solid rgba(255,255,255,.22)}
-.strip-item .day{font-weight:700;color:#fff}
-.strip-item .ruhe{color:rgba(255,255,255,.55);font-style:italic}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ── LAYOUT ───────────────────────────────────── */
 section{padding:96px 24px}
@@ -424,25 +416,6 @@ footer{background:var(--dark);color:rgba(255,255,255,.5);padding:68px 24px 30px}
   </div>
 </section>
 
-<!-- HOURS STRIP -->
-<div class="strip" aria-hidden="true">
-  <div class="strip-track">
-    <span class="strip-item"><span class="day">Mo</span><span class="ruhe">Ruhetag</span></span>
-    <span class="strip-item"><span class="day">Di</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Mi</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Do</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Fr</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Sa</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">So</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Mo</span><span class="ruhe">Ruhetag</span></span>
-    <span class="strip-item"><span class="day">Di</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Mi</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Do</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Fr</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">Sa</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-    <span class="strip-item"><span class="day">So</span>11:00 – 14:30 &amp; 17:00 – 21:00</span>
-  </div>
-</div>
 
 <!-- ORDER OPTIONS -->
 <section class="sec-dark" id="bestellen">

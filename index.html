@@ -5,11 +5,49 @@
   <title>Brennan's Pub Landau — Irish Pub, 60+ Whiskeys, Biergarten | Seit 2001</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #faf9f5; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
-    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
-    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #faf9f5; z-index: 9999; }
-    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
-    #__bundler_placeholder { color: #999; font-size: 14px; }
+    body { background: #0A0908; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: Georgia, serif; }
+    #__bundler_loading { display: none; }
+    #__bundler_thumbnail {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #0A0908; z-index: 9999; gap: 0;
+    }
+    #__bundler_thumbnail svg { width: 110px; height: 180px; }
+    .__loader-brand {
+      margin-top: 22px;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 2rem; letter-spacing: .06em;
+      color: #D4A24C;
+    }
+    .__loader-sub {
+      margin-top: 6px;
+      font-family: -apple-system, sans-serif;
+      font-size: .78rem; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(212,162,76,.55);
+    }
+    .__loader-dots {
+      margin-top: 36px; display: flex; gap: 8px;
+    }
+    .__loader-dots span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #D4A24C; opacity: .25;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .__loader-dots span:nth-child(2) { animation-delay: .2s; }
+    .__loader-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes pulse { 0%,100%{opacity:.2;transform:scale(.8)} 50%{opacity:1;transform:scale(1.15)} }
+    @keyframes fillRise {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0%); }
+    }
+    @keyframes headSettle {
+      0%   { transform: translateY(10px); opacity: 0; }
+      60%  { transform: translateY(-3px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    #__loader-beer { animation: fillRise 1.6s cubic-bezier(.25,.8,.25,1) forwards; transform-origin: bottom; }
+    #__loader-head { animation: headSettle 0.6s ease-out 1.4s both; }
+    #__bundler_placeholder { display: none; }
   </style>
   <noscript>
     <style>#__bundler_loading { display: none; }</style>
@@ -20,15 +58,38 @@
 </head>
 <body>
   <div id="__bundler_thumbnail">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <rect width="100" height="100" fill="#0A0908"></rect>
-    <rect x="38" y="22" width="24" height="50" rx="3" fill="none" stroke="#D4A24C" stroke-width="2"></rect>
-    <rect x="40" y="40" width="20" height="30" fill="#2B1810"></rect>
-    <rect x="40" y="34" width="20" height="7" rx="3" fill="#F5EDD6"></rect>
-    <text x="50" y="86" font-family="Georgia,serif" font-size="11" fill="#D4A24C" text-anchor="middle">Brennan's</text>
-  </svg>
-</div>
-  <div id="__bundler_loading">Unpacking...</div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 150">
+      <defs>
+        <clipPath id="gc">
+          <!-- Pint glass shape: slightly wider at top, tapers inward, widens at base -->
+          <polygon points="18,4 62,4 58,120 22,120"/>
+        </clipPath>
+      </defs>
+      <!-- Glass fill background -->
+      <polygon points="18,4 62,4 58,120 22,120" fill="#0f0604"/>
+      <!-- Beer dark fill - animated rise -->
+      <g clip-path="url(#gc)">
+        <rect id="__loader-beer" x="16" y="18" width="48" height="104" fill="#1c0b05"/>
+        <!-- Cream head - animated settle -->
+        <rect id="__loader-head" x="19" y="5" width="42" height="15" rx="3" fill="#F0E6C8"/>
+      </g>
+      <!-- Bubble hints -->
+      <g clip-path="url(#gc)" opacity="0.25">
+        <circle cx="30" cy="90" r="1.5" fill="#D4A24C"/>
+        <circle cx="45" cy="75" r="1" fill="#D4A24C"/>
+        <circle cx="35" cy="60" r="1.2" fill="#D4A24C"/>
+        <circle cx="50" cy="100" r="1" fill="#D4A24C"/>
+      </g>
+      <!-- Glass outline -->
+      <polygon points="18,4 62,4 58,120 22,120" fill="none" stroke="#D4A24C" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- Base line -->
+      <line x1="20" y1="124" x2="60" y2="124" stroke="#D4A24C" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div class="__loader-brand">Brennan's</div>
+    <div class="__loader-sub">Irish Pub · Landau · Est. 2001</div>
+    <div class="__loader-dots"><span></span><span></span><span></span></div>
+  </div>
+  <div id="__bundler_loading"></div>
 
   <script>
     

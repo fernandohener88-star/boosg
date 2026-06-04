@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standort – Gockelhaus · Königstraße 69, Landau in der Pfalz</title>
+  <meta name="description" content="Gockelhaus in Landau in der Pfalz – Königstraße 69, 76829. Öffnungszeiten, Anfahrt und Kontakt." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --dark:   #120900;
+  --wood:   #251208;
+  --amber:  #bf7a0a;
+  --gold:   #e8a820;
+  --gold2:  #f5c842;
+  --green:  #1c4e24;
+  --green2: #28703a;
+  --cream:  #f5eed8;
+  --white:  #fff;
+  --text:   #1e1006;
+  --muted:  #6e5a3a;
+  --ff-s:'Dancing Script',cursive;
+  --ff-h:'Cormorant Garamond',Georgia,serif;
+  --ff-b:'Inter',system-ui,sans-serif;
+  --r:12px;--r2:20px;--t:.25s ease;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-b);background:var(--cream);color:var(--text);line-height:1.65;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--amber);border-radius:3px}
+::selection{background:var(--amber);color:#fff}
+
+/* ── NAV ─────────────────────────────────────── */
+.nav{position:fixed;inset:0 0 auto 0;z-index:200;background:rgba(18,9,0,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 2px 30px rgba(0,0,0,.5)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+
+.logo{text-decoration:none;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-icon{width:40px;height:40px;color:var(--gold);filter:drop-shadow(0 0 8px rgba(232,168,32,.4));flex-shrink:0}
+.logo-words{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.logo-script{font-family:var(--ff-s);font-weight:700;font-size:1.5rem;color:var(--gold);text-shadow:0 1px 10px rgba(200,130,10,.4);line-height:.9}
+.logo-badge{font-family:var(--ff-b);font-size:.52rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:linear-gradient(90deg,var(--green),var(--green2),var(--green));padding:2px 12px;border-radius:2px;margin-top:4px;clip-path:polygon(7px 0%,calc(100% - 7px) 0%,100% 50%,calc(100% - 7px) 100%,7px 100%,0 50%)}
+
+.nav-menu{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-menu a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color var(--t)}
+.nav-menu a:hover{color:var(--gold)}
+.nav-menu a.active{color:var(--gold)}
+.nav-cta{background:var(--amber)!important;color:#fff!important;padding:8px 18px;border-radius:var(--r);font-weight:600!important;transition:background var(--t),transform var(--t)!important;display:flex;align-items:center;gap:7px}
+.nav-cta:hover{background:#a56508!important;transform:translateY(-1px)}
+.nav-cta svg{width:14px;height:14px}
+.nav-phone{color:rgba(255,255,255,.55);font-size:.8rem;flex-shrink:0}
+.nav-phone a{color:var(--gold);text-decoration:none;font-weight:600}
+.burger{display:none;background:none;border:none;color:#fff;cursor:pointer;padding:4px}
+
+@media(max-width:900px){
+  .burger{display:block}.nav-phone{display:none}
+  .nav-menu{display:none;position:fixed;inset:68px 0 auto 0;background:rgba(10,5,0,.97);flex-direction:column;align-items:stretch;padding:20px 28px 28px;gap:0;border-bottom:2px solid var(--amber)}
+  .nav-menu.open{display:flex}
+  .nav-menu li{border-bottom:1px solid rgba(255,255,255,.06)}
+  .nav-menu a{display:block;padding:13px 0;font-size:.88rem}
+  .nav-menu .nav-cta{margin-top:10px;border-bottom:none;justify-content:center;display:flex;padding:12px}
+}
+
+/* ── BUTTONS ──────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r);font-family:var(--ff-b);font-size:.88rem;font-weight:600;text-decoration:none;transition:all var(--t);cursor:pointer;border:none;line-height:1}
+.btn svg{width:16px;height:16px;flex-shrink:0}
+.btn-amber{background:var(--amber);color:#fff;box-shadow:0 4px 20px rgba(191,122,10,.3)}
+.btn-amber:hover{background:#a56508;transform:translateY(-2px);box-shadow:0 8px 28px rgba(191,122,10,.45)}
+.btn-outline{background:transparent;color:var(--amber);border:1.5px solid var(--amber)}
+.btn-outline:hover{background:var(--amber);color:#fff}
+.btn-dark{background:var(--wood);color:var(--cream);border:1px solid rgba(232,168,32,.2)}
+.btn-dark:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── PAGE HERO ────────────────────────────────── */
+.page-hero{
+  padding:120px 24px 64px;
+  background:
+    radial-gradient(ellipse at 70% 30%,rgba(60,25,8,.6) 0%,transparent 55%),
+    linear-gradient(160deg,#1e0f06 0%,#2a1408 60%,#1c0d05 100%);
+  position:relative;overflow:hidden;
+}
+.page-hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:200px 200px;opacity:.03;pointer-events:none}
+
+.page-hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:.78rem;color:rgba(255,255,255,.4)}
+.breadcrumb a{color:rgba(255,255,255,.5);text-decoration:none;transition:color var(--t)}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb svg{width:12px;height:12px;opacity:.4}
+
+.page-hero h1{font-family:var(--ff-h);font-size:clamp(2.2rem,5vw,3.5rem);font-weight:600;color:var(--cream);line-height:1.1;margin-bottom:14px}
+.page-hero h1 span{color:var(--gold)}
+.page-hero p{color:rgba(255,255,255,.55);font-size:1rem;max-width:480px;line-height:1.75}
+
+/* ── MAIN CONTENT ─────────────────────────────── */
+.main{max-width:1100px;margin:0 auto;padding:64px 24px 96px}
+
+.content-grid{display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}}
+
+/* ── MAP ──────────────────────────────────────── */
+.map-wrap{border-radius:var(--r2);overflow:hidden;box-shadow:0 12px 48px rgba(26,16,8,.2);border:1px solid rgba(30,16,6,.15);background:var(--wood)}
+.map-wrap iframe{display:block;width:100%;height:420px;border:none;filter:sepia(.15) contrast(1.05)}
+
+.map-cta{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+
+/* ── SIDEBAR CARDS ────────────────────────────── */
+.sidebar{display:flex;flex-direction:column;gap:24px}
+
+.card{background:var(--white);border:1px solid rgba(30,16,6,.1);border-radius:var(--r2);overflow:hidden;box-shadow:0 4px 24px rgba(26,16,8,.08)}
+.card-head{background:var(--wood);padding:20px 24px;display:flex;align-items:center;gap:12px}
+.card-head-icon{width:36px;height:36px;color:var(--gold);flex-shrink:0}
+.card-head h2{font-family:var(--ff-h);font-size:1.2rem;font-weight:600;color:var(--cream)}
+.card-body{padding:24px}
+
+/* contact rows */
+.info-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(30,16,6,.07);font-size:.9rem}
+.info-row:last-child{border-bottom:none;padding-bottom:0}
+.info-row svg{width:18px;height:18px;flex-shrink:0;color:var(--amber);margin-top:2px}
+.info-row-label{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.info-row-val{color:var(--text);font-weight:500}
+.info-row-val a{color:var(--amber);text-decoration:none;font-weight:600}
+.info-row-val a:hover{text-decoration:underline}
+
+/* hours table */
+.htable{width:100%;border-collapse:collapse}
+.htable tr{border-bottom:1px solid rgba(30,16,6,.06)}
+.htable tr:last-child{border-bottom:none}
+.htable tr.today{background:rgba(191,122,10,.06)}
+.htable td{padding:11px 4px;font-size:.88rem;vertical-align:top}
+.htable .dn{font-weight:600;color:var(--text);width:110px}
+.htable tr.today .dn{color:var(--amber)}
+.htable .dt{color:var(--muted)}
+.htable .dt .pause{display:block;font-size:.74rem;color:var(--amber);margin-top:1px;opacity:.8}
+.htable .closed-day{color:#c0392b;font-style:italic}
+.today-tag{display:inline-block;background:var(--amber);color:#fff;font-size:.52rem;font-weight:700;letter-spacing:.1em;padding:1px 6px;border-radius:100px;margin-left:6px;vertical-align:middle;text-transform:uppercase}
+
+/* ── HOW TO FIND US ───────────────────────────── */
+.directions{background:var(--dark);border-radius:var(--r2);padding:36px;margin-top:32px}
+.directions h2{font-family:var(--ff-h);font-size:1.5rem;font-weight:600;color:var(--cream);margin-bottom:22px}
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:600px){.dir-grid{grid-template-columns:1fr}}
+.dir-item{background:rgba(255,255,255,.04);border:1px solid rgba(232,168,32,.1);border-radius:var(--r);padding:20px}
+.dir-item-icon{width:32px;height:32px;color:var(--gold);margin-bottom:12px}
+.dir-item h3{font-size:.85rem;font-weight:600;color:var(--cream);margin-bottom:8px;letter-spacing:.02em}
+.dir-item p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.7}
+
+/* ── FOOTER ───────────────────────────────────── */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:56px 24px 28px}
+.ft-inner{max-width:1100px;margin:0 auto}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.07)}
+@media(max-width:700px){.ft-top{grid-template-columns:1fr 1fr}.ft-brand{grid-column:1/-1}}
+@media(max-width:440px){.ft-top{grid-template-columns:1fr}}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.ft-logo .logo-icon{width:34px;height:34px}
+.ft-desc{font-size:.82rem;line-height:1.8;max-width:260px;margin-bottom:14px}
+.ft-addr{font-size:.81rem;line-height:1.9}
+.ft-addr a{color:var(--gold);text-decoration:none}
+.ft-col h4{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82);margin-bottom:14px}
+.ft-col ul{list-style:none}
+.ft-col li{margin-bottom:9px}
+.ft-col a{color:rgba(255,255,255,.48);text-decoration:none;font-size:.82rem;transition:color var(--t)}
+.ft-col a:hover{color:var(--gold)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.75rem}
+
+/* ── REVEAL ───────────────────────────────────── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}
+  </style>
+</head>
+<body>
+
+<!-- SVG DEFS -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <symbol id="ic-rooster" viewBox="0 0 70 70">
+      <path d="M10,17 C10,10 14,8 15,14 C16,8 20,7 20,14 C21,9 24,10 23,16" fill="currentColor"/>
+      <circle cx="17" cy="26" r="11" fill="currentColor"/>
+      <circle cx="13" cy="24" r="3" fill="white"/>
+      <circle cx="13" cy="24" r="1.2"/>
+      <polygon points="6,24 0,28 6,32" fill="currentColor"/>
+      <ellipse cx="9" cy="38" rx="4.5" ry="6" fill="currentColor"/>
+      <path d="M24,34 Q28,40 28,46" stroke="currentColor" stroke-width="9" stroke-linecap="round" fill="none"/>
+      <ellipse cx="42" cy="47" rx="20" ry="15" fill="currentColor"/>
+      <ellipse cx="40" cy="45" rx="13" ry="9" fill="rgba(0,0,0,0.18)"/>
+      <path d="M60,32 Q68,22 65,34" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M62,38 Q70,30 67,42" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M62,44 Q68,39 65,50" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <line x1="35" y1="61" x2="32" y2="69" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="47" y1="61" x2="44" y2="69" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M27,69 L34,69" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M40,69 L47,69" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+    </symbol>
+    <symbol id="ic-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16v.92z"/>
+    </symbol>
+    <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <polyline points="12 6 12 12 16 14"/>
+    </symbol>
+    <symbol id="ic-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="1" y="3" width="15" height="13"/>
+      <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+      <circle cx="5.5" cy="18.5" r="2.5"/>
+      <circle cx="18.5" cy="18.5" r="2.5"/>
+    </symbol>
+    <symbol id="ic-walk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="5" r="1"/>
+      <path d="m9 20 3-6 3 6M6 8l6 2 4-3"/>
+      <path d="m6 20 3-6"/>
+    </symbol>
+    <symbol id="ic-bus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 6v6M15 6v6M2 12h19.6M18 18h3s1 0 1-1v-5c0-.6-.4-1-1-1H2a1 1 0 0 0-1 1v5c0 1 1 1 1 1h3"/>
+      <circle cx="7" cy="18" r="2"/>
+      <path d="M9 18h5"/>
+      <circle cx="16" cy="18" r="2"/>
+      <path d="M3 6h13a2 2 0 0 1 2 2v4H2V8a2 2 0 0 1 1-2z"/>
+    </symbol>
+    <symbol id="ic-park" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2"/>
+      <path d="M9 17V7l3 3 3-3v10"/>
+    </symbol>
+    <symbol id="ic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 18 15 12 9 6"/>
+    </symbol>
+    <symbol id="ic-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+      <line x1="9" y1="3" x2="9" y2="18"/>
+      <line x1="15" y1="6" x2="15" y2="21"/>
+    </symbol>
+    <symbol id="ic-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+      <polyline points="15 3 21 3 21 9"/>
+      <line x1="10" y1="14" x2="21" y2="3"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <svg class="logo-icon"><use href="#ic-rooster"/></svg>
+      <div class="logo-words">
+        <span class="logo-script">Gockelhaus</span>
+        <span class="logo-badge">Landau</span>
+      </div>
+    </a>
+
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="index.html#bestellen">Bestellen</a></li>
+      <li><a href="index.html#zeiten">Öffnungszeiten</a></li>
+      <li><a href="index.html#ueber-uns">Über uns</a></li>
+      <li><a href="standort.html" class="active">Standort</a></li>
+      <li>
+        <a href="tel:063412671746" class="nav-cta">
+          <svg><use href="#ic-phone"/></svg>
+          Anrufen
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-phone"><a href="tel:063412671746">06341 2671746</a></div>
+
+    <button class="burger" id="burger" aria-label="Menü">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h16M3 12h16M3 18h16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Startseite</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      <span>Standort</span>
+    </nav>
+    <h1>Unser <span>Standort</span></h1>
+    <p>Finden Sie uns in der Königstraße 69 in Landau in der Pfalz – mitten in der Stadt, gut erreichbar.</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="content-grid">
+
+    <!-- MAP + DIRECTIONS -->
+    <div>
+      <div class="map-wrap rv">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2581.3!2d8.115703922800247!3d49.19640587234498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDExJzQ3LjEiTiA4wrAwNic1Ni41IkU!5e0!3m2!1sde!2sde!4v1"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Gockelhaus Standort auf Google Maps"
+        ></iframe>
+      </div>
+
+      <div class="map-cta rv d1">
+        <a href="https://maps.google.de/?q=49.19640587234498,8.115703922800247" target="_blank" rel="noopener" class="btn btn-amber">
+          <svg><use href="#ic-external"/></svg>
+          In Google Maps öffnen
+        </a>
+        <a href="https://maps.google.de/?saddr=My+Location&daddr=Königstraße+69,+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg><use href="#ic-map"/></svg>
+          Route berechnen
+        </a>
+      </div>
+
+      <!-- HOW TO FIND US -->
+      <div class="directions rv d2">
+        <h2>So finden Sie uns</h2>
+        <div class="dir-grid">
+          <div class="dir-item">
+            <svg class="dir-item-icon"><use href="#ic-car"/></svg>
+            <h3>Mit dem Auto</h3>
+            <p>Parkmöglichkeiten in der Innenstadt von Landau – Parkhaus Kaufhof und Tiefgarage Am Rathaus sind fußläufig erreichbar.</p>
+          </div>
+          <div class="dir-item">
+            <svg class="dir-item-icon"><use href="#ic-bus"/></svg>
+            <h3>Mit Bus &amp; Bahn</h3>
+            <p>Bushaltestellen in der Innenstadt direkt in der Nähe. Der Bahnhof Landau (Pfalz) ist ca. 10 Gehminuten entfernt.</p>
+          </div>
+          <div class="dir-item">
+            <svg class="dir-item-icon"><use href="#ic-walk"/></svg>
+            <h3>Zu Fuß</h3>
+            <p>Wir befinden uns in der Fußgängerzone der Königstraße – direkt im Herzen der Landauer Innenstadt.</p>
+          </div>
+          <div class="dir-item">
+            <svg class="dir-item-icon"><use href="#ic-park"/></svg>
+            <h3>Fahrrad</h3>
+            <p>Fahrradstellplätze sind in unmittelbarer Nähe des Restaurants vorhanden.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- CONTACT -->
+      <div class="card rv">
+        <div class="card-head">
+          <svg class="card-head-icon"><use href="#ic-pin"/></svg>
+          <h2>Adresse &amp; Kontakt</h2>
+        </div>
+        <div class="card-body">
+          <div class="info-row">
+            <svg><use href="#ic-pin"/></svg>
+            <div>
+              <div class="info-row-label">Adresse</div>
+              <div class="info-row-val">Königstraße 69<br>76829 Landau in der Pfalz</div>
+            </div>
+          </div>
+          <div class="info-row">
+            <svg><use href="#ic-phone"/></svg>
+            <div>
+              <div class="info-row-label">Telefon</div>
+              <div class="info-row-val"><a href="tel:063412671746">06341 2671746</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOURS -->
+      <div class="card rv d1">
+        <div class="card-head">
+          <svg class="card-head-icon"><use href="#ic-clock"/></svg>
+          <h2>Öffnungszeiten</h2>
+        </div>
+        <div class="card-body">
+          <table class="htable" id="hoursTable">
+            <tbody>
+              <tr data-day="1"><td class="dn">Montag</td><td class="dt"><span class="closed-day">Ruhetag</span></td></tr>
+              <tr data-day="2"><td class="dn">Dienstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+              <tr data-day="3"><td class="dn">Mittwoch</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+              <tr data-day="4"><td class="dn">Donnerstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+              <tr data-day="5"><td class="dn">Freitag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+              <tr data-day="6"><td class="dn">Samstag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+              <tr data-day="0"><td class="dn">Sonntag</td><td class="dt">11:00 – 21:00<span class="pause">Pause: 14:30 – 17:00</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- QUICK CTA -->
+      <div class="card rv d2" style="background:var(--wood);border-color:rgba(232,168,32,.15)">
+        <div class="card-body" style="padding:28px;text-align:center">
+          <p style="font-family:var(--ff-h);font-size:1.3rem;font-weight:600;color:var(--cream);margin-bottom:8px">Direkt bestellen</p>
+          <p style="font-size:.84rem;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.7">Lieferung oder Abholung – rufen Sie uns an oder bestellen Sie online.</p>
+          <a href="tel:063412671746" class="btn btn-amber" style="width:100%;justify-content:center;margin-bottom:10px">
+            <svg><use href="#ic-phone"/></svg>
+            06341 2671746
+          </a>
+          <a href="index.html#bestellen" class="btn btn-dark" style="width:100%;justify-content:center">
+            Zur Speisekarte
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-inner">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="ft-logo">
+          <svg class="logo-icon"><use href="#ic-rooster"/></svg>
+          <div class="logo-words">
+            <span class="logo-script" style="font-size:1.35rem">Gockelhaus</span>
+            <span class="logo-badge">Landau</span>
+          </div>
+        </div>
+        <p class="ft-desc">Ihr Restaurant und Lieferservice in Landau in der Pfalz. Frisch, lecker, schnell.</p>
+        <p class="ft-addr">Königstraße 69 · 76829 Landau in der Pfalz<br><a href="tel:063412671746">06341 2671746</a></p>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html#bestellen">Bestellen</a></li>
+          <li><a href="index.html#zeiten">Öffnungszeiten</a></li>
+          <li><a href="index.html#ueber-uns">Über uns</a></li>
+          <li><a href="standort.html">Standort</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Rechtliches</h4>
+        <ul>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutz</a></li>
+          <li><a href="/agb">AGB</a></li>
+          <li><a href="/werbeinformation">Werbeinformation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <span>© 2026 Gockelhaus · Landau in der Pfalz</span>
+      <span style="opacity:.35">Alle Rechte vorbehalten</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* mobile menu */
+const burger  = document.getElementById('burger');
+const navMenu = document.getElementById('navMenu');
+burger.addEventListener('click', () => navMenu.classList.toggle('open'));
+navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMenu.classList.remove('open')));
+
+/* highlight today */
+(function(){
+  const today = new Date().getDay();
+  document.querySelectorAll('#hoursTable tr[data-day]').forEach(r => {
+    if (+r.dataset.day === today) {
+      r.classList.add('today');
+      const dn = r.querySelector('.dn');
+      if (dn) dn.insertAdjacentHTML('beforeend', '<span class="today-tag">heute</span>');
+    }
+  });
+})();
+
+/* scroll reveal */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+}, {threshold: 0.08});
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

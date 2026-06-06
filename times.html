@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Times Landau – Sportsbar &amp; Lounge | Königstr. 26, Landau i.d. Pfalz</title>
+<meta name="description" content="Times Landau – Deine Sportsbar und Lounge in Landau in der Pfalz. Live-Sport auf Sky &amp; DAZN, Premium Cocktails, Shisha &amp; Champagner. Mo–So, 10:30–02:00 Uhr. Jetzt reservieren: +49 6341 2830765" />
+<meta name="keywords" content="Sportsbar Landau, Lounge Landau, Cocktailbar Landau, Times Landau, Live Sport Pfalz, Shisha Bar Landau, DAZN Sky Landau" />
+<meta name="author" content="Times Landau" />
+<meta name="geo.region" content="DE-RP" />
+<meta name="geo.placename" content="Landau in der Pfalz" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Times Landau – Sportsbar &amp; Lounge" />
+<meta property="og:description" content="Live-Sport, Premium Cocktails &amp; Shisha – Landaus beste Sportsbar. Täglich ab 10:30 Uhr." />
+<meta property="og:url" content="https://www.times-landau.com" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   TIMES LANDAU — NEON PRESTIGE
+   ============================================================ */
+:root{
+  --bg:#080808;
+  --surface:#111111;
+  --surface-2:#1A1A1A;
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --neon:#FF6B1A;
+  --neon-glow:rgba(255,107,26,.25);
+  --text:#F5F0E8;
+  --muted:#7A7570;
+  --border:rgba(201,168,76,.2);
+
+  --hero:clamp(72px,12vw,168px);
+  --display:clamp(40px,6vw,84px);
+  --h2:clamp(28px,4vw,52px);
+  --sub:clamp(18px,2vw,26px);
+
+  --ff-display:'Bebas Neue',sans-serif;
+  --ff-serif:'Cormorant Garamond',serif;
+  --ff-body:'DM Sans',sans-serif;
+  --ff-accent:'Oswald',sans-serif;
+
+  --maxw:1240px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--ff-body);
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#080808}
+
+/* image-slot dark theme */
+image-slot::part(frame){background:#0e0d0b}
+image-slot::part(empty){color:var(--gold)}
+image-slot::part(ring){border-color:rgba(201,168,76,.35)}
+
+/* selectable scrollbar */
+body::-webkit-scrollbar{width:10px}
+body::-webkit-scrollbar-track{background:#0c0c0c}
+body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;width:100%}
+
+/* ---------- shared type ---------- */
+.label{
+  font-family:var(--ff-body);font-weight:400;
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);
+}
+.label .dot,.hero__label .dot{color:var(--neon);margin:0 .2em}
+.display{font-family:var(--ff-display);font-size:var(--display);line-height:.92;letter-spacing:.01em}
+.h2{font-family:var(--ff-display);font-size:var(--h2);line-height:.96;letter-spacing:.01em;font-weight:400}
+.sub{font-family:var(--ff-serif);font-style:italic;font-size:var(--sub);color:var(--gold-light);font-weight:500;line-height:1.4}
+.sub--lg{font-size:clamp(22px,3vw,34px)}
+.body{color:#cfc8bd;font-size:16px;margin-top:18px;max-width:54ch;text-wrap:pretty}
+.hl{position:relative;color:var(--text);white-space:nowrap}
+.hl::after{content:'';position:absolute;left:0;bottom:.06em;width:0;height:3px;background:var(--neon);box-shadow:0 0 14px var(--neon);transition:width .7s var(--ease) .2s}
+.hl.lit::after{width:100%}
+
+.section{padding:clamp(80px,11vh,150px) 0;position:relative}
+.section__head{margin-bottom:54px;max-width:760px}
+.section__head .sub{margin-top:10px}
+.section__head--sm{margin-bottom:34px}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--ff-accent);font-weight:500;
+  font-size:14px;letter-spacing:.12em;text-transform:uppercase;
+  padding:15px 26px;border-radius:2px;cursor:pointer;border:1px solid transparent;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s,color .35s;
+  white-space:nowrap;
+}
+.btn svg{transition:transform .35s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn--gold{background:linear-gradient(135deg,var(--gold-light),var(--gold));color:#100c04;box-shadow:0 6px 30px rgba(201,168,76,.25)}
+.btn--gold:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,168,76,.4)}
+.btn--outline{border-color:var(--border);color:var(--text);background:transparent}
+.btn--outline:hover{border-color:var(--gold);background:rgba(201,168,76,.08);transform:translateY(-3px)}
+.btn--ghost{color:var(--muted);background:transparent;letter-spacing:.06em;font-family:var(--ff-accent)}
+.btn--ghost:hover{color:var(--gold-light)}
+.btn--wa{background:#1faf54;color:#fff;box-shadow:0 6px 30px rgba(31,175,84,.25)}
+.btn--wa:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(31,175,84,.4)}
+.btn--lg{padding:19px 34px;font-size:16px}
+
+/* ---------- custom cursor ---------- */
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference}
+.cursor-dot{width:7px;height:7px;background:#fff;transform:translate(-50%,-50%)}
+.cursor-ring{width:38px;height:38px;border:1.5px solid rgba(245,240,232,.55);transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s,background .25s}
+.cursor-ring.is-hover{width:54px;height:54px;border-color:var(--gold);background:rgba(201,168,76,.08)}
+body.has-cursor{cursor:none}
+body.has-cursor a,body.has-cursor button,body.has-cursor .tab{cursor:none}
+@media (max-width:900px){.cursor-dot,.cursor-ring{display:none}}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;transition:background .4s,border-color .4s,padding .4s;
+  border-bottom:1px solid transparent}
+.nav.scrolled{background:rgba(10,10,10,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--border)}
+.nav__inner{max-width:1340px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;flex-direction:column;line-height:.8;flex-shrink:0}
+.brand__mark{font-family:var(--ff-display);font-size:30px;letter-spacing:.16em;color:var(--text)}
+.brand__sub{font-family:var(--ff-accent);font-weight:300;font-size:11px;letter-spacing:.42em;color:var(--gold);padding-left:2px}
+
+.status{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--border);border-radius:40px;font-family:var(--ff-accent);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02);white-space:nowrap}
+.status__dot{width:8px;height:8px;border-radius:50%;background:var(--muted);position:relative;flex-shrink:0}
+.status.open .status__dot{background:#27c768}
+.status.open .status__dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid #27c768;animation:pulse 2s infinite}
+.status.closed .status__dot{background:#e0533f}
+.status.open .status__text,.status.open #statusText2{color:#9be8b4}
+@keyframes pulse{0%{transform:scale(.7);opacity:1}100%{transform:scale(1.8);opacity:0}}
+
+.nav__links{margin-left:auto;display:flex;align-items:center;gap:30px}
+.nav__links a{font-family:var(--ff-accent);font-weight:300;font-size:14px;letter-spacing:.08em;color:#cfc8bd;position:relative;transition:color .3s;white-space:nowrap}
+.nav__links a:not(.nav__cta)::after{content:'';position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--gold);transition:width .3s var(--ease)}
+.nav__links a:not(.nav__cta):hover{color:var(--text)}
+.nav__links a:not(.nav__cta):hover::after{width:100%}
+.nav__cta{padding:10px 20px;border:1px solid var(--gold);color:var(--gold-light)!important;border-radius:2px;text-transform:uppercase;letter-spacing:.12em;opacity:0;transform:translateY(-6px);pointer-events:none;transition:all .4s var(--ease)}
+.nav.scrolled .nav__cta{opacity:1;transform:none;pointer-events:auto}
+.nav__cta:hover{background:var(--gold);color:#100c04!important}
+
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;margin-left:auto}
+.hamburger span{width:26px;height:2px;background:var(--text);transition:.35s var(--ease)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.hero__canvas{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.hero__photo{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.5;--placeholder-bg:#0c0b0a}
+.hero__veil{position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 50% 38%,transparent 0%,transparent 42%,var(--bg) 100%),
+    linear-gradient(to bottom,rgba(8,8,8,.5) 0%,transparent 28%,transparent 60%,var(--bg) 100%)}
+.hero__content{position:relative;z-index:5;max-width:var(--maxw);margin:0 auto;padding:0 28px;width:100%}
+.hero__label{font-family:var(--ff-body);font-weight:400;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--text);margin-bottom:24px;opacity:.85;animation:heroFade .8s var(--ease) both}
+.hero__title{font-family:var(--ff-display);font-size:var(--hero);line-height:.84;letter-spacing:.02em;margin-bottom:22px}
+.hero__title .line{display:block;overflow:hidden;animation:lineUp 1s var(--ease) both}
+.hero__title .line:nth-child(1){animation-delay:.2s}
+.hero__title .line:nth-child(2){animation-delay:.34s}
+@keyframes lineUp{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:none}}
+.hero__title .line span,.hero__title .line{will-change:transform}
+.line--accent{color:transparent;-webkit-text-stroke:1.5px var(--gold);position:relative}
+.line--accent::before{content:'Game';position:absolute;inset:0;color:var(--gold);-webkit-text-stroke:0;clip-path:inset(0 0 0 0);opacity:.0;transition:opacity .6s}
+.hero:hover .line--accent::before{opacity:1}
+.hero__sub{font-family:var(--ff-serif);font-style:italic;font-size:var(--sub);color:var(--gold-light);margin-bottom:40px;max-width:30ch;animation:heroFade .8s var(--ease) .7s both}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;animation:heroFade .8s var(--ease) .9s both}
+@keyframes heroFade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:5;display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--ff-accent);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.scroll-cue__line{width:1px;height:46px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
+.scroll-cue__line::after{content:'';position:absolute;top:-50%;left:0;width:100%;height:50%;background:var(--gold-light);animation:scrolldown 1.8s var(--ease) infinite}
+@keyframes scrolldown{0%{top:-50%}100%{top:100%}}
+
+/* score ghost */
+.hero::before{content:'1:0';position:absolute;z-index:3;right:6%;top:50%;transform:translateY(-50%);font-family:var(--ff-display);font-size:clamp(180px,34vw,460px);color:rgba(201,168,76,.035);line-height:1;pointer-events:none;letter-spacing:.02em}
+
+/* ============================================================
+   HIGHLIGHTS
+   ============================================================ */
+.highlights{padding-top:clamp(60px,8vh,100px)}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.pillar{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:6px;padding:42px 34px;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s;position:relative;overflow:hidden}
+.pillar::before{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 0%,rgba(201,168,76,.08),transparent 60%);opacity:0;transition:opacity .5s}
+.pillar:hover{transform:translateY(-8px);border-color:rgba(201,168,76,.45);box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 50px rgba(201,168,76,.1)}
+.pillar:hover::before{opacity:1}
+.pillar__icon{width:52px;height:52px;color:var(--gold);margin-bottom:24px}
+.pillar h3{font-family:var(--ff-display);font-size:34px;letter-spacing:.03em;font-weight:400;margin-bottom:6px}
+.pillar__meta{font-family:var(--ff-accent);font-weight:300;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.pillar p:last-child{color:#bdb6ab;font-size:15px}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center}
+.about__text .h2{margin:12px 0 14px;line-height:1.02}
+.stats{display:flex;gap:38px;margin-top:46px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:4px}
+.stat__num{font-family:var(--ff-display);font-size:clamp(42px,5vw,60px);line-height:1;color:var(--gold)}
+.stat__label{font-family:var(--ff-accent);font-weight:300;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.about__media{position:relative}
+.about__frame{transform:rotate(-3deg);border:1px solid var(--border);padding:10px;background:var(--surface);box-shadow:0 40px 90px rgba(0,0,0,.6)}
+.about__photo{display:block;width:100%;height:520px;--placeholder-bg:#0d0c0a}
+.arc-badge{position:absolute;right:-22px;bottom:-22px;width:140px;height:140px;background:var(--bg);border-radius:50%;display:grid;place-items:center;box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.arc-badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 22s linear infinite}
+.arc-badge__text{font-family:var(--ff-accent);font-weight:400;font-size:11px;letter-spacing:.18em;fill:var(--gold);text-transform:uppercase}
+.arc-badge__core{font-family:var(--ff-display);font-size:20px;line-height:.85;text-align:center;color:var(--gold-light)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+.events__banner{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  background:linear-gradient(100deg,rgba(255,107,26,.12),rgba(255,107,26,.02));
+  border:1px solid rgba(255,107,26,.28);border-left:3px solid var(--neon);
+  border-radius:6px;padding:32px 38px;margin-bottom:40px}
+.events__banner .sub{margin-top:6px;color:#e7c9b0}
+.events__pulse{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-accent);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--neon);position:relative}
+.live-dot::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--neon);animation:pulse 1.6s infinite}
+
+.events__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ev{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:26px 24px 24px;display:flex;flex-direction:column;gap:14px;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s;position:relative;overflow:hidden}
+.ev:hover{transform:translateY(-6px);border-color:rgba(255,107,26,.5);box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 36px var(--neon-glow)}
+.ev__top{display:flex;align-items:center;justify-content:space-between}
+.ev__tag{font-family:var(--ff-accent);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:5px 9px;border-radius:3px;white-space:nowrap}
+.ev__date{font-family:var(--ff-accent);font-size:13px;letter-spacing:.1em;color:var(--muted)}
+.ev__title{font-family:var(--ff-display);font-size:27px;line-height:.96;letter-spacing:.02em;margin-top:2px}
+.ev__title span{display:block;color:var(--muted);font-size:18px}
+.ev__meta{display:flex;align-items:center;gap:10px;font-family:var(--ff-accent);font-size:13px;letter-spacing:.08em;color:#cfc8bd;margin-top:auto}
+.ev__live{display:inline-flex;align-items:center;gap:6px;color:var(--neon)}
+.ev__cta{font-family:var(--ff-accent);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);display:inline-flex;align-items:center;gap:6px;margin-top:6px;transition:gap .3s}
+.ev__cta:hover{gap:12px}
+
+/* ============================================================
+   THE BAR
+   ============================================================ */
+.bar__head{text-align:center;margin-bottom:44px}
+.bar__head .sub{margin-top:12px}
+.tabs{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;position:relative;border-bottom:1px solid var(--border);padding-bottom:0;margin-bottom:44px}
+.tab{background:none;border:none;font-family:var(--ff-accent);font-weight:300;font-size:15px;letter-spacing:.08em;color:var(--muted);padding:12px 18px;position:relative;transition:color .3s;text-transform:uppercase;white-space:nowrap}
+.tab.is-active{color:var(--gold-light)}
+.tab:hover{color:var(--text)}
+.tabs__ink{position:absolute;bottom:-1px;height:2px;background:var(--gold);box-shadow:0 0 10px var(--gold);transition:left .4s var(--ease),width .4s var(--ease)}
+.drinks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 56px;max-width:980px;margin:0 auto}
+.drink{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:18px 0;border-bottom:1px solid rgba(201,168,76,.1);opacity:0;transform:translateY(14px)}
+.drink.show{opacity:1;transform:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.drink__info h4{font-family:var(--ff-display);font-size:23px;font-weight:400;letter-spacing:.02em}
+.drink__info p{font-size:13.5px;color:var(--muted);margin-top:2px;max-width:42ch}
+.drink__dots{flex:1;border-bottom:1px dotted rgba(201,168,76,.3);transform:translateY(-5px)}
+.drink__price{font-family:var(--ff-serif);font-style:italic;font-weight:600;font-size:21px;color:var(--gold-light);flex-shrink:0;white-space:nowrap}
+.bar__foot{text-align:center;margin-top:50px}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.masonry{columns:3;column-gap:18px}
+.masonry .gal{break-inside:avoid;margin-bottom:18px;position:relative;overflow:hidden;border-radius:5px;border:1px solid var(--border);cursor:pointer}
+.masonry image-slot{display:block;width:100%;--placeholder-bg:#0e0d0b}
+.gal__over{position:absolute;inset:0;background:rgba(8,8,8,.55);opacity:0;display:grid;place-items:center;transition:opacity .4s}
+.gal__over::after{content:'+';font-family:var(--ff-body);font-weight:300;font-size:46px;color:#fff}
+.gal:hover .gal__over{opacity:1}
+.gal:hover image-slot{transform:scale(1.05)}
+.masonry image-slot{transition:transform .6s var(--ease)}
+
+/* ============================================================
+   RESERVE BAND
+   ============================================================ */
+.reserve{background:radial-gradient(120% 130% at 50% 0%,#13110c 0%,var(--bg) 60%);text-align:center}
+.reserve__inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.rule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.hero-ish{font-family:var(--ff-display);font-size:var(--display);line-height:.9;letter-spacing:.02em}
+.reserve__cta{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.reserve__note{color:var(--muted);font-size:14px;font-style:italic;font-family:var(--ff-serif)}
+
+/* ============================================================
+   PARTNERS
+   ============================================================ */
+.partner-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0}
+.partner{font-family:var(--ff-display);font-size:clamp(26px,3vw,40px);letter-spacing:.04em;color:#5a554e;padding:0 clamp(24px,4vw,52px);transition:color .4s,text-shadow .4s;position:relative}
+.partner+.partner::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:32px;background:var(--border)}
+.partner:hover{color:var(--gold-light);text-shadow:0 0 24px rgba(201,168,76,.5)}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+.reviews__agg{margin-top:10px;font-family:var(--ff-accent);font-size:15px;letter-spacing:.08em;color:var(--muted)}
+.stars{color:var(--gold);letter-spacing:.1em}
+.reviews__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:30px 28px;display:flex;flex-direction:column;gap:14px}
+.review__stars{color:var(--gold);letter-spacing:.12em;font-size:15px}
+.review__text{font-family:var(--ff-serif);font-style:italic;font-size:18px;line-height:1.5;color:#e4ddd1}
+.review__by{display:flex;justify-content:space-between;align-items:center;margin-top:auto;font-size:13px}
+.review__name{font-family:var(--ff-accent);letter-spacing:.06em;color:var(--text)}
+.review__date{color:var(--muted)}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact__grid{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:stretch}
+.contact__info .display{margin-bottom:34px}
+.info{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid rgba(201,168,76,.1);align-items:flex-start}
+.info__icon{width:40px;height:40px;flex-shrink:0;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;color:var(--gold)}
+.info__icon svg{width:19px;height:19px}
+.info>div{color:#cfc8bd;font-size:15px;line-height:1.5}
+.info__label{display:block;font-family:var(--ff-accent);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.info a:hover{color:var(--gold-light)}
+.status--inline{margin-top:10px;display:inline-flex}
+.socials{display:flex;gap:14px;margin-top:26px}
+.socials a{width:44px;height:44px;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;color:#cfc8bd;transition:.35s var(--ease)}
+.socials a svg{width:20px;height:20px}
+.socials a:hover{border-color:var(--gold);color:var(--gold-light);transform:translateY(-3px)}
+
+.contact__map{position:relative;border:1px solid var(--border);border-radius:6px;overflow:hidden;min-height:440px;background:var(--surface)}
+.map-consent{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px;color:var(--muted);
+  background:
+    repeating-linear-gradient(45deg,rgba(201,168,76,.03) 0 2px,transparent 2px 22px),
+    radial-gradient(circle at 50% 42%,rgba(201,168,76,.08),transparent 55%),var(--surface)}
+.map-consent>svg{color:var(--gold)}
+.map-consent p{font-size:15px;color:#cfc8bd;font-family:var(--ff-accent);letter-spacing:.04em}
+.map-consent__note{font-size:12px!important;color:var(--muted)!important;max-width:36ch;font-family:var(--ff-body)!important;line-height:1.5}
+.map-consent .btn{margin-top:6px}
+.contact__map iframe{width:100%;height:100%;border:0;filter:grayscale(1) invert(.92) contrast(.85) hue-rotate(180deg)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{padding:80px 0 36px;border-top:1px solid var(--border);background:#060606}
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(201,168,76,.1)}
+.footer__brand .brand__mark{font-size:34px}
+.footer__brand .brand__sub{font-size:12px}
+.footer__tag{color:var(--muted);font-style:italic;font-family:var(--ff-serif);font-size:16px;margin-top:14px;max-width:24ch}
+.footer__col h4{font-family:var(--ff-accent);font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer__col a,.footer__col span{display:block;color:#a59f95;font-size:14px;margin-bottom:9px;transition:color .3s}
+.footer__col a:hover{color:var(--gold-light)}
+.footer__bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:13px;color:var(--muted)}
+.footer__links{display:flex;gap:22px}
+.footer__links a:hover{color:var(--gold-light)}
+
+/* ============================================================
+   FLOATING WHATSAPP
+   ============================================================ */
+.wa-float{position:fixed;right:26px;bottom:26px;z-index:850;width:60px;height:60px;border-radius:50%;background:#1faf54;color:#fff;display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 0 0 rgba(31,175,84,.5);transition:transform .35s var(--ease),box-shadow .35s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float__ring{position:absolute;inset:0;border-radius:50%;border:2px solid #1faf54;animation:waring 3s ease-out infinite}
+@keyframes waring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(5,5,5,.95);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox__stage{max-width:84vw;max-height:84vh}
+.lightbox__stage image-slot,.lightbox__stage img{max-width:84vw;max-height:84vh;border:1px solid var(--border);--placeholder-bg:#0e0d0b}
+.lightbox__stage image-slot{width:70vw;height:70vh;display:block}
+.lightbox__close{position:absolute;top:24px;right:30px;background:none;border:none;color:var(--text);font-size:40px;line-height:1;cursor:pointer;transition:color .3s}
+.lightbox__close:hover{color:var(--gold)}
+.lightbox__nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);width:54px;height:54px;border-radius:50%;font-size:28px;cursor:pointer;transition:.3s}
+.lightbox__nav:hover{background:var(--gold);color:#100c04}
+.lightbox__nav--prev{left:24px}
+.lightbox__nav--next{right:24px}
+
+/* ============================================================
+   REVEAL
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(40px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important}
+  *{animation-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .events__grid{grid-template-columns:repeat(2,1fr)}
+  .reviews__grid{grid-template-columns:1fr}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .masonry{columns:2}
+}
+@media (max-width:860px){
+  .nav__links{position:fixed;inset:0 0 0 auto;width:min(80vw,340px);background:rgba(12,12,12,.97);backdrop-filter:blur(20px);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .45s var(--ease);border-left:1px solid var(--border)}
+  .nav__links.open{transform:none}
+  .nav__links a{font-size:22px}
+  .nav__cta{opacity:1!important;transform:none!important;pointer-events:auto!important}
+  .hamburger{display:flex}
+  .status{display:none}
+  .about__grid{grid-template-columns:1fr;gap:80px}
+  .about__frame{transform:rotate(-2deg)}
+  .pillars{grid-template-columns:1fr}
+  .contact__grid{grid-template-columns:1fr;gap:40px}
+  .drinks{grid-template-columns:1fr;gap:0}
+  .footer__grid{grid-template-columns:1fr 1fr;gap:30px}
+}
+@media (max-width:560px){
+  .wrap{padding:0 20px}
+  .events__grid{grid-template-columns:1fr}
+  .masonry{columns:1}
+  .footer__grid{grid-template-columns:1fr}
+  .stats{gap:26px}
+  .hero__cta{gap:12px}
+  .btn{padding:13px 20px;font-size:13px}
+  .wa-float{width:54px;height:54px}
+  .partner{padding:10px 18px}
+  .partner+.partner::before{display:none}
+}
+
+</style>
+
+<!-- JSON-LD: LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["BarOrPub", "SportsActivityLocation"],
+  "name": "Times Landau",
+  "description": "Sportsbar und Lounge in Landau in der Pfalz – Live-Sport auf Sky und DAZN, Premium Cocktails, Shisha und Champagner.",
+  "url": "https://www.times-landau.com",
+  "telephone": "+496341283076",
+  "email": "office@tic-automaten.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Königstraße 26",
+    "addressLocality": "Landau in der Pfalz",
+    "postalCode": "76829",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 49.1978, "longitude": 8.1175 },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "10:30", "closes": "02:00"
+  }],
+  "servesCuisine": "Cocktails, Getränke",
+  "priceRange": "€€",
+  "sameAs": [
+    "https://www.instagram.com/times_lounge_landau",
+    "https://www.facebook.com/TimesLoungeSportsbar"
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ======================= CUSTOM CURSOR ======================= -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- ======================= NAVIGATION ======================= -->
+<header class="nav" id="nav" data-screen-label="Navigation">
+  <div class="nav__inner">
+    <a href="#hero" class="brand" aria-label="Times Landau Startseite">
+      <span class="brand__mark">TIMES</span>
+      <span class="brand__sub">Landau</span>
+    </a>
+
+    <div class="status" id="statusBadge" title="Öffnungszeiten Mo–So 10:30–02:00 Uhr">
+      <span class="status__dot" id="statusDot"></span>
+      <span class="status__text" id="statusText">Lädt …</span>
+    </div>
+
+    <nav class="nav__links" id="navLinks" aria-label="Hauptnavigation">
+      <a href="#hero">Home</a>
+      <a href="#about">Über Uns</a>
+      <a href="#events">Events</a>
+      <a href="#bar">Getränke</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#contact">Kontakt</a>
+      <a href="#reserve" class="nav__cta" id="navCta">Reservieren</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="hero" data-screen-label="Hero">
+  <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <image-slot id="heroPhoto" class="hero__photo" shape="rect" fit="cover"
+              placeholder="Hero-Foto ablegen — dunkle Bar-Atmosphäre"></image-slot>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__label">Landau in der Pfalz <span class="dot">•</span> Sportsbar &amp; Lounge</p>
+    <h1 class="hero__title">
+      <span class="line" data-line>Feel the</span>
+      <span class="line line--accent" data-line>Game</span>
+    </h1>
+    <p class="hero__sub">„Wo Leidenschaft auf Luxus trifft — jeden Abend."</p>
+
+    <div class="hero__cta">
+      <a href="#reserve" class="btn btn--gold">
+        Jetzt reservieren
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="tel:+496341283076" class="btn btn--ghost">+49 6341 2830765</a>
+      <a href="#bar" class="btn btn--outline">Getränkekarte</a>
+    </div>
+  </div>
+
+  <a href="#highlights" class="scroll-cue" aria-label="Nach unten scrollen">
+    <span>Scroll</span>
+    <span class="scroll-cue__line"></span>
+  </a>
+</section>
+
+<!-- ======================= HIGHLIGHTS ======================= -->
+<section class="section highlights" id="highlights" data-screen-label="Highlights">
+  <div class="wrap">
+    <div class="pillars">
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="9" width="36" height="24" rx="2"/><path d="M16 39h16M19 33v6M29 33v6"/><path d="M14 17l8 5-8 5z" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3>Live Sport</h3>
+        <p class="pillar__meta">Sky · DAZN · Bundesliga</p>
+        <p>Alle großen Spiele live auf riesigen Screens. Jedes Match, jeder Jubel — live dabei.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M9 11h30L24 29z"/><path d="M24 29v11M16 40h16M13 15h22"/></svg>
+        </div>
+        <h3>Premium Cocktails</h3>
+        <p class="pillar__meta">Klassiker &amp; Eigenkreationen</p>
+        <p>Von Mojito bis zur Hauskreation — unsere Barkeeper setzen den Standard.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M24 6c3 5-2 7 0 12 2 4 6 4 6 10a12 12 0 11-18-4c3-3 4-2 5-7 1-4-1-6 1-11 2 4 4 5 6 7z"/></svg>
+        </div>
+        <h3>Lounge Feeling</h3>
+        <p class="pillar__meta">Shisha · Champagner · Entspannung</p>
+        <p>Gönne dir eine Auszeit vom Alltag in unserer exklusiven Lounge.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ABOUT ======================= -->
+<section class="section about" id="about" data-screen-label="Über Uns">
+  <div class="wrap about__grid">
+    <div class="about__text reveal">
+      <p class="label">Seit 2020 <span class="dot">•</span> Landau</p>
+      <h2 class="h2">Wir sind das <span class="hl">Times Landau</span></h2>
+      <p class="sub">Deine Sportsbar. Deine Lounge. Deine Stadt.</p>
+      <p class="body">Inmitten des lebendigen Treibens von Landau in der Pfalz erhebt sich eine Oase für Sportbegeisterte und Genießer gleichermaßen: das Times Landau. Hier verschmelzen die Leidenschaft für Live-Fußball und die Kunst der Cocktailmixologie zu einem unvergleichlichen Erlebnis.</p>
+      <p class="body">In den pulsierenden Abenden strömt das Herz der Stadt ins Times Landau — wo Fans aller Clubs zusammenkommen, gemeinsam mitfiebern und die besten Drinks der Stadt genießen.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="stat__num">∞</span><span class="stat__label">Live Events</span></div>
+        <div class="stat"><span class="stat__num"><span data-count="5">0</span>★</span><span class="stat__label">Google Bewertung</span></div>
+        <div class="stat"><span class="stat__num" data-count="7">0</span><span class="stat__label">Jahre Gastgeber</span></div>
+      </div>
+    </div>
+
+    <div class="about__media reveal">
+      <div class="about__frame">
+        <image-slot id="aboutPhoto" class="about__photo" shape="rect" fit="cover"
+                    placeholder="Atmosphären-Foto der Bar"></image-slot>
+      </div>
+      <div class="arc-badge" aria-hidden="true">
+        <svg viewBox="0 0 140 140">
+          <defs><path id="arcPath" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+          <text class="arc-badge__text"><textPath href="#arcPath" startOffset="0">LANDAU'S #1 SPORTSBAR · LANDAU'S #1 SPORTSBAR · </textPath></text>
+        </svg>
+        <span class="arc-badge__core">EST<br>2020</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= EVENTS ======================= -->
+<section class="section events" id="events" data-screen-label="Events">
+  <div class="wrap">
+    <div class="events__banner reveal">
+      <div>
+        <h2 class="h2">Live Events &amp; Sport</h2>
+        <p class="sub">Sky · DAZN · Bundesliga — alle Spiele live bei uns</p>
+      </div>
+      <span class="events__pulse"><span class="live-dot"></span> Diese Woche</span>
+    </div>
+
+    <div class="events__grid" id="eventsGrid">
+      <!-- cards injected by app.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ======================= THE BAR ======================= -->
+<section class="section bar" id="bar" data-screen-label="The Bar">
+  <div class="wrap">
+    <div class="bar__head reveal">
+      <h2 class="display">The Bar</h2>
+      <p class="sub">„Die besten Drinks der Stadt — handverlesen für jeden Abend."</p>
+    </div>
+
+    <div class="tabs reveal" id="barTabs" role="tablist">
+      <button class="tab is-active" data-tab="klassiker" role="tab">Klassiker</button>
+      <button class="tab" data-tab="signature" role="tab">Signature</button>
+      <button class="tab" data-tab="champagner" role="tab">Champagner</button>
+      <button class="tab" data-tab="soft" role="tab">Softdrinks</button>
+      <button class="tab" data-tab="shisha" role="tab">Shisha</button>
+      <span class="tabs__ink" id="tabsInk"></span>
+    </div>
+
+    <div class="drinks" id="drinksGrid"><!-- injected --></div>
+
+    <div class="bar__foot reveal">
+      <a href="#" class="btn btn--gold">Komplette Getränkekarte ansehen
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALLERY ======================= -->
+<section class="section gallery" id="gallery" data-screen-label="Galerie">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 class="display">Time(s) to stay</h2>
+      <p class="sub">„Eindrücke aus deinem zweiten Wohnzimmer."</p>
+    </div>
+    <div class="masonry" id="masonry"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ======================= RESERVATION BAND ======================= -->
+<section class="section reserve" id="reserve" data-screen-label="Reservierung">
+  <div class="wrap reserve__inner reveal">
+    <span class="rule"></span>
+    <p class="sub sub--lg">„Dein Abend beginnt mit einem Anruf."</p>
+    <h2 class="hero-ish">Jetzt reservieren</h2>
+    <div class="reserve__cta">
+      <a href="tel:+496341283076" class="btn btn--gold btn--lg">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11 11 0 003.5.56 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.56 3.5 1 1 0 01-.24 1z" fill="currentColor"/></svg>
+        +49 6341 2830765
+      </a>
+      <a href="https://wa.me/491578109380" target="_blank" rel="noopener" class="btn btn--wa btn--lg">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z" fill="currentColor"/></svg>
+        WhatsApp Anfrage
+      </a>
+    </div>
+    <p class="reserve__note">Oder einfach vorbeikommen — wir freuen uns auf dich.</p>
+    <span class="rule"></span>
+  </div>
+</section>
+
+<!-- ======================= PARTNERS ======================= -->
+<section class="section partners" data-screen-label="Partner">
+  <div class="wrap">
+    <div class="section__head section__head--sm reveal">
+      <p class="label">In Zusammenarbeit mit</p>
+      <h2 class="h2">Unsere Partner</h2>
+    </div>
+    <div class="partner-row reveal">
+      <span class="partner">Sky</span>
+      <span class="partner">DAZN</span>
+      <span class="partner">Bundesliga</span>
+      <a class="partner" href="https://www.weingut-autenrieth.com/welcome" target="_blank" rel="noopener">Weingut&nbsp;Autenrieth</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWS ======================= -->
+<section class="section reviews" data-screen-label="Bewertungen">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 class="h2">Was unsere Gäste sagen</h2>
+      <p class="reviews__agg"><span class="stars">★★★★★</span> 4.8 / 5 auf Google</p>
+    </div>
+    <div class="reviews__grid" id="reviewsGrid"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ======================= -->
+<section class="section contact" id="contact" data-screen-label="Kontakt">
+  <div class="wrap contact__grid">
+    <div class="contact__info reveal">
+      <h2 class="display">Komm vorbei</h2>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        </div>
+        <div><span class="info__label">Adresse</span>Königstr. 26<br>76829 Landau in der Pfalz</div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11 11 0 003.5.56 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.56 3.5 1 1 0 01-.24 1z"/></svg>
+        </div>
+        <div><span class="info__label">Telefon</span><a href="tel:+496341283076">+49 (0) 6341 2830 765</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2z"/></svg>
+        </div>
+        <div><span class="info__label">WhatsApp</span><a href="https://wa.me/491578109380" target="_blank" rel="noopener">+49 1578 1093830</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </div>
+        <div><span class="info__label">E-Mail</span><a href="mailto:office@tic-automaten.de">office@tic-automaten.de</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <div><span class="info__label">Öffnungszeiten</span>Mo – So &nbsp;|&nbsp; 10:30 – 02:00 Uhr
+          <div class="status status--inline" id="statusBadge2"><span class="status__dot" id="statusDot2"></span><span id="statusText2">Lädt …</span></div>
+        </div>
+      </div>
+
+      <div class="socials">
+        <a href="https://www.instagram.com/times_lounge_landau" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.facebook.com/TimesLoungeSportsbar" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.2C16.6 2.1 15.5 2 14.4 2 11.8 2 10 3.6 10 6.5V9H7.5v3.5H10V22h3.5v-9.5H16l.5-3.5H13.5z"/></svg></a>
+        <a href="https://wa.me/491578109380" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="contact__map reveal">
+      <div class="map-consent" id="mapConsent">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <p>Königstr. 26, Landau i.d. Pfalz</p>
+        <p class="map-consent__note">Beim Laden der Karte werden Daten an OpenStreetMap übertragen. Mit dem Klick stimmst du der Datenübertragung zu.</p>
+        <button class="btn btn--outline" id="loadMap">Karte laden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark">TIMES</span>
+      <span class="brand__sub">Landau</span>
+      <p class="footer__tag">Deine Sportsbar. Deine Lounge. Deine Stadt.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Navigation</h4>
+      <a href="#hero">Home</a><a href="#about">Über Uns</a><a href="#events">Events</a>
+      <a href="#bar">Getränkekarte</a><a href="#gallery">Galerie</a><a href="#contact">Kontakt</a>
+    </div>
+    <div class="footer__col">
+      <h4>Kontakt</h4>
+      <span>Königstr. 26</span><span>76829 Landau</span>
+      <a href="tel:+496341283076">+49 6341 2830765</a>
+      <a href="mailto:office@tic-automaten.de">office@tic-automaten.de</a>
+    </div>
+    <div class="footer__col">
+      <h4>Öffnungszeiten</h4>
+      <span>Montag – Sonntag</span><span>10:30 – 02:00 Uhr</span>
+    </div>
+  </div>
+  <div class="wrap footer__bar">
+    <p>Times Landau © 2025 – Alle Rechte vorbehalten.</p>
+    <p class="footer__links"><a href="#">Impressum</a><a href="#">Datenschutzerklärung</a><a href="#bar">Getränkekarte</a></p>
+  </div>
+</footer>
+
+<!-- ======================= FLOATING WHATSAPP ======================= -->
+<a href="https://wa.me/491578109380" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp Nachricht senden">
+  <span class="wa-float__ring"></span>
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z"/></svg>
+</a>
+
+<!-- ======================= LIGHTBOX ======================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lbClose" aria-label="Schließen">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Zurück">&#8249;</button>
+  <div class="lightbox__stage" id="lbStage"></div>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Weiter">&#8250;</button>
+</div>
+
+<!-- ======================= SCRIPTS ======================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+/* BEGIN USAGE */
+/**
+ * <image-slot> — user-fillable image placeholder.
+ *
+ * Drop this into a deck, mockup, or page wherever you want the user to
+ * supply an image. You control the slot's shape and size; the user fills it
+ * by dragging an image file onto it (or clicking to browse). The dropped
+ * image persists across reloads via a .image-slots.state.json sidecar —
+ * same read-via-fetch / write-via-window.omelette pattern as
+ * design_canvas.jsx, so the filled slot shows on share links, downloaded
+ * zips, and PPTX export. Outside the omelette runtime the slot is read-only.
+ *
+ * The host bridge only allows sidecar writes at the project root, so the
+ * HTML that uses this component is assumed to live at the project root too
+ * (same constraint as design_canvas.jsx).
+ *
+ * Attributes:
+ *   id           Persistence key. REQUIRED for the drop to survive reload —
+ *                every slot on the page needs a distinct id.
+ *   shape        'rect' | 'rounded' | 'circle' | 'pill'   (default 'rounded')
+ *                'circle' applies 50% border-radius; on a non-square slot
+ *                that's an ellipse — set equal width and height for a true
+ *                circle.
+ *   radius       Corner radius in px for 'rounded'.       (default 12)
+ *   mask         Any CSS clip-path value. Overrides `shape` — use this for
+ *                hexagons, blobs, arbitrary polygons.
+ *   fit          object-fit: cover | contain | fill.       (default 'cover')
+ *                With cover (the default) double-clicking the filled slot
+ *                enters a reframe mode: the whole image spills past the mask
+ *                (translucent outside, opaque inside), drag to reposition,
+ *                corner-drag to scale. The crop persists alongside the image
+ *                in the sidecar. contain/fill stay static.
+ *   position     object-position for fit=contain|fill.     (default '50% 50%')
+ *   placeholder  Empty-state caption.                      (default 'Drop an image')
+ *   src          Optional initial/fallback image URL. A user drop overrides
+ *                it; clearing the drop reveals src again.
+ *
+ * Size and layout come from ordinary CSS on the element — width/height
+ * inline or from a parent grid — so it composes with any layout.
+ *
+ * Usage:
+ *   <image-slot id="hero"   style="width:800px;height:450px" shape="rounded" radius="20"
+ *               placeholder="Drop a hero image"></image-slot>
+ *   <image-slot id="avatar" style="width:120px;height:120px" shape="circle"></image-slot>
+ *   <image-slot id="kite"   style="width:300px;height:300px"
+ *               mask="polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></image-slot>
+ */
+/* END USAGE */
+
+(() => {
+  const STATE_FILE = '.image-slots.state.json';
+  // 2× a ~600px slot in a 1920-wide deck — retina-sharp without making the
+  // sidecar enormous. A 1200px WebP at q=0.85 is ~150-300KB.
+  const MAX_DIM = 1200;
+  // Raster formats only. SVG is excluded (can carry script; createImageBitmap
+  // on SVG blobs is inconsistent). GIF is excluded because the canvas
+  // re-encode keeps only the first frame, so an animated GIF would silently
+  // go still — better to reject than surprise.
+  const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
+
+  // ── Shared sidecar store ────────────────────────────────────────────────
+  // One fetch + immediate write-on-change for every <image-slot> on the
+  // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
+  // are served together; writes go through window.omelette.writeFile, which
+  // the host allowlists to *.state.json basenames only.
+  const subs = new Set();
+  let slots = {};
+  // ids explicitly cleared before the sidecar fetch resolved — otherwise
+  // the merge below can't tell "never set" from "just deleted" and would
+  // resurrect the sidecar's stale value.
+  const tombstones = new Set();
+  let loaded = false;
+  let loadP = null;
+
+  function load() {
+    if (loadP) return loadP;
+    loadP = fetch(STATE_FILE)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        // Merge: sidecar loses to any in-memory change that raced ahead of
+        // the fetch (drop or clear) so neither is clobbered by hydration.
+        if (j && typeof j === 'object') {
+          const merged = Object.assign({}, j, slots);
+          // A framing-only write that raced ahead of hydration must not
+          // drop a user image that's only on disk — inherit u from the
+          // sidecar for any in-memory entry that lacks one.
+          for (const k in slots) {
+            if (merged[k] && !merged[k].u && j[k]) {
+              merged[k].u = typeof j[k] === 'string' ? j[k] : j[k].u;
+            }
+          }
+          for (const id of tombstones) delete merged[id];
+          slots = merged;
+        }
+        tombstones.clear();
+      })
+      .catch(() => {})
+      .then(() => { loaded = true; subs.forEach((fn) => fn()); });
+    return loadP;
+  }
+
+  // Serialize writes so two near-simultaneous drops on different slots
+  // can't reorder at the backend and leave the sidecar with only the
+  // first. A save requested mid-flight just marks dirty and re-fires on
+  // completion with the then-current slots.
+  let saving = false;
+  let saveDirty = false;
+  function save() {
+    if (saving) { saveDirty = true; return; }
+    const w = window.omelette && window.omelette.writeFile;
+    if (!w) return;
+    saving = true;
+    Promise.resolve(w(STATE_FILE, JSON.stringify(slots)))
+      .catch(() => {})
+      .then(() => { saving = false; if (saveDirty) { saveDirty = false; save(); } });
+  }
+
+  const S_MAX = 5;
+  const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
+
+  // Normalize a stored slot value. Pre-reframe sidecars stored a bare
+  // data-URL string; newer ones store {u, s, x, y}. Either shape is valid.
+  function getSlot(id) {
+    const v = slots[id];
+    if (!v) return null;
+    return typeof v === 'string' ? { u: v, s: 1, x: 0, y: 0 } : v;
+  }
+
+  function setSlot(id, val) {
+    if (!id) return;
+    if (val) { slots[id] = val; tombstones.delete(id); }
+    else { delete slots[id]; if (!loaded) tombstones.add(id); }
+    subs.forEach((fn) => fn());
+    // A drop is rare + high-value — write immediately so nav-away can't lose
+    // it. Gate on the initial read so we don't overwrite a sidecar we haven't
+    // merged yet; the merge in load() keeps this change once the read lands.
+    if (loaded) save(); else load().then(save);
+  }
+
+  // ── Image downscale ─────────────────────────────────────────────────────
+  // Encode through a canvas so the sidecar carries resized bytes, not the
+  // raw upload. Longest side is capped at 2× the slot's rendered width
+  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10× smaller than PNG
+  // for photos, so there's no need for per-image format picking.
+  async function toDataUrl(file, targetW) {
+    const bitmap = await createImageBitmap(file);
+    try {
+      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
+      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
+      const w = Math.max(1, Math.round(bitmap.width * scale));
+      const h = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+      return canvas.toDataURL('image/webp', 0.85);
+    } finally {
+      bitmap.close && bitmap.close();
+    }
+  }
+
+  // ── Custom element ──────────────────────────────────────────────────────
+  const stylesheet =
+    ':host{display:inline-block;position:relative;vertical-align:top;' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    // .frame img (clipped) and .spill (unclipped ghost + handles) share the
+    // same left/top/width/height in frame-%, computed by _applyView(), so the
+    // inside-mask crop and the outside-mask spill stay pixel-aligned.
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    // Reframe mode (double-click): the full image spills past the mask. The
+    // spill layer is sized to the IMAGE bounds so its corners are where the
+    // resize handles belong. The ghost <img> inside is translucent; the real
+    // clipped <img> underneath shows the opaque in-mask crop.
+    '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
+    '  cursor:grab;touch-action:none}' +
+    ':host([data-panning]) .spill{cursor:grabbing}' +
+    '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
+    '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
+    '  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}' +
+    '.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;' +
+    '  background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);' +
+    '  transform:translate(-50%,-50%)}' +
+    '.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}' +
+    '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
+    '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
+    '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
+    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]) .spill{display:block}' +
+    ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
+    '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +
+    '  cursor:pointer;user-select:none}' +
+    '.empty svg{opacity:.45}' +
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}' +
+    '.empty .sub{font-size:11px}' +
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}' +
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
+    '  background:rgba(201,100,66,.10)}' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '  transition:border-color .12s}' +
+    ':host([data-over]) .ring{border-color:#c96442}' +
+    ':host([data-filled]) .ring{display:none}' +
+    // Controls sit BELOW the mask (top:100%), absolutely positioned so the
+    // author-declared slot height is unaffected. The gap is padding, not a
+    // top offset, so the hover target stays contiguous with the frame.
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
+    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;' +
+    '  white-space:nowrap}' +
+    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
+    '  {opacity:1;pointer-events:auto}' +
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
+    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
+    '  backdrop-filter:blur(6px)}' +
+    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
+    '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+
+  const icon =
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>' +
+    '<path d="m21 15-5-5L5 21"/></svg>';
+
+  class ImageSlot extends HTMLElement {
+    static get observedAttributes() {
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+    }
+
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: 'open' });
+      // .spill and .ctl sit OUTSIDE .frame so overflow:hidden + border-radius
+      // on the frame (circle, pill, rounded) can't clip them.
+      root.innerHTML =
+        '<style>' + stylesheet + '</style>' +
+        '<div class="frame" part="frame">' +
+        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <div class="empty" part="empty">' + icon +
+        '    <div class="cap"></div>' +
+        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '  <div class="ring" part="ring"></div>' +
+        '</div>' +
+        '<div class="spill">' +
+        '  <img class="ghost" alt="" draggable="false">' +
+        '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
+        '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
+        '</div>' +
+        '<div class="ctl"><button data-act="replace" title="Replace image">Replace</button>' +
+        '  <button data-act="clear" title="Remove image">Remove</button></div>' +
+        '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
+      this._frame = root.querySelector('.frame');
+      this._ring = root.querySelector('.ring');
+      this._img = root.querySelector('.frame img');
+      this._empty = root.querySelector('.empty');
+      this._cap = root.querySelector('.cap');
+      this._sub = root.querySelector('.sub');
+      this._spill = root.querySelector('.spill');
+      this._ghost = root.querySelector('.ghost');
+      this._err = null;
+      this._input = root.querySelector('input');
+      this._depth = 0;
+      this._gen = 0;
+      this._view = { s: 1, x: 0, y: 0 };
+      this._subFn = () => this._render();
+      // Shadow-DOM listeners live with the shadow DOM — bound once here so
+      // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
+      this._empty.addEventListener('click', () => this._input.click());
+      root.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (act === 'replace') { this._exitReframe(true); this._input.click(); }
+        if (act === 'clear') {
+          this._exitReframe(false);
+          this._gen++;
+          this._local = null;
+          if (this.id) setSlot(this.id, null); else this._render();
+        }
+      });
+      this._input.addEventListener('change', () => {
+        const f = this._input.files && this._input.files[0];
+        if (f) this._ingest(f);
+        this._input.value = '';
+      });
+      // naturalWidth/Height aren't known until load — re-apply so the cover
+      // baseline is computed from real dimensions, not the 100%×100% fallback.
+      this._img.addEventListener('load', () => this._applyView());
+      // Gated on editable + fit=cover so share links and contain/fill slots
+      // stay static.
+      this.addEventListener('dblclick', (e) => {
+        if (!this.hasAttribute('data-editable') || !this._reframes()) return;
+        e.preventDefault();
+        if (this.hasAttribute('data-reframe')) this._exitReframe(true);
+        else this._enterReframe();
+      });
+      // Pan + resize both originate on the spill layer. A handle pointerdown
+      // drives an aspect-locked resize anchored at the opposite corner; any
+      // other pointerdown on the spill pans. Offsets are frame-% so a
+      // reframed slot survives responsive resize / PPTX export.
+      this._spill.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 || !this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._spill.setPointerCapture(e.pointerId);
+        const rect = this.getBoundingClientRect();
+        const fw = rect.width || 1, fh = rect.height || 1;
+        const corner = e.target.getAttribute && e.target.getAttribute('data-c');
+        let move;
+        if (corner) {
+          // Resize about the OPPOSITE corner. Viewport-px throughout (rect
+          // fw/fh, not clientWidth) so the math survives a transform:scale()
+          // ancestor — deck_stage renders slides scaled-to-fit.
+          const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
+          const base = Math.max(fw / iw, fh / ih);
+          const sx = corner.includes('e') ? 1 : -1;
+          const sy = corner.includes('s') ? 1 : -1;
+          const s0 = this._view.s;
+          const w0 = iw * base * s0, h0 = ih * base * s0;
+          const cx0 = (50 + this._view.x) / 100 * fw;
+          const cy0 = (50 + this._view.y) / 100 * fh;
+          const ox = cx0 - sx * w0 / 2, oy = cy0 - sy * h0 / 2;
+          const diag0 = Math.hypot(w0, h0);
+          const ux = sx * w0 / diag0, uy = sy * h0 / diag0;
+          move = (ev) => {
+            const proj = (ev.clientX - rect.left - ox) * ux +
+                         (ev.clientY - rect.top - oy) * uy;
+            const s = clampS(s0 * proj / diag0);
+            const d = diag0 * s / s0;
+            this._view.s = s;
+            this._view.x = (ox + ux * d / 2) / fw * 100 - 50;
+            this._view.y = (oy + uy * d / 2) / fh * 100 - 50;
+            this._clampView();
+            this._applyView();
+          };
+        } else {
+          this.setAttribute('data-panning', '');
+          const start = { px: e.clientX, py: e.clientY, x: this._view.x, y: this._view.y };
+          move = (ev) => {
+            this._view.x = start.x + (ev.clientX - start.px) / fw * 100;
+            this._view.y = start.y + (ev.clientY - start.py) / fh * 100;
+            this._clampView();
+            this._applyView();
+          };
+        }
+        const up = () => {
+          try { this._spill.releasePointerCapture(e.pointerId); } catch {}
+          this._spill.removeEventListener('pointermove', move);
+          this._spill.removeEventListener('pointerup', up);
+          this._spill.removeEventListener('pointercancel', up);
+          this.removeAttribute('data-panning');
+          this._dragUp = null;
+        };
+        // Stashed so _exitReframe (Escape / outside-click mid-drag) can
+        // tear the capture + listeners down synchronously.
+        this._dragUp = up;
+        this._spill.addEventListener('pointermove', move);
+        this._spill.addEventListener('pointerup', up);
+        this._spill.addEventListener('pointercancel', up);
+      });
+      // Wheel zoom stays available inside reframe mode as a trackpad nicety —
+      // zooms toward the cursor (offset' = cursor·(1-k) + offset·k).
+      this.addEventListener('wheel', (e) => {
+        if (!this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        const r = this.getBoundingClientRect();
+        const cx = (e.clientX - r.left) / r.width * 100 - 50;
+        const cy = (e.clientY - r.top) / r.height * 100 - 50;
+        const prev = this._view.s;
+        const next = clampS(prev * Math.pow(1.0015, -e.deltaY));
+        if (next === prev) return;
+        const k = next / prev;
+        this._view.s = next;
+        this._view.x = cx * (1 - k) + this._view.x * k;
+        this._view.y = cy * (1 - k) + this._view.y * k;
+        this._clampView();
+        this._applyView();
+      }, { passive: false });
+    }
+
+    connectedCallback() {
+      // Warn once per page — an id-less slot works for the session but
+      // cannot persist, and two id-less slots would share nothing.
+      if (!this.id && !ImageSlot._warned) {
+        ImageSlot._warned = true;
+        console.warn('<image-slot> without an id will not persist its dropped image.');
+      }
+      this.addEventListener('dragenter', this);
+      this.addEventListener('dragover', this);
+      this.addEventListener('dragleave', this);
+      this.addEventListener('drop', this);
+      subs.add(this._subFn);
+      // width%/height% in _applyView encode the frame aspect at call time —
+      // a host resize (responsive grid, pane divider) would stretch the
+      // image until the next _render. Re-render on size change: _render()
+      // re-seeds _view from stored before clamp/apply, so a shrink→grow
+      // cycle round-trips instead of ratcheting x/y toward the narrower
+      // frame's clamp range.
+      this._ro = new ResizeObserver(() => this._render());
+      this._ro.observe(this);
+      load();
+      this._render();
+    }
+
+    disconnectedCallback() {
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter', this);
+      this.removeEventListener('dragover', this);
+      this.removeEventListener('dragleave', this);
+      this.removeEventListener('drop', this);
+      if (this._ro) { this._ro.disconnect(); this._ro = null; }
+      this._exitReframe(false);
+    }
+
+    _enterReframe() {
+      if (this.hasAttribute('data-reframe')) return;
+      this.setAttribute('data-reframe', '');
+      this._applyView();
+      // Close on click outside (the spill handler stopPropagation()s so
+      // in-image drags don't reach this) and on Escape. Listeners are held
+      // on the instance so _exitReframe / disconnectedCallback can detach
+      // exactly what was attached.
+      this._outside = (e) => {
+        if (e.composedPath && e.composedPath().includes(this)) return;
+        this._exitReframe(true);
+      };
+      this._esc = (e) => { if (e.key === 'Escape') this._exitReframe(true); };
+      document.addEventListener('pointerdown', this._outside, true);
+      document.addEventListener('keydown', this._esc, true);
+    }
+
+    _exitReframe(commit) {
+      if (!this.hasAttribute('data-reframe')) return;
+      if (this._dragUp) this._dragUp();
+      this.removeAttribute('data-reframe');
+      this.removeAttribute('data-panning');
+      if (this._outside) document.removeEventListener('pointerdown', this._outside, true);
+      if (this._esc) document.removeEventListener('keydown', this._esc, true);
+      this._outside = this._esc = null;
+      if (commit) this._commitView();
+    }
+
+    attributeChangedCallback() { if (this.shadowRoot) this._render(); }
+
+    // handleEvent — one listener object for all four drag events keeps the
+    // add/remove symmetric and the depth counter correct.
+    handleEvent(e) {
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        // Without preventDefault the browser never fires 'drop'.
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        if (e.type === 'dragenter') this._depth++;
+        this.setAttribute('data-over', '');
+      } else if (e.type === 'dragleave') {
+        // dragenter/leave fire for every descendant crossing — count depth
+        // so hovering the icon inside the empty state doesn't flicker.
+        if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
+      } else if (e.type === 'drop') {
+        e.preventDefault();
+        e.stopPropagation();
+        this._depth = 0;
+        this.removeAttribute('data-over');
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) this._ingest(f);
+      }
+    }
+
+    async _ingest(file) {
+      this._setError(null);
+      if (!file || ACCEPT.indexOf(file.type) < 0) {
+        this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
+        return;
+      }
+      // toDataUrl can take hundreds of ms on a large photo. A Clear or a
+      // newer drop during that window would be clobbered when this await
+      // resumes — bump + capture a generation so stale encodes bail.
+      const gen = ++this._gen;
+      try {
+        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
+        const url = await toDataUrl(file, w);
+        if (gen !== this._gen) return;
+        // Only exit reframe once the new image is in hand — a rejected type
+        // or decode failure leaves the in-progress crop untouched.
+        this._exitReframe(false);
+        const val = { u: url, s: 1, x: 0, y: 0 };
+        setSlot(this.id || '', val);
+        // Keep a session-local copy for id-less slots so the drop still
+        // shows, even though it cannot persist.
+        if (!this.id) { this._local = val; this._render(); }
+      } catch (err) {
+        if (gen !== this._gen) return;
+        this._setError('Could not read that image.');
+        console.warn('<image-slot> ingest failed:', err);
+      }
+    }
+
+    _setError(msg) {
+      if (this._err) { this._err.remove(); this._err = null; }
+      if (!msg) return;
+      const d = document.createElement('div');
+      d.className = 'err'; d.textContent = msg;
+      this.shadowRoot.appendChild(d);
+      this._err = d;
+      setTimeout(() => { if (this._err === d) { d.remove(); this._err = null; } }, 3000);
+    }
+
+    // Reframing (pan/resize) is only meaningful for fit=cover — contain/fill
+    // keep the old object-fit path and double-click is a no-op.
+    _reframes() {
+      return this.hasAttribute('data-filled') &&
+        (this.getAttribute('fit') || 'cover') === 'cover';
+    }
+
+    // Cover-baseline geometry, shared by clamp/apply/resize. Null until the
+    // img has loaded (naturalWidth is 0 before that) or when the slot has no
+    // layout box — ResizeObserver fires with a 0×0 rect under display:none,
+    // and clamping against a degenerate 1×1 frame would silently pull the
+    // stored pan toward zero.
+    _geom() {
+      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
+      const fw = this.clientWidth, fh = this.clientHeight;
+      if (!iw || !ih || !fw || !fh) return null;
+      return { iw, ih, fw, fh, base: Math.max(fw / iw, fh / ih) };
+    }
+
+    _clampView() {
+      // Pan range on each axis is half the overflow past the frame edge.
+      const g = this._geom();
+      if (!g) return;
+      const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
+      const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
+      this._view.x = Math.max(-mx, Math.min(mx, this._view.x));
+      this._view.y = Math.max(-my, Math.min(my, this._view.y));
+    }
+
+    _applyView() {
+      const g = this._geom();
+      const fit = this.getAttribute('fit') || 'cover';
+      if (fit !== 'cover' || !g) {
+        // Non-cover, or dimensions not known yet (before img load).
+        this._img.style.width = '100%';
+        this._img.style.height = '100%';
+        this._img.style.left = '50%';
+        this._img.style.top = '50%';
+        this._img.style.objectFit = fit;
+        this._img.style.objectPosition = this.getAttribute('position') || '50% 50%';
+        return;
+      }
+      // Cover baseline: img fills the frame on its tighter axis at s=1, so
+      // pan works immediately on the overflowing axis without zooming first.
+      // Width/height and left/top are all frame-% — depends only on the
+      // frame aspect ratio, so a responsive resize keeps the same crop. The
+      // spill layer mirrors the same box so its corners = image corners.
+      const k = g.base * this._view.s;
+      const w = (g.iw * k / g.fw * 100) + '%';
+      const h = (g.ih * k / g.fh * 100) + '%';
+      const l = (50 + this._view.x) + '%';
+      const t = (50 + this._view.y) + '%';
+      this._img.style.width = w; this._img.style.height = h;
+      this._img.style.left = l; this._img.style.top = t;
+      this._img.style.objectFit = '';
+      this._spill.style.width = w; this._spill.style.height = h;
+      this._spill.style.left = l; this._spill.style.top = t;
+    }
+
+    _commitView() {
+      const v = { s: this._view.s, x: this._view.x, y: this._view.y };
+      if (this._userUrl) v.u = this._userUrl;
+      // Framing-only (no u) persists too so an author-src slot remembers its
+      // crop; clearing the sidecar still falls through to src=.
+      if (this.id) setSlot(this.id, v);
+      else { this._local = v; }
+    }
+
+    _render() {
+      // Shape / mask. Presets use border-radius so the dashed ring can
+      // follow the rounded outline; clip-path is only applied for an
+      // explicit `mask` (the ring is hidden there since a rectangle
+      // dashed border chopped by an arbitrary polygon looks broken).
+      const mask = this.getAttribute('mask');
+      const shape = (this.getAttribute('shape') || 'rounded').toLowerCase();
+      let radius = '';
+      if (shape === 'circle') radius = '50%';
+      else if (shape === 'pill') radius = '9999px';
+      else if (shape === 'rounded') {
+        const n = parseFloat(this.getAttribute('radius'));
+        radius = (Number.isFinite(n) ? n : 12) + 'px';
+      }
+      this._frame.style.borderRadius = mask ? '' : radius;
+      this._frame.style.clipPath = mask || '';
+      this._ring.style.borderRadius = mask ? '' : radius;
+      this._ring.style.display = mask ? 'none' : '';
+
+      // Controls and reframe entry gate on this so share links stay read-only.
+      const editable = !!(window.omelette && window.omelette.writeFile);
+      this.toggleAttribute('data-editable', editable);
+      this._sub.style.display = editable ? '' : 'none';
+
+      // Content. The sidecar is also writable by the agent's write_file
+      // tool, so its value isn't guaranteed canvas-originated — only accept
+      // data:image/ URLs from it. The `src` attribute is author-controlled
+      // (Claude wrote it into the HTML) so it passes through unchanged.
+      let stored = this.id ? getSlot(this.id) : this._local;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      const srcAttr = this.getAttribute('src') || '';
+      this._userUrl = (stored && stored.u) || null;
+      const url = this._userUrl || srcAttr;
+      // Don't clobber an in-flight reframe with a store-triggered re-render.
+      if (!this.hasAttribute('data-reframe')) {
+        this._view = {
+          s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
+          x: stored && Number.isFinite(stored.x) ? stored.x : 0,
+          y: stored && Number.isFinite(stored.y) ? stored.y : 0,
+        };
+      }
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      // Toggle via style.display — the [hidden] attribute alone loses to
+      // the display:flex / display:block rules in the stylesheet above.
+      if (url) {
+        if (this._img.getAttribute('src') !== url) {
+          this._img.src = url;
+          this._ghost.src = url;
+        }
+        this._img.style.display = 'block';
+        this._empty.style.display = 'none';
+        this.setAttribute('data-filled', '');
+        this._clampView();
+        this._applyView();
+      } else {
+        this._img.style.display = 'none';
+        this._img.removeAttribute('src');
+        this._ghost.removeAttribute('src');
+        this._empty.style.display = 'flex';
+        this.removeAttribute('data-filled');
+      }
+    }
+  }
+
+  if (!customElements.get('image-slot')) {
+    customElements.define('image-slot', ImageSlot);
+  }
+})();
+
+</script>
+<script>
+/* ============================================================
+   TIMES LANDAU — app.js
+   ============================================================ */
+(function () {
+  'use strict';
+  const $ = (s, c) => (c || document).querySelector(s);
+  const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- LIVE OPEN/CLOSED BADGE ---------------- */
+  function isOpen() {
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    return mins >= 630 || mins < 120; // 10:30–02:00
+  }
+  function paintStatus() {
+    const open = isOpen();
+    [['statusBadge', 'statusDot', 'statusText'], ['statusBadge2', 'statusDot2', 'statusText2']]
+      .forEach(([b, d, t]) => {
+        const badge = document.getElementById(b);
+        const txt = document.getElementById(t);
+        if (!badge || !txt) return;
+        badge.classList.toggle('open', open);
+        badge.classList.toggle('closed', !open);
+        txt.textContent = open ? 'Jetzt geöffnet' : 'Aktuell geschlossen';
+      });
+  }
+  paintStatus();
+  setInterval(paintStatus, 30000);
+
+  /* ---------------- NAV ---------------- */
+  const nav = $('#nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const burger = $('#hamburger'), navLinks = $('#navLinks');
+  burger.addEventListener('click', () => {
+    const open = burger.classList.toggle('open');
+    navLinks.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  });
+  $$('#navLinks a').forEach(a => a.addEventListener('click', () => {
+    burger.classList.remove('open'); navLinks.classList.remove('open');
+    burger.setAttribute('aria-expanded', false);
+  }));
+
+  /* ---------------- CUSTOM CURSOR ---------------- */
+  if (window.matchMedia('(pointer:fine)').matches) {
+    document.body.classList.add('has-cursor');
+    const dot = $('#cursorDot'), ring = $('#cursorRing');
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+    });
+    (function loop() {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
+    })();
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest('a,button,.tab,.gal,image-slot')) ring.classList.add('is-hover');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest('a,button,.tab,.gal,image-slot')) ring.classList.remove('is-hover');
+    });
+  }
+
+  /* ---------------- DRINKS DATA + TABS ---------------- */
+  const MENU = {
+    klassiker: [
+      ['Mojito', 'Havana Rum, Limette, Minze, Soda', '9,50'],
+      ['Caipirinha', 'Cachaça, Limette, brauner Rohrzucker', '9,50'],
+      ['Gin Basil Smash', 'Gin, frisches Basilikum, Zitrone', '10,50'],
+      ['Whiskey Sour', 'Bourbon, Zitrone, Eiweiß, Angostura', '10,50'],
+      ['Aperol Spritz', 'Aperol, Prosecco, Soda, Orange', '8,90'],
+      ['Negroni', 'Gin, Campari, roter Wermut', '10,50'],
+    ],
+    signature: [
+      ['Times Gold', 'Champagner, Passionsfrucht, Vanille, Goldstaub', '14,50'],
+      ['Königstraße 26', 'Bourbon, Amaro, Espresso, Orangenöl', '12,90'],
+      ['Neon Sour', 'Mezcal, Mango, Chili, Limette', '12,50'],
+      ['Pfalz Spritz', 'Riesling-Sekt, Holunder, Minze', '10,90'],
+      ['Final Whistle', 'Spiced Rum, Ananas, Ingwer, Limette', '11,90'],
+      ['Lounge No. 7', 'Vodka, Litschi, Rose, Prosecco', '11,50'],
+    ],
+    champagner: [
+      ['Moët & Chandon Impérial', 'Brut · 0,75 l', '89,00'],
+      ['Moët Glas', 'Brut · 0,1 l', '12,50'],
+      ['Veuve Clicquot', 'Brut Yellow Label · 0,75 l', '99,00'],
+      ['Hausmarke Sekt', 'Riesling Brut · Weingut Autenrieth · 0,1 l', '6,90'],
+      ['Prosecco Frizzante', '0,1 l', '5,50'],
+      ['Rosé Champagner', 'Glas · 0,1 l', '14,90'],
+    ],
+    soft: [
+      ['Coca-Cola / Zero', '0,3 l', '3,90'],
+      ['Fritz-Limo', 'diverse Sorten · 0,33 l', '3,90'],
+      ['Red Bull', '0,25 l', '4,50'],
+      ['San Pellegrino', 'still / sprudelnd · 0,5 l', '4,50'],
+      ['Hausgemachte Limonade', 'Limette-Minze oder Mango', '4,90'],
+      ['Frischer Orangensaft', '0,3 l', '4,50'],
+    ],
+    shisha: [
+      ['Klassik Kopf', 'Premium-Tabak, freie Sortenwahl', '15,00'],
+      ['Times Signature Kopf', 'Hauseigene Mischung des Abends', '18,00'],
+      ['Fruchtkopf', 'auf frischer Ananas oder Melone', '21,00'],
+      ['Kopfwechsel', 'frische Kohle & neuer Tabak', '8,00'],
+      ['Premium Linie', 'Dark Side / Al Fakher Select', '19,00'],
+      ['Eisschlauch', 'Aufpreis für gekühlten Rauch', '3,00'],
+    ],
+  };
+
+  const drinksGrid = $('#drinksGrid');
+  function renderDrinks(key) {
+    drinksGrid.innerHTML = '';
+    (MENU[key] || []).forEach((d, i) => {
+      const el = document.createElement('div');
+      el.className = 'drink';
+      el.innerHTML = `<div class="drink__info"><h4>${d[0]}</h4><p>${d[1]}</p></div>
+        <span class="drink__dots"></span><span class="drink__price">${d[2]} €</span>`;
+      drinksGrid.appendChild(el);
+      setTimeout(() => el.classList.add('show'), 40 * i);
+    });
+  }
+  const tabs = $$('#barTabs .tab'), ink = $('#tabsInk');
+  function moveInk(tab) {
+    ink.style.left = tab.offsetLeft + 'px';
+    ink.style.width = tab.offsetWidth + 'px';
+  }
+  tabs.forEach(tab => tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('is-active'));
+    tab.classList.add('is-active');
+    moveInk(tab);
+    renderDrinks(tab.dataset.tab);
+  }));
+  renderDrinks('klassiker');
+  requestAnimationFrame(() => moveInk(tabs[0]));
+  window.addEventListener('resize', () => moveInk($('#barTabs .tab.is-active')));
+
+  /* ---------------- EVENTS DATA ---------------- */
+  const EVENTS = [
+    { tag: 'Champions League', date: 'Di · 09.06', title: 'Halbfinale', sub: 'Hinspiel', time: '21:00', live: true },
+    { tag: 'Bundesliga', date: 'Sa · 13.06', title: 'Topspiel', sub: 'Konferenz', time: '15:30', live: true },
+    { tag: 'Formel 1', date: 'So · 14.06', title: 'GP Kanada', sub: 'Rennen', time: '20:00', live: true },
+    { tag: 'Boxen', date: 'Sa · 20.06', title: 'Fight Night', sub: 'Main Card', time: '23:00', live: false },
+  ];
+  const eg = $('#eventsGrid');
+  EVENTS.forEach(e => {
+    const c = document.createElement('article');
+    c.className = 'ev reveal';
+    c.innerHTML = `
+      <div class="ev__top"><span class="ev__tag">${e.tag}</span><span class="ev__date">${e.date}</span></div>
+      <h3 class="ev__title">${e.title}<span>${e.sub}</span></h3>
+      <div class="ev__meta">${e.time} Uhr ${e.live ? '<span class="ev__live"><span class="live-dot"></span>Live</span>' : ''}</div>
+      <a href="#reserve" class="ev__cta">Jetzt Platz sichern →</a>`;
+    eg.appendChild(c);
+  });
+
+  /* ---------------- REVIEWS DATA ---------------- */
+  const REVIEWS = [
+    { t: 'Tolle Atmosphäre, super Cocktails und alle Spiele live — der beste Spot in Landau!', n: 'Max M.', d: 'Mai 2024' },
+    { t: 'Beste Sportsbar der Pfalz. Riesige Screens, freundliches Personal und eine top Shisha-Auswahl.', n: 'Selina K.', d: 'April 2024' },
+    { t: 'Champions-League-Finale hier geschaut — Gänsehaut-Stimmung. Komme definitiv wieder!', n: 'Daniel R.', d: 'März 2024' },
+  ];
+  const rg = $('#reviewsGrid');
+  REVIEWS.forEach(r => {
+    const c = document.createElement('article');
+    c.className = 'review reveal';
+    c.innerHTML = `<div class="review__stars">★★★★★</div>
+      <p class="review__text">„${r.t}"</p>
+      <div class="review__by"><span class="review__name">${r.n}</span><span class="review__date">${r.d}</span></div>`;
+    rg.appendChild(c);
+  });
+
+  /* ---------------- GALLERY ---------------- */
+  const masonry = $('#masonry');
+  const GAL = [
+    ['Cocktail-Kreation', 380], ['Bar bei Nacht', 480], ['Live-Spiel Stimmung', 340],
+    ['Lounge-Ecke', 440], ['Shisha-Setup', 360], ['Champagner-Moment', 420],
+    ['Theke & Barkeeper', 380], ['Screens & Fans', 460], ['Signature Drink', 350],
+    ['Außenansicht', 410], ['Lounge bei Kerzenlicht', 380], ['Anstoß', 440],
+  ];
+  GAL.forEach((g, i) => {
+    const fig = document.createElement('figure');
+    fig.className = 'gal';
+    fig.dataset.index = i;
+    fig.innerHTML = `<image-slot id="gal${i}" shape="rect" fit="cover" style="height:${g[1]}px"
+        placeholder="${g[0]}"></image-slot><div class="gal__over"></div>`;
+    masonry.appendChild(fig);
+  });
+
+  /* ---------------- LIGHTBOX ---------------- */
+  const lb = $('#lightbox'), lbStage = $('#lbStage');
+  let lbIndex = 0;
+  function openLB(i) {
+    lbIndex = (i + GAL.length) % GAL.length;
+    const slot = document.getElementById('gal' + lbIndex);
+    const shadowImg = slot && slot.shadowRoot && slot.shadowRoot.querySelector('img[part="image"]');
+    const src = shadowImg && shadowImg.getAttribute('src');
+    lbStage.innerHTML = src
+      ? `<img src="${src}" alt="${GAL[lbIndex][0]}">`
+      : `<image-slot shape="rect" fit="contain" placeholder="${GAL[lbIndex][0]} — Bild hier ablegen"></image-slot>`;
+    lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
+  }
+  function closeLB() { lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); }
+  masonry.addEventListener('click', e => {
+    const fig = e.target.closest('.gal');
+    // only open lightbox via overlay click, so the drop-zone stays usable
+    if (fig && e.target.closest('.gal__over')) openLB(+fig.dataset.index);
+  });
+  $('#lbClose').addEventListener('click', closeLB);
+  $('#lbPrev').addEventListener('click', () => openLB(lbIndex - 1));
+  $('#lbNext').addEventListener('click', () => openLB(lbIndex + 1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLB();
+    if (e.key === 'ArrowLeft') openLB(lbIndex - 1);
+    if (e.key === 'ArrowRight') openLB(lbIndex + 1);
+  });
+
+  /* ---------------- MAP CONSENT (DSGVO 2-click) ---------------- */
+  $('#loadMap').addEventListener('click', () => {
+    const map = $('#mapConsent').parentElement;
+    map.innerHTML = `<iframe title="Karte Times Landau" loading="lazy"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=8.108%2C49.193%2C8.127%2C49.203&layer=mapnik&marker=49.1978%2C8.1175"></iframe>`;
+  });
+
+  /* ---------------- LENIS SMOOTH SCROLL ---------------- */
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    window.__lenis = lenis;
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    // anchor links through lenis
+    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (id.length > 1 && $(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -70 }); }
+    }));
+  }
+
+  /* ---------------- REVEALS (IntersectionObserver) ---------------- */
+  function animateCount(el) {
+    const target = +el.dataset.count;
+    const start = performance.now(), dur = 1400;
+    function step(now) {
+      const p = Math.min(1, (now - start) / dur);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * e);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        const el = en.target;
+        if (el.classList.contains('reveal')) el.classList.add('in');
+        if (el.classList.contains('hl')) el.classList.add('lit');
+        if (el.hasAttribute('data-count')) animateCount(el);
+        obs.unobserve(el);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    $$('.reveal, .hl, [data-count]').forEach(el => io.observe(el));
+    // failsafe: if anything is still hidden after load (e.g. tab was
+    // backgrounded so IO never fired), reveal everything.
+    window.addEventListener('load', () => setTimeout(() => {
+      $$('.reveal:not(.in)').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < innerHeight) el.classList.add('in');
+      });
+    }, 1200));
+  } else {
+    $$('.reveal').forEach(el => el.classList.add('in'));
+    $$('.hl').forEach(el => el.classList.add('lit'));
+    $$('[data-count]').forEach(el => el.textContent = el.dataset.count);
+  }
+
+  /* ---------------- HERO PARTICLES (Three.js) ---------------- */
+  function initParticles() {
+    const canvas = $('#heroCanvas');
+    if (!window.THREE || reduce) return;
+    const hero = $('.hero');
+    let W = hero.clientWidth, H = hero.clientHeight;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(W, H);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, W / H, 0.1, 100);
+    camera.position.z = 30;
+
+    const COUNT = 80;
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(COUNT * 3);
+    const spd = new Float32Array(COUNT);
+    const col = new Float32Array(COUNT * 3);
+    const gold = new THREE.Color('#C9A84C'), neon = new THREE.Color('#FF6B1A');
+    for (let i = 0; i < COUNT; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 70;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 46;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 30;
+      spd[i] = 0.008 + Math.random() * 0.022;
+      const c = Math.random() > 0.55 ? gold : neon;
+      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+    }
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+
+    // soft round sprite
+    const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+    const cx = cv.getContext('2d');
+    const grd = cx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grd.addColorStop(0, 'rgba(255,255,255,1)');
+    grd.addColorStop(0.3, 'rgba(255,255,255,.6)');
+    grd.addColorStop(1, 'rgba(255,255,255,0)');
+    cx.fillStyle = grd; cx.fillRect(0, 0, 64, 64);
+    const tex = new THREE.CanvasTexture(cv);
+
+    const mat = new THREE.PointsMaterial({
+      size: 1.5, map: tex, vertexColors: true, transparent: true,
+      opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending,
+    });
+    const points = new THREE.Points(geo, mat);
+    scene.add(points);
+
+    let tx = 0, ty = 0;
+    window.addEventListener('mousemove', e => {
+      tx = (e.clientX / innerWidth - 0.5);
+      ty = (e.clientY / innerHeight - 0.5);
+    });
+
+    function animate() {
+      const arr = geo.attributes.position.array;
+      for (let i = 0; i < COUNT; i++) {
+        arr[i * 3 + 1] += spd[i];
+        arr[i * 3] += Math.sin(Date.now() * 0.0004 + i) * 0.004;
+        if (arr[i * 3 + 1] > 24) arr[i * 3 + 1] = -24;
+      }
+      geo.attributes.position.needsUpdate = true;
+      camera.position.x += (tx * 6 - camera.position.x) * 0.04;
+      camera.position.y += (-ty * 4 - camera.position.y) * 0.04;
+      camera.lookAt(scene.position);
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', () => {
+      W = hero.clientWidth; H = hero.clientHeight;
+      camera.aspect = W / H; camera.updateProjectionMatrix();
+      renderer.setSize(W, H);
+    });
+  }
+  initParticles();
+})();
+
+</script>
+</body>
+</html>

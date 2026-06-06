@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Times Landau – Sportsbar &amp; Lounge | Königstr. 26, Landau i.d. Pfalz</title>
+<meta name="description" content="Times Landau – Deine Sportsbar und Lounge in Landau in der Pfalz. Live-Sport auf Sky &amp; DAZN, Premium Cocktails, Shisha &amp; Champagner. Mo–So, 10:30–02:00 Uhr. Jetzt reservieren: +49 6341 2830765" />
+<meta name="keywords" content="Sportsbar Landau, Lounge Landau, Cocktailbar Landau, Times Landau, Live Sport Pfalz, Shisha Bar Landau, DAZN Sky Landau" />
+<meta name="author" content="Times Landau" />
+<meta name="geo.region" content="DE-RP" />
+<meta name="geo.placename" content="Landau in der Pfalz" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Times Landau – Sportsbar &amp; Lounge" />
+<meta property="og:description" content="Live-Sport, Premium Cocktails &amp; Shisha – Landaus beste Sportsbar. Täglich ab 10:30 Uhr." />
+<meta property="og:url" content="https://www.times-landau.com" />
+<meta property="og:type" content="website" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500&family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<!-- JSON-LD: LocalBusiness -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["BarOrPub", "SportsActivityLocation"],
+  "name": "Times Landau",
+  "description": "Sportsbar und Lounge in Landau in der Pfalz – Live-Sport auf Sky und DAZN, Premium Cocktails, Shisha und Champagner.",
+  "url": "https://www.times-landau.com",
+  "telephone": "+496341283076",
+  "email": "office@tic-automaten.de",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Königstraße 26",
+    "addressLocality": "Landau in der Pfalz",
+    "postalCode": "76829",
+    "addressCountry": "DE"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 49.1978, "longitude": 8.1175 },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens": "10:30", "closes": "02:00"
+  }],
+  "servesCuisine": "Cocktails, Getränke",
+  "priceRange": "€€",
+  "sameAs": [
+    "https://www.instagram.com/times_lounge_landau",
+    "https://www.facebook.com/TimesLoungeSportsbar"
+  ]
+}
+</script>
+</head>
+<body>
+
+<!-- ======================= CUSTOM CURSOR ======================= -->
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<!-- ======================= NAVIGATION ======================= -->
+<header class="nav" id="nav" data-screen-label="Navigation">
+  <div class="nav__inner">
+    <a href="#hero" class="brand" aria-label="Times Landau Startseite">
+      <span class="brand__mark">TIMES</span>
+      <span class="brand__sub">Landau</span>
+    </a>
+
+    <div class="status" id="statusBadge" title="Öffnungszeiten Mo–So 10:30–02:00 Uhr">
+      <span class="status__dot" id="statusDot"></span>
+      <span class="status__text" id="statusText">Lädt …</span>
+    </div>
+
+    <nav class="nav__links" id="navLinks" aria-label="Hauptnavigation">
+      <a href="#hero">Home</a>
+      <a href="#about">Über Uns</a>
+      <a href="#events">Events</a>
+      <a href="#bar">Getränke</a>
+      <a href="#gallery">Galerie</a>
+      <a href="#contact">Kontakt</a>
+      <a href="#reserve" class="nav__cta" id="navCta">Reservieren</a>
+    </nav>
+
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ======================= HERO ======================= -->
+<section class="hero" id="hero" data-screen-label="Hero">
+  <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+  <image-slot id="heroPhoto" class="hero__photo" shape="rect" fit="cover"
+              placeholder="Hero-Foto ablegen — dunkle Bar-Atmosphäre"></image-slot>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <p class="hero__label">Landau in der Pfalz <span class="dot">•</span> Sportsbar &amp; Lounge</p>
+    <h1 class="hero__title">
+      <span class="line" data-line>Feel the</span>
+      <span class="line line--accent" data-line>Game</span>
+    </h1>
+    <p class="hero__sub">„Wo Leidenschaft auf Luxus trifft — jeden Abend."</p>
+
+    <div class="hero__cta">
+      <a href="#reserve" class="btn btn--gold">
+        Jetzt reservieren
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="tel:+496341283076" class="btn btn--ghost">+49 6341 2830765</a>
+      <a href="#bar" class="btn btn--outline">Getränkekarte</a>
+    </div>
+  </div>
+
+  <a href="#highlights" class="scroll-cue" aria-label="Nach unten scrollen">
+    <span>Scroll</span>
+    <span class="scroll-cue__line"></span>
+  </a>
+</section>
+
+<!-- ======================= HIGHLIGHTS ======================= -->
+<section class="section highlights" id="highlights" data-screen-label="Highlights">
+  <div class="wrap">
+    <div class="pillars">
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="9" width="36" height="24" rx="2"/><path d="M16 39h16M19 33v6M29 33v6"/><path d="M14 17l8 5-8 5z" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3>Live Sport</h3>
+        <p class="pillar__meta">Sky · DAZN · Bundesliga</p>
+        <p>Alle großen Spiele live auf riesigen Screens. Jedes Match, jeder Jubel — live dabei.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M9 11h30L24 29z"/><path d="M24 29v11M16 40h16M13 15h22"/></svg>
+        </div>
+        <h3>Premium Cocktails</h3>
+        <p class="pillar__meta">Klassiker &amp; Eigenkreationen</p>
+        <p>Von Mojito bis zur Hauskreation — unsere Barkeeper setzen den Standard.</p>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M24 6c3 5-2 7 0 12 2 4 6 4 6 10a12 12 0 11-18-4c3-3 4-2 5-7 1-4-1-6 1-11 2 4 4 5 6 7z"/></svg>
+        </div>
+        <h3>Lounge Feeling</h3>
+        <p class="pillar__meta">Shisha · Champagner · Entspannung</p>
+        <p>Gönne dir eine Auszeit vom Alltag in unserer exklusiven Lounge.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ABOUT ======================= -->
+<section class="section about" id="about" data-screen-label="Über Uns">
+  <div class="wrap about__grid">
+    <div class="about__text reveal">
+      <p class="label">Seit 2020 <span class="dot">•</span> Landau</p>
+      <h2 class="h2">Wir sind das <span class="hl">Times Landau</span></h2>
+      <p class="sub">Deine Sportsbar. Deine Lounge. Deine Stadt.</p>
+      <p class="body">Inmitten des lebendigen Treibens von Landau in der Pfalz erhebt sich eine Oase für Sportbegeisterte und Genießer gleichermaßen: das Times Landau. Hier verschmelzen die Leidenschaft für Live-Fußball und die Kunst der Cocktailmixologie zu einem unvergleichlichen Erlebnis.</p>
+      <p class="body">In den pulsierenden Abenden strömt das Herz der Stadt ins Times Landau — wo Fans aller Clubs zusammenkommen, gemeinsam mitfiebern und die besten Drinks der Stadt genießen.</p>
+
+      <div class="stats">
+        <div class="stat"><span class="stat__num">∞</span><span class="stat__label">Live Events</span></div>
+        <div class="stat"><span class="stat__num"><span data-count="5">0</span>★</span><span class="stat__label">Google Bewertung</span></div>
+        <div class="stat"><span class="stat__num" data-count="7">0</span><span class="stat__label">Jahre Gastgeber</span></div>
+      </div>
+    </div>
+
+    <div class="about__media reveal">
+      <div class="about__frame">
+        <image-slot id="aboutPhoto" class="about__photo" shape="rect" fit="cover"
+                    placeholder="Atmosphären-Foto der Bar"></image-slot>
+      </div>
+      <div class="arc-badge" aria-hidden="true">
+        <svg viewBox="0 0 140 140">
+          <defs><path id="arcPath" d="M70,70 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0"/></defs>
+          <text class="arc-badge__text"><textPath href="#arcPath" startOffset="0">LANDAU'S #1 SPORTSBAR · LANDAU'S #1 SPORTSBAR · </textPath></text>
+        </svg>
+        <span class="arc-badge__core">EST<br>2020</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= EVENTS ======================= -->
+<section class="section events" id="events" data-screen-label="Events">
+  <div class="wrap">
+    <div class="events__banner reveal">
+      <div>
+        <h2 class="h2">Live Events &amp; Sport</h2>
+        <p class="sub">Sky · DAZN · Bundesliga — alle Spiele live bei uns</p>
+      </div>
+      <span class="events__pulse"><span class="live-dot"></span> Diese Woche</span>
+    </div>
+
+    <div class="events__grid" id="eventsGrid">
+      <!-- cards injected by app.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ======================= THE BAR ======================= -->
+<section class="section bar" id="bar" data-screen-label="The Bar">
+  <div class="wrap">
+    <div class="bar__head reveal">
+      <h2 class="display">The Bar</h2>
+      <p class="sub">„Die besten Drinks der Stadt — handverlesen für jeden Abend."</p>
+    </div>
+
+    <div class="tabs reveal" id="barTabs" role="tablist">
+      <button class="tab is-active" data-tab="klassiker" role="tab">Klassiker</button>
+      <button class="tab" data-tab="signature" role="tab">Signature</button>
+      <button class="tab" data-tab="champagner" role="tab">Champagner</button>
+      <button class="tab" data-tab="soft" role="tab">Softdrinks</button>
+      <button class="tab" data-tab="shisha" role="tab">Shisha</button>
+      <span class="tabs__ink" id="tabsInk"></span>
+    </div>
+
+    <div class="drinks" id="drinksGrid"><!-- injected --></div>
+
+    <div class="bar__foot reveal">
+      <a href="#" class="btn btn--gold">Komplette Getränkekarte ansehen
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= GALLERY ======================= -->
+<section class="section gallery" id="gallery" data-screen-label="Galerie">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 class="display">Time(s) to stay</h2>
+      <p class="sub">„Eindrücke aus deinem zweiten Wohnzimmer."</p>
+    </div>
+    <div class="masonry" id="masonry"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ======================= RESERVATION BAND ======================= -->
+<section class="section reserve" id="reserve" data-screen-label="Reservierung">
+  <div class="wrap reserve__inner reveal">
+    <span class="rule"></span>
+    <p class="sub sub--lg">„Dein Abend beginnt mit einem Anruf."</p>
+    <h2 class="hero-ish">Jetzt reservieren</h2>
+    <div class="reserve__cta">
+      <a href="tel:+496341283076" class="btn btn--gold btn--lg">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11 11 0 003.5.56 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.56 3.5 1 1 0 01-.24 1z" fill="currentColor"/></svg>
+        +49 6341 2830765
+      </a>
+      <a href="https://wa.me/491578109380" target="_blank" rel="noopener" class="btn btn--wa btn--lg">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z" fill="currentColor"/></svg>
+        WhatsApp Anfrage
+      </a>
+    </div>
+    <p class="reserve__note">Oder einfach vorbeikommen — wir freuen uns auf dich.</p>
+    <span class="rule"></span>
+  </div>
+</section>
+
+<!-- ======================= PARTNERS ======================= -->
+<section class="section partners" data-screen-label="Partner">
+  <div class="wrap">
+    <div class="section__head section__head--sm reveal">
+      <p class="label">In Zusammenarbeit mit</p>
+      <h2 class="h2">Unsere Partner</h2>
+    </div>
+    <div class="partner-row reveal">
+      <span class="partner">Sky</span>
+      <span class="partner">DAZN</span>
+      <span class="partner">Bundesliga</span>
+      <a class="partner" href="https://www.weingut-autenrieth.com/welcome" target="_blank" rel="noopener">Weingut&nbsp;Autenrieth</a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= REVIEWS ======================= -->
+<section class="section reviews" data-screen-label="Bewertungen">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <h2 class="h2">Was unsere Gäste sagen</h2>
+      <p class="reviews__agg"><span class="stars">★★★★★</span> 4.8 / 5 auf Google</p>
+    </div>
+    <div class="reviews__grid" id="reviewsGrid"><!-- injected --></div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ======================= -->
+<section class="section contact" id="contact" data-screen-label="Kontakt">
+  <div class="wrap contact__grid">
+    <div class="contact__info reveal">
+      <h2 class="display">Komm vorbei</h2>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        </div>
+        <div><span class="info__label">Adresse</span>Königstr. 26<br>76829 Landau in der Pfalz</div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11 11 0 003.5.56 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11 11 0 00.56 3.5 1 1 0 01-.24 1z"/></svg>
+        </div>
+        <div><span class="info__label">Telefon</span><a href="tel:+496341283076">+49 (0) 6341 2830 765</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2z"/></svg>
+        </div>
+        <div><span class="info__label">WhatsApp</span><a href="https://wa.me/491578109380" target="_blank" rel="noopener">+49 1578 1093830</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </div>
+        <div><span class="info__label">E-Mail</span><a href="mailto:office@tic-automaten.de">office@tic-automaten.de</a></div>
+      </div>
+
+      <div class="info">
+        <div class="info__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <div><span class="info__label">Öffnungszeiten</span>Mo – So &nbsp;|&nbsp; 10:30 – 02:00 Uhr
+          <div class="status status--inline" id="statusBadge2"><span class="status__dot" id="statusDot2"></span><span id="statusText2">Lädt …</span></div>
+        </div>
+      </div>
+
+      <div class="socials">
+        <a href="https://www.instagram.com/times_lounge_landau" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.facebook.com/TimesLoungeSportsbar" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9V7c0-1 .3-1.5 1.6-1.5H17V2.2C16.6 2.1 15.5 2 14.4 2 11.8 2 10 3.6 10 6.5V9H7.5v3.5H10V22h3.5v-9.5H16l.5-3.5H13.5z"/></svg></a>
+        <a href="https://wa.me/491578109380" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="contact__map reveal">
+      <div class="map-consent" id="mapConsent">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-6.3-7-11a7 7 0 0114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <p>Königstr. 26, Landau i.d. Pfalz</p>
+        <p class="map-consent__note">Beim Laden der Karte werden Daten an OpenStreetMap übertragen. Mit dem Klick stimmst du der Datenübertragung zu.</p>
+        <button class="btn btn--outline" id="loadMap">Karte laden</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer" data-screen-label="Footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark">TIMES</span>
+      <span class="brand__sub">Landau</span>
+      <p class="footer__tag">Deine Sportsbar. Deine Lounge. Deine Stadt.</p>
+    </div>
+    <div class="footer__col">
+      <h4>Navigation</h4>
+      <a href="#hero">Home</a><a href="#about">Über Uns</a><a href="#events">Events</a>
+      <a href="#bar">Getränkekarte</a><a href="#gallery">Galerie</a><a href="#contact">Kontakt</a>
+    </div>
+    <div class="footer__col">
+      <h4>Kontakt</h4>
+      <span>Königstr. 26</span><span>76829 Landau</span>
+      <a href="tel:+496341283076">+49 6341 2830765</a>
+      <a href="mailto:office@tic-automaten.de">office@tic-automaten.de</a>
+    </div>
+    <div class="footer__col">
+      <h4>Öffnungszeiten</h4>
+      <span>Montag – Sonntag</span><span>10:30 – 02:00 Uhr</span>
+    </div>
+  </div>
+  <div class="wrap footer__bar">
+    <p>Times Landau © 2025 – Alle Rechte vorbehalten.</p>
+    <p class="footer__links"><a href="#">Impressum</a><a href="#">Datenschutzerklärung</a><a href="#bar">Getränkekarte</a></p>
+  </div>
+</footer>
+
+<!-- ======================= FLOATING WHATSAPP ======================= -->
+<a href="https://wa.me/491578109380" target="_blank" rel="noopener" class="wa-float" aria-label="WhatsApp Nachricht senden">
+  <span class="wa-float__ring"></span>
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2s-1.2.2-3.7-.9-4-3.6-4.2-3.8-1.1-1.5-1.1-2.8.7-2 .9-2.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .6l-.4.5c-.2.2-.3.4-.1.7s.7 1.2 1.5 1.9c1 .9 1.8 1.2 2.1 1.3s.4 0 .6-.1l.8-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3z"/></svg>
+</a>
+
+<!-- ======================= LIGHTBOX ======================= -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lbClose" aria-label="Schließen">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Zurück">&#8249;</button>
+  <div class="lightbox__stage" id="lbStage"></div>
+  <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Weiter">&#8250;</button>
+</div>
+
+<!-- ======================= SCRIPTS ======================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="image-slot.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

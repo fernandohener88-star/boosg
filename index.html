@@ -457,12 +457,20 @@ address.visit-addr strong { font-family: var(--serif); font-size: var(--text-xl)
   width: 22px; height: 7px; border-radius: 50%; background: rgba(0,0,0,.35);
 }
 .map-label { position: absolute; left: 38%; top: 46%; transform: translate(14px, 6px); font-family: var(--script-label); font-style: italic; color: var(--gold); font-size: 1rem; }
+.map-btns { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
 .btn-maps {
   display: inline-flex; align-items: center; gap: .5rem;
   border: 1px solid var(--gold); color: var(--gold); padding: .7rem 1.4rem;
   border-radius: 2px; font-size: .95rem; transition: background .3s, color .3s;
 }
 .btn-maps:hover { background: var(--gold); color: var(--chocolate); }
+.btn-route {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--terracotta); color: var(--cream); padding: .7rem 1.4rem;
+  border-radius: 2px; font-size: .95rem; border: 1px solid var(--terracotta);
+  transition: background .3s, transform .3s;
+}
+.btn-route:hover { background: #a8551e; transform: translateY(-1px); }
 .maps-hint { font-size: var(--text-xs); color: rgba(245,237,224,.55); margin-top: .8rem; font-style: italic; max-width: 36ch; }
 
 .visit-cta { text-align: center; margin-top: clamp(3rem,7vw,5rem); position: relative; z-index: 1; }
@@ -895,11 +903,17 @@ footer.site-footer { background: var(--cream-dark); padding: 2.6rem clamp(1.2rem
         </div>
         <div class="map-frame-wrap" id="mapFrame"></div>
       </div>
-      <a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query=Marktstra%C3%9Fe+54+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
-        In Google Maps öffnen
-      </a>
-      <p class="maps-hint">Beim Öffnen der Karte gelten die Datenschutzbestimmungen von Google.</p>
+      <div class="map-btns">
+        <a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query=Marktstra%C3%9Fe+54+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          In Google Maps öffnen
+        </a>
+        <a class="btn-route" href="https://www.google.com/maps/dir/?api=1&destination=Marktstra%C3%9Fe+54%2C+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M3 6l6 6-6 6"/></svg>
+          Route planen
+        </a>
+      </div>
+      <p class="maps-hint">Beim Öffnen gelten die Datenschutzbestimmungen von Google.</p>
     </div>
   </div>
   <div class="visit-cta">

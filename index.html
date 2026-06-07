@@ -323,35 +323,55 @@ section { position: relative; }
 .world-card p { font-style: italic; color: var(--text-mid); font-size: var(--text-base); position: relative; z-index: 1; }
 
 /* ============ SIGNATURE ITEMS ============ */
-.sig { background: var(--cream); }
-.sig-head { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+.sig {
+  background: var(--cream);
+  background-image:
+    radial-gradient(ellipse 70% 55% at 20% 15%, rgba(201,169,110,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 80% 85%, rgba(196,105,58,.09) 0%, transparent 55%);
+}
+.sig-head { text-align: center; max-width: 680px; margin: 0 auto 4rem; }
 .sig-head .section-title { font-weight: 900; }
-.sig-head p { color: var(--text-mid); font-style: italic; margin-top: 1rem; font-size: var(--text-lg); }
+.sig-head p { color: var(--text-mid); font-style: italic; margin-top: 1.1rem; font-size: var(--text-lg); max-width: 52ch; margin-left: auto; margin-right: auto; }
+.sig-head-orn {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  margin: 1.6rem auto 0; max-width: 240px;
+}
+.sig-head-orn::before, .sig-head-orn::after {
+  content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold));
+}
+.sig-head-orn::after { background: linear-gradient(to left, transparent, var(--gold)); }
+.sig-head-orn span { color: var(--gold); font-size: .85rem; opacity: .75; }
 .sig-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 14rem; gap: 1.4rem; position: relative; z-index: 1;
+  grid-auto-rows: 15rem; gap: 1.6rem; position: relative; z-index: 1;
 }
 .sig-card {
-  position: relative; padding: 2rem; border: 1px solid rgba(139,94,60,.35);
-  background: var(--cream-light); border-radius: 4px; overflow: hidden;
+  position: relative; padding: 2.2rem; border: 1px solid rgba(139,94,60,.28);
+  background: var(--cream-light); border-radius: 6px; overflow: hidden;
   display: flex; flex-direction: column; justify-content: flex-end;
-  transition: background .35s ease, color .35s ease, border-color .35s ease;
+  transition: background .38s ease, color .38s ease, border-color .38s ease, box-shadow .38s ease, transform .38s ease;
   will-change: transform; transform-style: preserve-3d;
+  box-shadow: 0 4px 24px -10px rgba(139,94,60,.18);
 }
 .sig-card.tall { grid-row: span 2; }
+.sig-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 6px;
+  background: linear-gradient(145deg, rgba(201,169,110,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
 .sig-card .s-label {
   font-family: var(--script-label); font-style: italic; font-size: .9rem;
   letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta);
-  position: absolute; top: 1.6rem; left: 2rem; transition: color .35s;
+  position: absolute; top: 1.8rem; left: 2.2rem; transition: color .38s;
 }
-.sig-card .s-name { font-family: var(--serif); font-size: var(--text-2xl); margin-bottom: .5rem; transition: color .35s; }
-.sig-card .s-desc { font-style: italic; color: var(--text-muted); font-size: .98rem; transition: color .35s; }
-.sig-card .s-price { font-family: var(--body); font-weight: 600; color: var(--terracotta); margin-top: .9rem; font-size: 1.05rem; transition: color .35s; }
-.sig-card:hover { background: var(--caramel); border-color: var(--caramel); }
+.sig-card .s-name { font-family: var(--serif); font-size: var(--text-2xl); margin-bottom: .55rem; transition: color .38s; }
+.sig-card .s-desc { font-style: italic; color: var(--text-muted); font-size: .98rem; transition: color .38s; line-height: 1.6; }
+.sig-card .s-price { font-family: var(--body); font-weight: 600; color: var(--terracotta); margin-top: 1rem; font-size: 1.05rem; transition: color .38s; }
+.sig-card:hover { background: var(--caramel); border-color: var(--caramel); box-shadow: 0 20px 48px -18px rgba(139,94,60,.55); transform: translateY(-5px); }
 .sig-card:hover .s-name, .sig-card:hover .s-desc { color: var(--cream); }
 .sig-card:hover .s-label, .sig-card:hover .s-price { color: var(--gold); }
-.sig-card .s-glyph { position: absolute; top: -10px; right: -8px; width: 92px; height: 92px; color: var(--caramel); opacity: .12; transition: opacity .35s; }
-.sig-card:hover .s-glyph { opacity: .22; color: var(--cream); }
+.sig-card .s-glyph { position: absolute; top: -10px; right: -8px; width: 100px; height: 100px; color: var(--caramel); opacity: .1; transition: opacity .38s; }
+.sig-card:hover .s-glyph { opacity: .25; color: var(--cream); }
 
 /* ============ MENU ============ */
 .menu { background: var(--cream-dark); }
@@ -736,9 +756,10 @@ footer.site-footer { background: var(--cream-dark); padding: 2.6rem clamp(1.2rem
 <section class="sig section-pad" id="lieblinge" aria-label="Unsere Lieblinge">
   <span class="bignum" style="top:-2rem; right:2rem;">02</span>
   <div class="sig-head">
-    <span class="eyebrow reveal">Signature</span>
+    <span class="eyebrow reveal">Hausgemacht & mit Liebe</span>
     <h2 class="section-title reveal">Unsere Lieblinge</h2>
-    <p class="reveal">Sechs Dinge, für die man wiederkommt — von der orientalischen Platte bis zum Sunrise Mocktail.</p>
+    <p class="reveal">Sechs Dinge, für die man wiederkommt — vom orientalischen Frühstück bis zum Sunrise Mocktail. Täglich frisch zubereitet.</p>
+    <div class="sig-head-orn reveal" aria-hidden="true"><span>❧</span></div>
   </div>
   <div class="sig-grid">
     <article class="sig-card tall" data-tilt>

@@ -72,10 +72,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .header-logo { display: flex; flex-direction: column; line-height: 1; }
 .header-logo .l-cafe {
-  font-family: var(--script); letter-spacing: .42em; font-size: .65rem;
-  color: rgba(201,169,110,.7); text-transform: uppercase; padding-left: .2em;
+  font-family: var(--script); letter-spacing: .22em; font-size: .65rem;
+  color: rgba(201,169,110,.7); text-transform: uppercase; padding-left: 0;
+  display: flex; align-items: center; gap: .3em;
 }
-.header-logo .l-name { font-family: var(--logo); font-size: 1.55rem; color: var(--gold); margin-top: -.1em; }
+.header-logo .l-cafe::before { content: '☙'; letter-spacing: 0; opacity: .8; }
+.header-logo .l-cafe::after  { content: '❧'; letter-spacing: 0; opacity: .8; }
+.header-logo .l-name { font-family: var(--logo); font-size: 1.55rem; color: var(--gold); margin-top: -.05em; display: block; text-align: center; }
 
 .btn-back {
   display: inline-flex; align-items: center; gap: .5rem;

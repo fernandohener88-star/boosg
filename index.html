@@ -154,12 +154,15 @@ nav.site-nav.scrolled {
 .logo-lockup { display: flex; flex-direction: column; line-height: 1; }
 .logo-lockup .l-cafe {
   font-family: var(--script-label); font-style: normal; font-weight: 500;
-  letter-spacing: .42em; font-size: .72rem; color: var(--text-muted);
-  text-transform: uppercase; padding-left: .25em;
+  letter-spacing: .28em; font-size: .72rem; color: var(--text-muted);
+  text-transform: uppercase; padding-left: 0;
+  display: flex; align-items: center; justify-content: center; gap: .3em;
 }
+.logo-lockup .l-cafe::before { content: '☙'; letter-spacing: 0; opacity: .8; }
+.logo-lockup .l-cafe::after  { content: '❧'; letter-spacing: 0; opacity: .8; }
 .logo-lockup .l-name {
   font-family: var(--logo); font-size: 1.9rem; color: var(--caramel);
-  margin-top: -.1em;
+  margin-top: -.05em; display: block; text-align: center;
 }
 .nav-links { display: flex; gap: 2.4rem; align-items: center; justify-content: center; }
 .nav-link {

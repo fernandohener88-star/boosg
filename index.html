@@ -565,7 +565,12 @@ footer.site-footer { background: var(--cream-dark); padding: 2.6rem clamp(1.2rem
 .btn-load-map:hover { background: #a8551e; }
 .map-frame-wrap {
   position: absolute; inset: 0; display: none;
-  filter: sepia(30%) saturate(55%) brightness(0.85) hue-rotate(-10deg) contrast(1.08);
+  filter: sepia(90%) hue-rotate(-18deg) saturate(38%) brightness(0.58) contrast(1.22);
+}
+.map-frame-wrap::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: rgba(44,24,16,.28);
+  mix-blend-mode: multiply;
 }
 .map-frame-wrap iframe { width: 100%; height: 100%; border: 0; }
 .map-consent.loaded .map-placeholder { opacity: 0; pointer-events: none; }

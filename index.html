@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============ SEO ============ -->
+<title>Café Mirabelle Landau | Specialty Coffee & Orientalisches Frühstück</title>
+<meta name="description" content="Café Mirabelle in Landau in der Pfalz — Specialty Coffee, orientalisches Frühstück, hausgemachte Limonaden und Joghurt Bowls. Marktstraße 54. Bequem. Warm. Elegant.">
+<meta name="keywords" content="Café Landau, Frühstück Landau, Kaffee Landau, orientalisches Café, Specialty Coffee Landau Pfalz, Bowls Landau, Café Mirabelle">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Café Mirabelle">
+<link rel="canonical" href="https://www.cafe-mirabelle-landau.de/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Café Mirabelle — Bequem. Warm. Elegant.">
+<meta property="og:description" content="Specialty Coffee, orientalisches Frühstück und hausgemachte Limonaden in Landau in der Pfalz.">
+<meta property="og:type" content="restaurant">
+<meta property="og:locale" content="de_DE">
+<meta property="og:url" content="https://www.cafe-mirabelle-landau.de/">
+
+<!-- Geo -->
+<meta name="geo.region" content="DE-RP">
+<meta name="geo.placename" content="Landau in der Pfalz">
+
+<!-- DSGVO: Google Fonts vor Launch self-hosten -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Yellowtail&display=swap" rel="stylesheet">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  "name": "Café Mirabelle",
+  "description": "Europäisch-orientalisches Premium-Café in Landau in der Pfalz. Specialty Coffee, Frühstück, Joghurt Bowls, hausgemachte Limonaden.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Marktstraße 54",
+    "postalCode": "76829",
+    "addressLocality": "Landau in der Pfalz",
+    "addressRegion": "Rheinland-Pfalz",
+    "addressCountry": "DE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "49.1977",
+    "longitude": "8.1174"
+  },
+  "url": "https://www.cafe-mirabelle-landau.de",
+  "telephone": "",
+  "priceRange": "€€",
+  "servesCuisine": ["Europäisch", "Orientalisch", "Türkisch", "Café", "Frühstück"],
+  "hasMenu": "https://www.cafe-mirabelle-landau.de/#speisekarte",
+  "keywords": "Café Landau, Frühstück Landau, orientalisches Frühstück, Specialty Coffee",
+  "sameAs": []
+}
+</script>
+
+<style>
+/* ============================================================
+   CAFÉ MIRABELLE — Warm Curated Luxury
+   ============================================================ */
+:root {
+  --cream:        #F5EDE0;
+  --cream-dark:   #EDE0CF;
+  --cream-light:  #FAF6F0;
+  --caramel:      #8B5E3C;
+  --chocolate:    #2C1810;
+  --terracotta:   #C4693A;
+  --sage:         #7A8C6E;
+  --gold:         #C9A96E;
+  --text-primary: #2C1810;
+  --text-mid:     #8B5E3C;
+  --text-muted:   #A07850;
+
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.375rem;
+  --text-2xl:  1.75rem;
+  --text-3xl:  2.25rem;
+  --text-4xl:  3rem;
+  --text-5xl:  4rem;
+  --text-hero: clamp(3rem, 6.2vw, 6rem);
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --body:   'Lora', Georgia, serif;
+  --script-label: 'Cormorant Garamond', Georgia, serif;
+  --logo:   'Yellowtail', cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--body);
+  color: var(--text-primary);
+  background: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---- Leinentextur (SVG-Noise) ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9990;
+  mix-blend-mode: multiply;
+  animation: texFade 1.4s ease forwards;
+}
+@keyframes texFade { 0%{opacity:0} 60%{opacity:.07} 100%{opacity:.045} }
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+h1,h2,h3,h4 { font-family: var(--serif); color: var(--chocolate); font-weight: 700; line-height: 1.08; }
+
+/* ---- Scroll-Progress-Bar ---- */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: var(--terracotta); z-index: 10000;
+  box-shadow: 0 0 8px rgba(196,105,58,.4);
+}
+
+/* ---- Focus-visible (A11Y keyboard nav) ---- */
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+/* ============ NAVIGATION ============ */
+nav.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+  padding: 1.4rem clamp(1.2rem, 5vw, 4rem);
+  transition: background .4s ease, box-shadow .4s ease, padding .4s ease;
+}
+.nav-right { display: flex; align-items: center; gap: 1rem; justify-content: flex-end; }
+nav.site-nav.scrolled {
+  background: rgba(245, 237, 224, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 20px rgba(44, 24, 16, 0.08);
+  padding-top: .9rem; padding-bottom: .9rem;
+}
+.logo-lockup { display: flex; flex-direction: column; line-height: 1; }
+.logo-lockup .l-cafe {
+  font-family: var(--script-label); font-style: normal; font-weight: 500;
+  letter-spacing: .42em; font-size: .72rem; color: var(--text-muted);
+  text-transform: uppercase; padding-left: .25em;
+}
+.logo-lockup .l-name {
+  font-family: var(--logo); font-size: 1.9rem; color: var(--caramel);
+  margin-top: -.1em;
+}
+.nav-links { display: flex; gap: 2.4rem; align-items: center; justify-content: center; }
+.nav-link {
+  font-family: var(--body); font-size: .98rem; color: var(--text-primary);
+  position: relative; padding: .2rem 0; letter-spacing: .01em;
+}
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 100%;
+  background: var(--gold); transform: scaleX(0); transform-origin: left;
+  transition: transform .35s cubic-bezier(.7,0,.3,1);
+}
+.nav-link:hover::after { transform: scaleX(1); }
+
+.nav-cta {
+  font-family: var(--body); font-size: .92rem; color: var(--cream);
+  background: var(--terracotta); padding: .6rem 1.4rem; border-radius: 2px;
+  letter-spacing: .02em; transition: background .3s, transform .3s;
+}
+.nav-cta:hover { background: var(--caramel); transform: translateY(-1px); }
+
+.open-badge {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-family: var(--body); font-size: .82rem; font-weight: 500;
+  padding: .38rem .85rem; border-radius: 20px;
+  letter-spacing: .02em; white-space: nowrap;
+  transition: opacity .4s;
+}
+.open-badge::before {
+  content: ''; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.open-badge.is-open {
+  background: rgba(74,153,90,.18); color: #4a995a; border: 1px solid rgba(74,153,90,.3);
+}
+.open-badge.is-open::before { background: #4a995a; box-shadow: 0 0 0 3px rgba(74,153,90,.2); animation: pulse-green 2s infinite; }
+.open-badge.is-closed {
+  background: rgba(180,60,40,.14); color: #c04030; border: 1px solid rgba(180,60,40,.25);
+}
+.open-badge.is-closed::before { background: #c04030; }
+@keyframes pulse-green { 0%,100%{box-shadow:0 0 0 3px rgba(74,153,90,.2)} 50%{box-shadow:0 0 0 5px rgba(74,153,90,.0)} }
+
+.hours-row.today {
+  background: rgba(201,169,110,.1); border-radius: 4px;
+  margin: 0 -.6rem; padding-left: .6rem; padding-right: .6rem;
+  border-bottom-color: rgba(201,169,110,.35);
+}
+.hours-row.today > span:first-child { color: var(--gold); font-weight: 600; }
+.hours-row.today > span:last-child { color: var(--gold) !important; }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; width: 30px; z-index: 1100; }
+.hamburger span { height: 2px; width: 100%; background: var(--chocolate); transition: .35s; transform-origin: center; }
+.hamburger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity: 0; }
+.hamburger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-overlay {
+  position: fixed; inset: 0; background: var(--cream); z-index: 1050;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2rem; opacity: 0; pointer-events: none; transition: opacity .4s ease;
+}
+.mobile-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-overlay a { font-family: var(--serif); font-style: italic; font-size: 2.4rem; color: var(--chocolate); }
+.mobile-overlay a:hover { color: var(--terracotta); }
+
+/* ============ SECTION SCAFFOLD ============ */
+section { position: relative; }
+.section-pad { padding: clamp(4rem, 9vw, 8rem) clamp(1.2rem, 5vw, 4rem); }
+.bignum {
+  position: absolute; font-family: var(--serif); font-weight: 900;
+  font-size: clamp(7rem, 18vw, 14rem); color: var(--caramel);
+  opacity: .05; line-height: .8; pointer-events: none; z-index: 0; user-select: none;
+}
+.eyebrow {
+  font-family: var(--script-label); font-style: italic; font-size: var(--text-xl);
+  color: var(--caramel); display: block; margin-bottom: .6rem; letter-spacing: .01em;
+}
+.section-title { font-size: clamp(2.25rem, 5vw, var(--text-5xl)); position: relative; z-index: 1; }
+
+/* ---- Ornamental divider ---- */
+.divider { display: flex; align-items: center; justify-content: center; padding: 2.5rem 0; }
+.divider svg { width: min(420px, 70vw); height: 28px; color: var(--gold); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100svh; display: grid; grid-template-columns: 1.6fr 1fr;
+  position: relative; overflow: hidden; background: var(--cream);
+}
+.hero-art {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--cream-dark), #e3d2bc);
+}
+.hero-arch {
+  position: absolute; left: 50%; top: 52%; transform: translate(-50%,-50%);
+  width: 78%; max-width: 460px; color: var(--caramel);
+}
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 7rem clamp(1.4rem,5vw,5rem) 4rem;
+  position: relative; z-index: 2;
+}
+.hero-addr {
+  font-family: var(--script-label); font-style: italic; font-size: var(--text-lg);
+  color: var(--text-muted); letter-spacing: .04em; margin-bottom: 1.6rem;
+}
+.hero h1 { font-style: italic; font-weight: 700; font-size: var(--text-hero); margin: 0; }
+.hero h1 .line { display: block; overflow: hidden; padding-bottom: .2em; margin-bottom: -.2em; }
+.hero h1 .line > span { display: inline-block; white-space: nowrap; }
+.hero-tag {
+  font-family: var(--script-label); font-style: italic; font-size: var(--text-2xl);
+  color: var(--caramel); margin: 1.5rem 0 .4rem; letter-spacing: .03em;
+}
+.hero-body {
+  font-size: var(--text-lg); color: var(--text-mid); max-width: 30ch; margin-bottom: 2.2rem;
+}
+.hero-ctas { display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--terracotta); color: var(--cream);
+  font-family: var(--body); font-weight: 500; font-size: 1.02rem;
+  padding: .95rem 1.9rem; border-radius: 2px; letter-spacing: .015em;
+  transition: background .3s, transform .3s, box-shadow .3s;
+  box-shadow: 0 8px 24px -10px rgba(196,105,58,.6);
+}
+.btn-primary:hover { background: var(--caramel); transform: translateY(-2px); box-shadow: 0 14px 30px -12px rgba(139,94,60,.7); }
+.btn-ghost {
+  font-family: var(--body); color: var(--caramel); font-size: 1.02rem;
+  border-bottom: 1px solid transparent; transition: border-color .3s; padding-bottom: 2px;
+}
+.btn-ghost:hover { border-color: var(--caramel); }
+
+.float-ornament {
+  position: absolute; right: 6%; top: 14%; width: clamp(120px, 16vw, 230px);
+  color: var(--caramel); opacity: .2; z-index: 1; will-change: transform;
+}
+
+/* ============ DREI WELTEN ============ */
+.worlds { background: var(--cream-dark); }
+.worlds-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem;
+  position: relative; z-index: 1; margin-top: 3rem;
+}
+.world-card {
+  position: relative; overflow: hidden; padding: 3rem 2.2rem 2.6rem;
+  background: var(--cream-light); border: 1px solid rgba(201,169,110,.4);
+  border-radius: 4px; transition: transform .4s ease, box-shadow .4s ease;
+}
+.world-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px -22px rgba(139,94,60,.5); }
+.world-num {
+  position: absolute; right: .4rem; bottom: -1.5rem; font-family: var(--serif);
+  font-weight: 900; font-size: 8rem; color: var(--caramel); opacity: .08; line-height: 1;
+}
+.world-card .ico { color: var(--caramel); width: 52px; height: 52px; margin-bottom: 1.4rem; }
+.world-card h3 { font-size: var(--text-2xl); margin-bottom: .8rem; letter-spacing: .01em; }
+.world-card .kicker {
+  font-family: var(--script-label); font-style: italic; color: var(--terracotta);
+  font-size: 1rem; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: .3rem;
+}
+.world-card p { font-style: italic; color: var(--text-mid); font-size: var(--text-base); position: relative; z-index: 1; }
+
+/* ============ SIGNATURE ITEMS ============ */
+.sig { background: var(--cream); }
+.sig-head { text-align: center; max-width: 640px; margin: 0 auto 3.5rem; }
+.sig-head .section-title { font-weight: 900; }
+.sig-head p { color: var(--text-mid); font-style: italic; margin-top: 1rem; font-size: var(--text-lg); }
+.sig-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 14rem; gap: 1.4rem; position: relative; z-index: 1;
+}
+.sig-card {
+  position: relative; padding: 2rem; border: 1px solid rgba(139,94,60,.35);
+  background: var(--cream-light); border-radius: 4px; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: background .35s ease, color .35s ease, border-color .35s ease;
+  will-change: transform; transform-style: preserve-3d;
+}
+.sig-card.tall { grid-row: span 2; }
+.sig-card .s-label {
+  font-family: var(--script-label); font-style: italic; font-size: .9rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--terracotta);
+  position: absolute; top: 1.6rem; left: 2rem; transition: color .35s;
+}
+.sig-card .s-name { font-family: var(--serif); font-size: var(--text-2xl); margin-bottom: .5rem; transition: color .35s; }
+.sig-card .s-desc { font-style: italic; color: var(--text-muted); font-size: .98rem; transition: color .35s; }
+.sig-card .s-price { font-family: var(--body); font-weight: 600; color: var(--terracotta); margin-top: .9rem; font-size: 1.05rem; transition: color .35s; }
+.sig-card:hover { background: var(--caramel); border-color: var(--caramel); }
+.sig-card:hover .s-name, .sig-card:hover .s-desc { color: var(--cream); }
+.sig-card:hover .s-label, .sig-card:hover .s-price { color: var(--gold); }
+.sig-card .s-glyph { position: absolute; top: -10px; right: -8px; width: 92px; height: 92px; color: var(--caramel); opacity: .12; transition: opacity .35s; }
+.sig-card:hover .s-glyph { opacity: .22; color: var(--cream); }
+
+/* ============ MENU ============ */
+.menu { background: var(--cream-dark); }
+.menu-head { text-align: center; max-width: 640px; margin: 0 auto 2.5rem; }
+.menu-head p { color: var(--text-mid); font-style: italic; margin-top: 1rem; }
+.tab-rail-wrap {
+  position: sticky; top: 0; z-index: 600; background: var(--cream-dark);
+  padding: 1rem 0; margin: 0 calc(-1 * clamp(1.2rem,5vw,4rem));
+}
+.tab-rail-wrap.stuck { box-shadow: 0 6px 18px -12px rgba(44,24,16,.4); background: rgba(237,224,207,.96); backdrop-filter: blur(6px); }
+.tab-rail {
+  display: flex; gap: .5rem; overflow-x: auto; padding: 0 clamp(1.2rem,5vw,4rem);
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.tab-rail::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto; font-family: var(--body); font-size: .9rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--caramel); background: transparent;
+  border: 1px solid rgba(139,94,60,.4); padding: .55rem 1.1rem; border-radius: 2px;
+  white-space: nowrap; transition: background .3s, color .3s, border-color .3s;
+}
+.tab:hover { border-color: var(--caramel); }
+.tab.active { background: var(--terracotta); color: var(--cream); border-color: var(--terracotta); }
+
+.menu-panel { margin-top: 2.6rem; position: relative; z-index: 1; }
+.cat-note {
+  font-family: var(--script-label); font-style: italic; color: var(--text-muted);
+  font-size: 1.05rem; margin-bottom: 1.8rem; padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(201,169,110,.4);
+}
+.menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .4rem 3rem; }
+.m-item {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: baseline;
+  gap: .4rem; padding: 1rem 0; border-bottom: 1px solid rgba(139,94,60,.12);
+}
+.m-item .m-name { font-family: var(--serif); font-weight: 500; font-size: var(--text-lg); color: var(--chocolate); }
+.m-dots { border-bottom: 1.5px dotted rgba(139,94,60,.35); transform: translateY(-4px); min-width: 1.5rem; }
+.m-item .m-price { font-family: var(--body); font-weight: 600; color: var(--terracotta); white-space: nowrap; font-size: 1.02rem; }
+.m-item .m-desc { grid-column: 1 / -1; font-style: italic; color: var(--text-muted); font-size: .95rem; margin-top: .15rem; }
+.placeholder-card {
+  grid-column: 1 / -1; text-align: center; padding: 3rem 2rem;
+  border: 1px dashed rgba(139,94,60,.4); border-radius: 4px; background: var(--cream-light);
+}
+.placeholder-card .pc-title { font-family: var(--serif); font-style: italic; font-size: var(--text-2xl); margin-bottom: .6rem; }
+.placeholder-card p { color: var(--text-mid); font-style: italic; }
+
+/* counting prices on platte cards */
+.platte-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.4rem; margin-top: 1.5rem; }
+.platte-card { padding: 2rem; background: var(--cream-light); border: 1px solid rgba(201,169,110,.45); border-radius: 4px; }
+.platte-card h4 { font-size: var(--text-2xl); margin-bottom: .4rem; }
+.platte-card .pp-row { display: flex; gap: 2rem; margin: 1rem 0; }
+.platte-card .pp { font-family: var(--serif); font-weight: 700; color: var(--terracotta); font-size: var(--text-3xl); }
+.platte-card .pp small { display: block; font-family: var(--script-label); font-style: italic; font-size: .9rem; color: var(--text-muted); font-weight: 400; }
+.platte-card .pp-desc { font-style: italic; color: var(--text-muted); font-size: .98rem; }
+
+/* ============ ABOUT ============ */
+.about { background: var(--cream); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,6vw,5rem); align-items: center; position: relative; z-index:1; }
+.about-text p { color: var(--text-mid); font-size: var(--text-lg); margin-bottom: 1.4rem; max-width: 46ch; }
+.about-text .about-sign { font-style: italic; color: var(--caramel); font-size: var(--text-xl); }
+.about-art { display: flex; justify-content: center; }
+.about-art svg { width: min(380px, 90%); height: auto; color: var(--caramel); }
+
+.facts { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.6rem; margin-top: 4rem; }
+.fact { text-align: center; padding: 2rem 1.4rem; border-top: 2px solid var(--gold); }
+.fact .ico { color: var(--caramel); width: 40px; height: 40px; margin: 0 auto 1rem; }
+.fact h4 { font-family: var(--script-label); font-style: normal; letter-spacing: .14em; text-transform: uppercase; font-size: 1rem; color: var(--caramel); margin-bottom: .6rem; }
+.fact p { color: var(--text-mid); font-style: italic; font-size: .98rem; }
+
+/* ============ HOURS / LOCATION ============ */
+.visit { background: var(--chocolate); color: var(--cream); }
+.visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,6vw,5rem); position: relative; z-index:1; }
+.visit h2 { color: var(--cream); }
+.visit .eyebrow { color: var(--gold); }
+.visit .block-title { font-family: var(--script-label); font-style: normal; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-size: 1rem; margin-bottom: 1.4rem; }
+.hours-row { display: flex; justify-content: space-between; padding: .9rem 0; border-bottom: 1px solid rgba(201,169,110,.25); font-size: var(--text-lg); }
+.hours-row span:last-child { color: var(--gold); font-style: italic; }
+.hours-note { font-style: italic; color: var(--gold); margin-bottom: 1.5rem; }
+address.visit-addr { font-style: normal; font-size: var(--text-lg); line-height: 1.9; margin-bottom: 1.6rem; }
+address.visit-addr strong { font-family: var(--serif); font-size: var(--text-xl); display: block; margin-bottom: .3rem; }
+.map-stage {
+  position: relative; height: 260px; border-radius: 4px; overflow: hidden;
+  background:
+    linear-gradient(rgba(201,169,110,.08) 1px, transparent 1px) 0 0 / 100% 38px,
+    linear-gradient(90deg, rgba(201,169,110,.08) 1px, transparent 1px) 0 0 / 46px 100%,
+    #20110a;
+  border: 1px solid rgba(201,169,110,.3); margin-bottom: 1.2rem;
+}
+.map-road { position: absolute; background: rgba(201,169,110,.16); }
+.map-r1 { top: 46%; left: 0; right: 0; height: 14px; }
+.map-r2 { top: 0; bottom: 0; left: 38%; width: 12px; transform: rotate(8deg); }
+.map-r3 { top: 0; bottom: 0; right: 26%; width: 9px; }
+.map-pin {
+  position: absolute; left: 38%; top: 46%; transform: translate(-50%,-100%);
+  color: var(--terracotta); width: 34px; height: 44px;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.5));
+}
+.map-pin::after {
+  content:''; position:absolute; left:50%; bottom:-6px; transform:translateX(-50%);
+  width: 22px; height: 7px; border-radius: 50%; background: rgba(0,0,0,.35);
+}
+.map-label { position: absolute; left: 38%; top: 46%; transform: translate(14px, 6px); font-family: var(--script-label); font-style: italic; color: var(--gold); font-size: 1rem; }
+.btn-maps {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid var(--gold); color: var(--gold); padding: .7rem 1.4rem;
+  border-radius: 2px; font-size: .95rem; transition: background .3s, color .3s;
+}
+.btn-maps:hover { background: var(--gold); color: var(--chocolate); }
+.maps-hint { font-size: var(--text-xs); color: rgba(245,237,224,.55); margin-top: .8rem; font-style: italic; max-width: 36ch; }
+
+.visit-cta { text-align: center; margin-top: clamp(3rem,7vw,5rem); position: relative; z-index: 1; }
+.visit-cta h3 { font-family: var(--serif); font-style: italic; font-weight: 600; color: var(--cream); font-size: clamp(2rem,5vw,3.4rem); }
+.visit-cta p { color: var(--gold); font-style: italic; margin-top: 1rem; letter-spacing: .04em; }
+
+/* ============ FOOTER ============ */
+footer.site-footer { background: var(--cream-dark); padding: 2.6rem clamp(1.2rem,5vw,4rem); }
+.footer-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.4rem; }
+.footer-logo { font-family: var(--logo); font-size: 1.6rem; color: var(--caramel); }
+.footer-logo small { font-family: var(--script-label); font-style: italic; letter-spacing: .2em; text-transform: uppercase; font-size: .6rem; color: var(--text-muted); display: block; margin-bottom: -.4rem; }
+.footer-links { display: flex; gap: 1.6rem; justify-content: center; flex-wrap: wrap; }
+.footer-links a { font-size: .9rem; color: var(--text-mid); transition: color .3s; }
+.footer-links a:hover { color: var(--terracotta); }
+.footer-social { display: flex; gap: 1rem; justify-content: flex-end; }
+.footer-social a { color: var(--caramel); transition: color .3s, transform .3s; }
+.footer-social a:hover { color: var(--terracotta); transform: translateY(-2px); }
+.footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid rgba(139,94,60,.18); font-size: var(--text-xs); color: var(--text-muted); }
+
+/* ============ COOKIE BANNER ============ */
+.cookie {
+  position: fixed; left: 50%; bottom: 1.2rem; transform: translateX(-50%) translateY(150%);
+  width: min(680px, calc(100vw - 2rem)); z-index: 9500;
+  background: var(--chocolate); color: var(--cream); border-radius: 6px;
+  padding: 1.3rem 1.5rem; display: flex; align-items: center; gap: 1.4rem;
+  box-shadow: 0 20px 50px -18px rgba(0,0,0,.6); transition: transform .5s cubic-bezier(.7,0,.2,1);
+}
+.cookie.show { transform: translateX(-50%) translateY(0); }
+.cookie p { font-size: .92rem; line-height: 1.55; flex: 1; }
+.cookie .btn-cookie { background: var(--terracotta); color: var(--cream); padding: .7rem 1.5rem; border-radius: 3px; font-family: var(--body); font-size: .92rem; transition: background .3s; white-space: nowrap; }
+.cookie .btn-cookie:hover { background: var(--gold); color: var(--chocolate); }
+
+/* ============ DARK WORLDS VARIANT ============ */
+.worlds.dark { background: var(--chocolate); }
+.worlds.dark h2 { color: var(--cream); }
+.worlds.dark .eyebrow { color: var(--gold); }
+.worlds.dark .bignum { color: var(--gold); }
+.worlds.dark .world-card {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(201,169,110,.18);
+}
+.worlds.dark .world-card:hover {
+  background: rgba(201,169,110,.12);
+  box-shadow: 0 24px 48px -22px rgba(0,0,0,.55);
+}
+.worlds.dark .world-card h3 { color: var(--cream); }
+.worlds.dark .world-card p { color: rgba(245,237,224,.62); }
+.worlds.dark .world-card .ico { color: var(--gold); }
+.worlds.dark .world-card .kicker { color: rgba(201,169,110,.75); }
+.worlds.dark .world-card .world-num { color: var(--gold); }
+
+/* ============ MENU TEASER (replaces tabbed menu on main page) ============ */
+.menu-teaser { background: var(--chocolate); text-align: center; }
+.menu-teaser .eyebrow { color: var(--gold); }
+.menu-teaser .section-title { color: var(--cream); }
+.menu-teaser .teaser-body { color: rgba(245,237,224,.62); font-style: italic; max-width: 46ch; margin: 0 auto 2rem; font-size: var(--text-lg); }
+.cat-pills {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem;
+  margin: 1.8rem auto 2.8rem; max-width: 700px; position: relative; z-index: 1;
+}
+.cat-pill {
+  font-family: var(--script-label); font-style: italic; font-size: .98rem;
+  color: rgba(201,169,110,.8); padding: .4rem .95rem;
+  border: 1px solid rgba(201,169,110,.28); border-radius: 2px;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.cat-pill:hover { background: rgba(201,169,110,.14); color: var(--gold); border-color: rgba(201,169,110,.5); }
+.btn-menu-open {
+  display: inline-flex; align-items: center; gap: .65rem;
+  background: var(--terracotta); color: var(--cream);
+  font-family: var(--body); font-weight: 500; font-size: 1.1rem;
+  padding: 1.15rem 2.8rem; border-radius: 2px; letter-spacing: .02em;
+  box-shadow: 0 12px 32px -14px rgba(196,105,58,.65);
+  transition: background .3s, transform .3s, box-shadow .3s;
+  position: relative; z-index: 1;
+}
+.btn-menu-open:hover { background: #a8551e; transform: translateY(-2px); box-shadow: 0 18px 40px -16px rgba(196,105,58,.8); }
+
+/* ============ GOOGLE MAPS GDPR WIDGET ============ */
+.map-consent {
+  position: relative; height: 260px; border-radius: 4px; overflow: hidden;
+  border: 1px solid rgba(201,169,110,.3); margin-bottom: 1.2rem;
+}
+.map-placeholder {
+  position: absolute; inset: 0;
+  background: #1a0e08;
+  background-image:
+    linear-gradient(rgba(201,169,110,.07) 1px, transparent 1px) 0 0 / 100% 38px,
+    linear-gradient(90deg, rgba(201,169,110,.07) 1px, transparent 1px) 0 0 / 46px 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 1rem; text-align: center; padding: 1.5rem;
+  transition: opacity .5s;
+}
+.map-placeholder p { font-size: .86rem; color: rgba(245,237,224,.5); font-style: italic; max-width: 30ch; line-height: 1.55; }
+.btn-load-map {
+  background: var(--terracotta); color: var(--cream);
+  font-family: var(--body); font-size: .9rem; padding: .65rem 1.4rem;
+  border-radius: 2px; transition: background .3s; cursor: pointer;
+}
+.btn-load-map:hover { background: #a8551e; }
+.map-frame-wrap {
+  position: absolute; inset: 0; display: none;
+  filter: sepia(30%) saturate(55%) brightness(0.85) hue-rotate(-10deg) contrast(1.08);
+}
+.map-frame-wrap iframe { width: 100%; height: 100%; border: 0; }
+.map-consent.loaded .map-placeholder { opacity: 0; pointer-events: none; }
+.map-consent.loaded .map-frame-wrap { display: block; }
+
+/* ============ REVEAL DEFAULT (pre-GSAP guard) ============ */
+.reveal { opacity: 0; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { display: none; }
+  .float-ornament { right: 4%; top: auto; bottom: 8%; opacity: .12; }
+  .sig-grid { grid-template-columns: repeat(2, 1fr); }
+  .sig-card.tall { grid-row: span 1; }
+}
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .open-badge { font-size: .75rem; padding: .3rem .65rem; }
+  .hamburger { display: flex; }
+  nav.site-nav { grid-template-columns: 1fr auto; }
+  .worlds-grid { grid-template-columns: 1fr; }
+  .sig-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .sig-card { min-height: 12rem; }
+  .menu-grid { grid-template-columns: 1fr; gap: 0; }
+  .platte-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-art { order: -1; }
+  .facts { grid-template-columns: 1fr; }
+  .visit-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .footer-social { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- A11Y: Focus-Styles für Keyboard-Navigation in :focus-visible global ergänzen -->
+<div id="progress"></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="site-nav" aria-label="Hauptnavigation">
+  <a href="#hero" class="logo-lockup" aria-label="Café Mirabelle Startseite">
+    <span class="l-cafe">Café</span>
+    <span class="l-name">Mirabelle</span>
+  </a>
+  <div class="nav-links">
+    <a href="menu.html" class="nav-link">Karte</a>
+    <a href="menu.html#fruehstueck" class="nav-link">Frühstück</a>
+    <a href="#ueber-uns" class="nav-link">Über uns</a>
+    <a href="#kontakt" class="nav-link">Kontakt</a>
+  </div>
+  <div class="nav-right">
+    <span id="open-badge" class="open-badge" aria-live="polite"></span>
+    <a href="menu.html" class="nav-cta">Speisekarte</a>
+    <button class="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-overlay" aria-hidden="true">
+  <a href="menu.html">Karte</a>
+  <a href="menu.html#fruehstueck">Frühstück</a>
+  <a href="#ueber-uns">Über uns</a>
+  <a href="#kontakt">Kontakt</a>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero" aria-label="Willkommen bei Café Mirabelle">
+  <div class="hero-content">
+    <span class="hero-addr" data-hero="addr">Marktstraße 54 · Landau in der Pfalz</span>
+    <h1>
+      <span class="line"><span data-hero="l1">Wo jeder</span></span>
+      <span class="line"><span data-hero="l2">Morgen ein</span></span>
+      <span class="line"><span data-hero="l3">Moment wird.</span></span>
+    </h1>
+    <p class="hero-tag" data-hero="tag">Bequem. Warm. Elegant.</p>
+    <p class="hero-body" data-hero="body">Specialty Coffee. Orientalisches Frühstück. Hausgemachte Limonaden. Täglich frisch.</p>
+    <div class="hero-ctas" data-hero="cta">
+      <a href="menu.html" class="btn-primary">Speisekarte entdecken <span aria-hidden="true">→</span></a>
+      <a href="#ueber-uns" class="btn-ghost">Über das Café ↓</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <!-- Arch-Form, erinnert an den Rahmen der Speisekarte -->
+    <svg class="hero-arch" data-hero="arch" viewBox="0 0 460 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M40 600 V230 C40 124 125 38 230 38 C335 38 420 124 420 230 V600" stroke="currentColor" stroke-width="2" opacity="0.55"/>
+      <path d="M70 600 V232 C70 140 142 68 230 68 C318 68 390 140 390 232 V600" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+      <!-- Çay-Glas / Tasse Silhouette in der Arch -->
+      <g opacity="0.5" stroke="currentColor" stroke-width="2" fill="none" transform="translate(230,330)">
+        <path d="M-46 -36 H46 L38 70 C36 86 24 96 6 96 H-6 C-24 96 -36 86 -38 70 Z"/>
+        <path d="M46 -20 C78 -20 84 30 50 38"/>
+        <path d="M-34 -54 C-30 -66 -24 -66 -20 -54 M-2 -58 C2 -72 8 -72 12 -58 M24 -52 C28 -64 34 -64 38 -52" opacity="0.7"/>
+      </g>
+    </svg>
+  </div>
+  <!-- Floating parallax ornament (Kaffeebohnen-Zweig) -->
+  <svg class="float-ornament" id="floatOrn" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M100 270 C100 200 100 120 100 40" stroke="currentColor" stroke-width="3"/>
+    <g stroke="currentColor" stroke-width="2.5" fill="none">
+      <path d="M100 90 C60 80 36 100 30 134 C70 140 96 122 100 90Z"/>
+      <path d="M100 130 C140 120 164 140 170 174 C130 180 104 162 100 130Z"/>
+      <path d="M100 168 C66 160 46 178 42 206 C76 212 96 196 100 168Z"/>
+      <path d="M100 50 C124 44 144 58 150 84 C118 90 100 76 100 50Z"/>
+    </g>
+    <ellipse cx="60" cy="244" rx="13" ry="20" stroke="currentColor" stroke-width="2.5" transform="rotate(-22 60 244)"/>
+    <path d="M55 230 L66 258" stroke="currentColor" stroke-width="1.5" transform="rotate(-22 60 244)"/>
+    <ellipse cx="138" cy="232" rx="13" ry="20" stroke="currentColor" stroke-width="2.5" transform="rotate(24 138 232)"/>
+    <path d="M133 218 L144 246" stroke="currentColor" stroke-width="1.5" transform="rotate(24 138 232)"/>
+  </svg>
+</section>
+
+<!-- ============ DREI WELTEN ============ -->
+<section class="worlds dark section-pad" id="welten" aria-label="Drei Welten unter einem Dach">
+  <span class="bignum" style="top:-1rem; left:1rem;">01</span>
+  <div style="text-align:center; max-width:680px; margin:0 auto;">
+    <span class="eyebrow reveal">Drei Welten unter einem Dach</span>
+    <h2 class="section-title reveal">Ein Café, drei Traditionen.</h2>
+  </div>
+  <div class="worlds-grid">
+    <article class="world-card">
+      <span class="world-num">01</span>
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 18h26v10a10 10 0 0 1-10 10h-6A10 10 0 0 1 8 28z"/><path d="M34 20h4a6 6 0 0 1 0 12h-3"/><path d="M14 10c0-2 2-2 2-4M22 10c0-2 2-2 2-4M30 10c0-2 2-2 2-4"/></svg>
+      <span class="kicker">01</span>
+      <h3>Specialty Coffee</h3>
+      <p>Vom Espresso bis zum Iced Matcha Latte — jede Tasse mit Präzision zubereitet.</p>
+    </article>
+    <article class="world-card">
+      <span class="world-num">02</span>
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="18"/><circle cx="24" cy="24" r="9"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6"/></svg>
+      <span class="kicker">02</span>
+      <h3>Orientalisches Frühstück</h3>
+      <p>Çay, Menemen, Simit, Kaymak mit Honig — die Wärme Anatoliens, jeden Morgen.</p>
+    </article>
+    <article class="world-card">
+      <span class="world-num">03</span>
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 42c12-2 16-12 16-24 0-4-1-8-1-8s-6 1-12 5C20 19 16 25 16 33"/><path d="M8 22c-2 8 2 16 10 18M30 14c-6 4-10 10-12 18"/></svg>
+      <span class="kicker">03</span>
+      <h3>Frische Bowls &amp; mehr</h3>
+      <p>Joghurt Bowls, Sauerteigbrote, Mocktails — für alle, die gut essen wollen.</p>
+    </article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 420 28" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 14h180"/><path d="M420 14H240"/><path d="M210 4l10 10-10 10-10-10z" fill="currentColor" stroke="none"/><circle cx="186" cy="14" r="2.5" fill="currentColor" stroke="none"/><circle cx="234" cy="14" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- ============ SIGNATURE ITEMS ============ -->
+<section class="sig section-pad" id="lieblinge" aria-label="Unsere Lieblinge">
+  <span class="bignum" style="top:-2rem; right:2rem;">02</span>
+  <div class="sig-head">
+    <span class="eyebrow reveal">Signature</span>
+    <h2 class="section-title reveal">Unsere Lieblinge</h2>
+    <p class="reveal">Sechs Dinge, für die man wiederkommt — von der orientalischen Platte bis zum Sunrise Mocktail.</p>
+  </div>
+  <div class="sig-grid">
+    <article class="sig-card tall" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="24" cy="24" r="20"/><path d="M12 24h24M24 12v24" stroke-width="1.5"/></svg>
+      <span class="s-label">Frühstück</span>
+      <h3 class="s-name">Orientalische Platte</h3>
+      <p class="s-desc">Frisches Gemüse, Hummus, Falafel, Kaşar-Käse, Oliven, Avocadocreme, Konfitüre, Honig, Geflügelsalami, Çay — für einen oder für zwei.</p>
+      <span class="s-price">12,90 € · 1 Person &nbsp;|&nbsp; 22,90 € · 2 Personen</span>
+    </article>
+    <article class="sig-card" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 16h24v8a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/><path d="M34 18h3a5 5 0 0 1 0 10h-2"/></svg>
+      <span class="s-label">Kaffee</span>
+      <h3 class="s-name">Flat White</h3>
+      <p class="s-desc">Doppelter Ristretto, aufgeschäumte Vollmilch — der direkteste Weg zu einem guten Morgen.</p>
+      <span class="s-price">4,50 € / 6,00 €</span>
+    </article>
+    <article class="sig-card" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 20h20l-2 16a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4z"/><path d="M18 20c0-6 2-10 6-10s6 4 6 10"/></svg>
+      <span class="s-label">Matcha</span>
+      <h3 class="s-name">Iced Matcha Latte</h3>
+      <p class="s-desc">Zeremonielles Matcha, eisgekühlt, optional mit Vanille, Erdbeere, Mango oder Maracuja.</p>
+      <span class="s-price">5,50 €</span>
+    </article>
+    <article class="sig-card" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 22a16 16 0 0 0 32 0z"/><path d="M8 22h32"/><path d="M24 22V8"/></svg>
+      <span class="s-label">Bowl</span>
+      <h3 class="s-name">Berry Bliss Bowl</h3>
+      <p class="s-desc">Griechischer Joghurt, Beeren, Granola, Chiasamen, Kokoschips, Pistaziencreme, Honig &amp; Minze.</p>
+      <span class="s-price">10,90 €</span>
+    </article>
+    <article class="sig-card" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 28c0-8 6-14 16-14s16 6 16 14z"/><path d="M8 28h32v4a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z"/></svg>
+      <span class="s-label">Sauerteig</span>
+      <h3 class="s-name">Salmon Avocado Bread</h3>
+      <p class="s-desc">Räucherlachs, Avocado, Frischkäse, Rucola — auf unserem Signature-Sauerteig.</p>
+      <span class="s-price">11,90 €</span>
+    </article>
+    <article class="sig-card" data-tilt>
+      <svg class="s-glyph" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 14h16l-3 26a3 3 0 0 1-3 3h-4a3 3 0 0 1-3-3z"/><path d="M14 14h20" stroke-width="2.5"/></svg>
+      <span class="s-label">Mocktail</span>
+      <h3 class="s-name">Sunrise Mocktail</h3>
+      <p class="s-desc">Orange, Grenadine, spritzige Zitrusnoten — alkoholfrei, kompromisslos gut.</p>
+      <span class="s-price">6,50 €</span>
+    </article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 420 28" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 14h180"/><path d="M420 14H240"/><path d="M210 4l10 10-10 10-10-10z" fill="currentColor" stroke="none"/><circle cx="186" cy="14" r="2.5" fill="currentColor" stroke="none"/><circle cx="234" cy="14" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- ============ SPEISEKARTE CTA ============ -->
+<section class="menu-teaser section-pad" id="speisekarte" aria-label="Speisekarte entdecken">
+  <span class="bignum" style="top:-2rem; left:1rem;">03</span>
+  <div style="position:relative; z-index:1;">
+    <span class="eyebrow reveal">Die Karte</span>
+    <h2 class="section-title reveal" style="margin-bottom:1rem;">Alles, frisch<br>gemacht.</h2>
+    <p class="teaser-body reveal">Von Specialty Coffee bis zum orientalischen Frühstück. Hausgemachte Limonaden, Joghurt Bowls, Sauerteigbrote, Mocktails — täglich frisch zubereitet.</p>
+    <div class="cat-pills reveal" aria-hidden="true">
+      <span class="cat-pill">Kaffee</span>
+      <span class="cat-pill">Tee & Chai</span>
+      <span class="cat-pill">Matcha</span>
+      <span class="cat-pill">Limonaden</span>
+      <span class="cat-pill">Spritz</span>
+      <span class="cat-pill">Mocktails</span>
+      <span class="cat-pill">Bowls</span>
+      <span class="cat-pill">Sauerteigbrote</span>
+      <span class="cat-pill">Classics</span>
+      <span class="cat-pill">Frühstück</span>
+      <span class="cat-pill">Beilagen</span>
+      <span class="cat-pill">Kuchen</span>
+    </div>
+    <a href="menu.html" class="btn-menu-open reveal">
+      Speisekarte öffnen <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 420 28" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 14h180"/><path d="M420 14H240"/><path d="M210 4l10 10-10 10-10-10z" fill="currentColor" stroke="none"/><circle cx="186" cy="14" r="2.5" fill="currentColor" stroke="none"/><circle cx="234" cy="14" r="2.5" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- ============ ÜBER UNS ============ -->
+<section class="about section-pad" id="ueber-uns" aria-label="Über das Café">
+  <span class="bignum" style="top:-2rem; right:1rem;">04</span>
+  <div class="about-grid">
+    <div class="about-text">
+      <span class="eyebrow reveal">Über uns</span>
+      <h2 class="section-title reveal" style="margin-bottom:1.6rem;">Ein Ort zwischen<br>Welten.</h2>
+      <p class="reveal">Café Mirabelle ist kein gewöhnliches Café. Es ist ein Ort, an dem der Duft von frisch gebrühtem Espresso auf das Aroma von Çay trifft. Wo knuspriges Sauerteigbrot neben warmem Simit liegt. Wo man morgens um acht mit dem Laptop sitzt und sonntags um elf mit der ganzen Familie frühstückt.</p>
+      <p class="reveal">Wir haben ein Café gebaut, das sich anfühlt wie ein gut eingerichtetes Wohnzimmer — bequem, warm und ein bisschen elegant.</p>
+      <p class="about-sign reveal">Bequem. Warm. Elegant.<br>Marktstraße 54, Landau in der Pfalz.</p>
+    </div>
+    <div class="about-art reveal" aria-hidden="true">
+      <svg viewBox="0 0 360 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 460 V180 C30 96 97 30 180 30 C263 30 330 96 330 180 V460" stroke="currentColor" stroke-width="2"/>
+        <path d="M54 460 V182 C54 110 110 54 180 54 C250 54 306 110 306 182 V460" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+        <!-- Çay-Glas -->
+        <g transform="translate(180,250)" stroke="currentColor" stroke-width="2.4" fill="none">
+          <path d="M-40 -70 C-46 -34 -34 70 -28 100 C-26 112 -14 120 0 120 C14 120 26 112 28 100 C34 70 46 -34 40 -70 Z"/>
+          <path d="M-40 -70 H40" stroke-width="1.6"/>
+          <path d="M-60 110 H60" stroke-width="2"/>
+          <ellipse cx="0" cy="118" rx="56" ry="9" stroke-width="1.4" opacity="0.5"/>
+          <path d="M40 -20 C70 -16 72 40 44 48" stroke-width="1.8"/>
+          <!-- Dampf -->
+          <path d="M-14 -92 C-10 -104 -18 -110 -14 -122 M2 -94 C6 -106 -2 -112 2 -124 M18 -90 C22 -102 14 -108 18 -120" stroke-width="1.6" opacity="0.6"/>
+        </g>
+        <!-- kleine Blattranke unten -->
+        <g transform="translate(180,400)" stroke="currentColor" stroke-width="1.6" fill="none" opacity="0.7">
+          <path d="M-70 0 C-40 -12 -10 -8 0 0 C10 -8 40 -12 70 0"/>
+          <path d="M-40 -7 c-6 -10 -16 -10 -22 -2 c8 6 18 4 22 2Z"/>
+          <path d="M40 -7 c6 -10 16 -10 22 -2 c-8 6 -18 4 -22 2Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="facts">
+    <div class="fact reveal">
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 18h24v8a10 10 0 0 1-10 10h-4a10 10 0 0 1-10-10z"/><path d="M34 20h3a5 5 0 0 1 0 10h-2"/></svg>
+      <h4>Specialty Coffee</h4>
+      <p>Von der Bohne bis zur perfekten Crema.</p>
+    </div>
+    <div class="fact reveal">
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 40S8 30 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 11-16 21-16 21z"/></svg>
+      <h4>Hausgemacht</h4>
+      <p>Limonaden, Bowls und Frühstück — alles mit Liebe.</p>
+    </div>
+    <div class="fact reveal">
+      <svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 42c12-2 16-12 16-24 0-4-1-8-1-8s-6 1-12 5C20 19 16 25 16 33"/><path d="M10 24c-2 6 1 13 8 16"/></svg>
+      <h4>Täglich frisch</h4>
+      <p>Kuchen, Frühstück und Spezialitäten — jeden Morgen neu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ÖFFNUNGSZEITEN & STANDORT ============ -->
+<section class="visit section-pad" id="kontakt" aria-label="Öffnungszeiten und Standort">
+  <span class="bignum" style="top:-2rem; left:1rem; opacity:.06;">05</span>
+  <div class="visit-grid">
+    <div>
+      <span class="eyebrow reveal">Besuch uns</span>
+      <h2 class="section-title reveal" style="margin-bottom:2rem;">Öffnungszeiten</h2>
+      <div class="reveal">
+        <div class="hours-row" data-days="1,2,3,4,5"><span>Montag – Freitag</span><span>8:30 – 23:00 Uhr</span></div>
+        <div class="hours-row" data-days="6"><span>Samstag</span><span>8:30 – 24:00 Uhr</span></div>
+        <div class="hours-row" data-days="0"><span>Sonntag</span><span>9:00 – 22:00 Uhr</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 class="block-title reveal" style="margin-top:.4rem;">Adresse</h3>
+      <address class="visit-addr reveal">
+        <strong>Café Mirabelle</strong>
+        Marktstraße 54<br>
+        76829 Landau in der Pfalz
+      </address>
+      <div class="map-consent reveal" id="mapConsent" aria-label="Kartenbereich — Marktstraße 54, Landau in der Pfalz">
+        <div class="map-placeholder" id="mapPlaceholder">
+          <svg width="28" height="36" viewBox="0 0 34 44" fill="var(--terracotta)" aria-hidden="true"><path d="M17 0C8 0 1 7 1 16c0 11 16 28 16 28s16-17 16-28C33 7 26 0 17 0z"/><circle cx="17" cy="16" r="6" fill="#20110a"/></svg>
+          <p>Karte von Google Maps laden. Dabei werden Daten an Google übertragen.</p>
+          <button class="btn-load-map" onclick="loadMap()">Karte laden</button>
+        </div>
+        <div class="map-frame-wrap" id="mapFrame"></div>
+      </div>
+      <a class="btn-maps" href="https://www.google.com/maps/search/?api=1&query=Marktstra%C3%9Fe+54+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-7.5 7-12a7 7 0 0 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        In Google Maps öffnen
+      </a>
+      <p class="maps-hint">Beim Öffnen der Karte gelten die Datenschutzbestimmungen von Google.</p>
+    </div>
+  </div>
+  <div class="visit-cta">
+    <h3 class="reveal">„Wir freuen uns auf Sie.“</h3>
+    <p class="reveal">Bald eröffnet · Marktstraße 54 · Landau in der Pfalz</p>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" aria-label="Footer">
+  <div class="footer-grid">
+    <a href="#hero" class="footer-logo"><small>Café</small>Mirabelle</a>
+    <nav class="footer-links" aria-label="Rechtliches">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="#" id="cookieSettings">Cookie-Einstellungen</a>
+    </nav>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 3h-3a4 4 0 0 0-4 4v3H5v4h3v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+    </div>
+  </div>
+  <p class="footer-bottom">Alle Preise inkl. MwSt. · © 2025 Café Mirabelle · Landau in der Pfalz</p>
+</footer>
+
+<!-- ============ COOKIE BANNER ============ -->
+<div class="cookie" id="cookieBanner" role="dialog" aria-label="Cookie-Hinweis">
+  <p>Diese Website verwendet keine Tracking-Cookies. Wir nutzen nur technisch notwendige Cookies für die Grundfunktion.</p>
+  <button class="btn-cookie" id="cookieAccept">Verstanden</button>
+</div>
+
+<!-- GSAP via CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+/* ============================================================
+   GOOGLE MAPS LOADER (DSGVO 2-Klick)
+   ============================================================ */
+function loadMap() {
+  const consent = document.getElementById('mapConsent');
+  const frame = document.getElementById('mapFrame');
+  frame.innerHTML = '<iframe src="https://maps.google.com/maps?q=Marktstra%C3%9Fe+54%2C+76829+Landau+in+der+Pfalz&output=embed&z=16" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="Café Mirabelle auf Google Maps"></iframe>';
+  consent.classList.add('loaded');
+}
+</script>
+
+<script>
+/* ============================================================
+   INTERACTIVE CHROME
+   ============================================================ */
+
+/* ---- Scroll progress bar ---- */
+const progress = document.getElementById('progress');
+function updateProgress(){
+  const h = document.documentElement.scrollHeight - innerHeight;
+  progress.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+}
+
+/* ---- Navbar transform ---- */
+const nav = document.querySelector('.site-nav');
+function updateNav(){ nav.classList.toggle('scrolled', scrollY > 80); }
+
+/* ---- Parallax ornament ---- */
+const floatOrn = document.getElementById('floatOrn');
+function updateParallax(){ if (floatOrn) floatOrn.style.transform = `translateY(${scrollY * 0.25}px)`; }
+
+let ticking = false;
+addEventListener('scroll', () => {
+  if (!ticking){ requestAnimationFrame(() => {
+    updateProgress(); updateNav(); updateParallax(); ticking = false;
+  }); ticking = true; }
+}, { passive:true });
+updateProgress(); updateNav();
+
+/* ---- Mobile menu ---- */
+const burger = document.querySelector('.hamburger');
+const overlay = document.querySelector('.mobile-overlay');
+burger.addEventListener('click', () => {
+  const open = burger.classList.toggle('open');
+  overlay.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open);
+  overlay.setAttribute('aria-hidden', !open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open'); overlay.classList.remove('open');
+  burger.setAttribute('aria-expanded', false); document.body.style.overflow = '';
+}));
+
+/* ---- Öffnungszeiten-Status ---- */
+(function updateOpenStatus() {
+  const HOURS = {
+    0: { open: [9,0],  close: [22,0] },   // Sonntag
+    1: { open: [8,30], close: [23,0] },   // Mo
+    2: { open: [8,30], close: [23,0] },
+    3: { open: [8,30], close: [23,0] },
+    4: { open: [8,30], close: [23,0] },
+    5: { open: [8,30], close: [23,0] },   // Fr
+    6: { open: [8,30], close: [24,0] }    // Sa (24:00 = Mitternacht)
+  };
+  function toMins(h,m){ return h*60+m; }
+  function run() {
+    const now = new Date();
+    const day  = now.getDay();
+    const cur  = toMins(now.getHours(), now.getMinutes());
+    const h    = HOURS[day];
+    const openMin  = toMins(...h.open);
+    const closeMin = toMins(...h.close);
+
+    const badge = document.getElementById('open-badge');
+    let state, text;
+    if (cur >= openMin && cur < closeMin) {
+      state = 'is-open'; text = 'Jetzt geöffnet';
+    } else {
+      // check if opening within 60 min today OR tomorrow
+      let minsUntilOpen = openMin - cur;
+      if (minsUntilOpen <= 0) {
+        const tomorrow = (day + 1) % 7;
+        minsUntilOpen = toMins(...HOURS[tomorrow].open) + (24*60 - cur);
+      }
+      if (minsUntilOpen > 0 && minsUntilOpen <= 60) {
+        state = 'is-open'; text = 'Jetzt geöffnet';
+      } else {
+        state = 'is-closed'; text = 'Jetzt geschlossen';
+      }
+    }
+    badge.className = 'open-badge ' + state;
+    badge.textContent = text;
+
+    // Highlight today's row
+    document.querySelectorAll('.hours-row[data-days]').forEach(row => {
+      const days = row.dataset.days.split(',').map(Number);
+      row.classList.toggle('today', days.includes(day));
+    });
+  }
+  run();
+  // refresh every minute
+  setInterval(run, 60000);
+})();
+
+/* ---- Cookie banner ---- */
+const banner = document.getElementById('cookieBanner');
+if (!localStorage.getItem('mirabelle_cookie_accepted')){
+  setTimeout(() => banner.classList.add('show'), 1400);
+}
+document.getElementById('cookieAccept').addEventListener('click', () => {
+  localStorage.setItem('mirabelle_cookie_accepted', 'true');
+  banner.classList.remove('show');
+});
+document.getElementById('cookieSettings').addEventListener('click', e => {
+  e.preventDefault(); banner.classList.add('show');
+});
+</script>
+
+<script>
+/* ============================================================
+   GSAP ANIMATIONS
+   ============================================================ */
+gsap.registerPlugin(ScrollTrigger);
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (reduceMotion){
+  gsap.set('.reveal', { opacity:1 });
+} else {
+  /* ---- Hero load sequence ---- */
+  const q = s => document.querySelector(s);
+  gsap.set('[data-hero]', { opacity:0 });
+  const tl = gsap.timeline({ delay:.25 });
+  tl.fromTo('[data-hero="addr"]', {y:-20}, {y:0, opacity:1, duration:.6, ease:'power2.out'}, 0)
+    .fromTo('[data-hero="l1"]', {y:60}, {y:0, opacity:1, duration:.8, ease:'power3.out'}, 0.2)
+    .fromTo('[data-hero="l2"]', {y:60}, {y:0, opacity:1, duration:.8, ease:'power3.out'}, 0.35)
+    .fromTo('[data-hero="l3"]', {y:60}, {y:0, opacity:1, duration:.8, ease:'power3.out'}, 0.5)
+    .fromTo('[data-hero="tag"]', {y:14}, {y:0, opacity:1, duration:.7}, 0.7)
+    .fromTo('[data-hero="body"]', {y:14}, {y:0, opacity:1, duration:.7}, 0.9)
+    .fromTo('[data-hero="cta"]', {y:18}, {y:0, opacity:1, duration:.7}, 1.1)
+    .fromTo('[data-hero="arch"]', {scale:.8, transformOrigin:'50% 60%'}, {scale:1, opacity:1, duration:1.1, ease:'power2.out'}, 1.0)
+    .fromTo('#floatOrn', {opacity:0}, {opacity:.2, duration:1}, 1.0);
+
+  /* ---- Generic section reveals ---- */
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, { y:50, opacity:0 }, {
+      y:0, opacity:1, duration:.8, ease:'power2.out',
+      scrollTrigger: { trigger: el, start:'top 85%' }
+    });
+  });
+
+  /* ---- Staggered world cards (links → rechts) ---- */
+  gsap.fromTo('.world-card', { x:-40, opacity:0 }, {
+    x:0, opacity:1, duration:.7, stagger:.15, ease:'power2.out',
+    scrollTrigger: { trigger:'.worlds-grid', start:'top 80%' }
+  });
+
+  /* ---- Staggered signature cards ---- */
+  gsap.fromTo('.sig-card', { y:30, opacity:0 }, {
+    y:0, opacity:1, duration:.6, stagger:.1, ease:'power2.out',
+    scrollTrigger: { trigger:'.sig-grid', start:'top 80%' }
+  });
+
+  /* ---- Fact boxes ---- */
+  gsap.fromTo('.fact', { y:30, opacity:0 }, {
+    y:0, opacity:1, duration:.6, stagger:.12, ease:'power2.out',
+    scrollTrigger: { trigger:'.facts', start:'top 85%' }
+  });
+}
+
+/* ---- 3D tilt on signature cards (Desktop) ---- */
+if (matchMedia('(pointer: fine)').matches && !reduceMotion){
+  document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateX(${-y*8}deg) rotateY(${x*8}deg) translateY(-4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+}
+
+</script>
+
+</body>
+</html>

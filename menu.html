@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speisekarte — Café Mirabelle Landau</title>
+<meta name="description" content="Die vollständige Speisekarte von Café Mirabelle in Landau in der Pfalz — Kaffee, Tee, Matcha, Bowls, Frühstück, Mocktails und mehr.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.cafe-mirabelle-landau.de/menu.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Yellowtail&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream:        #F5EDE0;
+  --cream-dark:   #EDE0CF;
+  --cream-light:  #FAF6F0;
+  --caramel:      #8B5E3C;
+  --chocolate:    #2C1810;
+  --choc-mid:     #3D221A;
+  --terracotta:   #C4693A;
+  --gold:         #C9A96E;
+  --text-primary: #2C1810;
+  --text-mid:     #8B5E3C;
+  --text-muted:   #A07850;
+  --serif:  'Playfair Display', Georgia, serif;
+  --body:   'Lora', Georgia, serif;
+  --script: 'Cormorant Garamond', Georgia, serif;
+  --logo:   'Yellowtail', cursive;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--body);
+  color: var(--text-primary);
+  background: var(--cream);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04; pointer-events: none; z-index: 9990; mix-blend-mode: multiply;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+
+/* ---- SCROLL PROGRESS ---- */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: var(--terracotta); z-index: 10000;
+  box-shadow: 0 0 8px rgba(196,105,58,.4);
+}
+
+/* ---- HEADER ---- */
+.site-header {
+  position: sticky; top: 0; z-index: 1000;
+  background: var(--chocolate);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem clamp(1.2rem, 5vw, 4rem);
+  box-shadow: 0 4px 24px rgba(0,0,0,.3);
+}
+.header-logo { display: flex; flex-direction: column; line-height: 1; }
+.header-logo .l-cafe {
+  font-family: var(--script); letter-spacing: .42em; font-size: .65rem;
+  color: rgba(201,169,110,.7); text-transform: uppercase; padding-left: .2em;
+}
+.header-logo .l-name { font-family: var(--logo); font-size: 1.55rem; color: var(--gold); margin-top: -.1em; }
+
+.btn-back {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--body); font-size: .9rem;
+  color: rgba(245,237,224,.8); border: 1px solid rgba(201,169,110,.35);
+  padding: .5rem 1.2rem; border-radius: 2px;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.btn-back:hover { background: rgba(201,169,110,.15); color: var(--gold); border-color: var(--gold); }
+
+/* ---- INTRO ---- */
+.page-intro {
+  text-align: center;
+  padding: 3.5rem clamp(1.2rem,5vw,4rem) 2.5rem;
+  background: var(--choc-mid);
+  border-bottom: 1px solid rgba(201,169,110,.2);
+}
+.page-intro .eyebrow {
+  font-family: var(--script); font-style: italic; color: var(--gold);
+  font-size: 1.05rem; letter-spacing: .04em; display: block; margin-bottom: .5rem;
+}
+.page-intro h1 {
+  font-family: var(--serif); font-weight: 900; font-style: italic;
+  font-size: clamp(2.2rem, 6vw, 4rem); color: var(--cream); margin-bottom: .8rem; line-height: 1.05;
+}
+.page-intro p { font-style: italic; color: rgba(245,237,224,.6); max-width: 50ch; margin: 0 auto; }
+
+/* ---- CATEGORY NAV ---- */
+.cat-nav {
+  position: sticky; top: 62px; z-index: 900;
+  background: var(--chocolate);
+  border-bottom: 1px solid rgba(201,169,110,.2);
+}
+.cat-nav-inner {
+  display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 clamp(1.2rem, 5vw, 4rem);
+}
+.cat-nav-inner::-webkit-scrollbar { display: none; }
+.cat-tab {
+  flex: 0 0 auto; font-family: var(--body); font-size: .82rem;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(201,169,110,.65); padding: .9rem 1.1rem 1.35rem;
+  border-bottom: 2px solid transparent;
+  transition: color .25s, border-color .25s; white-space: nowrap;
+}
+.cat-tab:hover { color: var(--gold); }
+.cat-tab.active { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+
+/* ---- MENU SECTIONS ---- */
+.menu-section {
+  padding: clamp(3.5rem, 7vw, 6rem) clamp(1.2rem, 5vw, 4rem);
+  scroll-margin-top: 145px;
+}
+.menu-section:nth-child(odd) { background: var(--cream); }
+.menu-section:nth-child(even) { background: var(--cream-light); }
+
+.sec-header {
+  margin-bottom: 2.2rem;
+  display: flex; flex-direction: column; gap: .3rem;
+}
+.sec-num {
+  font-family: var(--script); font-style: italic; font-size: .88rem;
+  color: var(--text-muted); letter-spacing: .12em; display: block;
+}
+.sec-title {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3rem); color: var(--chocolate); line-height: 1.08;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(201,169,110,.35);
+  position: relative;
+}
+.sec-title::after {
+  content: ''; position: absolute; left: 0; bottom: -2px;
+  width: 52px; height: 2px; background: var(--terracotta);
+}
+.sec-note {
+  display: inline-flex; align-items: center; gap: .5rem;
+  margin-top: .4rem;
+  font-family: var(--script); font-style: italic; color: var(--caramel); font-size: .95rem;
+  padding: .45rem .9rem;
+  background: rgba(201,169,110,.12);
+  border-left: 2px solid var(--gold); border-radius: 0 3px 3px 0;
+}
+
+/* ---- MENU GRID ---- */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid rgba(139,94,60,.14);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Each item is a flex row: name | spacer | price */
+.m-item {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(139,94,60,.1);
+  background: transparent;
+  transition: background .18s ease;
+  position: relative;
+}
+/* Right border for left-column items */
+.m-item:nth-child(odd) {
+  border-right: 1px solid rgba(139,94,60,.1);
+}
+/* No bottom border on last two items */
+.m-item:nth-last-child(-n+2) { border-bottom: none; }
+.m-item:hover { background: rgba(201,169,110,.07); }
+
+/* Name + Price as a flex row inside the item */
+.m-item-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.m-name {
+  font-family: var(--serif); font-weight: 600; font-size: 1.08rem;
+  color: var(--chocolate); flex: 1; line-height: 1.3;
+}
+.m-dots { display: none; }
+.m-price {
+  font-family: var(--body); font-weight: 700;
+  color: var(--terracotta); white-space: nowrap; font-size: 1.05rem;
+  flex-shrink: 0;
+}
+.m-desc {
+  font-style: italic; color: var(--text-mid); font-size: .86rem;
+  margin-top: .35rem; line-height: 1.5;
+}
+
+/* ---- PLATTE CARDS ---- */
+.platte-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+.platte-card {
+  padding: 2rem; background: var(--cream-light);
+  border: 1px solid rgba(201,169,110,.45); border-radius: 4px;
+}
+.platte-card h3 { font-family: var(--serif); font-size: 1.5rem; color: var(--chocolate); margin-bottom: .5rem; }
+.platte-prices { display: flex; gap: 2.5rem; margin: 1rem 0; }
+.platte-price { font-family: var(--serif); font-weight: 700; color: var(--terracotta); font-size: 2rem; line-height: 1; }
+.platte-price small { display: block; font-family: var(--script); font-style: italic; font-size: .85rem; color: var(--text-muted); font-weight: 400; margin-top: .2rem; }
+.platte-desc { font-style: italic; color: var(--text-muted); font-size: .93rem; }
+
+/* ---- CAKE CARD ---- */
+.cake-card {
+  text-align: center; padding: 3.5rem 2rem;
+  border: 1.5px dashed rgba(139,94,60,.3); border-radius: 4px;
+  background: var(--cream-light); max-width: 560px; margin: 0 auto;
+}
+.cake-card h3 { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--chocolate); margin-bottom: .6rem; }
+.cake-card p { color: var(--text-mid); font-style: italic; }
+.cake-card .cake-ico {
+  width: 48px; height: 48px; color: var(--gold); margin: 0 auto 1.2rem;
+}
+
+/* ---- DIVIDER ---- */
+.divider { display: flex; align-items: center; justify-content: center; padding: 0; color: var(--gold); }
+.divider svg { width: min(300px, 60vw); height: 18px; }
+
+/* ---- FOOTER ---- */
+.site-footer {
+  background: var(--chocolate); color: var(--cream);
+  padding: 3rem clamp(1.2rem,5vw,4rem);
+  text-align: center;
+}
+.footer-logo { font-family: var(--logo); font-size: 2rem; color: var(--gold); margin-bottom: .8rem; display: block; }
+.footer-logo small { font-family: var(--script); font-style: italic; letter-spacing: .3em; text-transform: uppercase; font-size: .6rem; color: rgba(201,169,110,.6); display: block; margin-bottom: -.4rem; }
+.footer-links { display: flex; gap: 1.6rem; justify-content: center; flex-wrap: wrap; margin: 1rem 0 1.6rem; }
+.footer-links a { font-size: .88rem; color: rgba(245,237,224,.6); transition: color .3s; }
+.footer-links a:hover { color: var(--gold); }
+.footer-note { font-size: .78rem; color: rgba(245,237,224,.35); margin-bottom: 2rem; }
+.btn-back-footer {
+  display: inline-flex; align-items: center; gap: .55rem;
+  background: var(--terracotta); color: var(--cream);
+  font-family: var(--body); font-size: .95rem;
+  padding: .85rem 2rem; border-radius: 2px;
+  transition: background .3s, transform .3s;
+}
+.btn-back-footer:hover { background: var(--caramel, #8B5E3C); transform: translateY(-2px); }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .menu-grid { grid-template-columns: 1fr; gap: 0; }
+  .m-item:nth-child(odd) { border-right: none; }
+  .m-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(139,94,60,.1); }
+  .m-item:last-child { border-bottom: none; }
+  .platte-grid { grid-template-columns: 1fr; }
+  .cat-tab { padding: .8rem .85rem; font-size: .75rem; }
+  .page-intro { padding: 2.5rem 1.2rem 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="site-header">
+  <a href="index.html" class="header-logo" aria-label="Café Mirabelle — Startseite">
+    <span class="l-cafe">Café</span>
+    <span class="l-name">Mirabelle</span>
+  </a>
+  <a href="index.html" class="btn-back" aria-label="Zurück zur Startseite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Zurück
+  </a>
+</header>
+
+<div class="page-intro">
+  <span class="eyebrow">Café Mirabelle · Landau in der Pfalz</span>
+  <h1>Speisekarte</h1>
+  <p>Scroll durch alle Kategorien oder nutze die Navigation zum schnellen Springen.</p>
+</div>
+
+<nav class="cat-nav" aria-label="Kategorienavigation">
+  <div class="cat-nav-inner" id="catNavInner">
+    <a href="#kaffee"     class="cat-tab active" data-sec="kaffee">Kaffee</a>
+    <a href="#tee"        class="cat-tab" data-sec="tee">Tee & Chai</a>
+    <a href="#matcha"     class="cat-tab" data-sec="matcha">Matcha</a>
+    <a href="#kalt"       class="cat-tab" data-sec="kalt">Kaltgetränke</a>
+    <a href="#limonaden"  class="cat-tab" data-sec="limonaden">Limonaden</a>
+    <a href="#spritz"     class="cat-tab" data-sec="spritz">Spritz</a>
+    <a href="#mocktails"  class="cat-tab" data-sec="mocktails">Mocktails</a>
+    <a href="#bowls"      class="cat-tab" data-sec="bowls">Bowls</a>
+    <a href="#sauerteig"  class="cat-tab" data-sec="sauerteig">Sauerteigbrote</a>
+    <a href="#classics"   class="cat-tab" data-sec="classics">Classics</a>
+    <a href="#fruehstueck" class="cat-tab" data-sec="fruehstueck">Frühstück</a>
+    <a href="#beilagen"   class="cat-tab" data-sec="beilagen">Beilagen</a>
+    <a href="#kuchen"     class="cat-tab" data-sec="kuchen">Kuchen</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- 01 KAFFEE -->
+<section class="menu-section" id="kaffee" aria-label="Kaffee">
+  <div class="sec-header">
+    <span class="sec-num">01 — Heiße Spezialitäten</span>
+    <h2 class="sec-title">Kaffee</h2>
+    <span class="sec-note">Sahne, Hafer-, Soja-, Kokos- oder Mandelmilch +0,50 €</span>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Espresso</span><span class="m-price">2,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Doppelter Espresso</span><span class="m-price">3,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Espresso Macchiato</span><span class="m-price">2,80 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Kaffee</span><span class="m-price">3,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Americano</span><span class="m-price">3,00 € / 4,40 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Cappuccino</span><span class="m-price">3,40 € / 4,80 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Milchkaffee</span><span class="m-price">3,40 € / 4,80 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Latte Macchiato</span><span class="m-price">4,00 €</span></div></article>
+    <article class="m-item">
+      <div class="m-item-row"><span class="m-name">Latte Macchiato mit Aroma</span><span class="m-price">4,50 €</span></div>
+      <span class="m-desc">Vanille · Karamell · Haselnuss — auch Iced</span>
+    </article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Flat White</span><span class="m-price">4,50 € / 6,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Affogato</span><span class="m-price">6,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Eiscafé</span><span class="m-price">6,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Eisschokolade</span><span class="m-price">5,50 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 02 TEE & CHAI -->
+<section class="menu-section" id="tee" aria-label="Tee & Chai">
+  <div class="sec-header">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Tee & Chai</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Çay — Frischer Schwarztee</span><span class="m-price">2,00 €</span></div></article>
+    <article class="m-item">
+      <div class="m-item-row"><span class="m-name">Beuteltee</span><span class="m-price">3,50 €</span></div>
+      <span class="m-desc">Earl Grey · Grüner Tee · Kamille · Pfefferminze</span>
+    </article>
+    <article class="m-item">
+      <div class="m-item-row"><span class="m-name">Heiße Schokolade</span><span class="m-price">3,50 €</span></div>
+      <span class="m-desc">Zartbitter · Vollmilch · Weiße Schokolade</span>
+    </article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Classic Chai Latte</span><span class="m-price">4,20 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Vanille Chai Latte</span><span class="m-price">4,70 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Dirty Chai Latte</span><span class="m-price">5,20 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Iced Chai Latte</span><span class="m-price">4,90 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 03 MATCHA -->
+<section class="menu-section" id="matcha" aria-label="Matcha">
+  <div class="sec-header">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Matcha</h2>
+    <span class="sec-note">Aromen: Vanille · Erdbeere · Mango · Maracuja — je +0,50 €</span>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Hot Matcha</span><span class="m-price">4,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Iced Matcha Latte</span><span class="m-price">5,50 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 04 KALTGETRÄNKE -->
+<section class="menu-section" id="kalt" aria-label="Kaltgetränke">
+  <div class="sec-header">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Kaltgetränke</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Tafelwasser still/spritzig 0,35 l</span><span class="m-price">2,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Tafelwasser still/spritzig 0,7 l</span><span class="m-price">4,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Orangensaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Apfelsaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Traubensaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Johannisbeersaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Maracujasaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Rhabarbersaft</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">KiBa</span><span class="m-price">3,00 € / 4,50 €</span></div><span class="m-desc">Schorle: 2,80 € / 4,30 €</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Cola / Light / Zero 0,33 l</span><span class="m-price">3,40 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Fanta 0,33 l</span><span class="m-price">3,40 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Sprite 0,33 l</span><span class="m-price">3,40 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Mezzo Mix 0,33 l</span><span class="m-price">3,40 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Elephant Bay Eistee 0,33 l</span><span class="m-price">3,40 €</span></div><span class="m-desc">Pfirsich · Granatapfel · Zitrone · Blaubeere</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Orangina / Rouge 0,25 l</span><span class="m-price">3,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Thomas Henry 0,2 l</span><span class="m-price">3,50 €</span></div><span class="m-desc">Bitter Lemon · Ginger Ale · Tonic Water</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Sanbitter 0,1 l</span><span class="m-price">3,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Red Bull 0,25 l</span><span class="m-price">3,90 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 05 LIMONADEN -->
+<section class="menu-section" id="limonaden" aria-label="Hausgemachte Limonaden">
+  <div class="sec-header">
+    <span class="sec-num">05</span>
+    <h2 class="sec-title">Hausgemachte Limonaden</h2>
+    <span class="sec-note">Hausgemacht · 0,33 l — je 5,00 €</span>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Holunderblüte</span><span class="m-price">5,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Granatapfel</span><span class="m-price">5,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Himbeere</span><span class="m-price">5,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Brombeere</span><span class="m-price">5,00 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Gurke</span><span class="m-price">5,00 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 06 SPRITZ -->
+<section class="menu-section" id="spritz" aria-label="Alkoholfreie Spritz">
+  <div class="sec-header">
+    <span class="sec-num">06</span>
+    <h2 class="sec-title">Alkoholfreie Spritz</h2>
+    <span class="sec-note">Alkoholfrei — je 6,90 €</span>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Mirabelle Spritz</span><span class="m-price">6,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">White Peach Spritz</span><span class="m-price">6,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Aperol Spritz</span><span class="m-price">6,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Hugo</span><span class="m-price">6,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Wildberry Spritz</span><span class="m-price">6,90 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 07 MOCKTAILS -->
+<section class="menu-section" id="mocktails" aria-label="Mocktails">
+  <div class="sec-header">
+    <span class="sec-num">07</span>
+    <h2 class="sec-title">Mocktails</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Virgin Mojito Classic</span><span class="m-price">5,50 €</span></div><span class="m-desc">Limette, frische Minze, Rohrzucker, Soda</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Virgin Strawberry Mojito</span><span class="m-price">5,90 €</span></div><span class="m-desc">Erdbeere, Limette, frische Minze, Soda</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Sunrise Mocktail</span><span class="m-price">6,50 €</span></div><span class="m-desc">Orange, Grenadine, spritzige Zitrusnoten</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Ipanema</span><span class="m-price">6,50 €</span></div><span class="m-desc">Limette, Maracuja, Ginger Ale, Rohrzucker</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Coconut Dream</span><span class="m-price">5,90 €</span></div><span class="m-desc">Kokosnuss, Ananas, cremige Vanillenoten</span></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 08 BOWLS -->
+<section class="menu-section" id="bowls" aria-label="Joghurt Bowls">
+  <div class="sec-header">
+    <span class="sec-num">08</span>
+    <h2 class="sec-title">Joghurt Bowls</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Berry Bliss Bowl</span><span class="m-price">10,90 €</span></div><span class="m-desc">Griechischer Joghurt, Beeren, Granola, Chiasamen, Kokoschips, Pistaziencreme, Honig & Minze</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Tropical Bowl</span><span class="m-price">10,50 €</span></div><span class="m-desc">Griechischer Joghurt, Mango, Kiwi, Banane, Granola, Kokosraspel, Kürbiskerne, Agavendicksaft</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Mirabelle Protein Bowl</span><span class="m-price">11,90 €</span></div><span class="m-desc">Griechischer Joghurt, ca. 30 g Vanille-Proteinpulver, Banane, Erdbeere, Granola, Erdnussmus, Chiasamen</span></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 09 SAUERTEIGBROTE -->
+<section class="menu-section" id="sauerteig" aria-label="Belegte Sauerteigbrote">
+  <div class="sec-header">
+    <span class="sec-num">09</span>
+    <h2 class="sec-title">Belegte Sauerteigbrote</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Salmon Avocado Bread</span><span class="m-price">11,90 €</span></div><span class="m-desc">Räucherlachs, Avocado, Frischkäse, Rucola</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Sunny Avocado Bread</span><span class="m-price">9,90 €</span></div><span class="m-desc">Avocado, Spiegelei, Cherrytomaten, Rucola</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Tomato Basil Crunch</span><span class="m-price">7,90 €</span></div><span class="m-desc">Tomate, Basilikum, Frischkäse, Parmesan, Balsamico</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Caprese Bread</span><span class="m-price">8,90 €</span></div><span class="m-desc">Tomate, Mozzarella, Basilikum, Olivenöl, Balsamico</span></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 10 CLASSICS -->
+<section class="menu-section" id="classics" aria-label="Classics">
+  <div class="sec-header">
+    <span class="sec-num">10</span>
+    <h2 class="sec-title">Classics</h2>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Istanbul Toast</span><span class="m-price">8,90 €</span></div><span class="m-desc">Sucuk, Kaşar-Käse, Tomate, Gurke</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Falafel Wrap</span><span class="m-price">6,90 €</span></div><span class="m-desc">Falafel, Tomate, eingelegte Gurke, eingelegte Rüben, frische Minze, Sesampaste, Joghurt</span></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 11 FRÜHSTÜCK -->
+<section class="menu-section" id="fruehstueck" aria-label="Frühstücksplatten">
+  <div class="sec-header">
+    <span class="sec-num">11 — Unsere Platten</span>
+    <h2 class="sec-title">Frühstücksplatten</h2>
+  </div>
+  <div class="platte-grid">
+    <article class="platte-card">
+      <h3>Orientalische Platte</h3>
+      <div class="platte-prices">
+        <span class="platte-price">12,90 €<small>1 Person</small></span>
+        <span class="platte-price">22,90 €<small>2 Personen</small></span>
+      </div>
+      <p class="platte-desc">Frisches Gemüse, gekochtes Ei, Käsevariationen, Hummus, Joghurt, Avocadocreme, Konfitüre, Falafel, Oliven, Honig, Geflügelsalami — serviert mit frischem Brot und Çay</p>
+    </article>
+    <article class="platte-card">
+      <h3>Morgenplatte</h3>
+      <div class="platte-prices">
+        <span class="platte-price">11,90 €<small>1 Person</small></span>
+        <span class="platte-price">21,90 €<small>2 Personen</small></span>
+      </div>
+      <p class="platte-desc">Pancakes, Nutella, Konfitüre, Honig, Joghurt mit Crunchy Granola & Honig, frisches Obst, Avocadocreme, Mozzarella, gekochtes Ei — serviert mit frischem Brot und Orangensaft</p>
+    </article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 12 BEILAGEN -->
+<section class="menu-section" id="beilagen" aria-label="Frühstücksbeilagen">
+  <div class="sec-header">
+    <span class="sec-num">12 — Beilagen</span>
+    <h2 class="sec-title">Frühstücksbeilagen</h2>
+    <span class="sec-note">Mit frischem Brot & Çay — in Kombi mit Platte je −2,00 €</span>
+  </div>
+  <div class="menu-grid">
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Simit</span><span class="m-price">7,90 €</span></div><span class="m-desc">Traditioneller Sesamring mit Ei und Knoblauchwurst</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Menemen</span><span class="m-price">7,90 €</span></div><span class="m-desc">Orientalische Eierpfanne mit Tomaten, Paprika und Gewürzen</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Kaymak mit Honig</span><span class="m-price">5,90 €</span></div><span class="m-desc">Cremige Milchspezialität serviert mit Honig</span></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Rührei</span><span class="m-price">5,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Rührei mit Knoblauchwurst</span><span class="m-price">7,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Rührei mit Tomaten</span><span class="m-price">6,50 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Rührei mit Käse</span><span class="m-price">6,90 €</span></div></article>
+    <article class="m-item"><div class="m-item-row"><span class="m-name">Spiegelei</span><span class="m-price">4,90 €</span></div></article>
+  </div>
+</section>
+
+<div class="divider"><svg viewBox="0 0 300 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h120"/><path d="M300 9H180"/><path d="M150 2l8 7-8 7-8-7z" fill="currentColor" stroke="none"/><circle cx="126" cy="9" r="2" fill="currentColor" stroke="none"/><circle cx="174" cy="9" r="2" fill="currentColor" stroke="none"/></svg></div>
+
+<!-- 13 KUCHEN -->
+<section class="menu-section" id="kuchen" aria-label="Kuchen">
+  <div class="sec-header">
+    <span class="sec-num">13</span>
+    <h2 class="sec-title">Kuchen</h2>
+  </div>
+  <div class="cake-card">
+    <svg class="cake-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 28h32v10a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z"/><path d="M8 28l4-10h24l4 10"/><path d="M16 14c0-4 4-6 4-10M24 14c0-4 4-6 4-10M32 14c0-4 4-6 4-10"/></svg>
+    <h3>Hausgemachte Kuchen</h3>
+    <p>Unsere heutige Kuchenauswahl finden Sie an der Theke — saisonal &amp; täglich frisch.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <a href="index.html" class="footer-logo"><small>Café</small>Mirabelle</a>
+  <nav class="footer-links" aria-label="Rechtliches">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="index.html">Startseite</a>
+  </nav>
+  <p class="footer-note">Alle Preise inkl. MwSt. · Marktstraße 54 · 76829 Landau in der Pfalz</p>
+  <a href="index.html" class="btn-back-footer">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Zurück zur Startseite
+  </a>
+</footer>
+
+<script>
+// Scroll progress
+const prog = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement.scrollHeight - innerHeight;
+  prog.style.width = (h > 0 ? scrollY / h * 100 : 0) + '%';
+}, { passive: true });
+
+// Intersection Observer — active nav tab
+const sections = document.querySelectorAll('.menu-section');
+const tabs = document.querySelectorAll('.cat-tab');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.sec === id));
+    const active = document.querySelector(`.cat-tab[data-sec="${id}"]`);
+    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  });
+}, { rootMargin: '-130px 0px -55% 0px', threshold: 0 });
+
+sections.forEach(s => io.observe(s));
+</script>
+
+</body>
+</html>

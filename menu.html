@@ -190,6 +190,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 /* No bottom border on last two items */
 .m-item:nth-last-child(-n+2) { border-bottom: none; }
+/* Last item alone in its row → full width, no gap */
+.m-item:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: none; border-bottom: none; }
 .m-item:hover { background: rgba(201,169,110,.07); }
 
 /* Name + Price as a flex row inside the item */

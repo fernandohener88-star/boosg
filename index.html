@@ -427,9 +427,12 @@ section { position: relative; }
 .visit h2 { color: var(--cream); }
 .visit .eyebrow { color: var(--gold); }
 .visit .block-title { font-family: var(--script-label); font-style: normal; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); font-size: 1rem; margin-bottom: 1.4rem; }
-.hours-row { display: flex; justify-content: space-between; padding: .9rem 0; border-bottom: 1px solid rgba(201,169,110,.25); font-size: var(--text-lg); }
+.hours-row { display: flex; justify-content: space-between; padding: 1.25rem 0; border-bottom: 1px solid rgba(201,169,110,.25); font-size: var(--text-lg); }
 .hours-row span:last-child { color: var(--gold); font-style: italic; }
 .hours-note { font-style: italic; color: var(--gold); margin-bottom: 1.5rem; }
+.hours-footer { margin-top: 2rem; padding-top: 1.8rem; border-top: 1px solid rgba(201,169,110,.18); }
+.hours-footer .hf-hint { font-size: .9rem; color: rgba(245,237,224,.45); font-style: italic; margin-bottom: 1.4rem; }
+.hours-footer .hf-text { font-size: 1.05rem; color: rgba(245,237,224,.62); font-style: italic; line-height: 1.85; max-width: 34ch; }
 address.visit-addr { font-style: normal; font-size: var(--text-lg); line-height: 1.9; margin-bottom: 1.6rem; }
 address.visit-addr strong { font-family: var(--serif); font-size: var(--text-xl); display: block; margin-bottom: .3rem; }
 .map-stage {
@@ -866,6 +869,10 @@ footer.site-footer { background: var(--cream-dark); padding: 2.6rem clamp(1.2rem
         <div class="hours-row" data-days="1,2,3,4,5"><span>Montag – Freitag</span><span>8:30 – 23:00 Uhr</span></div>
         <div class="hours-row" data-days="6"><span>Samstag</span><span>8:30 – 24:00 Uhr</span></div>
         <div class="hours-row" data-days="0"><span>Sonntag</span><span>9:00 – 22:00 Uhr</span></div>
+      </div>
+      <div class="hours-footer reveal">
+        <p class="hf-hint">Feiertage nach Aushang · Küche bis 30 Min. vor Schließung</p>
+        <p class="hf-text">Ob zum entspannten Frühstück, zum Mittagskaffee oder für einen langen Abend mit Freunden — wir sind für Sie da.</p>
       </div>
     </div>
     <div>

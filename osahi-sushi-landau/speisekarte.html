@@ -1010,5 +1010,29 @@ window.OSAHI_MENU = [
   track.innerHTML = unit + unit;
 })();
 </script>
+<script>
+(function(){
+  var el = document.getElementById('tabbar');
+  if(!el) return;
+  var isDown = false, startX, scrollLeft;
+  el.addEventListener('mousedown', function(e){
+    isDown = true;
+    el.style.cursor = 'grabbing';
+    startX = e.pageX - el.offsetLeft;
+    scrollLeft = el.scrollLeft;
+    e.preventDefault();
+  });
+  document.addEventListener('mouseup', function(){
+    isDown = false;
+    el.style.cursor = '';
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!isDown) return;
+    var x = e.pageX - el.offsetLeft;
+    el.scrollLeft = scrollLeft - (x - startX);
+  });
+  el.style.cursor = 'grab';
+})();
+</script>
 </body>
 </html>

@@ -381,6 +381,8 @@ section{ scroll-margin-top:90px; }
 .map-wrap.loaded iframe{ opacity:1; }
 .map-blocker{ position:absolute; inset:0; z-index:5; cursor:default; display:none; }
 .map-wrap.loaded .map-blocker{ display:block; }
+.map-zoom-cover{ position:absolute; top:6px; right:6px; width:36px; height:66px; background:#252525; border-radius:4px; z-index:10; pointer-events:none; opacity:0; transition:opacity .6s var(--ease) .2s; }
+.map-wrap.loaded .map-zoom-cover{ opacity:1; }
 .map-pin-label{
   position:absolute; left:48%; top:52%; transform:translate(-50%,-100%);
   z-index:10; opacity:0; transition:opacity .6s var(--ease) .3s;
@@ -762,6 +764,7 @@ section{ scroll-margin-top:90px; }
         <span class="go">Karte laden</span>
       </div>
       <div class="map-blocker" aria-hidden="true"></div>
+      <div class="map-zoom-cover" aria-hidden="true"></div>
       <div class="map-pin-label" aria-hidden="true">
         <div class="label-box">
           Osahi Sushi Landau

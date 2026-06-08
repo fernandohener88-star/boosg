@@ -260,12 +260,17 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
    PARTNERS
    ============================================================ */
 .partner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:12px}
-.partner-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 20px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;text-align:center}
+.partner-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:0;display:flex;flex-direction:column;align-items:stretch;overflow:hidden;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;text-align:center}
 .partner-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 12px 40px rgba(201,168,76,.18)}
 .partner-card--link{cursor:pointer}
-.partner-card__logo{width:100%;border-radius:8px;overflow:hidden;line-height:0}
-.partner-card__logo svg{width:100%;height:auto;display:block;border-radius:8px}
-.partner-card__desc{font-size:13px;color:var(--muted);line-height:1.55;font-family:var(--ff-body)}
+.partner-card__logo{width:100%;line-height:0;padding:24px 20px 16px;display:flex;align-items:center;justify-content:center}
+.partner-card__logo svg{width:100%;height:auto;display:block}
+.partner-card__desc{font-size:13px;color:var(--muted);line-height:1.55;font-family:var(--ff-body);padding:0 16px 20px}
+/* brand bg colours */
+.partner-card--sky .partner-card__logo{background:#003DA5}
+.partner-card--dazn .partner-card__logo{background:#0B0B0B}
+.partner-card--buli .partner-card__logo{background:#fff}
+.partner-card--wein .partner-card__logo{background:#1a2710}
 
 /* ============================================================
    REVIEWS

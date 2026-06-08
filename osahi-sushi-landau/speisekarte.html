@@ -600,7 +600,7 @@ section{ scroll-margin-top:90px; }
    later sections follow the written brief. Obvious typos corrected. */
 window.OSAHI_MENU = [
   {
-    id:"vorspeisen", icon:"🥢", label:"Vorspeisen",
+    id:"vorspeisen", icon:"", label:"Vorspeisen",
     note:"Vorspeisen & Salate — frisch zubereitet, ohne Glutamat.",
     items:[
       {no:"1", name:"Miso Suppe", desc:"Sojabohnenpaste in Dashibrühe, Tofu, Seealgen, Frühlingszwiebeln", price:"4,20€"},
@@ -628,7 +628,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"sets", icon:"🍱", label:"Sushi Sets",
+    id:"sets", icon:"", label:"Sushi Sets",
     note:"Kunstvoll arrangierte Sets — ideal zum Teilen.",
     items:[
       {no:"SS1", name:"Veggie Set", desc:"5 Stk. Tempura, 6 Stk. Avocado Maki, 8 Stk. Veggie Uramaki", price:"15,50€"},
@@ -642,7 +642,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"uramaki", icon:"🍙", label:"Ura Maki",
+    id:"uramaki", icon:"", label:"Ura Maki",
     note:"Inside-out Rolls · 8 Stück",
     items:[
       {no:"U1", name:"Sake", desc:"Lachs, Avocado, Tobiko, Mayo", price:"8,90€"},
@@ -660,7 +660,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"crunchy", icon:"🍤", label:"Crunchy Roll",
+    id:"crunchy", icon:"", label:"Crunchy Roll",
     note:"Panierte Rollen · 10 Stück",
     items:[
       {no:"C1", name:"Chicken Crunchy", desc:"Marinierter Yakitori, Gurke, Wildkräutersalat, Frischkäse, Sesam", price:"15,50€"},
@@ -673,7 +673,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"specials", icon:"🐉", label:"Specials Roll",
+    id:"specials", icon:"", label:"Specials Roll",
     note:"Spezielle Rollen mit Premium-Soße nach Osahi Art.",
     items:[
       {no:"SR1", name:"Osahi Roll", desc:"Gemüse Tempura, Mayonnaise, umwickelt mit verschiedenen Fischen, Misosauce, Kresse, Sesam", price:"15,50€"},
@@ -687,7 +687,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"sashimi", icon:"🐟", label:"Sashimi",
+    id:"sashimi", icon:"", label:"Sashimi",
     note:"Hauchfein geschnittener roher Fisch · 6 Stück",
     items:[
       {no:"S1", name:"Sashimi Lachs", desc:"Lachs, Wildkräutersalat, Seetang Salat", price:"17,50€"},
@@ -696,7 +696,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"nigiri", icon:"🍣", label:"Nigiri",
+    id:"nigiri", icon:"", label:"Nigiri",
     note:"Handgeformter Reis mit Belag · 2 Stück",
     items:[
       {no:"N1", name:"Sake", desc:"Lachs", price:"5,50€"},
@@ -714,7 +714,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"maki", icon:"🍙", label:"Maki",
+    id:"maki", icon:"", label:"Maki",
     note:"Kleine Rolle mit Fisch oder Gemüse, mit Seetang umwickelt · 6 Stück",
     items:[
       {no:"M1", name:"Sake Maki", desc:"Lachs", price:"5,90€"},
@@ -732,7 +732,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"warm", icon:"🍜", label:"Warme Speisen",
+    id:"warm", icon:"", label:"Warme Speisen",
     note:"Vietnamesische & pan-asiatische Klassiker, frisch aus dem Wok.",
     items:[
       {no:"21", name:"Pho", desc:"Vietnamesische Reisbandnudelsuppe", price:"13,90€", from:true,
@@ -750,7 +750,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"grill", icon:"🔥", label:"Grill",
+    id:"grill", icon:"", label:"Grill",
     note:"Osahi Grillspezialitäten — vom argentinischen Rib-Eye bis zur Tiger-Prawn.",
     items:[
       {no:"32", name:"Jakobsmuscheln", desc:"Knoblauch, gebratenes Gemüse, Soja-Balsamico Dressing, frischer Salat & Sesamreis", price:"25,50€"},
@@ -765,7 +765,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"donburi", icon:"🍚", label:"Donburi",
+    id:"donburi", icon:"", label:"Donburi",
     note:"Japanische Reisschale: Reis mit Fisch, Fleisch & Gemüse — dazu Bohnen, Avocado, Mais, Oshinko, Tamago, Gurke, Mango & Sesam.",
     items:[
       {no:"D1", name:"Sake Don", desc:"Roher Lachs, Masago", price:"17,90€"},
@@ -775,7 +775,7 @@ window.OSAHI_MENU = [
     ]
   },
   {
-    id:"kids", icon:"🧒", label:"Happy Child",
+    id:"kids", icon:"", label:"Happy Child",
     note:"Für unsere kleinen Gäste.",
     items:[
       {no:"41", name:"Tempura Garnelen", desc:"2 Stück — serviert mit Pommes, Süß-sauer Sauce, japanischer Mayonnaise", price:"8,50€"},
@@ -841,7 +841,7 @@ window.OSAHI_MENU = [
       if(cat.note) html += '<p class="panel-note">'+cat.note+'</p>';
       html += '<div class="dish-grid">';
       cat.items.forEach(function(it, j){
-        var heat = it.spicy ? ' <span class="heat" aria-label="scharf">🌶️</span>' : '';
+        var heat = it.spicy ? ' <span class="heat" aria-label="scharf">️</span>' : '';
         var priceHtml = (it.from ? '<span class="from">ab</span>' : '') + it.price;
         var opts = '';
         if(it.opts){

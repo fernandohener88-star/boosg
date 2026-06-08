@@ -104,9 +104,9 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
   border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(10,10,10,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--border)}
 .nav__inner{max-width:1340px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:22px}
-.brand{display:flex;flex-direction:column;line-height:.8;flex-shrink:0}
-.brand__mark{font-family:var(--ff-display);font-size:30px;letter-spacing:.16em;color:var(--text)}
-.brand__sub{font-family:var(--ff-accent);font-weight:300;font-size:11px;letter-spacing:.42em;color:var(--gold);padding-left:2px}
+.brand{display:flex;align-items:center;flex-shrink:0}
+.brand__logo{height:36px;width:auto;display:block}
+.brand__logo--lg{height:50px}
 
 .status{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--border);border-radius:40px;font-family:var(--ff-accent);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02);white-space:nowrap}
 .status__dot{width:8px;height:8px;border-radius:50%;background:var(--muted);position:relative;flex-shrink:0}

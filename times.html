@@ -128,9 +128,9 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
   border-bottom:1px solid transparent}
 .nav.scrolled{background:rgba(10,10,10,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--border)}
 .nav__inner{max-width:1340px;margin:0 auto;padding:18px 28px;display:flex;align-items:center;gap:22px}
-.brand{display:flex;flex-direction:column;line-height:.8;flex-shrink:0}
-.brand__mark{font-family:var(--ff-display);font-size:30px;letter-spacing:.16em;color:var(--text)}
-.brand__sub{font-family:var(--ff-accent);font-weight:300;font-size:11px;letter-spacing:.42em;color:var(--gold);padding-left:2px}
+.brand{display:flex;align-items:center;flex-shrink:0}
+.brand__logo{height:36px;width:auto;display:block}
+.brand__logo--lg{height:50px}
 
 .status{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--border);border-radius:40px;font-family:var(--ff-accent);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02);white-space:nowrap}
 .status__dot{width:8px;height:8px;border-radius:50%;background:var(--muted);position:relative;flex-shrink:0}
@@ -453,8 +453,17 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
 <header class="nav" id="nav" data-screen-label="Navigation">
   <div class="nav__inner">
     <a href="#hero" class="brand" aria-label="Times Landau Startseite">
-      <span class="brand__mark">TIMES</span>
-      <span class="brand__sub">Landau</span>
+      <svg class="brand__logo" viewBox="0 0 460 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M93.8 53.8 A44 44 0 0 1 75.2 86.0 L64.9 71.3 A26 26 0 0 0 75.9 52.3Z" fill="white"/>
+        <path d="M68.6 89.9 A44 44 0 0 1 31.4 89.9 L39.0 73.6 A26 26 0 0 0 61.0 73.6Z" fill="white"/>
+        <path d="M6.2 53.8 A44 44 0 0 1 24.8 14.0 L35.1 28.7 A26 26 0 0 0 24.1 52.3Z" fill="white"/>
+        <path d="M31.4 10.1 A44 44 0 0 1 68.6 10.1 L61.0 26.4 A26 26 0 0 0 39.0 26.4Z" fill="white"/>
+        <path d="M75.2 14.0 A44 44 0 0 1 93.8 46.2 L75.9 47.7 A26 26 0 0 0 64.9 28.7Z" fill="white"/>
+        <line x1="50" y1="50" x2="24" y2="65" stroke="#CC2020" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="4" fill="#CC2020"/>
+        <text x="108" y="73" font-family="'Bebas Neue',sans-serif" font-size="70" fill="white" letter-spacing="4">TIMES</text>
+        <text x="112" y="88" font-family="'Oswald',sans-serif" font-weight="300" font-size="12" fill="rgba(255,255,255,0.8)" letter-spacing="5">HOOKAH · SPORTSBAR · LOUNGE</text>
+      </svg>
     </a>
 
     <div class="status" id="statusBadge" title="Öffnungszeiten Mo–So 10:30–02:00 Uhr">
@@ -741,8 +750,17 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
 <footer class="footer" data-screen-label="Footer">
   <div class="wrap footer__grid">
     <div class="footer__brand">
-      <span class="brand__mark">TIMES</span>
-      <span class="brand__sub">Landau</span>
+      <svg class="brand__logo brand__logo--lg" viewBox="0 0 460 96" xmlns="http://www.w3.org/2000/svg" aria-label="Times Landau">
+        <path d="M93.8 53.8 A44 44 0 0 1 75.2 86.0 L64.9 71.3 A26 26 0 0 0 75.9 52.3Z" fill="white"/>
+        <path d="M68.6 89.9 A44 44 0 0 1 31.4 89.9 L39.0 73.6 A26 26 0 0 0 61.0 73.6Z" fill="white"/>
+        <path d="M6.2 53.8 A44 44 0 0 1 24.8 14.0 L35.1 28.7 A26 26 0 0 0 24.1 52.3Z" fill="white"/>
+        <path d="M31.4 10.1 A44 44 0 0 1 68.6 10.1 L61.0 26.4 A26 26 0 0 0 39.0 26.4Z" fill="white"/>
+        <path d="M75.2 14.0 A44 44 0 0 1 93.8 46.2 L75.9 47.7 A26 26 0 0 0 64.9 28.7Z" fill="white"/>
+        <line x1="50" y1="50" x2="24" y2="65" stroke="#CC2020" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="4" fill="#CC2020"/>
+        <text x="108" y="73" font-family="'Bebas Neue',sans-serif" font-size="70" fill="white" letter-spacing="4">TIMES</text>
+        <text x="112" y="88" font-family="'Oswald',sans-serif" font-weight="300" font-size="12" fill="rgba(255,255,255,0.8)" letter-spacing="5">HOOKAH · SPORTSBAR · LOUNGE</text>
+      </svg>
       <p class="footer__tag">Deine Sportsbar. Deine Lounge. Deine Stadt.</p>
     </div>
     <div class="footer__col">

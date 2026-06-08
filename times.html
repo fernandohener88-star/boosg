@@ -283,10 +283,13 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
 /* ============================================================
    PARTNERS
    ============================================================ */
-.partner-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0}
-.partner{font-family:var(--ff-display);font-size:clamp(26px,3vw,40px);letter-spacing:.04em;color:#5a554e;padding:0 clamp(24px,4vw,52px);transition:color .4s,text-shadow .4s;position:relative}
-.partner+.partner::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:32px;background:var(--border)}
-.partner:hover{color:var(--gold-light);text-shadow:0 0 24px rgba(201,168,76,.5)}
+.partner-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:12px}
+.partner-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 20px 24px;display:flex;flex-direction:column;align-items:center;gap:16px;transition:transform .35s var(--ease),border-color .35s,box-shadow .35s;text-align:center}
+.partner-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 12px 40px rgba(201,168,76,.18)}
+.partner-card--link{cursor:pointer}
+.partner-card__logo{width:100%;border-radius:8px;overflow:hidden;line-height:0}
+.partner-card__logo svg{width:100%;height:auto;display:block;border-radius:8px}
+.partner-card__desc{font-size:13px;color:var(--muted);line-height:1.55;font-family:var(--ff-body)}
 
 /* ============================================================
    REVIEWS
@@ -409,8 +412,7 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
   .hero__cta{gap:12px}
   .btn{padding:13px 20px;font-size:13px}
   .wa-float{width:54px;height:54px}
-  .partner{padding:10px 18px}
-  .partner+.partner::before{display:none}
+  .partner-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 </style>
@@ -665,11 +667,61 @@ body::-webkit-scrollbar-thumb{background:#2a2620;border-radius:10px}
       <p class="label">In Zusammenarbeit mit</p>
       <h2 class="h2">Unsere Partner</h2>
     </div>
-    <div class="partner-row reveal">
-      <span class="partner">Sky</span>
-      <span class="partner">DAZN</span>
-      <span class="partner">Bundesliga</span>
-      <a class="partner" href="https://www.weingut-autenrieth.com/welcome" target="_blank" rel="noopener">Weingut&nbsp;Autenrieth</a>
+    <div class="partner-grid reveal">
+
+      <!-- SKY -->
+      <div class="partner-card">
+        <div class="partner-card__logo">
+          <svg viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="160" height="80" rx="8" fill="#003DA5"/>
+            <text x="80" y="55" text-anchor="middle" font-family="'Arial Black',sans-serif" font-size="44" font-weight="900" fill="white" letter-spacing="-2">Sky</text>
+          </svg>
+        </div>
+        <p class="partner-card__desc">Sport live in HD<br>Exklusiv bei uns</p>
+      </div>
+
+      <!-- DAZN -->
+      <div class="partner-card">
+        <div class="partner-card__logo">
+          <svg viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="160" height="80" rx="8" fill="#0B0B0B"/>
+            <text x="80" y="56" text-anchor="middle" font-family="'Arial Black',sans-serif" font-size="40" font-weight="900" fill="#F7EC18" letter-spacing="1">DAZN</text>
+          </svg>
+        </div>
+        <p class="partner-card__desc">Champions League<br>&amp; mehr live</p>
+      </div>
+
+      <!-- BUNDESLIGA -->
+      <div class="partner-card">
+        <div class="partner-card__logo">
+          <svg viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="160" height="80" rx="8" fill="#D20515"/>
+            <!-- simplified ball icon -->
+            <circle cx="28" cy="40" r="18" fill="none" stroke="white" stroke-width="2.5"/>
+            <path d="M28 22 Q36 32 28 40 Q20 32 28 22Z" fill="white" opacity=".85"/>
+            <path d="M10 40 Q20 36 28 40 Q20 44 10 40Z" fill="white" opacity=".85"/>
+            <path d="M46 40 Q36 44 28 40 Q36 36 46 40Z" fill="white" opacity=".85"/>
+            <text x="96" y="50" text-anchor="middle" font-family="'Arial Black',sans-serif" font-size="16" font-weight="900" fill="white" letter-spacing="1">BUNDES</text>
+            <text x="96" y="68" text-anchor="middle" font-family="'Arial Black',sans-serif" font-size="16" font-weight="900" fill="white" letter-spacing="1">LIGA</text>
+          </svg>
+        </div>
+        <p class="partner-card__desc">Alle Spiele<br>auf großer Leinwand</p>
+      </div>
+
+      <!-- WEINGUT AUTENRIETH -->
+      <a class="partner-card partner-card--link" href="https://www.weingut-autenrieth.com/welcome" target="_blank" rel="noopener">
+        <div class="partner-card__logo">
+          <svg viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="160" height="80" rx="8" fill="#1C2E12"/>
+            <!-- wine glass icon -->
+            <path d="M22 18 L22 30 Q22 44 32 44 L32 56 L26 56 L26 60 L38 60 L38 56 L32 56 L32 44 Q42 44 42 30 L42 18Z" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linejoin="round"/>
+            <text x="96" y="42" text-anchor="middle" font-family="'Georgia',serif" font-size="13" fill="#E8C97A" letter-spacing="2">WEINGUT</text>
+            <text x="96" y="60" text-anchor="middle" font-family="'Georgia',serif" font-size="13" fill="#E8C97A" letter-spacing="1">AUTENRIETH</text>
+          </svg>
+        </div>
+        <p class="partner-card__desc">Regionale Weine<br>aus der Pfalz</p>
+      </a>
+
     </div>
   </div>
 </section>

@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speisekarte – Osahi Sushi Landau | Sushi, BBQ &amp; Modern Kitchen</title>
+<meta name="description" content="Die vollstandige Speisekarte von Osahi Sushi Landau. Vorspeisen, Sushi Sets, Ura Maki, Crunchy Rolls, Sashimi, Nigiri, Grill, Donburi und mehr. Ostring 18, Landau in der Pfalz.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://osahi-sushi-landau.de/speisekarte.html">
+<meta name="theme-color" content="#0C0A08">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Noto+Serif+JP:wght@200;300;400;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0C0A08;color:#F2EDE6;font-family:'DM Sans',sans-serif;}
+.nav{position:fixed;inset:0 0 auto 0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,80px);}
+.hero{min-height:100svh;}
+/* ============================================================
+   OSAHI SUSHI LANDAU — "Dark Zen Luxury"
+   Palette + type extracted from the original Osahi flyer.
+   ============================================================ */
+
+:root{
+  --bg:#0C0A08;
+  --bg-card:#141210;
+  --bg-section:#181410;
+  --bg-elev:#1C1812;
+  --primary:#C8853A;
+  --accent:#E8C080;
+  --accent-red:#8B2020;
+  --text:#F2EDE6;
+  --muted:#7A6E62;
+  --muted-2:#9C8E7E;
+  --border:#2A221A;
+  --border-2:#3A2F22;
+  --glow:rgba(200,133,58,0.25);
+
+  --serif:'Noto Serif JP', serif;
+  --cormorant:'Cormorant Garamond', serif;
+  --sans:'DM Sans', sans-serif;
+  --bebas:'Bebas Neue', sans-serif;
+  --playfair:'Playfair Display', serif;
+
+  --maxw:1280px;
+  --pad: clamp(20px, 5vw, 80px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+::selection{ background:var(--primary); color:#0C0A08; }
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+.skip-link{
+  position:fixed; top:-60px; left:16px; z-index:2000;
+  background:var(--primary); color:#0C0A08; padding:10px 18px;
+  font-family:var(--bebas); letter-spacing:.12em; border-radius:4px;
+  transition:top .25s var(--ease);
+}
+.skip-link:focus{ top:16px; }
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad); }
+
+/* ---- shared section heading ornament ---- */
+.eyebrow{
+  font-family:var(--bebas); font-size:14px; letter-spacing:.4em;
+  color:var(--primary); text-transform:uppercase; margin:0 0 18px;
+}
+.section-title{
+  font-family:var(--bebas); font-weight:400;
+  font-size:clamp(34px,5vw,58px); letter-spacing:.06em;
+  line-height:1; margin:0; text-transform:uppercase;
+}
+.ornament{ display:flex; align-items:center; justify-content:center; gap:22px; }
+.ornament .line{ height:1px; width:min(90px,12vw); background:linear-gradient(90deg,transparent,var(--primary)); }
+.ornament .line.r{ background:linear-gradient(270deg,transparent,var(--primary)); }
+
+/* =================== NAV =================== */
+.nav{
+  position:fixed; inset:0 0 auto 0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px var(--pad);
+  transition:background .4s var(--ease), padding .4s var(--ease), border-color .4s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{
+  background:rgba(12,10,8,0.92);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  padding-block:14px; border-bottom-color:var(--border);
+}
+.brand{ display:flex; flex-direction:column; line-height:1; gap:5px; }
+.brand .logo-row{ display:flex; align-items:baseline; gap:.4em; }
+.brand .mark{
+  font-family:var(--serif); font-weight:600; font-size:23px; letter-spacing:.02em;
+  color:var(--primary); transition:text-shadow .3s var(--ease), color .3s var(--ease);
+}
+.brand .mark .light{ color:var(--text); font-weight:400; }
+.brand:hover .mark{ text-shadow:0 0 22px var(--glow); }
+.brand .sub{ font-family:var(--sans); font-size:10px; letter-spacing:.34em; text-transform:uppercase; color:var(--muted); }
+
+.nav-links{ display:flex; align-items:center; gap:38px; list-style:none; margin:0; padding:0; }
+.nav-links a{
+  font-family:var(--sans); font-size:14px; letter-spacing:.04em; color:var(--text);
+  position:relative; padding:6px 0; opacity:.85; transition:opacity .25s;
+}
+.nav-links a:hover{ opacity:1; }
+.nav-links a::after{
+  content:""; position:absolute; left:0; bottom:0; height:1.5px; width:100%;
+  background:var(--primary); transform:scaleX(0); transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.nav-links a:hover::after{ transform:scaleX(1); }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.6em;
+  font-family:var(--bebas); font-size:16px; letter-spacing:.18em; text-transform:uppercase;
+  padding:13px 26px; border-radius:2px; border:1px solid transparent;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s, color .3s, border-color .3s;
+  white-space:nowrap;
+}
+.btn-gold{ background:var(--primary); color:#0C0A08; box-shadow:0 0 0 rgba(200,133,58,0); }
+.btn-gold:hover{ box-shadow:0 8px 30px var(--glow); transform:translateY(-2px); background:var(--accent); }
+.btn-ghost{ background:transparent; color:var(--text); border-color:var(--border-2); }
+.btn-ghost:hover{ border-color:var(--primary); color:var(--accent); transform:translateY(-2px); }
+.nav .btn{ padding:11px 22px; font-size:14px; }
+
+.hamburger{ display:none; flex-direction:column; gap:6px; background:none; border:0; padding:8px; }
+.hamburger span{ width:26px; height:2px; background:var(--text); transition:transform .3s var(--ease), opacity .3s; }
+
+.mobile-menu{
+  position:fixed; inset:0; z-index:1500; background:rgba(8,6,4,0.98);
+  backdrop-filter:blur(8px); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:30px;
+  opacity:0; pointer-events:none; transition:opacity .4s var(--ease);
+}
+.mobile-menu.open{ opacity:1; pointer-events:auto; }
+.mobile-menu a{ font-family:var(--serif); font-size:30px; color:var(--text); }
+.mobile-menu a:hover{ color:var(--primary); }
+.mobile-menu .close{ position:absolute; top:24px; right:28px; background:none; border:0; color:var(--text); font-size:34px; line-height:1; }
+
+/* =================== HERO =================== */
+.hero{
+  position:relative; min-height:100svh; display:flex; align-items:center;
+  overflow:hidden; isolation:isolate;
+}
+.hero-bg{ position:absolute; inset:0; z-index:-3; }
+.hero-bg img{ width:100%; height:100%; object-fit:cover; object-position:center 38%; }
+.hero-overlay{
+  position:absolute; inset:0; z-index:-2;
+  background:
+    radial-gradient(120% 90% at 70% 20%, rgba(12,10,8,.45), rgba(12,10,8,.86) 70%),
+    linear-gradient(180deg, rgba(12,10,8,.78) 0%, rgba(12,10,8,.55) 40%, rgba(12,10,8,.96) 100%);
+}
+.hero-grain{ position:absolute; inset:0; z-index:-1; opacity:.045; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.kanji{
+  position:absolute; right:-2vw; bottom:-6vh; z-index:-1;
+  font-family:var(--serif); font-weight:600; font-size:min(58vh,46vw);
+  color:var(--primary); opacity:.06; line-height:.8; user-select:none; pointer-events:none;
+}
+.hero-inner{ position:relative; padding-block:120px 80px; max-width:880px; }
+.hero .loc{ font-family:var(--bebas); letter-spacing:.4em; color:var(--accent); font-size:14px; text-transform:uppercase; margin:0 0 22px; }
+.hero h1{
+  font-family:var(--serif); font-weight:200; color:var(--text);
+  font-size:clamp(58px,11vw,128px); line-height:.95; margin:0; letter-spacing:-.01em;
+}
+.hero .tagline{ font-family:var(--cormorant); font-style:italic; font-weight:500; color:var(--accent); font-size:clamp(22px,3.4vw,32px); margin:14px 0 0; }
+.hero .lede{ color:var(--text); opacity:.82; font-size:clamp(16px,2vw,19px); margin:26px 0 0; max-width:36ch; }
+.hero .lede .dot{ color:var(--primary); margin:0 .5em; }
+.hero-cta{ display:flex; flex-wrap:wrap; gap:16px; margin-top:40px; }
+
+.scroll-ind{
+  position:absolute; left:50%; bottom:26px; transform:translateX(-50%); z-index:1;
+  display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--muted-2);
+  font-family:var(--bebas); letter-spacing:.3em; font-size:11px;
+}
+.scroll-ind svg{ width:18px; height:18px; animation:bounce 2.2s var(--ease) infinite; }
+@keyframes bounce{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(7px);} }
+
+/* hero load stagger */
+.reveal-hero{ opacity:0; transform:translateY(28px); }
+.hero.loaded .reveal-hero{ animation:heroIn .9s var(--ease) forwards; }
+.hero.loaded .reveal-hero.d1{ animation-delay:.05s; }
+.hero.loaded .reveal-hero.d2{ animation-delay:.22s; }
+.hero.loaded .reveal-hero.d3{ animation-delay:.40s; }
+.hero.loaded .reveal-hero.d4{ animation-delay:.56s; }
+.hero.loaded .reveal-hero.d5{ animation-delay:.74s; }
+@keyframes heroIn{ to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){
+  .reveal-hero{ opacity:1 !important; transform:none !important; animation:none !important; }
+}
+
+/* =================== TRUST MARQUEE =================== */
+.trust{ border-block:1px solid var(--border); background:var(--bg-section); overflow:hidden; }
+.marquee{ display:flex; white-space:nowrap; will-change:transform; }
+.marquee-track{ display:flex; align-items:center; gap:0; animation:marquee 42s linear infinite; }
+.marquee:hover .marquee-track{ animation-play-state:paused; }
+.marquee-track .item{
+  font-family:var(--bebas); font-size:14px; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--muted-2); padding:16px 0; display:inline-flex; align-items:center;
+}
+.marquee-track .sep{ color:var(--primary); padding:0 26px; font-size:11px; }
+@keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+@media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
+
+/* =================== SCROLL REVEAL (shared) =================== */
+.reveal{ opacity:0; transform:translateY(46px); transition:opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in{ opacity:1; transform:none; }
+.reveal.dly-1{ transition-delay:.08s; } .reveal.dly-2{ transition-delay:.16s; } .reveal.dly-3{ transition-delay:.24s; }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+
+section{ scroll-margin-top:90px; }
+
+/* =================== ABOUT =================== */
+.about{ padding-block:clamp(90px,13vw,150px); }
+.about-grid{ display:grid; grid-template-columns:1.18fr .82fr; gap:clamp(40px,7vw,96px); align-items:center; }
+.about h2{ font-family:var(--serif); font-weight:300; font-size:clamp(30px,4.4vw,52px); line-height:1.18; margin:14px 0 28px; }
+.about p{ color:var(--muted-2); font-size:17px; line-height:1.85; margin:0 0 20px; max-width:54ch; }
+.about p strong{ color:var(--text); font-weight:500; }
+.about-quote{ text-align:right; }
+.about-quote blockquote{
+  font-family:var(--cormorant); font-style:italic; font-weight:500;
+  font-size:clamp(48px,7.5vw,86px); line-height:1.02; color:var(--primary);
+  margin:0; letter-spacing:-.01em;
+}
+.about-quote cite{ display:block; font-family:var(--sans); font-style:normal; color:var(--muted); font-size:13px; letter-spacing:.2em; text-transform:uppercase; margin-top:18px; }
+
+.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:64px; padding-top:48px; border-top:1px solid var(--border); }
+.stat{ text-align:center; }
+.stat .num{ font-family:var(--playfair); font-size:clamp(40px,6vw,64px); color:var(--accent); line-height:1; }
+.stat .lab{ font-family:var(--bebas); letter-spacing:.2em; font-size:13px; color:var(--muted); text-transform:uppercase; margin-top:12px; }
+
+/* =================== MENU =================== */
+.menu{ padding-block:clamp(80px,11vw,130px); background:var(--bg-section); border-block:1px solid var(--border); }
+.menu-head{ text-align:center; margin-bottom:40px; }
+.menu-head .ornament{ margin-bottom:24px; }
+.menu-head p{ color:var(--muted-2); max-width:54ch; margin:18px auto 0; }
+
+.tabbar-wrap{ position:sticky; top:66px; z-index:80; background:linear-gradient(180deg,var(--bg-section) 70%, transparent); padding-block:14px; margin-bottom:38px; }
+.tabbar{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+.tabbar::-webkit-scrollbar{ display:none; }
+.tab{
+  flex:0 0 auto; background:transparent; border:1px solid var(--border-2); color:var(--muted-2);
+  font-family:var(--bebas); font-size:15px; letter-spacing:.12em; text-transform:uppercase;
+  padding:11px 18px; border-radius:2px; position:relative; display:inline-flex; align-items:center; gap:8px;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.tab .ic{ font-size:15px; filter:grayscale(.2); }
+.tab:hover{ color:var(--text); border-color:var(--primary); }
+.tab.active{ color:var(--accent); border-color:var(--primary); background:rgba(200,133,58,0.08); }
+.tab.active::after{ content:""; position:absolute; left:14px; right:14px; bottom:-1px; height:2px; background:var(--primary); }
+
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+.panel-note{ color:var(--muted); font-family:var(--cormorant); font-style:italic; font-size:19px; margin:0 0 26px; max-width:70ch; }
+
+.dish-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px; }
+.dish{
+  background:var(--bg-card); border:1px solid var(--border);
+  border-left:2px solid var(--primary); border-radius:3px;
+  padding:20px 22px; position:relative;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+.dish:hover{ transform:translateY(-4px); box-shadow:0 14px 36px rgba(0,0,0,.5), 0 0 26px var(--glow); border-left-color:var(--accent); }
+.dish.spicy{ border-left-color:var(--accent-red); }
+.dish.spicy:hover{ box-shadow:0 14px 36px rgba(0,0,0,.5), 0 0 26px rgba(139,32,32,.4); }
+.dish .top{ display:flex; align-items:baseline; gap:12px; justify-content:space-between; }
+.dish .no{ font-family:var(--sans); font-size:12px; letter-spacing:.12em; color:var(--muted); flex:0 0 auto; }
+.dish .name{ font-family:var(--bebas); font-size:21px; letter-spacing:.05em; color:var(--accent); line-height:1.1; text-transform:uppercase; }
+.dish .name .heat{ font-size:14px; margin-left:.3em; }
+.dish .price{ font-family:var(--playfair); font-size:19px; color:var(--text); flex:0 0 auto; white-space:nowrap; }
+.dish .price .from{ font-family:var(--sans); font-size:11px; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; margin-right:.35em; }
+.dish .desc{ color:var(--muted-2); font-size:13.5px; line-height:1.6; margin:9px 0 0; max-width:48ch; }
+.dish .opts{ margin:11px 0 0; display:flex; flex-wrap:wrap; gap:6px; }
+.dish .opt{ font-family:var(--sans); font-size:11.5px; color:var(--muted-2); border:1px solid var(--border-2); border-radius:999px; padding:3px 10px; }
+.dish .opt b{ color:var(--accent); font-weight:600; }
+
+/* tab switch stagger */
+.tab-panel.active .dish{ animation:cardIn .5s var(--ease) backwards; }
+@keyframes cardIn{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce){ .tab-panel.active .dish{ animation:none; } }
+
+/* =================== DRY ICE =================== */
+.dryice{ position:relative; display:grid; grid-template-columns:1fr 1fr; min-height:62vh; }
+.dryice .img{ position:relative; overflow:hidden; }
+.dryice .img img{ width:100%; height:100%; object-fit:cover; filter:saturate(.85) brightness(.7); transform:scale(1.04); }
+.dryice .img::after{ content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(12,10,8,.2),rgba(12,10,8,.85)); }
+.dryice .body{ display:flex; flex-direction:column; justify-content:center; padding:clamp(40px,7vw,90px); background:var(--bg); }
+.dryice blockquote{ margin:0; }
+.dryice .line{
+  display:block; font-family:var(--cormorant); font-style:italic; font-weight:500;
+  font-size:clamp(34px,5.4vw,66px); line-height:1.04; color:var(--accent);
+  clip-path:inset(0 100% 0 0); transition:clip-path .8s var(--ease);
+}
+.dryice.in .line{ clip-path:inset(0 0 0 0); }
+.dryice.in .line:nth-child(2){ transition-delay:.14s; }
+.dryice .cite{ display:block; font-family:var(--sans); font-style:normal; color:var(--muted); font-size:13px; letter-spacing:.16em; text-transform:uppercase; margin-top:26px; }
+.dryice .cite .stars{ color:var(--primary); letter-spacing:.1em; }
+@media (prefers-reduced-motion: reduce){ .dryice .line{ clip-path:inset(0 0 0 0); } }
+
+/* =================== REVIEWS =================== */
+.reviews{ padding-block:clamp(80px,11vw,130px); }
+.reviews .menu-head{ margin-bottom:50px; }
+.review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.review{
+  background:var(--bg-card); border:1px solid var(--border); border-radius:4px;
+  padding:34px 30px; display:flex; flex-direction:column;
+}
+.review .stars{ color:var(--primary); letter-spacing:.18em; font-size:16px; margin-bottom:18px; }
+.review blockquote{ font-family:var(--cormorant); font-style:italic; font-size:21px; line-height:1.5; color:var(--text); margin:0; flex:1; }
+.review cite{ font-family:var(--sans); font-style:normal; color:var(--muted); font-size:13px; letter-spacing:.06em; margin-top:22px; display:flex; align-items:center; gap:8px; }
+.review cite .g{ color:var(--accent); font-weight:600; }
+
+/* =================== CONTACT / HOURS =================== */
+.contact{ background:var(--bg-section); border-block:1px solid var(--border); padding-block:clamp(80px,11vw,130px); }
+.contact-grid{ display:grid; grid-template-columns:1fr 1px 1fr; gap:clamp(36px,6vw,80px); align-items:start; }
+.contact .divider{ background:linear-gradient(180deg,transparent,var(--primary),transparent); width:1px; height:100%; min-height:240px; }
+.contact h3{ font-family:var(--bebas); font-size:24px; letter-spacing:.18em; color:var(--primary); margin:0 0 26px; text-transform:uppercase; }
+.hours-list{ list-style:none; margin:0; padding:0; }
+.hours-list li{ display:flex; justify-content:space-between; gap:20px; padding:13px 0; border-bottom:1px solid var(--border); font-size:16px; }
+.hours-list li.today{ color:var(--accent); }
+.hours-list li .d{ font-family:var(--bebas); letter-spacing:.12em; font-size:17px; }
+.hours-list li.today .d{ color:var(--accent); }
+.status{ display:inline-flex; align-items:center; gap:10px; margin-top:24px; font-family:var(--bebas); letter-spacing:.16em; font-size:15px; text-transform:uppercase; }
+.status .pulse{ width:10px; height:10px; border-radius:50%; position:relative; }
+.status.open .pulse{ background:#5BB873; box-shadow:0 0 0 0 rgba(91,184,115,.6); animation:pulseRing 2.2s infinite; }
+.status.closed .pulse{ background:#B85B5B; }
+.status.open{ color:#7FCB92; } .status.closed{ color:#CB8F8F; }
+@keyframes pulseRing{ 0%{ box-shadow:0 0 0 0 rgba(91,184,115,.55);} 70%{ box-shadow:0 0 0 12px rgba(91,184,115,0);} 100%{ box-shadow:0 0 0 0 rgba(91,184,115,0);} }
+@media (prefers-reduced-motion: reduce){ .status.open .pulse{ animation:none; } }
+
+.contact-info{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:22px; }
+.contact-info li{ display:flex; gap:16px; align-items:flex-start; }
+.contact-info .ic{ color:var(--primary); flex:0 0 auto; margin-top:2px; }
+.contact-info .ic svg{ width:20px; height:20px; }
+.contact-info .k{ font-size:16px; color:var(--text); }
+.contact-info .k span{ display:block; color:var(--muted); font-size:14px; }
+.contact-info a:hover{ color:var(--accent); }
+.contact-info .call-btn{ margin-top:8px; }
+
+.map-wrap{ margin-top:42px; position:relative; border:1px solid var(--border); border-radius:4px; overflow:hidden; aspect-ratio:16/7; background:var(--bg-card); }
+.map-overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:14px; text-align:center; padding:24px; cursor:pointer;
+  background:
+    linear-gradient(rgba(12,10,8,.7),rgba(12,10,8,.82)),
+    repeating-linear-gradient(45deg,#161310 0 14px,#1a1611 14px 28px);
+  transition:opacity .5s var(--ease);
+}
+.map-overlay .mk{ font-family:var(--serif); color:var(--primary); font-size:22px; }
+.map-overlay p{ color:var(--muted-2); font-size:14px; margin:0; max-width:34ch; }
+.map-overlay .go{ font-family:var(--bebas); letter-spacing:.16em; color:var(--accent); border:1px solid var(--primary); padding:9px 20px; border-radius:2px; font-size:14px; }
+.map-wrap.loaded .map-overlay{ opacity:0; pointer-events:none; }
+.map-wrap iframe{ width:100%; height:100%; border:0; opacity:0; transition:opacity .6s var(--ease) .1s; filter:grayscale(.4) invert(.9) hue-rotate(180deg) contrast(.9); }
+.map-wrap.loaded iframe{ opacity:1; }
+
+/* =================== INSTAGRAM =================== */
+.insta{ padding-block:clamp(70px,10vw,120px); text-align:center; }
+.insta .menu-head{ margin-bottom:36px; }
+.insta-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:40px; }
+.insta-tile{ position:relative; aspect-ratio:1; overflow:hidden; border-radius:3px; }
+.insta-tile img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+.insta-tile:hover img{ transform:scale(1.07); }
+.insta-tile .ov{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(12,10,8,.6); opacity:0; transition:opacity .35s; color:var(--accent); }
+.insta-tile:hover .ov{ opacity:1; }
+.insta-tile .ov svg{ width:30px; height:30px; }
+
+/* =================== FOOTER =================== */
+.footer{ border-top:1px solid var(--primary); background:var(--bg); padding-block:60px 40px; }
+.footer-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:30px; align-items:flex-start; }
+.footer .brand .mark{ font-size:26px; }
+.footer .f-info{ color:var(--muted-2); font-size:15px; line-height:1.9; }
+.footer .f-info a:hover{ color:var(--accent); }
+.footer .f-links{ display:flex; gap:24px; flex-wrap:wrap; }
+.footer .f-links button{ background:none; border:0; color:var(--muted-2); font-family:var(--sans); font-size:14px; }
+.footer .f-links button:hover{ color:var(--accent); }
+.footer-bottom{ margin-top:44px; padding-top:24px; border-top:1px solid var(--border); display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between; color:var(--muted); font-size:13px; }
+
+/* =================== FLOATING BUTTONS =================== */
+.floaters{ position:fixed; bottom:24px; left:0; right:0; z-index:900; pointer-events:none; }
+.float-btn{
+  position:fixed; bottom:24px; width:58px; height:58px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center; color:#fff;
+  pointer-events:auto; opacity:0; transform:translateY(20px) scale(.8);
+  transition:opacity .5s var(--ease), transform .5s var(--ease), box-shadow .3s;
+}
+.float-btn.show{ opacity:1; transform:translateY(0) scale(1); }
+.float-btn svg{ width:27px; height:27px; }
+.float-btn.wa{ left:24px; background:#25D366; animation:floatPulse 3s ease-in-out infinite; }
+.float-btn.call{ right:24px; background:var(--primary); color:#0C0A08; animation:floatPulse 3s ease-in-out infinite .8s; }
+.float-btn .tip{
+  position:absolute; bottom:50%; transform:translateY(50%); white-space:nowrap;
+  background:var(--bg-elev); border:1px solid var(--border-2); color:var(--text);
+  font-size:13px; padding:7px 13px; border-radius:4px; opacity:0; pointer-events:none;
+  transition:opacity .25s; font-family:var(--sans);
+}
+.float-btn.wa .tip{ left:70px; } .float-btn.call .tip{ right:70px; }
+.float-btn:hover .tip{ opacity:1; }
+@keyframes floatPulse{ 0%,100%{ transform:scale(1); box-shadow:0 6px 22px rgba(0,0,0,.4);} 50%{ transform:scale(1.08); box-shadow:0 8px 30px var(--glow);} }
+@media (prefers-reduced-motion: reduce){ .float-btn{ animation:none !important; } }
+
+/* =================== COOKIE =================== */
+.cookie{
+  position:fixed; left:20px; bottom:20px; z-index:950; max-width:360px;
+  background:var(--bg-elev); border:1px solid var(--border-2); border-radius:6px;
+  padding:20px 22px; box-shadow:0 18px 50px rgba(0,0,0,.6);
+  transform:translateY(30px); opacity:0; pointer-events:none; transition:opacity .4s var(--ease), transform .4s var(--ease);
+}
+.cookie.show{ transform:none; opacity:1; pointer-events:auto; }
+.cookie p{ margin:0 0 16px; font-size:13.5px; color:var(--muted-2); line-height:1.6; }
+.cookie p a{ color:var(--accent); text-decoration:underline; }
+.cookie .row{ display:flex; gap:10px; }
+.cookie .btn{ padding:9px 16px; font-size:13px; }
+.cookie .decline{ background:none; border:1px solid var(--border-2); color:var(--muted-2); border-radius:2px; font-family:var(--bebas); letter-spacing:.12em; padding:9px 16px; font-size:13px; }
+.cookie .decline:hover{ color:var(--text); border-color:var(--muted); }
+
+/* =================== MODAL =================== */
+.modal{ position:fixed; inset:0; z-index:1800; display:none; align-items:flex-start; justify-content:center; padding:6vh 20px; overflow:auto; background:rgba(6,5,3,.8); backdrop-filter:blur(6px); }
+.modal.open{ display:flex; }
+.modal-box{ background:var(--bg-card); border:1px solid var(--border-2); border-radius:6px; max-width:680px; width:100%; padding:40px clamp(24px,4vw,48px); position:relative; }
+.modal-box h3{ font-family:var(--serif); color:var(--primary); font-size:26px; margin:0 0 20px; }
+.modal-box h4{ font-family:var(--bebas); letter-spacing:.1em; color:var(--accent); margin:22px 0 8px; font-size:17px; }
+.modal-box p, .modal-box li{ color:var(--muted-2); font-size:14.5px; line-height:1.7; }
+.modal-box .close{ position:absolute; top:16px; right:18px; background:none; border:0; color:var(--muted); font-size:28px; line-height:1; }
+.modal-box .close:hover{ color:var(--text); }
+
+/* =================== RESPONSIVE =================== */
+@media (max-width:1024px){
+  .about-grid{ grid-template-columns:1fr; gap:48px; }
+  .about-quote{ text-align:left; }
+  .review-grid{ grid-template-columns:1fr; }
+  .review{ max-width:none; }
+  .insta-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width:860px){
+  .nav-links, .nav > .btn{ display:none; }
+  .hamburger{ display:flex; }
+  .dryice{ grid-template-columns:1fr; }
+  .dryice .img{ min-height:300px; }
+  .contact-grid{ grid-template-columns:1fr; }
+  .contact .divider{ display:none; }
+  .stats{ gap:14px; }
+  .review-grid{ grid-auto-flow:column; grid-auto-columns:82%; grid-template-columns:none; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:12px; }
+  .review{ scroll-snap-align:start; }
+}
+@media (max-width:520px){
+  body{ font-size:16px; }
+  .dish-grid{ grid-template-columns:1fr; }
+  .stats{ grid-template-columns:1fr; gap:8px; }
+  .stat{ display:flex; align-items:baseline; gap:14px; justify-content:flex-start; text-align:left; padding:10px 0; border-bottom:1px solid var(--border); }
+  .stat .lab{ margin-top:0; }
+  .footer-top{ flex-direction:column; }
+  .tabbar-wrap{ top:60px; }
+}
+
+
+.menu-page-hero{
+  padding-block:clamp(100px,14vw,160px) clamp(40px,6vw,70px);
+  background:var(--bg-section);
+  border-bottom:1px solid var(--border);
+  text-align:center;
+}
+.menu-page-hero .eyebrow{ margin-bottom:14px; }
+.menu-page-hero h1{
+  font-family:var(--serif); font-weight:200;
+  font-size:clamp(44px,8vw,96px); line-height:1; margin:0 0 18px; letter-spacing:-.01em;
+}
+.menu-page-hero p{ color:var(--muted-2); max-width:54ch; margin:0 auto; font-size:17px; }
+.menu-page-body{ padding-block:clamp(50px,7vw,80px); }
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#menu">Zum Inhalt springen</a>
+<header class="nav">
+  <a class="brand" href="index.html" aria-label="Osahi Sushi — Startseite">
+    <span class="logo-row"><span class="mark">OSAHI <span class="light">SUSHI</span></span></span>
+    <span class="sub">BBQ &amp; Modern Kitchen</span>
+  </a>
+  <nav aria-label="Hauptnavigation">
+    <ul class="nav-links">
+      <li><a href="speisekarte.html">Speisekarte</a></li>
+      <li><a href="index.html#about">Uber uns</a></li>
+      <li><a href="index.html#contact">Reservierung</a></li>
+      <li><a href="index.html#contact">Kontakt</a></li>
+    </ul>
+  </nav>
+  <a class="btn btn-gold" href="tel:+4963419957288" aria-label="Tisch reservieren">Reservieren</a>
+  <button class="hamburger" aria-label="Menu offnen" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+</header>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="close" aria-label="Menu schliessen">&times;</button>
+  <a href="speisekarte.html">Speisekarte</a>
+  <a href="index.html#about">Uber uns</a>
+  <a href="index.html#contact">Reservierung</a>
+  <a href="index.html#contact">Kontakt</a>
+  <a class="btn btn-gold" href="tel:+4963419957288">Tisch reservieren</a>
+</div>
+<main>
+<div class="menu-page-hero">
+  <div class="wrap">
+    <p class="eyebrow">Osahi Sushi Landau</p>
+    <h1>Speisekarte</h1>
+    <p>Zwolf Kategorien, rund 100 Gerichte — von der Sashimi-Scheibe bis zum argentinischen Rib-Eye. Tagliche frische Zutaten, ohne Glutamat.</p>
+  </div>
+</div>
+
+<section class="menu menu-page-body" id="menu">
+  <div class="wrap">
+    <div class="tabbar-wrap">
+      <div class="tabbar" id="tabbar" role="tablist" aria-label="Speisekarten-Kategorien"></div>
+    </div>
+    <div id="panels"></div>
+  </div>
+</section>
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="brand"><span class="logo-row"><span class="mark">OSAHI <span class="light">SUSHI</span></span></span><span class="sub">BBQ &amp; Modern Kitchen</span></div>
+      </div>
+      <div class="f-info">
+        Ostring 18 &middot; 76829 Landau in der Pfalz<br>
+        <a href="tel:+4963419957288">06341 9957288</a> &middot; <a href="mailto:xuanthuongth1705@gmail.com">xuanthuongth1705@gmail.com</a><br>
+        <a href="https://www.instagram.com/osahisushi_landau" target="_blank" rel="noopener">@osahisushi_landau</a>
+      </div>
+      <div class="f-links">
+        <button type="button" data-modal="impressum">Impressum</button>
+        <button type="button" data-modal="datenschutz">Datenschutz</button>
+        <button type="button" onclick="osahiOpenCookie()">Cookie-Einstellungen</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Osahi Sushi Landau &middot; Alle Rechte vorbehalten</span>
+      <span>Inhaber: Thanh Binh Troung</span>
+    </div>
+  </div>
+</footer>
+<a class="float-btn wa" href="https://wa.me/4963419957288" target="_blank" rel="noopener" aria-label="WhatsApp schreiben">
+  <span class="tip">WhatsApp</span>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 004.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.13c-.24.68-1.42 1.31-1.96 1.36-.5.05-.97.24-3.27-.68-2.76-1.09-4.5-3.92-4.64-4.1-.13-.18-1.1-1.47-1.1-2.8 0-1.33.7-1.99.95-2.26.24-.27.53-.34.7-.34.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.55.81 1.91.88 2.05.07.14.12.3.02.48-.1.18-.15.29-.29.45-.15.16-.31.36-.44.48-.15.14-.3.3-.13.59.18.29.78 1.29 1.67 2.08 1.15 1.03 2.12 1.35 2.42 1.5.3.15.47.13.65-.08.18-.2.74-.86.94-1.16.2-.29.4-.24.67-.14.27.1 1.7.8 1.99.95.29.14.48.21.55.33.07.12.07.7-.17 1.38z"/></svg>
+</a>
+<a class="float-btn call" href="tel:+4963419957288" aria-label="Anrufen">
+  <span class="tip">Tisch reservieren</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>
+</a>
+<div class="cookie" role="dialog" aria-label="Cookie-Hinweis">
+  <p>Wir verwenden nur technisch notwendige Cookies. Externe Inhalte werden erst nach Ihrer Zustimmung geladen. <a href="#" data-modal="datenschutz">Mehr erfahren</a></p>
+  <div class="row">
+    <button class="btn btn-gold" data-cookie="accepted">Einverstanden</button>
+    <button class="decline" data-cookie="declined">Nur notwendige</button>
+  </div>
+</div>
+<div class="modal" id="modal-impressum">
+  <div class="modal-box">
+    <button class="close" aria-label="Schliessen">&times;</button>
+    <h3>Impressum</h3>
+    <p>Angaben gema&szlig; &sect; 5 TMG</p>
+    <h4>Betreiber</h4>
+    <p>Osahi Sushi Landau<br>Inhaber: Thanh Binh Troung<br>Ostring 18<br>76829 Landau in der Pfalz</p>
+    <h4>Kontakt</h4>
+    <p>Telefon: 06341 9957288<br>E-Mail: xuanthuongth1705@gmail.com</p>
+    <h4>Hinweis</h4>
+    <p>Bitte erg&auml;nzen Sie Umsatzsteuer-ID, ggf. Handelsregistereintrag sowie eine ladungsf&auml;hige Anschrift entsprechend Ihrer Rechtsform.</p>
+  </div>
+</div>
+<div class="modal" id="modal-datenschutz">
+  <div class="modal-box">
+    <button class="close" aria-label="Schliessen">&times;</button>
+    <h3>Datenschutz</h3>
+    <h4>Allgemeines</h4>
+    <p>Der Schutz Ihrer personenbezogenen Daten ist uns wichtig. Diese Website verarbeitet personenbezogene Daten ausschlie&szlig;lich im technisch notwendigen Umfang.</p>
+    <h4>Externe Karten</h4>
+    <p>Kartenmaterial wird erst nach aktivem Klick geladen. Dabei wird eine Verbindung zum jeweiligen Kartenanbieter hergestellt und Ihre IP-Adresse &uuml;bertragen.</p>
+    <h4>Cookies</h4>
+    <p>Es werden nur technisch notwendige Cookies eingesetzt.</p>
+  </div>
+</div>
+<script>
+/* Osahi Sushi — full menu data. Starter prices follow the flyer photo;
+   later sections follow the written brief. Obvious typos corrected. */
+window.OSAHI_MENU = [
+  {
+    id:"vorspeisen", icon:"🥢", label:"Vorspeisen",
+    note:"Vorspeisen & Salate — frisch zubereitet, ohne Glutamat.",
+    items:[
+      {no:"1", name:"Miso Suppe", desc:"Sojabohnenpaste in Dashibrühe, Tofu, Seealgen, Frühlingszwiebeln", price:"4,20€"},
+      {no:"2", name:"Miso Suppe mit Lachs", desc:"Sojabohnenpaste in Dashibrühe, Pilze, Seealgen, Frühlingszwiebeln", price:"5,50€"},
+      {no:"3", name:"Seafood Soup", desc:"Garnelen, Lachs, Muschel, Champignon, Tomaten, Paprika, Ananas", price:"6,90€"},
+      {no:"4", name:"Coco Soup", spicy:true, desc:"Kokosmilch, Gemüse, Basilikum", price:"4,20€", from:true,
+        opts:[["Tofu","4,20€"],["Hühnerfleisch","4,20€"],["Lachs","5,20€"],["Garnelen","5,90€"]]},
+      {no:"5", name:"Spring Rolls", desc:"Knusprige Frühlingsrollen, hausgemacht", price:"4,50€", from:true,
+        opts:[["Gemüse","4,50€"],["Garnelen-Hackfleisch","5,50€"]]},
+      {no:"6", name:"Sommer Rolls", desc:"Reispapier, Gurken, Reisnudeln, frische Kräuter, Soße", price:"4,20€", from:true,
+        opts:[["Tofu","4,20€"],["Hühnerfleisch","4,50€"],["Garnelen","5,50€"],["Tempura Garnelen","5,90€"]]},
+      {no:"7", name:"Hähnchenspieße", desc:"Gegrillte Hähnchenspieße mit hausgemachter Erdnusssoße", price:"4,90€"},
+      {no:"8", name:"Bo Lalot", desc:"Gegrilltes Rindfleisch, in grüne Betelblätter eingerollt, mit Soße", price:"5,90€"},
+      {no:"9", name:"Edamame", desc:"Baby grüne Sojabohnen, Meersalz", price:"4,90€"},
+      {no:"10", name:"Gegrillte Avocado", desc:"Cherrytomaten, Mango, Frühlingszwiebeln, Olivenöl, hausgemachte Salsasoße", price:"6,00€"},
+      {no:"11", name:"Gegrillte Avocado Garnelen", desc:"Cherrytomaten, Mango, Frühlingszwiebeln, Olivenöl, Salsasoße", price:"6,50€"},
+      {no:"12", name:"Tartare", desc:"Avocado, Lauchzwiebeln, scharfe Sauce, vietnamesischem Banh Da", price:"9,50€", from:true,
+        opts:[["Lachs","9,50€"],["Thunfisch","10,50€"]]},
+      {no:"13", name:"Sake Yaki", desc:"6 Stk. — leicht gegrilltes Lachsfilet, Wildkräutersalat, Seetangsalat, Ponzusoße, Mayo", price:"11,90€"},
+      {no:"14", name:"Tuna Yaki", desc:"6 Stk. — leicht gegrilltes Thunfischfilet, Wildkräutersalat, Seetangsalat, Ponzusoße, Mayo", price:"13,90€"},
+      {no:"15", name:"Prawns in Silk", desc:"Teigtaschen aus Reismehl, gehackte Garnelen, Gemüse", price:"6,00€"},
+      {no:"16", name:"Hot Gyoza", desc:"Gebratene Teigtaschen, Hühnerfleisch, Gemüse", price:"6,50€"},
+      {no:"17", name:"Osahi Platte", desc:"2 Personen — Frühlingsrollen, Tempura, Teigtaschen, Prawns in Silk, Edamame, Dip", price:"19,50€"},
+      {no:"18", name:"Kimchi Salat", desc:"Eingelegter Chinakohl nach Hausrezept", price:"5,50€"}
+    ]
+  },
+  {
+    id:"sets", icon:"🍱", label:"Sushi Sets",
+    note:"Kunstvoll arrangierte Sets — ideal zum Teilen.",
+    items:[
+      {no:"SS1", name:"Veggie Set", desc:"5 Stk. Tempura, 6 Stk. Avocado Maki, 8 Stk. Veggie Uramaki", price:"15,50€"},
+      {no:"SS2", name:"Kuzura Maki", desc:"6 Stk. Tuna Maki, 6 Stk. Sake Maki, 6 Stk. Kappa Maki", price:"16,50€"},
+      {no:"SS3", name:"Salmon Lovers", desc:"4 Stk. Lachs Sashimi, 5 Stk. Lachs Nigiri, 6 Stk. Lachs Maki", price:"20,50€"},
+      {no:"SS4", name:"Tuna Captain", desc:"4 Stk. Sashimi, 4 Stk. Nigiri, 8 Stk. Maguro Uramaki", price:"22,50€"},
+      {no:"SS5", name:"Sushi Crispy", desc:"4 Stk. Specials Roll, 6 Stk. Hosomaki, 10 Stk. Salmon Tempura", price:"27,50€"},
+      {no:"SS6", name:"Ocean Slices Set", desc:"6 Stk. Nigiri, 6 Stk. Hosomaki, 8 Stk. Sashimi, 8 Stk. Specials Roll", price:"44,90€"},
+      {no:"SS7", name:"Couple Set Specials", desc:"2 Personen — 6 Sashimi, 8 Uramaki, 10 Tempura Roll, 12 Nigiri, 12 Hosomaki", price:"69,00€"},
+      {no:"SS8", name:"Family Set Specials", desc:"3 Personen — 8 Uramaki, 8 Specials, 9 Nigiri, 12 Sashimi, 12 Hosomaki, 15 Tempura Roll", price:"95,00€"}
+    ]
+  },
+  {
+    id:"uramaki", icon:"🍙", label:"Ura Maki",
+    note:"Inside-out Rolls · 8 Stück",
+    items:[
+      {no:"U1", name:"Sake", desc:"Lachs, Avocado, Tobiko, Mayo", price:"8,90€"},
+      {no:"U2", name:"Ebi", desc:"Riesengarnelen, Avocado, Tobiko, Mayo", price:"8,90€"},
+      {no:"U3", name:"Maguro", desc:"Thunfisch, Avocado, Tobiko, Mayo", price:"9,50€"},
+      {no:"U5", name:"California", desc:"Surimi, Avocado, Tobiko, Mayo", price:"8,90€"},
+      {no:"U6", name:"Crunchy Spicy Lachs Roll", spicy:true, desc:"Mariniertes Lachstatar, Gurke, Mango, Lauch, Chilisoße, Tempura Flocken", price:"11,50€"},
+      {no:"U7", name:"Crunchy Spicy Tuna Roll", spicy:true, desc:"Mariniertes Thunfischtatar, Gurke, Mango, Lauch, Chilisoße, Tempura Flocken", price:"12,50€"},
+      {no:"U8", name:"Salmonskin Roll", desc:"Lachshaut, Gurke, Avocado, Frischkäse, Sesam", price:"8,90€"},
+      {no:"U9", name:"Yakitori Roll", desc:"Hähnchen, Gurke, mit Sesam umwickelt", price:"8,90€"},
+      {no:"U10", name:"Ebi Tempura", desc:"Gurke, Frischkäse, Tempura Flocken", price:"9,50€"},
+      {no:"U11", name:"Rucola Roll", desc:"Vegetarisch — Rucola, Gurke, Frischkäse, Sesam", price:"8,50€"},
+      {no:"U12", name:"Yasai Roll", desc:"Vegetarisch — Avocado, Gurke, Tempura Flocken", price:"8,50€"},
+      {no:"U13", name:"Flower Roll", desc:"Vegetarisch — frittierter Spargel, Gurke, Avocado, Sesam", price:"9,00€"}
+    ]
+  },
+  {
+    id:"crunchy", icon:"🍤", label:"Crunchy Roll",
+    note:"Panierte Rollen · 10 Stück",
+    items:[
+      {no:"C1", name:"Chicken Crunchy", desc:"Marinierter Yakitori, Gurke, Wildkräutersalat, Frischkäse, Sesam", price:"15,50€"},
+      {no:"C2", name:"Salmon Crunchy", desc:"Lachs, Avocado, Gurken, Wildkräutersalat, Frischkäse", price:"15,90€"},
+      {no:"C3", name:"Ebi Crunchy", desc:"Garnelen, Gurke, Avocado, Wildkräutersalat, Frischkäse", price:"15,90€"},
+      {no:"C4", name:"Crazy Tuna Crunchy", desc:"Thunfisch, Avocado, Gurke, Frischkäse", price:"16,90€"},
+      {no:"C6", name:"Four Seasons Crunchy", desc:"Rinderfilet, Surimi, Mango, Wildkräutersalat, Frischkäse", price:"15,90€"},
+      {no:"C7", name:"Yasai Crunchy Roll", desc:"Japanischer Tofu, Rettich, Gurke, Avocado, Wildkräutersalat, Frischkäse", price:"14,50€"},
+      {no:"C8", name:"Modern Monk Roll", desc:"Frischkäse, Avocado, Spargel, Mango, Wildkräutersalat", price:"14,50€"}
+    ]
+  },
+  {
+    id:"specials", icon:"🐉", label:"Specials Roll",
+    note:"Spezielle Rollen mit Premium-Soße nach Osahi Art.",
+    items:[
+      {no:"SR1", name:"Osahi Roll", desc:"Gemüse Tempura, Mayonnaise, umwickelt mit verschiedenen Fischen, Misosauce, Kresse, Sesam", price:"15,50€"},
+      {no:"SR2", name:"Amazing Friendship", desc:"Lachs Tempura, Gurke, Frischkäse, umwickelt mit Lachs, Wasabi-Mayo, Tempura Flocken", price:"15,50€"},
+      {no:"SR3", name:"Angry Dragon Roll", spicy:true, desc:"Ebi Tempura, Gurke, Frischkäse, umwickelt mit Lachs", price:"15,50€"},
+      {no:"SR4", name:"Red Osahi Roll", desc:"Lachs, Salat, Avocado, Frischkäse, mit Tuna umwickelt", price:"16,90€"},
+      {no:"SR5", name:"Last Warrior Roll", desc:"Lachshaut, Gurke, Avocado, mit flambiertem Lachs umwickelt", price:"15,50€"},
+      {no:"SR7", name:"Black Dragon Roll", spicy:true, desc:"Ebi, Spicy Mayo, Avocado, mit Aal umwickelt", price:"16,90€"},
+      {no:"SR8", name:"Osahi Veggie Roll", desc:"Vegetarisch — Gemüse Tempura, Mayo, mit Avocado umwickelt, Misosauce, Kresse, Sesam", price:"14,50€"},
+      {no:"SR9", name:"Buddha Roll", desc:"Vegetarisch — Mango, Gurke, umwickelt mit Tofutasche", price:"14,50€"}
+    ]
+  },
+  {
+    id:"sashimi", icon:"🐟", label:"Sashimi",
+    note:"Hauchfein geschnittener roher Fisch · 6 Stück",
+    items:[
+      {no:"S1", name:"Sashimi Lachs", desc:"Lachs, Wildkräutersalat, Seetang Salat", price:"17,50€"},
+      {no:"S2", name:"Sashimi Lachs & Tuna", desc:"Lachs, Thunfisch, Wildkräutersalat, Seetang Salat", price:"18,50€"},
+      {no:"S3", name:"Sashimi Tuna", desc:"Avocado, Wildkräutersalat, Seetang Salat", price:"19,50€"}
+    ]
+  },
+  {
+    id:"nigiri", icon:"🍣", label:"Nigiri",
+    note:"Handgeformter Reis mit Belag · 2 Stück",
+    items:[
+      {no:"N1", name:"Sake", desc:"Lachs", price:"5,50€"},
+      {no:"N2", name:"Maguro", desc:"Thunfisch", price:"6,50€"},
+      {no:"N3", name:"Hamachi", desc:"Gelbschwanzfisch", price:"6,50€"},
+      {no:"N5", name:"Hotategai", desc:"Jakobsmuschel", price:"6,50€"},
+      {no:"N6", name:"Ebi", desc:"Riesengarnelen", price:"5,50€"},
+      {no:"N7", name:"Tako", desc:"Octopus", price:"5,50€"},
+      {no:"N8", name:"Unagi", desc:"Gegrillter Aal", price:"5,50€"},
+      {no:"N9", name:"Avocado", desc:"Vegetarisch", price:"4,90€"},
+      {no:"N10", name:"Tamago", desc:"Japanisches Omelett", price:"4,90€"},
+      {no:"N11", name:"Inari", desc:"Tofutasche", price:"4,90€"},
+      {no:"N12", name:"Salmon Gunkan", desc:"Gehackter Lachs, Spargel, Surimi, Lauch, Tobiko, Mayo, mit flambiertem Lachs umwickelt", price:"7,50€"},
+      {no:"N13", name:"Tuna Gunkan", spicy:true, desc:"Gehackter Thunfisch, Schnittlauch, Tobiko, Spicy Soße, mit Thunfisch umwickelt", price:"8,50€"}
+    ]
+  },
+  {
+    id:"maki", icon:"🍙", label:"Maki",
+    note:"Kleine Rolle mit Fisch oder Gemüse, mit Seetang umwickelt · 6 Stück",
+    items:[
+      {no:"M1", name:"Sake Maki", desc:"Lachs", price:"5,90€"},
+      {no:"M2", name:"Unagi Maki", desc:"Gegrillter Aal", price:"6,50€"},
+      {no:"M3", name:"Spicy Sake", spicy:true, desc:"Scharfer Lachs, Frühlingszwiebel", price:"5,90€"},
+      {no:"M4", name:"Tekka Maki", desc:"Thunfisch", price:"6,50€"},
+      {no:"M5", name:"California Maki", desc:"Surimi, Avocado", price:"5,90€"},
+      {no:"M6", name:"Ebi Maki", desc:"Tempura Garnelen", price:"5,90€"},
+      {no:"M7", name:"Ebi Avo", desc:"Garnelen, Avocado", price:"5,90€"},
+      {no:"M8", name:"Avocado Maki", desc:"Vegetarisch", price:"5,00€"},
+      {no:"M9", name:"Kappa Maki", desc:"Gurke", price:"5,00€"},
+      {no:"M10", name:"Oshinko Maki", desc:"Eingelegter Rettich", price:"5,00€"},
+      {no:"M11", name:"Asupara Maki", desc:"Grüner Spargel, Frischkäse, Sesam", price:"5,90€"},
+      {no:"M13", name:"Tamago Maki", desc:"Japanisches Omelett, Sesam", price:"5,00€"}
+    ]
+  },
+  {
+    id:"warm", icon:"🍜", label:"Warme Speisen",
+    note:"Vietnamesische & pan-asiatische Klassiker, frisch aus dem Wok.",
+    items:[
+      {no:"21", name:"Pho", desc:"Vietnamesische Reisbandnudelsuppe", price:"13,90€", from:true,
+        opts:[["Tofu","13,90€"],["Maishähnchen","14,90€"],["Rinderfilet","15,90€"]]},
+      {no:"23", name:"Bun Cha Gio", desc:"Reisnudeln, knusprige Frühlingsrolle, Kräuter, Gurken, Salat, Erdnüsse", price:"14,50€"},
+      {no:"26", name:"Bun Bo Nam Bo", desc:"Reisnudeln, Rindfleisch, Zitronengras, Kräuter, Gurken, Salat, Erdnüsse", price:"15,90€"},
+      {no:"28", name:"Udon in Tokyo", desc:"Udon Nudeln, Paprika, Zucchini, Karotten, Roja-Balsamico Sauce, Salsa Roja, Zwiebeln", price:"13,90€", from:true,
+        opts:[["Tofu","13,90€"],["Maishähnchen","15,90€"],["Rindfleisch","15,90€"],["Garnelen","16,90€"]]},
+      {no:"29", name:"Osahi Mango", desc:"Mangocreme-Soße, Kokosmilch, Gemüse, geröstete Cashewkerne, Sesamreis", price:"13,90€", from:true,
+        opts:[["Tofu","13,90€"],["Maishähnchen","15,90€"],["Rindfleisch","15,90€"],["Garnelen","16,90€"],["Entenbrust","16,50€"]]},
+      {no:"30", name:"Osahi Curry", spicy:true, desc:"Kokos-Currysoße, Kürbis, Paprika, Gemüse, Cashewkerne, Sesamreis", price:"13,90€", from:true,
+        opts:[["Tofu","13,90€"],["Maishähnchen","15,90€"],["Rindfleisch","15,90€"],["Garnelen","16,90€"],["Entenbrust","16,50€"]]},
+      {no:"31", name:"Osahi Indochina", spicy:true, desc:"Frisches Gemüse, scharfe Soße, Sesamreis", price:"13,90€", from:true,
+        opts:[["Tofu","13,90€"],["Maishähnchen","15,90€"],["Rindfleisch","15,90€"],["Garnelen","16,90€"],["Entenbrust","16,50€"]]}
+    ]
+  },
+  {
+    id:"grill", icon:"🔥", label:"Grill",
+    note:"Osahi Grillspezialitäten — vom argentinischen Rib-Eye bis zur Tiger-Prawn.",
+    items:[
+      {no:"32", name:"Jakobsmuscheln", desc:"Knoblauch, gebratenes Gemüse, Soja-Balsamico Dressing, frischer Salat & Sesamreis", price:"25,50€"},
+      {no:"33", name:"Lachs Teriyaki", desc:"Gegrilltes Lachsfilet, gebratenes Gemüse, Soja-Balsamico Dressing, Salat & Sesamreis", price:"19,50€"},
+      {no:"34", name:"Gegrillte Tiger Prawns", desc:"Gegrillte Garnelen, gebratenes Gemüse, Soja-Balsamico Dressing, Salat & Sesamreis", price:"23,50€"},
+      {no:"35", name:"Grillter Fischteller", desc:"Gebratenes Gemüse, Soja-Balsamico Dressing, frischer Salat, Sesamreis", price:"27,90€"},
+      {no:"36", name:"Rib-Eye-Steak", desc:"250g — argentinisches Entrecôte medium gegrillt, Gemüse, Zuckererbsen, Osahi Soße, Wildkräutersalat & Pommes", price:"25,90€"},
+      {no:"37", name:"Grilled Rack of Lamb", desc:"Gegrilltes Lammnackenkarree, Gemüse, Zuckererbsen, Osahi Soße, Wildkräutersalat & Pommes", price:"25,90€"},
+      {no:"38", name:"Kuh auf der Weide", desc:"200g — argentinisches Rinderfilet medium gegrillt, Gemüse, Zuckererbsen, Osahi Soße, Wildkräutersalat & Pommes", price:"28,90€"},
+      {no:"39", name:"Surf and Turf", desc:"200g — Rinderfilet + gegrillte Großgarnelen, Gemüse, Zuckererbsen, Osahi Soße, Wildkräutersalat & Pommes", price:"30,90€"},
+      {no:"40", name:"Grill Platte", desc:"2 Personen — Lamm, Rinderfilet, Garnelen, Hähnchenspieße, Gemüse, Zuckererbsen, Osahi Soße, Salat & Pommes", price:"67,50€"}
+    ]
+  },
+  {
+    id:"donburi", icon:"🍚", label:"Donburi",
+    note:"Japanische Reisschale: Reis mit Fisch, Fleisch & Gemüse — dazu Bohnen, Avocado, Mais, Oshinko, Tamago, Gurke, Mango & Sesam.",
+    items:[
+      {no:"D1", name:"Sake Don", desc:"Roher Lachs, Masago", price:"17,90€"},
+      {no:"D2", name:"Sake Maguro", desc:"Roher Thunfisch, Lachs, Masago", price:"20,90€"},
+      {no:"D3", name:"Chicken Don", desc:"Mariniertes Hähnchen", price:"16,50€"},
+      {no:"D4", name:"Osahi Specials Don", desc:"Freestyle Ocean", price:"25,50€"}
+    ]
+  },
+  {
+    id:"kids", icon:"🧒", label:"Happy Child",
+    note:"Für unsere kleinen Gäste.",
+    items:[
+      {no:"41", name:"Tempura Garnelen", desc:"2 Stück — serviert mit Pommes, Süß-sauer Sauce, japanischer Mayonnaise", price:"8,50€"},
+      {no:"42", name:"Hähnchenspieße", desc:"Serviert mit Pommes und Ketchup", price:"8,50€"}
+    ]
+  }
+];
+
+</script>
+<script>
+/* Osahi Sushi — interactions */
+(function(){
+  "use strict";
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- HERO load stagger ---------- */
+  window.addEventListener('load', function(){
+    var hero = document.querySelector('.hero');
+    if(hero) requestAnimationFrame(function(){ hero.classList.add('loaded'); });
+  });
+
+  /* ---------- NAV scroll state + mobile menu ---------- */
+  var nav = document.querySelector('.nav');
+  function onScroll(){ if(nav) nav.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  var burger = document.querySelector('.hamburger');
+  var mmenu = document.querySelector('.mobile-menu');
+  function setMenu(open){
+    if(!mmenu) return;
+    mmenu.classList.toggle('open', open);
+    if(burger) burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  if(burger) burger.addEventListener('click', function(){ setMenu(!mmenu.classList.contains('open')); });
+  if(mmenu){
+    mmenu.querySelectorAll('a, .close').forEach(function(el){
+      el.addEventListener('click', function(){ setMenu(false); });
+    });
+  }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ setMenu(false); closeModals(); } });
+
+  /* ---------- MENU render ---------- */
+  var data = window.OSAHI_MENU || [];
+  var tabbar = document.getElementById('tabbar');
+  var panels = document.getElementById('panels');
+  if(tabbar && panels){
+    data.forEach(function(cat, i){
+      var tab = document.createElement('button');
+      tab.className = 'tab' + (i===0 ? ' active' : '');
+      tab.type = 'button';
+      tab.setAttribute('role','tab');
+      tab.setAttribute('aria-selected', i===0 ? 'true':'false');
+      tab.dataset.target = cat.id;
+      tab.innerHTML = '<span class="ic" aria-hidden="true">'+cat.icon+'</span>'+cat.label;
+      tabbar.appendChild(tab);
+
+      var panel = document.createElement('div');
+      panel.className = 'tab-panel' + (i===0 ? ' active' : '');
+      panel.id = 'panel-'+cat.id;
+      panel.setAttribute('role','tabpanel');
+      var html = '';
+      if(cat.note) html += '<p class="panel-note">'+cat.note+'</p>';
+      html += '<div class="dish-grid">';
+      cat.items.forEach(function(it, j){
+        var heat = it.spicy ? ' <span class="heat" aria-label="scharf">🌶️</span>' : '';
+        var priceHtml = (it.from ? '<span class="from">ab</span>' : '') + it.price;
+        var opts = '';
+        if(it.opts){
+          opts = '<div class="opts">' + it.opts.map(function(o){
+            return '<span class="opt">'+o[0]+' <b>'+o[1]+'</b></span>';
+          }).join('') + '</div>';
+        }
+        html += '<article class="dish'+(it.spicy?' spicy':'')+'" style="animation-delay:'+(j*0.04)+'s">'
+          + '<div class="top">'
+          +   '<div><span class="no">Nr. '+it.no+'</span></div>'
+          +   '<span class="price">'+priceHtml+'</span>'
+          + '</div>'
+          + '<h3 class="name">'+it.name+heat+'</h3>'
+          + (it.desc ? '<p class="desc">'+it.desc+'</p>' : '')
+          + opts
+          + '</article>';
+      });
+      html += '</div>';
+      panel.innerHTML = html;
+      panels.appendChild(panel);
+    });
+
+    tabbar.addEventListener('click', function(e){
+      var tab = e.target.closest('.tab');
+      if(!tab) return;
+      tabbar.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      panels.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      var target = document.getElementById('panel-'+tab.dataset.target);
+      if(target){
+        // restart card stagger
+        target.classList.add('active');
+        if(!rm){
+          target.querySelectorAll('.dish').forEach(function(d){
+            d.style.animation = 'none'; void d.offsetWidth; d.style.animation = '';
+          });
+        }
+      }
+      // keep active tab in view
+      var br = tabbar.getBoundingClientRect(), tr = tab.getBoundingClientRect();
+      if(tr.left < br.left || tr.right > br.right){
+        tabbar.scrollBy({ left: tr.left - br.left - 24, behavior: rm ? 'auto' : 'smooth' });
+      }
+    });
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        if(en.target.classList.contains('dryice')) en.target.classList.add('in');
+        if(en.target.hasAttribute('data-count')) runCounter(en.target);
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' }) : null;
+
+  if(io){
+    document.querySelectorAll('.reveal, .dryice').forEach(function(el){ io.observe(el); });
+    document.querySelectorAll('[data-count]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal, .dryice').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('[data-count]').forEach(function(el){ el.textContent = el.getAttribute('data-suffix-only')||el.dataset.count; });
+  }
+
+  /* ---------- Counters ---------- */
+  function runCounter(el){
+    if(rm){ el.textContent = (el.dataset.prefix||'') + el.dataset.count + (el.dataset.suffix||''); return; }
+    var target = parseFloat(el.dataset.count);
+    var dec = (el.dataset.count.indexOf('.') > -1) ? 1 : 0;
+    var dur = 1500, start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var eased = 1 - Math.pow(1-p, 3);
+      var val = (target*eased).toFixed(dec);
+      el.textContent = (el.dataset.prefix||'') + (dec ? val.replace('.',',') : Math.round(target*eased)) + (el.dataset.suffix||'');
+      if(p < 1) requestAnimationFrame(step);
+      else el.textContent = (el.dataset.prefix||'') + (dec ? target.toFixed(1).replace('.',',') : target) + (el.dataset.suffix||'');
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* ---------- Opening hours status + today highlight ---------- */
+  // Open Mon–Sun & holidays: 11:30–15:00 and 17:00–22:30
+  function updateStatus(){
+    var now = new Date();
+    var day = now.getDay(); // 0 Sun ... 6 Sat
+    var mins = now.getHours()*60 + now.getMinutes();
+    var open = (mins >= 690 && mins <= 900) || (mins >= 1020 && mins <= 1350);
+    var statusEl = document.querySelector('.status');
+    if(statusEl){
+      statusEl.classList.toggle('open', open);
+      statusEl.classList.toggle('closed', !open);
+      var txt = statusEl.querySelector('.txt');
+      if(txt) txt.textContent = open ? 'Jetzt geöffnet' : 'Aktuell geschlossen';
+    }
+    var todayIdx = (day === 0) ? 6 : day - 1; // map to Mon=0
+    document.querySelectorAll('.hours-list li').forEach(function(li, i){
+      li.classList.toggle('today', i === todayIdx);
+    });
+  }
+  updateStatus();
+  setInterval(updateStatus, 60000);
+
+  /* ---------- Click-to-load map (GDPR) ---------- */
+  var mapWrap = document.querySelector('.map-wrap');
+  if(mapWrap){
+    var ov = mapWrap.querySelector('.map-overlay');
+    function loadMap(){
+      if(mapWrap.classList.contains('loaded')) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.openstreetmap.org/export/embed.html?bbox=8.110%2C49.191%2C8.130%2C49.205&layer=mapnik&marker=49.1976889%2C8.1195895';
+      iframe.title = 'Standort Osahi Sushi — Ostring 18, Landau';
+      iframe.loading = 'lazy';
+      iframe.setAttribute('aria-label','Karte: Ostring 18, Landau in der Pfalz');
+      mapWrap.appendChild(iframe);
+      mapWrap.classList.add('loaded');
+    }
+    if(ov){
+      ov.addEventListener('click', loadMap);
+      ov.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); loadMap(); } });
+    }
+  }
+
+  /* ---------- Floating buttons fade-in ---------- */
+  setTimeout(function(){
+    document.querySelectorAll('.float-btn').forEach(function(b){ b.classList.add('show'); });
+  }, 1800);
+
+  /* ---------- Cookie banner ---------- */
+  var cookie = document.querySelector('.cookie');
+  if(cookie && !localStorage.getItem('osahi_cookie')){
+    setTimeout(function(){ cookie.classList.add('show'); }, 1200);
+    cookie.querySelectorAll('[data-cookie]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        localStorage.setItem('osahi_cookie', btn.dataset.cookie);
+        cookie.classList.remove('show');
+      });
+    });
+  }
+
+  /* ---------- Modals (Impressum / Datenschutz) ---------- */
+  function closeModals(){ document.querySelectorAll('.modal.open').forEach(function(m){ m.classList.remove('open'); document.body.style.overflow=''; }); }
+  document.querySelectorAll('[data-modal]').forEach(function(trg){
+    trg.addEventListener('click', function(e){
+      e.preventDefault();
+      var m = document.getElementById('modal-'+trg.dataset.modal);
+      if(m){ m.classList.add('open'); document.body.style.overflow='hidden'; }
+    });
+  });
+  document.querySelectorAll('.modal').forEach(function(m){
+    m.addEventListener('click', function(e){ if(e.target === m || e.target.closest('.close')) closeModals(); });
+  });
+  window.osahiOpenCookie = function(){ if(cookie){ cookie.classList.add('show'); } };
+})();
+
+</script>
+<script>
+(function(){
+  var items = ["4.4 / 5 bei 900+ Bewertungen","#2 Vegetarisch in Landau","Kein Glutamat","Taglich frisch","Mo-So & Feiertag geoffnet","Tischreservierung empfohlen","Essen zum Mitnehmen","@osahisushi_landau"];
+  var track = document.getElementById('marquee');
+  if(!track) return;
+  var unit = items.map(function(t){ return '<span class="item">'+t+'</span><span class="sep">+</span>'; }).join('');
+  track.innerHTML = unit + unit;
+})();
+</script>
+</body>
+</html>

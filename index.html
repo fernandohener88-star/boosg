@@ -57,10 +57,6 @@
 </head>
 <body>
 
-<!-- ======================= CUSTOM CURSOR ======================= -->
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
 <!-- ======================= NAVIGATION ======================= -->
 <header class="nav" id="nav" data-screen-label="Navigation">
   <div class="nav__inner">
@@ -94,6 +90,7 @@
 <section class="hero" id="hero" data-screen-label="Hero">
   <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
   <image-slot id="heroPhoto" class="hero__photo" shape="rect" fit="cover"
+              src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=1920&q=80"
               placeholder="Hero-Foto ablegen — dunkle Bar-Atmosphäre"></image-slot>
   <div class="hero__veil" aria-hidden="true"></div>
 
@@ -398,7 +395,6 @@
 
 <!-- ======================= SCRIPTS ======================= -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <script src="image-slot.js"></script>
 <script src="app.js"></script>
 </body>

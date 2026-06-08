@@ -45,27 +45,6 @@
     burger.setAttribute('aria-expanded', false);
   }));
 
-  /* ---------------- CUSTOM CURSOR ---------------- */
-  if (window.matchMedia('(pointer:fine)').matches) {
-    document.body.classList.add('has-cursor');
-    const dot = $('#cursorDot'), ring = $('#cursorRing');
-    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-    window.addEventListener('mousemove', e => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-    });
-    (function loop() {
-      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-      ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-      requestAnimationFrame(loop);
-    })();
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest('a,button,.tab,.gal,image-slot')) ring.classList.add('is-hover');
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest('a,button,.tab,.gal,image-slot')) ring.classList.remove('is-hover');
-    });
-  }
 
   /* ---------------- DRINKS DATA + TABS ---------------- */
   const MENU = {
@@ -227,19 +206,6 @@
       src="https://www.openstreetmap.org/export/embed.html?bbox=8.108%2C49.193%2C8.127%2C49.203&layer=mapnik&marker=49.1978%2C8.1175"></iframe>`;
   });
 
-  /* ---------------- LENIS SMOOTH SCROLL ---------------- */
-  let lenis = null;
-  if (window.Lenis && !reduce) {
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-    window.__lenis = lenis;
-    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    // anchor links through lenis
-    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-      const id = a.getAttribute('href');
-      if (id.length > 1 && $(id)) { e.preventDefault(); lenis.scrollTo(id, { offset: -70 }); }
-    }));
-  }
 
   /* ---------------- REVEALS (IntersectionObserver) ---------------- */
   function animateCount(el) {

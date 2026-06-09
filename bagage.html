@@ -274,7 +274,7 @@ img { display: block; max-width: 100%; }
 .btn:hover .arr { transform: translateX(5px); }
 
 /* floating 3D emblem */
-.hero__emblem {
+.hero__emblem { display: none !important; } .hero__emblem_DISABLED {
   position: absolute; z-index: 1; right: clamp(10px, 6vw, 110px); top: 50%;
   width: clamp(120px, 16vw, 230px); aspect-ratio: 1;
   transform: translateY(-50%);
@@ -305,7 +305,7 @@ img { display: block; max-width: 100%; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .ringtext text { font-family: var(--ff-mono); font-size: 8.5px; letter-spacing: 3.5px; fill: #888888; opacity: 1; }
-@media (max-width: 900px) { .hero__emblem { display: none; } }
+@media (max-width: 900px) { .hero__emblem { display: none !important; } .hero__emblem_DISABLED { display: none; } }
 
 .scrollcue {
   position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
@@ -680,7 +680,7 @@ section { position: relative; }
   background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(5,4,3,0.5) 100%);
 }
 .hero__inner { z-index: 3; }
-.hero__emblem { z-index: 3; }
+.hero__emblem { display: none !important; } .hero__emblem_DISABLED { z-index: 3; }
 .scrollcue { z-index: 3; }
 
 /* Stronger grain on dark bg */
@@ -845,13 +845,6 @@ body::before { opacity: 0.09; }
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="hero__grid" aria-hidden="true"></div>
 
-  <div class="hero__emblem" aria-hidden="true">
-    <svg class="ringtext" viewBox="0 0 100 100">
-      <defs><path id="circ" d="M50,50 m-39,0 a39,39 0 1,1 78,0 a39,39 0 1,1 -78,0"/></defs>
-      <text><textPath href="#circ" startOffset="0">SEIT 2018 · LANDAU IN DER PFALZ · EHRLICH GUT · </textPath></text>
-    </svg>
-    <div class="coin"><span>B</span></div>
-  </div>
 
   <div class="hero__inner">
     <span class="hero__kicker label"><span class="ln"></span>Seit 2018 · Landau in der Pfalz</span>
@@ -1338,7 +1331,7 @@ function cookieAccept() {
   background: radial-gradient(ellipse 80% 70% at 50% 50%, transparent 40%, rgba(5,4,3,0.5) 100%);
 }
 .hero__inner { z-index: 3; }
-.hero__emblem { z-index: 3; }
+.hero__emblem { display: none !important; } .hero__emblem_DISABLED { z-index: 3; }
 .scrollcue { z-index: 3; }
 
 /* Stronger grain on dark bg */

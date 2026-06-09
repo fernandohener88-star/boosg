@@ -377,10 +377,11 @@ section{ scroll-margin-top:90px; }
 .map-overlay p{ color:var(--muted-2); font-size:14px; margin:0; max-width:34ch; }
 .map-overlay .go{ font-family:var(--bebas); letter-spacing:.16em; color:var(--accent); border:1px solid var(--primary); padding:9px 20px; border-radius:2px; font-size:14px; }
 .map-wrap.loaded .map-overlay{ opacity:0; pointer-events:none; }
-.map-wrap iframe{ position:absolute; top:0; left:0; right:-44px; height:calc(100% + 30px); border:0; opacity:0; transition:opacity .6s var(--ease) .1s; filter:grayscale(.4) invert(.9) hue-rotate(180deg) contrast(.9); pointer-events:none; }
+.map-wrap iframe{ width:100%; height:calc(100% + 30px); border:0; opacity:0; transition:opacity .6s var(--ease) .1s; filter:grayscale(.4) invert(.9) hue-rotate(180deg) contrast(.9); pointer-events:none; display:block; }
 .map-wrap.loaded iframe{ opacity:1; }
 .map-blocker{ position:absolute; inset:0; z-index:5; cursor:default; display:none; }
 .map-wrap.loaded .map-blocker{ display:block; }
+.map-wrap.loaded::after{ content:""; position:absolute; top:0; right:0; width:48px; height:72px; background:radial-gradient(ellipse at top right, #0d0d0d 0%, #111 35%, transparent 75%); z-index:8; pointer-events:none; }
 .map-pin-label{
   position:absolute; left:50%; top:52%; transform:translate(-50%,-100%);
   z-index:10; opacity:0; transition:opacity .6s var(--ease) .3s;

@@ -358,18 +358,18 @@ button{font-family:inherit}
 .hero .bg-photo{will-change:transform;top:-20% !important;bottom:-20% !important;height:140% !important}
 
 /* ════════ ANGLED SECTION DIVIDERS ════════ */
-.willkommen{clip-path:polygon(0 0,100% 0,100% 93%,0 100%);padding-bottom:140px;margin-bottom:-60px;position:relative;z-index:6}
-.highlights{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:5}
-.speise-prev{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:4}
-.bewertungen{clip-path:polygon(0 5%,100% 0,100% 94%,0 100%);padding:150px 0;margin:-60px 0;position:relative;z-index:3}
-.ueber{clip-path:polygon(0 5%,100% 0,100% 100%,0 100%);padding-top:150px;margin-top:-60px;position:relative;z-index:2}
+.willkommen{position:relative}
+.highlights{position:relative}
+.speise-prev{position:relative}
+.bewertungen{position:relative}
+.ueber{position:relative}
 
 /* ════════ COUNT-UP NUMBERS ════════ */
 .count-num{font-family:var(--font-serif);font-size:clamp(36px,5vw,58px);font-weight:700;color:var(--brand-gold);display:block;line-height:1}
 .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin:56px 0 0;text-align:center}
 .stat-item{padding:32px 20px;border:1px solid rgba(184,152,46,.2);border-radius:12px;background:rgba(255,255,255,.5)}
 .stat-label{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-soft);margin-top:10px;font-weight:700}
-@media(max-width:600px){.stat-grid{grid-template-columns:1fr}.willkommen,.highlights,.speise-prev,.bewertungen,.ueber{clip-path:none;margin:0;padding:72px 0}}
+@media(max-width:600px){.stat-grid{grid-template-columns:1fr}.willkommen,.highlights,.speise-prev,.bewertungen,.ueber{position:relative}}
 
 /* ════════ UTILITY: ORNAMENT ✦ ════════ */
 .ornament{display:flex;align-items:center;justify-content:center;gap:18px;color:var(--brand-gold)}
@@ -781,6 +781,17 @@ footer{background:var(--brand-dark);color:var(--cream-soft);padding:0}
 .prev-cat .prev-tags{display:flex;flex-wrap:wrap;gap:8px}
 .prev-cat .prev-tag{font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--brand-gold);background:rgba(184,152,46,.1);border:1px solid rgba(184,152,46,.25);border-radius:20px;padding:4px 12px}
 .prev-cta{text-align:center;padding-top:12px}
+
+/* ════════ DIAGONAL SECTION DIVIDERS (pseudo-element, no content clipping) ════════ */
+.willkommen,.highlights,.speise-prev,.bewertungen{position:relative;overflow:visible}
+.willkommen::after,.highlights::after,.speise-prev::after,.bewertungen::after{
+  content:"";position:absolute;bottom:-36px;left:0;right:0;height:72px;z-index:10;pointer-events:none;
+}
+.willkommen::after{background:var(--brand-cream);transform:skewY(-1.8deg);transform-origin:left}
+.highlights::after{background:var(--brand-stone);transform:skewY(-1.8deg);transform-origin:left}
+.speise-prev::after{background:var(--brand-stone);transform:skewY(-1.8deg);transform-origin:left}
+.bewertungen::after{background:var(--brand-cream);transform:skewY(-1.8deg);transform-origin:left}
+.willkommen,.highlights,.speise-prev,.bewertungen,.ueber{padding-bottom:80px}
 </style>
 </head>
 <body>

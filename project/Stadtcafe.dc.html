@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Hanken+Grotesk:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BarOrPub",
+  "name": "Stadtcafé",
+  "alternateName": "Stadt Café Landau",
+  "description": "Hookah Lounge, Café & Bar in Landau in der Pfalz. Gemütliche Atmosphäre, beste Shisha-Qualität, faire Preise und gute Musik.",
+  "image": "uploads/pasted-1781879838944-0.png",
+  "servesCuisine": ["Shisha", "Cocktails", "Snacks"],
+  "priceRange": "€€",
+  "telephone": "+4917679560861",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Martin-Luther-Straße 26",
+    "postalCode": "76829",
+    "addressLocality": "Landau in der Pfalz",
+    "addressRegion": "Rheinland-Pfalz",
+    "addressCountry": "DE"
+  },
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Sunday"], "opens": "17:00", "closes": "01:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday","Saturday"], "opens": "17:00", "closes": "02:00"}
+  ],
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "13"}
+}
+</script>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:#100c0b;color:#f2e9dd;font-family:'Hanken Grotesk',sans-serif;font-weight:400;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:#ff64b8;color:#100c0b}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid #ff8fcf;outline-offset:3px;border-radius:2px}
+  @keyframes scHeroUp{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes scFlicker{0%,18%,22%,25%,53%,57%,100%{opacity:1;text-shadow:0 0 7px #ff8fcf,0 0 18px #ff64b8,0 0 42px #ff2e9c,0 0 80px #d4248a}20%,24%,55%{opacity:.55;text-shadow:0 0 4px #ff8fcf,0 0 8px #ff64b8}}
+  @keyframes scPulse{0%{transform:scale(1);opacity:1}70%{transform:scale(2.4);opacity:0}100%{transform:scale(2.4);opacity:0}}
+  @keyframes scFloat{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(9px);opacity:1}}
+  @keyframes scDrift{from{transform:translateY(0)}to{transform:translateY(-14px)}}
+  [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+  [data-reveal].sc-in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{animation-duration:.001s !important;animation-delay:0s !important;transition-duration:.001s !important}
+    [data-reveal]{opacity:1 !important;transform:none !important}
+  }
+</style>
+</helmet>
+
+<div style="position:relative;background:#100c0b;background-image:radial-gradient(circle at 78% -5%, rgba(201,135,74,.10), transparent 45%),radial-gradient(circle at 8% 18%, rgba(255,100,184,.07), transparent 40%);min-height:100vh">
+
+  <!-- grain overlay -->
+  <div aria-hidden="true" style="pointer-events:none;position:fixed;inset:0;z-index:90;opacity:.05;mix-blend-mode:overlay;background-image:url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;140&quot; height=&quot;140&quot;><filter id=&quot;n&quot;><feTurbulence type=&quot;fractalNoise&quot; baseFrequency=&quot;0.85&quot; numOctaves=&quot;3&quot;/></filter><rect width=&quot;100%&quot; height=&quot;100%&quot; filter=&quot;url(%23n)&quot;/></svg>')"></div>
+
+  <!-- HEADER -->
+  <header id="sc-header" style="position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease,padding .4s ease;border-bottom:1px solid transparent;padding:22px clamp(18px,5vw,56px)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <a href="#top" style="display:flex;align-items:center;gap:12px">
+        <img src="uploads/pasted-1781879866061-0.png" alt="Stadtcafé Logo – Shisha Lounge Landau" width="40" height="40" style="width:40px;height:40px;border-radius:7px;object-fit:cover;box-shadow:0 0 0 1px rgba(201,162,90,.4)">
+        <span style="font-family:'Sacramento',cursive;font-size:27px;color:#f4ece2;line-height:1;padding-top:4px">Stadt&nbsp;Café</span>
+      </a>
+      <nav style="display:flex;align-items:center;gap:clamp(14px,3vw,34px)">
+        <a href="#angebot" style="font-size:13.5px;letter-spacing:.06em;color:#cdbfb0;display:none" data-desknav>Karte</a>
+        <a href="#zeiten" style="font-size:13.5px;letter-spacing:.06em;color:#cdbfb0;display:none" data-desknav>Öffnungszeiten</a>
+        <a href="#bewertungen" style="font-size:13.5px;letter-spacing:.06em;color:#cdbfb0;display:none" data-desknav>Bewertungen</a>
+        <a href="tel:+4917679560861" style="display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;letter-spacing:.04em;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);padding:11px 20px;border-radius:999px;box-shadow:0 6px 22px rgba(201,162,90,.28)">
+          <span style="font-size:14px">✆</span>Reservieren
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px clamp(20px,6vw,64px) 90px;overflow:hidden">
+    <canvas id="sc-smoke" style="position:absolute;inset:0;width:100%;height:100%;z-index:1"></canvas>
+    <div aria-hidden="true" style="position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 70% 55% at 50% 42%, transparent 0%, rgba(16,12,11,.55) 70%, #100c0b 100%)"></div>
+    <div aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:32%;z-index:3;background:linear-gradient(to bottom, transparent, #100c0b)"></div>
+
+    <div style="position:relative;z-index:5;max-width:920px;display:flex;flex-direction:column;align-items:center">
+      <p style="animation:scHeroUp .9s ease both;animation-delay:.05s;font-size:clamp(11px,2.6vw,14px);letter-spacing:.42em;text-transform:uppercase;color:#c9a25a;font-weight:600;margin-bottom:clamp(14px,3vw,26px)">Hookah&nbsp;·&nbsp;Café&nbsp;·&nbsp;Bar — Landau&nbsp;i.&nbsp;d.&nbsp;Pfalz</p>
+
+      <h1 id="sc-neon" style="animation:scHeroUp 1s ease both, scFlicker 4.5s ease-in-out 1.1s both;font-family:'Sacramento',cursive;font-weight:400;font-size:clamp(76px,17vw,210px);line-height:.82;color:#fff5fb;text-shadow:0 0 7px #ff8fcf,0 0 18px #ff64b8,0 0 42px #ff2e9c,0 0 80px #d4248a;margin:0 0 8px">Stadt Café</h1>
+
+      <p style="animation:scHeroUp 1s ease both;animation-delay:.45s;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(20px,3.6vw,30px);color:#ece1d3;max-width:600px;margin-bottom:clamp(22px,4vw,34px);text-wrap:pretty">Gedämpftes Licht, dichter Rauch und ein Platz, an dem der Abend einfach länger dauert.</p>
+
+      <div style="animation:scHeroUp 1s ease both;animation-delay:.6s;display:inline-flex;align-items:center;gap:12px;background:rgba(29,23,20,.55);backdrop-filter:blur(8px);border:1px solid rgba(201,162,90,.28);padding:9px 18px;border-radius:999px;margin-bottom:clamp(28px,5vw,40px)">
+        <span style="color:#e8cd86;letter-spacing:2px;font-size:16px">★★★★★</span>
+        <span style="font-weight:700;color:#f4ece2;font-size:14.5px">4,5</span>
+        <span style="width:1px;height:14px;background:rgba(201,162,90,.4)"></span>
+        <span style="color:#bcae9f;font-size:13.5px">13&nbsp;Google-Rezensionen</span>
+      </div>
+
+      <div style="animation:scHeroUp 1s ease both;animation-delay:.75s;display:flex;flex-wrap:wrap;gap:14px;justify-content:center">
+        <a href="tel:+4917679560861" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;letter-spacing:.03em;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);padding:16px 30px;border-radius:999px;box-shadow:0 10px 34px rgba(201,162,90,.34);transition:transform .25s ease,box-shadow .25s ease" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(201,162,90,.5)'" onmouseout="this.style.transform='';this.style.boxShadow='0 10px 34px rgba(201,162,90,.34)'">
+          <span style="font-size:16px">✆</span>Tisch reservieren
+        </a>
+        <a href="#zeiten" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:500;letter-spacing:.03em;color:#f2e9dd;background:rgba(244,236,226,.04);border:1px solid rgba(244,236,226,.22);padding:16px 28px;border-radius:999px;backdrop-filter:blur(6px);transition:border-color .25s ease,background .25s ease" onmouseover="this.style.borderColor='rgba(255,143,207,.55)';this.style.background='rgba(255,100,184,.08)'" onmouseout="this.style.borderColor='rgba(244,236,226,.22)';this.style.background='rgba(244,236,226,.04)'">Öffnungszeiten ansehen</a>
+      </div>
+    </div>
+
+    <a href="#atmosphaere" aria-label="Weiter scrollen" style="position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:8px;color:#c9a25a;animation:scFloat 2.4s ease-in-out infinite">
+      <span style="font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:#9c8e80">Scroll</span>
+      <span style="font-size:18px;line-height:1">⌄</span>
+    </a>
+  </section>
+
+  <!-- ATMOSPHÄRE / ÜBER UNS -->
+  <section id="atmosphaere" style="position:relative;padding:clamp(70px,11vw,140px) clamp(20px,6vw,64px);background:linear-gradient(#100c0b,#16100d)">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:clamp(44px,6vw,80px);align-items:center" data-grid2>
+      <div data-reveal>
+        <p style="font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#c9874a;font-weight:600;margin-bottom:18px">Die Atmosphäre</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5.4vw,58px);line-height:1.04;color:#f4ece2;margin-bottom:24px;text-wrap:balance">Ein Abend, der<br><em style="font-style:italic;color:#ff8fcf">länger bleibt</em> als geplant.</h2>
+        <p style="color:#c3b5a6;font-size:clamp(15.5px,2vw,17.5px);max-width:560px;margin-bottom:18px;text-wrap:pretty">Warmes Neonlicht über Samtmöbeln, dichter Shisha-Rauch und Musik, die den Raum trägt, ohne ihn zu übertönen. Das Stadtcafé in der Landauer Altstadt ist kein Ort für den schnellen Kaffee — es ist der Platz, an dem aus „kurz vorbeischauen" schnell ein ganzer Abend wird.</p>
+        <p style="color:#c3b5a6;font-size:clamp(15.5px,2vw,17.5px);max-width:560px;margin-bottom:30px;text-wrap:pretty">Setz dich, lehn dich zurück, lass dich von unserem Team durch die Karte führen — und genieße eine Runde mit Freunden, so wie ein Abend in Landau sein sollte.</p>
+        <div style="display:inline-flex;align-items:center;gap:12px;padding:13px 20px;border-radius:12px;background:rgba(201,162,90,.07);border:1px solid rgba(201,162,90,.2)">
+          <span style="font-size:18px">🌙</span>
+          <span style="font-size:14px;color:#dcccb9;font-weight:500">Seit Jahren der Treffpunkt für gemütliche Abende in Landau.</span>
+        </div>
+      </div>
+
+      <div data-reveal style="position:relative;min-height:clamp(360px,52vw,540px)">
+        <div style="position:absolute;top:0;right:0;width:62%;aspect-ratio:504/720;border-radius:14px;overflow:hidden;border:1px solid rgba(201,162,90,.35);box-shadow:0 30px 70px -20px rgba(0,0,0,.8);transform:rotate(2deg)">
+          <img src="uploads/pasted-1781879838944-0.png" alt="Gemütliche Lounge-Ecke mit pinken Samtsesseln und goldenen Tischen im Stadtcafé Landau" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="position:absolute;bottom:0;left:0;width:54%;aspect-ratio:504/640;border-radius:14px;overflow:hidden;border:1px solid rgba(255,143,207,.4);box-shadow:0 30px 70px -20px rgba(0,0,0,.85), 0 0 40px -12px rgba(255,100,184,.4);transform:rotate(-3deg)">
+          <img src="uploads/pasted-1781879803561-0.png" alt="Lounge mit Neon-Schriftzug Kisses From Heaven und Samtbänken in der Shisha Lounge Landau" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="position:absolute;bottom:14%;right:6%;width:30%;aspect-ratio:504/560;border-radius:12px;overflow:hidden;border:1px solid rgba(255,143,207,.45);box-shadow:0 18px 44px -14px rgba(0,0,0,.8);transform:rotate(4deg)">
+          <img src="uploads/pasted-1781879855534-0.png" alt="Neon Cheers My Dear und Spieltisch in der gemütlichen Hookah Bar Landau in der Pfalz" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGEBOT / SHISHA-KARTE -->
+  <section id="angebot" style="position:relative;padding:clamp(70px,11vw,140px) clamp(20px,6vw,64px);background:#16100d">
+    <div style="max-width:1180px;margin:0 auto">
+      <div data-reveal style="text-align:center;max-width:640px;margin:0 auto clamp(44px,6vw,66px)">
+        <p style="font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#c9874a;font-weight:600;margin-bottom:16px">Unsere Karte</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(34px,5.4vw,58px);line-height:1.04;color:#f4ece2;margin-bottom:18px;text-wrap:balance">Köpfe, Drinks &amp; Kleinigkeiten</h2>
+        <p style="color:#b3a596;font-size:16px">Eine Beispielauswahl, um Lust zu machen — die vollständige Karte mit allen Sorten &amp; aktuellen Preisen findest du vor Ort.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,28px)" data-grid3>
+
+        <!-- Premium Shishas -->
+        <div data-reveal data-tilt style="position:relative;background:linear-gradient(165deg,#1f1815,#181210);border:1px solid rgba(201,162,90,.22);border-radius:18px;padding:clamp(26px,3vw,34px);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+            <span style="font-size:24px">💨</span>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;color:#f4ece2">Premium Shishas</h3>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:16px">
+            <li style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)">
+              <div><div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Stadtcafé Hausmischung</span><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);padding:3px 9px;border-radius:999px">Signature</span></div><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Hauseigene Komposition, langer Rauch — unser meistbestellter Kopf.</p></div>
+            </li>
+            <li style="display:flex;justify-content:space-between;gap:14px;padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)">
+              <div><span style="color:#f2e9dd;font-weight:600;font-size:16px">Doppelapfel Klassik</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Der Evergreen — würzig, rund, zeitlos.</p></div>
+            </li>
+            <li style="display:flex;justify-content:space-between;gap:14px;padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)">
+              <div><span style="color:#f2e9dd;font-weight:600;font-size:16px">Traube &amp; Minze</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Fruchtig-frisch, angenehm leicht.</p></div>
+            </li>
+            <li style="display:flex;gap:14px">
+              <div><span style="color:#f2e9dd;font-weight:600;font-size:16px">Saison-Special</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Wechselnde Sorte — frag unser Team.</p></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Drinks -->
+        <div data-reveal data-tilt style="position:relative;background:linear-gradient(165deg,#1f1815,#181210);border:1px solid rgba(201,162,90,.22);border-radius:18px;padding:clamp(26px,3vw,34px);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+            <span style="font-size:24px">🍸</span>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;color:#f4ece2">Drinks &amp; Cocktails</h3>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:16px">
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)">
+              <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Signature Cocktails</span><span style="font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#ff8fcf;border:1px solid rgba(255,143,207,.5);padding:3px 9px;border-radius:999px">Beliebt</span></div><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Frisch gemixt, von klassisch bis kreativ.</p>
+            </li>
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Mocktails &amp; Limonaden</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Alkoholfrei &amp; fruchtig, hausgemacht.</p></li>
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Kaffee &amp; Heißgetränke</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Vom Espresso bis zum türkischen Mokka.</p></li>
+            <li><span style="color:#f2e9dd;font-weight:600;font-size:16px">Softdrinks &amp; Wasser</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Alles für den langen Abend.</p></li>
+          </ul>
+        </div>
+
+        <!-- Food -->
+        <div data-reveal data-tilt style="position:relative;background:linear-gradient(165deg,#1f1815,#181210);border:1px solid rgba(201,162,90,.22);border-radius:18px;padding:clamp(26px,3vw,34px);transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px">
+            <span style="font-size:24px">🍟</span>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;color:#f4ece2">Snacks &amp; Food</h3>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:16px">
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Mezze-Teller zum Teilen</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Kleine Köstlichkeiten für die Runde.</p></li>
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Loaded Fries</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Knusprig, herzhaft, perfekt nebenbei.</p></li>
+            <li style="padding-bottom:15px;border-bottom:1px solid rgba(244,236,226,.07)"><span style="color:#f2e9dd;font-weight:600;font-size:16px">Süße Waffeln</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Der süße Ausklang des Abends.</p></li>
+            <li><span style="color:#f2e9dd;font-weight:600;font-size:16px">Wechselnde Tageskarte</span><p style="color:#9c8e80;font-size:13.5px;margin-top:4px">Frag nach den Empfehlungen des Hauses.</p></li>
+          </ul>
+        </div>
+      </div>
+
+      <p data-reveal style="text-align:center;color:#7d7064;font-size:13px;margin-top:30px;font-style:italic">Beispielauswahl &amp; Platzhalter — verbindliche Sorten, Speisen und Preise gelten ausschließlich vor Ort.</p>
+
+      <div data-reveal style="text-align:center;margin-top:36px">
+        <a href="tel:+4917679560861" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);padding:15px 30px;border-radius:999px;box-shadow:0 10px 30px rgba(201,162,90,.28)"><span>✆</span>Tisch sichern &amp; vor Ort durchprobieren</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÖFFNUNGSZEITEN & RESERVIERUNG -->
+  <section id="zeiten" style="position:relative;padding:clamp(70px,11vw,140px) clamp(20px,6vw,64px);background:linear-gradient(#16100d,#100c0b)">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,40px);align-items:stretch" data-grid2b>
+
+      <div data-reveal style="background:linear-gradient(165deg,#1d1714,#161110);border:1px solid rgba(201,162,90,.22);border-radius:20px;padding:clamp(28px,4vw,44px)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:26px">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4.4vw,46px);color:#f4ece2">Öffnungszeiten</h2>
+          <div id="sc-status" style="display:inline-flex;align-items:center;gap:10px;padding:9px 16px;border-radius:999px;background:rgba(116,182,131,.12);border:1px solid rgba(116,182,131,.4)">
+            <span style="position:relative;display:inline-flex">
+              <span id="sc-dot" style="width:9px;height:9px;border-radius:50%;background:#74b683;display:inline-block"></span>
+              <span id="sc-dot-ping" style="position:absolute;inset:0;width:9px;height:9px;border-radius:50%;background:#74b683;animation:scPulse 2s ease-out infinite"></span>
+            </span>
+            <span id="sc-status-text" style="font-size:13.5px;font-weight:600;color:#a8d6b4">Status wird geladen…</span>
+          </div>
+        </div>
+        <table style="width:100%;border-collapse:collapse">
+          <tbody style="font-size:15.5px">
+            <tr data-day="1234" style="border-bottom:1px solid rgba(244,236,226,.07)"><td style="padding:14px 0;color:#c3b5a6">Montag – Donnerstag</td><td style="padding:14px 0;text-align:right;color:#f2e9dd;font-weight:500;font-variant-numeric:tabular-nums">17:00 – 01:00</td></tr>
+            <tr data-day="56" style="border-bottom:1px solid rgba(244,236,226,.07)"><td style="padding:14px 0;color:#c3b5a6">Freitag – Samstag</td><td style="padding:14px 0;text-align:right;color:#f2e9dd;font-weight:500;font-variant-numeric:tabular-nums">17:00 – 02:00</td></tr>
+            <tr data-day="0"><td style="padding:14px 0;color:#c3b5a6">Sonntag</td><td style="padding:14px 0;text-align:right;color:#f2e9dd;font-weight:500;font-variant-numeric:tabular-nums">17:00 – 01:00</td></tr>
+          </tbody>
+        </table>
+        <p style="color:#7d7064;font-size:12.5px;margin-top:18px">Live-Status aktualisiert sich automatisch nach der aktuellen Uhrzeit.</p>
+      </div>
+
+      <div data-reveal style="position:relative;overflow:hidden;background:linear-gradient(165deg,#241318,#1a0f12);border:1px solid rgba(255,143,207,.3);border-radius:20px;padding:clamp(28px,4vw,44px);display:flex;flex-direction:column;justify-content:center">
+        <div aria-hidden="true" style="position:absolute;top:-40px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(255,100,184,.22),transparent 70%);filter:blur(10px)"></div>
+        <p style="position:relative;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#ff8fcf;font-weight:600;margin-bottom:14px">Reservierung</p>
+        <h3 style="position:relative;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(28px,4vw,40px);line-height:1.08;color:#f4ece2;margin-bottom:14px;text-wrap:balance">Sichert euch den Tisch für heute Abend.</h3>
+        <p style="position:relative;color:#c8b3bd;font-size:15.5px;margin-bottom:26px;max-width:420px">Am schnellsten geht's per Anruf — ein Tap, und euer Platz in der Lounge ist reserviert. Keine Formulare, keine Wartezeit.</p>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+          <a href="tel:+4917679560861" style="display:inline-flex;align-items:center;gap:11px;font-size:16px;font-weight:600;color:#100c0b;background:linear-gradient(135deg,#ffb3dd,#ff64b8);padding:16px 30px;border-radius:999px;box-shadow:0 12px 34px rgba(255,100,184,.32)"><span style="font-size:17px">✆</span>0176 79560861</a>
+          <span style="color:#9c8e80;font-size:13px">Telefonisch erreichbar zu unseren Öffnungszeiten.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEWERTUNGEN -->
+  <section id="bewertungen" style="position:relative;padding:clamp(70px,11vw,140px) clamp(20px,6vw,64px);background:#100c0b">
+    <div style="max-width:1180px;margin:0 auto">
+      <div data-reveal style="display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:clamp(40px,6vw,60px)">
+        <p style="font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#c9874a;font-weight:600;margin-bottom:18px">Was Gäste sagen</p>
+        <div style="display:inline-flex;align-items:center;gap:16px;background:linear-gradient(165deg,#1d1714,#161110);border:1px solid rgba(201,162,90,.3);border-radius:16px;padding:16px 26px;margin-bottom:26px">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:600;color:#e8cd86;line-height:1">4,5</span>
+          <div style="text-align:left">
+            <div style="color:#e8cd86;letter-spacing:2px;font-size:16px">★★★★★</div>
+            <div style="color:#b3a596;font-size:13px;margin-top:3px">aus 13 Google-Rezensionen</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:680px">
+          <span style="font-size:13px;color:#dcccb9;background:rgba(201,162,90,.09);border:1px solid rgba(201,162,90,.24);padding:7px 15px;border-radius:999px">Gemütliche Atmosphäre</span>
+          <span style="font-size:13px;color:#f2d3e6;background:rgba(255,100,184,.08);border:1px solid rgba(255,143,207,.3);padding:7px 15px;border-radius:999px">Top Shishas</span>
+          <span style="font-size:13px;color:#dcccb9;background:rgba(201,162,90,.09);border:1px solid rgba(201,162,90,.24);padding:7px 15px;border-radius:999px">Faire Preise</span>
+          <span style="font-size:13px;color:#dcccb9;background:rgba(201,162,90,.09);border:1px solid rgba(201,162,90,.24);padding:7px 15px;border-radius:999px">Freundliches Personal</span>
+          <span style="font-size:13px;color:#f2d3e6;background:rgba(255,100,184,.08);border:1px solid rgba(255,143,207,.3);padding:7px 15px;border-radius:999px">Gute Musik</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr;gap:clamp(18px,2.6vw,26px)" data-grid3>
+        <div data-reveal data-tilt style="background:linear-gradient(165deg,#1d1714,#161110);border:1px solid rgba(201,162,90,.18);border-radius:18px;padding:30px;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="color:#e8cd86;letter-spacing:2px;font-size:15px;margin-bottom:16px">★★★★★</div>
+          <p style="color:#d3c5b6;font-size:15.5px;line-height:1.65;margin-bottom:22px;text-wrap:pretty">„Wunderschönes Ambiente, gute Musik und richtig leckere Shishas — ein super gemütlicher Ort, an dem man gern verweilt."</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#c9a25a,#8a6a38);display:grid;place-items:center;color:#100c0b;font-weight:700;font-size:16px">A</span>
+            <div><div style="color:#f2e9dd;font-weight:600;font-size:14.5px">Adriana</div><div style="color:#8a7d70;font-size:12.5px">vor 1 Monat · Google</div></div>
+          </div>
+        </div>
+
+        <div data-reveal data-tilt style="background:linear-gradient(165deg,#1d1714,#161110);border:1px solid rgba(201,162,90,.18);border-radius:18px;padding:30px;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="color:#e8cd86;letter-spacing:2px;font-size:15px;margin-bottom:16px">★★★★★</div>
+          <p style="color:#d3c5b6;font-size:15.5px;line-height:1.65;margin-bottom:22px;text-wrap:pretty">„Entspannte Atmosphäre, top Shisha-Qualität mit langem Rauch, freundliches Personal und faire Preise. Perfekt für gemütliche Abende mit Freunden."</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#ff8fcf,#c2407f);display:grid;place-items:center;color:#100c0b;font-weight:700;font-size:16px">A</span>
+            <div><div style="color:#f2e9dd;font-weight:600;font-size:14.5px">Anwar</div><div style="color:#8a7d70;font-size:12.5px">vor 2 Wochen · Google</div></div>
+          </div>
+        </div>
+
+        <div data-reveal data-tilt style="background:linear-gradient(165deg,#1d1714,#161110);border:1px solid rgba(201,162,90,.18);border-radius:18px;padding:30px;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease">
+          <div style="color:#e8cd86;letter-spacing:2px;font-size:15px;margin-bottom:16px">★★★★★</div>
+          <p style="color:#d3c5b6;font-size:15.5px;line-height:1.65;margin-bottom:22px;text-wrap:pretty">„Gute Drinks, gutes Essen, faire Preise und eine herzliche Bedienung — alles in einem schön hergerichteten, gemütlichen Ambiente."</p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <span style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#c9a25a,#8a6a38);display:grid;place-items:center;color:#100c0b;font-weight:700;font-size:16px">B</span>
+            <div><div style="color:#f2e9dd;font-weight:600;font-size:14.5px">Benny</div><div style="color:#8a7d70;font-size:12.5px">vor 4 Jahren · Google</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STANDORT -->
+  <section id="standort" style="position:relative;padding:clamp(70px,11vw,140px) clamp(20px,6vw,64px);background:linear-gradient(#100c0b,#16100d)">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,44px);align-items:stretch" data-grid2c>
+      <div data-reveal style="order:2">
+        <p style="font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:#c9874a;font-weight:600;margin-bottom:16px">Standort &amp; Anfahrt</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4.6vw,50px);line-height:1.05;color:#f4ece2;margin-bottom:22px;text-wrap:balance">Mitten in der Landauer Altstadt.</h2>
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:28px">
+          <div style="display:flex;gap:13px;align-items:flex-start"><span style="font-size:18px;color:#c9a25a">📍</span><div><div style="color:#f2e9dd;font-weight:600;font-size:16px">Martin-Luther-Straße 26</div><div style="color:#b3a596;font-size:14.5px">76829 Landau in der Pfalz</div></div></div>
+          <div style="display:flex;gap:13px;align-items:flex-start"><span style="font-size:18px;color:#c9a25a">✆</span><a href="tel:+4917679560861" style="color:#f2e9dd;font-weight:600;font-size:16px">0176 79560861</a></div>
+          <div style="display:flex;gap:13px;align-items:flex-start"><span style="font-size:18px;color:#c9a25a">🚶</span><div style="color:#b3a596;font-size:14.5px;max-width:440px">Wenige Gehminuten von der Innenstadt und gut mit Bus &amp; Bahn erreichbar — der Hauptbahnhof Landau ist fußläufig.</div></div>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Martin-Luther-Stra%C3%9Fe+26+76829+Landau+in+der+Pfalz" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);padding:14px 26px;border-radius:999px;box-shadow:0 10px 28px rgba(201,162,90,.26)">In Google Maps öffnen ↗</a>
+      </div>
+
+      <div data-reveal style="order:1;position:relative;min-height:clamp(280px,40vw,420px);border-radius:20px;overflow:hidden;border:1px solid rgba(201,162,90,.25);background:linear-gradient(165deg,#1a1512,#141009);display:grid;place-items:center">
+        <div aria-hidden="true" style="position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(201,162,90,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(201,162,90,.08) 1px,transparent 1px);background-size:42px 42px"></div>
+        <div style="position:relative;text-align:center;padding:24px">
+          <div style="font-size:34px;margin-bottom:10px;filter:drop-shadow(0 0 14px rgba(255,100,184,.5))">📍</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#f4ece2;margin-bottom:6px">Stadtcafé Landau</div>
+          <div style="color:#9c8e80;font-size:13px;letter-spacing:.04em">Interaktive Karte folgt — Plus Code 54W7+9V</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="position:relative;background:#0c0908;border-top:1px solid rgba(201,162,90,.14);padding:clamp(54px,7vw,80px) clamp(20px,6vw,64px) 40px">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,48px)" data-grid-foot>
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <img src="uploads/pasted-1781879866061-0.png" alt="Stadtcafé Logo" width="44" height="44" style="width:44px;height:44px;border-radius:8px;object-fit:cover">
+          <span style="font-family:'Sacramento',cursive;font-size:32px;color:#f4ece2;padding-top:5px;text-shadow:0 0 16px rgba(255,100,184,.35)">Stadt Café</span>
+        </div>
+        <p style="color:#9c8e80;font-size:14px;max-width:320px;text-wrap:pretty">Hookah Lounge · Café · Bar in Landau in der Pfalz. Gemütliche Abende, beste Shishas und gute Musik — seit Jahren euer Treffpunkt.</p>
+        <div style="display:flex;gap:12px;margin-top:20px">
+          <a href="#" aria-label="Instagram" style="width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(244,236,226,.05);border:1px solid rgba(244,236,226,.14);font-size:17px;transition:border-color .25s,background .25s" onmouseover="this.style.borderColor='rgba(255,143,207,.5)';this.style.background='rgba(255,100,184,.1)'" onmouseout="this.style.borderColor='rgba(244,236,226,.14)';this.style.background='rgba(244,236,226,.05)'">📷</a>
+          <a href="#" aria-label="Facebook" style="width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:rgba(244,236,226,.05);border:1px solid rgba(244,236,226,.14);font-size:17px;transition:border-color .25s,background .25s" onmouseover="this.style.borderColor='rgba(201,162,90,.5)';this.style.background='rgba(201,162,90,.1)'" onmouseout="this.style.borderColor='rgba(244,236,226,.14)';this.style.background='rgba(244,236,226,.05)'">f</a>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#c9a25a;font-weight:600;margin-bottom:16px">Kontakt</h4>
+        <p style="color:#b3a596;font-size:14px;line-height:1.9">Martin-Luther-Straße 26<br>76829 Landau in der Pfalz<br><a href="tel:+4917679560861" style="color:#dcccb9">0176 79560861</a></p>
+      </div>
+      <div>
+        <h4 style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#c9a25a;font-weight:600;margin-bottom:16px">Öffnungszeiten</h4>
+        <p style="color:#b3a596;font-size:14px;line-height:1.9">Mo–Do&nbsp;&nbsp;17:00–01:00<br>Fr–Sa&nbsp;&nbsp;&nbsp;17:00–02:00<br>So&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17:00–01:00</p>
+      </div>
+    </div>
+    <div style="max-width:1180px;margin:38px auto 0;padding-top:24px;border-top:1px solid rgba(244,236,226,.08);display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between">
+      <p style="color:#7d7064;font-size:12.5px">© 2026 Stadtcafé Landau · <span style="font-style:italic;font-family:'Cormorant Garamond',serif">Wir freuen uns auf euren Besuch.</span></p>
+      <div style="display:flex;gap:20px"><a href="#impressum" style="color:#9c8e80;font-size:12.5px">Impressum</a><a href="#datenschutz" style="color:#9c8e80;font-size:12.5px">Datenschutz</a></div>
+    </div>
+  </footer>
+
+  <!-- STICKY CTA -->
+  <a id="sc-sticky" href="tel:+4917679560861" style="position:fixed;z-index:120;right:clamp(16px,4vw,32px);bottom:clamp(16px,4vw,32px);display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#100c0b;background:linear-gradient(135deg,#ffb3dd,#ff64b8);padding:15px 26px;border-radius:999px;box-shadow:0 14px 40px rgba(255,100,184,.4);opacity:0;transform:translateY(24px);pointer-events:none;transition:opacity .4s ease,transform .4s ease"><span style="font-size:16px">✆</span><span data-sticky-label>Tisch reservieren</span></a>
+
+  <!-- COOKIE BANNER -->
+  <div id="sc-cookie" style="position:fixed;z-index:130;left:clamp(12px,4vw,24px);right:clamp(12px,4vw,24px);bottom:clamp(12px,4vw,24px);max-width:560px;margin:0 auto;background:rgba(20,15,13,.96);backdrop-filter:blur(14px);border:1px solid rgba(201,162,90,.3);border-radius:16px;padding:22px 24px;box-shadow:0 24px 60px rgba(0,0,0,.6);display:none">
+    <p style="color:#e7dccd;font-size:14px;line-height:1.6;margin-bottom:16px">Wir verwenden nur technisch notwendige Cookies. Optionale Cookies (z.&nbsp;B. für Karten &amp; Statistik) setzen wir erst mit deiner Zustimmung. <a href="#datenschutz" style="color:#ff8fcf;text-decoration:underline">Mehr erfahren</a></p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <button id="sc-cookie-all" style="flex:1;min-width:130px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:#100c0b;background:linear-gradient(135deg,#e8cd86,#c9a25a);border:none;padding:12px 18px;border-radius:999px">Alle akzeptieren</button>
+      <button id="sc-cookie-ess" style="flex:1;min-width:130px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:500;color:#e7dccd;background:transparent;border:1px solid rgba(244,236,226,.25);padding:12px 18px;border-radius:999px">Nur notwendige</button>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.setSEO();
+    this.initReveal();
+    this.initScroll();
+    this.initStatus();
+    this.initCookie();
+    this.initTilt();
+    this.initResponsive();
+    this.initSmoke();
+  }
+
+  setSEO() {
+    try {
+      document.title = 'Stadtcafé – Shisha Lounge & Bar in Landau in der Pfalz | Jetzt reservieren';
+      const meta = (name, content, prop) => {
+        let m = document.querySelector((prop ? '[property=\"' : '[name=\"') + name + '\"]');
+        if (!m) { m = document.createElement('meta'); m.setAttribute(prop ? 'property' : 'name', name); document.head.appendChild(m); }
+        m.setAttribute('content', content);
+      };
+      const desc = 'Stadtcafé Landau – die Shisha Lounge, Cocktailbar & Café in Landau in der Pfalz. Gemütliche Atmosphäre, beste Hookah-Qualität, faire Preise. Jetzt Tisch reservieren: 0176 79560861.';
+      meta('description', desc);
+      meta('og:title', 'Stadtcafé – Shisha Lounge & Bar in Landau in der Pfalz', true);
+      meta('og:description', desc, true);
+      meta('og:type', 'business.business', true);
+      meta('twitter:card', 'summary_large_image');
+    } catch (e) {}
+  }
+
+  initResponsive() {
+    const apply = () => {
+      const w = window.innerWidth;
+      const wide = w >= 900;
+      document.querySelectorAll('[data-grid2],[data-grid2b],[data-grid2c],[data-grid-foot]').forEach(el => {
+        if (el.hasAttribute('data-grid-foot')) { el.style.gridTemplateColumns = wide ? '1.6fr 1fr 1fr' : '1fr'; }
+        else { el.style.gridTemplateColumns = wide ? '1fr 1fr' : '1fr'; }
+      });
+      document.querySelectorAll('[data-grid3]').forEach(el => { el.style.gridTemplateColumns = wide ? '1fr 1fr 1fr' : (w >= 620 ? '1fr 1fr' : '1fr'); });
+      document.querySelectorAll('[data-desknav]').forEach(el => { el.style.display = wide ? 'inline-block' : 'none'; });
+      // standort: text right on wide
+      document.querySelectorAll('#standort [data-reveal]').forEach((el, i) => { el.style.order = wide ? (i === 0 ? '1' : '2') : (i === 0 ? '2' : '1'); });
+      const lbl = document.querySelector('[data-sticky-label]');
+      if (lbl) lbl.textContent = w >= 520 ? 'Tisch reservieren' : 'Reservieren';
+    };
+    apply();
+    window.addEventListener('resize', apply);
+  }
+
+  initReveal() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (this.reduced || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('sc-in')); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('sc-in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(e => io.observe(e));
+    setTimeout(() => els.forEach(e => e.classList.add('sc-in')), 2500);
+  }
+
+  initScroll() {
+    const header = document.getElementById('sc-header');
+    const sticky = document.getElementById('sc-sticky');
+    const onScroll = () => {
+      const y = window.scrollY || 0;
+      if (header) {
+        if (y > 40) { header.style.background = 'rgba(13,10,9,.82)'; header.style.backdropFilter = 'blur(12px)'; header.style.borderBottomColor = 'rgba(201,162,90,.16)'; header.style.padding = '14px clamp(18px,5vw,56px)'; }
+        else { header.style.background = 'transparent'; header.style.backdropFilter = 'none'; header.style.borderBottomColor = 'transparent'; header.style.padding = '22px clamp(18px,5vw,56px)'; }
+      }
+      if (sticky) {
+        if (y > window.innerHeight * 0.85) { sticky.style.opacity = '1'; sticky.style.transform = 'none'; sticky.style.pointerEvents = 'auto'; }
+        else { sticky.style.opacity = '0'; sticky.style.transform = 'translateY(24px)'; sticky.style.pointerEvents = 'none'; }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  initStatus() {
+    const update = () => {
+      const text = document.getElementById('sc-status-text');
+      const wrap = document.getElementById('sc-status');
+      const dot = document.getElementById('sc-dot');
+      const ping = document.getElementById('sc-dot-ping');
+      if (!text || !wrap) return;
+      const now = new Date();
+      const day = now.getDay(); // 0 Sun .. 6 Sat
+      const mins = now.getHours() * 60 + now.getMinutes();
+      const open = 17 * 60; // 17:00
+      // close hour depends on the day the session STARTED
+      const closeFor = (d) => (d === 5 || d === 6) ? 2 * 60 : 1 * 60; // Fri/Sat -> 02:00 else 01:00
+      let isOpen = false;
+      // after-midnight carryover: belongs to previous day's session
+      const prevDay = (day + 6) % 7;
+      if (mins < closeFor(prevDay)) isOpen = true; // still in previous night
+      else if (mins >= open) isOpen = true; // tonight's session started
+      let label;
+      if (isOpen) {
+        label = 'Jetzt geöffnet';
+      } else {
+        // before 17:00 -> opens today at 17
+        label = 'Öffnet um 17:00 Uhr';
+      }
+      text.textContent = label;
+      const green = isOpen;
+      const col = green ? '#74b683' : '#c98a5a';
+      const colText = green ? '#a8d6b4' : '#e0b48a';
+      wrap.style.background = green ? 'rgba(116,182,131,.12)' : 'rgba(201,135,74,.12)';
+      wrap.style.borderColor = green ? 'rgba(116,182,131,.4)' : 'rgba(201,135,74,.4)';
+      text.style.color = colText;
+      if (dot) dot.style.background = col;
+      if (ping) { ping.style.background = col; ping.style.display = green ? 'inline-block' : 'none'; }
+    };
+    update();
+    setInterval(update, 30000);
+  }
+
+  initCookie() {
+    const banner = document.getElementById('sc-cookie');
+    if (!banner) return;
+    let stored = null;
+    try { stored = localStorage.getItem('sc_cookie_consent'); } catch (e) {}
+    if (!stored) { setTimeout(() => { banner.style.display = 'block'; }, 1200); }
+    const close = (val) => { try { localStorage.setItem('sc_cookie_consent', val); } catch (e) {} banner.style.display = 'none'; };
+    const all = document.getElementById('sc-cookie-all');
+    const ess = document.getElementById('sc-cookie-ess');
+    if (all) all.addEventListener('click', () => close('all'));
+    if (ess) ess.addEventListener('click', () => close('essential'));
+  }
+
+  initTilt() {
+    if (this.reduced) return;
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(900px) rotateY(' + (px * 5).toFixed(2) + 'deg) rotateX(' + (-py * 5).toFixed(2) + 'deg) translateY(-4px)';
+        card.style.boxShadow = '0 24px 50px -18px rgba(0,0,0,.75), 0 0 28px -10px rgba(255,100,184,.35)';
+        card.style.borderColor = 'rgba(255,143,207,.4)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+        card.style.borderColor = '';
+      });
+    });
+  }
+
+  initSmoke() {
+    const canvas = document.getElementById('sc-smoke');
+    if (!canvas || this.reduced) return;
+    let tries = 0;
+    const start = () => {
+      if (!window.THREE) { if (tries++ < 40) return setTimeout(start, 150); else return; }
+      const THREE = window.THREE;
+      const host = canvas.parentElement;
+      let W = host.clientWidth, H = host.clientHeight;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
+      renderer.setSize(W, H);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, W / H, 1, 1000);
+      camera.position.z = 320;
+
+      // soft radial smoke texture from a canvas
+      const tc = document.createElement('canvas'); tc.width = tc.height = 256;
+      const g = tc.getContext('2d');
+      const grd = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+      grd.addColorStop(0, 'rgba(255,255,255,0.9)');
+      grd.addColorStop(0.35, 'rgba(255,255,255,0.4)');
+      grd.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = grd; g.fillRect(0, 0, 256, 256);
+      const tex = new THREE.CanvasTexture(tc);
+
+      const colors = [0xff64b8, 0xc9874a, 0xff8fcf, 0x9a5fae];
+      const geo = new THREE.PlaneGeometry(300, 300);
+      const group = new THREE.Group();
+      const N = Math.min(26, Math.max(14, Math.floor(W / 55)));
+      const parts = [];
+      for (let i = 0; i < N; i++) {
+        const mat = new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.05 + Math.random() * 0.06, depthWrite: false, blending: THREE.AdditiveBlending, color: colors[i % colors.length] });
+        const m = new THREE.Mesh(geo, mat);
+        m.position.set((Math.random() - 0.5) * W * 0.9, (Math.random() - 0.5) * H * 1.1, (Math.random() - 0.5) * 260 - 40);
+        m.rotation.z = Math.random() * Math.PI * 2;
+        const s = 0.7 + Math.random() * 1.3; m.scale.set(s, s, s);
+        parts.push({ m, rot: (Math.random() - 0.5) * 0.0016, vy: 0.06 + Math.random() * 0.12 });
+        group.add(m);
+      }
+      scene.add(group);
+
+      let mx = 0, my = 0, raf;
+      const onMove = (e) => { mx = (e.clientX / window.innerWidth - 0.5); my = (e.clientY / window.innerHeight - 0.5); };
+      window.addEventListener('mousemove', onMove, { passive: true });
+
+      const resize = () => { W = host.clientWidth; H = host.clientHeight; renderer.setSize(W, H); camera.aspect = W / H; camera.updateProjectionMatrix(); };
+      window.addEventListener('resize', resize);
+
+      const tick = () => {
+        parts.forEach(p => {
+          p.m.rotation.z += p.rot;
+          p.m.position.y += p.vy;
+          if (p.m.position.y > H * 0.6 + 160) p.m.position.y = -H * 0.6 - 160;
+        });
+        group.rotation.y += ((mx * 0.18) - group.rotation.y) * 0.04;
+        group.rotation.x += ((my * 0.1) - group.rotation.x) * 0.04;
+        renderer.render(scene, camera);
+        raf = requestAnimationFrame(tick);
+      };
+      tick();
+      this._cleanupSmoke = () => { cancelAnimationFrame(raf); window.removeEventListener('mousemove', onMove); window.removeEventListener('resize', resize); };
+    };
+    start();
+  }
+
+  componentWillUnmount() { if (this._cleanupSmoke) this._cleanupSmoke(); }
+
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

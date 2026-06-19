@@ -275,10 +275,10 @@ img { display: block; max-width: 100%; }
 .sc-scroll-cue {
   position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
   z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  color: var(--gold); animation: scFloat 2.4s ease-in-out infinite;
+  color: var(--gold);
 }
 .sc-scroll-cue .label { font-size: 10px; letter-spacing: .34em; text-transform: uppercase; color: var(--muted3); }
-.sc-scroll-cue .arrow { font-size: 18px; line-height: 1; }
+.sc-scroll-cue .arrow { font-size: 18px; line-height: 1; animation: scFloat 2.4s ease-in-out infinite; }
 
 /* ---------- atmosphäre ---------- */
 
@@ -1049,7 +1049,7 @@ img { display: block; max-width: 100%; }
       }
       scene.add(group);
 
-      var mx = 0, my = 0, raf;
+      var mx = 0, my = 0, raf = null, visible = true;
       var onMove = function (e) { mx = (e.clientX / window.innerWidth - 0.5); my = (e.clientY / window.innerHeight - 0.5); };
       window.addEventListener('mousemove', onMove, { passive: true });
 
@@ -1065,11 +1065,21 @@ img { display: block; max-width: 100%; }
         group.rotation.y += ((mx * 0.18) - group.rotation.y) * 0.04;
         group.rotation.x += ((my * 0.1) - group.rotation.x) * 0.04;
         renderer.render(scene, camera);
-        raf = requestAnimationFrame(tick);
+        raf = visible ? requestAnimationFrame(tick) : null;
       };
+
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          visible = en.isIntersecting;
+          if (visible && !raf) raf = requestAnimationFrame(tick);
+        });
+      }, { threshold: 0 }) : null;
+      if (io) io.observe(host);
+
       tick();
       cleanupSmoke = function () {
-        cancelAnimationFrame(raf);
+        if (raf) cancelAnimationFrame(raf);
+        if (io) io.disconnect();
         window.removeEventListener('mousemove', onMove);
         window.removeEventListener('resize', resize);
       };

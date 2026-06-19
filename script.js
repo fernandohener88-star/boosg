@@ -133,7 +133,7 @@
       }
       scene.add(group);
 
-      var mx = 0, my = 0, raf;
+      var mx = 0, my = 0, raf = null, visible = true;
       var onMove = function (e) { mx = (e.clientX / window.innerWidth - 0.5); my = (e.clientY / window.innerHeight - 0.5); };
       window.addEventListener('mousemove', onMove, { passive: true });
 
@@ -149,11 +149,21 @@
         group.rotation.y += ((mx * 0.18) - group.rotation.y) * 0.04;
         group.rotation.x += ((my * 0.1) - group.rotation.x) * 0.04;
         renderer.render(scene, camera);
-        raf = requestAnimationFrame(tick);
+        raf = visible ? requestAnimationFrame(tick) : null;
       };
+
+      var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          visible = en.isIntersecting;
+          if (visible && !raf) raf = requestAnimationFrame(tick);
+        });
+      }, { threshold: 0 }) : null;
+      if (io) io.observe(host);
+
       tick();
       cleanupSmoke = function () {
-        cancelAnimationFrame(raf);
+        if (raf) cancelAnimationFrame(raf);
+        if (io) io.disconnect();
         window.removeEventListener('mousemove', onMove);
         window.removeEventListener('resize', resize);
       };

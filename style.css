@@ -282,6 +282,7 @@ img { display: block; max-width: 100%; }
 .sc-atmo-note span:last-child { font-size: 14px; color: #dcccb9; font-weight: 500; }
 
 .sc-collage { position: relative; min-height: clamp(360px, 52vw, 540px); }
+.sc-collage picture { display: block; width: 100%; height: 100%; }
 .sc-collage img { width: 100%; height: 100%; object-fit: cover; }
 
 .sc-collage-1 {

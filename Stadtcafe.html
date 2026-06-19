@@ -8,7 +8,7 @@
 <meta property="og:title" content="Stadtcafé – Shisha Lounge &amp; Bar in Landau in der Pfalz">
 <meta property="og:description" content="Stadtcafé Landau – die Shisha Lounge, Cocktailbar &amp; Café in Landau in der Pfalz. Gemütliche Atmosphäre, beste Hookah-Qualität, faire Preise. Jetzt Tisch reservieren: 0176 79560861.">
 <meta property="og:type" content="business.business">
-<meta property="og:image" content="assets/images/lounge-velvet.png">
+<meta property="og:image" content="assets/images/lounge-velvet.webp">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -298,6 +298,7 @@ img { display: block; max-width: 100%; }
 .sc-atmo-note span:last-child { font-size: 14px; color: #dcccb9; font-weight: 500; }
 
 .sc-collage { position: relative; min-height: clamp(360px, 52vw, 540px); }
+.sc-collage picture { display: block; width: 100%; height: 100%; }
 .sc-collage img { width: 100%; height: 100%; object-fit: cover; }
 
 .sc-collage-1 {
@@ -569,7 +570,7 @@ img { display: block; max-width: 100%; }
   "name": "Stadtcafé",
   "alternateName": "Stadt Café Landau",
   "description": "Hookah Lounge, Café & Bar in Landau in der Pfalz. Gemütliche Atmosphäre, beste Shisha-Qualität, faire Preise und gute Musik.",
-  "image": "assets/images/lounge-velvet.png",
+  "image": "assets/images/lounge-velvet.webp",
   "servesCuisine": ["Shisha", "Cocktails", "Snacks"],
   "priceRange": "€€",
   "telephone": "+4917679560861",
@@ -658,13 +659,22 @@ img { display: block; max-width: 100%; }
 
       <div data-reveal class="sc-collage">
         <div class="sc-collage-1">
-          <img src="assets/images/lounge-velvet.png" alt="Gemütliche Lounge-Ecke mit pinken Samtsesseln und goldenen Tischen im Stadtcafé Landau" loading="lazy">
+          <picture>
+            <source srcset="assets/images/lounge-velvet.webp" type="image/webp">
+            <img src="assets/images/lounge-velvet.png" alt="Gemütliche Lounge-Ecke mit pinken Samtsesseln und goldenen Tischen im Stadtcafé Landau" loading="lazy">
+          </picture>
         </div>
         <div class="sc-collage-2">
-          <img src="assets/images/lounge-neon-kisses.png" alt="Lounge mit Neon-Schriftzug Kisses From Heaven und Samtbänken in der Shisha Lounge Landau" loading="lazy">
+          <picture>
+            <source srcset="assets/images/lounge-neon-kisses.webp" type="image/webp">
+            <img src="assets/images/lounge-neon-kisses.png" alt="Lounge mit Neon-Schriftzug Kisses From Heaven und Samtbänken in der Shisha Lounge Landau" loading="lazy">
+          </picture>
         </div>
         <div class="sc-collage-3">
-          <img src="assets/images/lounge-neon-cheers.png" alt="Neon Cheers My Dear und Spieltisch in der gemütlichen Hookah Bar Landau in der Pfalz" loading="lazy">
+          <picture>
+            <source srcset="assets/images/lounge-neon-cheers.webp" type="image/webp">
+            <img src="assets/images/lounge-neon-cheers.png" alt="Neon Cheers My Dear und Spieltisch in der gemütlichen Hookah Bar Landau in der Pfalz" loading="lazy">
+          </picture>
         </div>
       </div>
     </div>

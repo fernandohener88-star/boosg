@@ -456,17 +456,12 @@ img { display: block; max-width: 100%; }
   border-radius: 20px; overflow: hidden;
   border: 1px solid rgba(201, 162, 90, .25);
   background: linear-gradient(165deg, #1a1512, #141009);
-  display: grid; place-items: center;
 }
-.sc-map-grid-bg {
-  position: absolute; inset: 0; opacity: .5;
-  background-image: linear-gradient(rgba(201, 162, 90, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 162, 90, .08) 1px, transparent 1px);
-  background-size: 42px 42px;
+.sc-map-frame {
+  width: 100%; height: 100%; min-height: clamp(280px, 40vw, 420px);
+  border: 0; display: block;
+  filter: invert(92%) hue-rotate(180deg) contrast(90%) brightness(0.95) saturate(1.1);
 }
-.sc-map-content { position: relative; text-align: center; padding: 24px; }
-.sc-map-content .pin { font-size: 34px; margin-bottom: 10px; filter: drop-shadow(0 0 14px rgba(255, 100, 184, .5)); }
-.sc-map-content .name { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--text-soft); margin-bottom: 6px; }
-.sc-map-content .hint { color: var(--muted3); font-size: 13px; letter-spacing: .04em; }
 
 /* ---------- footer ---------- */
 
@@ -862,12 +857,13 @@ img { display: block; max-width: 100%; }
       </div>
 
       <div data-reveal class="sc-map-placeholder">
-        <div aria-hidden="true" class="sc-map-grid-bg"></div>
-        <div class="sc-map-content">
-          <div class="pin">📍</div>
-          <div class="name">Stadtcafé Landau</div>
-          <div class="hint">Interaktive Karte folgt — Plus Code 54W7+9V</div>
-        </div>
+        <iframe
+          class="sc-map-frame"
+          src="https://www.google.com/maps?q=Martin-Luther-Stra%C3%9Fe+26,+76829+Landau+in+der+Pfalz&output=embed"
+          title="Stadtcafé Landau – Standort auf Google Maps"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
       </div>
     </div>
   </section>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bücherfundus | Alamea – Haus der Elemente</title>
+<meta name="description" content="Rund 200 gebrauchte Titel zu esoterischen Themen – zum Stöbern, Entdecken und Mitnehmen bei Alamea Landau.">
+<link rel="canonical" href="https://www.alamea-landau.de/angebot/buecherfundus.html">
+<meta name="theme-color" content="#0F0A1E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Infant:ital,wght@1,400;1,500&family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+
+<canvas id="alamea-stars" aria-hidden="true"></canvas>
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<div id="loader" class="loader">
+  <div class="loader-text">Die Sterne erwachen</div>
+  <div class="loader-line"></div>
+</div>
+
+<header class="site-header">
+  <a href="../index.html#top" class="logo">
+    <span class="logo-mark">ALAMEA</span>
+    <span class="logo-sub">Haus der Elemente</span>
+  </a>
+  <nav class="nav-links">
+    <a href="../index.html#angebot">Angebot</a>
+    <a href="../index.html#beratungen">Beratungen</a>
+    <a href="../index.html#workshops">Workshops</a>
+    <a href="../index.html#bewertungen">Stimmen</a>
+    <a href="../index.html#kontakt">Kontakt</a>
+  </nav>
+  <a href="../index.html#termin" class="btn-pill-gold">Termin vereinbaren</a>
+</header>
+
+<main id="top">
+  <section class="detail-hero reveal">
+    <a href="../index.html#angebot" class="detail-back">← Zurück zum Sortiment</a>
+    <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
+    <h1 class="section-title">Bücherfundus</h1>
+  </section>
+
+  <div class="detail-media placeholder" role="img" aria-label="Rund 200 gebrauchte Bücher zu esoterischen Themen im Bücherfundus von Alamea Landau" style="background: linear-gradient(135deg, #9B5C6B, #2A1B45);"><span>Produktfoto folgt</span></div>
+
+  <section class="detail-content reveal">
+    <p>Rund 200 gebrauchte Titel zu esoterischen Themen warten in unserem Bücherfundus darauf, entdeckt zu werden – von Astrologie und Tarot bis zu Spiritualität und Selbsterfahrung.</p>
+    <p>Nehmen Sie sich Zeit zum Stöbern – vielleicht findet genau das Buch Sie, das Sie gerade brauchen.</p>
+  </section>
+
+  <div class="detail-cta">
+    <a href="../index.html#termin" class="btn-lg-gold">Termin vereinbaren</a>
+  </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">ALAMEA</div>
+      <div class="footer-logo-sub">Haus der Elemente · Landau</div>
+    </div>
+    <nav class="footer-nav">
+      <a href="../index.html#angebot">Angebot</a>
+      <a href="../index.html#beratungen">Beratungen</a>
+      <a href="../index.html#termin">Termin</a>
+      <button type="button" data-legal="impressum">Impressum</button>
+      <button type="button" data-legal="datenschutz">Datenschutz</button>
+    </nav>
+  </div>
+  <div class="footer-copy">© 2026 Alamea – Haus der Elemente · Inhaberin Jutta Smyth</div>
+</footer>
+
+<!-- ========== LEGAL MODAL ========== -->
+<div id="legal-overlay" class="legal-overlay" hidden>
+  <div class="legal-modal">
+    <button class="legal-close" id="legal-close" aria-label="Schließen">×</button>
+    <h2 id="legal-title"></h2>
+    <div class="legal-body" id="legal-body"></div>
+  </div>
+</div>
+
+<!-- ========== COOKIE BANNER ========== -->
+<div id="cookie-banner" class="cookie-banner" hidden>
+  <h3>Ihre Privatsphäre</h3>
+  <p>Wir verwenden notwendige Cookies, damit diese Seite funktioniert. Optionale Cookies für Statistik setzen wir nur mit Ihrer Zustimmung. Sie entscheiden.</p>
+  <div class="cookie-actions">
+    <button class="cookie-btn-accept" id="cookie-accept-all">Alle akzeptieren</button>
+    <button class="cookie-btn-essential" id="cookie-accept-essential">Nur notwendige</button>
+    <button class="cookie-btn-settings" id="cookie-settings" data-legal="datenschutz">Einstellungen &amp; Details</button>
+  </div>
+</div>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

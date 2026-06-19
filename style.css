@@ -185,8 +185,7 @@ img { display: block; max-width: 100%; }
 .sc-header-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
 .sc-logo { display: flex; align-items: center; gap: 12px; }
-.sc-logo img { width: 40px; height: 40px; border-radius: 7px; object-fit: cover; box-shadow: 0 0 0 1px rgba(201, 162, 90, .4); }
-.sc-logo span { font-family: 'Sacramento', cursive; font-size: 27px; color: var(--text-soft); line-height: 1; padding-top: 4px; }
+.sc-logo img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; box-shadow: 0 0 0 1px rgba(201, 162, 90, .4); }
 
 .sc-nav { display: flex; align-items: center; gap: clamp(14px, 3vw, 34px); }
 .sc-nav-link { font-size: 13.5px; letter-spacing: .06em; color: #cdbfb0; display: none; }
@@ -453,8 +452,7 @@ img { display: block; max-width: 100%; }
 .sc-footer-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: clamp(30px, 4vw, 48px); }
 
 .sc-footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.sc-footer-brand img { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; }
-.sc-footer-brand span { font-family: 'Sacramento', cursive; font-size: 32px; color: var(--text-soft); padding-top: 5px; text-shadow: 0 0 16px rgba(255, 100, 184, .35); }
+.sc-footer-brand img { width: 52px; height: 52px; border-radius: 9px; object-fit: cover; }
 .sc-footer-col p { color: var(--muted3); font-size: 14px; max-width: 320px; text-wrap: pretty; }
 
 .sc-footer-social { display: flex; gap: 12px; margin-top: 20px; }

@@ -9,7 +9,7 @@
 <meta property="og:title" content="Alamea – Haus der Elemente">
 <meta property="og:description" content="Esoterik-Fachgeschäft &amp; persönliche Beratungen in Landau in der Pfalz – seit über 30 Jahren.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0F0A1E">
+<meta name="theme-color" content="#161009">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Infant:ital,wght@1,400;1,500&family=Marcellus&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -37,15 +37,15 @@
 </script>
 <style>
 :root {
-  --color-void: #0F0A1E;
-  --color-deep-purple: #1E1235;
-  --color-royal-purple: #4A2D7A;
-  --color-amethyst: #7B5EA7;
-  --color-gold: #C9A356;
-  --color-gold-bright: #E8C77E;
-  --color-starlight: #F4EFE6;
-  --color-muted-lavender: #B8A9D9;
-  --color-rose-accent: #9B5C6B;
+  --color-void: #161009;
+  --color-deep-purple: #2A2014;
+  --color-royal-purple: #4A2E1C;
+  --color-amethyst: #5C6B47;
+  --color-gold: #B5905A;
+  --color-gold-bright: #D9B873;
+  --color-starlight: #EDE2C9;
+  --color-muted-lavender: #B0A085;
+  --color-rose-accent: #7A2E2E;
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-accent: 'Marcellus', Georgia, serif;
   --font-body: 'Spectral', Georgia, serif;
@@ -73,7 +73,7 @@ img { max-width: 100%; display: block; }
 
 @keyframes alameaOrbSpin { to { transform: rotate(360deg); } }
 @keyframes alameaFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-@keyframes alameaGlow { 0%,100% { box-shadow: 0 0 26px rgba(201,163,86,.30), inset 0 0 30px rgba(232,199,126,.18); } 50% { box-shadow: 0 0 50px rgba(232,199,126,.55), inset 0 0 44px rgba(232,199,126,.30); } }
+@keyframes alameaGlow { 0%,100% { box-shadow: 0 2px 6px rgba(181,144,90,.30), inset 0 2px 6px rgba(217,184,115,.18); } 50% { box-shadow: 0 2px 6px rgba(217,184,115,.55), inset 0 2px 6px rgba(217,184,115,.30); } }
 @keyframes alameaPulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
 
 /* ===== Loader ===== */
@@ -92,15 +92,15 @@ img { max-width: 100%; display: block; }
 /* ===== Background layers ===== */
 #alamea-stars { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 .noise-overlay {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .14; mix-blend-mode: overlay;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>');
 }
 /* ===== Header ===== */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   display: flex; align-items: center; justify-content: space-between; padding: 18px 6vw;
-  background: linear-gradient(180deg, rgba(15,10,30,0.92), rgba(15,10,30,0.55) 70%, transparent);
-  backdrop-filter: blur(6px);
+  background: linear-gradient(180deg, rgba(22,16,9,0.92), rgba(22,16,9,0.55) 70%, transparent);
+  
 }
 .logo { text-decoration: none; display: flex; flex-direction: column; line-height: 1; }
 .logo-mark { font-family: var(--font-display); font-weight: 600; font-size: 26px; letter-spacing: 0.34em; color: var(--color-gold-bright); }
@@ -110,11 +110,11 @@ img { max-width: 100%; display: block; }
 .nav-links a:hover { color: var(--color-gold-bright); }
 .btn-pill-gold {
   font-family: var(--font-accent); font-size: 13px; letter-spacing: 0.1em; color: var(--color-void); text-decoration: none;
-  background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 11px 22px; border-radius: 40px;
-  box-shadow: 0 0 22px rgba(201,163,86,.35); white-space: nowrap; border: none; cursor: pointer; display: inline-block;
+  background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 11px 22px; border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(181,144,90,.35); white-space: nowrap; border: none; cursor: pointer; display: inline-block;
   transition: box-shadow .3s, transform .3s;
 }
-.btn-pill-gold:hover { box-shadow: 0 0 32px rgba(232,199,126,.55); transform: translateY(-1px); }
+.btn-pill-gold:hover { box-shadow: 0 2px 6px rgba(217,184,115,.55); transform: translateY(-1px); }
 
 @media (max-width: 820px) { .nav-links { display: none !important; } }
 
@@ -126,8 +126,8 @@ main { position: relative; z-index: 1; }
   text-align: center; padding: 130px 6vw 90px;
 }
 .hero-orb { position: relative; width: 320px; height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px; animation: alameaFloat 7s ease-in-out infinite; }
-.orb-glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 46% 42%, rgba(232,199,126,.5), rgba(123,94,167,.38) 42%, rgba(74,45,122,.26) 66%, rgba(15,10,30,0) 78%); animation: alameaGlow 5s ease-in-out infinite; }
-.emblem { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 0 16px rgba(201,163,86,.3)); }
+.orb-glow { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 46% 42%, rgba(217,184,115,.5), rgba(92,107,71,.38) 42%, rgba(74,46,28,.26) 66%, rgba(22,16,9,0) 78%); animation: alameaGlow 5s ease-in-out infinite; }
+.emblem { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); filter: drop-shadow(0 2px 6px rgba(181,144,90,.3)); }
 .emblem .rays { transform-origin: 120px 120px; animation: alameaOrbSpin 130s linear infinite; }
 .emblem .sparkle { animation: alameaPulse 3.4s ease-in-out infinite; }
 .emblem .sparkle:nth-of-type(2) { animation-delay: .7s; }
@@ -145,12 +145,12 @@ main { position: relative; z-index: 1; }
 .hero-quote cite { display: block; font-family: var(--font-accent); font-style: normal; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-amethyst); margin-top: 12px; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 40px; }
 .btn-lg-gold, .btn-lg-outline {
-  font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.08em; text-decoration: none; padding: 16px 34px; border-radius: 44px;
+  font-family: var(--font-accent); font-size: 15px; letter-spacing: 0.08em; text-decoration: none; padding: 16px 34px; border-radius: 4px;
 }
-.btn-lg-gold { color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); box-shadow: 0 0 30px rgba(201,163,86,.4); transition: box-shadow .3s, transform .3s; }
-.btn-lg-gold:hover { box-shadow: 0 0 44px rgba(232,199,126,.6); transform: translateY(-1px); }
-.btn-lg-outline { color: var(--color-starlight); border: 1px solid rgba(201,163,86,.5); background: rgba(74,45,122,.18); transition: background .3s, border-color .3s; }
-.btn-lg-outline:hover { background: rgba(74,45,122,.32); border-color: var(--color-gold); }
+.btn-lg-gold { color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); box-shadow: 0 2px 6px rgba(181,144,90,.4); transition: box-shadow .3s, transform .3s; }
+.btn-lg-gold:hover { box-shadow: 0 2px 6px rgba(217,184,115,.6); transform: translateY(-1px); }
+.btn-lg-outline { color: var(--color-starlight); border: 1px solid rgba(181,144,90,.5); background: rgba(74,46,28,.18); transition: background .3s, border-color .3s; }
+.btn-lg-outline:hover { background: rgba(74,46,28,.32); border-color: var(--color-gold); }
 .trust-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 30px; margin-top: 48px; font-family: var(--font-accent); }
 .trust-item { display: flex; align-items: center; gap: 9px; }
 .stars-gold { color: var(--color-gold-bright); letter-spacing: 2px; font-size: 17px; }
@@ -160,8 +160,8 @@ main { position: relative; z-index: 1; }
 /* ===== Ornament divider ===== */
 .ornament { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 0 6vw; }
 .ornament-line { height: 1px; flex: 1; max-width: 220px; }
-.ornament-line.left { background: linear-gradient(90deg, transparent, rgba(201,163,86,.5)); }
-.ornament-line.right { background: linear-gradient(90deg, rgba(201,163,86,.5), transparent); }
+.ornament-line.left { background: linear-gradient(90deg, transparent, rgba(181,144,90,.5)); }
+.ornament-line.right { background: linear-gradient(90deg, rgba(181,144,90,.5), transparent); }
 
 /* ===== Shared section bits ===== */
 .section { max-width: 1180px; margin: 0 auto; padding: 70px 6vw; }
@@ -179,8 +179,8 @@ main { position: relative; z-index: 1; }
 .ueber-intro p { font-size: 18px; line-height: 1.75; color: var(--color-muted-lavender); font-weight: 300; }
 .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 .pillar-card {
-  background: linear-gradient(160deg, rgba(74,45,122,.32), rgba(30,18,53,.55)); border: 1px solid rgba(201,163,86,.22);
-  border-radius: 18px; padding: 38px 32px; text-align: center;
+  background: linear-gradient(160deg, rgba(74,46,28,.32), rgba(42,32,20,.55)); border: 1px solid rgba(181,144,90,.22);
+  border-radius: 6px; padding: 38px 32px; text-align: center;
 }
 .pillar-card svg { margin-bottom: 18px; }
 .pillar-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 26px; margin: 0 0 12px; color: var(--color-gold-bright); }
@@ -189,11 +189,11 @@ main { position: relative; z-index: 1; }
 /* ===== Angebot (compact clickable tiles) ===== */
 .offer-tile-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 .offer-tile {
-  display: flex; align-items: center; gap: 18px; padding: 16px 22px; border: 1px solid rgba(201,163,86,.22);
-  border-radius: 14px; background: rgba(30,18,53,.45); text-decoration: none; transition: border-color .3s, transform .3s, background .3s;
+  display: flex; align-items: center; gap: 18px; padding: 16px 22px; border: 1px solid rgba(181,144,90,.22);
+  border-radius: 5px; background: rgba(42,32,20,.45); text-decoration: none; transition: border-color .3s, transform .3s, background .3s;
   flex: 1 1 260px; max-width: 400px;
 }
-.offer-tile:hover { border-color: rgba(201,163,86,.5); transform: translateY(-2px); background: rgba(74,45,122,.25); }
+.offer-tile:hover { border-color: rgba(181,144,90,.5); transform: translateY(-2px); background: rgba(74,46,28,.25); }
 .offer-tile-icon { width: 50px; height: 50px; border-radius: 50%; flex-shrink: 0; overflow: hidden; background: linear-gradient(135deg, var(--color-amethyst), var(--color-deep-purple)); }
 .offer-tile-icon img { width: 100%; height: 100%; object-fit: cover; }
 .offer-tile-text { flex: 1; min-width: 0; }
@@ -205,30 +205,30 @@ main { position: relative; z-index: 1; }
 /* ===== Angebot detail pages ===== */
 .detail-back { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-accent); font-size: 13px; letter-spacing: 0.06em; color: var(--color-gold); text-decoration: none; }
 .detail-hero { padding: 150px 6vw 10px; max-width: 900px; margin: 0 auto; text-align: center; }
-.detail-media { max-width: 880px; margin: 40px auto 0; border-radius: 22px; overflow: hidden; border: 1px solid rgba(201,163,86,.25); }
+.detail-media { max-width: 880px; margin: 40px auto 0; border-radius: 6px; overflow: hidden; border: 1px solid rgba(181,144,90,.25); }
 .detail-media img { width: 100%; height: auto; display: block; }
 .detail-media.placeholder { height: 320px; display: flex; align-items: center; justify-content: center; }
-.detail-media.placeholder span { font-family: var(--font-accent); font-size: 11px; letter-spacing: 0.2em; color: rgba(244,239,230,.45); text-transform: uppercase; }
+.detail-media.placeholder span { font-family: var(--font-accent); font-size: 11px; letter-spacing: 0.2em; color: rgba(237,226,201,.45); text-transform: uppercase; }
 .detail-content { max-width: 700px; margin: 0 auto; padding: 56px 6vw 30px; }
 .detail-content p { font-size: 17px; line-height: 1.85; color: var(--color-muted-lavender); font-weight: 300; margin: 0 0 22px; }
 .detail-cta { text-align: center; padding: 10px 6vw 90px; }
 
 /* ===== Beratungen ===== */
-#beratungen { margin-top: 30px; background: linear-gradient(180deg, rgba(155,92,107,.10), rgba(30,18,53,.0)); }
+#beratungen { margin-top: 30px; background: linear-gradient(180deg, rgba(122,46,46,.10), rgba(42,32,20,.0)); }
 .consult-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 56px; align-items: center; }
 .consult-grid h2 { margin: 0 0 22px; }
 .consult-grid p.lead { font-size: 17px; line-height: 1.75; color: var(--color-muted-lavender); font-weight: 300; margin: 0 0 18px; }
 .consult-grid p.experience { font-family: var(--font-quote); font-style: italic; font-size: 19px; color: var(--color-gold-bright); margin: 0 0 30px; }
-.consult-grid .btn-md-gold { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.08em; color: var(--color-void); text-decoration: none; background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 14px 30px; border-radius: 44px; display: inline-block; box-shadow: 0 0 24px rgba(201,163,86,.35); }
+.consult-grid .btn-md-gold { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.08em; color: var(--color-void); text-decoration: none; background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 14px 30px; border-radius: 4px; display: inline-block; box-shadow: 0 2px 6px rgba(181,144,90,.35); }
 .consult-grid .note { font-size: 13px; color: var(--color-amethyst); margin: 16px 0 0; font-style: italic; }
 .consult-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.consult-tile { border: 1px solid rgba(201,163,86,.24); border-radius: 14px; padding: 22px 20px; background: rgba(30,18,53,.5); }
+.consult-tile { border: 1px solid rgba(181,144,90,.24); border-radius: 5px; padding: 22px 20px; background: rgba(42,32,20,.5); }
 .consult-tile span { font-family: var(--font-display); font-size: 22px; color: var(--color-starlight); }
 
 .detail-media.vintage { position: relative; }
-.detail-media.vintage img { filter: sepia(.35) saturate(1.5) hue-rotate(230deg) contrast(1.08) brightness(.88); }
-.detail-media.vintage::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 35%, rgba(232,199,126,.16), rgba(15,10,30,.55) 75%, rgba(15,10,30,.78)); mix-blend-mode: multiply; pointer-events: none; }
-.detail-media.vintage::before { content: ''; position: absolute; inset: 0; border: 1px solid rgba(232,199,126,.25); pointer-events: none; z-index: 2; }
+.detail-media.vintage img { filter: sepia(.55) saturate(1.15) contrast(1.06) brightness(.9); }
+.detail-media.vintage::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 35%, rgba(217,184,115,.16), rgba(22,16,9,.55) 75%, rgba(22,16,9,.78)); mix-blend-mode: multiply; pointer-events: none; }
+.detail-media.vintage::before { content: ''; position: absolute; inset: 0; border: 1px solid rgba(217,184,115,.25); pointer-events: none; z-index: 2; }
 
 /* ===== Workshops ===== */
 .workshop-intro { text-align: center; margin-bottom: 50px; }
@@ -236,31 +236,31 @@ main { position: relative; z-index: 1; }
 .workshop-intro p { font-size: 17px; line-height: 1.7; color: var(--color-muted-lavender); font-weight: 300; max-width: 56ch; margin: 0 auto; }
 .chip-row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 44px; }
 #workshops .offer-tile-grid { margin-bottom: 50px; }
-.chip { font-family: var(--font-accent); font-size: 14px; color: var(--color-starlight); border: 1px solid rgba(201,163,86,.3); padding: 10px 22px; border-radius: 40px; background: rgba(74,45,122,.2); }
+.chip { font-family: var(--font-accent); font-size: 14px; color: var(--color-starlight); border: 1px solid rgba(181,144,90,.3); padding: 10px 22px; border-radius: 4px; background: rgba(74,46,28,.2); }
 .workshop-highlight {
-  border: 1px solid rgba(201,163,86,.4); border-radius: 20px; padding: 46px 40px; text-align: center;
-  background: radial-gradient(circle at 50% 0%, rgba(201,163,86,.16), rgba(30,18,53,.5)); max-width: 760px; margin: 0 auto;
+  border: 1px solid rgba(181,144,90,.4); border-radius: 6px; padding: 46px 40px; text-align: center;
+  background: radial-gradient(circle at 50% 0%, rgba(181,144,90,.16), rgba(42,32,20,.5)); max-width: 760px; margin: 0 auto;
 }
 .workshop-highlight .eyebrow { margin-bottom: 14px; }
 .workshop-highlight h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3.4vw, 40px); margin: 0 0 14px; color: var(--color-gold-bright); }
 .workshop-highlight p { font-size: 16px; line-height: 1.7; color: var(--color-muted-lavender); font-weight: 300; max-width: 50ch; margin: 0 auto 28px; }
-.btn-lg-gold.inline { display: inline-block; box-shadow: 0 0 28px rgba(201,163,86,.4); }
+.btn-lg-gold.inline { display: inline-block; box-shadow: 0 2px 6px rgba(181,144,90,.4); }
 
 /* ===== Termin (booking) ===== */
-#termin { background: linear-gradient(180deg, rgba(30,18,53,0), rgba(74,45,122,.18), rgba(30,18,53,0)); }
+#termin { background: linear-gradient(180deg, rgba(42,32,20,0), rgba(74,46,28,.18), rgba(42,32,20,0)); }
 .termin-intro { max-width: 720px; margin: 0 auto 46px; text-align: center; }
 .termin-intro h2 { margin: 0 0 16px; }
 .termin-intro p { font-size: 17px; line-height: 1.7; color: var(--color-muted-lavender); font-weight: 300; margin: 0; }
 .booking-card {
-  position: relative; max-width: 680px; margin: 0 auto; border: 1px solid rgba(201,163,86,.4); border-radius: 22px;
-  padding: 46px 44px; background: linear-gradient(160deg, rgba(30,18,53,.85), rgba(15,10,30,.92));
-  box-shadow: 0 24px 80px rgba(0,0,0,.45), 0 0 50px rgba(201,163,86,.08);
+  position: relative; max-width: 680px; margin: 0 auto; border: 1px solid rgba(181,144,90,.4); border-radius: 6px;
+  padding: 46px 44px; background: linear-gradient(160deg, rgba(42,32,20,.85), rgba(22,16,9,.92));
+  box-shadow: 0 24px 80px rgba(0,0,0,.45), 0 2px 6px rgba(181,144,90,.08);
 }
-.booking-card::before { content: ''; position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,163,86,.6), transparent); }
+.booking-card::before { content: ''; position: absolute; top: 16px; left: 50%; transform: translateX(-50%); width: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(181,144,90,.6), transparent); }
 .booking-form { display: flex; flex-direction: column; gap: 22px; }
 .field label { display: block; font-family: var(--font-accent); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 9px; }
 .field input[type="text"], .field input[type="date"], .field input[type="email"], .field select {
-  width: 100%; background: rgba(15,10,30,.7); border: 1px solid rgba(123,94,167,.5); border-radius: 11px;
+  width: 100%; background: rgba(22,16,9,.7); border: 1px solid rgba(92,107,71,.5); border-radius: 4px;
   padding: 14px 16px; color: var(--color-starlight); font-size: 16px; color-scheme: dark;
 }
 .field input:focus, .field select:focus { outline: none; border-color: var(--color-gold); }
@@ -271,10 +271,10 @@ main { position: relative; z-index: 1; }
 .consent-row a { color: var(--color-gold); }
 .submit-btn {
   margin-top: 6px; font-family: var(--font-accent); font-size: 16px; letter-spacing: 0.08em; color: var(--color-void);
-  background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 17px; border-radius: 44px;
-  cursor: pointer; box-shadow: 0 0 30px rgba(201,163,86,.4); transition: box-shadow .3s;
+  background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 17px; border-radius: 4px;
+  cursor: pointer; box-shadow: 0 2px 6px rgba(181,144,90,.4); transition: box-shadow .3s;
 }
-.submit-btn:hover { box-shadow: 0 0 42px rgba(232,199,126,.6); }
+.submit-btn:hover { box-shadow: 0 2px 6px rgba(217,184,115,.6); }
 .phone-fallback { text-align: center; font-size: 12.5px; color: var(--color-amethyst); margin: 0; }
 .phone-fallback a { color: var(--color-gold); text-decoration: none; }
 .booking-success { text-align: center; padding: 30px 10px; }
@@ -289,45 +289,45 @@ main { position: relative; z-index: 1; }
 .rating-row { display: inline-flex; align-items: center; gap: 12px; font-family: var(--font-accent); }
 .rating-row .stars-gold { letter-spacing: 3px; font-size: 22px; }
 .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 44px; }
-.review-card { margin: 0; border: 1px solid rgba(201,163,86,.22); border-radius: 18px; padding: 32px 30px; background: rgba(30,18,53,.5); }
+.review-card { margin: 0; border: 1px solid rgba(181,144,90,.22); border-radius: 6px; padding: 32px 30px; background: rgba(42,32,20,.5); }
 .review-card .stars-gold { display: block; letter-spacing: 2px; font-size: 15px; margin-bottom: 16px; }
 .review-card blockquote { margin: 0; font-family: var(--font-display); font-size: 21px; line-height: 1.5; color: var(--color-starlight); font-style: italic; }
 .review-card figcaption { margin-top: 18px; font-family: var(--font-accent); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-amethyst); }
 .reviews-link { text-align: center; margin-top: 36px; }
-.reviews-link a { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.06em; color: var(--color-gold); text-decoration: none; border-bottom: 1px solid rgba(201,163,86,.4); padding-bottom: 3px; }
+.reviews-link a { font-family: var(--font-accent); font-size: 14px; letter-spacing: 0.06em; color: var(--color-gold); text-decoration: none; border-bottom: 1px solid rgba(181,144,90,.4); padding-bottom: 3px; }
 
 /* ===== Kontakt ===== */
-#kontakt { background: linear-gradient(180deg, rgba(30,18,53,0), rgba(30,18,53,.6)); }
+#kontakt { background: linear-gradient(180deg, rgba(42,32,20,0), rgba(42,32,20,.6)); }
 .kontakt-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 44px; }
 .kontakt-grid h2 { margin: 0 0 28px; }
 .hours-list { display: flex; flex-direction: column; gap: 11px; font-size: 16px; color: var(--color-starlight); margin-bottom: 30px; }
-.hours-row { display: flex; justify-content: space-between; max-width: 340px; border-bottom: 1px dashed rgba(123,94,167,.4); padding-bottom: 9px; }
+.hours-row { display: flex; justify-content: space-between; max-width: 340px; border-bottom: 1px dashed rgba(92,107,71,.4); padding-bottom: 9px; }
 .hours-row:last-child { border-bottom: none; }
 .hours-row .day { color: var(--color-muted-lavender); }
 .hours-row .time { font-family: var(--font-accent); }
 .hours-row .time.closed { color: var(--color-rose-accent); }
 .address-block { display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.6; }
 .address-block .phone { color: var(--color-gold); text-decoration: none; font-family: var(--font-accent); }
-.newsletter-box { margin-top: 34px; border: 1px solid rgba(201,163,86,.3); border-radius: 16px; padding: 26px 24px; background: rgba(74,45,122,.18); max-width: 420px; }
+.newsletter-box { margin-top: 34px; border: 1px solid rgba(181,144,90,.3); border-radius: 5px; padding: 26px 24px; background: rgba(74,46,28,.18); max-width: 420px; }
 .newsletter-box h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; margin: 0 0 6px; color: var(--color-gold-bright); }
 .newsletter-box p { font-size: 14px; color: var(--color-muted-lavender); font-weight: 300; line-height: 1.6; margin: 0 0 16px; }
 .newsletter-form { display: flex; gap: 9px; }
-.newsletter-form input { flex: 1; min-width: 0; background: rgba(15,10,30,.7); border: 1px solid rgba(123,94,167,.5); border-radius: 10px; padding: 12px 14px; color: var(--color-starlight); font-size: 15px; color-scheme: dark; }
-.newsletter-form button { font-family: var(--font-accent); font-size: 14px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; }
+.newsletter-form input { flex: 1; min-width: 0; background: rgba(22,16,9,.7); border: 1px solid rgba(92,107,71,.5); border-radius: 4px; padding: 12px 14px; color: var(--color-starlight); font-size: 15px; color-scheme: dark; }
+.newsletter-form button { font-family: var(--font-accent); font-size: 14px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 0 20px; border-radius: 4px; cursor: pointer; }
 .newsletter-success { font-family: var(--font-accent); font-size: 14px; color: var(--color-gold-bright); }
 .map-placeholder {
-  width: 100%; height: 100%; min-height: 360px; border-radius: 18px; border: 1px solid rgba(201,163,86,.3);
+  width: 100%; height: 100%; min-height: 360px; border-radius: 6px; border: 1px solid rgba(181,144,90,.3);
   background: linear-gradient(135deg, var(--color-deep-purple), var(--color-void)); position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: center;
 }
 .map-placeholder svg.grid-lines { position: absolute; inset: 0; opacity: .3; }
 .map-pin-content { position: relative; text-align: center; }
-.map-pin-content svg { filter: drop-shadow(0 0 10px rgba(201,163,86,.6)); }
+.map-pin-content svg { filter: drop-shadow(0 2px 6px rgba(181,144,90,.6)); }
 .map-pin-content .label { font-family: var(--font-accent); font-size: 12px; letter-spacing: 0.2em; color: var(--color-muted-lavender); margin-top: 10px; text-transform: uppercase; }
-.map-pin-content .route-btn { display: inline-block; margin-top: 14px; font-family: var(--font-accent); font-size: 12px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 9px 18px; border-radius: 30px; text-decoration: none; }
+.map-pin-content .route-btn { display: inline-block; margin-top: 14px; font-family: var(--font-accent); font-size: 12px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); padding: 9px 18px; border-radius: 5px; text-decoration: none; }
 
 /* ===== Footer ===== */
-.site-footer { position: relative; z-index: 1; border-top: 1px solid rgba(201,163,86,.2); padding: 56px 6vw 40px; background: #0B0716; }
+.site-footer { position: relative; z-index: 1; border-top: 1px solid rgba(181,144,90,.2); padding: 56px 6vw 40px; background: #120D08; }
 .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; align-items: flex-start; }
 .footer-logo { font-family: var(--font-display); font-weight: 600; font-size: 24px; letter-spacing: 0.3em; color: var(--color-gold-bright); }
 .footer-logo-sub { font-family: var(--font-accent); font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--color-amethyst); margin-top: 6px; }
@@ -338,11 +338,11 @@ main { position: relative; z-index: 1; }
 
 /* ===== Legal modal ===== */
 .legal-overlay {
-  position: fixed; inset: 0; z-index: 9600; background: rgba(8,5,16,.9); backdrop-filter: blur(8px);
+  position: fixed; inset: 0; z-index: 9600; background: rgba(14,10,6,.9); 
   display: flex; align-items: flex-start; justify-content: center; padding: 6vh 5vw; overflow-y: auto;
 }
 .legal-modal {
-  width: min(720px, 100%); border-radius: 20px; border: 1px solid rgba(201,163,86,.35);
+  width: min(720px, 100%); border-radius: 6px; border: 1px solid rgba(181,144,90,.35);
   background: linear-gradient(160deg, var(--color-deep-purple), var(--color-void)); padding: 44px 42px; position: relative;
 }
 .legal-close { position: absolute; top: 20px; right: 22px; background: none; border: none; color: var(--color-gold); font-size: 26px; cursor: pointer; line-height: 1; }
@@ -356,15 +356,15 @@ main { position: relative; z-index: 1; }
 /* ===== Cookie banner ===== */
 .cookie-banner {
   position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 9700; width: min(640px, 94vw);
-  border: 1px solid rgba(201,163,86,.4); border-radius: 18px;
-  background: linear-gradient(160deg, rgba(30,18,53,.97), rgba(15,10,30,.98)); padding: 26px 28px;
+  border: 1px solid rgba(181,144,90,.4); border-radius: 6px;
+  background: linear-gradient(160deg, rgba(42,32,20,.97), rgba(22,16,9,.98)); padding: 26px 28px;
   box-shadow: 0 18px 60px rgba(0,0,0,.5);
 }
 .cookie-banner h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--color-gold-bright); margin: 0 0 8px; }
 .cookie-banner p { font-size: 13.5px; line-height: 1.6; color: var(--color-muted-lavender); font-weight: 300; margin: 0 0 18px; }
 .cookie-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.cookie-btn-accept { font-family: var(--font-accent); font-size: 14px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 12px 26px; border-radius: 40px; cursor: pointer; }
-.cookie-btn-essential { font-family: var(--font-accent); font-size: 14px; color: var(--color-starlight); background: rgba(74,45,122,.4); border: 1px solid rgba(201,163,86,.3); padding: 12px 26px; border-radius: 40px; cursor: pointer; }
+.cookie-btn-accept { font-family: var(--font-accent); font-size: 14px; color: var(--color-void); background: linear-gradient(135deg, var(--color-gold-bright), var(--color-gold)); border: none; padding: 12px 26px; border-radius: 4px; cursor: pointer; }
+.cookie-btn-essential { font-family: var(--font-accent); font-size: 14px; color: var(--color-starlight); background: rgba(74,46,28,.4); border: 1px solid rgba(181,144,90,.3); padding: 12px 26px; border-radius: 4px; cursor: pointer; }
 .cookie-btn-settings { font-family: var(--font-accent); font-size: 13px; color: var(--color-muted-lavender); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
 </style>
 </head>
@@ -404,9 +404,9 @@ main { position: relative; z-index: 1; }
       <svg class="emblem" viewBox="0 0 240 240" width="320" height="320">
         <defs>
           <radialGradient id="moonGradient" cx="35%" cy="35%" r="70%">
-            <stop offset="0%" stop-color="#F4EFE6"/>
-            <stop offset="55%" stop-color="#E8C77E"/>
-            <stop offset="100%" stop-color="#C9A356"/>
+            <stop offset="0%" stop-color="#EDE2C9"/>
+            <stop offset="55%" stop-color="#D9B873"/>
+            <stop offset="100%" stop-color="#B5905A"/>
           </radialGradient>
           <mask id="moonMask">
             <rect x="0" y="0" width="240" height="240" fill="#fff"/>
@@ -415,7 +415,7 @@ main { position: relative; z-index: 1; }
           <polygon id="sunray" points="120,10 126,57 114,57"/>
         </defs>
 
-        <g class="rays" fill="#C9A356" opacity="0.8">
+        <g class="rays" fill="#B5905A" opacity="0.8">
           <use href="#sunray" transform="rotate(0 120 120)"/>
           <use href="#sunray" transform="rotate(22.5 120 120)"/>
           <use href="#sunray" transform="rotate(45 120 120)"/>
@@ -434,12 +434,12 @@ main { position: relative; z-index: 1; }
           <use href="#sunray" transform="rotate(337.5 120 120)"/>
         </g>
 
-        <circle cx="120" cy="120" r="80" fill="none" stroke="#C9A356" stroke-width="1" opacity="0.5"/>
-        <circle cx="120" cy="120" r="73" fill="none" stroke="#C9A356" stroke-width="0.6" stroke-dasharray="1 4" opacity="0.6"/>
+        <circle cx="120" cy="120" r="80" fill="none" stroke="#B5905A" stroke-width="1" opacity="0.5"/>
+        <circle cx="120" cy="120" r="73" fill="none" stroke="#B5905A" stroke-width="0.6" stroke-dasharray="1 4" opacity="0.6"/>
 
         <circle cx="120" cy="120" r="38" fill="url(#moonGradient)" mask="url(#moonMask)"/>
 
-        <g fill="#E8C77E">
+        <g fill="#D9B873">
           <path class="sparkle" transform="translate(58,68) scale(0.8)" d="M0,-8 C2,-2 2,-2 8,0 C2,2 2,2 0,8 C-2,2 -2,2 -8,0 C-2,-2 -2,-2 0,-8 Z"/>
           <path class="sparkle" transform="translate(180,150) scale(0.6)" d="M0,-8 C2,-2 2,-2 8,0 C2,2 2,2 0,8 C-2,2 -2,2 -8,0 C-2,-2 -2,-2 0,-8 Z"/>
           <path class="sparkle" transform="translate(170,60) scale(0.45)" d="M0,-8 C2,-2 2,-2 8,0 C2,2 2,2 0,8 C-2,2 -2,2 -8,0 C-2,-2 -2,-2 0,-8 Z"/>
@@ -470,7 +470,7 @@ main { position: relative; z-index: 1; }
   <!-- ornament -->
   <div class="ornament" aria-hidden="true">
     <div class="ornament-line left"></div>
-    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2a10 10 0 100 20 7 7 0 010-20z" fill="#C9A356"/></svg>
+    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2a10 10 0 100 20 7 7 0 010-20z" fill="#B5905A"/></svg>
     <div class="ornament-line right"></div>
   </div>
 
@@ -484,17 +484,17 @@ main { position: relative; z-index: 1; }
 
     <div class="pillar-grid">
       <div class="pillar-card">
-        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="none" stroke="#C9A356" stroke-width="1.2"/><circle cx="24" cy="24" r="20" fill="#C9A356" clip-path="inset(0 50% 0 0)"/></svg>
+        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="none" stroke="#B5905A" stroke-width="1.2"/><circle cx="24" cy="24" r="20" fill="#B5905A" clip-path="inset(0 50% 0 0)"/></svg>
         <h3>Fachgeschäft</h3>
         <p>Steine, Schmuck, über 80 Pendel, Räucherwerk, Karten und rund 200 gebrauchte Bücher – sorgsam ausgewählt und persönlich erklärt.</p>
       </div>
       <div class="pillar-card">
-        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="#C9A356"/></svg>
+        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="#B5905A"/></svg>
         <h3>Beratungen</h3>
         <p>Astrologie, Tarot, Pendeln, Handlesen und mehr – über 30 Jahre Erfahrung, im vertraulichen Einzelgespräch nach Termin.</p>
       </div>
       <div class="pillar-card">
-        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="none" stroke="#C9A356" stroke-width="1.2"/><path d="M24 4a20 20 0 010 40 14 14 0 000-40z" fill="#C9A356"/></svg>
+        <svg viewBox="0 0 48 48" width="42" height="42"><circle cx="24" cy="24" r="20" fill="none" stroke="#B5905A" stroke-width="1.2"/><path d="M24 4a20 20 0 010 40 14 14 0 000-40z" fill="#B5905A"/></svg>
         <h3>Workshops</h3>
         <p>Von Astrologie bis Astralreise und Wicca – in kleinen Gruppen oder im Einzelunterricht. Mit kostenloser Schnupperstunde.</p>
       </div>
@@ -519,7 +519,7 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="pendel-wuenschelruten">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #7B5EA7, #2A1B45);"></span>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #5C6B47, #1C140C);"></span>
         <span class="offer-tile-text">
           <h3>Pendel &amp; Wünschelruten</h3>
           <p>Über 80 Pendel mit persönlicher Beratung</p>
@@ -537,7 +537,7 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="karten-orakel">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #4A2D7A, #1E1235);"></span>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #4A2E1C, #2A2014);"></span>
         <span class="offer-tile-text">
           <h3>Karten &amp; Orakel</h3>
           <p>Tarot- &amp; Orakelkarten, kuratiert</p>
@@ -546,7 +546,7 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="handgefertigte-unikate">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #7B5EA7, #2A1B45);"></span>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #5C6B47, #1C140C);"></span>
         <span class="offer-tile-text">
           <h3>Handgefertigte Unikate</h3>
           <p>Aus recyceltem Papier, Stoff &amp; Holz</p>
@@ -555,7 +555,7 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="buecherfundus">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #9B5C6B, #2A1B45);"></span>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #7A2E2E, #1C140C);"></span>
         <span class="offer-tile-text">
           <h3>Bücherfundus</h3>
           <p>Rund 200 gebrauchte Titel zur Esoterik</p>
@@ -564,7 +564,7 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="aufkleber-symbole">
-        <span class="offer-tile-icon" style="background: #F4EFE6;"><img data-img="aufkleber" loading="lazy" alt=""></span>
+        <span class="offer-tile-icon" style="background: #EDE2C9;"><img data-img="aufkleber" loading="lazy" alt=""></span>
         <span class="offer-tile-text">
           <h3>Aufkleber &amp; Symbole</h3>
           <p>Blume des Lebens, Om &amp; weitere Motive</p>
@@ -597,14 +597,14 @@ main { position: relative; z-index: 1; }
 
     <div class="ornament" aria-hidden="true" style="margin: 64px 0 0;">
       <div class="ornament-line left"></div>
-      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2a10 10 0 100 20 7 7 0 010-20z" fill="#C9A356"/></svg>
+      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2a10 10 0 100 20 7 7 0 010-20z" fill="#B5905A"/></svg>
       <div class="ornament-line right"></div>
     </div>
 
     <div class="offer-tile-grid insight-tile-grid">
       <a class="offer-tile" href="#" data-view="pendel-stoerquellen">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #7B5EA7, #2A1B45); display:flex; align-items:center; justify-content:center;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v3" stroke="#E8C77E" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="15" r="5.5" stroke="#E8C77E" stroke-width="1.4"/><circle cx="12" cy="15" r="1.4" fill="#E8C77E"/></svg>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #5C6B47, #1C140C); display:flex; align-items:center; justify-content:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3v3" stroke="#D9B873" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="15" r="5.5" stroke="#D9B873" stroke-width="1.4"/><circle cx="12" cy="15" r="1.4" fill="#D9B873"/></svg>
         </span>
         <span class="offer-tile-text">
           <h3>Mehr als ein Werkzeug für Fragen</h3>
@@ -614,8 +614,8 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="astrologie-prognose">
-        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #9B5C6B, #2A1B45); display:flex; align-items:center; justify-content:center;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 4.6L18 8.2l-4.2 1.6L12 14l-1.8-4.2L6 8.2l4.2-1.6L12 2z" fill="#E8C77E"/><circle cx="18.5" cy="17" r="2.1" fill="#E8C77E"/></svg>
+        <span class="offer-tile-icon" style="background: linear-gradient(135deg, #7A2E2E, #1C140C); display:flex; align-items:center; justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l1.8 4.6L18 8.2l-4.2 1.6L12 14l-1.8-4.2L6 8.2l4.2-1.6L12 2z" fill="#D9B873"/><circle cx="18.5" cy="17" r="2.1" fill="#D9B873"/></svg>
         </span>
         <span class="offer-tile-text">
           <h3>Treffsicher und zeitgenau</h3>
@@ -646,8 +646,8 @@ main { position: relative; z-index: 1; }
 
     <div class="offer-tile-grid insight-tile-grid">
       <a class="offer-tile" href="#" data-view="handlesen">
-        <span class="offer-tile-icon" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #9B5C6B, #2A1B45);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-2-7-6-7-10a4 4 0 018 0 4 4 0 018 0c0 4-3 8-7 10z" stroke="#E8C77E" stroke-width="1.4"/></svg>
+        <span class="offer-tile-icon" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #7A2E2E, #1C140C);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21c-4-2-7-6-7-10a4 4 0 018 0 4 4 0 018 0c0 4-3 8-7 10z" stroke="#D9B873" stroke-width="1.4"/></svg>
         </span>
         <span class="offer-tile-text">
           <h3>Eine der ältesten Techniken</h3>
@@ -657,8 +657,8 @@ main { position: relative; z-index: 1; }
       </a>
 
       <a class="offer-tile" href="#" data-view="astralreise">
-        <span class="offer-tile-icon" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #7B5EA7, #2A1B45);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 19l5-9M12 19l-2-6M12 19V9" stroke="#E8C77E" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="5" r="2" fill="#E8C77E"/></svg>
+        <span class="offer-tile-icon" style="display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #5C6B47, #1C140C);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 19l5-9M12 19l-2-6M12 19V9" stroke="#D9B873" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="5" r="2" fill="#D9B873"/></svg>
         </span>
         <span class="offer-tile-text">
           <h3>Jenseits des Körpers</h3>
@@ -686,7 +686,7 @@ main { position: relative; z-index: 1; }
 
     <div class="booking-card">
       <div id="booking-success" class="booking-success" hidden>
-        <svg viewBox="0 0 48 48" width="54" height="54"><circle cx="24" cy="24" r="22" fill="none" stroke="#C9A356" stroke-width="1.4"/><path d="M15 24l6 6 12-13" fill="none" stroke="#E8C77E" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 48 48" width="54" height="54"><circle cx="24" cy="24" r="22" fill="none" stroke="#B5905A" stroke-width="1.4"/><path d="M15 24l6 6 12-13" fill="none" stroke="#D9B873" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <h3>Vielen Dank für Ihre Anfrage</h3>
         <p>Wir haben Ihren Terminwunsch erhalten und melden uns in Kürze persönlich bei Ihnen zur Bestätigung. (Demo – es wurden keine Daten übermittelt.)</p>
       </div>
@@ -797,9 +797,9 @@ main { position: relative; z-index: 1; }
 
       <div>
         <div class="map-placeholder" role="img" aria-label="Karte mit Standort von Alamea Haus der Elemente in der Martin-Luther-Straße 15 in Landau in der Pfalz">
-          <svg class="grid-lines" viewBox="0 0 400 400" width="100%" height="100%"><g stroke="#4A2D7A" stroke-width="1" fill="none"><path d="M0 120 H400 M0 250 H400 M120 0 V400 M280 0 V400"/><path d="M0 60 L400 340 M0 340 L400 60" stroke="#7B5EA7" stroke-width="0.6"/></g></svg>
+          <svg class="grid-lines" viewBox="0 0 400 400" width="100%" height="100%"><g stroke="#4A2E1C" stroke-width="1" fill="none"><path d="M0 120 H400 M0 250 H400 M120 0 V400 M280 0 V400"/><path d="M0 60 L400 340 M0 340 L400 60" stroke="#5C6B47" stroke-width="0.6"/></g></svg>
           <div class="map-pin-content">
-            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" fill="#C9A356"/><circle cx="12" cy="9" r="2.6" fill="#1E1235"/></svg>
+            <svg viewBox="0 0 24 24" width="40" height="40"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" fill="#B5905A"/><circle cx="12" cy="9" r="2.6" fill="#2A2014"/></svg>
             <div class="label">Martin-Luther-Str. 15</div>
             <a href="https://www.google.com/maps/search/?api=1&query=Martin-Luther-Stra%C3%9Fe+15+76829+Landau" target="_blank" rel="noopener" class="route-btn">Route planen</a>
           </div>
@@ -831,7 +831,7 @@ main { position: relative; z-index: 1; }
     <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
     <h1 class="section-title">Pendel &amp; Wünschelruten</h1>
   </section>
-  <div class="detail-media placeholder" role="img" aria-label="Auswahl von über 80 verschiedenen Pendeln und Wünschelruten bei Alamea Landau" style="background: linear-gradient(135deg, #7B5EA7, #2A1B45);"><span>Produktfoto folgt</span></div>
+  <div class="detail-media placeholder" role="img" aria-label="Auswahl von über 80 verschiedenen Pendeln und Wünschelruten bei Alamea Landau" style="background: linear-gradient(135deg, #5C6B47, #1C140C);"><span>Produktfoto folgt</span></div>
   <section class="detail-content reveal">
     <p>Über 80 verschiedene Pendel in unterschiedlichen Materialien, Formen und Größen erwarten Sie in unserem Sortiment – von klassischen Kristallpendeln bis zu Wünschelruten für die Rutengängerarbeit.</p>
     <p>Die Wahl des passenden Pendels ist eine persönliche Angelegenheit. Wir nehmen uns gerne Zeit, Sie bei der Auswahl Ihres Stücks zu begleiten und Ihre Fragen dazu zu beantworten.</p>
@@ -859,7 +859,7 @@ main { position: relative; z-index: 1; }
     <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
     <h1 class="section-title">Karten &amp; Orakel</h1>
   </section>
-  <div class="detail-media placeholder" role="img" aria-label="Tarot- und Orakelkarten Auswahl bei Alamea Haus der Elemente Landau" style="background: linear-gradient(135deg, #4A2D7A, #1E1235);"><span>Produktfoto folgt</span></div>
+  <div class="detail-media placeholder" role="img" aria-label="Tarot- und Orakelkarten Auswahl bei Alamea Haus der Elemente Landau" style="background: linear-gradient(135deg, #4A2E1C, #2A2014);"><span>Produktfoto folgt</span></div>
   <section class="detail-content reveal">
     <p>Eine kuratierte Auswahl an Tarot- und Orakelkarten für Einsteiger wie für Kenner – von klassischen Tarot-Decks bis zu thematischen Orakelkarten für die persönliche Reflexion.</p>
     <p>Gerne erklären wir Ihnen die Unterschiede der einzelnen Kartendecks und helfen Ihnen, das passende Set für Ihre Praxis zu finden.</p>
@@ -873,7 +873,7 @@ main { position: relative; z-index: 1; }
     <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
     <h1 class="section-title">Handgefertigte Unikate</h1>
   </section>
-  <div class="detail-media placeholder" role="img" aria-label="Handgefertigte Unikate aus recycelten Materialien, Papierperlen-Schmuck und Notizbücher von Alamea Landau" style="background: linear-gradient(135deg, #7B5EA7, #2A1B45);"><span>Produktfoto folgt</span></div>
+  <div class="detail-media placeholder" role="img" aria-label="Handgefertigte Unikate aus recycelten Materialien, Papierperlen-Schmuck und Notizbücher von Alamea Landau" style="background: linear-gradient(135deg, #5C6B47, #1C140C);"><span>Produktfoto folgt</span></div>
   <section class="detail-content reveal">
     <p>Aus recyceltem Papier, Stoff und Holz entstehen bei uns liebevoll gefertigte Unikate: Karten, Notizbücher, Deko-Objekte und Papierperlen-Schmuck – jedes Stück ein Original.</p>
     <p>Diese handgefertigten Kleinigkeiten eignen sich wunderbar als persönliches Geschenk oder kleine Aufmerksamkeit für sich selbst.</p>
@@ -887,7 +887,7 @@ main { position: relative; z-index: 1; }
     <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
     <h1 class="section-title">Bücherfundus</h1>
   </section>
-  <div class="detail-media placeholder" role="img" aria-label="Rund 200 gebrauchte Bücher zu esoterischen Themen im Bücherfundus von Alamea Landau" style="background: linear-gradient(135deg, #9B5C6B, #2A1B45);"><span>Produktfoto folgt</span></div>
+  <div class="detail-media placeholder" role="img" aria-label="Rund 200 gebrauchte Bücher zu esoterischen Themen im Bücherfundus von Alamea Landau" style="background: linear-gradient(135deg, #7A2E2E, #1C140C);"><span>Produktfoto folgt</span></div>
   <section class="detail-content reveal">
     <p>Rund 200 gebrauchte Titel zu esoterischen Themen warten in unserem Bücherfundus darauf, entdeckt zu werden – von Astrologie und Tarot bis zu Spiritualität und Selbsterfahrung.</p>
     <p>Nehmen Sie sich Zeit zum Stöbern – vielleicht findet genau das Buch Sie, das Sie gerade brauchen.</p>
@@ -901,7 +901,7 @@ main { position: relative; z-index: 1; }
     <div class="eyebrow" style="margin-top:26px;">Unser Sortiment</div>
     <h1 class="section-title">Aufkleber &amp; Symbole</h1>
   </section>
-  <div class="detail-media" style="background: #F4EFE6;"><img data-img="aufkleber" loading="lazy" alt="Aufkleber mit dem Symbol Blume des Lebens in Regenbogenfarben sowie weitere spirituelle Motive bei Alamea Landau"></div>
+  <div class="detail-media" style="background: #EDE2C9;"><img data-img="aufkleber" loading="lazy" alt="Aufkleber mit dem Symbol Blume des Lebens in Regenbogenfarben sowie weitere spirituelle Motive bei Alamea Landau"></div>
   <section class="detail-content reveal">
     <p>Aufkleber mit der Blume des Lebens, dem Om-Symbol und weiteren spirituellen Motiven – in verschiedenen Größen und Ausführungen, auch in leuchtenden Regenbogenfarben.</p>
     <p>Ob für das Auto, den Laptop oder als kleines Geschenk: Unsere Symbol-Aufkleber sind ein schöner Begleiter für den Alltag.</p>
@@ -1122,8 +1122,8 @@ main { position: relative; z-index: 1; }
         ctx.beginPath();
         ctx.arc(s.x + ox, s.y + oy, s.r, 0, Math.PI * 2);
         ctx.fillStyle = s.gold
-          ? 'rgba(232,199,126,' + Math.max(0, a) + ')'
-          : 'rgba(244,239,230,' + Math.max(0, a * 0.85) + ')';
+          ? 'rgba(217,184,115,' + Math.max(0, a) + ')'
+          : 'rgba(237,226,201,' + Math.max(0, a * 0.85) + ')';
         ctx.fill();
       }
       requestAnimationFrame(draw);

@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+dev-dist
+*.local
+.DS_Store
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+
+# logs
+npm-debug.log*

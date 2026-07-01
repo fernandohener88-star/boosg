@@ -95,6 +95,11 @@
   if (bookingForm && bookingSuccess) {
     bookingForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(bookingForm)).toString()
+      }).catch(function () {});
       bookingForm.hidden = true;
       bookingSuccess.hidden = false;
     });
@@ -106,6 +111,11 @@
   if (newsletterForm && newsletterSuccess) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(newsletterForm)).toString()
+      }).catch(function () {});
       newsletterForm.hidden = true;
       newsletterSuccess.hidden = false;
     });

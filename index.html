@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACCENT aesthetic studio Landau | Gesichtsbehandlung · Maniküre · Pediküre</title>
+<meta name="description" content="ACCENT aesthetic studio in Landau in der Pfalz – Ihr Premium-Kosmetikstudio. Gesichtsbehandlungen, Maniküre, Pediküre und Augenbrauen-Design. 5,0 Google Rating. Jetzt Termin anfragen: 0176 80540425">
+<meta name="keywords" content="Kosmetikstudio Landau, Gesichtsbehandlung Landau, Maniküre Landau, Pediküre Landau, Nagelpflege Landau in der Pfalz, Schönheitssalon Landau, Augenbrauen Landau">
+<link rel="canonical" href="https://www.accent-studio-landau.de/">
+<meta property="og:title" content="ACCENT aesthetic studio – Premium Kosmetikstudio Landau">
+<meta property="og:description" content="Ihr Schönheitsstudio Nr. 1 in Landau in der Pfalz. 5,0 Sterne. Gesichtsbehandlung, Maniküre, Pediküre.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<link rel="alternate" hreflang="de" href="https://www.accent-studio-landau.de/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/studio-lounge.png" fetchpriority="high">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>💅</text></svg>">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BeautySalon","name":"ACCENT aesthetic studio","description":"Premium Kosmetikstudio in Landau in der Pfalz – Gesichtsbehandlungen, Maniküre, Pediküre, Augenbrauen-Design","address":{"@type":"PostalAddress","streetAddress":"Martin-Luther-Str. 18","addressLocality":"Landau in der Pfalz","postalCode":"76829","addressCountry":"DE"},"telephone":"+4917680540425","openingHours":"Mo-Sa 09:00-18:00","aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"10","bestRating":"5"},"priceRange":"€€","hasMap":"https://maps.google.com/?q=Martin-Luther-Str.+18,+76829+Landau+in+der+Pfalz","offers":[{"@type":"Offer","name":"Gesichtsbehandlung"},{"@type":"Offer","name":"Maniküre"},{"@type":"Offer","name":"Pediküre"},{"@type":"Offer","name":"Augenbrauen-Design"},{"@type":"Offer","name":"Nagel-Design"}]}
+</script>
+<style>
+  :root{
+    --bg:#FBF8F3;
+    --bg-alt:#F4EEE5;
+    --ink:#2B2825;
+    --ink-soft:#837A6D;
+    --gold:#A98C66;
+    --line:#C9BEAF;
+    --border:rgba(43,40,37,0.1);
+    --footer-bg:#2B2825;
+    --footer-text:#9C8F7E;
+    --footer-text-light:#D8C9B5;
+    --footer-border:rgba(216,201,181,0.12);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:90px;}
+  body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  img{max-width:100%;}
+  ::selection{background:#BC93A1;color:var(--bg);}
+
+  @keyframes preOut{to{opacity:0;visibility:hidden;}}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes scrollBounce{0%,100%{transform:translateY(0);opacity:.4;}50%{transform:translateY(8px);opacity:1;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes slideFromLeft{from{opacity:0;transform:translateX(-24px);}to{opacity:1;transform:translateX(0);}}
+
+  #preloader{position:fixed;inset:0;background:var(--bg);z-index:10000;display:flex;align-items:center;justify-content:center;animation:preOut .9s ease 1.0s forwards;}
+  #preloader span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:42px;color:var(--gold);letter-spacing:.14em;}
+
+  #cursor{position:fixed;left:0;top:0;width:32px;height:32px;border:1px solid transparent;border-radius:50%;pointer-events:none;z-index:9999;display:flex;align-items:center;justify-content:center;transition:border-color .25s ease;}
+  #cursor .cross{position:absolute;background:var(--gold);transition:opacity .2s;}
+  #cursor .cross.h{width:12px;height:1px;}
+  #cursor .cross.v{width:1px;height:12px;}
+
+  header{position:fixed;top:0;left:0;right:0;z-index:900;border-bottom:1px solid transparent;background:transparent;transition:background .4s ease,border-color .4s ease;}
+  header.scrolled{background:rgba(251,248,243,0.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom-color:var(--border);}
+  .nav-wrap{max-width:1280px;margin:0 auto;padding:22px 48px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);text-decoration:none;letter-spacing:.04em;}
+  .logo span{color:var(--gold);}
+  nav{display:flex;align-items:center;gap:38px;}
+  .nav-link{color:var(--ink-soft);text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;transition:color .3s;}
+  .nav-link:hover{color:var(--ink);}
+  .nav-cta{color:var(--ink);text-decoration:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(43,40,37,0.25);padding:11px 20px;border-radius:2px;transition:all .3s;}
+  .nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+  .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));min-height:100vh;}
+  .hero-content{display:flex;align-items:center;padding:140px 64px 80px;background:var(--bg);}
+  .hero-inner{max-width:560px;}
+  .hero-eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:30px;animation:slideFromLeft .8s ease both;}
+  .hero-h1{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(46px,6vw,86px);line-height:.98;margin:0;color:var(--ink);}
+  .hero-h1 .line{display:block;animation:fadeUp .8s ease both;}
+  .hero-h1 .line:nth-child(1){animation-delay:.15s;}
+  .hero-h1 .line:nth-child(2){animation-delay:.28s;}
+  .hero-h1 .line:nth-child(3){animation-delay:.41s;}
+  .hero-sub{font-size:16px;line-height:1.75;color:var(--ink-soft);margin:32px 0 0;max-width:430px;animation:fadeUp .9s ease both;animation-delay:.55s;}
+  .hero-rating{display:flex;align-items:center;gap:12px;margin-top:28px;animation:fadeIn 1s ease both;animation-delay:.8s;}
+  .hero-rating .stars{color:var(--gold);letter-spacing:2px;font-size:15px;}
+  .hero-rating .score{color:var(--ink);font-size:14px;}
+  .hero-rating .dot{width:4px;height:4px;border-radius:50%;background:var(--line);}
+  .hero-rating .count{color:var(--ink-soft);font-size:14px;}
+  .hero-ctas{display:flex;gap:16px;margin-top:42px;flex-wrap:wrap;}
+  .hero-ctas .btn{animation:fadeUp .8s ease both;}
+  .hero-ctas .btn:nth-child(1){animation-delay:.95s;}
+  .hero-ctas .btn:nth-child(2){animation-delay:1.07s;}
+  .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border-radius:2px;transition:all .35s ease;}
+  .btn-primary{padding:17px 32px;background:var(--ink);color:var(--bg);}
+  .btn-primary:hover{background:var(--gold);}
+  .btn-secondary{padding:17px 30px;border:1px solid rgba(43,40,37,0.25);color:var(--ink);}
+  .btn-secondary:hover{border-color:var(--ink);background:var(--bg-alt);}
+  .hero-visual{position:relative;min-height:60vh;}
+  .hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .hero-visual .fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,248,243,0.4),transparent 22%);}
+  .scroll-indicator{position:absolute;bottom:28px;right:28px;display:flex;flex-direction:column;align-items:center;gap:9px;}
+  .scroll-indicator span{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--bg);text-shadow:0 1px 6px rgba(0,0,0,0.4);}
+  .scroll-indicator .bar{width:1px;height:32px;background:linear-gradient(var(--bg),transparent);animation:scrollBounce 2s ease-in-out infinite;}
+
+  .trust-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-alt);overflow:hidden;}
+  .marquee-wrap{display:flex;width:max-content;animation:marquee 38s linear infinite;padding:24px 0;}
+  .trust-bar:hover .marquee-wrap{animation-play-state:paused;}
+  .marquee-track{display:flex;align-items:center;gap:44px;padding-right:44px;font-size:14px;color:var(--ink-soft);letter-spacing:.04em;white-space:nowrap;}
+  .marquee-track .gold{color:var(--gold);}
+  .marquee-track .sep{color:var(--line);}
+  .marquee-track em{color:var(--ink);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;}
+
+  .section{padding:140px 0;}
+  .section-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+  .label{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;}
+  .h2{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(38px,4.5vw,60px);line-height:1.05;margin:0;color:var(--ink);}
+  .body-text{font-size:16px;line-height:1.85;color:var(--ink-soft);margin:30px 0 0;max-width:500px;}
+
+  .about{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:72px;align-items:center;}
+  .stat-row{display:flex;gap:50px;margin-top:50px;flex-wrap:wrap;}
+  .stat-num{font-family:'Cormorant Garamond',serif;font-size:52px;color:var(--ink);line-height:1;}
+  .stat-num .star{font-size:26px;color:var(--gold);}
+  .stat-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:10px;}
+  .about-visual{position:relative;}
+  .about-visual img{width:100%;height:auto;border-radius:3px;display:block;box-shadow:0 30px 70px -40px rgba(43,40,37,0.4);}
+  .quote-card{position:absolute;bottom:-34px;left:-20px;max-width:330px;background:rgba(251,248,243,0.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:3px;padding:28px 30px;box-shadow:0 24px 60px -30px rgba(43,40,37,0.35);}
+  .quote-card .quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;line-height:1.4;color:var(--ink);}
+  .quote-card .author{display:flex;align-items:center;gap:10px;margin-top:16px;}
+  .quote-card .author .stars{color:var(--gold);font-size:12px;}
+  .quote-card .author .name{font-size:12px;color:var(--ink-soft);}
+
+  .leistungen-head{text-align:center;max-width:640px;margin:0 auto 64px;}
+  .leistungen-head .h2{margin:0;}
+  .leistungen-head .body-text{margin:20px auto 0;max-width:640px;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px;}
+  .card{background:#FFFFFF;border:1px solid rgba(43,40,37,0.08);padding:38px 34px;border-radius:2px;transition:all .4s ease;}
+  .card:hover{transform:translateY(-6px);box-shadow:0 24px 55px -28px rgba(43,40,37,0.3);border-color:rgba(169,140,102,0.4);}
+  .card h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;margin:22px 0 12px;color:var(--ink);}
+  .card p{font-size:14px;line-height:1.7;color:var(--ink-soft);margin:0;}
+
+  .galerie-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:54px;}
+  .galerie-head .lead{font-size:15px;line-height:1.7;color:var(--ink-soft);margin:0;max-width:300px;}
+  .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+  .gallery-item{position:relative;overflow:hidden;border-radius:3px;aspect-ratio:3/4;}
+  .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .gallery-item:hover img{transform:scale(1.05);}
+
+  .why{position:relative;overflow:hidden;}
+  .why .bigquote{position:absolute;top:40px;left:50%;transform:translateX(-50%);font-family:'Cormorant Garamond',serif;font-size:300px;line-height:1;color:var(--gold);opacity:.1;pointer-events:none;user-select:none;}
+  .why-inner{position:relative;}
+  .why-statement{max-width:920px;margin:0 auto;text-align:center;}
+  .why-statement .h2{font-size:clamp(40px,6vw,74px);line-height:1.05;}
+  .why-statement .by{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:28px;}
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px;margin-top:84px;max-width:1000px;margin-left:auto;margin-right:auto;}
+  .why-item{text-align:center;}
+  .why-item .mark{color:var(--gold);font-size:22px;margin-bottom:16px;}
+  .why-item h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;margin:0 0 12px;color:var(--ink);}
+  .why-item p{font-size:14px;line-height:1.7;color:var(--ink-soft);margin:0;}
+
+  .kontakt{position:relative;padding:160px 0;overflow:hidden;}
+  .kontakt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .kontakt .fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,248,243,0.96),rgba(251,248,243,0.78) 50%,rgba(251,248,243,0.5));}
+  .kontakt-inner{position:relative;max-width:620px;}
+  .kontakt .h2{font-size:clamp(40px,5.5vw,66px);line-height:1.02;}
+  .kontakt p{font-size:16px;line-height:1.7;color:var(--ink-soft);margin:26px 0 0;max-width:440px;}
+  .kontakt-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:42px;}
+  .btn-round{border-radius:40px;padding:18px 32px;font-size:13px;letter-spacing:.12em;}
+  .btn-round.outline{padding:18px 30px;border:1px solid rgba(43,40,37,0.3);color:var(--ink);background:transparent;}
+  .btn-round.outline:hover{border-color:var(--ink);background:rgba(255,255,255,0.5);}
+  .btn-round.fill{background:var(--ink);color:var(--bg);}
+  .btn-round.fill:hover{background:var(--gold);}
+  .info-row{display:flex;gap:30px;flex-wrap:wrap;margin-top:48px;font-size:13px;color:var(--ink-soft);}
+  .info-row .gold{color:var(--gold);}
+  .info-row .sep{color:var(--line);}
+
+  footer{background:var(--footer-bg);padding:80px 0 40px;}
+  .footer-grid{max-width:1280px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:50px;}
+  .footer-brand{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;color:var(--footer-text-light);}
+  .footer-grid p{font-size:14px;line-height:1.7;color:var(--footer-text);margin:16px 0 0;max-width:280px;}
+  .footer-heading{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#73695B;margin-bottom:18px;}
+  .footer-links{display:flex;flex-direction:column;gap:11px;}
+  .footer-links a{font-size:14px;color:var(--footer-text);text-decoration:none;transition:color .3s;}
+  .footer-links a:hover{color:var(--bg);}
+  .footer-contact{font-size:14px;line-height:1.9;color:var(--footer-text);}
+  .footer-contact a{color:var(--footer-text-light);text-decoration:none;}
+  .footer-bottom{max-width:1280px;margin:54px auto 0;padding:24px 48px 0;border-top:1px solid var(--footer-border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:12px;color:#73695B;}
+  .footer-bottom .legal{display:flex;gap:24px;}
+  .footer-bottom a{color:#73695B;text-decoration:none;transition:color .3s;}
+  .footer-bottom a:hover{color:var(--footer-text);}
+
+  /* Scroll reveals: the .reveal class (hides) is added by JS right before
+     observing, so content is visible by default if JS never runs. */
+  [data-reveal].reveal{opacity:0;transform:translateY(42px);transition:opacity .9s ease,transform .9s ease;}
+  [data-reveal].reveal.in-view{opacity:1;transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-eyebrow,.hero-h1 .line,.hero-sub,.hero-rating,.hero-ctas .btn{animation:none !important;opacity:1 !important;transform:none !important;}
+    [data-reveal].reveal{opacity:1 !important;transform:none !important;transition:none !important;}
+  }
+
+  @media (hover:none), (pointer:coarse){
+    #cursor{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader"><span>ACCENT</span></div>
+
+<div id="cursor"><div class="cross h"></div><div class="cross v"></div></div>
+
+<header id="site-header">
+  <div class="nav-wrap">
+    <a href="#top" class="logo">ACCENT<span> aesthetic</span></a>
+    <nav>
+      <a href="#studio" class="nav-link">Studio</a>
+      <a href="#leistungen" class="nav-link">Leistungen</a>
+      <a href="#galerie" class="nav-link">Galerie</a>
+      <a href="#kontakt" class="nav-link">Kontakt</a>
+      <a href="tel:+4917680540425" class="nav-cta">Termin anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Aesthetic Studio · Landau in der Pfalz</div>
+      <h1 class="hero-h1" id="hero-h1">
+        <span class="line">Wo Schönheit</span>
+        <span class="line">zur Präzision</span>
+        <span class="line">wird.</span>
+      </h1>
+      <p class="hero-sub">Gesichtsbehandlungen. Maniküre. Pediküre. Augenbrauen-Design. Hautpflege auf höchstem Niveau — mitten in Landau.</p>
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <span class="score">5,0</span>
+        <span class="dot"></span>
+        <span class="count">10 Bewertungen · Google</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="#kontakt" class="btn btn-primary">Termin anfragen →</a>
+        <a href="#leistungen" class="btn btn-secondary">Leistungen entdecken</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <img src="img/studio-lounge.png" alt="ACCENT aesthetic studio Lounge in Landau" fetchpriority="high" width="680" height="510">
+    <div class="fade"></div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="bar"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<section class="trust-bar">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="gold">★ 5,0 Google Rating</span><span class="sep">·</span>
+      <span><em>„Nach oben ist da keine Luft mehr"</em> — Marissa</span><span class="sep">·</span>
+      <span>10 Bewertungen</span><span class="sep">·</span>
+      <span><em>„Sauber, modern, entspannend"</em> — Maggie</span><span class="sep">·</span>
+      <span>Ihre Nr. 1 in Landau</span><span class="sep">·</span>
+    </div>
+    <div class="marquee-track">
+      <span class="gold">★ 5,0 Google Rating</span><span class="sep">·</span>
+      <span><em>„Nach oben ist da keine Luft mehr"</em> — Marissa</span><span class="sep">·</span>
+      <span>10 Bewertungen</span><span class="sep">·</span>
+      <span><em>„Sauber, modern, entspannend"</em> — Maggie</span><span class="sep">·</span>
+      <span>Ihre Nr. 1 in Landau</span><span class="sep">·</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="studio" class="section">
+  <div class="section-inner about">
+    <div>
+      <div class="label" data-reveal>Das Studio</div>
+      <h2 class="h2" data-reveal>Mehr als Schönheit —<br>ein Gefühl.</h2>
+      <p class="body-text" data-reveal>Im ACCENT aesthetic studio in Landau in der Pfalz verbinden wir Präzision mit echtem Wohlbefinden. Helle, ruhige Räume, warmes Licht — und das Gefühl, vom ersten Moment an willkommen zu sein.</p>
+      <div class="stat-row" data-reveal>
+        <div>
+          <div class="stat-num"><span data-count="5.0" data-decimals="1">5,0</span> <span class="star">★</span></div>
+          <div class="stat-label">Google Rating</div>
+        </div>
+        <div>
+          <div class="stat-num"><span data-count="10">10</span></div>
+          <div class="stat-label">Bewertungen</div>
+        </div>
+        <div>
+          <div class="stat-num"><span data-count="100" data-suffix="%">100%</span></div>
+          <div class="stat-label">Weiterempfehlung</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual" data-reveal>
+      <img src="img/logo-wall.png" alt="ACCENT aesthetic studio Logo an der Wand mit Orchidee" loading="lazy" decoding="async" width="680" height="510">
+      <div class="quote-card">
+        <div class="quote">„Eine solche Qualität habe ich bisher noch nicht erlebt."</div>
+        <div class="author">
+          <span class="stars">★★★★★</span>
+          <span class="name">Marissa E. · Local Guide</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGEN -->
+<section id="leistungen" class="section" style="background:var(--bg-alt);">
+  <div class="section-inner">
+    <div class="leistungen-head">
+      <div class="label" data-reveal>Unsere Leistungen</div>
+      <h2 class="h2" data-reveal style="font-size:clamp(36px,4.5vw,56px);">Pflege, die wirkt.</h2>
+      <p class="body-text" data-reveal>Jede Behandlung ist auf Ihre Haut und Ihre Bedürfnisse abgestimmt.</p>
+    </div>
+    <div class="cards">
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-7 0-11 5-11 13 0 9 5 19 11 19s11-10 11-19c0-8-4-13-11-13z"/><path d="M14 18c1.5-1.5 3.5-1.5 5 0M21 18c1.5-1.5 3.5-1.5 5 0"/><path d="M20 22v4M16.5 30c2.2 1.6 4.8 1.6 7 0"/></svg>
+        <h3>Gesichtsbehandlung</h3>
+        <p>Tiefenreinigende, revitalisierende Treatments für spürbar frischere und strahlendere Haut.</p>
+      </div>
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 36V21c0-1.6 1.2-2.8 2.7-2.8S18.4 19.4 18.4 21v-3.5c0-1.6 1.2-2.8 2.7-2.8s2.7 1.2 2.7 2.8V21c0-1.6 1.2-2.8 2.7-2.8S29.2 19.4 29.2 21v7c0 5-3.8 8-8.5 8h-2.3c-2 0-3.4-.8-4.6-2.4l-3.4-4.6"/><path d="M15.7 14.5c0-1.5 1-2.5 2.7-2.5"/></svg>
+        <h3>Maniküre</h3>
+        <p>Hochwertige Nagelpflege und -gestaltung. Perfektion bis in die letzte Fingerkuppe.</p>
+      </div>
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8c3 0 5 3.5 5 9s-2.2 10-5 10-5-4.5-5-10 2-9 5-9z"/><circle cx="12.5" cy="29" r="1.8"/><circle cx="16.5" cy="32" r="1.8"/><circle cx="22" cy="32.5" r="1.8"/><circle cx="27" cy="29.5" r="1.8"/></svg>
+        <h3>Pediküre</h3>
+        <p>Samtweiche Füße, gepflegte Nägel. Verwöhnprogramm für Ihre Füße.</p>
+      </div>
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 15c4.5-3.5 19.5-3.5 24 0"/><path d="M9 24c4-5 18-5 22 0c-4 5-18 5-22 0z"/><circle cx="20" cy="24" r="3"/></svg>
+        <h3>Augenbrauen</h3>
+        <p>Präzises Formen und professionelles Färben für ausdrucksstarke Augenbrauen.</p>
+      </div>
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="16" width="10" height="17" rx="2.5"/><path d="M17.5 16v-2.5h5V16"/><rect x="18" y="9" width="4" height="4.5" rx="1"/><line x1="20" y1="6" x2="20" y2="9"/><line x1="15" y1="22" x2="25" y2="22"/></svg>
+        <h3>Nagel-Design</h3>
+        <p>Kreative Lackierungen und Nageldesigns — langanhaltend und individuell.</p>
+      </div>
+      <div class="card" data-reveal>
+        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" stroke="#A98C66" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5c1.2 8.5 4 11.3 12 12.5-8 1.2-10.8 4-12 12.5-1.2-8.5-4-11.3-12-12.5 8-1.2 10.8-4 12-12.5z"/></svg>
+        <h3>Premium-Behandlungen</h3>
+        <p>Exklusive Methoden und Spezialbehandlungen. Nur bei ACCENT. Fragen Sie uns persönlich.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie" class="section">
+  <div class="section-inner">
+    <div class="galerie-head">
+      <div>
+        <div class="label" data-reveal>Galerie</div>
+        <h2 class="h2" data-reveal style="font-size:clamp(36px,4.5vw,56px);">Arbeiten, die für sich sprechen.</h2>
+      </div>
+      <p class="lead" data-reveal>Ein kleiner Einblick in unsere Nagel- und Studioästhetik.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" data-reveal>
+        <img src="img/nails-magenta.png" alt="Pink Nageldesign mit Blütenmotiv" loading="lazy" decoding="async" width="680" height="444">
+      </div>
+      <div class="gallery-item" data-reveal>
+        <img src="img/nails-mauve.png" alt="Mauve Nageldesign in Mandelform" loading="lazy" decoding="async" width="287" height="510">
+      </div>
+      <div class="gallery-item" data-reveal>
+        <img src="img/nails-lilac.png" alt="Zarte lilafarbene Maniküre" loading="lazy" decoding="async" width="382" height="510">
+      </div>
+      <div class="gallery-item" data-reveal>
+        <img src="img/studio-room.png" alt="Heller Studioraum von ACCENT in Landau" loading="lazy" decoding="async" width="382" height="510">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WARUM ACCENT -->
+<section class="section why" style="background:var(--bg-alt);">
+  <div class="bigquote">„</div>
+  <div class="section-inner why-inner">
+    <div class="why-statement">
+      <h2 class="h2" data-reveal>Nach oben ist da eigentlich keine Luft mehr.</h2>
+      <div class="by" data-reveal>— Marissa E., Stammkundin</div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item" data-reveal>
+        <div class="mark">✦</div>
+        <h3>Herzlich empfangen</h3>
+        <p>Vom ersten Moment an spüren Sie: Hier sind Sie richtig.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="mark">✦</div>
+        <h3>Nachgewiesene Qualität</h3>
+        <p>5 Sterne, keine Ausnahme. Unsere Arbeit spricht für sich.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="mark">✦</div>
+        <h3>Ihre Haut, unser Fokus</h3>
+        <p>Individuell abgestimmte Behandlungen für sichtbare Ergebnisse.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt" class="kontakt">
+  <img src="img/studio-room.png" alt="ACCENT Studioraum in Landau" loading="lazy" decoding="async" width="382" height="510">
+  <div class="fade"></div>
+  <div class="section-inner">
+    <div class="kontakt-inner">
+      <div class="label" data-reveal>Termin vereinbaren</div>
+      <h2 class="h2" data-reveal>Ihr nächstes Strahlen<br>wartet auf Sie.</h2>
+      <p data-reveal>Rufen Sie uns an oder schreiben Sie uns eine Nachricht. Wir melden uns schnellstmöglich zurück.</p>
+      <div class="kontakt-ctas" data-reveal>
+        <a href="tel:+4917680540425" class="btn-round fill">Jetzt anrufen · 0176 80540425</a>
+        <a href="https://wa.me/4917680540425" class="btn-round outline">WhatsApp schreiben</a>
+      </div>
+      <div class="info-row" data-reveal>
+        <span>Martin-Luther-Str. 18, 76829 Landau</span>
+        <span class="sep">·</span>
+        <span>Mo–Sa · bis 18:00 Uhr</span>
+        <span class="sep">·</span>
+        <span class="gold">0176 80540425</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ACCENT aesthetic studio</div>
+      <p>Ihr Schönheitsstudio in Landau in der Pfalz. Wo Schönheit zur Präzision wird.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Navigation</div>
+      <div class="footer-links">
+        <a href="#top">Startseite</a>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#studio">Über uns</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Kontakt &amp; Öffnungszeiten</div>
+      <div class="footer-contact">
+        Martin-Luther-Str. 18<br>76829 Landau in der Pfalz<br>
+        <a href="tel:+4917680540425">0176 80540425</a><br>Mo–Sa: bis 18:00 Uhr
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="legal">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+    <span>© 2024 ACCENT aesthetic studio</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function ready(fn){
+    if (document.readyState !== 'loading') fn();
+    else document.addEventListener('DOMContentLoaded', fn);
+  }
+
+  function initHeaderScroll(){
+    var h = document.getElementById('site-header');
+    if (!h) return;
+    var on = function(){ h.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', on, { passive: true });
+    on();
+  }
+
+  function initCursor(){
+    if (window.matchMedia('(pointer:coarse)').matches) return;
+    var c = document.getElementById('cursor');
+    if (!c) return;
+    document.body.style.cursor = 'none';
+    var x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y;
+    window.addEventListener('mousemove', function(e){ tx = e.clientX; ty = e.clientY; });
+    var crosses = c.querySelectorAll('.cross');
+    var loop = function(){
+      x += (tx - x) * 0.22; y += (ty - y) * 0.22;
+      var s = c.dataset.h === '1' ? 1.9 : 1;
+      c.style.transform = 'translate(' + x + 'px,' + y + 'px) translate(-50%,-50%) scale(' + s + ')';
+      requestAnimationFrame(loop);
+    };
+    loop();
+    document.querySelectorAll('a,button,[data-cursor]').forEach(function(el){
+      el.addEventListener('mouseenter', function(){
+        c.dataset.h = '1';
+        c.style.borderColor = 'rgba(169,140,102,0.7)';
+        crosses.forEach(function(d){ d.style.opacity = '0'; });
+      });
+      el.addEventListener('mouseleave', function(){
+        c.dataset.h = '0';
+        c.style.borderColor = 'transparent';
+        crosses.forEach(function(d){ d.style.opacity = '1'; });
+      });
+    });
+  }
+
+  // Reveal-on-scroll: only ever hides content right before it starts
+  // observing it, so a JS error or missing API never leaves things
+  // permanently invisible — worst case, everything just stays visible.
+  function initReveals(){
+    if (!('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('[data-reveal]');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(el){
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+  }
+
+  function initCounters(){
+    var els = document.querySelectorAll('[data-count]');
+    if (!els.length) return;
+    var animate = function(el){
+      var end = parseFloat(el.getAttribute('data-count'));
+      var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var suf = el.getAttribute('data-suffix') || '';
+      var start = performance.now();
+      var dur = 1500;
+      var step = function(now){
+        var p = Math.min(1, (now - start) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var v = end * eased;
+        el.textContent = v.toFixed(dec).replace('.', ',') + suf;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting){ animate(entry.target); io.unobserve(entry.target); }
+        });
+      }, { threshold: 0.6 });
+      els.forEach(function(el){ io.observe(el); });
+    }
+  }
+
+  ready(function(){
+    initHeaderScroll();
+    try { initCursor(); } catch (e) {}
+    try { initReveals(); } catch (e) {}
+    try { initCounters(); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

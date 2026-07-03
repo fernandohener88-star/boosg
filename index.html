@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     ICH BIN SO FREY — Veganes Restaurant & Catering, Landau i.d.Pf.
+     Single-File Website · Botanical Luxury · Vanilla HTML/CSS/JS
+     Aufbau: 1) HEAD/SEO  2) CSS  3) MARKUP (12 Sektionen)  4) JS
+     ============================================================ -->
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0D0F0A">
+
+  <!-- === SEO META === -->
+  <title>ICH BIN SO FREY | Veganes Restaurant &amp; Catering Landau in der Pfalz</title>
+  <meta name="description" content="ICH BIN SO FREY — veganes Restaurant und Catering-Service in Landau in der Pfalz. Pflanzlich, regional, saisonal. Jetzt Tisch reservieren oder Catering anfragen!">
+  <meta name="keywords" content="veganes Restaurant Landau, veganes Catering Pfalz, Vegan Landau Pfalz, pflanzlich Essen Landau, Catering vegan Südliche Weinstraße, ICH BIN SO FREY">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="ICH BIN SO FREY">
+  <link rel="canonical" href="https://www.ichbinsofrey.de/">
+
+  <!-- === OPEN GRAPH === -->
+  <meta property="og:title" content="ICH BIN SO FREY | Veganes Restaurant &amp; Catering Landau">
+  <meta property="og:description" content="Veganes Restaurant &amp; Catering in Landau in der Pfalz. Pflanzlich, regional, mit Herz.">
+  <meta property="og:type" content="restaurant">
+  <meta property="og:url" content="https://www.ichbinsofrey.de">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:site_name" content="ICH BIN SO FREY">
+
+  <!-- === FAVICON (inline botanisches Blatt) === -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230D0F0A'/%3E%3Cpath d='M16 26C9 22 9 11 16 6c7 5 7 16 0 20Z' fill='none' stroke='%23C8A96E' stroke-width='1.6'/%3E%3Cpath d='M16 8v16' stroke='%23C8A96E' stroke-width='1.2'/%3E%3C/svg%3E">
+
+  <!-- === PERFORMANCE: preconnect === -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- === GOOGLE FONTS === -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- === LEAFLET CSS === -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <!-- === JSON-LD STRUCTURED DATA === -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Restaurant",
+        "@id": "https://www.ichbinsofrey.de/#restaurant",
+        "name": "ICH BIN SO FREY",
+        "description": "Veganes Restaurant mit Catering-Service in Landau in der Pfalz. Saisonale, regionale, 100% pflanzliche Küche.",
+        "url": "https://www.ichbinsofrey.de",
+        "telephone": "+49-XXXX-XXXXXX",
+        "email": "info@ichbinsofrey.de",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "[STRASSE]",
+          "addressLocality": "Landau in der Pfalz",
+          "postalCode": "76829",
+          "addressCountry": "DE"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 49.1981, "longitude": 8.1163 },
+        "servesCuisine": ["Vegan", "Vegetarian", "Plant-based", "Asian-inspired"],
+        "priceRange": "€€",
+        "hasMenu": "https://www.ichbinsofrey.de/#menu",
+        "openingHoursSpecification": [
+          { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "11:30", "closes": "15:00" }
+        ],
+        "sameAs": ["https://www.instagram.com/ichbinsofrey", "https://www.facebook.com/ichbinsofrey"],
+        "founder": { "@type": "Person", "name": "Janine", "jobTitle": "Inhaberin & Geschäftsleitung" }
+      },
+      {
+        "@type": "CateringBusiness",
+        "@id": "https://www.ichbinsofrey.de/#catering",
+        "name": "ICH BIN SO FREY Catering",
+        "description": "Veganer Catering-Service in Landau in der Pfalz und Umgebung. Für Firmenfeiern, Hochzeiten, private Events. Lieferung und Aufbau inklusive.",
+        "url": "https://www.ichbinsofrey.de/#catering",
+        "areaServed": {
+          "@type": "GeoCircle",
+          "geoMidpoint": { "@type": "GeoCoordinates", "latitude": 49.1981, "longitude": 8.1163 },
+          "geoRadius": "50000"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Catering-Angebote",
+          "itemListElement": [
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Firmenfeier Catering"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Hochzeits-Catering"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Private Party Catering"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Flying Dinner"}},
+            {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Buffet-Catering vegan"}}
+          ]
+        }
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.ichbinsofrey.de/#localbusiness",
+        "name": "ICH BIN SO FREY",
+        "image": "https://www.ichbinsofrey.de/og-image.jpg",
+        "address": { "@type": "PostalAddress", "addressLocality": "Landau in der Pfalz", "postalCode": "76829", "addressCountry": "DE" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "120", "bestRating": "5" }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+  /* ============================================================
+     2) CSS — Botanical Luxury Design System
+     ============================================================ */
+
+  /* --- Design Tokens --- */
+  :root {
+    --bg-primary:     #0D0F0A;
+    --bg-secondary:   #161A12;
+    --bg-card:        #1E231A;
+    --bg-card-2:      #232A1D;
+    --accent-gold:    #C8A96E;
+    --accent-green:   #4A7C59;
+    --accent-sage:    #8FAF82;
+    --text-primary:   #F2EDE4;
+    --text-secondary: #A89F94;
+    --highlight:      #D4B896;
+    --error:          #C8526E;
+
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-sub: 'Playfair Display', Georgia, serif;
+    --font-body: 'Jost', system-ui, sans-serif;
+
+    --maxw: 1280px;
+    --gut: clamp(20px, 5vw, 80px);
+    --nav-h: 76px;
+    --ticker-h: 38px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* --- Reset --- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body.loading { overflow: hidden; height: 100vh; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+  ::selection { background: var(--accent-gold); color: var(--bg-primary); }
+
+  /* --- Grain + Vignette Overlays (permanent, ueber allem) --- */
+  .grain {
+    position: fixed; inset: 0; z-index: 9990; pointer-events: none;
+    opacity: 0.045; mix-blend-mode: overlay;
+  }
+  .vignette {
+    position: fixed; inset: 0; z-index: 9989; pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* --- Typography --- */
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.04; letter-spacing: -0.02em; font-feature-settings: "liga" 1, "kern" 1; }
+  .display-xl { font-size: clamp(3.2rem, 9vw, 8rem); font-style: italic; font-weight: 700; }
+  .display-l  { font-size: clamp(2.6rem, 6vw, 5rem); font-style: italic; }
+  .display-m  { font-size: clamp(2rem, 4.4vw, 3.6rem); }
+  p { max-width: 65ch; }
+  .lead { font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--text-secondary); font-weight: 300; }
+
+  .eyebrow {
+    font-family: var(--font-body); font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.22em; font-size: 0.74rem; color: var(--accent-gold);
+    display: inline-flex; align-items: center; gap: 0.7em;
+  }
+  .eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--accent-gold); display: inline-block; }
+
+  /* --- Layout helpers --- */
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gut); }
+  section { position: relative; padding-block: clamp(80px, 11vw, 160px); }
+  .sec-num {
+    position: absolute; top: clamp(20px, 4vw, 60px); right: var(--gut);
+    font-family: var(--font-display); font-style: italic; font-weight: 700;
+    font-size: clamp(5rem, 12vw, 11rem); color: var(--accent-gold);
+    opacity: 0.06; line-height: 1; pointer-events: none; user-select: none; z-index: 0;
+  }
+  .sec-head { position: relative; z-index: 1; margin-bottom: clamp(40px, 6vw, 72px); }
+  .sec-head .display-m, .sec-head .display-l { margin-top: 18px; max-width: 18ch; }
+
+  /* --- Gold divider ornament --- */
+  .divider { display: flex; align-items: center; justify-content: center; gap: 18px; padding-block: 8px; }
+  .divider .line { height: 1px; width: min(220px, 30vw); background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); }
+  .divider svg { width: 30px; height: 30px; color: var(--accent-gold); opacity: 0.85; flex: none; }
+
+  /* --- Buttons --- */
+  .btn {
+    position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 0.6em;
+    padding: 1em 1.9em; border-radius: 999px; font-family: var(--font-body);
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 0.13em; text-transform: uppercase;
+    transition: color 0.4s var(--ease), transform 0.3s var(--ease), border-color 0.4s var(--ease);
+    will-change: transform; isolation: isolate;
+  }
+  .btn-primary { background: var(--accent-gold); color: #1a160c; }
+  .btn-primary::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--highlight); transform: translateX(-101%); transition: transform 0.5s var(--ease);
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-outline { border: 1px solid rgba(200,169,110,0.5); color: var(--text-primary); }
+  .btn-outline::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background: var(--accent-gold); transform: translateX(-101%); transition: transform 0.5s var(--ease);
+  }
+  .btn-outline:hover { color: #1a160c; border-color: var(--accent-gold); }
+  .btn-outline:hover::before { transform: translateX(0); }
+  .btn .ripple { position: absolute; border-radius: 50%; transform: scale(0); background: rgba(255,255,255,0.35); pointer-events: none; animation: ripple 0.65s ease-out; z-index: 1; }
+  @keyframes ripple { to { transform: scale(2.6); opacity: 0; } }
+
+  /* --- Scroll progress line --- */
+  .progress-bar { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--accent-green), var(--accent-gold)); z-index: 9995; }
+
+  /* --- Custom cursor --- */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; border-radius: 50%; pointer-events: none; z-index: 9994; transform: translate(-50%, -50%); }
+  .cursor-dot { width: 6px; height: 6px; background: var(--accent-gold); }
+  .cursor-ring { width: 34px; height: 34px; border: 1px solid rgba(200,169,110,0.6); transition: width 0.25s var(--ease), height 0.25s var(--ease), background 0.25s; }
+  .cursor-ring.grow { width: 64px; height: 64px; background: rgba(200,169,110,0.1); }
+  @media (hover: none), (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+  /* ===================== NAVIGATION ===================== */
+  .ticker {
+    position: fixed; top: 0; left: 0; width: 100%; height: var(--ticker-h); z-index: 1001;
+    background: var(--bg-secondary); border-bottom: 1px solid rgba(200,169,110,0.14);
+    overflow: hidden; display: flex; align-items: center;
+  }
+  .ticker-track { display: flex; white-space: nowrap; will-change: transform; animation: marquee 32s linear infinite; }
+  .ticker-track span { padding-inline: 1.4em; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-gold); font-weight: 500; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+
+  nav {
+    position: fixed; top: var(--ticker-h); left: 0; width: 100%; height: var(--nav-h); z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between; padding-inline: var(--gut);
+    transition: transform 0.5s var(--ease), background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled { background: rgba(13,15,10,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom-color: rgba(200,169,110,0.12); }
+  nav.hidden { transform: translateY(-130%); }
+  .brand { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 1.5rem; letter-spacing: 0.01em; display: flex; align-items: center; gap: 0.5em; }
+  .brand svg { width: 26px; height: 26px; color: var(--accent-gold); }
+  .nav-links { display: flex; align-items: center; gap: clamp(18px, 2vw, 34px); }
+  .nav-links a { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; color: var(--text-secondary); position: relative; padding-block: 6px; transition: color 0.3s; }
+  .nav-links a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--accent-gold); transform: scaleX(0); transform-origin: center; transition: transform 0.35s var(--ease); }
+  .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+  .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta { display: inline-flex; }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .sound-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); transition: color 0.3s; }
+  .sound-toggle:hover { color: var(--accent-gold); }
+  .sound-toggle svg { width: 18px; height: 18px; }
+
+  .burger { display: none; width: 40px; height: 40px; position: relative; z-index: 1003; }
+  .burger span { position: absolute; left: 8px; right: 8px; height: 1.5px; background: var(--text-primary); transition: transform 0.4s var(--ease), opacity 0.3s; }
+  .burger span:nth-child(1) { top: 14px; } .burger span:nth-child(2) { top: 20px; } .burger span:nth-child(3) { top: 26px; }
+  .burger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .mobile-nav { position: fixed; inset: 0; z-index: 1002; background: rgba(13,15,10,0.96); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s; }
+  .mobile-nav.open { opacity: 1; visibility: visible; }
+  .mobile-nav a { font-family: var(--font-display); font-style: italic; font-size: 2rem; color: var(--text-primary); opacity: 0; transform: translateY(20px); }
+  .mobile-nav.open a { opacity: 1; transform: translateY(0); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+
+  /* ===================== HERO ===================== */
+  #hero { min-height: 100vh; display: flex; align-items: center; padding-top: calc(var(--nav-h) + var(--ticker-h)); overflow: hidden; }
+  #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+  .hero-fallback { position: absolute; inset: 0; z-index: 0; background: radial-gradient(80% 80% at 70% 30%, rgba(74,124,89,0.22), transparent 60%), radial-gradient(60% 60% at 20% 80%, rgba(200,169,110,0.12), transparent 60%); display: none; }
+  .hero-inner { position: relative; z-index: 2; max-width: 1000px; }
+  .hero h1 { font-style: italic; margin: 0.2em 0 0.3em; }
+  .hero h1 .ch { display: inline-block; }
+  .hero h1 .word { display: inline-block; }
+  .hero h1 .line { display: block; }
+  .hero-sub { font-size: clamp(0.9rem, 1.6vw, 1.15rem); letter-spacing: 0.08em; color: var(--accent-sage); margin-bottom: 2.2em; font-weight: 400; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; }
+  .scroll-ind { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--text-secondary); }
+  .scroll-ind .line { width: 1px; height: 46px; background: linear-gradient(var(--accent-gold), transparent); position: relative; overflow: hidden; }
+  .scroll-ind .line::after { content: ""; position: absolute; top: -50%; left: 0; width: 100%; height: 50%; background: var(--accent-gold); animation: scrolldown 2s var(--ease) infinite; }
+  @keyframes scrolldown { 0% { top: -50%; } 100% { top: 100%; } }
+  .scroll-ind span { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; }
+  .hero-leaf { position: absolute; color: var(--accent-sage); opacity: 0.08; z-index: 1; }
+
+  /* ===================== ÜBER UNS ===================== */
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(40px, 6vw, 90px); align-items: center; }
+  .story p { line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.4em; }
+  .story p.first::first-letter { font-family: var(--font-display); font-style: italic; font-size: 3.2em; line-height: 0.8; float: left; padding: 0.08em 0.12em 0 0; color: var(--accent-gold); }
+  .pillars { display: flex; gap: 30px; margin-top: 38px; flex-wrap: wrap; }
+  .pillar { display: flex; flex-direction: column; gap: 10px; max-width: 160px; }
+  .pillar svg { width: 34px; height: 34px; color: var(--accent-gold); }
+  .pillar h4 { font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-primary); }
+  .pillar p { font-size: 0.86rem; color: var(--text-secondary); }
+  .about-art { position: relative; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: linear-gradient(160deg, var(--bg-card), var(--bg-secondary)); border: 1px solid rgba(200,169,110,0.14); display: flex; align-items: center; justify-content: center; }
+  .about-art svg { width: 70%; height: 70%; color: var(--accent-green); opacity: 0.5; }
+  .about-art .ph-label { position: absolute; bottom: 16px; left: 16px; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); }
+
+  /* ===================== ÖFFNUNGSZEITEN / BADGE ===================== */
+  #hours { background: var(--bg-secondary); }
+  .hours-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(40px, 6vw, 80px); align-items: center; }
+  .status-badge { display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px; border-radius: 999px; font-family: var(--font-body); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid; transition: all 0.4s; }
+  .status-badge .dot { width: 11px; height: 11px; border-radius: 50%; position: relative; }
+  .status-badge .dot::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid currentColor; animation: pulse-ring 2s ease-out infinite; }
+  @keyframes pulse-ring { 0% { transform: scale(0.7); opacity: 0.8; } 100% { transform: scale(1.6); opacity: 0; } }
+  .badge-open { color: var(--accent-sage); border-color: rgba(143,175,130,0.4); background: rgba(143,175,130,0.08); }
+  .badge-open .dot { background: var(--accent-sage); }
+  .badge-closed { color: var(--highlight); border-color: rgba(212,184,150,0.4); background: rgba(212,184,150,0.06); }
+  .badge-closed .dot { background: var(--highlight); }
+  .status-note { margin-top: 18px; font-size: 0.9rem; color: var(--text-secondary); }
+  .hours-table { display: flex; flex-direction: column; }
+  .hours-row { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(200,169,110,0.12); }
+  .hours-row.is-today { color: var(--accent-gold); }
+  .hours-row .day { font-weight: 500; letter-spacing: 0.04em; }
+  .hours-row .time { font-family: var(--font-display); font-style: italic; font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+  .hours-hint { margin-top: 20px; font-size: 0.84rem; color: var(--text-secondary); font-style: italic; }
+
+  /* ===================== HIGHLIGHTS / DISHES ===================== */
+  .dish-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2vw, 26px); }
+  .dish-card { position: relative; border-radius: 6px; overflow: hidden; background: var(--bg-card); border: 1px solid rgba(200,169,110,0.1); transform-style: preserve-3d; transition: border-color 0.4s; will-change: transform; }
+  .dish-card:hover { border-color: rgba(200,169,110,0.32); }
+  .dish-card .img { aspect-ratio: 4/3; position: relative; overflow: hidden; background: linear-gradient(150deg, var(--accent-green), var(--bg-secondary)); display: flex; align-items: center; justify-content: center; }
+  .dish-card .img svg { width: 46%; height: 46%; color: rgba(242,237,228,0.16); }
+  .dish-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(130deg, transparent 40%, rgba(200,169,110,0.18)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+  .dish-card:hover::after { opacity: 1; }
+  .dish-body { padding: 22px 24px 26px; transform: translateZ(30px); }
+  .dish-body h3 { font-size: 1.7rem; font-style: italic; margin-bottom: 6px; }
+  .dish-body p { font-size: 0.88rem; color: var(--text-secondary); }
+  .dish-tag { position: absolute; top: 14px; left: 14px; z-index: 2; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; background: rgba(13,15,10,0.6); border: 1px solid rgba(200,169,110,0.3); color: var(--accent-gold); }
+
+  /* ===================== CATERING HERO ===================== */
+  #catering { background: var(--bg-primary); }
+  #catering::before { content: ""; position: absolute; inset: 0; background: radial-gradient(70% 60% at 80% 20%, rgba(74,124,89,0.14), transparent 60%); pointer-events: none; }
+  .cat-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 16px; }
+  .cat-card { position: relative; padding: 38px 30px; border-radius: 6px; background: linear-gradient(170deg, var(--bg-card), var(--bg-secondary)); border: 1px solid rgba(200,169,110,0.12); overflow: hidden; transition: transform 0.4s var(--ease), border-color 0.4s; }
+  .cat-card:hover { transform: translateY(-6px); border-color: rgba(200,169,110,0.3); }
+  .cat-card svg { width: 40px; height: 40px; color: var(--accent-gold); margin-bottom: 22px; }
+  .cat-card h3 { font-size: 1.9rem; font-style: italic; margin-bottom: 10px; }
+  .cat-card p { font-size: 0.9rem; color: var(--text-secondary); }
+  .counters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: clamp(48px, 6vw, 80px); padding-block: 40px; border-top: 1px solid rgba(200,169,110,0.12); border-bottom: 1px solid rgba(200,169,110,0.12); }
+  .counter { text-align: center; }
+  .counter .num { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: clamp(2.6rem, 5vw, 4rem); color: var(--accent-gold); line-height: 1; font-variant-numeric: tabular-nums; }
+  .counter .label { font-size: 0.74rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); margin-top: 10px; }
+  .cat-cta-row { display: flex; justify-content: center; margin-top: 56px; }
+
+  /* ===================== STEPS ===================== */
+  #steps { background: var(--bg-secondary); }
+  .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; position: relative; }
+  .step { position: relative; }
+  .step .step-num { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 3.4rem; color: var(--accent-gold); line-height: 1; opacity: 0.85; }
+  .step svg { width: 30px; height: 30px; color: var(--accent-sage); margin: 18px 0 14px; }
+  .step h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 10px; }
+  .step p { font-size: 0.88rem; color: var(--text-secondary); }
+  .steps-line { position: absolute; top: 26px; left: 6%; right: 6%; height: 1px; background: rgba(200,169,110,0.18); z-index: 0; }
+  .steps-line .fill { position: absolute; inset: 0; background: var(--accent-gold); transform: scaleX(0); transform-origin: left; }
+
+  /* ===================== FORM ===================== */
+  #catering-formular { background: var(--bg-primary); }
+  .form-shell { max-width: 880px; margin: 0 auto; background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary)); border: 1px solid rgba(200,169,110,0.16); border-radius: 8px; padding: clamp(28px, 5vw, 58px); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 24px; }
+  .field { position: relative; grid-column: span 1; }
+  .field.full { grid-column: 1 / -1; }
+  .field input, .field textarea, .field select {
+    width: 100%; background: rgba(13,15,10,0.4); border: 1px solid rgba(200,169,110,0.2); border-radius: 5px;
+    color: var(--text-primary); font-family: var(--font-body); font-size: 0.96rem; font-weight: 300;
+    padding: 20px 16px 8px; transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .field textarea { min-height: 110px; resize: vertical; padding-top: 22px; }
+  .field select { padding-top: 18px; padding-bottom: 12px; appearance: none; }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 2px rgba(200,169,110,0.4); }
+  .field label.float { position: absolute; left: 16px; top: 15px; font-size: 0.96rem; color: var(--text-secondary); pointer-events: none; transition: all 0.25s var(--ease); }
+  .field input:focus + label.float, .field input.filled + label.float,
+  .field textarea:focus + label.float, .field textarea.filled + label.float,
+  .field select:focus + label.float, .field select.filled + label.float { top: 6px; font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-gold); }
+  .field.error input, .field.error textarea, .field.error select { border-color: var(--error); }
+  .field .err-msg { font-size: 0.72rem; color: var(--error); margin-top: 5px; display: none; }
+  .field.error .err-msg { display: block; }
+  .field .char-count { position: absolute; right: 10px; bottom: 8px; font-size: 0.66rem; color: var(--text-secondary); }
+  .field select option { background: var(--bg-card); color: var(--text-primary); }
+  .field .sel-arrow { position: absolute; right: 16px; top: 22px; pointer-events: none; color: var(--accent-gold); }
+
+  .form-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 14px; display: block; }
+
+  /* toggle cards */
+  .toggle-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .toggle-card { padding: 16px; border: 1px solid rgba(200,169,110,0.2); border-radius: 6px; text-align: center; font-size: 0.82rem; transition: all 0.3s; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .toggle-card svg { width: 24px; height: 24px; color: var(--text-secondary); transition: color 0.3s; }
+  .toggle-card input { position: absolute; opacity: 0; }
+  .toggle-card.sel { border-color: var(--accent-gold); background: rgba(200,169,110,0.1); color: var(--text-primary); }
+  .toggle-card.sel svg { color: var(--accent-gold); }
+
+  /* pill chips */
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill { padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(200,169,110,0.25); font-size: 0.82rem; letter-spacing: 0.04em; cursor: pointer; transition: all 0.25s var(--ease); user-select: none; }
+  .pill input { position: absolute; opacity: 0; pointer-events: none; }
+  .pill.sel { background: var(--accent-gold); color: #1a160c; border-color: var(--accent-gold); transform: scale(1.05); }
+
+  /* stepper */
+  .stepper { display: inline-flex; align-items: center; gap: 4px; border: 1px solid rgba(200,169,110,0.25); border-radius: 999px; padding: 6px; }
+  .stepper button { width: 42px; height: 42px; border-radius: 50%; font-size: 1.4rem; color: var(--accent-gold); transition: background 0.3s; display: grid; place-items: center; }
+  .stepper button:hover { background: rgba(200,169,110,0.14); }
+  .stepper .count { min-width: 60px; text-align: center; font-family: var(--font-display); font-style: italic; font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+
+  /* slider */
+  .range-wrap { display: flex; align-items: center; gap: 18px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: rgba(200,169,110,0.25); border-radius: 999px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gold); cursor: pointer; border: 3px solid var(--bg-primary); box-shadow: 0 0 0 1px var(--accent-gold); }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--accent-gold); cursor: pointer; border: 3px solid var(--bg-primary); }
+  .range-val { font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--accent-gold); min-width: 64px; font-variant-numeric: tabular-nums; }
+
+  .estimate { margin-top: 8px; text-align: center; font-size: 1.05rem; color: var(--text-secondary); }
+  .estimate b { font-family: var(--font-display); font-style: italic; font-size: 1.8rem; color: var(--accent-gold); font-variant-numeric: tabular-nums; }
+
+  .consent { display: flex; align-items: flex-start; gap: 12px; font-size: 0.82rem; color: var(--text-secondary); }
+  .consent input { margin-top: 5px; accent-color: var(--accent-gold); width: 16px; height: 16px; }
+  .consent a { color: var(--accent-gold); text-decoration: underline; }
+
+  .form-submit { display: flex; align-items: center; justify-content: center; }
+  .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(26,22,12,0.4); border-top-color: #1a160c; border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .form-success { text-align: center; padding: 40px 20px; display: none; }
+  .form-success.show { display: block; }
+  .form-success svg { width: 56px; height: 56px; color: var(--accent-sage); margin-bottom: 20px; }
+  .form-success h3 { font-size: 2.2rem; font-style: italic; margin-bottom: 12px; }
+
+  /* ===================== TEAM ===================== */
+  #team { background: var(--bg-secondary); }
+  .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .flip { perspective: 1400px; height: 440px; }
+  .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.7s var(--ease); }
+  .flip:hover .flip-inner, .flip.flipped .flip-inner { transform: rotateY(180deg); }
+  .flip-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 8px; overflow: hidden; border: 1px solid rgba(200,169,110,0.14); display: flex; flex-direction: column; }
+  .flip-front { background: var(--bg-card); }
+  .flip-front .photo { flex: 1; background: linear-gradient(160deg, var(--accent-green), var(--bg-secondary)); display: flex; align-items: center; justify-content: center; position: relative; }
+  .flip-front .photo svg { width: 90px; height: 90px; color: rgba(242,237,228,0.2); }
+  .flip-front .info { padding: 22px 24px; }
+  .flip-front .info h3 { font-size: 1.9rem; font-style: italic; }
+  .flip-front .info .role { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-gold); margin-top: 4px; }
+  .flip-back { background: linear-gradient(170deg, var(--bg-card-2), var(--bg-card)); transform: rotateY(180deg); padding: 34px 28px; justify-content: center; gap: 16px; }
+  .flip-back .fact { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-gold); }
+  .flip-back p { font-size: 0.94rem; color: var(--text-primary); font-style: italic; font-family: var(--font-display); font-size: 1.3rem; line-height: 1.4; }
+  .flip-back .social { display: inline-flex; gap: 12px; margin-top: 6px; }
+  .flip-back .social a svg { width: 22px; height: 22px; color: var(--text-secondary); transition: transform 0.3s, color 0.3s; }
+  .flip-back .social a:hover svg { color: var(--accent-gold); transform: rotate(10deg); }
+  .flip-hint { position: absolute; bottom: 12px; right: 14px; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); opacity: 0.6; }
+
+  /* ===================== TESTIMONIALS ===================== */
+  .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .review { padding: 34px 30px; border-radius: 8px; background: var(--bg-card); border: 1px solid rgba(200,169,110,0.12); position: relative; }
+  .review .stars { color: var(--accent-gold); letter-spacing: 0.2em; margin-bottom: 16px; font-size: 0.9rem; }
+  .review .quote { font-family: var(--font-display); font-style: italic; font-size: 1.4rem; line-height: 1.45; margin-bottom: 20px; }
+  .review .who { font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); }
+  .google-badge { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 46px; flex-wrap: wrap; }
+  .google-badge .score { font-family: var(--font-display); font-style: italic; font-size: 2.2rem; color: var(--accent-gold); }
+  .google-badge .meta { font-size: 0.84rem; color: var(--text-secondary); }
+
+  /* ===================== MENU TEASER ===================== */
+  #menu { background: var(--bg-primary); }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 70px); align-items: start; }
+  .menu-cats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .menu-cat { padding: 26px 24px; border: 1px solid rgba(200,169,110,0.14); border-radius: 6px; background: var(--bg-card); }
+  .menu-cat h4 { font-size: 1.5rem; font-style: italic; margin-bottom: 6px; }
+  .menu-cat p { font-size: 0.82rem; color: var(--text-secondary); }
+  .menu-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+
+  /* ===================== LOCATION ===================== */
+  #standort { background: var(--bg-secondary); }
+  .loc-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(30px, 5vw, 60px); align-items: stretch; }
+  .contact-list { display: flex; flex-direction: column; gap: 22px; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-item svg { width: 22px; height: 22px; color: var(--accent-gold); flex: none; margin-top: 3px; }
+  .contact-item .ci-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 3px; }
+  .contact-item a, .contact-item span { color: var(--text-primary); font-size: 1rem; }
+  .socials-row { display: flex; gap: 14px; margin-top: 8px; }
+  .socials-row a svg { width: 26px; height: 26px; color: var(--text-secondary); transition: color 0.3s, transform 0.3s; }
+  .socials-row a:hover svg { color: var(--accent-gold); transform: rotate(10deg); }
+  .map-shell { position: relative; min-height: 420px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(200,169,110,0.16); }
+  #map { width: 100%; height: 100%; min-height: 420px; background: var(--bg-card); filter: saturate(0.85); }
+  .map-consent { position: absolute; inset: 0; z-index: 500; background: var(--bg-card); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 30px; }
+  .map-consent svg { width: 40px; height: 40px; color: var(--accent-gold); }
+  .map-consent p { font-size: 0.9rem; color: var(--text-secondary); max-width: 34ch; }
+  .gdpr-note { margin-top: 14px; font-size: 0.74rem; color: var(--text-secondary); font-style: italic; }
+
+  /* ===================== FOOTER ===================== */
+  footer { background: var(--bg-primary); border-top: 1px solid rgba(200,169,110,0.12); position: relative; overflow: hidden; padding-block: clamp(56px, 7vw, 90px); }
+  .footer-bg { position: absolute; bottom: -10%; right: -5%; width: 50%; color: var(--accent-green); opacity: 0.04; pointer-events: none; }
+  .footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; position: relative; z-index: 1; }
+  .footer-brand .brand { font-size: 2rem; margin-bottom: 14px; }
+  .footer-brand p { font-size: 0.88rem; color: var(--text-secondary); max-width: 36ch; }
+  .footer-col h4 { font-family: var(--font-body); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-gold); margin-bottom: 18px; }
+  .footer-col a, .footer-col p { display: block; font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 11px; transition: color 0.3s; }
+  .footer-col a:hover { color: var(--accent-gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; margin-top: 50px; padding-top: 28px; border-top: 1px solid rgba(200,169,110,0.1); font-size: 0.78rem; color: var(--text-secondary); position: relative; z-index: 1; }
+
+  /* ===================== FLOATING ELEMENTS ===================== */
+  .whatsapp-fab { position: fixed; bottom: 28px; right: 28px; z-index: 980; width: 60px; height: 60px; border-radius: 50%; background: #25a35a; display: grid; place-items: center; box-shadow: 0 10px 30px rgba(37,163,90,0.4); }
+  .whatsapp-fab svg { width: 30px; height: 30px; color: #fff; }
+  .whatsapp-fab .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid #25a35a; }
+  .whatsapp-fab .tip { position: absolute; right: 72px; top: 50%; transform: translateY(-50%); white-space: nowrap; background: var(--bg-card); border: 1px solid rgba(200,169,110,0.2); padding: 8px 14px; border-radius: 6px; font-size: 0.78rem; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+  .whatsapp-fab:hover .tip { opacity: 1; }
+  .resv-fab { position: fixed; bottom: 30px; left: 28px; z-index: 980; }
+  .resv-fab .btn { padding: 0.8em 1.5em; font-size: 0.74rem; }
+
+  /* mobile sticky cta */
+  .mobile-sticky { display: none; position: fixed; bottom: 0; left: 0; width: 100%; z-index: 970; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(13,15,10,0.92); backdrop-filter: blur(16px); border-top: 1px solid rgba(200,169,110,0.16); }
+  .mobile-sticky .btn { width: 100%; justify-content: center; }
+
+  /* ===================== COOKIE BANNER ===================== */
+  .cookie { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%) translateY(140%); z-index: 9000; width: min(680px, calc(100% - 24px)); background: var(--bg-card); border: 1px solid rgba(200,169,110,0.2); border-radius: 10px; padding: 22px 24px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.6s var(--ease); }
+  .cookie.show { transform: translateX(-50%) translateY(0); }
+  .cookie p { font-size: 0.84rem; color: var(--text-secondary); flex: 1; min-width: 220px; }
+  .cookie .ck-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cookie .ck-btn { padding: 0.7em 1.3em; border-radius: 999px; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; transition: all 0.3s; }
+  .ck-accept { background: var(--accent-gold); color: #1a160c; }
+  .ck-min { border: 1px solid rgba(200,169,110,0.3); color: var(--text-primary); }
+
+  /* ===================== LOADER ===================== */
+  .loader { position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
+  .loader .half { position: absolute; left: 0; width: 100%; height: 50%; background: var(--bg-primary); transition: transform 0.9s var(--ease); }
+  .loader .half.top { top: 0; }
+  .loader .half.bot { bottom: 0; }
+  .loader.done .half.top { transform: translateY(-100%); }
+  .loader.done .half.bot { transform: translateY(100%); }
+  .loader .logo { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 10000; font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: clamp(2rem,6vw,3.4rem); color: var(--accent-gold); opacity: 0; text-align: center; }
+  .loader.done .logo { opacity: 0 !important; transition: opacity 0.4s; }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .nav-cta { display: none; }
+    .about-grid, .hours-grid, .menu-grid, .loc-grid { grid-template-columns: 1fr; }
+    .dish-grid, .cat-cards, .rev-grid, .team-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 40px 28px; }
+    .steps-line { display: none; }
+    .counters { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .resv-fab { display: none; }
+  }
+  @media (max-width: 680px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .dish-grid, .cat-cards, .rev-grid, .team-grid, .toggle-cards, .menu-cats { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .mobile-sticky { display: block; }
+    .whatsapp-fab { bottom: 78px; }
+    .sound-toggle { display: none; }
+    .cursor-dot, .cursor-ring { display: none; }
+    .flip { height: 400px; }
+    .flip:hover .flip-inner { transform: none; }
+    .flip.flipped .flip-inner { transform: rotateY(180deg); }
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .ticker-track { animation: none; }
+  }
+  :focus-visible { outline: 2px solid var(--accent-gold); outline-offset: 3px; border-radius: 3px; }
+  </style>
+</head>
+
+<body class="loading">
+
+  <!-- ========== LOADER ========== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="half top"></div>
+    <div class="half bot"></div>
+    <div class="logo">ICH BIN SO FREY</div>
+  </div>
+
+  <!-- ========== OVERLAYS ========== -->
+  <svg class="grain"><filter id="grainFilter"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#grainFilter)"/></svg>
+  <div class="vignette"></div>
+  <div class="progress-bar" id="progress"></div>
+  <div class="cursor-ring" id="cring"></div>
+  <div class="cursor-dot" id="cdot"></div>
+
+  <!-- ========== TICKER ========== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>✦ Mittagstisch wechselt monatlich</span><span>✦ Aktuelle Karte vor Ort</span><span>✦ Mo–Fr 11:30–15:00 Uhr</span><span>✦ Wochenend-Waffeln</span><span>✦ Jetzt Catering anfragen</span>
+      <span>✦ Mittagstisch wechselt monatlich</span><span>✦ Aktuelle Karte vor Ort</span><span>✦ Mo–Fr 11:30–15:00 Uhr</span><span>✦ Wochenend-Waffeln</span><span>✦ Jetzt Catering anfragen</span>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="nav">
+    <a href="#hero" class="brand">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21C5 17 5 7 12 3c7 4 7 14 0 18Z" stroke="currentColor" stroke-width="1.4"/><path d="M12 5v15" stroke="currentColor" stroke-width="1"/></svg>
+      Frey
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-sec="about">Über uns</a>
+      <a href="#highlights" data-sec="highlights">Küche</a>
+      <a href="#catering" data-sec="catering">Catering</a>
+      <a href="#team" data-sec="team">Team</a>
+      <a href="#menu" data-sec="menu">Karte</a>
+      <a href="#standort" data-sec="standort">Standort</a>
+    </div>
+    <div class="nav-right">
+      <button class="sound-toggle" id="soundToggle" aria-label="Ambient-Sound umschalten">
+        <svg viewBox="0 0 24 24" fill="none" id="soundIcon"><path d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M16 9.5a4 4 0 0 1 0 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" class="wave"/></svg>
+        <span>Sound</span>
+      </button>
+      <a href="#reservierung" class="btn btn-primary nav-cta" data-magnetic>Tisch reservieren</a>
+      <button class="burger" id="burger" aria-label="Menü öffnen"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- mobile nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about">Über uns</a>
+    <a href="#highlights">Küche</a>
+    <a href="#catering">Catering</a>
+    <a href="#team">Team</a>
+    <a href="#menu">Karte</a>
+    <a href="#standort">Standort</a>
+    <a href="#reservierung" style="color:var(--accent-gold)">Tisch reservieren</a>
+  </div>
+
+  <main>
+  <!-- ============ SECTION 1 — HERO ============ -->
+  <section id="hero" class="hero" data-screen-label="01 Hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-fallback" id="heroFallback"></div>
+    <svg class="hero-leaf" data-float style="top:14%;left:4%;width:160px" viewBox="0 0 100 100" fill="none"><path d="M50 95C20 78 20 28 50 8c30 20 30 70 0 87Z" stroke="currentColor" stroke-width="1"/><path d="M50 14v74" stroke="currentColor" stroke-width="0.6"/></svg>
+    <svg class="hero-leaf" data-float style="bottom:10%;right:7%;width:200px" viewBox="0 0 100 100" fill="none"><path d="M50 95C20 78 20 28 50 8c30 20 30 70 0 87Z" stroke="currentColor" stroke-width="1"/><path d="M50 14v74" stroke="currentColor" stroke-width="0.6"/></svg>
+    <div class="wrap hero-inner">
+      <span class="eyebrow" data-hero="0">Veganes Restaurant &amp; Catering · Landau i.d.Pf.</span>
+      <h1 class="display-xl" id="heroHeadline" data-hero="1" data-lines="Pflanzenkraft.|Handgemacht. Frey."><span class="line">Pflanzenkraft.</span><span class="line">Handgemacht. Frey.</span></h1>
+      <p class="hero-sub" id="heroSub" data-hero="2" data-scramble="Veganes Restaurant &amp; Catering in Landau in der Pfalz">Veganes Restaurant &amp; Catering in Landau in der Pfalz</p>
+      <div class="hero-ctas" data-hero="3">
+        <a href="#reservierung" class="btn btn-primary" data-magnetic>Tisch reservieren</a>
+        <a href="#catering-formular" class="btn btn-outline" data-magnetic>Catering anfragen</a>
+      </div>
+    </div>
+    <a href="#about" class="scroll-ind" data-hero="4" aria-label="Nach unten scrollen">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </a>
+  </section>
+
+  <!-- ============ SECTION 2 — ÜBER UNS ============ -->
+  <section id="about" data-screen-label="02 Über uns" data-reveal>
+    <div class="sec-num">01</div>
+    <div class="wrap about-grid">
+      <div class="story">
+        <span class="eyebrow">Unsere Geschichte</span>
+        <h2 class="display-l" style="margin:18px 0 28px">Mehr als<br>ein Restaurant.</h2>
+        <p class="first">Janine gründete 2021 aus reiner Leidenschaft für vegane Küche eine Gemeinschaft mitten in Landau. Was als Idee begann, ist heute ein Ort, an dem jeden Tag neue Geschmackserlebnisse, Events und Begegnungen entstehen.</p>
+        <p>Ohne Kompromisse, ohne tierische Produkte — dafür mit Herz, Handwerk und regionalen Zutaten. Pflanzenbasiert, saisonal, kreativ. Bei uns isst du nicht nur gut, du wirst Teil von etwas. 100% Frey.</p>
+        <div class="pillars">
+          <div class="pillar">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22c0-6 3-10 8-12-1 6-4 9-8 12Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 22C12 14 8 10 4 9c1 6 4 10 8 13Z" stroke="currentColor" stroke-width="1.3"/></svg>
+            <h4>Regional &amp; Saisonal</h4>
+            <p>Zutaten von hier, im Rhythmus der Jahreszeit.</p>
+          </div>
+          <div class="pillar">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M7 11V5a2 2 0 0 1 4 0v6m0 0V4a2 2 0 0 1 4 0v7m0 0V6a2 2 0 0 1 4 0v9a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6v-2a2 2 0 0 1 3-1.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h4>Handgemacht</h4>
+            <p>Jeden Tag frisch, mit Liebe in unserer Küche.</p>
+          </div>
+          <div class="pillar">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <h4>100% Pflanzlich</h4>
+            <p>Voller Geschmack, vollkommen tierfrei.</p>
+          </div>
+        </div>
+      </div>
+      <div class="about-art" data-parallax="0.4">
+        <svg viewBox="0 0 100 140" fill="none" id="aboutLeaf"><path d="M50 132C18 110 18 40 50 14c32 26 32 96 0 118Z" stroke="currentColor" stroke-width="1" pathLength="1"/><path d="M50 24v100M50 50 24 64M50 50l26 14M50 80 28 94M50 80l22 14" stroke="currentColor" stroke-width="0.7" pathLength="1"/></svg>
+        <span class="ph-label">[BILD: Restaurant-Innenraum]</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 3 — ÖFFNUNGSZEITEN ============ -->
+  <section id="hours" data-screen-label="03 Öffnungszeiten" data-reveal>
+    <div class="sec-num">02</div>
+    <div class="wrap hours-grid">
+      <div>
+        <span class="eyebrow">Geöffnet?</span>
+        <div style="margin:24px 0 6px"><span class="status-badge" id="statusBadge"><span class="dot"></span><span id="statusText">Lädt …</span></span></div>
+        <p class="status-note" id="statusNote">Live-Status auf Basis der aktuellen Uhrzeit.</p>
+        <p class="hours-hint">Abendöffnung auf Anfrage — für Events &amp; Catering im Restaurant.</p>
+      </div>
+      <div>
+        <span class="eyebrow">Öffnungszeiten</span>
+        <div class="hours-table" id="hoursTable" style="margin-top:18px">
+          <div class="hours-row" data-day="1,2,3,4,5"><span class="day">Montag – Freitag</span><span class="time">11:30 – 15:00</span></div>
+          <div class="hours-row" data-day="6,0"><span class="day">Samstag &amp; Sonntag</span><span class="time">Brunch-Special</span></div>
+        </div>
+        <p class="hours-hint">✦ Mittagstisch wechselt monatlich — die aktuelle Karte findest du vor Ort.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 4 — HIGHLIGHTS ============ -->
+  <section id="highlights" data-screen-label="04 Highlights" data-reveal>
+    <div class="sec-num">03</div>
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Signature Dishes</span>
+        <h2 class="display-m">Was den Frey ausmacht.</h2>
+      </div>
+      <div class="dish-grid" id="dishGrid">
+        <article class="dish-card" data-tilt><div class="dish-tag">Signatur</div><div class="img"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 3 19h18L12 3Z" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="dish-body"><h3>Samosas</h3><p>Alex' Signatur-Gericht. Knusprig, würzig, unvergesslich.</p></div></article>
+        <article class="dish-card" data-tilt><div class="img"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M9 4v16M15 4v16M4 9h16M4 15h16" stroke="currentColor" stroke-width="0.8"/></svg></div><div class="dish-body"><h3>Wochenend-Waffeln</h3><p>Goldbraun, fluffig, auf Wunsch mit frischen Früchten.</p></div></article>
+        <article class="dish-card" data-tilt><div class="img"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.2"/><path d="M12 4v16" stroke="currentColor" stroke-width="0.8"/></svg></div><div class="dish-body"><h3>Lahmacun</h3><p>Mit hausgemachten Pommes, Knoblauch-Cream &amp; Salat.</p></div></article>
+        <article class="dish-card" data-tilt><div class="dish-tag">Monatlich neu</div><div class="img"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><div class="dish-body"><h3>Mittagstisch</h3><p>Jeder Monat ein neues Abenteuer auf dem Teller.</p></div></article>
+        <article class="dish-card" data-tilt><div class="img"><svg viewBox="0 0 24 24" fill="none"><path d="M4 11h16a8 8 0 0 1-16 0Z" stroke="currentColor" stroke-width="1.2"/><path d="M12 11V6" stroke="currentColor" stroke-width="1"/></svg></div><div class="dish-body"><h3>Asiatische Bowl</h3><p>Frisch, bunt, vollgepackt mit Pflanzenpower.</p></div></article>
+        <article class="dish-card" data-tilt><div class="dish-tag">Glutenfrei</div><div class="img"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M12 8 7 5M12 8l5-3M12 14l-5-3M12 14l5-3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></div><div class="dish-body"><h3>Glutenfreie Optionen</h3><p>Alle Geschmäcker willkommen — ganz ohne Verzicht.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 5 — CATERING HERO ============ -->
+  <section id="catering" data-screen-label="05 Catering" data-reveal>
+    <div class="sec-num">04</div>
+    <div class="wrap">
+      <div class="sec-head" style="text-align:center;max-width:760px;margin-inline:auto">
+        <span class="eyebrow" style="justify-content:center">Catering</span>
+        <h2 class="display-l" style="margin:18px auto 18px;max-width:none">Deine Feier.<br>Unser Herzstück.</h2>
+        <p class="lead" style="margin-inline:auto">Von der Firmenfeier bis zur Traumhochzeit — wir kochen, liefern und bauen auf.</p>
+      </div>
+      <div class="cat-cards">
+        <div class="cat-card"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg><h3>Firmenfeier</h3><p>Professionell, vielfältig, beeindruckend — der perfekte Auftritt für dein Team.</p></div>
+        <div class="cat-card"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg><h3>Hochzeit</h3><p>Individuell, unvergesslich, komplett vegane Buffets für euren großen Tag.</p></div>
+        <div class="cat-card"><svg viewBox="0 0 24 24" fill="none"><path d="M5 11 12 4l7 7M7 11v9h10v-9M10 20v-5h4v5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M12 4V2" stroke="currentColor" stroke-width="1.2"/></svg><h3>Private Party</h3><p>Locker, lecker, mit echten Frey-Vibes — feiern, wie es euch gefällt.</p></div>
+      </div>
+      <div class="counters" id="counters">
+        <div class="counter"><div class="num" data-count="100" data-suffix="+">0</div><div class="label">Events begleitet</div></div>
+        <div class="counter"><div class="num" data-count="2000" data-suffix="+" data-sep="true">0</div><div class="label">Glückliche Gäste</div></div>
+        <div class="counter"><div class="num" data-count="5">0</div><div class="label">Jahre Leidenschaft</div></div>
+        <div class="counter"><div class="num" data-static="∞">∞</div><div class="label">Möglichkeiten</div></div>
+      </div>
+      <div class="cat-cta-row"><a href="#catering-formular" class="btn btn-primary" data-magnetic>Catering anfragen</a></div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 6 — STEPS ============ -->
+  <section id="steps" data-screen-label="06 Ablauf" data-reveal>
+    <div class="sec-num">05</div>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">So funktioniert's</span><h2 class="display-m">In vier Schritten zum Fest.</h2></div>
+      <div class="steps-grid">
+        <div class="steps-line"><div class="fill" id="stepsFill"></div></div>
+        <div class="step"><div class="step-num">01</div><svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v11H8l-4 4V5Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><h3>Anfrage senden</h3><p>Formular ausfüllen und deine Ideen mit uns teilen.</p></div>
+        <div class="step"><div class="step-num">02</div><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.3"/><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.3"/></svg><h3>Persönliche Beratung</h3><p>Beate meldet sich mit konkreten, frischen Vorschlägen.</p></div>
+        <div class="step"><div class="step-num">03</div><svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><h3>Menü festlegen</h3><p>Gemeinsam stellen wir dein perfektes Buffet zusammen.</p></div>
+        <div class="step"><div class="step-num">04</div><svg viewBox="0 0 24 24" fill="none"><path d="M3 13 5 7h11l3 4h2v4h-2M3 13v3h2M3 13h13v3m0 0h3" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="7.5" cy="17.5" r="1.5" stroke="currentColor" stroke-width="1.2"/><circle cx="17.5" cy="17.5" r="1.5" stroke="currentColor" stroke-width="1.2"/></svg><h3>Wir kommen zu dir</h3><p>Lieferung, Aufbau, Genuss — du musst dich um nichts kümmern.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 7 — FORMULAR ============ -->
+  <section id="catering-formular" data-screen-label="07 Formular" data-reveal>
+    <div class="sec-num">06</div>
+    <div class="wrap">
+      <div class="sec-head" style="text-align:center"><span class="eyebrow" style="justify-content:center">Anfrage</span><h2 class="display-m" style="margin-inline:auto">Bereit für deinen Frey-Moment?</h2><p class="lead" style="margin:14px auto 0">Schick uns deine Ideen — wir melden uns mit frischen Vorschlägen.</p></div>
+
+      <div class="form-shell">
+        <form id="cateringForm" name="catering-anfrage" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="catering-anfrage">
+          <p class="hidden" style="display:none"><label>Bot: <input name="bot-field"></label></p>
+          <div class="form-grid">
+            <div class="field"><input type="text" id="f-name" required><label class="float" for="f-name">Name *</label><div class="err-msg">Bitte gib deinen Namen an.</div></div>
+            <div class="field"><input type="email" id="f-email" required><label class="float" for="f-email">E-Mail *</label><div class="err-msg">Bitte gültige E-Mail angeben.</div></div>
+            <div class="field"><input type="tel" id="f-phone" required><label class="float" for="f-phone">Telefon *</label><div class="err-msg">Bitte Telefonnummer angeben.</div></div>
+            <div class="field"><input type="text" id="f-billing"><label class="float" for="f-billing">Rechnungsadresse</label></div>
+            <div class="field"><input type="date" id="f-date" required><label class="float filled" for="f-date">Datum *</label><div class="err-msg">Bitte Datum wählen.</div></div>
+            <div class="field"><input type="time" id="f-time"><label class="float filled" for="f-time">Uhrzeit</label></div>
+
+            <div class="field full">
+              <span class="form-label">Art der Lieferung</span>
+              <div class="toggle-cards" id="deliveryToggle">
+                <label class="toggle-card sel"><input type="radio" name="delivery" value="Lieferung" checked><svg viewBox="0 0 24 24" fill="none"><path d="M3 13 5 7h9v9H3v-3Zm11-3h4l2 3v3h-6V7Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.6" stroke="currentColor" stroke-width="1.2"/><circle cx="17" cy="17" r="1.6" stroke="currentColor" stroke-width="1.2"/></svg>Lieferung</label>
+                <label class="toggle-card"><input type="radio" name="delivery" value="Abholung"><svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="1.2"/></svg>Abholung</label>
+                <label class="toggle-card"><input type="radio" name="delivery" value="Feiern im Restaurant"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V8l7-5 7 5v13" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>Im Restaurant</label>
+              </div>
+            </div>
+
+            <div class="field full" id="deliveryAddrField"><input type="text" id="f-addr"><label class="float" for="f-addr">Lieferadresse</label></div>
+
+            <div class="field">
+              <select id="f-event"><option value="" disabled selected hidden></option><option>Hochzeit</option><option>Firmenfeier</option><option>Geburtstag</option><option>Private Party</option><option>Sonstiges</option></select>
+              <label class="float" for="f-event">Art des Events</label>
+              <svg class="sel-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <div class="field">
+              <input type="text" id="f-intolerance"><label class="float" for="f-intolerance">Unverträglichkeiten</label>
+            </div>
+
+            <div class="field full">
+              <span class="form-label">Umfang</span>
+              <div class="pills" id="scopePills">
+                <label class="pill"><input type="checkbox" value="Snack">Snack</label>
+                <label class="pill"><input type="checkbox" value="Canapé">Canapé</label>
+                <label class="pill"><input type="checkbox" value="Vorspeise">Vorspeise</label>
+                <label class="pill"><input type="checkbox" value="Hauptgericht">Hauptgericht</label>
+                <label class="pill"><input type="checkbox" value="Nachspeise">Nachspeise</label>
+                <label class="pill"><input type="checkbox" value="Flying Dinner">Flying Dinner</label>
+              </div>
+            </div>
+
+            <div class="field full"><textarea id="f-wishes" maxlength="500"></textarea><label class="float" for="f-wishes">Wünsche zu den Speisen</label><span class="char-count" id="charCount">0/500</span></div>
+
+            <div class="field">
+              <span class="form-label">Anzahl Personen</span>
+              <div class="stepper" role="group" aria-label="Anzahl Personen">
+                <button type="button" id="stepMinus" aria-label="weniger">−</button>
+                <span class="count" id="personCount">20</span>
+                <button type="button" id="stepPlus" aria-label="mehr">+</button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="form-label">Budget pro Person</span>
+              <div class="range-wrap"><input type="range" id="budget" min="10" max="80" value="35" step="5"><span class="range-val" id="budgetVal">35 €</span></div>
+            </div>
+
+            <div class="field full"><div class="estimate">Geschätztes Budget: <b id="estimate">700 €</b></div></div>
+
+            <div class="field full"><label class="consent"><input type="checkbox" id="f-consent" required><span>Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten zu. *</span></label><div class="err-msg" style="margin-left:28px">Bitte Datenschutz bestätigen.</div></div>
+
+            <div class="field full form-submit"><button type="submit" class="btn btn-primary" id="submitBtn" data-magnetic style="min-width:240px">Catering anfragen 🌱</button></div>
+          </div>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.3"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Danke!</h3>
+          <p style="margin-inline:auto;color:var(--text-secondary)">Beate meldet sich bald bei dir. 💚</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 8 — TEAM ============ -->
+  <section id="team" data-screen-label="08 Team" data-reveal>
+    <div class="sec-num">07</div>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Das Team</span><h2 class="display-m">Menschen hinter dem Frey.</h2></div>
+      <div class="team-grid">
+        <div class="flip" tabindex="0"><div class="flip-inner">
+          <div class="flip-face flip-front"><div class="photo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="info"><h3>Janine</h3><div class="role">Inhaberin &amp; Geschäftsleitung</div></div><span class="flip-hint">Hover / Tap</span></div>
+          <div class="flip-face flip-back"><span class="fact">Seit 2019 · Inhaberin seit Juli 2021</span><p>„Community, Events und neue Ideen — dafür schlägt mein Herz jeden Tag."</p><div class="social"><a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a></div></div>
+        </div></div>
+        <div class="flip" tabindex="0"><div class="flip-inner">
+          <div class="flip-face flip-front"><div class="photo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="info"><h3>Beate</h3><div class="role">Restaurantleitung &amp; Catering</div></div><span class="flip-hint">Hover / Tap</span></div>
+          <div class="flip-face flip-back"><span class="fact">Gute Seele der Küche</span><p>„Eure erste Ansprechpartnerin fürs Catering — ich mach euer Fest zu unserem."</p><div class="social"><a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a></div></div>
+        </div></div>
+        <div class="flip" tabindex="0"><div class="flip-inner">
+          <div class="flip-face flip-front"><div class="photo"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.2"/><path d="M4 21a8 8 0 0 1 16 0" stroke="currentColor" stroke-width="1.2"/></svg></div><div class="info"><h3>Alex</h3><div class="role">Küchenchef</div></div><span class="flip-hint">Hover / Tap</span></div>
+          <div class="flip-face flip-back"><span class="fact">Spezialist asiatische Küche</span><p>„Meine Samosas sind kein Gericht — sie sind ein Versprechen."</p><div class="social"><a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a></div></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 9 — TESTIMONIALS ============ -->
+  <section id="reviews" data-screen-label="09 Reviews" data-reveal>
+    <div class="sec-num">08</div>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Social Proof</span><h2 class="display-m">Was unsere Community sagt.</h2></div>
+      <div class="rev-grid">
+        <div class="review"><div class="stars">★★★★★</div><p class="quote">„Das beste vegane Catering, das wir je hatten. Alle Gäste waren begeistert!"</p><div class="who">Maria K. · Firmenfeier</div></div>
+        <div class="review"><div class="stars">★★★★★</div><p class="quote">„Die Samosas sind ein absoluter Traum. Wir kommen jede Woche!"</p><div class="who">Tobias M. · Stammgast</div></div>
+        <div class="review"><div class="stars">★★★★★</div><p class="quote">„Das Team hat unsere Hochzeit zum Erlebnis gemacht. Danke, Frey!"</p><div class="who">Laura &amp; Max · Hochzeit 2024</div></div>
+      </div>
+      <div class="google-badge">
+        <span class="score">★ 4.8</span>
+        <span class="meta">/ 5 — über 120 Bewertungen</span>
+        <a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-magnetic style="margin-left:14px">Auf Instagram folgen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 10 — MENU TEASER ============ -->
+  <section id="menu" data-screen-label="10 Karte" data-reveal>
+    <div class="sec-num">09</div>
+    <div class="wrap menu-grid">
+      <div>
+        <span class="eyebrow">Die Karte</span>
+        <h2 class="display-l" style="margin:18px 0 24px">Jeden Monat<br>neu.</h2>
+        <p style="color:var(--text-secondary)">Unser Mittagstisch wechselt monatlich — frisch, saisonal, immer pflanzlich. Die aktuelle Karte findest du vor Ort oder auf unseren Social-Media-Kanälen.</p>
+        <div class="menu-actions">
+          <a href="#" class="btn btn-primary" data-magnetic>Zum Online-Shop</a>
+          <a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" class="btn btn-outline" data-magnetic>@ichbinsofrey</a>
+        </div>
+      </div>
+      <div class="menu-cats">
+        <div class="menu-cat"><h4>Vorspeisen</h4><p>Samosas, Canapés &amp; kleine Köstlichkeiten.</p></div>
+        <div class="menu-cat"><h4>Hauptgerichte</h4><p>Bowls, Lahmacun &amp; herzhafte Klassiker.</p></div>
+        <div class="menu-cat"><h4>Waffeln &amp; Süßes</h4><p>Wochenend-Special, goldbraun &amp; fluffig.</p></div>
+        <div class="menu-cat"><h4>Glutenfreies</h4><p>Für alle Geschmäcker — ohne Verzicht.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTION 11 — STANDORT ============ -->
+  <section id="standort" data-screen-label="11 Standort" data-reveal>
+    <div class="sec-num">10</div>
+    <div class="wrap">
+      <div class="sec-head"><span class="eyebrow">Standort &amp; Kontakt</span><h2 class="display-m">Find us.</h2></div>
+      <div class="loc-grid">
+        <div class="contact-list">
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg><div><div class="ci-label">Adresse</div><span>[STRASSE], 76829 Landau in der Pfalz</span></div></div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg><div><div class="ci-label">Telefon</div><a href="tel:+49XXXXXXX">[TELEFON]</a></div></div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="m3 7 9 6 9-6" stroke="currentColor" stroke-width="1.3"/></svg><div><div class="ci-label">E-Mail</div><a href="mailto:info@ichbinsofrey.de">info@ichbinsofrey.de</a></div></div>
+          <div class="contact-item"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg><div><div class="ci-label">Social</div><div class="socials-row"><a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.3"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a><a href="https://facebook.com/ichbinsofrey" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M14 8h2V5h-2a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h2l1-3h-3V8a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></a></div></div></div>
+        </div>
+        <div class="map-shell">
+          <div id="map" aria-label="Karte: ICH BIN SO FREY in Landau"></div>
+          <div class="map-consent" id="mapConsent">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11Z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>
+            <p>Die Karte wird über OpenStreetMap geladen — datenschutzkonform, ohne Google.</p>
+            <button class="btn btn-outline" id="loadMapBtn" data-magnetic>Karte laden</button>
+          </div>
+        </div>
+      </div>
+      <p class="gdpr-note">Karte geladen über OpenStreetMap — datenschutzkonform.</p>
+    </div>
+  </section>
+  </main>
+
+  <!-- ============ SECTION 12 — FOOTER ============ -->
+  <footer data-screen-label="12 Footer">
+    <svg class="footer-bg" viewBox="0 0 200 200" fill="none"><path d="M100 190C40 150 40 50 100 14c60 36 60 136 0 176Z" stroke="currentColor" stroke-width="1"/><path d="M100 30v140M100 70 60 92M100 70l40 22M100 110 64 130M100 110l36 20" stroke="currentColor" stroke-width="0.6"/></svg>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="brand"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21C5 17 5 7 12 3c7 4 7 14 0 18Z" stroke="currentColor" stroke-width="1.4"/><path d="M12 5v15" stroke="currentColor" stroke-width="1"/></svg>Ich bin so Frey</a>
+          <p>Veganes Restaurant &amp; Catering in Landau in der Pfalz. Pflanzlich, regional, mit Herz.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="#hero">Home</a><a href="#about">Über uns</a><a href="#menu">Karte</a><a href="#catering">Catering</a><a href="#reservierung">Reservierung</a><a href="#">Jobs</a>
+        </div>
+        <div class="footer-col">
+          <h4>Kontakt</h4>
+          <p>[STRASSE], 76829 Landau</p><a href="tel:+49XXXXXXX">[TELEFON]</a><a href="mailto:info@ichbinsofrey.de">info@ichbinsofrey.de</a><a href="https://instagram.com/ichbinsofrey" target="_blank" rel="noopener noreferrer">@ichbinsofrey</a><a href="https://facebook.com/ichbinsofrey" target="_blank" rel="noopener noreferrer">Facebook</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 ICH BIN SO FREY · Veganes Restaurant &amp; Catering Landau in der Pfalz</span>
+        <span style="display:flex;gap:18px;flex-wrap:wrap"><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a><a href="#cookies">Cookie-Richtlinie</a><a href="#agb">AGB</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== FLOATING ELEMENTS ========== -->
+  <a href="https://wa.me/49XXXXXXXXXX" class="whatsapp-fab" id="whatsapp" target="_blank" rel="noopener noreferrer" data-magnetic aria-label="Schreib uns auf WhatsApp">
+    <span class="ring"></span>
+    <span class="tip">Schreib uns auf WhatsApp!</span>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.4-1s-3.9-3.5-4-3.7-1-1.3-1-2.5 .6-1.8.9-2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.1.1.3 0 .5l-.4.5-.3.3c-.1.2-.3.3-.1.6s.6 1 1.3 1.6c.9.8 1.6 1 1.9 1.2s.4.1.6-.1l.7-.9c.2-.3.4-.2.6-.1l1.9.9c.2.1.4.2.5.3s.1.7-.1 1.3Z"/></svg>
+  </a>
+  <div class="resv-fab"><a href="#reservierung" class="btn btn-primary" data-magnetic>Tisch reservieren</a></div>
+  <div class="mobile-sticky"><a href="#catering-formular" class="btn btn-primary">Catering anfragen 🌱</a></div>
+
+  <!-- reservation anchor target -->
+  <span id="reservierung" style="position:absolute"></span>
+
+  <!-- ========== COOKIE BANNER ========== -->
+  <div class="cookie" id="cookie" role="dialog" aria-label="Cookie-Hinweis">
+    <p>Wir nutzen technisch notwendige Cookies. Für eine bessere Erfahrung nutzen wir optionale Analysen.</p>
+    <div class="ck-actions">
+      <button class="ck-btn ck-accept" id="ckAccept">Akzeptieren</button>
+      <button class="ck-btn ck-min" id="ckMin">Nur notwendige</button>
+    </div>
+  </div>
+
+  <!-- ambient audio (opt-in, kein autoplay) -->
+  <audio id="ambient" loop preload="none"><source src="data:audio/mpeg;base64," type="audio/mpeg"></audio>
+
+  <!-- ============================================================
+       3) CDN DEPENDENCIES
+       ============================================================ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+
+  <script defer src="app.js"></script>
+</body>>
+</html>

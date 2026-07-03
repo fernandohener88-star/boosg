@@ -1,0 +1,35 @@
+# netlify.toml — ICH BIN SO FREY
+# Veganes Restaurant & Catering · Landau in der Pfalz
+
+[build]
+  publish = "."
+
+# ── Sicherheits- & Performance-Header (alle Seiten) ─────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options            = "SAMEORIGIN"
+    X-Content-Type-Options     = "nosniff"
+    X-XSS-Protection           = "1; mode=block"
+    Referrer-Policy            = "strict-origin-when-cross-origin"
+    Permissions-Policy         = "camera=(), microphone=(), payment=()"
+    Strict-Transport-Security  = "max-age=31536000; includeSubDomains; preload"
+
+# index.html – immer frisch ausliefern (kein Browser-Cache)
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# app.js – 1 Stunde cachen, Netlify invalidiert bei neuem Deploy automatisch
+[[headers]]
+  for = "/app.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+# ── Weiterleitungen ──────────────────────────────────────────────────────────
+# Unbekannte Routen → index.html (SPA-Fallback, verhindert 404 bei Deep-Links)
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

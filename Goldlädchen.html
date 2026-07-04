@@ -143,20 +143,22 @@
   .leistungen .section-kicker{color:var(--gold);}
   .leistungen .section-head h2{color:var(--cream);}
   .leistungen .section-head p{color:var(--muted-light);}
-  .service-group{margin-bottom:46px;}
-  .service-group:last-child{margin-bottom:0;}
-  .service-group-label{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
-  .service-group-tag{display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:7px 14px;border-radius:30px;}
+  .choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:stretch;}
+  .choice-panel{position:relative;display:flex;flex-direction:column;border-radius:12px;padding:40px 36px 36px;border:1px solid rgba(201,168,106,.3);background:linear-gradient(180deg,rgba(201,168,106,.08),rgba(201,168,106,.015));transition:transform .4s ease,border-color .4s ease,box-shadow .4s ease;}
+  .choice-panel:hover{transform:translateY(-5px);border-color:rgba(201,168,106,.55);box-shadow:0 26px 52px -26px rgba(0,0,0,.75);}
+  .choice-panel.panel-verkauf{border-color:rgba(150,70,88,.45);background:linear-gradient(180deg,rgba(107,39,55,.14),rgba(107,39,55,.02));}
+  .choice-panel.panel-verkauf:hover{border-color:rgba(224,155,171,.55);}
+  .choice-tag{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:8px 15px;border-radius:30px;}
   .tag-ankauf{background:rgba(201,168,106,.16);color:var(--gold-light);border:1px solid rgba(201,168,106,.4);}
-  .tag-verkauf{background:rgba(107,39,55,.18);color:#e09bab;border:1px solid rgba(107,39,55,.5);}
-  .service-group-label h3{margin:0;font-size:18px;font-weight:600;color:var(--cream);font-family:'Hanken Grotesk',sans-serif;letter-spacing:.2px;}
-  .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .service-card{border:1px solid rgba(201,168,106,.22);border-radius:6px;padding:30px 26px;background:linear-gradient(180deg,rgba(201,168,106,.05),rgba(201,168,106,0));transition:transform .4s ease,border-color .4s ease,box-shadow .4s ease;}
-  .service-card:hover{transform:translateY(-6px);border-color:rgba(201,168,106,.6);box-shadow:0 20px 40px -22px rgba(0,0,0,.7);}
-  .service-card h3{font-size:24px;font-weight:600;margin:18px 0 9px;color:#F2EBDD;}
-  .service-card p{font-size:14.5px;line-height:1.6;color:var(--muted-light);margin:0;}
-  .service-card.verkauf-card{border-color:rgba(107,39,55,.3);}
-  .service-card.verkauf-card:hover{border-color:rgba(224,155,171,.55);}
+  .tag-verkauf{background:rgba(107,39,55,.22);color:#e09bab;border:1px solid rgba(150,70,88,.55);}
+  .choice-panel h3{font-size:31px;font-weight:600;color:#F2EBDD;margin:18px 0 7px;line-height:1.15;}
+  .choice-sub{font-size:15.5px;line-height:1.55;color:var(--muted-light);margin:0 0 24px;}
+  .choice-list{list-style:none;margin:0 0 30px;padding:0;display:flex;flex-direction:column;gap:13px;}
+  .choice-list li{display:flex;align-items:flex-start;gap:12px;font-size:15.5px;line-height:1.45;color:var(--text-light);}
+  .choice-check{flex:none;margin-top:1px;width:21px;height:21px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(201,168,106,.16);border:1px solid rgba(201,168,106,.45);}
+  .panel-verkauf .choice-check{background:rgba(107,39,55,.24);border-color:rgba(224,155,171,.45);}
+  .choice-cta{margin-top:auto;}
+  .choice-cta .btn-primary,.choice-cta .btn-ghost{font-size:15.5px;padding:14px 26px;}
 
   /* ---------- ablauf ---------- */
   .ablauf{background:var(--cream-2);color:var(--text-dark);}
@@ -313,7 +315,7 @@
   }
   @media (max-width:980px){
     .trust-grid{grid-template-columns:repeat(2,1fr);gap:34px 30px;}
-    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .choice-grid{grid-template-columns:1fr;}
     .step-grid{grid-template-columns:repeat(2,1fr);row-gap:38px;}
     .step-line{display:none;}
     .about-grid{grid-template-columns:1fr;gap:64px;}
@@ -328,7 +330,7 @@
   }
   @media (max-width:620px){
     .trust-grid{grid-template-columns:1fr;}
-    .service-grid{grid-template-columns:1fr;}
+    .choice-panel{padding:32px 24px 28px;}
     .step-grid{grid-template-columns:1fr;}
     .gallery-grid{grid-template-columns:1fr;}
     .form-row2{grid-template-columns:1fr;}
@@ -478,56 +480,44 @@
     <div class="section-inner">
       <div class="section-head" data-reveal>
         <span class="section-kicker">Was wir für Sie tun</span>
-        <h2>Wir kaufen Ihr Gold – und verkaufen unseren Schmuck</h2>
-        <p>Goldlädchen ist zweierlei zugleich: ein fairer Ankaufspartner für Altgold und Silber, und eine Boutique mit eigenem Sortiment zum Stöbern und Kaufen.</p>
+        <h2>Verkaufen oder kaufen? Beides – bei uns.</h2>
+        <p>Ganz einfach: Sie bringen uns Gold und Silber, wir zahlen sofort bar. Oder Sie stöbern in unserer Boutique und finden Ihr neues Lieblingsstück.</p>
       </div>
 
-      <div class="service-group">
-        <div class="service-group-label" data-reveal>
-          <span class="service-group-tag tag-ankauf">Wir kaufen von Ihnen</span>
-          <h3>Ankauf zu fairen Tagespreisen</h3>
-        </div>
-        <div class="service-grid">
-          <article class="service-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M7 13l4-6h12l4 6-10 14L7 13Z" stroke="#C9A86A" stroke-width="1.2" stroke-linejoin="round"/><path d="M7 13h20M13 7l4 20M21 7l-4 20" stroke="#C9A86A" stroke-width="1.2"/></svg>
-            <h3>Goldankauf</h3>
-            <p>Altgold, Bruchgold, Zahngold, Münzen und Barren – faire Bewertung nach aktuellem Tageskurs.</p>
-          </article>
-          <article class="service-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><ellipse cx="17" cy="11" rx="9" ry="3.4" stroke="#C9A86A" stroke-width="1.2"/><path d="M8 11v8c0 1.9 4 3.4 9 3.4s9-1.5 9-3.4v-8" stroke="#C9A86A" stroke-width="1.2"/><path d="M8 15c0 1.9 4 3.4 9 3.4s9-1.5 9-3.4" stroke="#C9A86A" stroke-width="1.2"/></svg>
-            <h3>Silberankauf</h3>
-            <p>Tafelsilber, Besteck, Schmuck und Münzen – auch komplette Sammlungen und Nachlässe.</p>
-          </article>
-          <article class="service-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="13" cy="17" r="7" stroke="#C9A86A" stroke-width="1.2"/><circle cx="22" cy="13" r="6" stroke="#C9A86A" stroke-width="1.2"/><path d="M13 14v6M10 17h6" stroke="#C9A86A" stroke-width="1.2" stroke-linecap="round"/></svg>
-            <h3>Münzen &amp; Edelmetalle</h3>
-            <p>Sammlermünzen, Anlagegold und Anlagesilber – kompetent begutachtet und fair gehandelt.</p>
-          </article>
-        </div>
-      </div>
+      <div class="choice-grid">
+        <article class="choice-panel" data-reveal>
+          <span class="choice-tag tag-ankauf">Sie möchten verkaufen</span>
+          <h3>Wir kaufen Ihr Gold &amp; Silber</h3>
+          <p class="choice-sub">Faire Bewertung zum aktuellen Tageskurs – und Ihr Geld sofort bar auf die Hand.</p>
+          <ul class="choice-list">
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#D4B886" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Altgold, Bruchgold &amp; Zahngold</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#D4B886" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Silber, Besteck &amp; Tafelsilber</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#D4B886" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Münzen, Barren &amp; ganze Nachlässe</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#D4B886" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Edelsteine – gefasst oder lose</li>
+          </ul>
+          <div class="choice-cta">
+            <a class="btn-primary" href="#kontakt">Kostenlose Schätzung anfragen
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
 
-      <div class="service-group">
-        <div class="service-group-label" data-reveal>
-          <span class="service-group-tag tag-verkauf">Bei uns kaufen</span>
-          <h3>Unsere Boutique zum Stöbern &amp; Finden</h3>
-        </div>
-        <div class="service-grid">
-          <article class="service-card verkauf-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M17 6c4 4 7 6.5 7 11a7 7 0 1 1-14 0c0-4.5 3-7 7-11Z" stroke="#C9A86A" stroke-width="1.2" stroke-linejoin="round"/><circle cx="17" cy="18" r="2.6" stroke="#C9A86A" stroke-width="1.2"/></svg>
-            <h3>Antikschmuck An- &amp; Verkauf</h3>
-            <p>Eine große, liebevoll sortierte Auswahl an besonderen Einzelstücken – zum Stöbern und Finden.</p>
-          </article>
-          <article class="service-card verkauf-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M11 14l6-7 6 7-6 13-6-13Z" stroke="#C9A86A" stroke-width="1.2" stroke-linejoin="round"/><path d="M11 14h12" stroke="#C9A86A" stroke-width="1.2"/></svg>
-            <h3>Edelsteine</h3>
-            <p>Begutachtung sowie An- und Verkauf gefasster und loser Steine – mit geschultem Blick fürs Detail.</p>
-          </article>
-          <article class="service-card verkauf-card" data-reveal>
-            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-hidden="true"><path d="M20 7l7 7-3 3-7-7 3-3Z" stroke="#C9A86A" stroke-width="1.2" stroke-linejoin="round"/><path d="M17 10L7 20l-1 7 7-1 10-10" stroke="#C9A86A" stroke-width="1.2" stroke-linejoin="round"/></svg>
-            <h3>Schmuckreparaturen</h3>
-            <p>Fachkundige Aufarbeitung und Instandsetzung – damit liebgewonnene Stücke wieder glänzen.</p>
-          </article>
-        </div>
+        <article class="choice-panel panel-verkauf" data-reveal>
+          <span class="choice-tag tag-verkauf">Sie möchten kaufen</span>
+          <h3>Schmuck aus unserer Boutique</h3>
+          <p class="choice-sub">Antike Einzelstücke, liebevoll ausgewählt – zum Stöbern, Verlieben und Mitnehmen.</p>
+          <ul class="choice-list">
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#E09BAB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Antikschmuck &amp; besondere Einzelstücke</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#E09BAB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Silberketten, Armbänder &amp; Anhänger</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#E09BAB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Bernstein &amp; Edelsteine</li>
+            <li><span class="choice-check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.2 4.8 9 10 3.4" stroke="#E09BAB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Schmuckreparaturen &amp; Aufarbeitung</li>
+          </ul>
+          <div class="choice-cta">
+            <a class="btn-ghost" href="#galerie">Auswahl ansehen
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>

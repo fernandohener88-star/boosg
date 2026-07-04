@@ -984,10 +984,10 @@
       if(typeof L === 'undefined'){ if(tries++ < 40){ setTimeout(tryInit,150); } return; }
       var node = document.getElementById('lv-map');
       if(!node || node._lvMap) return;
-      var map = L.map(node, { scrollWheelZoom:false, attributionControl:true }).setView([49.1990,8.1214],16);
+      var map = L.map(node, { scrollWheelZoom:false, attributionControl:false }).setView([49.1990,8.1214],16);
       node._lvMap = map;
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom:19, attribution:'&copy; OpenStreetMap &copy; CARTO'
+        maxZoom:19
       }).addTo(map);
       var icon = L.divIcon({
         className:'',

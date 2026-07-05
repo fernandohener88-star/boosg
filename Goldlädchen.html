@@ -340,12 +340,22 @@
     .mobile-cta{display:flex;}
   }
   @media (max-width:620px){
-    .choice-panel{padding:32px 24px 28px;}
-    .step-grid{grid-template-columns:1fr;}
-    .gallery-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;}
+    .section{padding:50px 0;}
+    .section-head{margin-bottom:26px;}
+    .hero{min-height:auto;padding:94px 0 40px;}
+    .hero-grid{gap:26px;}
+    .choice-panel{padding:28px 22px 24px;}
+    .step-grid{grid-template-columns:1fr;row-gap:22px;}
+    .about-grid{gap:30px;}
+    .gallery-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    .footer-grid{grid-template-columns:1fr;gap:26px;}
+    .site-footer{padding:40px 0 40px;}
     .call-btn{display:none;}
     .about-badge{right:14px;}
+    .hours-row{padding:9px 12px;}
+    .info-card{padding:6px 22px;}
+    .info-block{padding:18px 0;}
+    .gallery-item img{height:200px;}
   }
 </style>
 </head>
@@ -765,7 +775,8 @@
       raf = null;
       var y = window.scrollY;
       header.classList.toggle('scrolled', y > 40);
-      mobileCta.classList.toggle('show', y > 620 && !overlay.classList.contains('open'));
+      var atFooter = footerEl && (y + window.innerHeight) > (footerEl.offsetTop + 60);
+      mobileCta.classList.toggle('show', y > 620 && !overlay.classList.contains('open') && !atFooter);
     });
   }
   window.addEventListener('scroll', onScroll, { passive:true });
@@ -780,6 +791,7 @@
   document.querySelectorAll('.mobile-link').forEach(function(a){ a.addEventListener('click', closeMobile); });
 
   var mobileCta = document.getElementById('mobile-cta');
+  var footerEl = document.querySelector('.site-footer');
 
   /* ---------- reveal on scroll ---------- */
   var io = new IntersectionObserver(function(entries){

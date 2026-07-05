@@ -915,10 +915,12 @@
 
   /* ---------- map (nur nach Einwilligung) ---------- */
   var mapLoaded = false;
+  var GL_ADDRESS = 'Martin-Luther-Straße 8, 76829 Landau in der Pfalz, Deutschland';
   function initMap(){
     var node = document.getElementById('lv-map');
     if(!node || node._lvMap || typeof L === 'undefined') return;
-    var map = L.map(node, { scrollWheelZoom:false, attributionControl:false }).setView([49.1990,8.1214],16);
+    var fallback = [49.1988, 8.1196]; // Landau Zentrum, nur falls die Adress-Suche scheitert
+    var map = L.map(node, { scrollWheelZoom:false, attributionControl:false }).setView(fallback, 16);
     node._lvMap = map;
     L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom:19 }).addTo(map);
     var icon = L.divIcon({
@@ -926,7 +928,26 @@
       html:'<div style="position:relative;transform:translate(-50%,-100%);"><svg width="34" height="44" viewBox="0 0 34 44" fill="none"><path d="M17 2C9 2 3 8 3 16c0 9 14 26 14 26s14-17 14-26c0-8-6-14-14-14Z" fill="#C9A86A" stroke="#15120F" stroke-width="1.5"/><circle cx="17" cy="16" r="5" fill="#15120F"/></svg></div>',
       iconSize:[34,44], iconAnchor:[0,0]
     });
-    L.marker([49.1990,8.1214], { icon:icon }).addTo(map).bindPopup('<b>Goldlädchen</b><br>Martin-Luther-Str. 8<br>76829 Landau');
+    var marker = L.marker(fallback, { icon:icon }).addTo(map).bindPopup('<b>Goldlädchen</b><br>Martin-Luther-Str. 8<br>76829 Landau');
+    function place(lat, lon){ map.setView([lat, lon], 17); marker.setLatLng([lat, lon]); }
+    var cached = null;
+    try { cached = JSON.parse(localStorage.getItem('gl_geo') || 'null'); } catch(e){}
+    if(cached && typeof cached.lat === 'number' && typeof cached.lon === 'number'){
+      place(cached.lat, cached.lon);
+    } else {
+      fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' + encodeURIComponent(GL_ADDRESS))
+        .then(function(r){ return r.ok ? r.json() : []; })
+        .then(function(d){
+          if(d && d.length){
+            var lat = parseFloat(d[0].lat), lon = parseFloat(d[0].lon);
+            if(!isNaN(lat) && !isNaN(lon)){
+              place(lat, lon);
+              try { localStorage.setItem('gl_geo', JSON.stringify({lat:lat, lon:lon})); } catch(e){}
+            }
+          }
+        })
+        .catch(function(){});
+    }
     setTimeout(function(){ map.invalidateSize(); }, 200);
   }
   function loadMap(){

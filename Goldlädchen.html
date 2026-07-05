@@ -234,7 +234,7 @@
   .kontakt .section-head h2{color:var(--espresso-2);}
   .kontakt .section-head p{color:var(--muted-dark);}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:stretch;}
-  .contact-map{min-height:440px;position:relative;}
+  .contact-map{min-height:440px;position:relative;isolation:isolate;z-index:0;}
   .map-consent{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;background:var(--espresso-3);border-radius:10px;border:1px solid #E1D7C3;z-index:5;}
   .map-consent.hidden{display:none;}
   .map-consent-inner{max-width:310px;}

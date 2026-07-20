@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>District Null41 — Sushi &amp; moderne asiatische Küche in Landau | Restaurant &amp; Cocktailbar</title>
+<meta name="description" content="Sushi, moderne asiatische Küche &amp; kreative Cocktails mitten in Landau in der Pfalz. Sharing-Konzept, Lounge-Atmosphäre, Mittagskarte. Jetzt Tisch reservieren: 06341 9304420.">
+<meta name="design_doc_mode" content="page">
+<meta property="og:title" content="District Null41 — Taste Asia. Feel the Vibe.">
+<meta property="og:description" content="Sushi · Moderne asiatische Küche · Cocktails — mitten in Landau in der Pfalz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0A0A0C;color:#F2EDE4;font-family:'Hanken Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#C8A15A;text-decoration:none}
+a:hover{color:#E5C889}
+::selection{background:#B23A2E;color:#F2EDE4}
+#om-grain{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")}
+@keyframes om-scrollline{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes om-marquee{to{transform:translateX(-50%)}}
+@keyframes om-fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes om-glow{0%,100%{opacity:.55}50%{opacity:.9}}
+#om-nav-links{display:flex}
+#om-sticky-call{display:none}
+@media(max-width:820px){#om-nav-links{display:none}#om-sticky-call{display:flex}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"District Null41","alternateName":"Null41","url":"https://districtnull41-landau.de","telephone":"+4963419304420","email":"info@districtnull41-landau.de","priceRange":"€€","servesCuisine":["Japanese","Asian","Sushi"],"acceptsReservations":"True","address":{"@type":"PostalAddress","streetAddress":"Georg-Friedrich-Dentzel-Straße 11","postalCode":"76829","addressLocality":"Landau in der Pfalz","addressRegion":"Rheinland-Pfalz","addressCountry":"DE"},"sameAs":["https://www.instagram.com/districtnull41.landau"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday"],"opens":"11:30","closes":"15:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday"],"opens":"17:00","closes":"22:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday","Sunday"],"opens":"11:30","closes":"22:00"}],"hasMenu":{"@type":"Menu","hasMenuSection":[{"@type":"MenuSection","name":"Speisekarte","hasMenuItem":[{"@type":"MenuItem","name":"Yuzu Salmon","description":"Yuzu-Beurre Blanc, grüner Spargel, Cherrytomaten","offers":{"@type":"Offer","price":"23.00","priceCurrency":"EUR"}},{"@type":"MenuItem","name":"District Steak (Filet)","description":"Japanische Pfeffer-Soße, Pilze, Bimi","offers":{"@type":"Offer","price":"32.00","priceCurrency":"EUR"}},{"@type":"MenuItem","name":"Tuna Teriyaki","description":"Teriyaki, Wasabi-Mayo, Kataifi","offers":{"@type":"Offer","price":"25.00","priceCurrency":"EUR"}}]},{"@type":"MenuSection","name":"Sushikarte","hasMenuItem":[{"@type":"MenuItem","name":"Roll 041 — Chef's Empfehlung","offers":{"@type":"Offer","price":"19.00","priceCurrency":"EUR"}},{"@type":"MenuItem","name":"Moriawase Sashimi (15 Stk.)","offers":{"@type":"Offer","price":"28.00","priceCurrency":"EUR"}}]},{"@type":"MenuSection","name":"Getränkekarte","hasMenuItem":[{"@type":"MenuItem","name":"Null41 Sour","description":"Nikka Whisky, Zitrone, Kirsche, Fee Foam","offers":{"@type":"Offer","price":"11.90","priceCurrency":"EUR"}}]}]}}
+</script>
+</helmet>
+
+<div style="background:#0A0A0C;color:#F2EDE4;overflow-x:clip">
+
+<sc-if value="{{ grain }}" hint-placeholder-val="{{ true }}">
+  <div id="om-grain" style="position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;mix-blend-mode:overlay"></div>
+</sc-if>
+<sc-if value="{{ vignette }}" hint-placeholder-val="{{ true }}">
+  <div style="position:fixed;inset:0;z-index:89;pointer-events:none;background:radial-gradient(ellipse 120% 90% at 50% 45%, transparent 60%, rgba(0,0,0,.5) 100%)"></div>
+</sc-if>
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px clamp(20px,4vw,56px);background:linear-gradient(rgba(10,10,12,.88),rgba(10,10,12,.72));backdrop-filter:blur(14px);border-bottom:1px solid #1c1915">
+  <a href="#top" style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;letter-spacing:.06em;color:#F2EDE4;white-space:nowrap">District <span style="color:#C8A15A">Null41</span></a>
+  <nav id="om-nav-links" aria-label="Hauptnavigation" style="display:flex;gap:clamp(18px,2.6vw,38px);align-items:center;font-size:13px;letter-spacing:.14em;text-transform:uppercase">
+    <a href="#konzept" style="color:#A69C8E" style-hover="color:#E5C889">Konzept</a>
+    <a href="#signature" style="color:#A69C8E" style-hover="color:#E5C889">Signature</a>
+    <a href="#speisekarte" style="color:#A69C8E" style-hover="color:#E5C889">Karten</a>
+    <a href="#lounge" style="color:#A69C8E" style-hover="color:#E5C889">Lounge</a>
+    <a href="#oeffnungszeiten" style="color:#A69C8E" style-hover="color:#E5C889">Kontakt</a>
+  </nav>
+  <a href="tel:063419304420" style="background:#B23A2E;color:#F2EDE4;padding:11px 22px;font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;box-shadow:0 0 0 0 rgba(200,161,90,0)" style-hover="background:#c4453a;box-shadow:0 0 28px 2px rgba(200,161,90,.35);color:#fff">Tisch reservieren</a>
+</header>
+
+<section id="top" data-screen-label="Hero" style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px clamp(20px,5vw,64px) 80px;overflow:hidden">
+  <sc-if value="{{ heroPhoto }}" hint-placeholder-val="{{ true }}">
+    <img src="img/lounge-purple.png" alt="Stimmungsvolle Lounge mit Kerzenlicht im Restaurant District Null41 in Landau" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.34;filter:saturate(.6) sepia(.25) brightness(.8)">
+  </sc-if>
+  <div style="position:absolute;inset:0;background:linear-gradient(rgba(10,10,12,.55),rgba(10,10,12,.35) 40%,#0A0A0C 96%)"></div>
+  <div style="position:absolute;top:-20%;left:50%;width:900px;height:700px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(200,161,90,.16),transparent 65%);animation:om-glow 7s ease-in-out infinite;pointer-events:none"></div>
+  <div style="position:absolute;bottom:-10%;right:-8%;width:600px;height:500px;background:radial-gradient(ellipse at center,rgba(178,58,46,.10),transparent 65%);pointer-events:none"></div>
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:0;max-width:1100px;animation:om-fadeup 1.1s ease both">
+    <p style="margin:0 0 34px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.42em;color:#C8A15A;text-transform:uppercase">District Null41 · Landau i.d. Pfalz · 041</p>
+    <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(52px,9.5vw,148px);line-height:.98;letter-spacing:-.01em;text-wrap:balance">Taste Asia.<br><em style="font-style:italic;color:#C8A15A">Feel the Vibe.</em></h1>
+    <p style="margin:36px 0 0;font-size:clamp(15px,1.6vw,19px);font-weight:300;letter-spacing:.06em;color:#A69C8E">Sushi · Moderne asiatische Küche · Cocktails — mitten in Landau.</p>
+    <p style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);margin:0">Sushi Restaurant und Cocktailbar in Landau in der Pfalz — asiatisches Restaurant mit Mittagstisch in der Südpfalz.</p>
+    <div style="display:flex;gap:18px;margin-top:48px;flex-wrap:wrap;justify-content:center">
+      <a href="tel:063419304420" style="background:#B23A2E;color:#F2EDE4;padding:17px 38px;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase" style-hover="background:#c4453a;box-shadow:0 0 34px 4px rgba(200,161,90,.3)">Tisch reservieren</a>
+      <a href="#speisekarte" style="border:1px solid rgba(200,161,90,.55);color:#C8A15A;padding:17px 38px;font-size:14px;font-weight:500;letter-spacing:.14em;text-transform:uppercase" style-hover="border-color:#E5C889;color:#E5C889;background:rgba(200,161,90,.06)">Speisekarte entdecken</a>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:12px">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:#A69C8E;text-transform:uppercase">Scroll</span>
+    <div style="width:1px;height:52px;background:linear-gradient(#C8A15A,transparent);animation:om-scrollline 2.4s ease-in-out infinite"></div>
+  </div>
+</section>
+
+<section id="konzept" data-screen-label="Konzept" style="position:relative;padding:clamp(90px,12vw,170px) clamp(20px,5vw,64px)">
+  <div aria-hidden="true" style="position:absolute;top:6%;right:2%;font-family:'Cormorant Garamond',serif;font-size:clamp(200px,30vw,460px);line-height:1;color:rgba(200,161,90,.04);user-select:none;pointer-events:none">縁</div>
+  <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(40px,6vw,96px);align-items:start">
+    <div>
+      <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">01 · Willkommen im District</p>
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,4.6vw,68px);line-height:1.08;text-wrap:balance">Ein Ort, an dem gutes Essen <em style="color:#C8A15A">Menschen zusammenbringt.</em></h2>
+    </div>
+    <div style="padding-top:clamp(8px,3vw,52px)">
+      <p style="margin:0;font-size:17px;line-height:1.85;color:#A69C8E;font-weight:300">Mitten in Landau entsteht ein Ort, an dem gutes Essen Menschen zusammenbringt. Inspiriert von asiatischer Genusskultur verbinden wir Sushi, moderne asiatische Küche und kreative Cocktails zu einem Erlebnis, das man am besten gemeinsam genießt.</p>
+      <p style="margin:22px 0 0;font-size:15px;line-height:1.8;color:#6f665b;font-weight:300">Unser Sharing-Konzept lädt dazu ein: Gerichte werden geteilt, Geschmäcker entdeckt — und der Tisch wird zur Bühne des Abends.</p>
+    </div>
+  </div>
+  <div style="max-width:1240px;margin:clamp(64px,8vw,110px) auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#2A2620;border:1px solid #2A2620">
+    <div style="background:#0f0f12;padding:44px 36px" style-hover="background:#131317">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:#C8A15A">01</p>
+      <h3 style="margin:16px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px">Teilen</h3>
+      <p style="margin:0;font-size:14.5px;line-height:1.7;color:#A69C8E;font-weight:300">Viele Gerichte, eine Tischmitte. Alles ist zum Weiterreichen gemacht.</p>
+    </div>
+    <div style="background:#0f0f12;padding:44px 36px" style-hover="background:#131317">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:#C8A15A">02</p>
+      <h3 style="margin:16px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px">Entdecken</h3>
+      <p style="margin:0;font-size:14.5px;line-height:1.7;color:#A69C8E;font-weight:300">Von Sushi bis Clay Pot — jede Runde bringt einen neuen Geschmack.</p>
+    </div>
+    <div style="background:#0f0f12;padding:44px 36px" style-hover="background:#131317">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:#C8A15A">03</p>
+      <h3 style="margin:16px 0 10px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:30px">Genießen</h3>
+      <p style="margin:0;font-size:14.5px;line-height:1.7;color:#A69C8E;font-weight:300">Kerzenlicht, Cocktails und Zeit — Momente, die am Tisch bleiben.</p>
+    </div>
+  </div>
+</section>
+
+<section id="signature" data-screen-label="Signature Highlights" style="padding:clamp(90px,11vw,150px) clamp(20px,5vw,64px);background:#0c0c0f;border-top:1px solid #1c1915">
+  <div style="max-width:1240px;margin:0 auto">
+    <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">02 · Chef's Selection</p>
+    <h2 style="margin:0 0 clamp(48px,6vw,80px);font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,4.6vw,68px);line-height:1.08">Die Aushängeschilder<em style="color:#C8A15A">.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:clamp(40px,5vw,80px);align-items:stretch">
+      <figure style="position:relative;margin:0;overflow:hidden">
+        <img src="img/chopsticks-lachs.png" alt="Roll 041 — Signature Sushi Roll im District Null41, Sushi Restaurant Landau" style="width:100%;height:100%;min-height:420px;object-fit:cover;filter:brightness(.85);transition:transform .8s ease" style-hover="transform:scale(1.04)">
+        <figcaption style="position:absolute;left:0;right:0;bottom:0;padding:32px;background:linear-gradient(transparent,rgba(10,10,12,.92))">
+          <span style="display:inline-block;background:#B23A2E;color:#F2EDE4;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.26em;padding:6px 12px;text-transform:uppercase;margin-bottom:14px">041 · Chef's Empfehlung</span>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px">
+            <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:38px">Roll 041</h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:20px;color:#E5C889">€ 19,0</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:14px;color:#A69C8E">Unsere Signature Roll — vom Sushi-Chef für den District komponiert.</p>
+        </figcaption>
+      </figure>
+      <div style="display:flex;flex-direction:column;justify-content:center">
+        <div style="padding:30px 0;border-bottom:1px solid #2A2620" style-hover="border-bottom-color:#C8A15A">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px">
+            <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,2.6vw,34px)">Yuzu Salmon</h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#C8A15A;white-space:nowrap">€ 23,0</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:14.5px;color:#A69C8E;font-weight:300">Yuzu-Beurre Blanc · Grüner Spargel · Cherrytomaten</p>
+        </div>
+        <div style="padding:30px 0;border-bottom:1px solid #2A2620" style-hover="border-bottom-color:#C8A15A">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px">
+            <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,2.6vw,34px)">District Steak <span style="font-size:.55em;color:#A69C8E;font-family:'Hanken Grotesk',sans-serif;font-weight:400">Filet</span></h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#C8A15A;white-space:nowrap">€ 32,0</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:14.5px;color:#A69C8E;font-weight:300">Japanische Pfeffer-Soße · Pilze · Bimi</p>
+        </div>
+        <div style="padding:30px 0;border-bottom:1px solid #2A2620" style-hover="border-bottom-color:#C8A15A">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px">
+            <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,2.6vw,34px)">Tuna Teriyaki</h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#C8A15A;white-space:nowrap">€ 25,0</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:14.5px;color:#A69C8E;font-weight:300">Teriyaki · Wasabi-Mayo · Kataifi</p>
+        </div>
+        <div style="padding:30px 0" style-hover="border-bottom-color:#C8A15A">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px">
+            <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(26px,2.6vw,34px)">Null41 Sour <span style="font-size:.5em;color:#B23A2E;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;text-transform:uppercase">Signature Cocktail</span></h3>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:18px;color:#C8A15A;white-space:nowrap">€ 11,9</span>
+          </div>
+          <p style="margin:8px 0 0;font-size:14.5px;color:#A69C8E;font-weight:300">Nikka Whisky · Zitrone · Kirsche · Fee Foam</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="speisekarte" data-screen-label="Menü" style="padding:clamp(90px,11vw,150px) clamp(20px,5vw,64px);border-top:1px solid #1c1915">
+  <div style="max-width:1240px;margin:0 auto">
+    <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">03 · Unsere Karten</p>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,64px)">
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,4.6vw,68px);line-height:1.08">Vier Karten, <em style="color:#C8A15A">ein District.</em></h2>
+      <p style="margin:0;max-width:380px;font-size:14.5px;line-height:1.7;color:#A69C8E;font-weight:300">Sushi, moderne asiatische Küche, Mittagstisch und Drinks — alles frisch, alles zum Teilen gedacht.</p>
+    </div>
+    <div role="tablist" aria-label="Menükarten" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:clamp(44px,5vw,72px);border-bottom:1px solid #2A2620;padding-bottom:22px">
+      <button role="tab" onClick="{{ goSpeise }}" style="cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;background:{{ tSpeiseB }};color:{{ tSpeiseC }};border:1px solid {{ tSpeiseBr }}" style-hover="border-color:#C8A15A">Speisekarte</button>
+      <button role="tab" onClick="{{ goSushi }}" style="cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;background:{{ tSushiB }};color:{{ tSushiC }};border:1px solid {{ tSushiBr }}" style-hover="border-color:#C8A15A">Sushikarte</button>
+      <button role="tab" onClick="{{ goMittag }}" style="cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;background:{{ tMittagB }};color:{{ tMittagC }};border:1px solid {{ tMittagBr }}" style-hover="border-color:#C8A15A">Mittagskarte</button>
+      <button role="tab" onClick="{{ goDrinks }}" style="cursor:pointer;font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:13px 26px;background:{{ tDrinksB }};color:{{ tDrinksC }};border:1px solid {{ tDrinksBr }}" style-hover="border-color:#C8A15A">Getränkekarte</button>
+    </div>
+
+    <sc-if value="{{ showSpeise }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:56px clamp(48px,6vw,96px);animation:om-fadeup .5s ease both">
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Suppen</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MISO SUPPE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Wakame · Frühlingszwiebel</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Tofu € 4,9<br>Lachs € 6,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TOMATEN-KOKOS-SUPPE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Garnele · Calamari · Bucherpilze</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 7,5</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Salate</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">LACHS SALAT</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Romanasalat · Gurke · Rotkohl · Avocado · Radieschen · Edamame · gegrillter Lachs · Tomaten · Sesam-Dressing</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MANGO SALAT <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Romanasalat · Gurke · Rotkohl · Mango · Radieschen · Cashewkerne · Koriander · Honig-Mayo · Tomaten · Yuzu-Dressing<br><span style="color:#6f665b">Topping: Tofu +1,0 · Huhn +3,0 · Garnelen +5,0</span></div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CHIRASHI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs Sashimi · Tuna Sashimi · Jakobsmuschel · Garnelen · Wakame · Avocado · Sushi Reis · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 22,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Warm Starters</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">EDAMAME <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Meersalz € 5,0<br>Chili € 6,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">GYOZA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">4 Stk. · Ponzu</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Vegetarisch € 7,0<br>Huhn € 8,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">FRIED PRAWNS</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">4 Stk. knusprig gebackene Riesengarnelen · Honig-Mayo-Mandeln oder Wasabi-Mayo-Schnittlauch</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KARAAGE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Knuspriges Hühnchen nach japanischer Art · Togarashi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 7,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">YASAI TEMPURA <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Saisonales Gemüse · Miso-Hummus</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 7,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MAISKOLBEN <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Kurkuma-Knoblauch-Butter · Parmesan · Spicy-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 7,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CALAMARIS</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Geröstete Reispulver · Togarashi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 8,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PAN <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Milchbrot · Teriyaki-Butter</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 5,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Kindergerichte</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KATSU BENTO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Panierte Hähnchenbrust · Pommes · Dip · Gemüse</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 10,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MAKI BENTO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">6 Stk. Gurken Maki · Tempura Garnele · Dip · Gemüse</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 10,0</div></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Cold Starters</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KIMCHI <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Eingelegter Chinakohl nach Art der Familie</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 6,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TARTAR</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Fein geschnitten in Null41 Soße · Kräuter · Krabben-Chip</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Lachs·Wakame € 11,0<br>Tuna·Wakame € 14,0<br>Rind·Eigelb € 16,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TATAKI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">5 Stk. leicht angebratener Fisch im Sesam-Mantel · Koriander-Soße</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Lachs € 12,0<br>Tuna € 14,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CARPACCIO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Eingelegte Kurkuma-Zwiebel · Koriander · Chili · Limette · Maracuja-Vinaigrette</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Lachs € 11,0<br>Tuna € 13,0<br>Rind € 14,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CEVICHE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Jakobsmuscheln · Zwiebel · Koriander · Chili · Limette · Süßkartoffelpüree</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SUSHI TACOS</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">2 Stk. · Sushi Reis · Avocado · Gurke · Tobiko</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Lachs € 10,0<br>Tuna € 12,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19;background:linear-gradient(90deg,rgba(200,161,90,.06),transparent);margin-top:26px;padding-left:14px" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">VORSPEISEN PLATTE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Edamame · Gyoza · Karaage · Wakame · Yasai Tempura · Tartar — auch vegetarisch möglich</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 22,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Main Dishes <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— ohne Beilage, individuell kombinierbar</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">BUDDHA'S CLAY POT <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tempeh · Tofu · Pilze · Gemüse des Tages · Sojabrühe</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 15,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MISO AUBERGINE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Kräuter · Kataifi · Unagi · Miso-Hummus</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SEAFOOD FRICASSEE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Jakobsmuscheln · Garnelen · Saison-Gemüse · Butter-Knoblauch-Soße</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">UDONARA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Udon · Dashi · Eigelb · Parmesan · Bonito Speck</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 15,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">YUZU SALMON</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Yuzu-Beurre Blanc · Grüner Spargel · Cherrytomaten</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 23,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TUNA TERIYAKI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Teriyaki · Wasabi-Mayo · Kataifi</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 25,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">BARBARIE ENTE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Orangen-Teriyaki · Süßkartoffelpüree · Romanesco · Dumplings</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 23,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">DISTRICT STEAK</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Japanische Pfeffer-Soße · Pilze · Bimi</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Filet € 32,0<br>Cut of the day € 26,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Sides</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2">Reis <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 2,5</span> · Pommes <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,0</span> · Parmesan Garlic Pommes <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,0</span> · Udon Nudeln <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span> · Beilagen Salat <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,5</span> · Gegrilltes Gemüse <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span> · Extra Soße <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 2,5</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Desserts</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TARO BASQUE CHEESECAKE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Käsekuchen mit Kokos-Creme</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 7,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PANDAN MASCARPONE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Pandan-Creme · Mandel-Streusel · Beeren</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 8,5</div></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showSushi }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:56px clamp(48px,6vw,96px);animation:om-fadeup .5s ease both">
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Nigiri <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 2 Stk.</span></h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Sake <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 6,5</span> · Avocado <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,5</span> · Tekka <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span> · Unagi <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span> · Ebi <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 6,5</span> · Ikura <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span> · Hamachi <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Sashimi <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 6 Stk.</span></h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Lachs <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 16,0</span> · Tuna <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 18,0</span> · Hamachi <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 18,0</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MORIAWASE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">15 Stk. · Lachs · Tuna · Hamachi · Scallops</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 28,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Special Nigiri <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 3 Stk.</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">ABURI SAKE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lauchzwiebel · Ikura · Ponzu</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 10,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MAGURO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Ikura · Crispy-Spicy-Nori · Ponzu</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SCALLOP</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Ikura · Crispy-Spicy-Nori · Ponzu</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">RIND</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Teriyaki · Schnittlauch</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 10,5</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Veggie Rolls <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 8 Stk. · Inside Out</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">ASU <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Spargel Tempura · Gurke · Avocadomantel · Miso</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SUNNY <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Mango · Gurke · Avocado · knusprige Reisperlen · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KAMAKURA <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Paprika Tempura · Gurke · Avocadomantel · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Sushi Sets <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— vom Sushi-Chef zusammengestellt</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SOLO RIDE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">8 Mini Tempura · 8 Maki · 2 Nigiri · 3 Sashimi</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 25,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">NULL41 DATE <span style="color:#6f665b;font-size:12px;font-weight:400">2 Pers.</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">4 Nigiri · 4 Sashimi · 16 Maki · 8 Special Roll · 8 Tempura Roll · Tartar</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 60,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CEREMONY <span style="color:#6f665b;font-size:12px;font-weight:400">4 Pers.</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">10 Nigiri · 16 Inside Out · 24 Maki · 8 Special Roll · 16 Tempura Roll · 10 Sashimi · Tartar</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 125,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SOLO VEGGIE <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">8 Mini Tempura · 8 Veggie Roll · 8 Maki</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 19,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">NULL41 DATE VEGGIE <span style="color:#6f665b;font-size:12px;font-weight:400">2 Pers.</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">4 Nigiri · 8 Veggie Roll · 8 Tempura Roll · 16 Maki · Avocado Scheiben</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 39,0</div></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Tempura Rolls <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 8 Stk. · alle mit Frischkäse &amp; Guacamole</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SAKE CRUNCHY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Avocado · Spicy Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TUNA CRUNCHY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tuna · Avocado · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">EBI CRUNCHY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Garnelen · Avocado · Gurke · Spicy Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">YASAI CRUNCHY <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Avocado · Mango · Gurke · Paprika · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 15,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TORI CRUNCHY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Crispy Huhn · Gurke · Spicy-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 15,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SCALLOP CRUNCHY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Avocado · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SAKE MINI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 10,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">AVOCADO MINI <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Avocado · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 9,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Inside Out <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 8 Stk. · alle mit Frischkäse, Tobiko &amp; Honig-Mayo</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">ALASKA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Avocado</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">GOMA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Gurke · Sesammantel</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CALIFORNIA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Surimi · Avocado</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">EBI TEMPURA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tempura Garnelen · Avocado</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 14,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TORI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Crispy Huhn · Gurke · Koriander</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">ANAGO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Aal · Gurke</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 14,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">HOTATE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Jakobsmuscheln · Avocado</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 14,5</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Special Rolls <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 8 Stk. · alle mit Frischkäse &amp; Mango</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0 14px 14px;border-bottom:1px solid #221E19;background:linear-gradient(90deg,rgba(178,58,46,.12),transparent)" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:700;letter-spacing:.04em">ROLL 041 <span style="background:#B23A2E;color:#F2EDE4;font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;padding:3px 8px;text-transform:uppercase;vertical-align:middle">Chef's Empfehlung</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Unsere Signature Roll — für den District komponiert</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#E5C889;white-space:nowrap">€ 19,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">TORA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tempura Garnelen · Avocado · flambierter Lachs · Honig-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">OSAKA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Gurke · Ikura · Avocadomantel · Spicy-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">YOKOHOMA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Surimi Tempura · Avocado · Tunamantel · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SAPPORO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Veggie-Tempura · Lachsmantel · Miso</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KYOTO</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs · Avocado · Lachs Tartar · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 17,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">NARA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tuna · Avocado · Tuna Tartar · Peperoni · Spicy-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 18,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SENDAI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Lachs Tempura · Gurke · Lachsmantel · knusprige Reisperlen · Wasabi-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">FUTO MAKI <span style="color:#6f665b;font-size:12px;font-weight:400">5 Stk.</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tuna · Lachs · Avocado · Gurke · Tobiko · Unagi</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 15,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">NAGOYA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Gegrillte Lachshaut · Gurke · Scallop-Mantel · Tobiko · Spicy-Mayo</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KOBE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Tempura Garnelen · Avocado · flambiertes Rind · Teriyaki</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 18,0</div></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showMittag }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:om-fadeup .5s ease both">
+      <p style="margin:0 0 32px;font-size:14px;color:#A69C8E;font-weight:300">Mittagstisch in Landau — frisch, schnell, fair. <span style="color:#C8A15A">Mo, Mi–So bis 15:00 Uhr.</span></p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:0 clamp(48px,6vw,96px)">
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">CURRY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Cremiges Thai-Curry · Saisongemüse · Jasmin-Reis</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Hühnchen € 10,0<br>Ente € 12,0<br>Tofu € 9,0</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">UDON B</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Udon in Butter-Knoblauch-Soße</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Hühnchen € 10,0<br>Ente € 12,0<br>Tofu € 9,0</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">MISO DUCK</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Knusprige Ente in Miso-Unagi Soße · Salat · Jasmin-Reis</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,0</div></div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">POKÉ BOWL</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Edamame · Wakame · Gurke · Rotkohl · Mango · Radieschen</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap;text-align:right">Lachs € 12,0<br>Tuna € 13,0</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SUSHI SET 1.0</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">5 Tempura Lachs · 8 Inside Out Special · 2 Lachs Nigiri</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 16,0</div></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SUSHI SET VEGGIE <span style="color:#6FA88C;font-size:11px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em">VEGGIE</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">8 Mini Tempura Avocado · 8 Inside Out Veggie · 8 Gurken Maki</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 13,0</div></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showDrinks }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:56px clamp(48px,6vw,96px);animation:om-fadeup .5s ease both">
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Cocktails</h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0 14px 14px;border-bottom:1px solid #221E19;background:linear-gradient(90deg,rgba(178,58,46,.12),transparent)" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:700;letter-spacing:.04em">NULL41 SOUR <span style="background:#B23A2E;color:#F2EDE4;font-size:10px;font-family:'IBM Plex Mono',monospace;letter-spacing:.2em;padding:3px 8px;text-transform:uppercase;vertical-align:middle">Signature</span></div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Nikka Whisky · Zitrone · Zucker · Kirsche · Fee Foam</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#E5C889;white-space:nowrap">€ 11,9</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">IMPERIAL CLOVER</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Roku Gin · Himbeeren · Limette · Fee Foam</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PORNSTAR MARTINI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Vodka · Vanille-Likör · Passionsfrucht · Limette · Shot Secco</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">ESPRESSO MARTINI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Nep Moi · Kahlúa · Espresso · Sternanis</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">OSAKA MULE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Haku Vodka · Ginger Beer · Limette</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 9,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PANDAN</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Nep Moi · Haku Vodka · Pandan · Holunder · Limette</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">LITSCHI MARTINI</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Gin · Litschi · Martini Rosato · Limette</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 11,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">THINK PINK</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Don Julio Tequila · Pink Grapefruit · Limette · Soda · Pink Salt · Agave</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 12,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Aperitif</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Aperol Spritz <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span> · Yuzu Spritz <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,2</span> · Sakura Spritz <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,2</span> · Hugo <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,0</span> · Negroni <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 9,0</span> · Sake warm/kalt <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 7,5</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Bier</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Veltins Pils vom Fass 0,3l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,9</span> / 0,5l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span> · Veltins alkoholfrei <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,9</span> · Maisel's Hell vom Fass 0,3l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,9</span> / 0,5l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span> · Maisel's Weizen (auch alkoholfrei) <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,0</span> · Radler 0,3l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,9</span> / 0,5l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span> · Kirin <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span></div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Homemade Drinks <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 0,4l</span></h3>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">SAKURA</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Sakura · Litschisaft · Limette · Zucker · Soda</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 5,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PINK GRAPEFRUIT</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Pink Grapefruit · Limette · Ginger Beer · Zucker · Soda</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 5,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">HOLUNDER MINZE</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Holundersirup · Minze · Limette · Soda</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 5,5</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">JASMIN-BERRY</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Jasmintee · Erdbeere · Cranberry · Limette · Agave</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 6,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">KURO YUZU</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Schwarzer Tee · Yuzu · Kumquat · Limette · Agave</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 6,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">PASSION</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Schwarzer Tee · Passionsfrucht · Maracuja · Limette · Agave</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 6,0</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px solid #221E19" style-hover="border-bottom-color:#C8A15A"><div><div style="font-weight:600;letter-spacing:.04em">LEMONGRASS</div><div style="font-size:13.5px;color:#A69C8E;margin-top:3px;line-height:1.5">Zitronengrastee · Limette · Agave · Soda</div></div><div style="font-family:'IBM Plex Mono',monospace;font-size:14px;color:#C8A15A;white-space:nowrap">€ 6,0</div></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Alkoholfrei</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Tafelwasser 1l Still/Sprudel <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,9</span> · Wasser 0,75l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 6,5</span> · Cola / Cola Zero / Mezzo Mix / Sprite / Fanta 0,2l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,0</span> · Ginger Ale / Ginger Beer / Bitter Lemon 0,2l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Säfte &amp; Schorlen <span style="color:#6f665b;letter-spacing:.06em;text-transform:none">— 0,2l</span></h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Apfel naturtrüb · Johannisbeere · Maracuja · Litschi · Cranberry je <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,0</span> · Saftschorle 0,4l <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,0</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Kaffee</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Espresso <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 2,5</span> · Doppelter Espresso <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,0</span> · Espresso Macchiato <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 2,9</span> · Americano <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span> · Cappuccino <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span> · Kaffee Crema <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,4</span> · Latte Macchiato <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,0</span> · Cà Phê Vietnam <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,5</span> <span style="color:#6f665b">(Hafermilch je +0,5)</span></div>
+        <h3 style="margin:40px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#C8A15A">Tee</h3>
+        <div style="padding:14px 0;border-bottom:1px solid #221E19;font-size:13.5px;color:#A69C8E;line-height:2.1">Sencha <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span> · Jasmin <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,8</span> · Minze <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 3,5</span> · Ingwer (Honig · Orange) <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 4,5</span> · Yuzu (Kumquats) <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,0</span> · Berry (Beeren-Mix · Minze · Agave) <span style="font-family:'IBM Plex Mono',monospace;color:#C8A15A">€ 5,0</span></div>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+</section>
+
+<section id="lounge" data-screen-label="Lounge" style="padding:clamp(90px,11vw,150px) 0;background:#1A1512;border-top:1px solid #2A2620;overflow:hidden">
+  <div style="max-width:1240px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+    <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">04 · Lounge &amp; Cocktails</p>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:clamp(44px,5vw,72px)">
+      <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,4.6vw,68px);line-height:1.08">Feel the Vibe<em style="color:#C8A15A">.</em></h2>
+      <p style="margin:0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:#A69C8E">Wo der Abend beginnt.</p>
+    </div>
+  </div>
+  <div style="overflow:hidden;margin-bottom:clamp(44px,5vw,72px)" aria-hidden="true">
+    <div style="display:flex;gap:16px;width:max-content;animation:om-marquee 46s linear infinite">
+      <img src="img/lounge-purple.png" alt="" style="height:300px;width:460px;object-fit:cover;filter:brightness(.9)">
+      <img src="img/sake-set.png" alt="" style="height:300px;width:300px;object-fit:cover">
+      <img src="img/restaurant-bar.png" alt="" style="height:300px;width:460px;object-fit:cover;filter:brightness(.85)">
+      <img src="img/sashimi-teller.png" alt="" style="height:300px;width:300px;object-fit:cover">
+      <img src="img/chopsticks-lachs.png" alt="" style="height:300px;width:400px;object-fit:cover">
+      <img src="img/lounge-purple.png" alt="" style="height:300px;width:460px;object-fit:cover;filter:brightness(.9)">
+      <img src="img/sake-set.png" alt="" style="height:300px;width:300px;object-fit:cover">
+      <img src="img/restaurant-bar.png" alt="" style="height:300px;width:460px;object-fit:cover;filter:brightness(.85)">
+      <img src="img/sashimi-teller.png" alt="" style="height:300px;width:300px;object-fit:cover">
+      <img src="img/chopsticks-lachs.png" alt="" style="height:300px;width:400px;object-fit:cover">
+    </div>
+  </div>
+  <div style="max-width:840px;margin:0 auto;padding:0 clamp(20px,5vw,64px)">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 0;border-bottom:1px solid #35291f" style-hover="border-bottom-color:#C8A15A"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600">Null41 Sour <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#B23A2E;letter-spacing:.2em;text-transform:uppercase;vertical-align:middle">Signature</span></div><span style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#C8A15A">€ 11,9</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 0;border-bottom:1px solid #35291f" style-hover="border-bottom-color:#C8A15A"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600">Pornstar Martini</div><span style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#C8A15A">€ 12,0</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 0;border-bottom:1px solid #35291f" style-hover="border-bottom-color:#C8A15A"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600">Pandan</div><span style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#C8A15A">€ 12,5</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 0;border-bottom:1px solid #35291f" style-hover="border-bottom-color:#C8A15A"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600">Osaka Mule</div><span style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#C8A15A">€ 9,5</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:18px 0" style-hover="border-bottom-color:#C8A15A"><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600">Think Pink</div><span style="font-family:'IBM Plex Mono',monospace;font-size:16px;color:#C8A15A">€ 12,0</span></div>
+    <div style="text-align:center;margin-top:36px"><a href="#speisekarte" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:#C8A15A;border-bottom:1px solid rgba(200,161,90,.4);padding-bottom:6px" style-hover="color:#E5C889;border-bottom-color:#E5C889">Zur ganzen Getränkekarte</a></div>
+  </div>
+</section>
+
+<section id="reservieren" data-screen-label="Reservierung" style="position:relative;padding:clamp(110px,14vw,190px) clamp(20px,5vw,64px);text-align:center;border-top:1px solid #1c1915;overflow:hidden">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:1000px;height:600px;background:radial-gradient(ellipse at center,rgba(200,161,90,.12),transparent 65%);pointer-events:none"></div>
+  <div style="position:relative;max-width:820px;margin:0 auto">
+    <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">05 · Reservierung</p>
+    <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,5.2vw,72px);line-height:1.08;text-wrap:balance">Jetzt telefonisch einen <em style="color:#C8A15A">Tisch sichern.</em></h2>
+    <p style="margin:28px auto 0;max-width:560px;font-size:16px;line-height:1.8;color:#A69C8E;font-weight:300">Sichere dir deinen Platz für einen entspannten Abend im District Null41. Wir empfehlen dir, vorab zu reservieren, damit du unsere frische asiatische Küche ganz in Ruhe genießen kannst.</p>
+    <a href="tel:063419304420" style="display:inline-block;margin-top:44px;background:#B23A2E;color:#F2EDE4;padding:24px 54px;font-family:'IBM Plex Mono',monospace;font-size:clamp(22px,3.4vw,34px);letter-spacing:.08em;box-shadow:0 0 0 0 rgba(200,161,90,0);transition:box-shadow .4s ease" style-hover="box-shadow:0 0 46px 6px rgba(200,161,90,.35);background:#c4453a">06341 9304420</a>
+    <p style="margin:20px 0 0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.28em;color:#6f665b;text-transform:uppercase">Tippen zum Anrufen · täglich außer dienstags</p>
+  </div>
+</section>
+
+<section id="oeffnungszeiten" data-screen-label="Öffnungszeiten &amp; Location" style="padding:clamp(90px,11vw,150px) clamp(20px,5vw,64px);background:#0c0c0f;border-top:1px solid #1c1915">
+  <div style="max-width:1240px;margin:0 auto">
+    <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">06 · Öffnungszeiten &amp; Location</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(48px,6vw,110px);align-items:start">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:28px">
+          <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,3.4vw,46px)">Öffnungszeiten</h2>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border:1px solid {{ statusBorder }};color:{{ statusColor }}">{{ openStatus }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC0 }};font-weight:{{ dW0 }}">Montag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC0 }}">11:30–15:00 &amp; 17:00–22:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC1 }};font-weight:{{ dW1 }}">Dienstag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:#B23A2E">Geschlossen</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC2 }};font-weight:{{ dW2 }}">Mittwoch</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC2 }}">11:30–15:00 &amp; 17:00–22:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC3 }};font-weight:{{ dW3 }}">Donnerstag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC3 }}">11:30–15:00 &amp; 17:00–22:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC4 }};font-weight:{{ dW4 }}">Freitag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC4 }}">11:30–22:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid #221E19;font-size:15px"><span style="color:{{ dC5 }};font-weight:{{ dW5 }}">Samstag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC5 }}">11:30–22:00</span></div>
+        <div style="display:flex;justify-content:space-between;gap:20px;padding:13px 0;font-size:15px"><span style="color:{{ dC6 }};font-weight:{{ dW6 }}">Sonntag</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:{{ dC6 }}">11:30–22:00</span></div>
+      </div>
+      <div>
+        <h2 style="margin:0 0 28px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(32px,3.4vw,46px)">Mitten in Landau</h2>
+        <address style="font-style:normal;font-size:16px;line-height:2;color:#A69C8E;font-weight:300">
+          District Null41<br>
+          Georg-Friedrich-Dentzel-Straße 11<br>
+          76829 Landau in der Pfalz<br><br>
+          <a href="tel:063419304420">06341 9304420</a><br>
+          <a href="mailto:info@districtnull41-landau.de">info@districtnull41-landau.de</a>
+        </address>
+        <div style="margin-top:32px;position:relative;height:240px;background:#131317;border:1px solid #2A2620;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px">
+          <p style="margin:0;font-size:14px;color:#A69C8E;max-width:320px;line-height:1.7">Karte wird erst nach deiner Einwilligung geladen <span style="color:#6f665b">(DSGVO · Two-Click)</span></p>
+          <button style="cursor:pointer;background:transparent;border:1px solid rgba(200,161,90,.55);color:#C8A15A;padding:12px 26px;font-family:'Hanken Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase" style-hover="border-color:#E5C889;color:#E5C889">Karte laden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="instagram" data-screen-label="Instagram" style="padding:clamp(90px,11vw,150px) clamp(20px,5vw,64px);border-top:1px solid #1c1915">
+  <div style="max-width:1240px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,64px)">
+      <div>
+        <p style="margin:0 0 20px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.36em;color:#C8A15A;text-transform:uppercase">07 · Mehr Einblicke</p>
+        <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(38px,4.6vw,68px)">Aus dem District<em style="color:#C8A15A">.</em></h2>
+      </div>
+      <a href="https://www.instagram.com/districtnull41.landau" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.18em;color:#C8A15A;border-bottom:1px solid rgba(200,161,90,.4);padding-bottom:6px" style-hover="color:#E5C889;border-bottom-color:#E5C889">@districtnull41.landau ↗</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/noodle-bowl.png" alt="Frische Udon-Nudeln im asiatischen Restaurant District Null41 Landau" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/sashimi-teller.png" alt="Hamachi Sashimi — Sushi in Landau in der Pfalz" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/sake-set.png" alt="Sake-Auswahl in der Cocktailbar District Null41 Landau" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/chopsticks-lachs.png" alt="Lachs Sashimi mit Stäbchen — District Null41" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/restaurant-bar.png" alt="Bar und Restaurant District Null41 in Landau" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+      <div style="overflow:hidden;aspect-ratio:1"><img src="img/lounge-purple.png" alt="Lounge-Atmosphäre am Abend — Cocktailbar Landau" style="width:100%;height:100%;object-fit:cover;transition:transform .7s ease" style-hover="transform:scale(1.07)"></div>
+    </div>
+  </div>
+</section>
+
+<footer style="padding:clamp(70px,9vw,120px) clamp(20px,5vw,64px) 46px;background:#070709;border-top:1px solid #1c1915">
+  <div style="max-width:1240px;margin:0 auto">
+    <p style="margin:0 0 60px;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(44px,7vw,110px);line-height:1;letter-spacing:.01em">District <span style="color:#C8A15A">Null41</span></p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:44px;padding-bottom:56px;border-bottom:1px solid #1c1915">
+      <div>
+        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:#C8A15A;text-transform:uppercase">Adresse</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.9;color:#A69C8E;font-weight:300">Georg-Friedrich-Dentzel-Straße 11<br>76829 Landau in der Pfalz</p>
+      </div>
+      <div>
+        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:#C8A15A;text-transform:uppercase">Kontakt</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.9;color:#A69C8E;font-weight:300"><a href="tel:063419304420">06341 9304420</a><br><a href="mailto:info@districtnull41-landau.de">info@districtnull41-landau.de</a><br><a href="https://www.instagram.com/districtnull41.landau" target="_blank" rel="noopener">@districtnull41.landau</a></p>
+      </div>
+      <div>
+        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:#C8A15A;text-transform:uppercase">Öffnungszeiten</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.9;color:#A69C8E;font-weight:300">Mo, Mi–Do 11:30–15:00 &amp; 17:00–22:00<br>Fr–So 11:30–22:00<br>Dienstag Ruhetag</p>
+      </div>
+      <div>
+        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:#C8A15A;text-transform:uppercase">Rechtliches</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.9;font-weight:300"><a href="#impressum" style="color:#A69C8E" style-hover="color:#E5C889">Impressum</a><br><a href="#datenschutz" style="color:#A69C8E" style-hover="color:#E5C889">Datenschutz</a></p>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:28px">
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#6f665b">© 2026 DISTRICT NULL41 · LANDAU IN DER PFALZ</p>
+      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.4em;color:#C8A15A">— 041 —</p>
+    </div>
+  </div>
+</footer>
+
+<div id="om-sticky-call" style="position:fixed;bottom:0;left:0;right:0;z-index:85;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(10,10,12,.92);backdrop-filter:blur(12px);border-top:1px solid #2A2620;justify-content:center">
+  <a href="tel:063419304420" style="display:block;width:100%;max-width:480px;text-align:center;background:#B23A2E;color:#F2EDE4;padding:15px 20px;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase">Reservieren · 06341 9304420</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphäre&quot;},&quot;vignette&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Atmosphäre&quot;},&quot;heroPhoto&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+class Component extends DCLogic {
+  state = { menu: 'speise' };
+  renderVals() {
+    const m = this.state.menu;
+    const tab = (id) => ({
+      B: m === id ? '#C8A15A' : 'transparent',
+      C: m === id ? '#0A0A0C' : '#A69C8E',
+      Br: m === id ? '#C8A15A' : '#2A2620'
+    });
+    const ts = tab('speise'), tu = tab('sushi'), tm = tab('mittag'), td = tab('drinks');
+    // Öffnungszeiten: 0=Mo … 6=So (JS getDay: 0=So)
+    const hours = [
+      [[11.5, 15], [17, 22]], null, [[11.5, 15], [17, 22]], [[11.5, 15], [17, 22]],
+      [[11.5, 22]], [[11.5, 22]], [[11.5, 22]]
+    ];
+    const now = new Date();
+    const day = (now.getDay() + 6) % 7;
+    const t = now.getHours() + now.getMinutes() / 60;
+    const todays = hours[day];
+    const open = !!todays && todays.some(([a, b]) => t >= a && t < b);
+    const vals = {
+      grain: this.props.grain ?? true,
+      vignette: this.props.vignette ?? true,
+      heroPhoto: this.props.heroPhoto ?? true,
+      showSpeise: m === 'speise', showSushi: m === 'sushi', showMittag: m === 'mittag', showDrinks: m === 'drinks',
+      goSpeise: () => this.setState({ menu: 'speise' }),
+      goSushi: () => this.setState({ menu: 'sushi' }),
+      goMittag: () => this.setState({ menu: 'mittag' }),
+      goDrinks: () => this.setState({ menu: 'drinks' }),
+      tSpeiseB: ts.B, tSpeiseC: ts.C, tSpeiseBr: ts.Br,
+      tSushiB: tu.B, tSushiC: tu.C, tSushiBr: tu.Br,
+      tMittagB: tm.B, tMittagC: tm.C, tMittagBr: tm.Br,
+      tDrinksB: td.B, tDrinksC: td.C, tDrinksBr: td.Br,
+      openStatus: todays ? (open ? 'Jetzt geöffnet' : 'Aktuell geschlossen') : 'Heute Ruhetag',
+      statusColor: open ? '#6FA88C' : '#B23A2E',
+      statusBorder: open ? 'rgba(111,168,140,.5)' : 'rgba(178,58,46,.5)'
+    };
+    for (let i = 0; i < 7; i++) {
+      vals['dC' + i] = i === day ? '#E5C889' : (i === 1 ? '#6f665b' : '#A69C8E');
+      vals['dW' + i] = i === day ? 600 : 400;
+    }
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

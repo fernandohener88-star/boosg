@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://districtnull41-landau.de/sitemap.xml

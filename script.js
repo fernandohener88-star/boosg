@@ -171,6 +171,30 @@
     start();
   }
 
+  function initHamburger() {
+    var btn = document.querySelector('.sc-hamburger');
+    var nav = document.querySelector('.sc-mobile-nav');
+    if (!btn || !nav) return;
+    var mobileLinks = nav.querySelectorAll('.sc-mobile-link, .sc-mobile-cta');
+    function close() {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('is-open');
+      nav.classList.remove('is-open');
+      nav.setAttribute('aria-hidden', 'true');
+    }
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      if (open) { close(); } else {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('is-open');
+        nav.classList.add('is-open');
+        nav.setAttribute('aria-hidden', 'false');
+      }
+    });
+    mobileLinks.forEach(function (link) { link.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
   ready(function () {
     initReveal();
     initScroll();
@@ -178,6 +202,7 @@
     initCookie();
     initTilt();
     initSmoke();
+    initHamburger();
   });
 
   window.addEventListener('beforeunload', function () { if (cleanupSmoke) cleanupSmoke(); });

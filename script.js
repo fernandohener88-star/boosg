@@ -174,6 +174,7 @@
   function initHamburger() {
     var btn = document.querySelector('.sc-hamburger');
     var nav = document.querySelector('.sc-mobile-nav');
+    var header = document.getElementById('sc-header');
     if (!btn || !nav) return;
     var mobileLinks = nav.querySelectorAll('.sc-mobile-link, .sc-mobile-cta');
     function close() {
@@ -181,6 +182,7 @@
       btn.classList.remove('is-open');
       nav.classList.remove('is-open');
       nav.setAttribute('aria-hidden', 'true');
+      if (header) header.classList.remove('sc-nav-open');
     }
     btn.addEventListener('click', function () {
       var open = btn.getAttribute('aria-expanded') === 'true';
@@ -189,6 +191,7 @@
         btn.classList.add('is-open');
         nav.classList.add('is-open');
         nav.setAttribute('aria-hidden', 'false');
+        if (header) header.classList.add('sc-nav-open');
       }
     });
     mobileLinks.forEach(function (link) { link.addEventListener('click', close); });

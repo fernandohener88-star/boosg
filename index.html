@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diamond's Bellheim – Shisha Bar & Cocktail Lounge | Täglich ab 18 Uhr</title>
+<meta name="description" content="Shisha, Cocktails & Sound in Bellheim. Premium-Shishas, Signature Drinks, Take-Away & Lieferung. Täglich ab 18:00, samstags bis 3 Uhr. Jetzt Tisch sichern.">
+<!-- TODO: canonical auf echte Domain setzen sobald sie feststeht + OG-Bild 1200x630 unter /assets/img/og.jpg ablegen -->
+<link rel="canonical" href="https://diamonds-bellheim.de/">
+<meta property="og:title" content="Diamond's Bellheim – Shisha Bar & Cocktail Lounge">
+<meta property="og:description" content="Shisha, Cocktails & Sound in Bellheim. Täglich ab 18:00, samstags bis 3 Uhr.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://diamonds-bellheim.de/">
+<meta property="og:image" content="https://diamonds-bellheim.de/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#08060A">
+
+<!--
+  SCHRIFTEN — bewusst KEIN Google-Fonts-CDN (DSGVO: das würde bei jedem Seitenaufruf
+  eine Verbindung zu fonts.gstatic.com samt IP-Übertragung auslösen).
+  TODO: Bodoni Moda / Yellowtail / Sora ebenso als woff2 selbst hosten und die
+  @font-face-Blöcke unten aktivieren. Bis dahin greifen sichere System-Font-Stacks
+  für Headlines/Body/Neon-Zitate.
+-->
+<style>
+  /* @font-face{font-family:'Bodoni Moda';src:url('/assets/fonts/bodoni-moda-800.woff2') format('woff2');font-weight:800;font-display:swap}
+     @font-face{font-family:'Bodoni Moda';src:url('/assets/fonts/bodoni-moda-600.woff2') format('woff2');font-weight:600;font-display:swap}
+     @font-face{font-family:'Yellowtail';src:url('/assets/fonts/yellowtail.woff2') format('woff2');font-weight:400;font-display:swap}
+     @font-face{font-family:'Sora';src:url('/assets/fonts/sora-400.woff2') format('woff2');font-weight:400;font-display:swap} */
+
+  :root{
+    --void:        #08060A;
+    --obsidian:    #100C14;
+    --smoke:       #1B1520;
+    --ash:         #2A2230;
+    --magenta:     #FF2E88;
+    --amber:       #FFB347;
+    --gold:        #C9A227;
+    --gold-bright: #F2D785;
+    --pearl:       #F6F2F7;
+    --mute:        #9A8FA3;
+    --radius:      20px;
+    --radius-sm:   14px;
+    --glow-pink:   0 0 8px rgba(255,46,136,.9), 0 0 28px rgba(255,46,136,.55), 0 0 60px rgba(255,46,136,.25);
+    --glow-amber:  0 0 8px rgba(255,179,71,.9), 0 0 30px rgba(255,179,71,.45);
+    --font-display: Georgia, 'Times New Roman', 'Noto Serif', serif;
+    --font-script:  'Segoe Script', 'Bradley Hand', 'Brush Script MT', cursive;
+    --font-body:    -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  [id]{scroll-margin-top:96px}
+  body{margin:0;background:var(--void);color:var(--pearl);font-family:var(--font-body);font-weight:400;line-height:1.65;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold-bright);text-decoration:none}
+  a:hover{color:var(--magenta)}
+  img{max-width:100%;display:block}
+  ::selection{background:var(--magenta);color:var(--void)}
+  *:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .eyebrow{margin:0 0 14px;font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase}
+  .h2{margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(32px,4.5vw,54px);line-height:1.1}
+  .lede{margin:0;color:var(--mute);font-size:16px;line-height:1.65}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+  .wrap-narrow{max-width:1080px;margin:0 auto;padding:0 24px}
+  .pill{border-radius:999px}
+
+  .skip-link{position:absolute;left:12px;top:-60px;z-index:200;background:var(--gold);color:var(--void);padding:10px 18px;border-radius:0 0 8px 8px;font-size:13px;font-weight:600;transition:top .2s}
+  .skip-link:focus{top:0}
+
+  /* noise overlay */
+  .noise{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>')}
+
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:80;transition:background .4s,border-color .4s;background:transparent;border-bottom:1px solid transparent}
+  header.scrolled{background:rgba(8,6,10,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,162,39,.4)}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo-box{display:flex;align-items:center;gap:10px;padding:9px 18px;background:var(--obsidian);border:1px solid var(--ash);border-radius:10px}
+  .logo-text{display:flex;flex-direction:column;gap:5px;line-height:1.1}
+  .logo{font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:.16em;color:var(--pearl)}
+  .logo-divider{width:100%;height:1px;background:linear-gradient(90deg,var(--magenta),var(--gold-bright))}
+  .logo-tag{font-size:8px;letter-spacing:.22em;color:var(--mute);text-transform:uppercase}
+  nav.main-nav{display:flex;gap:28px}
+  nav.main-nav a{color:var(--mute);font-size:13px;letter-spacing:.08em}
+  .header-right{display:flex;align-items:center;gap:14px}
+  .status-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--ash);border-radius:999px;padding:7px 14px;font-size:12px;color:var(--pearl);background:rgba(16,12,20,.6)}
+  .status-dot{width:8px;height:8px;border-radius:50%}
+  .status-dot.open{background:#3DDC84;animation:dm-pulse 2s infinite}
+  .status-dot.closed{background:var(--amber);opacity:.7}
+  .btn{display:inline-block;font-weight:600;font-size:15px;padding:16px 34px;transition:box-shadow .3s,background .3s;cursor:pointer;border:none;font-family:inherit}
+  .btn-magenta{background:var(--magenta);color:var(--void)}
+  .btn-magenta:hover{box-shadow:var(--glow-pink);color:var(--void)}
+  .btn-gold{background:linear-gradient(120deg,var(--gold-bright),var(--gold));color:var(--void);display:inline-flex;align-items:center;gap:8px}
+  .btn-gold:hover{box-shadow:var(--glow-amber);color:var(--void)}
+  .btn-ghost{border:1px solid var(--gold);color:var(--gold-bright);background:none}
+  .btn-ghost:hover{background:rgba(201,162,39,.12);color:var(--gold-bright)}
+  .btn-header{font-size:13px;padding:10px 20px}
+
+  /* mobile nav (Burger + Overlay) */
+  .nav-toggle{display:none}
+  .mobile-nav{display:none}
+
+  @keyframes dm-pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}}
+  @keyframes dm-flicker{0%,100%{opacity:1}97.5%{opacity:1}98%{opacity:.55}98.5%{opacity:1}99.2%{opacity:.75}99.5%{opacity:1}}
+  @keyframes dm-rise{from{opacity:0;transform:translateY(42px)}to{opacity:1;transform:none}}
+
+  [data-reveal]{opacity:0;transform:translateY(42px)}
+  [data-reveal].is-visible{animation:dm-rise .9s cubic-bezier(.16,1,.3,1) both}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+    [data-reveal]{opacity:1 !important;transform:none !important}
+  }
+
+  /* hero */
+  .hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:var(--void)}
+  .hero-bg{position:absolute;inset:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-bg-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;text-align:center;padding:0 24px 6vh;
+    background:radial-gradient(circle at 28% 22%,rgba(139,54,224,.30),transparent 55%),radial-gradient(circle at 76% 78%,rgba(255,46,136,.24),transparent 55%),var(--obsidian);
+    color:var(--mute);font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.6}
+  .hero-bg-placeholder svg{opacity:.5}
+  .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(8,6,10,.62),rgba(8,6,10,.42) 38%,rgba(8,6,10,.82) 100%)}
+  .bloom{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;transition:background 1.2s}
+  .bloom-1{top:-10%;left:-10%;width:55vw;height:55vw}
+  .bloom-2{bottom:-15%;right:-5%;width:48vw;height:48vw}
+  .bloom-3{top:30%;left:45%;width:38vw;height:38vw}
+  .diamond-pattern{position:absolute;inset:0;opacity:.04;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><polygon points="28,4 52,28 28,52 4,28" fill="none" stroke="%23C9A227"/></svg>');background-size:56px 56px}
+  .hero-inner{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:120px 24px 60px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .hero-kicker{margin:0 0 28px;font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;animation:dm-rise .9s cubic-bezier(.16,1,.3,1) both}
+  .hero-wordmark{margin:0;font-family:var(--font-display);font-weight:800;text-transform:uppercase;
+    font-size:clamp(52px,12vw,148px);line-height:.95;letter-spacing:.04em;
+    display:inline-flex;align-items:center;justify-content:center;gap:.06em;
+    animation:dm-rise .9s .08s cubic-bezier(.16,1,.3,1) both}
+  .hero-wordmark .wm{background:linear-gradient(180deg,#FCE8BE 0%,#F2D785 40%,#C9A227 74%,#9C7B1E 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 2px 20px rgba(201,162,39,.4))}
+  .hero-wordmark .wm-gem{width:.62em;height:.62em;flex:none;filter:drop-shadow(0 2px 16px rgba(255,46,136,.45))}
+  .hero-tagline{margin:30px 0 0;font-family:var(--font-display);font-style:italic;font-weight:600;font-size:clamp(20px,3.2vw,32px);color:var(--gold-bright);max-width:640px;line-height:1.35;animation:dm-rise .9s .2s cubic-bezier(.16,1,.3,1) both}
+  .hero-sub{max-width:520px;margin:20px auto 0;color:var(--mute);font-size:16px;line-height:1.65;animation:dm-rise .9s .3s cubic-bezier(.16,1,.3,1) both}
+  .rating-chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ash);border-radius:999px;padding:10px 20px;margin-top:32px;font-size:14px;background:rgba(16,12,20,.5);animation:dm-rise .9s .38s cubic-bezier(.16,1,.3,1) both}
+  .hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:32px;animation:dm-rise .9s .46s cubic-bezier(.16,1,.3,1) both}
+  .hero-ctas .btn{border-radius:999px}
+  .hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:36px;font-size:12px;color:var(--mute);animation:dm-rise .9s .54s cubic-bezier(.16,1,.3,1) both}
+
+  .photo-slot{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;background:radial-gradient(circle at 30% 20%,rgba(139,54,224,.28),transparent 55%),radial-gradient(circle at 75% 80%,rgba(255,46,136,.22),transparent 55%),var(--smoke);border:1px dashed rgba(201,162,39,.4);color:var(--mute);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
+  /* quick status */
+  .quick-status{background:var(--void);padding:0 0 100px}
+  .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .quick-card{background:var(--obsidian);border:1px solid var(--ash);border-radius:var(--radius);padding:36px 34px;position:relative;overflow:hidden}
+  .quick-card.accent{background:linear-gradient(160deg,#1B1520,rgba(255,46,136,.16));border-color:rgba(255,46,136,.35)}
+  .quick-card.accent::before{content:'';position:absolute;top:-30%;right:-20%;width:60%;height:60%;background:radial-gradient(circle,rgba(255,46,136,.35),transparent 70%);filter:blur(50px);pointer-events:none}
+  .quick-card h3{margin:0 0 20px;font-family:var(--font-display);font-weight:800;font-size:24px;position:relative}
+  .quick-card .status-chip{margin-bottom:22px;position:relative}
+  .quick-hours{width:100%;border-collapse:collapse;position:relative}
+  .quick-hours td{padding:7px 0;font-size:14px;color:var(--mute);border-bottom:1px solid rgba(42,34,48,.5)}
+  .quick-hours tr:last-child td{border-bottom:none}
+  .quick-hours td.val{color:var(--pearl);font-weight:600;text-align:right}
+  .quick-note{margin:18px 0 0;font-size:12px;color:var(--mute);position:relative}
+
+  /* der raum */
+  .raum{position:relative;background:var(--obsidian);padding:110px 0 90px;clip-path:polygon(0 0,100% 3%,100% 100%,0 97%)}
+  .raum-gallery{display:flex;gap:20px;overflow-x:auto;padding:56px 24px 24px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .raum-gallery figure{position:relative;flex:0 0 auto;height:560px;scroll-snap-align:center;margin:0}
+  .raum-gallery figure .photo-slot{clip-path:var(--mask)}
+  .neon-quote{position:relative;z-index:2;margin:70px auto 0;max-width:1280px;padding:0 24px;font-family:var(--font-script);font-size:clamp(30px,5vw,58px);text-align:center;animation:dm-flicker 6s infinite}
+  .neon-pink{color:#FF9BC8;text-shadow:var(--glow-pink)}
+  @media (prefers-reduced-motion: reduce){.neon-quote{animation:none}}
+
+  /* shisha */
+  .shisha-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start}
+  .flavor-chips{display:flex;flex-wrap:wrap;gap:10px;max-width:520px}
+  .flavor-chip{cursor:pointer;font-family:inherit;font-size:13px;padding:10px 20px;border-radius:999px;transition:all .3s;border:1px solid var(--ash);background:none;color:var(--mute)}
+  .flavor-chip.active{background:rgba(255,255,255,.06);color:var(--pearl)}
+  .addon-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .addon-pill{border:1px solid var(--ash);border-radius:999px;padding:8px 16px;font-size:12px;color:var(--mute)}
+  .price-cards{display:grid;gap:14px}
+  .price-card{background:var(--smoke);border:1px solid var(--ash);border-radius:var(--radius-sm);padding:30px 28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .price-card.signature{background:linear-gradient(135deg,#1B1520 60%,rgba(255,46,136,.12));border-color:var(--gold)}
+  .price-card h3{margin:0 0 6px;font-family:var(--font-display);font-size:22px;font-weight:600}
+  .price-card.signature h3{color:var(--gold-bright)}
+  .price-card p{margin:0;color:var(--mute);font-size:14px;line-height:1.6}
+  .price-card .price{color:var(--gold-bright);font-size:15px;white-space:nowrap}
+
+  /* nights */
+  .days-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  .day-card{padding:26px 22px;background:var(--obsidian);border:1px solid var(--ash);border-radius:var(--radius-sm)}
+  .day-card.saturday{background:linear-gradient(160deg,#1B1520,rgba(255,46,136,.14))}
+  .day-card.today{border-color:var(--gold);box-shadow:0 0 24px rgba(201,162,39,.25)}
+  .day-card .label{margin:0;font-size:11px;letter-spacing:.2em;color:var(--mute)}
+  .day-card.today .label{color:var(--gold-bright)}
+  .day-card .motto{margin:12px 0 4px;font-family:var(--font-display);font-size:19px;font-weight:600;line-height:1.2}
+  .day-card .hours{margin:0;color:var(--mute);font-size:13px}
+  .day-card .today-badge{display:none;margin:14px 0 0;font-size:11px;letter-spacing:.18em;color:var(--gold-bright)}
+  .day-card.today .today-badge{display:block}
+
+  /* social proof */
+  .proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center}
+  .rating-num{margin:0;font-family:var(--font-display);font-weight:800;font-size:clamp(90px,10vw,130px);line-height:1;background:linear-gradient(120deg,#F2D785,#C9A227);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .working-on{margin-top:32px;border:1px solid var(--gold);border-radius:var(--radius-sm);padding:20px 24px;max-width:400px}
+  .working-on p:first-child{margin:0 0 6px;font-size:11px;letter-spacing:.24em;color:var(--gold)}
+  .working-on p:last-child{margin:0;color:var(--pearl);font-size:14px;line-height:1.6}
+  .reviews{display:grid;gap:16px}
+  .review{margin:0;background:var(--smoke);border:1px solid var(--ash);border-top:3px solid var(--gold);border-radius:var(--radius-sm);padding:26px 28px}
+  .review:nth-child(2){margin-left:32px}
+  .review p{margin:0 0 10px;font-size:15px;line-height:1.6}
+  .review footer{color:var(--mute);font-size:12px}
+
+  /* reservierung */
+  .reservierung{background:var(--obsidian);padding:120px 0;clip-path:polygon(0 4%,100% 0,100% 100%,0 100%)}
+  .reserve-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:64px}
+  form.reserve-form{display:grid;gap:16px;background:var(--smoke);border:1px solid var(--ash);border-radius:var(--radius);padding:36px 32px}
+  form.reserve-form label{display:grid;gap:8px;font-size:12px;letter-spacing:.12em;color:var(--mute)}
+  form.reserve-form input,form.reserve-form select{background:var(--obsidian);border:1px solid var(--ash);color:var(--pearl);padding:13px 16px;font-size:15px;font-family:inherit;border-radius:10px;width:100%}
+  form.reserve-form input[type="date"]{color-scheme:dark}
+  .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .stepper{display:flex;align-items:center;border:1px solid var(--ash);background:var(--obsidian);border-radius:10px}
+  .stepper button{background:none;border:none;color:var(--gold-bright);font-size:20px;padding:10px 16px;cursor:pointer;font-family:inherit}
+  .stepper span{flex:1;text-align:center;font-size:15px;color:var(--pearl)}
+  form.reserve-form label.consent-row{display:flex;gap:10px;align-items:flex-start;font-size:12px;letter-spacing:0;color:var(--mute);line-height:1.5;cursor:pointer}
+  form.reserve-form label.consent-row input{margin-top:2px;accent-color:var(--gold);width:auto;flex:none}
+  .btn-block{display:block;width:100%;text-align:center;border-radius:999px}
+  .form-hint{margin:0;text-align:center;font-size:11px;color:var(--mute)}
+
+  /* location */
+  .location-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:start}
+  address{font-style:normal;color:var(--pearl);font-size:16px;line-height:1.8}
+  address span{color:var(--mute);font-size:13px}
+  .hours-table{margin-top:28px;border-collapse:collapse;font-size:14px;color:var(--mute)}
+  .hours-table caption{text-align:left;font-size:11px;letter-spacing:.24em;color:var(--gold);padding-bottom:12px}
+  .hours-table td{padding:4px 24px 4px 0}
+  .hours-table td.val{color:var(--pearl)}
+  .hours-table td.val.sat{color:var(--gold-bright)}
+  .map-box{position:relative;min-height:380px;border:1px solid var(--ash);border-radius:var(--radius);overflow:hidden;background:var(--obsidian)}
+  .map-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}
+  .map-btn{background:none;border:1px solid var(--gold);border-radius:999px;color:var(--gold-bright);padding:12px 26px;font-size:14px;font-family:inherit;cursor:pointer}
+  /* echte OSM-Karte als statische Kacheln (kein iframe → keine Zoom-/Overlay-Buttons) */
+  .map-tiles{position:absolute;inset:0;overflow:hidden}
+  .map-tiles img{position:absolute;width:256px;height:256px;max-width:none;pointer-events:none;-webkit-user-select:none;user-select:none}
+  .map-marker{position:absolute;z-index:2;transform:translate(-50%,-100%);pointer-events:none;filter:drop-shadow(0 3px 8px rgba(0,0,0,.55))}
+  .map-credit{position:absolute;right:6px;bottom:4px;z-index:2;font-size:9px;line-height:1;color:rgba(246,242,247,.55);text-shadow:0 1px 2px rgba(0,0,0,.9)}
+  .map-credit a{color:inherit;text-decoration:none}
+
+  /* footer */
+  footer.site-footer{margin-top:100px;border-top:1px solid var(--ash)}
+  .footer-inner{max-width:1280px;margin:0 auto;padding:44px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:28px}
+  .footer-inner .addr{font-style:normal;color:var(--pearl);font-size:14px;line-height:1.7}
+  .footer-inner .addr span{color:var(--mute);font-size:12px}
+  .footer-col h3{margin:0 0 12px;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+  .footer-col a{display:block;color:var(--mute);font-size:13px;margin-bottom:8px}
+  .footer-bottom{border-top:1px solid var(--ash);padding:20px 24px;text-align:center;color:var(--mute);font-size:12px}
+
+  /* sticky mobile bar */
+  .mobile-bar{display:none}
+
+  section{position:relative}
+  section.pad{padding:120px 0}
+
+  /* ══════════ BURGER-NAVIGATION (Handy + Tablet) ══════════
+     Bis 960px passen Logo + 5 Nav-Links + Status-Chip + CTA nicht in eine Zeile –
+     darunter übernimmt der Burger, der Header bleibt luftig. */
+  @media (max-width:960px){
+    nav.main-nav, .btn-header{display:none}
+
+    .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;flex:none;padding:0 11px;
+      background:var(--obsidian);border:1px solid var(--ash);border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .nav-toggle span{display:block;height:1.5px;border-radius:2px;background:var(--gold-bright);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+    /* Overlay liegt unter dem Header – Logo & Burger bleiben sichtbar */
+    .mobile-nav{position:fixed;inset:0;z-index:79;display:flex;flex-direction:column;justify-content:center;
+      padding:96px 26px calc(30px + env(safe-area-inset-bottom));
+      background:radial-gradient(circle at 78% 12%,rgba(255,46,136,.14),transparent 58%),rgba(8,6,10,.96);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+    .mobile-nav.open{opacity:1;visibility:visible}
+    .mobile-nav nav{display:flex;flex-direction:column;max-width:460px;width:100%;margin:0 auto}
+    .mn-link{display:block;padding:17px 2px;font-family:var(--font-display);font-weight:600;font-size:27px;line-height:1.15;
+      color:var(--pearl);border-bottom:1px solid rgba(42,34,48,.85)}
+    .mn-link:first-child{border-top:1px solid rgba(42,34,48,.85)}
+    .mn-link:active{color:var(--gold-bright)}
+    .mobile-nav.open .mn-link{animation:dm-mn-in .45s cubic-bezier(.16,1,.3,1) both}
+    .mobile-nav.open .mn-link:nth-child(1){animation-delay:.05s}
+    .mobile-nav.open .mn-link:nth-child(2){animation-delay:.10s}
+    .mobile-nav.open .mn-link:nth-child(3){animation-delay:.15s}
+    .mobile-nav.open .mn-link:nth-child(4){animation-delay:.20s}
+    .mobile-nav.open .mn-link:nth-child(5){animation-delay:.25s}
+    .mn-foot{margin:34px auto 0;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:460px;width:100%}
+    .mobile-nav.open .mn-foot{animation:dm-mn-in .45s .32s cubic-bezier(.16,1,.3,1) both}
+    .mn-cta{width:100%;text-align:center;padding:16px 24px;font-size:15px}
+    .mn-tel{font-size:14px;letter-spacing:.04em;color:var(--gold-bright)}
+    body.nav-open{overflow:hidden}
+    body.nav-open .mobile-bar{opacity:0;pointer-events:none}
+  }
+
+  /* ══════════ MOBIL ══════════ */
+  @media (max-width:767px){
+    [id]{scroll-margin-top:78px}
+
+    /* Header: alles einzeilig, kompakter */
+    .header-inner{height:64px;padding:0 16px;gap:10px}
+    .logo-box{padding:7px 12px;gap:8px}
+    .logo{font-size:13px;letter-spacing:.12em;white-space:nowrap}
+    .logo-tag{font-size:7px;letter-spacing:.16em;white-space:nowrap}
+    .logo-text{gap:4px}
+    .header-right{gap:8px;min-width:0}
+    .status-chip{padding:6px 11px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+    .status-dot{width:7px;height:7px;flex:none}
+
+    /* Hero: kompakter, kein Zusammenstoß mit dem Foto-Platzhalter */
+    .hero-inner{padding:92px 20px 132px}
+    .hero-kicker{margin-bottom:20px;font-size:10px;letter-spacing:.2em}
+    .hero-wordmark{font-size:clamp(40px,13.5vw,62px);letter-spacing:.02em}
+    .hero-tagline{margin-top:22px;font-size:21px}
+    .hero-sub{margin-top:16px;font-size:15px;line-height:1.6}
+    .rating-chip{margin-top:24px;padding:9px 15px;font-size:12.5px;gap:7px;white-space:nowrap;max-width:100%}
+    .rating-chip svg{width:66px;height:auto;flex:none}
+    .hero-ctas{margin-top:26px;gap:12px;width:100%}
+    .hero-ctas .btn{flex:1 1 100%;text-align:center;padding:15px 22px;font-size:15px}
+    .hero-meta{margin-top:26px;gap:8px 18px;font-size:11px}
+    .hero-bg-placeholder{justify-content:flex-end;padding-bottom:12px;font-size:9px;letter-spacing:.14em}
+
+    /* Vertikaler Rhythmus: weniger Leerlauf */
+    section.pad{padding:72px 0}
+    .wrap,.wrap-narrow{padding:0 20px}
+    /* einspaltig erzwingen: die minmax(300–320px)-Tracks sprengen sonst enge Displays */
+    .quick-grid,.shisha-grid,.proof-grid,.reserve-grid,.location-grid{grid-template-columns:minmax(0,1fr)}
+    .quick-status{padding-bottom:64px}
+    .quick-grid{gap:16px}
+    .quick-card{padding:26px 22px;border-radius:16px}
+    .quick-card h3{font-size:21px;line-height:1.2;margin-bottom:16px}
+    .quick-hours td{font-size:13px;padding:6px 0}
+    .raum{padding:72px 0 64px;clip-path:polygon(0 0,100% 1.5%,100% 100%,0 98.5%)}
+    .drinks,.reservierung{clip-path:none}
+    .reservierung{padding:72px 0}
+    #location{padding-top:72px !important}
+
+    /* Headlines: engere Zeilen */
+    .h2{font-size:clamp(26px,7.4vw,34px);line-height:1.14}
+    .lede{font-size:15px}
+    .neon-quote{margin-top:44px;font-size:clamp(26px,8vw,38px);line-height:1.25}
+
+    /* Galerie: flacher, damit sie aufs Display passt */
+    .raum-gallery{gap:14px;padding:34px 20px 14px}
+    .raum-gallery figure{height:380px}
+    .raum-gallery figure[style]{width:min(76vw,300px) !important;margin-top:0 !important}
+    .photo-slot{font-size:10px;letter-spacing:.1em}
+
+    /* Shisha */
+    .shisha-grid{gap:38px}
+    .flavor-chip,.addon-pill{font-size:12px;padding:9px 15px}
+    .price-card{flex-direction:column;align-items:flex-start;gap:6px;padding:22px 20px}
+    .price-card h3{font-size:19px;line-height:1.2;margin-bottom:4px}
+    .price-card .price{order:-1;font-size:13px;letter-spacing:.06em}
+
+    /* Nights */
+    .days-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .day-card{padding:18px 16px}
+    .day-card .label{font-size:10px;letter-spacing:.14em}
+    .day-card .motto{margin:9px 0 4px;font-size:17px}
+    .day-card .hours{font-size:12px}
+
+    /* Bewertungen: keine Desktop-Versatz-Optik auf dem Handy */
+    .proof-grid{gap:34px}
+    .rating-num{font-size:74px}
+    .review{padding:22px 20px}
+    .review:nth-child(2){margin-left:0}
+    .review p{font-size:14px}
+    .working-on{margin-top:26px;padding:18px 20px}
+
+    /* Formular: gestapelt statt gequetscht (behebt seitliches Scrollen) */
+    .reserve-grid{gap:34px}
+    form.reserve-form{padding:24px 20px;gap:14px;border-radius:16px}
+    .two-col{grid-template-columns:minmax(0,1fr);gap:14px}
+    form.reserve-form input,form.reserve-form select{font-size:16px;padding:12px 14px}
+
+    /* Karte & Footer */
+    .map-box{min-height:280px}
+    .footer-inner{padding:34px 20px;gap:26px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+
+    /* Sticky Bottom-Bar mit iPhone-Safe-Area */
+    .mobile-bar{position:fixed;bottom:0;left:0;right:0;z-index:95;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1px;
+      background:var(--ash);border-top:1px solid var(--gold);transition:opacity .25s;
+      padding-bottom:env(safe-area-inset-bottom)}
+    .mobile-bar a{font-size:14px;text-align:center;padding:15px 8px;-webkit-tap-highlight-color:transparent}
+    .mobile-bar a.reserve{background:var(--magenta);color:var(--void);font-weight:600}
+    .mobile-bar a.call,.mobile-bar a.route{background:var(--obsidian);color:var(--gold-bright)}
+    body{padding-bottom:calc(50px + env(safe-area-inset-bottom))}
+  }
+  @keyframes dm-mn-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<div class="noise" aria-hidden="true"></div>
+
+<!-- JSON-LD -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BarOrPub","name":"Diamond's","description":"Shisha-Bar & Cocktail-Lounge in Bellheim. Täglich ab 18 Uhr.","address":{"@type":"PostalAddress","streetAddress":"In d. Fellach 21","postalCode":"76756","addressLocality":"Bellheim","addressCountry":"DE"},"telephone":"+4917679560861","priceRange":"€€","geo":{"@type":"GeoCoordinates","latitude":49.196813,"longitude":8.302438},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"18:00","closes":"01:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"18:00","closes":"02:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"18:00","closes":"03:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"18:00","closes":"01:00"}],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.2","reviewCount":"53"},"acceptsReservations":"True","servesCuisine":"Shisha, Cocktails","hasMenu":"https://diamonds-bellheim.de/drinks.html","sameAs":["https://maps.google.com/?q=Diamond's+Bellheim","https://instagram.com/diamondsbellheim"]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Diamond's Bellheim","url":"https://diamonds-bellheim.de/"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Start","item":"https://diamonds-bellheim.de/"}]}
+</script>
+
+<!-- ══════════ HEADER ══════════ -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="#top" aria-label="Diamond's – zum Seitenanfang" class="logo-box">
+      <span class="logo-text">
+        <span class="logo">DIAMOND'S</span>
+        <span class="logo-divider" aria-hidden="true"></span>
+        <span class="logo-tag">Shisha · Bar · Lounge</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <a href="#shisha">SHISHA</a>
+      <a href="drinks.html">DRINKS</a>
+      <a href="#nights">NIGHTS</a>
+      <a href="#location">LOCATION</a>
+      <a href="#reservierung">KONTAKT</a>
+    </nav>
+    <div class="header-right">
+      <div role="status" class="status-chip">
+        <span class="status-dot js-status-dot" id="status-dot"></span>
+        <span id="status-text" class="js-status-text">Status wird geladen…</span>
+      </div>
+      <a href="#reservierung" class="btn btn-gold pill btn-header"><svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 19,7 10,19 1,7" fill="none" stroke="#08060A" stroke-width="1.3"></polygon></svg> Reservieren</a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile-Navigation (nutzt dieselben Links wie die Desktop-Nav) -->
+<div class="mobile-nav" id="mobile-nav">
+  <nav aria-label="Mobile Navigation">
+    <a class="mn-link" href="#shisha">Shisha</a>
+    <a class="mn-link" href="drinks.html">Drinks &amp; Bar</a>
+    <a class="mn-link" href="#nights">Nights</a>
+    <a class="mn-link" href="#location">Location</a>
+    <a class="mn-link" href="#reservierung">Kontakt</a>
+  </nav>
+  <div class="mn-foot">
+    <a href="#reservierung" class="btn btn-magenta pill mn-cta">Tisch reservieren</a>
+    <a href="tel:+4917679560861" class="mn-tel">0176 79560861</a>
+  </div>
+</div>
+
+<main id="top">
+<a id="main"></a>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <!-- TODO: Vollbild-Foto der Lounge hier einsetzen. Datei unter assets/img/hero-bg.jpg
+       (empfohlen min. 1920×1280, dunkel/atmosphärisch). Dann den Platzhalter-Block unten
+       durch <picture>…<img …class-artiges Bild ersetzen. -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-placeholder">
+      <svg width="40" height="40" viewBox="0 0 40 40"><polygon points="15,4 25,4 36,16 20,37 4,16" fill="none" stroke="#C9A227" stroke-width="1.5"></polygon></svg>
+      Vollbild-Foto der Lounge · hier einsetzen
+    </div>
+  </div>
+  <div aria-hidden="true" class="bloom bloom-1" id="bloom-1"></div>
+  <div aria-hidden="true" class="bloom bloom-2" id="bloom-2"></div>
+  <div aria-hidden="true" class="bloom bloom-3" id="bloom-3"></div>
+  <div aria-hidden="true" class="diamond-pattern"></div>
+  <div aria-hidden="true" class="hero-scrim"></div>
+  <div class="hero-inner">
+    <p class="hero-kicker">Shisha · Cocktails · Sound — Bellheim, Südpfalz</p>
+    <h1 class="hero-wordmark" aria-label="Diamond's – Shisha Bar &amp; Lounge in Bellheim">
+      <span class="wm" aria-hidden="true">DIAM</span><svg class="wm-gem" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="wm-gem-grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FCE8BE"></stop><stop offset="55%" stop-color="#F2D785"></stop><stop offset="100%" stop-color="#C9A227"></stop></linearGradient></defs><polygon points="15,4 25,4 36,16 20,37 4,16" fill="none" stroke="url(#wm-gem-grad)" stroke-width="2.6" stroke-linejoin="round"></polygon><polyline points="4,16 36,16" stroke="url(#wm-gem-grad)" stroke-width="1.8" fill="none"></polyline><polyline points="14,16 20,37" stroke="url(#wm-gem-grad)" stroke-width="1.4" fill="none" opacity=".8"></polyline><polyline points="26,16 20,37" stroke="url(#wm-gem-grad)" stroke-width="1.4" fill="none" opacity=".8"></polyline></svg><span class="wm" aria-hidden="true">ND’S</span>
+    </h1>
+    <p class="hero-tagline">Wo die Nacht funkelt.</p>
+    <p class="hero-sub">Shisha Bar &amp; Lounge in Bellheim. Premium-Köpfe, Signature Cocktails und ein Raum, der Licht schluckt und zurückwirft. Täglich ab 18 Uhr.</p>
+    <div role="img" aria-label="4,2 von 5 Sternen, 53 Google-Rezensionen" class="rating-chip">
+      <svg width="82" height="15" viewBox="0 0 164 30" aria-hidden="true">
+        <defs><linearGradient id="dm-star-hero" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="164" y2="0"><stop offset="84%" stop-color="#F2D785"></stop><stop offset="84%" stop-color="#2A2230"></stop></linearGradient></defs>
+        <g fill="url(#dm-star-hero)">
+          <path d="M15 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M49 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M83 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M117 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M151 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path>
+        </g>
+      </svg>
+      <span style="color:var(--gold-bright);font-weight:600">4,2</span>
+      <span style="color:var(--ash)">|</span>
+      <span>53 Google-Rezensionen</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="#reservierung" class="btn btn-magenta">Tisch reservieren</a>
+      <a href="#shisha" class="btn btn-ghost">Speisekarte ansehen</a>
+    </div>
+    <div class="hero-meta">
+      <span>Täglich ab 18:00</span>
+      <span>Sa bis 03:00</span>
+      <span>Lieferung &amp; Take-Away</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SCHNELLÜBERBLICK ══════════ -->
+<section class="quick-status" aria-labelledby="quick-heading">
+  <h2 id="quick-heading" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Öffnungszeiten und Reservierung auf einen Blick</h2>
+  <div class="wrap-narrow quick-grid">
+    <div class="quick-card" data-reveal>
+      <h3>Öffnungszeiten</h3>
+      <div role="status" class="status-chip">
+        <span class="status-dot js-status-dot"></span>
+        <span class="js-status-text">Status wird geladen…</span>
+      </div>
+      <table class="quick-hours">
+        <tbody>
+          <tr><td>Montag – Donnerstag</td><td class="val">18:00 – 01:30</td></tr>
+          <tr><td>Freitag</td><td class="val">18:00 – 02:00</td></tr>
+          <tr><td>Samstag</td><td class="val" style="color:var(--gold-bright)">18:00 – 03:00</td></tr>
+          <tr><td>Sonntag</td><td class="val">18:00 – 01:00</td></tr>
+        </tbody>
+      </table>
+      <p class="quick-note">Live-Status aktualisiert sich automatisch nach der aktuellen Uhrzeit.</p>
+    </div>
+    <div class="quick-card accent" data-reveal>
+      <p class="eyebrow" style="margin-bottom:14px;position:relative">Reservierung</p>
+      <h3>Sichert dir den Tisch für heute Abend.</h3>
+      <p class="lede" style="margin-bottom:24px;position:relative">Am schnellsten geht's per WhatsApp oder Anruf – ein Tap, und dein Platz in der Lounge ist reserviert. Keine Wartezeit.</p>
+      <a href="#reservierung" class="btn btn-magenta pill" style="padding:14px 28px;font-size:14px;position:relative">Tisch reservieren</a>
+      <p class="quick-note">Telefonisch erreichbar zu unseren Öffnungszeiten: <a href="tel:+4917679560861">0176 79560861</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ DER RAUM ══════════ -->
+<section class="raum" id="der-raum" aria-labelledby="raum-heading">
+  <div class="wrap">
+    <p class="eyebrow">Der Raum</p>
+    <h2 class="h2" id="raum-heading" style="max-width:640px">Schwarze Lamellen, Samt in Magenta, Gold an den Kanten.</h2>
+  </div>
+  <div class="raum-gallery" data-reveal>
+    <!-- TODO: echte Fotos der Location einsetzen (Bar, Neon-Signs, Chesterfield-Bänke, Blumenwand) unter /assets/img/raum-*.jpg -->
+    <figure style="width:min(72vw,460px)">
+      <div class="photo-slot" style="--mask:polygon(0 4%, 92% 0, 100% 96%, 8% 100%)">Foto: Bar mit violettem Flaschenregal</div>
+    </figure>
+    <figure style="width:min(72vw,380px);margin-top:48px">
+      <div class="photo-slot" style="--mask:polygon(8% 0, 100% 4%, 92% 100%, 0 96%)">Foto: Magenta Chesterfield-Lounge</div>
+    </figure>
+    <figure style="width:min(72vw,460px)">
+      <div class="photo-slot" style="--mask:polygon(0 0, 100% 6%, 94% 100%, 4% 94%)">Foto: Neon-Sign &amp; Blumenwand</div>
+    </figure>
+    <figure style="width:min(72vw,380px);margin-top:48px">
+      <div class="photo-slot" style="--mask:polygon(6% 4%, 96% 0, 100% 100%, 0 96%)">Foto: Marmortische mit Goldrand</div>
+    </figure>
+  </div>
+  <p aria-hidden="true" class="neon-quote neon-pink">My hookah is better than yours.</p>
+</section>
+
+<!-- ══════════ SHISHA ══════════ -->
+<section id="shisha" class="pad" style="background:var(--void)">
+  <div class="wrap shisha-grid">
+    <div data-reveal>
+      <p class="eyebrow">Shisha</p>
+      <h2 class="h2" style="margin-bottom:24px">Der Kopf, um den sich alles dreht.</h2>
+      <p class="lede" style="margin-bottom:34px;max-width:460px">Frisch gebaute Köpfe, sauberer Zug, dichter Rauch. Wähl deine Richtung – der Raum färbt sich mit.</p>
+      <div role="group" aria-label="Tabak-Sorten" class="flavor-chips" id="flavor-chips"></div>
+      <div class="addon-pills">
+        <span class="addon-pill">+ Kopf-Wechsel</span>
+        <span class="addon-pill">+ Eiswasser</span>
+        <span class="addon-pill">+ Fruchtkopf</span>
+      </div>
+    </div>
+    <div data-reveal class="price-cards">
+      <!-- TODO: echte Preise vom Kunden -->
+      <div class="price-card">
+        <div><h3>Klassisch</h3><p>Ein Geschmack, solide gebaut. Der ehrliche Einstieg.</p></div>
+        <span class="price">ab XX €</span>
+      </div>
+      <div class="price-card">
+        <div><h3>Premium</h3><p>Premium-Tabak, Mix nach Wunsch, Eiswasser inklusive.</p></div>
+        <span class="price">ab XX €</span>
+      </div>
+      <div class="price-card signature">
+        <div><h3>Diamond's Signature</h3><p>Unser Haus-Mix im Fruchtkopf. Fragst du nicht – bestellst du.</p></div>
+        <span class="price">ab XX €</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ NIGHTS ══════════ -->
+<section id="nights" class="pad" style="background:var(--void)">
+  <div class="wrap">
+    <p class="eyebrow">Sound &amp; Nights</p>
+    <h2 class="h2" style="margin-bottom:12px">Jede Nacht hat ihren eigenen Ton.</h2>
+    <p class="lede" style="margin-bottom:48px;max-width:520px">Sieben Tage, sieben Stimmungen. Der heutige Abend leuchtet.</p>
+    <div data-reveal class="days-grid" id="days-grid">
+      <!-- data-day = JS getDay() index (0=So … 6=Sa) -->
+      <div class="day-card" data-day="1"><p class="label">MONTAG</p><p class="motto">Easy Start</p><p class="hours">18:00 – 01:30</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card" data-day="2"><p class="label">DIENSTAG</p><p class="motto">After-Work Smoke</p><p class="hours">18:00 – 01:30</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card" data-day="3"><p class="label">MITTWOCH</p><p class="motto">Ladies Wednesday</p><p class="hours">18:00 – 01:30</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card" data-day="4"><p class="label">DONNERSTAG</p><p class="motto">Cocktail Night</p><p class="hours">18:00 – 01:30</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card" data-day="5"><p class="label">FREITAG</p><p class="motto">Live-DJ Night</p><p class="hours">18:00 – 02:00</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card saturday" data-day="6"><p class="label">SAMSTAG</p><p class="motto">DJ Night</p><p class="hours">18:00 – 03:00</p><p class="today-badge">HEUTE</p></div>
+      <div class="day-card" data-day="0"><p class="label">SONNTAG</p><p class="motto">Shisha Sunday</p><p class="hours">18:00 – 01:00</p><p class="today-badge">HEUTE</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SOCIAL PROOF ══════════ -->
+<section class="pad" style="background:var(--obsidian)" aria-labelledby="proof-heading">
+  <div class="wrap proof-grid">
+    <div data-reveal>
+      <h2 id="proof-heading" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Bewertungen</h2>
+      <p class="rating-num" aria-hidden="true">4,2</p>
+      <svg width="164" height="30" viewBox="0 0 164 30" role="img" aria-label="4,2 von 5 Sternen" style="margin:14px 0 8px">
+        <defs><linearGradient id="dm-star" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="164" y2="0"><stop offset="84%" stop-color="#F2D785"></stop><stop offset="84%" stop-color="#2A2230"></stop></linearGradient></defs>
+        <g fill="url(#dm-star)">
+          <path d="M15 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M49 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M83 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M117 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path><path d="M151 1l4 9 9 1-7 6 2 10-8-5-8 5 2-10-7-6 9-1z"></path>
+        </g>
+      </svg>
+      <p style="margin:0;color:var(--mute);font-size:14px">aus 53 Google-Rezensionen</p>
+      <div class="working-on">
+        <p>WIR ARBEITEN DRAN</p>
+        <p>Schnellerer Service durch Vorab-Reservierung. Tisch sichern – ankommen – rauchen.</p>
+      </div>
+    </div>
+    <div data-reveal class="reviews">
+      <blockquote class="review"><p>„Richtig gute Behandlung – man fühlt sich willkommen, nicht abgefertigt."</p><footer>Google-Rezension, sinngemäß</footer></blockquote>
+      <blockquote class="review"><p>„Die Atmosphäre ist das Ding: dunkel, gemütlich, überall Licht an den richtigen Stellen."</p><footer>Google-Rezension, sinngemäß</footer></blockquote>
+      <blockquote class="review"><p>„Sehr liebes Team, die Shisha war top gebaut."</p><footer>Google-Rezension, sinngemäß</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RESERVIERUNG ══════════ -->
+<section id="reservierung" class="reservierung">
+  <div class="wrap-narrow reserve-grid">
+    <div data-reveal>
+      <p class="eyebrow">Reservierung</p>
+      <h2 class="h2" style="margin-bottom:20px">Tisch vorab sichern. Kein Warten.</h2>
+      <p class="lede" style="margin-bottom:28px">Zwei Wege, beide ohne Umweg: Formular ausfüllen und per WhatsApp abschicken – oder direkt anrufen. Wir halten deinen Tisch 15 Minuten.</p>
+      <a href="tel:+4917679560861" class="btn btn-ghost pill" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;font-size:15px">Anrufen · 0176 79560861</a>
+    </div>
+    <form class="reserve-form" id="reserve-form" novalidate>
+      <label>NAME
+        <input type="text" name="name" id="f-name" required placeholder="Dein Name" autocomplete="name">
+      </label>
+      <div class="two-col">
+        <label>PERSONEN
+          <div class="stepper">
+            <button type="button" id="pers-down" aria-label="Weniger Personen">−</button>
+            <span id="pers-count">2</span>
+            <button type="button" id="pers-up" aria-label="Mehr Personen">+</button>
+          </div>
+        </label>
+        <label>DATUM
+          <input type="date" name="date" id="f-date" required>
+        </label>
+      </div>
+      <div class="two-col">
+        <label>UHRZEIT
+          <select name="time" id="f-time"></select>
+        </label>
+        <label>TELEFON
+          <input type="tel" name="phone" id="f-phone" placeholder="Für Rückfragen" autocomplete="tel">
+        </label>
+      </div>
+      <label>ANMERKUNG
+        <input type="text" name="note" id="f-note" placeholder="Geburtstag, Lieblingsplatz, …">
+      </label>
+      <label class="consent-row">
+        <input type="checkbox" id="f-consent" required>
+        <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.</span>
+      </label>
+      <button type="submit" class="btn btn-magenta btn-block">Per WhatsApp reservieren</button>
+      <p class="form-hint">Öffnet WhatsApp mit deiner fertigen Nachricht – kein Konto bei uns nötig.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════ LOCATION & FOOTER ══════════ -->
+<section id="location" style="background:var(--void);padding:110px 0 0">
+  <div class="wrap location-grid">
+    <div data-reveal>
+      <p class="eyebrow">Location</p>
+      <h2 class="h2" style="margin-bottom:24px">Mitten in Bellheim.</h2>
+      <address>
+        In d. Fellach 21<br>76756 Bellheim, Deutschland<br>
+        <span>Plus Code: 58W2+PX Bellheim</span>
+      </address>
+      <table class="hours-table">
+        <caption>ÖFFNUNGSZEITEN</caption>
+        <tbody>
+          <tr><td>Mo – Do</td><td class="val">18:00 – 01:30</td></tr>
+          <tr><td>Freitag</td><td class="val">18:00 – 02:00</td></tr>
+          <tr><td>Samstag</td><td class="val sat">18:00 – 03:00</td></tr>
+          <tr><td>Sonntag</td><td class="val">18:00 – 01:00</td></tr>
+        </tbody>
+      </table>
+      <a href="https://maps.google.com/?q=In+d.+Fellach+21,+76756+Bellheim" target="_blank" rel="noopener" class="btn btn-ghost pill" style="display:inline-block;margin-top:28px;padding:13px 28px;font-size:14px">Route planen</a>
+    </div>
+    <div data-reveal>
+      <div class="map-box" id="map-box">
+        <div class="map-placeholder" id="map-placeholder">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><polygon points="17,2 32,12 17,32 2,12" fill="none" stroke="#C9A227" stroke-width="1.5"></polygon></svg>
+          <button type="button" class="map-btn" id="load-map" title="Beim Laden wird eine Karte von OpenStreetMap eingebunden; dabei wird deine IP-Adresse an OpenStreetMap übertragen. Details in der Datenschutzerklärung.">Karte laden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <address class="addr">
+          <strong>Diamond's</strong> Shisha Bar Lounge<br>
+          In d. Fellach 21<br>76756 Bellheim<br>
+          <span>Plus Code: 58W2+PX Bellheim</span>
+        </address>
+      </div>
+      <div class="footer-col">
+        <h3>Kontakt</h3>
+        <a href="tel:+4917679560861">0176 79560861</a>
+        <a href="https://wa.me/4917679560861" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://instagram.com/diamondsbellheim" target="_blank" rel="noopener">@diamondsbellheim</a>
+      </div>
+      <div class="footer-col">
+        <h3>Seiten</h3>
+        <a href="#shisha">Shisha</a>
+        <a href="drinks.html">Drinks &amp; Bar</a>
+        <a href="#nights">Nights</a>
+        <a href="#reservierung">Reservieren</a>
+      </div>
+      <div class="footer-col">
+        <h3>Rechtliches</h3>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Diamond's Bellheim · Einlass &amp; Verkauf nur ab 18 Jahren</div>
+  </footer>
+</section>
+</main>
+
+<!-- ══════════ STICKY MOBILE BAR ══════════ -->
+<nav class="mobile-bar" aria-label="Schnellaktionen">
+  <a href="#reservierung" class="reserve">Reservieren</a>
+  <a href="tel:+4917679560861" class="call">Anrufen</a>
+  <a href="https://maps.google.com/?q=In+d.+Fellach+21,+76756+Bellheim" target="_blank" rel="noopener" class="route">Route</a>
+</nav>
+
+
+<script>
+(function(){
+  "use strict";
+
+  var HOURS = { 0:{close:25}, 1:{close:25.5}, 2:{close:25.5}, 3:{close:25.5}, 4:{close:25.5}, 5:{close:26}, 6:{close:27} };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* mobile nav toggle */
+  var navToggle = document.getElementById('nav-toggle');
+  var mobileNav = document.getElementById('mobile-nav');
+  function setNav(open){
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+  }
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', function(){
+      setNav(navToggle.getAttribute('aria-expanded') !== 'true');
+    });
+    // Klick auf einen Link schließt das Menü (Anker springen sonst hinter dem Overlay)
+    mobileNav.addEventListener('click', function(e){
+      if (e.target.closest('a')) setNav(false);
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
+    });
+    // Beim Wechsel auf Desktop-Breite aufräumen
+    window.addEventListener('resize', function(){
+      if (window.innerWidth > 767 && navToggle.getAttribute('aria-expanded') === 'true') setNav(false);
+    });
+  }
+
+  /* header scroll state */
+  var header = document.getElementById('site-header');
+  function onScroll(){
+    var s = window.scrollY > 80;
+    header.classList.toggle('scrolled', s);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* live open/closed status */
+  function fmt(c){ var x = c >= 24 ? c - 24 : c; var hh = Math.floor(x); var mm = Math.round((x - hh) * 60); return String(hh).padStart(2,'0') + ':' + String(mm).padStart(2,'0'); }
+  function status(now){
+    var day = now.getDay();
+    var h = now.getHours() + now.getMinutes() / 60;
+    var prevClose = HOURS[(day + 6) % 7].close;
+    if (h < prevClose - 24) return { open: true, text: 'Jetzt geöffnet · schließt um ' + fmt(prevClose) };
+    var close = HOURS[day].close;
+    if (h >= 18 && h < close) return { open: true, text: 'Jetzt geöffnet · schließt um ' + fmt(close) };
+    return { open: false, text: 'Öffnet heute um 18:00' };
+  }
+  var statusDots = document.querySelectorAll('.js-status-dot');
+  var statusTexts = document.querySelectorAll('.js-status-text');
+  function renderStatus(){
+    var st = status(new Date());
+    statusDots.forEach(function(d){ d.className = 'status-dot js-status-dot ' + (st.open ? 'open' : 'closed'); });
+    statusTexts.forEach(function(t){ t.textContent = st.text; });
+  }
+  renderStatus();
+  setInterval(renderStatus, 60000);
+
+  /* today highlight in Nights */
+  var today = new Date().getDay();
+  document.querySelectorAll('.day-card').forEach(function(card){
+    if (parseInt(card.getAttribute('data-day'), 10) === today) card.classList.add('today');
+  });
+
+  /* flavor chips + bloom colors */
+  var FLAVORS = [
+    { name: 'Traube-Minze', c: ['#8B36E0','#FF2E88','#3E2A8C'] },
+    { name: 'Doppelapfel', c: ['#C0392B','#FFB347','#8B36E0'] },
+    { name: 'Blaubeere-Minze', c: ['#3E6BFF','#2ED8C3','#8B36E0'] },
+    { name: 'Zitrone-Basilikum', c: ['#C6D84B','#FFB347','#2ED8C3'] },
+    { name: 'Melone-Ice', c: ['#2ED8C3','#3E6BFF','#C6D84B'] },
+    { name: 'Mango-Passion', c: ['#FFB347','#FF2E88','#C9A227'] }
+  ];
+  var chipsWrap = document.getElementById('flavor-chips');
+  var bloom1 = document.getElementById('bloom-1');
+  var bloom2 = document.getElementById('bloom-2');
+  var bloom3 = document.getElementById('bloom-3');
+  function paintBloom(cols){
+    bloom1.style.background = 'radial-gradient(circle,' + cols[0] + '44,transparent 70%)';
+    bloom2.style.background = 'radial-gradient(circle,' + cols[1] + '44,transparent 70%)';
+    bloom3.style.background = 'radial-gradient(circle,' + cols[2] + '44,transparent 70%)';
+  }
+  FLAVORS.forEach(function(f, i){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'flavor-chip' + (i === 0 ? ' active' : '');
+    btn.textContent = f.name;
+    btn.style.borderColor = i === 0 ? f.c[0] : '';
+    btn.addEventListener('click', function(){
+      chipsWrap.querySelectorAll('.flavor-chip').forEach(function(c){ c.classList.remove('active'); c.style.borderColor = ''; c.style.boxShadow = ''; });
+      btn.classList.add('active');
+      btn.style.borderColor = f.c[0];
+      btn.style.boxShadow = '0 0 18px ' + f.c[0] + '55';
+      paintBloom(f.c);
+    });
+    chipsWrap.appendChild(btn);
+  });
+  paintBloom(FLAVORS[0].c);
+
+  /* reservation form */
+  var nameInput = document.getElementById('f-name');
+  var dateInput = document.getElementById('f-date');
+  var timeSelect = document.getElementById('f-time');
+  var phoneInput = document.getElementById('f-phone');
+  var noteInput = document.getElementById('f-note');
+  var consentInput = document.getElementById('f-consent');
+  var persCount = document.getElementById('pers-count');
+  var persons = 2;
+
+  document.getElementById('pers-up').addEventListener('click', function(){
+    persons = Math.min(20, persons + 1);
+    persCount.textContent = persons;
+  });
+  document.getElementById('pers-down').addEventListener('click', function(){
+    persons = Math.max(1, persons - 1);
+    persCount.textContent = persons;
+  });
+
+  function buildTimeSlots(){
+    var day = null;
+    if (dateInput.value) {
+      var d = new Date(dateInput.value + 'T12:00:00');
+      if (!isNaN(d)) day = d.getDay();
+    }
+    var close = day === null ? 25 : HOURS[day].close;
+    var current = timeSelect.value;
+    timeSelect.innerHTML = '';
+    for (var t = 18; t <= close - 1; t += 0.5) {
+      var x = t >= 24 ? t - 24 : t;
+      var hh = Math.floor(x), mm = (x - hh) === 0.5 ? '30' : '00';
+      var val = String(hh).padStart(2,'0') + ':' + mm;
+      var opt = document.createElement('option');
+      opt.value = val; opt.textContent = val;
+      timeSelect.appendChild(opt);
+    }
+    if (current && [].slice.call(timeSelect.options).some(function(o){ return o.value === current; })) {
+      timeSelect.value = current;
+    } else {
+      timeSelect.value = '20:00';
+    }
+  }
+  buildTimeSlots();
+  dateInput.addEventListener('change', buildTimeSlots);
+
+  document.getElementById('reserve-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var form = e.currentTarget;
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var datum = '—';
+    if (dateInput.value) {
+      var p = dateInput.value.split('-');
+      datum = p[2] + '.' + p[1] + '.' + p[0];
+    }
+    var lines = [
+      "Hi Diamond's! Ich möchte einen Tisch reservieren:",
+      'Name: ' + (nameInput.value || '—'),
+      'Personen: ' + persons,
+      'Datum: ' + datum,
+      'Uhrzeit: ' + timeSelect.value + ' Uhr'
+    ];
+    if (phoneInput.value) lines.push('Telefon: ' + phoneInput.value);
+    if (noteInput.value) lines.push('Anmerkung: ' + noteInput.value);
+    var url = 'https://wa.me/4917679560861?text=' + encodeURIComponent(lines.join('\n'));
+    window.open(url, '_blank', 'noopener');
+  });
+
+  /* two-click maps loader — echte OSM-Karte als statische Kacheln, ohne iframe/Buttons */
+  var loadMapBtn = document.getElementById('load-map');
+  if (loadMapBtn) loadMapBtn.addEventListener('click', function(){
+    var box = document.getElementById('map-box');
+    var LAT = 49.196813, LNG = 8.302438, Z = 16, TS = 256;
+    var W = box.clientWidth, H = box.clientHeight;
+    var n = Math.pow(2, Z);
+    var latRad = LAT * Math.PI / 180;
+    var gx = (LNG + 180) / 360 * n * TS;
+    var gy = (1 - Math.log(Math.tan(latRad) + 1 / Math.cos(latRad)) / Math.PI) / 2 * n * TS;
+    var left0 = gx - W / 2, top0 = gy - H / 2;
+
+    var tiles = document.createElement('div');
+    tiles.className = 'map-tiles';
+    var xa = Math.floor(left0 / TS), xb = Math.floor((gx + W / 2) / TS);
+    var ya = Math.floor(top0 / TS), yb = Math.floor((gy + H / 2) / TS);
+    for (var tx = xa; tx <= xb; tx++) {
+      for (var ty = ya; ty <= yb; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        var wx = ((tx % n) + n) % n;
+        var img = document.createElement('img');
+        img.src = 'https://tile.openstreetmap.org/' + Z + '/' + wx + '/' + ty + '.png';
+        img.alt = '';
+        img.loading = 'lazy';
+        img.style.left = (tx * TS - left0) + 'px';
+        img.style.top = (ty * TS - top0) + 'px';
+        tiles.appendChild(img);
+      }
+    }
+
+    var marker = document.createElement('div');
+    marker.className = 'map-marker';
+    marker.style.left = (W / 2) + 'px';
+    marker.style.top = (H / 2) + 'px';
+    marker.innerHTML = '<svg width="30" height="38" viewBox="0 0 30 38" aria-hidden="true"><defs><linearGradient id="mk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF2E88"/><stop offset="100%" stop-color="#F2D785"/></linearGradient></defs><polygon points="15,37 3,14 15,3 27,14" fill="#100C14" stroke="url(#mk)" stroke-width="2" stroke-linejoin="round"/><polyline points="3,14 27,14" stroke="url(#mk)" stroke-width="1.4" fill="none"/></svg>';
+
+    var credit = document.createElement('div');
+    credit.className = 'map-credit';
+    credit.innerHTML = '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+
+    box.innerHTML = '';
+    box.appendChild(tiles);
+    box.appendChild(marker);
+    box.appendChild(credit);
+  });
+
+  /* scroll reveal */
+  if (!reduced && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('is-visible'); el.style.animation = 'none'; });
+  }
+})();
+</script>
+</body>
+</html>

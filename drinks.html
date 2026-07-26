@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drinks & Bar – Diamond's Bellheim | Cocktails, Longdrinks, Alkoholfrei</title>
+<meta name="description" content="Die Getränkekarte von Diamond's in Bellheim: Signature Cocktails, Longdrinks, alkoholfreie Drinks & Softdrinks. All we need is Gin Tonic.">
+<link rel="canonical" href="https://diamonds-bellheim.de/drinks.html">
+<style>
+  :root{
+    --void:#08060A; --obsidian:#100C14; --smoke:#1B1520; --ash:#2A2230;
+    --magenta:#FF2E88; --amber:#FFB347; --gold:#C9A227; --gold-bright:#F2D785;
+    --pearl:#F6F2F7; --mute:#9A8FA3;
+    --radius:20px; --radius-sm:14px;
+    --glow-pink:0 0 8px rgba(255,46,136,.9),0 0 28px rgba(255,46,136,.55),0 0 60px rgba(255,46,136,.25);
+    --glow-amber:0 0 8px rgba(255,179,71,.9),0 0 30px rgba(255,179,71,.45);
+    --font-display:Georgia,'Times New Roman','Noto Serif',serif;
+    --font-script:'Segoe Script','Bradley Hand','Brush Script MT',cursive;
+    --font-body:-apple-system,'Segoe UI',system-ui,Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--void);color:var(--pearl);font-family:var(--font-body);line-height:1.65;letter-spacing:.01em;-webkit-font-smoothing:antialiased}
+  a{color:var(--gold-bright);text-decoration:none}
+  a:hover{color:var(--magenta)}
+  ::selection{background:var(--magenta);color:var(--void)}
+  *:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .wrap-narrow{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{margin:0 0 14px;font-size:11px;letter-spacing:.28em;color:var(--gold);text-transform:uppercase}
+  .skip-link{position:absolute;left:12px;top:-60px;z-index:200;background:var(--gold);color:var(--void);padding:10px 18px;border-radius:0 0 8px 8px;font-size:13px;font-weight:600;transition:top .2s}
+  .skip-link:focus{top:0}
+  .noise{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.04;
+    background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>')}
+
+  /* header (identisch zur Startseite) */
+  header{position:fixed;top:0;left:0;right:0;z-index:80;transition:background .4s,border-color .4s;background:rgba(8,6,10,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,162,39,.4)}
+  .header-inner{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .logo-box{display:flex;align-items:center;gap:10px;padding:9px 18px;background:var(--obsidian);border:1px solid var(--ash);border-radius:10px}
+  .logo-text{display:flex;flex-direction:column;gap:5px;line-height:1.1}
+  .logo{font-family:var(--font-body);font-weight:800;font-size:15px;letter-spacing:.16em;color:var(--pearl)}
+  .logo-divider{width:100%;height:1px;background:linear-gradient(90deg,var(--magenta),var(--gold-bright))}
+  .logo-tag{font-size:8px;letter-spacing:.22em;color:var(--mute);text-transform:uppercase}
+  nav.main-nav{display:flex;gap:28px}
+  nav.main-nav a{color:var(--mute);font-size:13px;letter-spacing:.08em}
+  nav.main-nav a.active{color:var(--gold-bright)}
+  .header-right{display:flex;align-items:center;gap:14px}
+  .status-chip{display:flex;align-items:center;gap:8px;border:1px solid var(--ash);border-radius:999px;padding:7px 14px;font-size:12px;color:var(--pearl);background:rgba(16,12,20,.6)}
+  .status-dot{width:8px;height:8px;border-radius:50%}
+  .status-dot.open{background:#3DDC84;animation:dm-pulse 2s infinite}
+  .status-dot.closed{background:var(--amber);opacity:.7}
+  @keyframes dm-pulse{0%,100%{box-shadow:0 0 0 0 rgba(61,220,132,.6)}70%{box-shadow:0 0 0 8px rgba(61,220,132,0)}}
+  .btn{display:inline-block;font-weight:600;font-size:15px;padding:16px 34px;transition:box-shadow .3s,background .3s;cursor:pointer;border:none;font-family:inherit;border-radius:999px}
+  .btn-gold{background:linear-gradient(120deg,var(--gold-bright),var(--gold));color:var(--void);display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:10px 20px}
+  .btn-gold:hover{box-shadow:var(--glow-amber);color:var(--void)}
+  .btn-ghost{border:1px solid var(--gold);color:var(--gold-bright);background:none}
+  .btn-ghost:hover{background:rgba(201,162,39,.12);color:var(--gold-bright)}
+  .nav-toggle{display:none}
+  .mobile-nav{display:none}
+
+  /* Burger-Navigation (Handy + Tablet) – identisch zur Startseite */
+  @media (max-width:960px){
+    nav.main-nav,.btn-header{display:none}
+    .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;flex:none;padding:0 11px;
+      background:var(--obsidian);border:1px solid var(--ash);border-radius:10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .nav-toggle span{display:block;height:1.5px;border-radius:2px;background:var(--gold-bright);transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .2s}
+    .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+    .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .mobile-nav{position:fixed;inset:0;z-index:79;display:flex;flex-direction:column;justify-content:center;
+      padding:96px 26px calc(30px + env(safe-area-inset-bottom));
+      background:radial-gradient(circle at 78% 12%,rgba(255,46,136,.14),transparent 58%),rgba(8,6,10,.96);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+      opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}
+    .mobile-nav.open{opacity:1;visibility:visible}
+    .mobile-nav nav{display:flex;flex-direction:column;max-width:460px;width:100%;margin:0 auto}
+    .mn-link{display:block;padding:17px 2px;font-family:var(--font-display);font-weight:600;font-size:27px;line-height:1.15;
+      color:var(--pearl);border-bottom:1px solid rgba(42,34,48,.85)}
+    .mn-link:first-child{border-top:1px solid rgba(42,34,48,.85)}
+    .mn-link.active{color:var(--gold-bright)}
+    .mobile-nav.open .mn-link{animation:dm-mn-in .45s cubic-bezier(.16,1,.3,1) both}
+    .mobile-nav.open .mn-link:nth-child(1){animation-delay:.05s}
+    .mobile-nav.open .mn-link:nth-child(2){animation-delay:.10s}
+    .mobile-nav.open .mn-link:nth-child(3){animation-delay:.15s}
+    .mobile-nav.open .mn-link:nth-child(4){animation-delay:.20s}
+    .mobile-nav.open .mn-link:nth-child(5){animation-delay:.25s}
+    .mn-foot{margin:34px auto 0;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:460px;width:100%}
+    .mobile-nav.open .mn-foot{animation:dm-mn-in .45s .32s cubic-bezier(.16,1,.3,1) both}
+    .mn-cta{width:100%;text-align:center;padding:16px 24px;font-size:15px}
+    .mn-tel{font-size:14px;letter-spacing:.04em;color:var(--gold-bright)}
+    body.nav-open{overflow:hidden}
+  }
+  @keyframes dm-mn-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+  /* Handy-Feinschliff */
+  @media (max-width:767px){
+    .header-inner{height:64px;padding:0 16px;gap:10px}
+    .logo-box{padding:7px 12px;gap:8px}
+    .logo{font-size:13px;letter-spacing:.12em;white-space:nowrap}
+    .logo-tag{font-size:7px;letter-spacing:.16em;white-space:nowrap}
+    .logo-text{gap:4px}
+    .header-right{gap:8px;min-width:0}
+    .status-chip{padding:6px 11px;font-size:11px;white-space:nowrap;min-width:0}
+    .status-dot{width:7px;height:7px;flex:none}
+    .page-hero{padding:104px 0 12px}
+    .wrap-narrow{padding:0 20px}
+    .neon-quote{font-size:clamp(28px,9vw,44px);line-height:1.2}
+    .page-hero p.lead{font-size:15px;margin-top:18px}
+    .menu{padding:40px 0 80px}
+    .menu-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+    .menu-card{padding:24px 20px;border-radius:16px}
+    .menu-card h2{font-size:20px;line-height:1.2;margin-bottom:16px;padding-bottom:13px}
+    .drink-row{padding:12px 0}
+    .drink-row .name{font-size:15px}
+    .drink-row p{font-size:12.5px}
+    .menu-note{padding:0 20px;font-size:11.5px}
+    .footer-inner{padding:34px 20px;gap:26px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  }
+
+  /* page hero */
+  .page-hero{position:relative;padding:150px 0 30px;text-align:center;overflow:hidden}
+  .page-hero .bloom{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none}
+  .page-hero .bloom-a{top:-20%;left:10%;width:40vw;height:40vw;background:radial-gradient(circle,rgba(255,179,71,.18),transparent 70%)}
+  .page-hero .bloom-b{bottom:-30%;right:5%;width:36vw;height:36vw;background:radial-gradient(circle,rgba(255,46,136,.16),transparent 70%)}
+  .neon-quote{position:relative;z-index:2;margin:6px 0 0;font-family:var(--font-script);font-size:clamp(34px,6vw,72px);text-align:center;color:#FFD9A0;text-shadow:var(--glow-amber);animation:dm-flicker 6s infinite}
+  @keyframes dm-flicker{0%,100%{opacity:1}97.5%{opacity:1}98%{opacity:.55}98.5%{opacity:1}99.2%{opacity:.75}99.5%{opacity:1}}
+  @media (prefers-reduced-motion:reduce){.neon-quote{animation:none}}
+  .page-hero p.lead{position:relative;z-index:2;max-width:520px;margin:22px auto 0;color:var(--mute);font-size:16px}
+  .back-link{display:inline-block;margin-top:26px;font-size:13px;color:var(--mute)}
+
+  /* menu */
+  .menu{padding:60px 0 120px}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+  .menu-card{background:var(--smoke);border:1px solid var(--ash);border-radius:var(--radius);padding:34px 30px}
+  .menu-card h2{margin:0 0 20px;font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--gold-bright);border-bottom:1px solid var(--ash);padding-bottom:16px}
+  .drink-row{padding:14px 0;border-bottom:1px solid rgba(42,34,48,.5);transition:border-color .3s}
+  .drink-row:last-child{border-bottom:none}
+  .drink-row:hover{border-bottom-color:var(--gold)}
+  .drink-row .line{display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+  .drink-row .name{font-size:16px;font-weight:500}
+  .drink-row .price{color:var(--gold-bright);font-size:14px;white-space:nowrap}
+  .drink-row p{margin:6px 0 0;color:var(--mute);font-size:13px;line-height:1.5}
+  .menu-note{max-width:1080px;margin:40px auto 0;padding:0 24px;color:var(--mute);font-size:12px;text-align:center}
+
+  /* footer */
+  footer.site-footer{border-top:1px solid var(--ash)}
+  .footer-inner{max-width:1280px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px}
+  .footer-inner .addr{font-style:normal;color:var(--pearl);font-size:14px;line-height:1.7}
+  .footer-inner .addr span{color:var(--mute);font-size:12px}
+  .footer-col h3{margin:0 0 12px;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase}
+  .footer-col a{display:block;color:var(--mute);font-size:13px;margin-bottom:8px}
+  .footer-bottom{border-top:1px solid var(--ash);padding:20px 24px;text-align:center;color:var(--mute);font-size:12px}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#karte">Zum Inhalt springen</a>
+<div class="noise" aria-hidden="true"></div>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Menu","name":"Getränkekarte – Diamond's Bellheim","hasMenuSection":[{"@type":"MenuSection","name":"Signature Cocktails"},{"@type":"MenuSection","name":"Longdrinks"},{"@type":"MenuSection","name":"Alkoholfrei"},{"@type":"MenuSection","name":"Softdrinks & Heißgetränke"}]}
+</script>
+
+<header id="site-header">
+  <div class="header-inner">
+    <a href="index.html" aria-label="Diamond's – zur Startseite" class="logo-box">
+      <span class="logo-text">
+        <span class="logo">DIAMOND'S</span>
+        <span class="logo-divider" aria-hidden="true"></span>
+        <span class="logo-tag">Shisha · Bar · Lounge</span>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Hauptnavigation">
+      <a href="index.html#shisha">SHISHA</a>
+      <a href="drinks.html" class="active" aria-current="page">DRINKS</a>
+      <a href="index.html#nights">NIGHTS</a>
+      <a href="index.html#location">LOCATION</a>
+      <a href="index.html#reservierung">KONTAKT</a>
+    </nav>
+    <div class="header-right">
+      <div role="status" class="status-chip">
+        <span class="status-dot js-status-dot" id="status-dot"></span>
+        <span id="status-text" class="js-status-text">Status wird geladen…</span>
+      </div>
+      <a href="index.html#reservierung" class="btn btn-gold btn-header"><svg width="13" height="13" viewBox="0 0 20 20" aria-hidden="true"><polygon points="10,1 19,7 10,19 1,7" fill="none" stroke="#08060A" stroke-width="1.3"></polygon></svg> Reservieren</a>
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile-Navigation (dieselben Links wie die Desktop-Nav) -->
+<div class="mobile-nav" id="mobile-nav">
+  <nav aria-label="Mobile Navigation">
+    <a class="mn-link" href="index.html#shisha">Shisha</a>
+    <a class="mn-link active" href="drinks.html" aria-current="page">Drinks &amp; Bar</a>
+    <a class="mn-link" href="index.html#nights">Nights</a>
+    <a class="mn-link" href="index.html#location">Location</a>
+    <a class="mn-link" href="index.html#reservierung">Kontakt</a>
+  </nav>
+  <div class="mn-foot">
+    <a href="index.html#reservierung" class="btn btn-magenta mn-cta">Tisch reservieren</a>
+    <a href="tel:+4917679560861" class="mn-tel">0176 79560861</a>
+  </div>
+</div>
+
+<main>
+<section class="page-hero">
+  <div class="bloom bloom-a" aria-hidden="true"></div>
+  <div class="bloom bloom-b" aria-hidden="true"></div>
+  <p class="eyebrow">Drinks &amp; Bar</p>
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Getränkekarte – Diamond's Bellheim</h1>
+  <p aria-hidden="true" class="neon-quote">All we need is Gin Tonic</p>
+  <p class="lead">Von Signature Cocktails bis Gin Tonic – gemixt für lange Abende. Take-Away auf Anfrage.</p>
+  <a href="index.html" class="back-link">← Zurück zur Startseite</a>
+</section>
+
+<section class="menu" id="karte">
+  <div class="wrap-narrow">
+    <div class="menu-grid">
+      <!-- TODO: echte Getränke &amp; Preise vom Kunden -->
+      <div class="menu-card">
+        <h2>Signature Cocktails</h2>
+        <div class="drink-row"><div class="line"><span class="name">Diamond Sour</span><span class="price">XX €</span></div><p>Gin, Zitrone, Zuckersirup, Eiweißschaum – kantig wie das Haus.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">GRAPEmint Smash</span><span class="price">XX €</span></div><p>Traube, Minze, Limette – das Neon-Sign als Drink.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Velvet Magenta</span><span class="price">XX €</span></div><p>Hibiskus, Wodka, Beeren – so pink wie die Bänke.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Gold Rush</span><span class="price">XX €</span></div><p>Bourbon, Honig, Zitrone. Für den goldenen Rand des Abends.</p></div>
+      </div>
+      <div class="menu-card">
+        <h2>Longdrinks</h2>
+        <div class="drink-row"><div class="line"><span class="name">Gin Tonic</span><span class="price">XX €</span></div><p>All we need. Premium-Gin, Tonic nach Wahl.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Vodka Lemon</span><span class="price">XX €</span></div><p>Der Klassiker, eiskalt.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Whiskey Cola</span><span class="price">XX €</span></div><p>Bourbon oder Blend – deine Wahl.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Aperol Spritz</span><span class="price">XX €</span></div><p>Aperol, Prosecco, Soda, Orange.</p></div>
+      </div>
+      <div class="menu-card">
+        <h2>Alkoholfrei</h2>
+        <div class="drink-row"><div class="line"><span class="name">Virgin GRAPEmint</span><span class="price">XX €</span></div><p>Alkoholfrei, gleiche Attitüde.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Ipanema</span><span class="price">XX €</span></div><p>Limette, brauner Zucker, Ginger Ale.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Coconut Kiss</span><span class="price">XX €</span></div><p>Kokos, Ananas, Sahne – cremig, süß.</p></div>
+      </div>
+      <div class="menu-card">
+        <h2>Softdrinks &amp; Heißgetränke</h2>
+        <div class="drink-row"><div class="line"><span class="name">Softdrinks</span><span class="price">ab XX €</span></div><p>Cola, Fanta, Sprite, Schorlen.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Frischer Minztee</span><span class="price">XX €</span></div><p>Marokkanisch, mit frischer Minze.</p></div>
+        <div class="drink-row"><div class="line"><span class="name">Energy</span><span class="price">XX €</span></div><p>Für die lange Nacht.</p></div>
+      </div>
+    </div>
+    <p class="menu-note">Alle Preise sind Platzhalter. <!-- TODO: echte Preise & vollständige Karte vom Kunden --> Änderungen &amp; Verfügbarkeit vorbehalten. Ausschank nur an Personen ab 18 Jahren.</p>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <address class="addr">
+        <strong>Diamond's</strong> Shisha Bar Lounge<br>
+        In d. Fellach 21<br>76756 Bellheim<br>
+        <span>Plus Code: 58W2+PX Bellheim</span>
+      </address>
+    </div>
+    <div class="footer-col">
+      <h3>Kontakt</h3>
+      <a href="tel:+4917679560861">0176 79560861</a>
+      <a href="https://wa.me/4917679560861" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://instagram.com/diamondsbellheim" target="_blank" rel="noopener">@diamondsbellheim</a>
+    </div>
+    <div class="footer-col">
+      <h3>Seiten</h3>
+      <a href="index.html#shisha">Shisha</a>
+      <a href="drinks.html">Drinks &amp; Bar</a>
+      <a href="index.html#reservierung">Reservieren</a>
+    </div>
+    <div class="footer-col">
+      <h3>Rechtliches</h3>
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Diamond's Bellheim · Einlass &amp; Verkauf nur ab 18 Jahren</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var HOURS = { 0:{close:25}, 1:{close:25.5}, 2:{close:25.5}, 3:{close:25.5}, 4:{close:25.5}, 5:{close:26}, 6:{close:27} };
+  function fmt(c){ var x=c>=24?c-24:c; var hh=Math.floor(x); var mm=Math.round((x-hh)*60); return String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0'); }
+  function status(now){
+    var day=now.getDay(); var h=now.getHours()+now.getMinutes()/60;
+    var prevClose=HOURS[(day+6)%7].close;
+    if(h<prevClose-24) return {open:true,text:'Jetzt geöffnet · schließt um '+fmt(prevClose)};
+    var close=HOURS[day].close;
+    if(h>=18&&h<close) return {open:true,text:'Jetzt geöffnet · schließt um '+fmt(close)};
+    return {open:false,text:'Öffnet heute um 18:00'};
+  }
+  var dot=document.getElementById('status-dot'), txt=document.getElementById('status-text');
+  function render(){ var st=status(new Date()); dot.className='status-dot '+(st.open?'open':'closed'); txt.textContent=st.text; }
+  render(); setInterval(render, 60000);
+
+  /* mobile nav toggle */
+  var navToggle=document.getElementById('nav-toggle'), mobileNav=document.getElementById('mobile-nav');
+  function setNav(open){
+    navToggle.setAttribute('aria-expanded', open?'true':'false');
+    navToggle.setAttribute('aria-label', open?'Menü schließen':'Menü öffnen');
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+  }
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', function(){ setNav(navToggle.getAttribute('aria-expanded')!=='true'); });
+    mobileNav.addEventListener('click', function(e){ if (e.target.closest('a')) setNav(false); });
+    document.addEventListener('keydown', function(e){ if (e.key==='Escape' && navToggle.getAttribute('aria-expanded')==='true') setNav(false); });
+    window.addEventListener('resize', function(){ if (window.innerWidth>960 && navToggle.getAttribute('aria-expanded')==='true') setNav(false); });
+  }
+})();
+</script>
+</body>
+</html>

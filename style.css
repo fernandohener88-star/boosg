@@ -277,20 +277,8 @@ body.nav-open{overflow:hidden}
    Hero
    ============================================================ */
 .hero{
-  position:relative;min-height:100svh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  padding:150px var(--pad) 120px;overflow:hidden;
-}
-.hero-bg{position:absolute;inset:0;overflow:hidden}
-.hero-bg img{
-  width:100%;height:100%;object-fit:cover;opacity:.30;
-  filter:saturate(.55) sepia(.3) brightness(.72) contrast(1.05);
-  transform:scale(1.12);animation:kenburns 26s var(--ease-soft) infinite alternate;
-}
-@keyframes kenburns{from{transform:scale(1.12) translate3d(0,0,0)}to{transform:scale(1.24) translate3d(-1.5%,-1.5%,0)}}
-.hero-bg::after{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(rgba(10,10,12,.62),rgba(10,10,12,.34) 42%,var(--bg) 97%);
+  position:relative;min-height:100svh;display:flex;align-items:center;
+  padding:170px var(--pad) 110px;overflow:hidden;
 }
 .hero-glow{
   position:absolute;top:-24%;left:50%;width:min(1000px,120vw);aspect-ratio:1.3;transform:translateX(-50%);
@@ -303,17 +291,21 @@ body.nav-open{overflow:hidden}
 }
 @keyframes breathe{0%,100%{opacity:.55}50%{opacity:.95}}
 
-.hero-inner{position:relative;display:flex;flex-direction:column;align-items:center;max-width:1140px}
+.hero-grid{
+  position:relative;width:100%;max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.85fr);
+  gap:clamp(40px,6vw,90px);align-items:center;
+}
 
 .hero .eyebrow{
-  margin:0 0 38px;font-family:var(--mono);font-size:11px;letter-spacing:.44em;
+  margin:0 0 34px;font-family:var(--mono);font-size:11px;letter-spacing:.42em;
   color:var(--gold);text-transform:uppercase;
   opacity:0;transform:translateY(14px);transition:opacity 1s var(--ease) .1s,transform 1s var(--ease) .1s;
 }
 .hero.is-ready .eyebrow{opacity:1;transform:none}
 
 .hero h1{
-  font-weight:600;font-size:clamp(56px,10.5vw,166px);line-height:.94;letter-spacing:-.022em;
+  font-weight:600;font-size:clamp(50px,7.6vw,116px);line-height:.95;letter-spacing:-.022em;
 }
 .hero h1 em{color:var(--gold)}
 
@@ -324,19 +316,55 @@ body.nav-open{overflow:hidden}
 .hero.is-ready .hero-ctas{opacity:1;transform:none;transition-delay:1s}
 
 .hero-sub{
-  margin:40px 0 0;font-size:clamp(15px,1.6vw,19px);font-weight:300;letter-spacing:.05em;color:var(--muted);
+  margin:36px 0 0;
+  font-size:clamp(15px,1.5vw,18px);font-weight:300;letter-spacing:.04em;color:var(--muted);
+  text-wrap:balance;
 }
-.hero-ctas{display:flex;gap:16px;margin-top:52px;flex-wrap:wrap;justify-content:center}
+.hero-ctas{display:flex;gap:16px;margin-top:46px;flex-wrap:wrap}
+/* Bei schmaler Textspalte enger setzen, damit beide Knöpfe nebeneinander bleiben */
+@media (max-width:1180px) and (min-width:1001px){
+  .hero-ctas .btn-lg{padding:17px 28px}
+  .hero-ctas .btn-line{padding:17px 26px}
+}
+@media (max-width:520px){
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn,.hero-ctas .btn-line{justify-content:center}
+}
 
-.scroll-cue{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:14px;
-  opacity:0;transition:opacity 1s var(--ease) 1.4s;
+/* ---------- Opener-Foto ---------- */
+.hero-photo{
+  position:relative;margin:0;justify-self:end;width:100%;max-width:480px;
+  aspect-ratio:4/5;overflow:hidden;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path 1.4s var(--ease) .45s;
 }
-.hero.is-ready .scroll-cue{opacity:1}
-.scroll-cue span{font-family:var(--mono);font-size:10px;letter-spacing:.34em;color:var(--dim);text-transform:uppercase}
-.scroll-cue i{width:1px;height:56px;background:linear-gradient(var(--gold),transparent);animation:cue 2.6s var(--ease-soft) infinite}
-@keyframes cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero.is-ready .hero-photo{clip-path:inset(0 0 0 0)}
+.hero-photo img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.86) saturate(.92) contrast(1.04);
+  transform:scale(1.08);
+  transition:transform 1.8s var(--ease) .45s,filter .8s var(--ease);
+}
+.hero.is-ready .hero-photo img{transform:scale(1)}
+.hero-photo:hover img{filter:brightness(.97) saturate(1)}
+.hero-photo::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(190deg,rgba(10,10,12,.18),rgba(10,10,12,0) 38%,rgba(10,10,12,.72));
+}
+.hero-photo .frame{position:absolute;inset:14px;border:1px solid rgba(242,237,228,.16);z-index:2;pointer-events:none}
+.hero-photo figcaption{
+  position:absolute;left:0;bottom:0;z-index:3;padding:22px 26px;
+  display:flex;align-items:baseline;gap:12px;
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+}
+.hero-photo figcaption .mono{font-size:10px;letter-spacing:.2em;color:var(--gold)}
+
+@media (max-width:1000px){
+  .hero{padding-top:140px;padding-bottom:80px;align-items:flex-start}
+  .hero-grid{grid-template-columns:1fr;gap:clamp(44px,8vw,64px)}
+  .hero-photo{justify-self:stretch;max-width:none;aspect-ratio:5/4}
+  .hero-sub{max-width:none}
+}
 
 /* ============================================================
    Konzept

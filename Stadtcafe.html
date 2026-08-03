@@ -1140,21 +1140,46 @@ img { display: block; max-width: 100%; }
   }
 
   function initStatus() {
+    // Öffnungszeiten gelten in deutscher Zeit. Ohne feste Zeitzone würde der
+    // Status die Uhr des Besucher-Geräts nehmen und im Ausland (oder bei
+    // falsch gestelltem Gerät) den falschen Zustand anzeigen.
+    var DAY_INDEX = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    var berlinNow = function () {
+      try {
+        var parts = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Europe/Berlin', weekday: 'short',
+          hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
+        }).formatToParts(new Date());
+        var o = {};
+        parts.forEach(function (p) { o[p.type] = p.value; });
+        var d = DAY_INDEX[o.weekday];
+        var h = parseInt(o.hour, 10) % 24;
+        var m = parseInt(o.minute, 10);
+        if (d === undefined || isNaN(h) || isNaN(m)) return null;
+        return { day: d, mins: h * 60 + m };
+      } catch (e) { return null; }
+    };
+
     var update = function () {
       var wrap = document.getElementById('sc-status');
       var text = document.getElementById('sc-status-text');
       if (!wrap || !text) return;
-      var now = new Date();
-      var day = now.getDay(); // 0 Sun .. 6 Sat
-      var mins = now.getHours() * 60 + now.getMinutes();
+      var t = berlinNow();
+      if (!t) { // sehr alte Browser ohne Intl-Zeitzonen: Gerätezeit
+        var now = new Date();
+        t = { day: now.getDay(), mins: now.getHours() * 60 + now.getMinutes() };
+      }
+      var day = t.day; // 0 Sun .. 6 Sat
+      var mins = t.mins;
       var open = 17 * 60; // 17:00
       var closeFor = function (d) { return (d === 5 || d === 6) ? 2 * 60 : 1 * 60; }; // Fri/Sat -> 02:00 else 01:00
+      var fmt = function (m) { return ('0' + Math.floor(m / 60)).slice(-2) + ':' + ('0' + (m % 60)).slice(-2); };
       var prevDay = (day + 6) % 7;
-      var isOpen = false;
-      if (mins < closeFor(prevDay)) isOpen = true; // still in previous night
-      else if (mins >= open) isOpen = true; // tonight's session started
-      text.textContent = isOpen ? 'Jetzt geöffnet' : 'Öffnet um 17:00 Uhr';
-      wrap.classList.toggle('is-closed', !isOpen);
+      var closesAt = null;
+      if (mins < closeFor(prevDay)) closesAt = closeFor(prevDay); // still in previous night
+      else if (mins >= open) closesAt = closeFor(day); // tonight's session started
+      text.textContent = closesAt === null ? 'Öffnet um 17:00 Uhr' : 'Geöffnet bis ' + fmt(closesAt) + ' Uhr';
+      wrap.classList.toggle('is-closed', closesAt === null);
     };
     update();
     setInterval(update, 30000);

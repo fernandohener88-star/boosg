@@ -99,7 +99,7 @@ Alle Gesellschafter sind volljährig und unbeschränkt geschäftsfähig.
    b) Wird die Gesellschaft gegenüber dem Vertragspartner gleichwohl verpflichtet, stellt er die Gesellschaft und die übrigen Gesellschafter im Innenverhältnis von dieser Verpflichtung frei und ersetzt einen dadurch entstandenen Schaden.
    c) Der Gegenstand oder das Recht, das er dabei erworben hat, steht ihm persönlich zu, sofern die übrigen Gesellschafter nicht die Übernahme durch die Gesellschaft beschließen.
 4. Absatz 3 gilt nicht bei einem bloßen Versehen, bei Eilmaßnahmen zur Abwendung eines drohenden Schadens für die Gesellschaft und bei Ausgaben, die die übrigen Gesellschafter nachträglich genehmigen. Bei einem Versehen ist die Ausgabe wie eine normale Ausgabe der Gesellschaft zu behandeln, sofern sie der Sache nach im Interesse der Gesellschaft lag.
-5. Verstößt ein Gesellschafter wiederholt und absichtlich gegen diese Regelung, können die übrigen Gesellschafter gemeinsam angemessene Maßnahmen beschließen, insbesondere den Entzug einzelner Aufgaben oder Vertretungsbefugnisse. Ein Ausschluss ist nur unter den Voraussetzungen des § 17 möglich.
+5. Verstößt ein Gesellschafter wiederholt und absichtlich gegen diese Regelung, können die übrigen Gesellschafter gemeinsam angemessene Maßnahmen beschließen, insbesondere den Entzug einzelner Aufgaben oder Vertretungsbefugnisse. Ein Ausschluss ist nur unter den Voraussetzungen des § 14 möglich.
 6. Eine Vertragsstrafe ist nicht vereinbart.
 
 ## § 10 Trennung von Gesellschafts- und Privatvermögen

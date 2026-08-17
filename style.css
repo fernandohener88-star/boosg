@@ -350,30 +350,6 @@ h2,h1{text-wrap:balance}
 .split-copy{padding-top:clamp(4px,2vw,42px)}
 .split-copy .sub{margin:20px 0 0}
 
-.values{
-  margin-top:clamp(52px,7vw,88px);
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;
-}
-.value{
-  position:relative;padding:38px 34px 40px;border-radius:var(--r-lg);overflow:hidden;
-  background:var(--glass);border:1px solid var(--edge);
-  transition:transform .5s var(--ease),border-color .5s var(--soft),box-shadow .5s var(--ease);
-}
-.value::before{
-  content:"";position:absolute;inset:0;background:var(--iris-soft);
-  opacity:0;transition:opacity .55s var(--soft);
-}
-.value:hover{transform:translateY(-5px);border-color:var(--edge-2);box-shadow:var(--lift)}
-.value:hover::before{opacity:1}
-.value > *{position:relative}
-.value .n{
-  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
-  border-radius:50%;background:var(--iris);color:#2A1206;font-weight:700;font-size:15px;
-  margin-bottom:22px;
-}
-.value h3{font-size:26px;margin-bottom:10px}
-.value p{margin:0;color:var(--muted);font-size:16px;line-height:1.7}
-
 /* ============================================================
    Signature
    ============================================================ */
@@ -749,7 +725,7 @@ h2,h1{text-wrap:balance}
 }
 @media (max-width:620px){
   .sig-figure,.sig-figure img{min-height:340px}
-  .value,.card{padding:30px 24px 32px}
+  .card{padding:30px 24px 32px}
   .mi{padding:13px 12px}
   .mgroup{padding-left:12px}
 }

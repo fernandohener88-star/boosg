@@ -1215,10 +1215,10 @@ window.OSAHI_MENU = [
   }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' }) : null;
 
   if(io){
-    document.querySelectorAll('.reveal, );
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
     document.querySelectorAll('[data-count]').forEach(function(el){ io.observe(el); });
   } else {
-    document.querySelectorAll('.reveal, );
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
     document.querySelectorAll('[data-count]').forEach(function(el){ el.textContent = el.getAttribute('data-suffix-only')||el.dataset.count; });
   }
 

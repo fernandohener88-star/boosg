@@ -273,11 +273,43 @@
 
   <!-- ────────────────────────────── NAV ────────────────────────────── -->
   <header
-    class="fixed top-0 inset-x-0 z-40 transition-all duration-500"
-    :class="scrolled ? 'bg-cream-50 shadow-md border-b border-sage-100' : 'bg-cream-50/85 backdrop-blur border-b border-sage-100/50'"
+    class="fixed top-0 inset-x-0 z-40"
     x-data="{ scrolled:false }"
     x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 20)"
   >
+    <!-- info bar -->
+    <div class="hidden md:block bg-sage-900 text-cream-100/65">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-9 flex items-center justify-between text-[11.5px]">
+        <div class="flex items-center gap-5">
+          <span class="flex items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="w-3.5 h-3.5 text-sage-400"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Mo – Fr · 08 – 19 Uhr
+          </span>
+          <span class="hidden lg:flex items-center gap-2 text-cream-100/45">
+            <span class="dot"></span>
+            Sa · nach Vereinbarung
+          </span>
+        </div>
+        <div class="flex items-center gap-5">
+          <a href="#anfahrt" class="flex items-center gap-2 hover:text-cream-50 transition-colors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-sage-400"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Anfahrt
+          </a>
+          <a href="tel:+4900000000" class="flex items-center gap-2 hover:text-cream-50 transition-colors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" class="w-3.5 h-3.5 text-sage-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+            [Telefon Platzhalter]
+          </a>
+          <a href="mailto:info@physiopfau.de" class="hidden lg:flex items-center gap-2 hover:text-cream-50 transition-colors">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-sage-400"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            [E-Mail Platzhalter]
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- main nav -->
+    <div class="transition-all duration-500"
+         :class="scrolled ? 'bg-cream-50 shadow-md border-b border-sage-100' : 'bg-cream-50/85 backdrop-blur border-b border-sage-100/50'">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 h-[72px] flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2.5 group">
         <!-- mark -->
@@ -317,6 +349,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-5 h-5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
       </div>
+    </div>
     </div>
 
   </header>
@@ -464,6 +497,61 @@
   </section>
 
 
+  <!-- ────────────────────────────── SCHNELLZUGRIFF ────────────────────────────── -->
+  <section class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+
+        <!-- Termin -->
+        <button @click="open=true" class="group flex flex-col items-center text-center reveal" data-delay="1">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9.5 15 1.75 1.75L15 13"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Termin</span>
+          <span class="mt-1 text-[12px] text-sage-500">Online anfragen</span>
+        </button>
+
+        <!-- Leistungen -->
+        <a href="#leistungen" class="group flex flex-col items-center text-center reveal" data-delay="2">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V5a1.5 1.5 0 1 1 3 0v5M13 10V6.5a1.5 1.5 0 1 1 3 0V13"/>
+              <path d="M7 11c-1.5 0-2 1-2 2 0 4 3 8 7 8s7-3 7-7v-3"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Leistungen</span>
+          <span class="mt-1 text-[12px] text-sage-500">Unsere Therapien</span>
+        </a>
+
+        <!-- Anfahrt -->
+        <a href="#anfahrt" class="group flex flex-col items-center text-center reveal" data-delay="3">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Anfahrt</span>
+          <span class="mt-1 text-[12px] text-sage-500">Parken &amp; ÖPNV</span>
+        </a>
+
+        <!-- Über die Praxis -->
+        <a href="#ueber" class="group flex flex-col items-center text-center reveal" data-delay="4">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+              <ellipse cx="12" cy="17" rx="3" ry="2.5"/><circle cx="12" cy="11" r="1.5"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Praxis</span>
+          <span class="mt-1 text-[12px] text-sage-500">Über uns</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ────────────────────────────── ÜBER MICH ────────────────────────────── -->
   <section id="ueber" class="relative bg-cream-50">
     <div class="max-w-5xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
@@ -598,6 +686,75 @@
     </div>
   </section>
 
+  <!-- ────────────────────────────── ANFAHRT ────────────────────────────── -->
+  <section id="anfahrt" class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 py-28 lg:py-36">
+
+      <div class="flex items-center gap-3 eyebrow text-sage-500 reveal">
+        <span class="block w-6 h-px bg-sage-300"></span>
+        Anfahrt
+      </div>
+
+      <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+        <div class="reveal">
+          <h2 class="text-[38px] sm:text-5xl lg:text-[54px] leading-[1.06] text-sage-800">
+            So finden Sie<br/><span class="italic">zu uns</span>.
+          </h2>
+          <p class="mt-7 text-[16.5px] leading-[1.85] text-sage-700/85 max-w-md">
+            Unsere Praxis liegt zentral in Landau in der Pfalz — gut erreichbar
+            mit dem Auto wie auch mit öffentlichen Verkehrsmitteln.
+          </p>
+          <a href="https://www.google.com/maps/search/?api=1&query=Lazarettstra%C3%9Fe+1,+76829+Landau+in+der+Pfalz"
+             target="_blank" rel="noopener noreferrer"
+             class="btn-primary mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+            Route planen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="reveal space-y-px bg-sage-100 rounded-2xl overflow-hidden border border-sage-100" data-delay="1">
+          <div class="bg-cream-50 px-7 py-6 flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-sage-50 grid place-items-center text-sage-600">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </span>
+            <div>
+              <div class="eyebrow text-sage-500">Adresse</div>
+              <div class="mt-1.5 text-[15px] text-sage-800 leading-snug">Lazarettstraße 1<br/>76829 Landau in der Pfalz</div>
+            </div>
+          </div>
+          <div class="bg-cream-50 px-7 py-6 flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-sage-50 grid place-items-center text-sage-600">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 17h14M6 17v-5l1.5-4h9L18 12v5"/><circle cx="7.5" cy="17" r="1.5"/><circle cx="16.5" cy="17" r="1.5"/></svg>
+            </span>
+            <div>
+              <div class="eyebrow text-sage-500">Parken</div>
+              <div class="mt-1.5 text-[15px] text-sage-800 leading-snug">[Platzhalter Parkmöglichkeiten]</div>
+            </div>
+          </div>
+          <div class="bg-cream-50 px-7 py-6 flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-sage-50 grid place-items-center text-sage-600">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="5" y="4" width="14" height="12" rx="2"/><path d="M5 10h14M8 19l-1 2M16 19l1 2"/><circle cx="8.5" cy="13.5" r="1"/><circle cx="15.5" cy="13.5" r="1"/></svg>
+            </span>
+            <div>
+              <div class="eyebrow text-sage-500">Öffentlich</div>
+              <div class="mt-1.5 text-[15px] text-sage-800 leading-snug">[Platzhalter Bus &amp; Bahn]</div>
+            </div>
+          </div>
+          <div class="bg-cream-50 px-7 py-6 flex gap-4">
+            <span class="shrink-0 w-9 h-9 rounded-full bg-sage-50 grid place-items-center text-sage-600">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <div>
+              <div class="eyebrow text-sage-500">Barrierefreiheit</div>
+              <div class="mt-1.5 text-[15px] text-sage-800 leading-snug">[Platzhalter Zugang]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ────────────────────────────── CTA ────────────────────────────── -->
   <section id="kontakt" class="relative bg-cream-50">
     <div class="max-w-6xl mx-auto px-6 lg:px-10 py-28 lg:py-40">
@@ -703,6 +860,7 @@
             <li><a href="#top" class="hover:text-cream-50 text-cream-100/80">Startseite</a></li>
             <li><a href="#leistungen" class="hover:text-cream-50 text-cream-100/80">Leistungen</a></li>
             <li><a href="#ueber" class="hover:text-cream-50 text-cream-100/80">Über mich</a></li>
+            <li><a href="#anfahrt" class="hover:text-cream-50 text-cream-100/80">Anfahrt</a></li>
             <li><a href="#kontakt" class="hover:text-cream-50 text-cream-100/80">Termin</a></li>
           </ul>
         </div>

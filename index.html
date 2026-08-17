@@ -635,27 +635,25 @@
     try { initCursor(); } catch (e) {}
     try { initReveals(); } catch (e) {}
     try { initCounters(); } catch (e) {}
-  });
-})();
-
-  // Mobile nav toggle
-  (function(){
+    // Hamburger menu (inside ready so mobile-nav is guaranteed in DOM)
     var btn = document.getElementById('hamburger');
     var nav = document.getElementById('mobile-nav');
-    if (!btn || !nav) return;
-    btn.addEventListener('click', function(){
-      btn.classList.toggle('open');
-      nav.classList.toggle('open');
-      document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-    });
-    nav.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        btn.classList.remove('open');
-        nav.classList.remove('open');
-        document.body.style.overflow = '';
+    if (btn && nav) {
+      btn.addEventListener('click', function(){
+        btn.classList.toggle('open');
+        nav.classList.toggle('open');
+        document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
       });
-    });
-  })();
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          btn.classList.remove('open');
+          nav.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+  });
+})();
 
 </script>
 <div id="mobile-nav" class="mobile-nav"><a href="#top">Startseite</a><a href="#studio">Studio</a><a href="#leistungen">Leistungen</a><a href="#galerie">Galerie</a><a href="#kontakt">Kontakt</a><a href="tel:+4917680540425" class="mob-cta">0176 80540425 · Termin</a></div>

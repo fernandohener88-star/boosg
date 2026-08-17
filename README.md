@@ -4,7 +4,10 @@ Website für das Restaurant & die Cocktailbar **District Null41**
 (Sushi · Moderne asiatische Küche · Cocktails), Georg-Friedrich-Dentzel-Straße 11,
 76829 Landau in der Pfalz.
 
-Umgesetzt nach dem Claude-Design-Handoff `project/District Null41.dc.html`.
+Ausgangspunkt war der Claude-Design-Handoff `project/District Null41.dc.html`.
+Die Gestaltung wurde seitdem überarbeitet: weiche Formen, große Radien und
+schimmernde Verläufe auf tiefem Pflaumen-Ton statt Schwarz-Gold.
+Schriften: **Fraunces** (Überschriften) und **Figtree** (Text).
 
 ## Aufbau
 

@@ -1,0 +1,209 @@
+  <!-- ─────────────── HERO ─────────────── -->
+  <section id="top" class="relative min-h-[100svh] flex items-end">
+    <div class="absolute inset-0">
+      <picture>
+        <source media="(max-width: 767px)"
+                srcset="https://www.physiopfau.de/wp-content/uploads/go-x/u/05691529-ba9f-4fa7-899a-281b36e86fbe/l174,t205,w1643,h1102/image-1366x916.jpg" />
+        <img src="https://www.physiopfau.de/wp-content/uploads/go-x/u/05691529-ba9f-4fa7-899a-281b36e86fbe/l174,t205,w1643,h1102/image-1366x916.jpg"
+             alt="Behandlungszimmer der Praxis PhysioPfau"
+             class="hero-img w-full h-full object-cover object-[center_40%]"
+             x-init="$nextTick(()=>$el.classList.add('in'))" />
+      </picture>
+      <div class="absolute inset-0" style="background:
+        linear-gradient(180deg, rgba(28,38,34,.40) 0%, rgba(28,38,34,.10) 25%, rgba(28,38,34,.05) 45%, rgba(28,38,34,.70) 100%),
+        linear-gradient(115deg, rgba(63,90,76,.50) 0%, rgba(63,90,76,.18) 40%, rgba(0,0,0,0) 70%);"></div>
+    </div>
+
+    <div class="relative z-10 w-full">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-24 sm:pb-20 lg:pb-28 pt-28 sm:pt-36">
+        <div class="max-w-3xl text-cream-50">
+          <div class="eyebrow text-cream-50/70 animate-fade-in" style="animation-delay:.2s">
+            Physiotherapie · Landau in der Pfalz
+          </div>
+          <h1 class="mt-3 text-[52px] sm:text-7xl lg:text-[96px] leading-[1.0] tracking-tightish animate-fade-up" style="animation-delay:.15s">
+            <span class="italic text-cream-50">PhysioPfau<span class="text-sage-200">.</span></span>
+          </h1>
+          <p class="mt-5 max-w-sm text-[15px] sm:text-[16px] leading-[1.75] text-cream-50/75 animate-fade-up" style="animation-delay:.35s">
+            Ihre Gesundheit in besten Händen —<br/>individuell, persönlich, wirksam.
+          </p>
+
+          <div class="mt-8 flex flex-row flex-wrap gap-3 animate-fade-up" style="animation-delay:.55s">
+            <a href="termin.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 sm:px-7 sm:py-3.5 text-[13.5px] sm:text-[14.5px] font-medium">
+              Termin vereinbaren
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a href="leistungen.html" class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 sm:px-7 sm:py-3.5 text-[13.5px] sm:text-[14.5px] font-medium text-cream-50 border border-cream-50/70 bg-cream-50/15 backdrop-blur-sm hover:bg-cream-50/25 hover:border-cream-50 transition">
+              Leistungen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── SCHNELLZUGRIFF ─────────────── -->
+  <section class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 py-16 lg:py-20">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+
+        <a href="termin.html" class="group flex flex-col items-center text-center reveal" data-delay="1">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m9.5 15 1.75 1.75L15 13"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Termin</span>
+          <span class="mt-1 text-[12px] text-sage-500">Online anfragen</span>
+        </a>
+
+        <a href="leistungen.html" class="group flex flex-col items-center text-center reveal" data-delay="2">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V5a1.5 1.5 0 1 1 3 0v5M13 10V6.5a1.5 1.5 0 1 1 3 0V13"/>
+              <path d="M7 11c-1.5 0-2 1-2 2 0 4 3 8 7 8s7-3 7-7v-3"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Leistungen</span>
+          <span class="mt-1 text-[12px] text-sage-500">Unsere Therapien</span>
+        </a>
+
+        <a href="anfahrt.html" class="group flex flex-col items-center text-center reveal" data-delay="3">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Anfahrt</span>
+          <span class="mt-1 text-[12px] text-sage-500">Parken &amp; ÖPNV</span>
+        </a>
+
+        <a href="praxis.html" class="group flex flex-col items-center text-center reveal" data-delay="4">
+          <span class="w-20 h-20 sm:w-24 sm:h-24 rounded-full grid place-items-center border border-sage-200 bg-cream-100 text-sage-600 transition-all duration-400 group-hover:bg-sage-600 group-hover:text-cream-50 group-hover:border-sage-600 group-hover:-translate-y-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 sm:w-9 sm:h-9">
+              <path d="M12 13L5 4M12 13L9 3M12 13L12 3M12 13L15 3M12 13L19 4"/>
+              <ellipse cx="12" cy="17" rx="3" ry="2.5"/><circle cx="12" cy="11" r="1.5"/>
+            </svg>
+          </span>
+          <span class="mt-4 font-serif text-[19px] sm:text-[21px] text-sage-800 group-hover:text-sage-600 transition-colors">Praxis</span>
+          <span class="mt-1 text-[12px] text-sage-500">Über uns</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── KURZPORTRÄT ─────────────── -->
+  <section class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 pb-28 lg:pb-32">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+        <div class="reveal">
+          <div class="flex items-center gap-3 eyebrow text-sage-500">
+            <span class="block w-6 h-px bg-sage-300"></span>
+            Über die Praxis
+          </div>
+          <h2 class="mt-6 text-[38px] sm:text-5xl lg:text-[54px] leading-[1.06] text-sage-800">
+            Ein Ort, an dem<br/><span class="italic">Bewegung</span> beginnt.
+          </h2>
+        </div>
+        <div class="reveal" data-delay="1">
+          <p class="text-[16.5px] leading-[1.85] text-sage-700/85">
+            In unserer Praxis verbinden wir fachliche Kompetenz mit menschlicher Wärme.
+            Jede Behandlung beginnt mit einem aufmerksamen Gespräch — denn wir möchten Sie
+            und Ihre Beschwerden wirklich verstehen.
+          </p>
+          <a href="praxis.html" class="link-underline mt-7 inline-flex text-sage-700 text-[14.5px] font-medium">
+            Mehr über die Praxis
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── LEISTUNGEN (Auszug) ─────────────── -->
+  <section class="relative bg-sage-800 text-cream-50 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+         style="background: radial-gradient(60% 50% at 20% 0%, rgba(255,255,255,.5), transparent 60%), radial-gradient(40% 40% at 90% 100%, rgba(146,173,154,.6), transparent 60%);"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12 reveal">
+        <div>
+          <div class="flex items-center gap-3 eyebrow text-sage-200">
+            <span class="block w-6 h-px bg-sage-300"></span>
+            Leistungen
+          </div>
+          <h2 class="mt-5 text-[38px] sm:text-5xl lg:text-[56px] leading-[1.05]">
+            Therapie, <span class="italic text-sage-200">die wirkt.</span>
+          </h2>
+        </div>
+        <a href="leistungen.html" class="link-underline shrink-0 text-cream-50/85 text-[14.5px] font-medium">
+          Alle Leistungen
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+
+      <div class="border-t border-cream-50/15 reveal" data-delay="1">
+        <a href="leistungen.html" class="group flex items-center justify-between py-6 border-b border-cream-50/15 transition hover:border-cream-50/35">
+          <div>
+            <div class="font-serif text-[24px] sm:text-[28px] text-cream-50 group-hover:text-sage-200 transition">Krankengymnastik</div>
+            <div class="mt-1 text-[13.5px] text-sage-300/80">Beweglichkeit · Kraft · Funktion</div>
+          </div>
+          <span class="ml-6 shrink-0 w-10 h-10 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:border-cream-50/60 group-hover:text-cream-50 transition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="leistungen.html" class="group flex items-center justify-between py-6 border-b border-cream-50/15 transition hover:border-cream-50/35">
+          <div>
+            <div class="font-serif text-[24px] sm:text-[28px] text-cream-50 group-hover:text-sage-200 transition">Manuelle Therapie</div>
+            <div class="mt-1 text-[13.5px] text-sage-300/80">Gelenke · Muskeln · Nerven</div>
+          </div>
+          <span class="ml-6 shrink-0 w-10 h-10 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:border-cream-50/60 group-hover:text-cream-50 transition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="leistungen.html" class="group flex items-center justify-between py-6 border-b border-cream-50/15 transition hover:border-cream-50/35">
+          <div>
+            <div class="font-serif text-[24px] sm:text-[28px] text-cream-50 group-hover:text-sage-200 transition">CMD-Therapie</div>
+            <div class="mt-1 text-[13.5px] text-sage-300/80">Kiefer · Kopf · Nacken</div>
+          </div>
+          <span class="ml-6 shrink-0 w-10 h-10 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:border-cream-50/60 group-hover:text-cream-50 transition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+        <a href="leistungen.html" class="group flex items-center justify-between py-6 border-b border-cream-50/15 transition hover:border-cream-50/35">
+          <div>
+            <div class="font-serif text-[24px] sm:text-[28px] text-cream-50 group-hover:text-sage-200 transition">Manuelle Lymphdrainage</div>
+            <div class="mt-1 text-[13.5px] text-sage-300/80">Entstauung · Lymphsystem</div>
+          </div>
+          <span class="ml-6 shrink-0 w-10 h-10 rounded-full border border-cream-50/20 grid place-items-center text-cream-50/50 group-hover:border-cream-50/60 group-hover:text-cream-50 transition">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── ABSCHLUSS-CTA ─────────────── -->
+  <section class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="relative rounded-[36px] overflow-hidden border border-sage-100 bg-cream-100 shadow-soft px-8 py-12 sm:px-12 sm:py-16 text-center reveal">
+        <h2 class="text-[34px] sm:text-5xl leading-[1.08] text-sage-800">
+          Bereit für Ihren <span class="italic">ersten Termin?</span>
+        </h2>
+        <p class="mt-5 text-[16.5px] leading-[1.8] text-sage-700/85 max-w-md mx-auto">
+          Wir freuen uns darauf, Sie kennenzulernen und gemeinsam mit Ihnen zu starten.
+        </p>
+        <div class="mt-9 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="termin.html" class="btn-primary inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+            Termin anfragen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="tel:+4900000000" class="btn-ghost inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[14.5px] font-medium">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+            Direkt anrufen
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>

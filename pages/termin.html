@@ -1,0 +1,141 @@
+  <!-- ─────────────── SEITENKOPF ─────────────── -->
+  <section class="relative bg-sage-800 text-cream-50 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.07] pointer-events-none"
+         style="background: radial-gradient(60% 50% at 20% 0%, rgba(255,255,255,.5), transparent 60%), radial-gradient(40% 40% at 90% 100%, rgba(146,173,154,.6), transparent 60%);"></div>
+    <div class="relative max-w-5xl mx-auto px-6 lg:px-10 pt-32 md:pt-40 pb-20 lg:pb-24">
+      <div class="flex items-center gap-3 eyebrow text-sage-200 animate-fade-in">
+        <span class="block w-6 h-px bg-sage-300"></span>
+        Terminanfrage
+      </div>
+      <h1 class="mt-6 text-[42px] sm:text-6xl lg:text-[68px] leading-[1.03] animate-fade-up">
+        Lassen Sie uns ins<br/><span class="italic text-sage-200">Gespräch</span> kommen.
+      </h1>
+      <p class="mt-7 max-w-xl text-[16.5px] leading-[1.8] text-cream-50/80 animate-fade-up" style="animation-delay:.2s">
+        Hinterlassen Sie uns kurz Ihre Daten und ein Wunschdatum — wir melden uns
+        innerhalb von 24 Stunden bei Ihnen.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────── FORMULAR ─────────────── -->
+  <section class="relative bg-cream-50">
+    <div class="max-w-5xl mx-auto px-6 lg:px-10 py-24 lg:py-32">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+
+        <!-- Formular -->
+        <div class="lg:col-span-7 reveal">
+          <div x-show="!sent">
+            <form class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5"
+                  @submit.prevent="sent=true">
+              <div>
+                <label class="flab" for="vorname">Vorname</label>
+                <input class="field" id="vorname" name="vorname" type="text" placeholder="Anna" required />
+              </div>
+              <div>
+                <label class="flab" for="nachname">Nachname</label>
+                <input class="field" id="nachname" name="nachname" type="text" placeholder="Müller" required />
+              </div>
+              <div>
+                <label class="flab" for="email">E-Mail</label>
+                <input class="field" id="email" name="email" type="email" placeholder="anna@beispiel.de" required />
+              </div>
+              <div>
+                <label class="flab" for="telefon">Telefon</label>
+                <input class="field" id="telefon" name="telefon" type="tel" placeholder="0151 …" />
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="flab">Anliegen</label>
+                <div class="flex flex-wrap gap-2 mt-3" x-data="{ sel:'Krankengymnastik' }">
+                  <template x-for="opt in ['Krankengymnastik','Manuelle Therapie','CMD-Therapie','Lymphdrainage','Sonstiges']" :key="opt">
+                    <button type="button" @click="sel=opt"
+                            :class="sel===opt ? 'bg-sage-700 text-cream-50 border-sage-700' : 'bg-transparent text-sage-700 border-sage-200 hover:border-sage-400'"
+                            class="text-[13px] rounded-full border px-3.5 py-1.5 transition">
+                      <span x-text="opt"></span>
+                    </button>
+                  </template>
+                </div>
+              </div>
+
+              <div class="sm:col-span-2">
+                <label class="flab" for="nachricht">Nachricht (optional)</label>
+                <textarea class="field resize-none" id="nachricht" name="nachricht" rows="4"
+                          placeholder="Wunschtermin, kurze Beschreibung der Beschwerden …"></textarea>
+              </div>
+
+              <div class="sm:col-span-2 flex items-start gap-3 mt-1">
+                <input type="checkbox" required class="mt-1 accent-sage-700" id="dsg" />
+                <label for="dsg" class="text-[12.5px] text-sage-700/85 leading-relaxed">
+                  Ich stimme der Verarbeitung meiner Daten gemäß der
+                  <button type="button" @click="datenschutz=true" class="underline hover:text-sage-900 transition-colors">Datenschutzerklärung</button> zu.
+                </label>
+              </div>
+
+              <div class="sm:col-span-2 pt-2">
+                <button type="submit" class="btn-primary rounded-full px-7 py-3.5 text-[14.5px] font-medium inline-flex items-center justify-center gap-2">
+                  Anfrage senden
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Bestätigung -->
+          <div x-show="sent" x-transition style="display:none"
+               class="rounded-3xl border border-sage-100 bg-cream-100 px-8 py-14 text-center">
+            <span class="w-14 h-14 mx-auto grid place-items-center rounded-full bg-sage-100 text-sage-700">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M5 13l4 4L19 7"/></svg>
+            </span>
+            <h2 class="mt-5 font-serif text-3xl text-sage-800">Vielen Dank.</h2>
+            <p class="mt-2 text-sage-700/80 max-w-sm mx-auto">
+              Wir haben Ihre Anfrage erhalten und melden uns in Kürze bei Ihnen zurück.
+            </p>
+            <a href="index.html" class="link-underline mt-8 inline-flex text-sage-700 text-[14.5px] font-medium">
+              Zurück zur Startseite
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-4 h-4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Kontaktangaben -->
+        <aside class="lg:col-span-5 reveal" data-delay="1">
+          <div class="rounded-3xl border border-sage-100 bg-cream-100 p-8">
+            <div class="eyebrow text-sage-500">Lieber direkt?</div>
+            <p class="mt-3 text-[15.5px] leading-relaxed text-sage-700/85">
+              Sie erreichen uns während der Sprechzeiten auch telefonisch.
+            </p>
+
+            <a href="tel:+4900000000" class="btn-ghost mt-6 w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[14.5px] font-medium">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" class="w-4 h-4"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+              [Telefon Platzhalter]
+            </a>
+
+            <div class="mt-8 space-y-5 text-[14.5px]">
+              <div class="border-t border-sage-200 pt-4">
+                <div class="eyebrow text-sage-500">Adresse</div>
+                <div class="mt-2 text-sage-800 leading-snug">Lazarettstraße 1<br/>76829 Landau in der Pfalz</div>
+                <a href="anfahrt.html" class="link-underline mt-3 inline-flex text-sage-700 text-[13.5px] font-medium">
+                  Anfahrt &amp; Parken
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-3.5 h-3.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+              </div>
+              <div class="border-t border-sage-200 pt-4">
+                <div class="eyebrow text-sage-500">Sprechzeiten</div>
+                <div class="mt-2 text-sage-800 leading-snug">Mo – Fr · 08 – 19 Uhr<br/>Sa · nach Vereinbarung</div>
+              </div>
+              <div class="border-t border-sage-200 pt-4">
+                <div class="eyebrow text-sage-500">E-Mail</div>
+                <div class="mt-2 text-sage-800 leading-snug">[E-Mail Platzhalter]</div>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-6 text-[12.5px] leading-relaxed text-sage-600">
+            Bringen Sie zum ersten Termin bitte Ihre Heilmittelverordnung, die
+            Versichertenkarte und bequeme Kleidung mit.
+          </p>
+        </aside>
+
+      </div>
+    </div>
+  </section>

@@ -105,19 +105,26 @@ HEAD = """<!doctype html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css" />
-</head>
+  <script>document.documentElement.className+=' js';</script>
+{head_extra}</head>
 
 <body class="bg-cream-50 text-ink antialiased" x-data="{{ mobile:false,{alpine_extra} cookie: !localStorage.getItem('cookie_ok'), impressum:false, datenschutz:false }}">
 """
 
+# Läuft im <head>, noch bevor der Overlay im DOM steht: markiert die Seite
+# beim zweiten Aufruf in derselben Sitzung, damit das Intro gar nicht
+# erst aufblitzt. Reines Extra — ohne dieses Skript läuft das Intro normal.
+INTRO_HEAD = """  <script>try{if(sessionStorage.getItem('pp_intro')==='1'){document.documentElement.className+=' intro-seen';}else{sessionStorage.setItem('pp_intro','1');}}catch(e){}</script>
+"""
+
 INTRO = """
   <!-- ─────────────── INTRO ─────────────── -->
-  <div id="intro-overlay" style="position:fixed;inset:0;z-index:200;background:#1f2c26;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
-    <span style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:9999px;background:rgba(85,115,98,.25);border:1px solid rgba(146,173,154,.3);color:#fbf9f4;animation:i-rise .6s .1s cubic-bezier(.2,.6,.2,1) both;">
-      """ + PEACOCK.format(sw="1.4", cls="w-[30px] h-[30px]") + """
+  <div id="intro-overlay" aria-hidden="true">
+    <span class="intro-mark">
+      """ + PEACOCK.format(sw="1.4", cls="") + """
     </span>
-    <h1 style="font-family:'Instrument Serif',Georgia,serif;font-size:clamp(36px,6vw,64px);color:#fbf9f4;margin-top:20px;letter-spacing:-.02em;line-height:1;animation:i-rise .6s .25s cubic-bezier(.2,.6,.2,1) both;">PhysioPfau</h1>
-    <p style="font-size:11px;text-transform:uppercase;letter-spacing:.2em;color:#92ad9a;margin-top:10px;animation:i-rise .6s .38s cubic-bezier(.2,.6,.2,1) both;">Physiotherapie · Landau in der Pfalz</p>
+    <p class="intro-name">PhysioPfau</p>
+    <p class="intro-sub">Physiotherapie · Landau in der Pfalz</p>
   </div>
 """
 
@@ -469,6 +476,7 @@ def main():
                 title=page["title"],
                 desc=page["desc"],
                 alpine_extra=page.get("alpine_extra", ""),
+                head_extra=INTRO_HEAD if page.get("intro") else "",
             )
             + (INTRO if page.get("intro") else "")
             + build_header(page["nav"])

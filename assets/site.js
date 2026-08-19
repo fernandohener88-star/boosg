@@ -1,34 +1,16 @@
-/* PhysioPfau — gemeinsame Skripte für alle Seiten */
+/* PhysioPfau — gemeinsame Skripte für alle Seiten
+   Der Intro-Opener läuft bewusst ohne JavaScript (siehe assets/site.css),
+   damit die Seite nie im Ladebild hängen bleiben kann. */
 
-/* Intro-Opener: nur auf der Startseite und nur einmal pro Browser-Sitzung */
-(function () {
-  var overlay = document.getElementById('intro-overlay');
-  if (!overlay) return;
-
-  var seen = false;
-  try { seen = sessionStorage.getItem('intro_seen') === '1'; } catch (e) {}
-
-  if (seen) {
-    overlay.style.display = 'none';
-    return;
-  }
-
-  try { sessionStorage.setItem('intro_seen', '1'); } catch (e) {}
-
-  setTimeout(function () {
-    overlay.style.transition = 'opacity .5s ease';
-    overlay.style.opacity = '0';
-    setTimeout(function () { overlay.style.display = 'none'; }, 520);
-  }, 1600);
-})();
-
-/* Abschnitte beim Scrollen einblenden */
+/* Abschnitte beim Scrollen einblenden.
+   Die Startwerte (unsichtbar) setzt das CSS nur, wenn html.js gesetzt ist —
+   fällt dieses Skript aus, bleiben alle Inhalte einfach sichtbar. */
 (function () {
   var els = document.querySelectorAll('.reveal');
   if (!els.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    els.forEach(function (el) { el.classList.add('in'); });
+    for (var i = 0; i < els.length; i++) els[i].classList.add('in');
     return;
   }
 

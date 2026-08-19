@@ -1,13 +1,62 @@
 html { scroll-behavior: smooth; }
-    @keyframes i-rise  { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes i-bar   { from { transform:scaleX(0); } to { transform:scaleX(1); } }
-    @keyframes i-up    { from { transform:translateY(0); }   to { transform:translateY(-100%); } }
-    @keyframes i-down  { from { transform:translateY(0); }   to { transform:translateY( 100%); } }
-    @keyframes i-logo  { 0%{opacity:0;transform:scale(.7) rotate(-8deg);} 100%{opacity:1;transform:scale(1) rotate(0deg);} }
-    @keyframes i-fade  { to { opacity:0; } }
-    .i-curtain-up   { animation: i-up   .9s cubic-bezier(.85,0,.15,1) forwards; }
-    .i-curtain-down { animation: i-down .9s cubic-bezier(.85,0,.15,1) forwards; }
-    .i-content-fade { animation: i-fade .35s ease forwards; }
+
+    /* ── Intro-Opener ──────────────────────────────────────────────
+       Bewusst rein per CSS gelöst: Der Overlay blendet sich selbst aus,
+       auch wenn JavaScript langsam lädt oder ganz ausfällt. Die Seite
+       kann dadurch nie im Ladebild hängen bleiben. */
+    @keyframes i-rise    { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes intro-out { to { opacity:0; visibility:hidden; } }
+
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #1f2c26;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      animation: intro-out .45s .8s cubic-bezier(.4,0,.2,1) forwards;
+    }
+    #intro-overlay .intro-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px; height: 64px;
+      border-radius: 9999px;
+      background: rgba(85,115,98,.25);
+      border: 1px solid rgba(146,173,154,.3);
+      color: #fbf9f4;
+      animation: i-rise .5s .05s cubic-bezier(.2,.6,.2,1) both;
+    }
+    #intro-overlay .intro-mark svg { width: 30px; height: 30px; }
+    #intro-overlay .intro-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(36px, 6vw, 64px);
+      color: #fbf9f4;
+      margin: 20px 0 0;
+      letter-spacing: -.02em;
+      line-height: 1;
+      animation: i-rise .5s .15s cubic-bezier(.2,.6,.2,1) both;
+    }
+    #intro-overlay .intro-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: #92ad9a;
+      margin: 10px 0 0;
+      animation: i-rise .5s .25s cubic-bezier(.2,.6,.2,1) both;
+    }
+    /* Zweiter Aufruf in derselben Sitzung: gar nicht erst zeigen */
+    html.intro-seen #intro-overlay { display: none; }
+    /* Reduzierte Bewegung: sofort freigeben */
+    @media (prefers-reduced-motion: reduce) {
+      #intro-overlay { animation-delay: 0s; animation-duration: .01s; }
+      #intro-overlay .intro-mark,
+      #intro-overlay .intro-name,
+      #intro-overlay .intro-sub { animation: none; }
+    }
     body {
       font-family: 'Manrope', system-ui, sans-serif;
       color: #1c2622;
@@ -68,13 +117,18 @@ html { scroll-behavior: smooth; }
     .nav-link.active { color: #3f5a4c; }
     .nav-link.active::after { transform: scaleX(1); opacity: .55; }
 
-    /* reveal on scroll */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1); }
-    .reveal.in { opacity: 1; transform: none; }
-    .reveal[data-delay="1"]{ transition-delay: .08s; }
-    .reveal[data-delay="2"]{ transition-delay: .16s; }
-    .reveal[data-delay="3"]{ transition-delay: .24s; }
-    .reveal[data-delay="4"]{ transition-delay: .32s; }
+    /* Einblenden beim Scrollen.
+       Nur aktiv, wenn html.js gesetzt ist — ohne JavaScript bleiben alle
+       Inhalte sichtbar, statt dauerhaft unsichtbar zu sein. */
+    html.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 1s cubic-bezier(.2,.6,.2,1), transform 1s cubic-bezier(.2,.6,.2,1); }
+    html.js .reveal.in { opacity: 1; transform: none; }
+    html.js .reveal[data-delay="1"]{ transition-delay: .08s; }
+    html.js .reveal[data-delay="2"]{ transition-delay: .16s; }
+    html.js .reveal[data-delay="3"]{ transition-delay: .24s; }
+    html.js .reveal[data-delay="4"]{ transition-delay: .32s; }
+    @media (prefers-reduced-motion: reduce) {
+      html.js .reveal { opacity: 1; transform: none; transition: none; }
+    }
 
     /* subtle grain on cream */
     .grain { position: relative; }

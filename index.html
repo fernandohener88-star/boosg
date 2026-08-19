@@ -47,48 +47,130 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
 .faq-item[data-open="true"] .faq-icon{transform:rotate(45deg)}
 .faq-answer{overflow:hidden;transition:max-height 0.3s ease;max-height:0}
 .faq-item[data-open="true"] .faq-answer{max-height:400px}
-@media (max-width:820px){.desktop-nav{display:none !important}}
+/* --- Kopfzeile --- */
+.brand{display:flex;align-items:baseline;gap:10px;color:#0E3B3A;white-space:nowrap}
+.brand-name{font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:0.01em}
+.brand-kicker{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#B8925A}
+.hdr-phone,.burger{display:none}
+.hdr-phone{align-items:center;gap:8px;color:#0E3B3A;font-weight:600;font-size:15px;border:1px solid rgba(184,146,90,0.55);border-radius:8px;padding:9px 14px;min-height:44px}
+.hdr-phone:hover{background:#0E3B3A;color:#F6F2EB;border-color:#0E3B3A}
+.burger{width:46px;height:46px;flex:none;flex-direction:column;align-items:center;justify-content:center;background:none;border:1px solid rgba(184,146,90,0.55);border-radius:8px;cursor:pointer;padding:0}
+.burger span{display:block;width:20px;height:1.5px;background:#0E3B3A;border-radius:2px;transition:transform 0.25s ease,opacity 0.2s ease}
+.burger span+span{margin-top:5px}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+#mobile-menu{display:none;border-top:1px solid rgba(184,146,90,0.25);background:#F6F2EB;padding:8px 24px 22px}
+#mobile-menu.open{display:block}
+#mobile-menu a{display:flex;align-items:center;min-height:50px;font-size:17px;font-weight:500;color:#1A2422;border-bottom:1px solid rgba(184,146,90,0.2)}
+#mobile-menu a:hover{color:#B8925A}
+#mobile-menu .mm-cta{justify-content:center;margin-top:18px;border-bottom:none;background:#0E3B3A;color:#F6F2EB;border-radius:8px;font-weight:600}
+#mobile-menu .mm-cta:hover{background:#B8925A;color:#F6F2EB}
+/* --- Startbereich --- */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,0.9fr);gap:60px;align-items:center}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:38px}
+.trust{list-style:none;display:flex;flex-wrap:wrap;gap:12px 26px;margin:56px 0 0;padding:26px 0 0;border-top:1px solid rgba(184,146,90,0.35);font-size:14.5px;color:#0E3B3A;font-weight:500}
+.trust li{display:flex;align-items:center;gap:9px}
+.trust li::before{content:'';flex:none;width:5px;height:5px;border-radius:50%;background:#B8925A}
+.hero-card{background:rgba(246,242,235,0.72);backdrop-filter:blur(6px);border:1px solid rgba(184,146,90,0.4);border-radius:16px;padding:36px 34px;box-shadow:0 18px 44px rgba(14,59,58,0.09)}
+.hero-card dt{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:#B8925A;font-weight:600}
+.hero-card dd{margin:6px 0 0;font-family:'Fraunces',serif;font-size:clamp(22px,2.4vw,27px);color:#0E3B3A}
+.hero-card dd a{color:#0E3B3A;word-break:break-word}
+.hero-card dd a:hover{color:#B8925A}
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-card{padding:30px 26px}
+}
+@media (max-width:1000px){
+  .desktop-nav,.btn-nav{display:none !important}
+  .hdr-phone,.burger{display:inline-flex}
+  .brand{flex-direction:column;align-items:flex-start;gap:2px}
+  .brand-name{font-size:19px;line-height:1.15}
+  .brand-kicker{font-size:9.5px;letter-spacing:0.16em}
+}
+/* --- Kontaktformular --- */
+#contact-form label{min-width:0}
+#contact-form input,#contact-form textarea{width:100%;min-width:0}
+@media (max-width:640px){
+  #contact-form{grid-template-columns:1fr !important}
+}
+@media (max-width:560px){
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions a{justify-content:center}
+  .hdr-phone span{display:none}
+  .hdr-phone{padding:9px 12px}
+}
 </style>
 </head>
 <body>
 
 <header role="banner" style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(246,242,235,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,146,90,0.25)">
-  <nav aria-label="Hauptnavigation" style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:32px;padding:16px 24px">
-    <a href="#start" style="display:flex;align-items:baseline;gap:10px;color:#0E3B3A">
-      <span style="font-family:'Fraunces',serif;font-size:22px;font-weight:500;letter-spacing:0.01em">Dr. Killguss</span>
-      <span style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#B8925A">Anästhesiologie</span>
+  <nav aria-label="Hauptnavigation" style="max-width:1248px;margin:0 auto;display:flex;align-items:center;gap:20px;padding:14px 24px">
+    <a class="brand" href="#start">
+      <span class="brand-name">Dr. Killguss</span>
+      <span class="brand-kicker">Anästhesiologie</span>
     </a>
-    <div class="desktop-nav" style="display:flex;gap:26px;margin-left:auto;font-size:15px;font-weight:500">
+    <div class="desktop-nav" style="display:flex;align-items:center;gap:26px;margin-left:auto;font-size:15px;font-weight:500">
       <a class="nav-link" href="#leistungen">Leistungen</a>
       <a class="nav-link" href="#ueber-mich">Über mich</a>
       <a class="nav-link" href="#team">Team</a>
       <a class="nav-link" href="#standorte">Standorte</a>
       <a class="nav-phone" href="tel:01778343069">0177 - 83 43 069</a>
     </div>
-    <a class="btn-nav" href="#kontakt" style="margin-left:auto">Kontakt aufnehmen</a>
+    <a class="btn-nav" href="#kontakt">Kontakt aufnehmen</a>
+    <a class="hdr-phone" href="tel:01778343069" style="margin-left:auto" aria-label="Anrufen: 0177 83 43 069">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Anrufen</span>
+    </a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div id="mobile-menu">
+    <a href="#leistungen">Leistungen</a>
+    <a href="#ueber-mich">Über mich</a>
+    <a href="#team">Team</a>
+    <a href="#standorte">Standorte</a>
+    <a href="tel:01778343069">0177 - 83 43 069</a>
+    <a class="mm-cta" href="#kontakt">Kontakt aufnehmen</a>
+  </div>
 </header>
 
 <main id="start">
-<section aria-label="Einführung" style="position:relative;overflow:hidden;background:linear-gradient(160deg,#F6F2EB 0%,#E4E9E4 100%);padding:180px 24px 90px;scroll-margin-top:80px">
+<section aria-label="Einführung" style="position:relative;overflow:hidden;background:linear-gradient(160deg,#F6F2EB 0%,#E4E9E4 100%);padding:clamp(124px,13vw,168px) 24px clamp(66px,8vw,96px);scroll-margin-top:80px">
   <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
     <div style="position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#9BB0A0 0%,transparent 70%);filter:blur(70px);opacity:0.55;top:-120px;right:-80px;animation:drift1 18s ease-in-out infinite"></div>
     <div style="position:absolute;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(14,59,58,0.35) 0%,transparent 70%);filter:blur(70px);opacity:0.55;bottom:-160px;right:18%;animation:drift2 24s ease-in-out infinite"></div>
     <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(184,146,90,0.30) 0%,transparent 70%);filter:blur(70px);opacity:0.55;top:30%;left:-140px;animation:drift3 21s ease-in-out infinite"></div>
   </div>
-  <div style="position:relative;max-width:1200px;margin:0 auto">
-    <p style="margin:0 0 18px;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:#B8925A;font-weight:600">Palliativmedizin · Notfallmedizin</p>
-    <h1 style="margin:0;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(44px,7vw,88px);line-height:1.05;color:#0E3B3A;max-width:820px;text-wrap:balance">Ambulante Anästhesie</h1>
-    <p style="margin:28px 0 0;font-size:clamp(17px,2vw,21px);line-height:1.65;color:#1A2422;max-width:560px;text-wrap:pretty">Dr. med. Margret Killguss — Fachärztin für Anästhesiologie. Mit Menschlichkeit und Kompetenz durch Ihren Eingriff.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:38px">
-      <a class="btn-primary" href="#kontakt">Kontakt aufnehmen</a>
-      <a class="btn-outline" href="#leistungen">Unsere Leistungen</a>
+  <div class="hero-grid" style="position:relative;max-width:1200px;margin:0 auto">
+    <div>
+      <p style="margin:0 0 18px;font-size:clamp(11px,2.4vw,13px);letter-spacing:0.2em;text-transform:uppercase;color:#B8925A;font-weight:600">Palliativmedizin · Notfallmedizin</p>
+      <h1 style="margin:0;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(40px,6.4vw,76px);line-height:1.06;color:#0E3B3A;text-wrap:balance">Ambulante Anästhesie</h1>
+      <p style="margin:26px 0 0;font-size:clamp(16.5px,1.9vw,20px);line-height:1.65;color:#1A2422;max-width:520px;text-wrap:pretty">Dr. med. Margret Killguss — Fachärztin für Anästhesiologie. Mit Menschlichkeit und Kompetenz durch Ihren Eingriff.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#kontakt">Kontakt aufnehmen</a>
+        <a class="btn-outline" href="#leistungen">Unsere Leistungen</a>
+      </div>
+      <ul class="trust">
+        <li>Facharztstandard</li>
+        <li>Individuelle Aufklärung</li>
+        <li>Überregionales Netzwerk</li>
+      </ul>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:64px;padding-top:26px;border-top:1px solid rgba(184,146,90,0.35);font-size:14px;color:#0E3B3A;font-weight:500">
-      <span>Facharztstandard</span><span style="color:#B8925A">·</span>
-      <span>Individuelle Aufklärung</span><span style="color:#B8925A">·</span>
-      <span>Überregionales Netzwerk</span>
-    </div>
+    <aside class="hero-card" aria-label="Direktkontakt">
+      <dl style="margin:0;display:flex;flex-direction:column;gap:24px">
+        <div>
+          <dt>Telefon</dt>
+          <dd><a href="tel:01778343069">0177 - 83 43 069</a></dd>
+        </div>
+        <div>
+          <dt>E-Mail</dt>
+          <dd><a href="mailto:praxis@drkillguss.de" style="font-size:clamp(17px,1.6vw,19px)">praxis@drkillguss.de</a></dd>
+        </div>
+      </dl>
+      <p style="margin:26px 0 0;padding-top:22px;border-top:1px solid rgba(184,146,90,0.35);font-size:15px;line-height:1.65;color:#1A2422">Termine für Aufklärungsgespräche nach Vereinbarung — wir nehmen uns Zeit für Ihre Fragen.</p>
+    </aside>
   </div>
 </section>
 
@@ -104,7 +186,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
   <div style="max-width:1200px;margin:0 auto">
     <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#0E3B3A">Tätigkeitsschwerpunkte</h2>
     <div style="width:56px;height:1px;background:#B8925A;margin-bottom:48px"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:24px">
       <article style="background:#E4E9E4;border-radius:12px;padding:36px 32px;border-top:2px solid #B8925A">
         <p style="margin:0 0 12px;font-family:'Fraunces',serif;font-size:23px;color:#0E3B3A">Ambulante Anästhesien</p>
         <p style="margin:0;font-size:15.5px;line-height:1.7;color:#1A2422">In Allgemeinchirurgie, Orthopädie, Plastischer Chirurgie, Handchirurgie, zahnärztlicher Chirurgie und Ophthalmochirurgie — bei erfahrenen Kooperations-Operateuren in der Region.</p>
@@ -126,7 +208,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
     <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#0E3B3A">Unsere Verfahren</h2>
     <p style="margin:0 0 12px;max-width:620px;font-size:16.5px;line-height:1.7;color:#1A2422">Welches Verfahren für Sie geeignet ist, besprechen wir gemeinsam im persönlichen Aufklärungsgespräch.</p>
     <div style="width:56px;height:1px;background:#B8925A;margin-bottom:48px"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px">
       <article class="card-verfahren">
         <span style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#B8925A;font-weight:600">Verfahren 01</span>
         <h3 style="margin:0;font-family:'Fraunces',serif;font-weight:400;font-size:26px;color:#0E3B3A">Vollnarkose</h3>
@@ -156,7 +238,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
     <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#0E3B3A">Was Sie erwartet</h2>
     <p style="margin:0 0 12px;max-width:620px;font-size:16.5px;line-height:1.7">Ein klarer, ruhiger Ablauf — Schritt für Schritt begleitet.</p>
     <div style="width:56px;height:1px;background:#B8925A;margin-bottom:56px"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:32px">
       <div style="display:flex;flex-direction:column;gap:16px">
         <div style="display:flex;align-items:center;gap:16px"><span style="font-family:'Fraunces',serif;font-size:34px;color:#B8925A">1</span><span style="flex:1;height:1px;background:rgba(184,146,90,0.4)"></span></div>
         <p style="margin:0;font-weight:600;font-size:17px;color:#0E3B3A">Vorgespräch &amp; Aufklärung</p>
@@ -182,7 +264,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
 </section>
 
 <section id="ueber-mich" aria-label="Über Dr. Killguss" style="padding:100px 24px;background:#0E3B3A;color:#F6F2EB;scroll-margin-top:80px">
-  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:64px;align-items:start">
     <div>
       <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#F6F2EB">Dr. med. Margret Killguss</h2>
       <p style="margin:0 0 28px;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#9BB0A0">Fachärztin · erfahren · kompetent · zuverlässig · empathisch</p>
@@ -258,7 +340,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
   <div style="max-width:1200px;margin:0 auto">
     <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#0E3B3A">Unser Team</h2>
     <div style="width:56px;height:1px;background:#B8925A;margin-bottom:48px"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:20px">
       <article class="card-team">
         <div style="width:52px;height:52px;border-radius:50%;background:#0E3B3A;color:#F6F2EB;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:19px;margin-bottom:18px">MK</div>
         <p style="margin:0;font-weight:600;font-size:16.5px;color:#0E3B3A">Dr. med. Margret Killguss</p>
@@ -293,7 +375,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
     <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#0E3B3A">Kooperationspartner &amp; Standorte</h2>
     <p style="margin:0 0 12px;max-width:620px;font-size:16.5px;line-height:1.7">Ambulante Anästhesien führe ich an den Standorten unserer Kooperations-Operateure in der Vorder- und Südpfalz durch.</p>
     <div style="width:56px;height:1px;background:#B8925A;margin-bottom:48px"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px">
       <article style="background:#F6F2EB;border-radius:12px;padding:32px 28px;border-top:2px solid #9BB0A0">
         <p style="margin:0 0 6px;font-family:'Fraunces',serif;font-size:20px;color:#0E3B3A">BASF Medical Center</p>
         <p style="margin:0 0 14px;font-size:14.5px;line-height:1.6;color:#1A2422">Hand-, Orthopädie- und Unfallchirurgie · Operateurin Dr. Heike Blasek (Handchirurgin)</p>
@@ -373,7 +455,7 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
 </section>
 
 <section id="kontakt" aria-label="Kontakt" style="padding:100px 24px;background:#0E3B3A;color:#F6F2EB;scroll-margin-top:80px">
-  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:64px;align-items:start">
     <div>
       <h2 style="margin:0 0 14px;font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,4vw,44px);color:#F6F2EB">Kontakt aufnehmen</h2>
       <div style="width:56px;height:1px;background:#B8925A;margin-bottom:28px"></div>
@@ -460,6 +542,26 @@ input,textarea{font-family:'Hanken Grotesk',sans-serif}
 }
 </script>
 <script>
+(function () {
+  var burger = document.querySelector('.burger');
+  var menu = document.getElementById('mobile-menu');
+  function closeMenu() {
+    menu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Menü öffnen');
+  }
+  burger.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  });
+  menu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 1000) closeMenu();
+  });
+})();
 document.querySelectorAll('.faq-item').forEach(function (item) {
   item.querySelector('.faq-toggle').addEventListener('click', function () {
     var isOpen = item.dataset.open === 'true';

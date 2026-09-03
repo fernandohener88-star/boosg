@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FDF4F2">
+<title>sleepcall?</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#FDF4F2;
+  --paper2:#F7E7E4;
+  --ink:#3B2A30;
+  --accent:#C4677F;
+  --soft:#EFC7CD;
+  --sad:#E8D5D4;
+
+  --serif:"Playfair Display","Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  --ease-soft:cubic-bezier(.22,1,.36,1);
+  --ease-in-back:cubic-bezier(.6,-.28,.735,.045);
+  --ease-out-back:cubic-bezier(.34,1.56,.64,1);
+  --ease-calm:cubic-bezier(.4,0,.2,1);
+
+  --shadow:0 8px 30px rgba(59,42,48,.06);
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- background layers ---------- */
+.bg,.bg-sad,.vignette,.grain{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+.bg{background:linear-gradient(180deg,var(--paper) 0%,var(--paper) 34%,var(--paper2) 100%);z-index:0}
+
+.bg-sad{
+  background:linear-gradient(180deg,#F0E2E0 0%,#EADAD8 40%,var(--sad) 100%);
+  opacity:0;
+  transition:opacity 1.2s var(--ease-calm);
+  z-index:2;
+}
+body.is-sad .bg-sad{opacity:1}
+
+.vignette{
+  z-index:3;
+  background:radial-gradient(ellipse 78% 62% at 50% 46%,rgba(59,42,48,0) 55%,rgba(59,42,48,.055) 82%,rgba(59,42,48,.10) 100%);
+}
+
+.grain{
+  z-index:4;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:240px 240px;
+}
+
+/* ---------- stage ---------- */
+.stage{
+  position:relative;
+  z-index:10;
+  height:100%;
+  height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px 20px calc(24px + env(safe-area-inset-bottom));
+}
+
+.screen{
+  position:absolute;
+  width:100%;
+  max-width:760px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ---------- letter reveal ---------- */
+.ltr{
+  display:inline-block;
+  white-space:pre;
+  opacity:0;
+  transform:translateY(.42em);
+  filter:blur(9px);
+  transition:
+    opacity .9s var(--ease-soft),
+    transform .9s var(--ease-soft),
+    filter .9s var(--ease-soft);
+  will-change:transform,opacity,filter;
+}
+.ltr.on{opacity:1;transform:translateY(0);filter:blur(0)}
+.accent{color:var(--accent)}
+
+/* ---------- intro ---------- */
+#intro{transition:opacity .95s var(--ease-calm),transform .95s var(--ease-calm)}
+#intro.away{opacity:0;transform:translateY(-46px) scale(.66)}
+#intro.gone{display:none}
+
+.hey{
+  margin:0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:clamp(2.4rem,12vw,4.2rem);
+  letter-spacing:-.01em;
+  line-height:1.1;
+  text-align:center;
+}
+
+.rule{
+  margin:26px auto 0;
+  width:min(210px,52vw);
+  height:1px;
+  background:var(--accent);
+  opacity:.55;
+  transform:scaleX(0);
+  transform-origin:50% 50%;
+  transition:transform 1.15s var(--ease-soft) .55s;
+}
+.rule.on{transform:scaleX(1)}
+
+/* ---------- question screen ---------- */
+#ask{
+  opacity:0;
+  transform:scale(.86);
+  pointer-events:none;
+  transition:opacity 1.1s var(--ease-soft),transform 1.1s var(--ease-soft);
+}
+#ask.on{opacity:1;transform:scale(1);pointer-events:auto}
+#ask.out{opacity:0;transform:scale(.97);pointer-events:none;transition:opacity .7s var(--ease-calm),transform .7s var(--ease-calm)}
+#ask.leaving{opacity:0;pointer-events:none;transition:opacity 1.2s var(--ease-calm)}
+
+.question{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(3rem,18.5vw,9rem);
+  line-height:1;
+  letter-spacing:-.025em;
+  text-align:center;
+  text-transform:lowercase;
+  transition:opacity .25s var(--ease-calm);
+}
+.question.answer{
+  font-size:min(2.6rem,10.5vw);
+  line-height:1.16;
+  letter-spacing:-.02em;
+  max-width:12ch;
+  margin-inline:auto;
+}
+
+.endrule{
+  margin-top:36px;
+  width:min(170px,44vw);
+  opacity:.45;
+  transition:transform 1.25s var(--ease-soft);
+}
+
+/* ---------- arena / buttons ---------- */
+.arena{
+  position:relative;
+  width:100%;
+  height:300px;
+  margin-top:14px;
+  transition:opacity .25s var(--ease-calm);
+}
+.arena.hidden{opacity:0;pointer-events:none}
+.arena.removed{display:none}
+
+.btn{
+  position:absolute;
+  left:0;
+  top:0;
+  transform-origin:50% 50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:14px 30px;
+  border:1px solid var(--accent);
+  border-radius:999px;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:.95rem;
+  letter-spacing:.1em;
+  text-transform:lowercase;
+  white-space:nowrap;
+  cursor:pointer;
+  box-shadow:var(--shadow);
+  -webkit-appearance:none;
+  appearance:none;
+}
+.btn:focus-visible{outline:1px solid var(--accent);outline-offset:5px}
+
+#yes{
+  transition:
+    left .75s var(--ease-soft),
+    top .75s var(--ease-soft),
+    transform .75s var(--ease-out-back),
+    background-color .45s var(--ease-calm),
+    border-color .45s var(--ease-calm);
+}
+#no{transition:background-color .45s var(--ease-calm),border-color .45s var(--ease-calm)}
+
+@media (hover:hover){
+  .btn:hover{background-color:var(--soft)}
+}
+.btn:active{background-color:var(--soft)}
+
+/* ---------- sad screen ---------- */
+#sad{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s var(--ease-calm);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+#sad.on{opacity:1;pointer-events:auto}
+
+.moon{
+  display:block;
+  width:80px;
+  height:44px;
+  margin-bottom:38px;
+  overflow:visible;
+}
+.moon path{
+  fill:none;
+  stroke:var(--accent);
+  stroke-width:1;
+  stroke-linecap:round;
+  opacity:.85;
+}
+#sad.on .moon{animation:drift 8s var(--ease-calm) forwards}
+@keyframes drift{
+  0%{transform:translateY(0);opacity:1}
+  100%{transform:translateY(-110px);opacity:0}
+}
+
+.okay{
+  margin:0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:400;
+  font-size:2rem;
+  color:var(--ink);
+  opacity:.7;
+  letter-spacing:.01em;
+}
+
+.undo{
+  margin-top:80px;
+  padding:12px 18px;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  border:0;
+  background:transparent;
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:.9rem;
+  letter-spacing:.1em;
+  text-transform:lowercase;
+  cursor:pointer;
+  opacity:0;
+  transition:opacity 1.2s var(--ease-calm);
+  -webkit-appearance:none;
+  appearance:none;
+}
+.undo.on{opacity:.5}
+.undo:focus-visible{outline:1px solid var(--accent);outline-offset:4px;opacity:.5}
+
+/* ---------- effect layers ---------- */
+#fx{
+  position:fixed;
+  inset:0;
+  z-index:40;
+  pointer-events:none;
+  overflow:hidden;
+}
+#fx svg{display:block}
+
+#fw{
+  position:fixed;
+  inset:0;
+  z-index:50;
+  pointer-events:none;
+  display:block;
+}
+
+/* ---------- desktop ---------- */
+@media (min-width:820px){
+  .arena{height:330px;margin-top:26px}
+  .btn{padding:16px 38px;font-size:1rem;min-height:52px}
+  .okay{font-size:2.4rem}
+  .question.answer{font-size:5rem}
+}
+
+/* ---------- short screens ---------- */
+@media (max-height:620px){
+  .arena{height:230px}
+  .question{font-size:clamp(2.6rem,13vw,5rem)}
+  .rule{margin-top:18px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ltr,#intro,#ask,#yes,#sad,.undo{transition-duration:.01ms !important}
+  #sad.on .moon{animation:none}
+  .rule{transform:scaleX(1)}
+}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="bg-sad"></div>
+
+<main class="stage">
+
+  <section class="screen" id="intro">
+    <h1 class="hey" id="hey"></h1>
+    <div class="rule" id="rule"></div>
+  </section>
+
+  <section class="screen" id="ask">
+    <h2 class="question" id="question"></h2>
+    <div class="arena" id="arena">
+      <button class="btn" id="yes" type="button">ja</button>
+      <button class="btn" id="no" type="button">nein</button>
+    </div>
+    <div class="rule endrule" id="endrule"></div>
+  </section>
+
+  <section class="screen" id="sad">
+    <svg class="moon" viewBox="0 0 80 44" aria-hidden="true">
+      <path d="M1.5 42.5 A38.5 38.5 0 0 1 78.5 42.5"/>
+    </svg>
+    <p class="okay">ok...</p>
+    <button class="undo" id="undo" type="button">…doch?</button>
+  </section>
+
+</main>
+
+<div class="vignette"></div>
+<div class="grain"></div>
+<div id="fx"></div>
+<canvas id="fw" aria-hidden="true"></canvas>
+
+<script>
+(function(){
+  "use strict";
+
+  var ACCENT = "#C4677F";
+  var SOFT   = "#EFC7CD";
+  var TAU    = Math.PI * 2;
+
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var intro    = document.getElementById("intro");
+  var hey      = document.getElementById("hey");
+  var rule     = document.getElementById("rule");
+  var ask      = document.getElementById("ask");
+  var question = document.getElementById("question");
+  var endrule  = document.getElementById("endrule");
+  var arena    = document.getElementById("arena");
+  var yes      = document.getElementById("yes");
+  var no       = document.getElementById("no");
+  var sad      = document.getElementById("sad");
+  var undo     = document.getElementById("undo");
+  var fx       = document.getElementById("fx");
+  var cv       = document.getElementById("fw");
+
+  var LABELS = ["nein","sicher?","wirklich nicht?","denk nochmal nach","nein"];
+  var GAP = 16;
+
+  var clicks   = 0;      // how often "nein" got away
+  var yesScale = 1;
+  var noScale  = 1;
+  var settled  = false;  // back home + pressable
+  var busy     = false;
+  var phase    = "intro";
+  var sadTimers = [];
+
+  /* ---------------- letter reveal ---------------- */
+
+  function reveal(el, text, opts){
+    opts = opts || {};
+    var step  = reduced ? 0 : (opts.step || 80);
+    var start = reduced ? 0 : (opts.delay || 0);
+    var accentChars = opts.accent || "";
+
+    el.textContent = "";
+    var spans = [];
+    for(var i = 0; i < text.length; i++){
+      var ch = text.charAt(i);
+      var s = document.createElement("span");
+      s.className = "ltr" + (accentChars.indexOf(ch) > -1 && ch !== " " ? " accent" : "");
+      s.textContent = ch;
+      s.style.transitionDelay = (start + i * step) + "ms";
+      el.appendChild(s);
+      spans.push(s);
+    }
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        for(var j = 0; j < spans.length; j++) spans[j].classList.add("on");
+      });
+    });
+    return start + Math.max(0, text.length - 1) * step + (reduced ? 10 : 900);
+  }
+
+  /* ---------------- geometry ---------------- */
+
+  function metrics(){
+    var W = arena.clientWidth;
+    var H = arena.offsetHeight;
+    return {
+      W: W,
+      H: H,
+      rowY: H * 0.56,
+      yw: yes.offsetWidth * yesScale,
+      yh: yes.offsetHeight * yesScale,
+      nw: no.offsetWidth * noScale,
+      nh: no.offsetHeight * noScale
+    };
+  }
+
+  function homeSpots(){
+    var m = metrics();
+    var total = m.yw + GAP + m.nw;
+    var startX = Math.max(2, (m.W - total) / 2);
+    return {
+      yes: { x: startX + m.yw / 2, y: m.rowY },
+      no:  { x: startX + m.yw + GAP + m.nw / 2, y: m.rowY }
+    };
+  }
+
+  // Four fixed zones. Zone 1 sits to the right of a re-centred "ja";
+  // on narrow screens "ja" slides left so the two never overlap.
+  function zone(n){
+    var m = metrics();
+    var minX = m.nw / 2 + 2, maxX = m.W - m.nw / 2 - 2;
+    var minY = m.nh / 2 + 2, maxY = m.H - m.nh / 2 - 2;
+    var clampX = function(v){ return Math.max(minX, Math.min(maxX, v)); };
+    var clampY = function(v){ return Math.max(minY, Math.min(maxY, v)); };
+
+    var yesX = m.W / 2, p;
+
+    if(n === 1){
+      var x = clampX(m.W / 2 + m.yw / 2 + GAP + m.nw / 2);
+      var leftEdge = x - m.nw / 2;
+      if(leftEdge < yesX + m.yw / 2 + 10){
+        yesX = Math.max(m.yw / 2 + 2, leftEdge - 10 - m.yw / 2);
+      }
+      p = { x: x, y: m.rowY };
+    } else if(n === 2){
+      p = { x: m.W / 2, y: clampY(m.rowY - (m.nh / 2 + m.yh / 2 + 26)) };
+    } else if(n === 3){
+      p = { x: clampX(minX), y: clampY(maxY) };
+    } else {
+      p = { x: clampX(maxX), y: clampY(minY) };
+    }
+    p.yesX = yesX;
+    return p;
+  }
+
+  function put(el, x, y){
+    el.style.left = x + "px";
+    el.style.top  = y + "px";
+  }
+  function tf(scale){
+    return "translate(-50%,-50%) scale(" + scale + ")";
+  }
+
+  function layout(){
+    var h = homeSpots();
+    if(clicks === 0 || settled || phase !== "ask"){
+      put(yes, h.yes.x, h.yes.y);
+      put(no,  h.no.x,  h.no.y);
+    } else {
+      var z = zone(Math.min(clicks, 4));
+      put(yes, z.yesX, metrics().rowY);
+      put(no,  z.x, z.y);
+    }
+    yes.style.transform = tf(yesScale);
+    no.style.transform  = tf(noScale);
+  }
+
+  /* ---------------- heart geometry ---------------- */
+
+  var HEART = "M12 21.1l-1.3-1.2C5.5 15.2 2 12 2 8.4 2 5.5 4.3 3.2 7.2 3.2c1.7 0 3.3.8 4.3 2.1 1-1.3 2.6-2.1 4.3-2.1 2.9 0 5.2 2.3 5.2 5.2 0 3.6-3.5 6.8-8.7 11.5l-1.3 1.2z";
+
+  function heartEl(size, color){
+    var wrap = document.createElement("div");
+    wrap.style.cssText = "position:absolute;left:0;top:0;will-change:transform,opacity";
+    wrap.innerHTML =
+      '<svg width="' + size + '" height="' + size + '" viewBox="0 0 24 24">' +
+      '<path d="' + HEART + '" fill="' + color + '"/></svg>';
+    return wrap;
+  }
+
+  function centerOf(el){
+    var r = el.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+
+  /* small burst of hearts when "nein" gets away */
+  function splash(el){
+    if(reduced) return;
+    var c = centerOf(el);
+    var count = 7;
+    for(var i = 0; i < count; i++){
+      (function(i){
+        var size = 8 + Math.random() * 6;
+        var h = heartEl(size, ACCENT);
+        fx.appendChild(h);
+        var a = (i / count) * TAU + (Math.random() - .5) * .5;
+        var d = 58 + Math.random() * 62;
+        var anim = h.animate([
+          { transform: "translate(" + (c.x - size / 2) + "px," + (c.y - size / 2) + "px) scale(.5) rotate(0deg)", opacity: 1 },
+          { transform: "translate(" + (c.x - size / 2 + Math.cos(a) * d) + "px," +
+                                      (c.y - size / 2 + Math.sin(a) * d) + "px) scale(1) rotate(" +
+                                      ((Math.random() - .5) * 140) + "deg)", opacity: 0 }
+        ], { duration: 700 + Math.random() * 320, easing: "cubic-bezier(.16,.84,.44,1)", fill: "forwards" });
+        anim.onfinish = function(){ h.remove(); };
+      })(i);
+    }
+  }
+
+  /* ---------------- fireworks (canvas) ---------------- */
+
+  var ctx = cv.getContext ? cv.getContext("2d") : null;
+  var heartPath = (window.Path2D && ctx) ? new Path2D(HEART) : null;
+  var flyers = [], parts = [], calm = [];
+  var running = false, lastT = 0, quietSince = 0;
+
+  function sizeCanvas(){
+    if(!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width  = Math.round(window.innerWidth  * dpr);
+    cv.height = Math.round(window.innerHeight * dpr);
+    cv.style.width  = window.innerWidth + "px";
+    cv.style.height = window.innerHeight + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  sizeCanvas();
+
+  function drawHeart(x, y, size, rot, color, alpha){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    var s = size / 24;
+    ctx.scale(s, s);
+    ctx.translate(-12, -12);
+    ctx.fillStyle = color;
+    if(heartPath) ctx.fill(heartPath);
+    else { ctx.beginPath(); ctx.arc(12, 12, 9, 0, TAU); ctx.fill(); }
+    ctx.restore();
+  }
+
+  function drawDot(x, y, color, alpha){
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, 1, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  /* one radial burst where the two lights meet */
+  function burstAt(x, y, count){
+    for(var i = 0; i < count; i++){
+      var a  = (i / count) * TAU + (Math.random() - .5) * 0.2;
+      var sp = 110 + Math.random() * 200;
+      var isHeart = (i % 2 === 0);
+      parts.push({
+        x: x, y: y,
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp,
+        life: 0,
+        max: 1.6 + Math.random() * 0.2,
+        heart: isHeart,
+        size: isHeart ? 6 + Math.random() * 4 : 2,
+        rot: Math.random() * TAU,
+        vr: (Math.random() - .5) * 5,
+        color: Math.random() < .5 ? ACCENT : SOFT
+      });
+    }
+  }
+
+  function step(now){
+    if(!running) return;
+    var dt = Math.min((now - lastT) / 1000, 0.05);
+    lastT = now;
+
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    /* the two lights flying towards each other */
+    for(var r = flyers.length - 1; r >= 0; r--){
+      var k = flyers[r];
+      if(!k.spent){
+        k.t += dt;
+        var p = Math.min(k.t / k.dur, 1);
+        var e = 1 - Math.pow(1 - p, 1.9);              // eases off at the end
+        k.x = k.sx + (k.ex - k.sx) * e;
+        k.y = k.ey + Math.sin(p * Math.PI * 3) * k.amp * (1 - p);
+        k.trail.push({ x: k.x, y: k.y });
+        if(k.trail.length > 18) k.trail.shift();
+        if(p >= 1){
+          k.spent = true;
+          if(k.lead) burstAt(k.ex, k.ey, k.count);
+        }
+      } else {
+        k.fade -= dt * 3.4;
+        if(k.fade <= 0){ flyers.splice(r, 1); continue; }
+      }
+
+      if(k.trail.length > 1){
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = SOFT;
+        for(var t = 1; t < k.trail.length; t++){
+          ctx.globalAlpha = (t / k.trail.length) * 0.85 * k.fade;
+          ctx.beginPath();
+          ctx.moveTo(k.trail[t - 1].x, k.trail[t - 1].y);
+          ctx.lineTo(k.trail[t].x, k.trail[t].y);
+          ctx.stroke();
+        }
+        ctx.restore();
+        if(!k.spent) drawDot(k.x, k.y, ACCENT, 0.9);
+      }
+    }
+
+    /* burst particles */
+    var friction = Math.pow(0.988, dt * 60);
+    for(var i = parts.length - 1; i >= 0; i--){
+      var q = parts[i];
+      q.life += dt;
+      if(q.life >= q.max){ parts.splice(i, 1); continue; }
+      q.vx *= friction;
+      q.vy *= friction;
+      q.vy += 175 * dt;                                 // gentle gravity
+      q.x  += q.vx * dt;
+      q.y  += q.vy * dt;
+      q.rot += q.vr * dt;
+      var a = Math.pow(1 - q.life / q.max, 1.5);
+      if(q.heart) drawHeart(q.x, q.y, q.size, q.rot, q.color, a);
+      else drawDot(q.x, q.y, q.color, a);
+    }
+
+    /* reduced motion: still hearts that fade in and out again */
+    for(var c = calm.length - 1; c >= 0; c--){
+      var h = calm[c];
+      h.life += dt;
+      if(h.life >= h.max){ calm.splice(c, 1); continue; }
+      var av;
+      if(h.life < 0.9) av = h.life / 0.9;
+      else if(h.life < 2.2) av = 1;
+      else av = 1 - (h.life - 2.2) / (h.max - 2.2);
+      drawHeart(h.x, h.y, h.size, 0, h.color, Math.max(0, av) * 0.9);
+    }
+
+    if(flyers.length || parts.length || calm.length){
+      quietSince = now;
+      requestAnimationFrame(step);
+    } else if(now - quietSince < 250){
+      requestAnimationFrame(step);
+    } else {
+      running = false;
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    }
+  }
+
+  function startLoop(){
+    if(running || !ctx) return;
+    running = true;
+    lastT = performance.now();
+    quietSince = lastT;
+    requestAnimationFrame(step);
+  }
+
+  var MEET_MS = 900;
+
+  function lights(){
+    if(!ctx) return;
+    var W = window.innerWidth, H = window.innerHeight;
+    var mobile = W < 640;
+    var midX = W / 2, midY = H * 0.45;
+
+    if(reduced){
+      var spots = [[.17,.29],[.31,.20],[.45,.27],[.59,.19],[.73,.28],[.85,.21],
+                   [.23,.45],[.38,.38],[.50,.47],[.63,.38],[.79,.44]];
+      for(var s2 = 0; s2 < spots.length; s2++){
+        calm.push({
+          x: spots[s2][0] * W, y: spots[s2][1] * H,
+          size: 11 + (s2 % 3) * 3,
+          color: s2 % 2 ? SOFT : ACCENT,
+          life: 0, max: 3.6
+        });
+      }
+      startLoop();
+      return;
+    }
+
+    var count = mobile ? 30 + Math.round(Math.random() * 4)
+                       : 34 + Math.round(Math.random() * 6);
+
+    flyers.push({ sx: -40,    ex: midX, ey: midY, amp:  26, x: -40,    y: midY,
+                  t: 0, dur: MEET_MS / 1000, trail: [], spent: false, fade: 1,
+                  lead: true,  count: count });
+    flyers.push({ sx: W + 40, ex: midX, ey: midY, amp: -26, x: W + 40, y: midY,
+                  t: 0, dur: MEET_MS / 1000, trail: [], spent: false, fade: 1,
+                  lead: false, count: count });
+    startLoop();
+  }
+
+  /* ---------------- yes ---------------- */
+
+  function sayYes(){
+    if(busy || phase !== "ask") return;
+    phase = "yes";
+    busy = true;
+
+    arena.style.pointerEvents = "none";
+
+    lights();
+
+    var meet = reduced ? 0 : MEET_MS;
+
+    // the exact moment the two lights meet: everything fades, opacity only
+    setTimeout(function(){
+      question.style.opacity = "0";
+      arena.classList.add("hidden");
+    }, meet);
+
+    setTimeout(function(){
+      arena.classList.add("removed");
+      question.classList.add("answer");
+      question.style.opacity = "";
+      var span = reveal(question, "danke für alles keule", { step: 62 });
+
+      setTimeout(function(){ endrule.classList.add("on"); }, reduced ? 0 : 480);
+
+      // 4s after the sentence has finished building: fade out, then leave
+      setTimeout(function(){
+        if(reduced){
+          window.location.href = "https://www.google.com";
+          return;
+        }
+        ask.classList.remove("on");
+        ask.classList.add("leaving");
+        setTimeout(function(){
+          window.location.href = "https://www.google.com";
+        }, 1250);
+      }, span + 4000);
+    }, meet + (reduced ? 10 : 250));
+  }
+
+  /* ---------------- the dodge ---------------- */
+
+  function plopOut(el, from){
+    if(reduced){ el.style.transform = tf(0); return Promise.resolve(); }
+    var a = el.animate([
+      { transform: tf(from),        easing: "cubic-bezier(.34,1.56,.64,1)" },
+      { transform: tf(from * 1.15), offset: .32, easing: "cubic-bezier(.6,-.28,.735,.045)" },
+      { transform: tf(0) }
+    ], { duration: 320, fill: "forwards" });
+    return a.finished.then(function(){ a.cancel(); el.style.transform = tf(0); });
+  }
+
+  function plopIn(el, to){
+    if(reduced){ el.style.transform = tf(to); return Promise.resolve(); }
+    var a = el.animate([
+      { transform: tf(0) },
+      { transform: tf(to * 1.1), offset: .62 },
+      { transform: tf(to) }
+    ], { duration: 440, easing: "cubic-bezier(.34,1.56,.64,1)", fill: "forwards" });
+    return a.finished.then(function(){ a.cancel(); el.style.transform = tf(to); });
+  }
+
+  function dodge(){
+    if(busy) return;
+    busy = true;
+    splash(no);
+
+    plopOut(no, noScale).then(function(){
+      clicks++;
+      no.textContent = LABELS[Math.min(clicks, LABELS.length - 1)];
+
+      yesScale = Math.min(1.5, 1 + 0.125 * clicks);
+      noScale  = Math.max(0.86, 1 - 0.035 * clicks);
+      yes.style.transform = tf(yesScale);
+
+      if(clicks >= 5){
+        settled = true;
+        var h = homeSpots();
+        put(yes, h.yes.x, h.yes.y);
+        put(no,  h.no.x,  h.no.y);
+      } else {
+        var z = zone(clicks);
+        put(yes, z.yesX, metrics().rowY);
+        put(no,  z.x, z.y);
+      }
+
+      return plopIn(no, noScale);
+    }).then(function(){
+      busy = false;
+    });
+  }
+
+  /* ---------------- sound ---------------- */
+
+  function playFarewell(){
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    var actx;
+    try { actx = new AC(); } catch(e){ return; }
+    if(actx.state === "suspended" && actx.resume) actx.resume();
+
+    var master = actx.createGain();
+    master.gain.value = 1;
+    master.connect(actx.destination);
+
+    var notes = [440.00, 349.23, 293.66]; // A4 – F4 – D4
+    notes.forEach(function(f, i){
+      var t0 = actx.currentTime + 0.06 + i * 0.6;
+
+      var env = actx.createGain();
+      env.gain.setValueAtTime(0.0001, t0);
+      env.gain.exponentialRampToValueAtTime(0.15, t0 + 0.025);
+      env.gain.exponentialRampToValueAtTime(0.0001, t0 + 2.5);
+      env.connect(master);
+
+      var o1 = actx.createOscillator();
+      o1.type = "sine";
+      o1.frequency.setValueAtTime(f, t0);
+      var g1 = actx.createGain();
+      g1.gain.value = 0.86;
+      o1.connect(g1); g1.connect(env);
+
+      var o2 = actx.createOscillator();
+      o2.type = "triangle";
+      o2.frequency.setValueAtTime(f * 2, t0);
+      var g2 = actx.createGain();
+      g2.gain.value = 0.14;
+      o2.connect(g2); g2.connect(env);
+
+      o1.start(t0); o2.start(t0);
+      o1.stop(t0 + 2.7); o2.stop(t0 + 2.7);
+    });
+
+    setTimeout(function(){ if(actx.close) actx.close(); }, 6000);
+  }
+
+  /* ---------------- sad state ---------------- */
+
+  function goSad(){
+    if(busy || phase !== "ask") return;
+    busy = true;
+    phase = "sad";
+
+    playFarewell();
+    document.body.classList.add("is-sad");
+    ask.classList.remove("on");
+    ask.classList.add("out");
+
+    sadTimers.push(setTimeout(function(){
+      sad.classList.add("on");
+      busy = false;
+    }, 760));
+
+    sadTimers.push(setTimeout(function(){
+      undo.classList.add("on");
+    }, 5000));
+  }
+
+  function reset(){
+    if(busy || phase !== "sad") return;
+    busy = true;
+    sadTimers.forEach(clearTimeout);
+    sadTimers = [];
+
+    undo.classList.remove("on");
+    sad.classList.remove("on");
+    document.body.classList.remove("is-sad");
+
+    setTimeout(function(){
+      clicks = 0;
+      yesScale = 1;
+      noScale  = 1;
+      settled  = false;
+
+      no.textContent = LABELS[0];
+      question.classList.remove("answer");
+      layout();
+
+      phase = "ask";
+      ask.classList.remove("out");
+      ask.classList.add("on");
+      reveal(question, "sleepcall?", { accent: "?", step: 72 });
+
+      setTimeout(function(){ busy = false; }, 700);
+    }, 1000);
+  }
+
+  /* ---------------- wiring ---------------- */
+
+  no.addEventListener("click", function(){
+    if(phase !== "ask") return;
+    if(settled) goSad();
+    else dodge();
+  });
+
+  yes.addEventListener("click", sayYes);
+  undo.addEventListener("click", reset);
+
+  window.addEventListener("resize", function(){
+    sizeCanvas();
+    if(phase === "ask") layout();
+  });
+
+  /* ---------------- boot ---------------- */
+
+  var booted = false;
+  function boot(){
+    if(booted) return;
+    booted = true;
+    layout();
+
+    reveal(hey, "Hey Keule", { step: 80 });
+    setTimeout(function(){ rule.classList.add("on"); }, 60);
+
+    setTimeout(function(){
+      intro.classList.add("away");
+      setTimeout(function(){ intro.classList.add("gone"); }, 1000);
+
+      phase = "ask";
+      ask.classList.add("on");
+      layout();
+      reveal(question, "sleepcall?", { accent: "?", step: 72, delay: 180 });
+    }, reduced ? 1200 : 2500);
+  }
+
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(boot);
+    setTimeout(boot, 1800);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body>
+</html>

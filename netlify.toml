@@ -1,0 +1,4 @@
+# Statische Seite, kein Build. Netlify liefert index.html aus dem Repo-Root.
+[build]
+  publish = "."
+  command = ""

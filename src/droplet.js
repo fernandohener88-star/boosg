@@ -150,11 +150,14 @@ export async function initDroplet() {
   droplet = new THREE.Mesh(geo, mat);
   // Smaller on mobile so it doesn't cover text
   if (window.innerWidth < 768) {
-    droplet.scale.setScalar(0.55);
-    droplet.position.set(0.8, -0.3, 0);
+    droplet.scale.setScalar(0.42);
+    droplet.position.set(1.15, -1.35, 0);
   } else {
-    droplet.position.set(0, 0.2, 0);
+    droplet.scale.setScalar(0.72);
+    droplet.position.set(2.15, 0.1, 0);
   }
+  const baseX = droplet.position.x;
+  const baseScale = droplet.scale.x;
   scene.add(droplet);
 
   // Micro droplets
@@ -214,7 +217,7 @@ export async function initDroplet() {
       end: 'bottom top',
       scrub: 1,
       onUpdate: (self) => {
-        droplet.position.x = self.progress * 1.5;
+        droplet.position.x = baseX + self.progress * 1.2;
         uAmp.value = 0.18 - self.progress * 0.08;
       },
     });
@@ -227,7 +230,7 @@ export async function initDroplet() {
       end: 'bottom 40%',
       scrub: 1,
       onUpdate: (self) => {
-        droplet.scale.setScalar(1 - self.progress * 0.3);
+        droplet.scale.setScalar(baseScale * (1 - self.progress * 0.3));
         const rose = new THREE.Color(0xB8766A);
         const gold = new THREE.Color(0xC9A96E);
         mat.color.lerpColors(gold, rose, self.progress * 0.5);
@@ -261,7 +264,7 @@ export async function initDroplet() {
       scrub: 1,
       onUpdate: (self) => {
         droplet.position.x = 0;
-        droplet.scale.setScalar(0.7 + self.progress * 0.4);
+        droplet.scale.setScalar(baseScale * (0.85 + self.progress * 0.45));
         droplet.position.z = -1 - self.progress * 0.5;
         uAmp.value = 0.12 + self.progress * 0.1;
       },

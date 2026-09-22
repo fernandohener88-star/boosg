@@ -169,6 +169,16 @@ body::after {
   padding: 0;
   transition: transform .4s cubic-bezier(.4,0,.2,1), background .4s ease, box-shadow .4s ease;
 }
+/* Verlauf, damit die Navigation auch über dem Hero-Bild lesbar bleibt */
+#site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(250,247,243,.97) 0%, rgba(250,247,243,.82) 55%, rgba(250,247,243,0) 100%);
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+#site-header.glass::before { opacity: 0; }
 #site-header.glass {
   background: rgba(250,247,243,0.92);
   backdrop-filter: blur(20px);
@@ -177,6 +187,8 @@ body::after {
 }
 #site-header.hidden { transform: translateY(-100%); }
 .nav-wrap {
+  position: relative;
+  z-index: 1;
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 22px 48px;
@@ -196,7 +208,7 @@ body::after {
 .logo em { color: var(--gold); font-style: normal; }
 nav { display: flex; align-items: center; gap: 36px; }
 .nav-link {
-  color: var(--ink-soft);
+  color: #5A4C43;
   text-decoration: none;
   font-size: 11px;
   letter-spacing: .2em;
@@ -338,7 +350,7 @@ nav { display: flex; align-items: center; gap: 36px; }
 .hero-sub {
   font-size: 16px;
   line-height: 1.8;
-  color: var(--ink-soft);
+  color: #4A3E36;
   margin: 30px 0 0;
   max-width: 400px;
   text-wrap: pretty;
@@ -432,11 +444,12 @@ nav { display: flex; align-items: center; gap: 36px; }
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    105deg,
-    rgba(15,13,11,.88) 0%,
-    rgba(15,13,11,.65) 45%,
-    rgba(15,13,11,.2) 75%,
-    rgba(15,13,11,.08) 100%
+    100deg,
+    rgba(250,247,243,.99) 0%,
+    rgba(250,247,243,.97) 32%,
+    rgba(250,247,243,.84) 52%,
+    rgba(250,247,243,.38) 78%,
+    rgba(250,247,243,.10) 100%
   );
 }
 .hero-visual .veil-bottom {
@@ -459,7 +472,7 @@ nav { display: flex; align-items: center; gap: 36px; }
   font-size: 9px;
   letter-spacing: .32em;
   text-transform: uppercase;
-  color: rgba(28,21,18,.45);
+  color: rgba(28,21,18,.6);
 }
 .scroll-hint .bar {
   width: 1px;
@@ -1064,7 +1077,7 @@ footer {
 }
 .footer-links a {
   font-size: 14px;
-  color: rgba(28,21,18,.45);
+  color: rgba(28,21,18,.6);
   text-decoration: none;
   transition: color .25s;
 }

@@ -1,0 +1,10 @@
+{
+  "name": "ACCENT aesthetic studio",
+  "short_name": "ACCENT",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" }
+  ],
+  "theme_color": "#0F0D0B",
+  "background_color": "#0F0D0B",
+  "display": "standalone"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "accent-rebuild",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandohener88-star/boosg.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fernandohener88-star/boosg/issues"
+  },
+  "homepage": "https://github.com/fernandohener88-star/boosg#readme",
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "vite": "^8.3.0",
+    "vite-imagetools": "^12.0.1"
+  },
+  "dependencies": {
+    "@fontsource/cormorant-garamond": "^5.3.0",
+    "@fontsource/dm-sans": "^5.3.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "three": "^0.186.0"
+  }
+}

@@ -273,14 +273,16 @@ export async function initDroplet() {
 function layoutDroplet() {
   if (!droplet) return;
   const w = window.innerWidth;
+  // Freie Flaeche zwischen Text und Bildkarte – der Tropfen soll
+  // als Akzent schweben, nie das Ergebnisfoto ueberlagern.
   if (w <= 768) {
-    baseScale = 0.42; baseX = 1.15; baseY = -1.35;
+    baseScale = 0.30; baseX = 1.45; baseY = 1.45;
   } else if (w <= 1024) {
-    baseScale = 0.5; baseX = 1.6; baseY = 0.1;
+    baseScale = 0.34; baseX = 0.15; baseY = -1.25;
   } else if (w <= 1440) {
-    baseScale = 0.62; baseX = 1.9; baseY = 0.1;
+    baseScale = 0.38; baseX = 0.10; baseY = -1.20;
   } else {
-    baseScale = 0.72; baseX = 2.15; baseY = 0.1;
+    baseScale = 0.44; baseX = 0.20; baseY = -1.15;
   }
   droplet.scale.setScalar(baseScale);
   droplet.position.set(baseX, baseY, droplet.position.z);

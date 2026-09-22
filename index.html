@@ -52,7 +52,7 @@
   }
 }
 </script>
-<link rel="preload" as="image" href="/img/studio-lounge.png" fetchpriority="high">
+<link rel="preload" as="image" href="/img/nails-lilac.png" fetchpriority="high">
 <style>
 /* ── Fonts (self-hosted via @fontsource, injected by Vite) ──────── */
 /* In dev: imported in main.js. In production: Vite bundles them.   */
@@ -315,16 +315,18 @@ nav { display: flex; align-items: center; gap: 36px; }
 .hero-content {
   position: relative;
   z-index: 2;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .82fr);
+  gap: 72px;
   align-items: center;
   /* gleicher Container wie .nav-wrap und .section-inner,
      damit die Headline auf jeder Breite mit dem Logo fluchtet */
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 140px 48px 100px;
+  padding: 150px 48px 110px;
   width: 100%;
 }
-.hero-inner { max-width: 580px; }
+.hero-inner { max-width: 620px; }
 .hero-eyebrow {
   font-size: 11px;
   letter-spacing: .28em;
@@ -362,6 +364,85 @@ nav { display: flex; align-items: center; gap: 36px; }
   opacity: 0;
   animation: fadeIn .9s ease .8s forwards;
 }
+.hero-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 30px 0 0;
+  padding: 0;
+  opacity: 0;
+  animation: fadeIn .8s ease .95s forwards;
+}
+.hero-services li {
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: #5A4C43;
+  padding: 7px 14px;
+  border: 1px solid rgba(28,21,18,.14);
+  border-radius: 40px;
+  background: rgba(255,255,255,.5);
+}
+.hero-friction {
+  font-size: 13px;
+  color: #6E5F54;
+  margin: 18px 0 0;
+  opacity: 0;
+  animation: fadeIn .8s ease 1.3s forwards;
+}
+
+/* Ergebnisbild + Kundenstimme */
+.hero-showcase {
+  position: relative;
+  opacity: 0;
+  animation: fadeIn 1s ease .5s forwards;
+}
+.hero-photo {
+  margin: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 382 / 510;
+  background: #E8DDD5;
+  box-shadow: 0 30px 70px -28px rgba(28,21,18,.4);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-proof {
+  position: absolute;
+  left: -42px;
+  bottom: -30px;
+  max-width: 290px;
+  margin: 0;
+  padding: 20px 22px;
+  background: rgba(255,255,255,.97);
+  border: 1px solid rgba(28,21,18,.1);
+  border-radius: 8px;
+  box-shadow: 0 18px 50px -18px rgba(28,21,18,.3);
+}
+.proof-rating {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.proof-rating .stars { color: var(--gold); font-size: 12px; letter-spacing: 1px; }
+.proof-rating .score { font-size: 15px; color: var(--ink); }
+.proof-rating .count { font-size: 11px; color: var(--ink-soft); }
+.hero-proof blockquote {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.hero-proof figcaption {
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: var(--ink-soft);
+}
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -431,37 +512,12 @@ nav { display: flex; align-items: center; gap: 36px; }
 }
 .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
-/* Hero visual – full-bleed background */
-.hero-visual {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero-visual img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-}
-.hero-visual .veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(250,247,243,.99) 0%,
-    rgba(250,247,243,.97) 32%,
-    rgba(250,247,243,.84) 52%,
-    rgba(250,247,243,.38) 78%,
-    rgba(250,247,243,.10) 100%
-  );
-}
-.hero-visual .veil-bottom {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 200px;
-  background: linear-gradient(transparent, var(--bg));
+/* Hero-Hintergrund: ruhiges Creme, damit Text und Foto wirken */
+.hero {
+  background:
+    radial-gradient(90rem 50rem at 78% 22%, rgba(196,131,122,.10), transparent 60%),
+    radial-gradient(70rem 40rem at 8% 70%, rgba(201,169,110,.10), transparent 60%),
+    var(--bg);
 }
 .scroll-hint {
   position: absolute;
@@ -1445,7 +1501,9 @@ body.pitch .pitch-btn { display: block; }
 @media (max-width: 1024px) {
   .nav-wrap { padding: 20px 32px; }
   nav { gap: 24px; }
-  .hero-content { padding: 130px 32px 90px; }
+  .hero-content { padding: 130px 32px 90px; gap: 44px; grid-template-columns: minmax(0,1fr) minmax(0,.8fr); }
+  .hero-proof { left: -20px; bottom: -20px; max-width: 250px; padding: 16px 18px; }
+  .hero-proof blockquote { font-size: 16px; }
   .section-inner { padding: 0 32px; }
   .footer-grid { padding: 0 32px; gap: 36px; }
   .footer-bottom { padding: 24px 32px 0; }
@@ -1463,7 +1521,20 @@ body.pitch .pitch-btn { display: block; }
   .hamburger { display: flex; }
 
   .hero { min-height: 100svh; }
-  .hero-content { padding: 110px 20px 80px; max-width: none; }
+  .hero-content {
+    padding: 104px 20px 90px;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .hero-services { gap: 6px; }
+  .hero-services li { font-size: 11px; padding: 6px 12px; }
+  .hero-photo { aspect-ratio: 4 / 3; }
+  .hero-proof {
+    position: static;
+    max-width: none;
+    margin-top: 16px;
+  }
   .hero-visual .veil {
     background: linear-gradient(
       175deg,
@@ -1529,33 +1600,47 @@ body.pitch .pitch-btn { display: block; }
 <section class="hero" aria-labelledby="hero-h1">
   <div class="hero-content">
     <div class="hero-inner">
-      <p class="hero-eyebrow">Aesthetic Studio · Landau in der Pfalz</p>
+      <p class="hero-eyebrow">Kosmetikstudio · Landau in der Pfalz</p>
       <h1 class="hero-h1" id="hero-h1">
-        <span class="line">Wo Schönheit</span>
-        <span class="line">zur Präzision</span>
-        <span class="line">wird.</span>
+        <span class="line">Schönheit</span>
+        <span class="line">im Detail.</span>
       </h1>
-      <p class="hero-sub">Gesichtsbehandlungen. Maniküre. Pediküre. Augenbrauen-Design. Hautpflege auf höchstem Niveau&nbsp;– mitten in Landau.</p>
-      <div class="hero-badge" aria-label="Google Bewertung: 5,0 Sterne aus 10 Bewertungen">
-        <span class="stars" aria-hidden="true">★★★★★</span>
-        <span class="score">5,0</span>
-        <span class="sep" aria-hidden="true">·</span>
-        <span class="count">10&nbsp;Bewertungen · Google</span>
-      </div>
+      <p class="hero-sub">Gesichtsbehandlung, Maniküre, Pediküre und Augenbrauen-Design&nbsp;– mit Ruhe, Sorgfalt und einem Blick fürs Detail.</p>
+
+      <ul class="hero-services" aria-label="Unsere Leistungen">
+        <li>Gesichtsbehandlung</li>
+        <li>Maniküre</li>
+        <li>Pediküre</li>
+        <li>Augenbrauen</li>
+        <li>Nagel-Design</li>
+      </ul>
+
       <div class="hero-ctas">
         <a href="#termin" class="btn btn-gold" id="hero-termin">Termin anfragen</a>
-        <a href="#leistungen" class="btn btn-outline">Leistungen</a>
+        <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
       </div>
+      <p class="hero-friction">Anfrage in unter einer Minute&nbsp;– per WhatsApp, ganz ohne Anruf.</p>
+    </div>
+
+    <div class="hero-showcase">
+      <figure class="hero-photo">
+        <img src="/img/nails-lilac.png" alt="Maniküre aus dem ACCENT aesthetic studio: zart schimmernde Nägel in Flieder" fetchpriority="high" width="382" height="510">
+      </figure>
+      <figure class="hero-proof">
+        <div class="proof-rating">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span class="score">5,0</span>
+          <span class="count">10&nbsp;Bewertungen auf Google</span>
+        </div>
+        <blockquote>„Eine solche Qualität habe ich bisher noch nicht erlebt."</blockquote>
+        <figcaption>Marissa E. · Local&nbsp;Guide</figcaption>
+      </figure>
     </div>
   </div>
-  <div class="hero-visual" aria-hidden="true">
-    <img src="/img/studio-lounge.png" alt="" fetchpriority="high" width="680" height="510">
-    <div class="veil"></div>
-    <div class="veil-bottom"></div>
-    <div class="scroll-hint" aria-hidden="true">
-      <span>Scroll</span>
-      <div class="bar"></div>
-    </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="bar"></div>
   </div>
 </section>
 

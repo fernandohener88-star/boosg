@@ -2,6 +2,7 @@
 // Lazy-loaded after LCP via requestIdleCallback in main.js
 
 let renderer, scene, camera, droplet, microDroplets, animId;
+let baseX = 0, baseY = 0, baseScale = 1;
 let isVisible = true;
 let uTime = { value: 0 };
 let uAmp = { value: 0.18 };
@@ -55,7 +56,7 @@ export async function initDroplet() {
   scene.add(fill);
 
   // Droplet geometry + shader noise
-  const detail = window.innerWidth < 768 ? 32 : 64;
+  const detail = window.innerWidth <= 768 ? 32 : 64;
   const geo = new THREE.IcosahedronGeometry(1, detail);
 
   const mat = new THREE.MeshPhysicalMaterial({
@@ -148,16 +149,7 @@ export async function initDroplet() {
   };
 
   droplet = new THREE.Mesh(geo, mat);
-  // Smaller on mobile so it doesn't cover text
-  if (window.innerWidth < 768) {
-    droplet.scale.setScalar(0.42);
-    droplet.position.set(1.15, -1.35, 0);
-  } else {
-    droplet.scale.setScalar(0.72);
-    droplet.position.set(2.15, 0.1, 0);
-  }
-  const baseX = droplet.position.x;
-  const baseScale = droplet.scale.x;
+  layoutDroplet();
   scene.add(droplet);
 
   // Micro droplets
@@ -185,6 +177,7 @@ export async function initDroplet() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    layoutDroplet();
   });
 
   // Pause on hidden
@@ -202,7 +195,7 @@ export async function initDroplet() {
   // Delay to align with H1 line entrance
   setTimeout(() => {
     gsap.to(uDrop, { value: 0, duration: 1.5, ease: 'expo.out' });
-    gsap.fromTo(droplet.position, { y: 3 }, { y: 0.2, duration: 1.5, ease: 'expo.out' });
+    gsap.fromTo(droplet.position, { y: baseY + 3 }, { y: baseY, duration: 1.5, ease: 'expo.out' });
   }, 400);
 
   // Scroll choreography
@@ -275,6 +268,24 @@ export async function initDroplet() {
   fpsStart = performance.now();
 }
 
+// Größe und Position an die Viewport-Breite koppeln – dieselben
+// Schwellen wie die CSS-Media-Queries, damit Layout und 3D zusammenpassen.
+function layoutDroplet() {
+  if (!droplet) return;
+  const w = window.innerWidth;
+  if (w <= 768) {
+    baseScale = 0.42; baseX = 1.15; baseY = -1.35;
+  } else if (w <= 1024) {
+    baseScale = 0.5; baseX = 1.6; baseY = 0.1;
+  } else if (w <= 1440) {
+    baseScale = 0.62; baseX = 1.9; baseY = 0.1;
+  } else {
+    baseScale = 0.72; baseX = 2.15; baseY = 0.1;
+  }
+  droplet.scale.setScalar(baseScale);
+  droplet.position.set(baseX, baseY, droplet.position.z);
+}
+
 function animate() {
   animId = requestAnimationFrame(animate);
   if (!isVisible) return;
@@ -282,7 +293,7 @@ function animate() {
   uTime.value += 0.008;
   if (droplet) {
     droplet.rotation.y += 0.003;
-    droplet.position.y = 0.2 + Math.sin(uTime.value * 0.7) * 0.06;
+    droplet.position.y = baseY + Math.sin(uTime.value * 0.7) * 0.06;
   }
 
   // FPS check for first 2s

@@ -316,7 +316,11 @@ nav { display: flex; align-items: center; gap: 36px; }
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 140px 80px 100px;
+  /* gleicher Container wie .nav-wrap und .section-inner,
+     damit die Headline auf jeder Breite mit dem Logo fluchtet */
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 140px 48px 100px;
   width: 100%;
 }
 .hero-inner { max-width: 580px; }
@@ -1428,6 +1432,19 @@ body.pitch .pitch-btn { display: block; }
 }
 
 /* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .nav-wrap { padding: 20px 32px; }
+  nav { gap: 24px; }
+  .hero-content { padding: 130px 32px 90px; }
+  .section-inner { padding: 0 32px; }
+  .footer-grid { padding: 0 32px; gap: 36px; }
+  .footer-bottom { padding: 24px 32px 0; }
+  .about-grid { gap: 44px; }
+  .gift-grid { gap: 44px; }
+  .steps-grid { gap: 28px; }
+  .quote-float { left: -12px; bottom: -24px; max-width: 260px; }
+}
+
 @media (max-width: 768px) {
   html { scroll-padding-top: 70px; }
 
@@ -1436,7 +1453,7 @@ body.pitch .pitch-btn { display: block; }
   .hamburger { display: flex; }
 
   .hero { min-height: 100svh; }
-  .hero-content { padding: 110px 20px 80px; }
+  .hero-content { padding: 110px 20px 80px; max-width: none; }
   .hero-visual .veil {
     background: linear-gradient(
       175deg,
@@ -1771,7 +1788,7 @@ body.pitch .pitch-btn { display: block; }
 
 <!-- FAQ -->
 <section class="section section-bg-1" aria-labelledby="faq-h2">
-  <div class="section-inner" style="max-width:840px;">
+  <div class="section-inner">
     <p class="label" data-reveal>Häufige Fragen</p>
     <h2 class="h2" id="faq-h2" data-reveal>Alles Wichtige auf einen Blick.</h2>
     <div class="faq-list" data-reveal>

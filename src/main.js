@@ -20,15 +20,12 @@ async function boot() {
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = `© ${new Date().getFullYear()} ACCENT aesthetic studio`;
 
+  // Eroeffnung zuerst – vor dem Nachladen von Lenis, damit zwischen
+  // Aufbau und Ablauf der Zeitleiste keine Ladezeit liegt.
+  playIntro();
+
   // Smooth scroll + Lenis
   await initScroll();
-
-  // Hero H1 line entrance
-  requestAnimationFrame(() => {
-    document.querySelectorAll('.hero-h1 .line').forEach((line) => {
-      line.classList.add('in');
-    });
-  });
 
   initHeader();
   initCursor();
@@ -560,3 +557,18 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 }
 
 boot();
+
+
+// ── Eroeffnung beim Laden ─────────────────────────────────────────
+// Ablauf und Zeitpunkte stecken vollstaendig im CSS (siehe index.html).
+// Das ist bewusst so: Eine Zeitleiste im Skript wuerde die beim Laden
+// vergangene Zeit nachholen und waere sofort vorbei. Hier bleibt nur
+// das Ueberspringen per Klick.
+function playIntro() {
+  const intro = document.getElementById('intro');
+  if (!intro || !document.documentElement.classList.contains('intro-active')) return;
+  intro.addEventListener('click', () => {
+    document.documentElement.classList.remove('intro-active');
+    intro.remove();
+  });
+}

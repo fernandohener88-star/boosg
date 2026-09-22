@@ -203,16 +203,15 @@ export async function initDroplet() {
   const studioSection = document.getElementById('studio');
   const kontaktSection = document.getElementById('kontakt');
 
+  // Im Hero bleibt die Flaeche ruhig – der Tropfen blendet erst darunter ein.
+  canvas.style.opacity = '0';
+  canvas.style.transition = 'opacity .8s ease';
   if (heroSection) {
     ScrollTrigger.create({
       trigger: heroSection,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
-      onUpdate: (self) => {
-        droplet.position.x = baseX + self.progress * 1.2;
-        uAmp.value = 0.18 - self.progress * 0.08;
-      },
+      start: 'bottom 85%',
+      onEnter: () => { canvas.style.opacity = '1'; },
+      onLeaveBack: () => { canvas.style.opacity = '0'; },
     });
   }
 

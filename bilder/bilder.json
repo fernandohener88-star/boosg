@@ -1,0 +1,95 @@
+{
+  "_hinweis": "Fotos liegen als <bild-id>.webp in diesem Ordner. 'fotos' beschreibt jedes Foto (Alt-Text, Bildausschnitt). 'zuordnung' setzt ein vorhandenes Foto auf einen weiteren Bildplatz. Liegt fuer einen Platz eine eigene Datei vor (z. B. weg-01.webp), gewinnt die Datei. Plaetze ohne Foto zeigen automatisch eine Planskizze (quelle/plaene.js).",
+  "fotos": {
+    "REF-11": {
+      "alt": "Küchenzeile mit dunklen Fronten, Hochschrank und Einbaubackofen, davor ein runder Eichentisch"
+    },
+    "REF-12": {
+      "alt": "Dunkle grifflose Küchenzeile mit Einbaubackofen, im Vordergrund ein runder Eichentisch mit Tulpen"
+    },
+    "REF-21": {
+      "alt": "Doppelwaschtisch aus Eiche mit grifflosen Schubkästen und zwei Aufsatzbecken"
+    },
+    "REF-22": {
+      "alt": "Waschtisch aus Eiche massiv mit Steinbecken und geöffnetem, gezinktem Schubkasten",
+      "pos": "50% 60%"
+    },
+    "REF-23": {
+      "alt": "Waschtisch mit grauen Fronten, Platte aus Eiche und offenem Eckregal"
+    },
+    "REF-24": {
+      "alt": "Gäste-WC mit Waschtischplatte aus Altholz und Aufsatzbecken"
+    },
+    "REF-26": {
+      "alt": "Schneidebretter aus Eiche mit eingefrästem Ochs-&-Graf-Logo",
+      "pos": "50% 38%"
+    },
+    "REF-27": {
+      "alt": "Schwarze Küche mit offener Kaffeenische aus Eiche und Einbaubackofen"
+    },
+    "REF-28": {
+      "alt": "Hochschrankwand in Mattschwarz mit Kaffeenische aus Eiche",
+      "pos": "50% 42%"
+    },
+    "REF-29": {
+      "alt": "Kochinsel mit grifflosen Fronten in Mattschwarz auf Fischgrätparkett aus Eiche",
+      "pos": "50% 60%"
+    },
+    "REF-30": {
+      "alt": "Weiße grifflose Küche mit Theke und integriertem Weinkühlschrank"
+    },
+    "REF-31": {
+      "alt": "Weiße grifflose Küchenzeile mit Glasrückwand und Hochschränken",
+      "pos": "50% 40%"
+    },
+    "REF-35": {
+      "alt": "Sideboard mit gebogenen Korpussen auf alten Turnbock-Beinen"
+    },
+    "REF-36": {
+      "alt": "Geöffneter Auszug mit Hängeregister im Sideboard"
+    },
+    "REF-37": {
+      "alt": "Esstisch aus Eiche massiv mit schwarzem Stahlgestell",
+      "pos": "50% 55%"
+    },
+    "REF-38": {
+      "alt": "Faltwerktreppe aus Eiche mit weißem Geländer und Wandleuchten"
+    },
+    "REF-39": {
+      "alt": "Blick ins Treppenhaus mit Brüstung, Hängeleuchten und Eichenrahmen"
+    },
+    "REF-40": {
+      "alt": "Stufen einer Faltwerktreppe aus Eiche mit Wandleuchte"
+    },
+    "REF-41": {
+      "alt": "Garderobenbank aus Eiche mit weißen Schubkästen"
+    },
+    "REF-42": {
+      "alt": "Einbauschrank innen mit Kleiderstange"
+    },
+    "REF-43": {
+      "alt": "Spiegel mit Rahmen aus Eiche"
+    },
+    "WEG-05": {
+      "alt": "Küche mit Fronten aus Eiche, Messingspüle und Griffleisten aus Messing"
+    }
+  },
+  "zuordnung": {
+    "WEG-01": "REF-37",
+    "WEG-04": "REF-26",
+    "WEG-06": "REF-35",
+    "REF-01": "REF-12",
+    "REF-25": "WEG-05",
+    "TEAM-01": "REF-22",
+    "TEAM-05": "REF-26",
+    "TEAM-06": "REF-36",
+    "TEAM-07": "REF-24",
+    "INSTA-01": "REF-29",
+    "INSTA-02": "REF-43",
+    "INSTA-03": "REF-31",
+    "INSTA-04": "REF-39",
+    "INSTA-05": "REF-23",
+    "INSTA-06": "REF-28",
+    "START-06": "REF-11"
+  }
+}

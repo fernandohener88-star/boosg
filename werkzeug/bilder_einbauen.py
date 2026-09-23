@@ -28,6 +28,9 @@ for f in sorted(glob.glob('bilder/*.webp')):
     u=old.get(iid) or str(uuid.uuid4())
     man[u]={'mime':'image/webp','compressed':False,'data':base64.b64encode(open(f,'rb').read()).decode()}
     imgmap[iid]=u
+# Aliase: eine Bilddatei fuer mehrere Platzhalter-IDs (bilder/aliase.json)
+if os.path.exists('bilder/aliase.json'):
+    for a,z in json.load(open('bilder/aliase.json')).items(): imgmap[a]=imgmap[z]
 scr='<script>window.OG_IMAGES = %s;</script>'%json.dumps(imgmap)
 if m: tpl=re.sub(r'<script>window\.OG_IMAGES = \{.*?\};</script>',lambda _:scr,tpl)
 else: tpl=tpl.replace('<script src="979fe9ab',scr+'\n<script src="979fe9ab',1)
@@ -48,6 +51,26 @@ if "'PRJ-05'" not in tpl:
         { k: 'JAHR', v: '[PRÜFEN]' }
       ],
       links: [{ t: 'Badmöbel', href: '/badmoebel/' }, { t: 'Möbel nach Maß', href: '/moebel-massivholztische/' }] }
+  ];
+  FILTERS"""
+    tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1
+
+# 4) Referenzprojekt Kueche Eiche & Messing
+if "'PRJ-06'" not in tpl:
+    new = """,
+    { id: 'PRJ-06', slug: 'kueche-eiche-messing', t: 'Küche Eiche & Messing', ort: '[PRÜFEN]', cats: ['Wohnen', 'Küche'],
+      tags: 'KÜCHE · EICHENFRONTEN · MESSING',
+      d: 'Küche mit Fronten in Eiche, Griffleisten und Spüle in Messing, heller Arbeitsplatte und indirekter Beleuchtung. Die Schneidebretter aus Eiche fertigen wir gleich mit.',
+      img: 'REF-25', motif: 'Küchenzeile mit Eichenfronten und Messingspüle', alt: 'Küche mit Eichenfronten und Messingarmatur von Ochs und Graf',
+      gallery: ['REF-26'],
+      gm: ['Detail: Schneidebretter aus Eiche mit Ochs-&-Graf-Gravur'],
+      specs: [
+        { k: 'ORT', v: '[PRÜFEN]' }, { k: 'TYP', v: 'Küche' },
+        { k: 'MATERIALIEN', v: 'Eiche, Messing, Arbeitsplatte [PRÜFEN]' },
+        { k: 'MERKMALE', v: 'Griffleisten in Messing, LED-Beleuchtung, Schneidebretter mit Gravur' },
+        { k: 'JAHR', v: '[PRÜFEN]' }
+      ],
+      links: [{ t: 'Küchen', href: '/kuechen/' }] }
   ];
   FILTERS"""
     tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1

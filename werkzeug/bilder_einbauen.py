@@ -95,6 +95,26 @@ if "'PRJ-07'" not in tpl:
   FILTERS"""
     tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1
 
+# 6) Referenzprojekt Kueche Weiss mit Theke
+if "'PRJ-08'" not in tpl:
+    new = """,
+    { id: 'PRJ-08', slug: 'kueche-weiss-theke', t: 'Küche Weiß mit Theke', ort: '[PRÜFEN]', cats: ['Wohnen', 'Küche'],
+      tags: 'KÜCHE · GRIFFLOS · THEKE · WEINKÜHLSCHRANK',
+      d: 'Offene Küche in Weiß, grifflos, mit Theke zum Wohnbereich, integriertem Weinkühlschrank und LED-Band unter den Hängeschränken.',
+      img: 'REF-30', motif: 'Weiße grifflose Küche mit Theke und Weinkühlschrank', alt: 'Weiße grifflose Küche mit Theke und Weinkühlschrank von Ochs und Graf',
+      gallery: [],
+      gm: [],
+      specs: [
+        { k: 'ORT', v: '[PRÜFEN]' }, { k: 'TYP', v: 'Offene Küche mit Theke' },
+        { k: 'MATERIALIEN', v: 'Fronten Weiß, Arbeitsplatte [PRÜFEN]' },
+        { k: 'MERKMALE', v: 'Grifflos, integrierter Weinkühlschrank, LED-Unterbauleuchten' },
+        { k: 'JAHR', v: '[PRÜFEN]' }
+      ],
+      links: [{ t: 'Küchen', href: '/kuechen/' }] }
+  ];
+  FILTERS"""
+    tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1
+
 mj=json.dumps(man,separators=(',',':'))
 tj=json.dumps(tpl).replace('</','<\\u002F')
 h=h[:mm.start(2)]+mj+h[mm.end(2):]

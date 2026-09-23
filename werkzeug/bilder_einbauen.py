@@ -75,6 +75,26 @@ if "'PRJ-06'" not in tpl:
   FILTERS"""
     tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1
 
+# 5) Referenzprojekt Kueche Schwarz & Eiche
+if "'PRJ-07'" not in tpl:
+    new = """,
+    { id: 'PRJ-07', slug: 'kueche-schwarz-eiche', t: 'Küche Schwarz & Eiche', ort: '[PRÜFEN]', cats: ['Wohnen', 'Küche'],
+      tags: 'KÜCHE · MATTSCHWARZ · EICHE · FISCHGRÄTPARKETT',
+      d: 'Grifflose Küche in Mattschwarz mit Kochinsel und Hochschrankwand. Eine offene Nische aus Eiche wird zur Kaffeebar, darunter liegt Fischgrätparkett in Eiche.',
+      img: 'REF-27', motif: 'Hochschrankwand in Mattschwarz mit Kaffeenische aus Eiche', alt: 'Schwarze Küche mit Kaffeenische aus Eiche von Ochs und Graf',
+      gallery: ['REF-28', 'REF-29'],
+      gm: ['Kaffeebar: offene Nische aus Eiche in der Hochschrankwand', 'Kochinsel mit grifflosen Fronten auf Fischgrätparkett'],
+      specs: [
+        { k: 'ORT', v: '[PRÜFEN]' }, { k: 'TYP', v: 'Küche mit Kochinsel' },
+        { k: 'MATERIALIEN', v: 'Fronten Mattschwarz, Eiche, Arbeitsplatte [PRÜFEN]' },
+        { k: 'MERKMALE', v: 'Grifflos, Kaffeenische aus Eiche, Fischgrätparkett' },
+        { k: 'JAHR', v: '[PRÜFEN]' }
+      ],
+      links: [{ t: 'Küchen', href: '/kuechen/' }, { t: 'Innenausbau', href: '/innenausbau/' }] }
+  ];
+  FILTERS"""
+    tpl,n=re.subn(r"\n  \];\n  FILTERS",lambda _:new,tpl,count=1); assert n==1
+
 mj=json.dumps(man,separators=(',',':'))
 tj=json.dumps(tpl).replace('</','<\\u002F')
 h=h[:mm.start(2)]+mj+h[mm.end(2):]

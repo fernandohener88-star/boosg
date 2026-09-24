@@ -392,81 +392,68 @@
 }
 </style>
   <style>
+    /* Gestaltung: 2 Schriften (Cormorant Garamond + Instrument Sans), Neutraltöne,
+       Kupfer nur für Haupt-Aktionen, ein Radius (6px), kurze, dezente Übergänge. */
+    :root { --og-r:6px; }
+    html { scroll-behavior:smooth; }
     body { margin:0; background:#141311; color:#F1ECE4; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
     * { box-sizing:border-box; }
-    a { color:#B98A5A; text-decoration:none; }
-    a:hover { color:#C9A56A; }
+    a { color:inherit; text-decoration:none; transition:color .2s ease, opacity .2s ease, border-color .2s ease, background-color .2s ease; }
+    button { transition:color .2s ease, border-color .2s ease, background-color .2s ease; }
+    button, input, select, textarea { border-radius:var(--og-r); }
+    address a, .og-prose a, [role="alert"] a { text-decoration:underline; text-underline-offset:3px; text-decoration-color:rgba(241,236,228,.35); }
     ::selection { background:#B98A5A; color:#141311; }
-    :focus-visible { outline:2px solid #C9A56A; outline-offset:3px; border-radius:1px; }
+    :focus-visible { outline:2px solid #B98A5A; outline-offset:3px; border-radius:var(--og-r); }
     input, select, textarea { outline-offset:0; }
-    @keyframes ogFade { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes ogRise { from { opacity:0; transform:translateY(42px); } to { opacity:1; transform:none; } }
-    @keyframes ogZeichnen { from { stroke-dashoffset:1; } to { stroke-dashoffset:0; } }
-    @keyframes ogEin { from { opacity:0; } to { opacity:1; } }
+    @keyframes ogFade { from { opacity:0; } to { opacity:1; } }
+    @keyframes ogLauf { from { transform:translateX(0); } to { transform:translateX(-50%); } }
     @keyframes ogBarA { from { transform:scaleX(0); } to { transform:scaleX(1); } }
     @keyframes ogBarB { from { transform:scaleX(0); } to { transform:scaleX(1); } }
-    @keyframes ogLauf { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-    @keyframes ogPuls { 0%,100% { transform:scaleY(.35); transform-origin:top; } 50% { transform:scaleY(1); transform-origin:top; } }
 
-    /* Hero-Einstieg */
-    .og-in { animation:ogFade .9s cubic-bezier(.22,1,.36,1) both; }
-    .og-in2 { animation-delay:.12s; } .og-in3 { animation-delay:.26s; } .og-in4 { animation-delay:.4s; }
-    .og-seite { animation:ogEin .55s ease both; }
+    .og-in { animation:ogFade .6s ease both; }
+    .og-in2 { animation-delay:.06s; } .og-in3 { animation-delay:.12s; } .og-in4 { animation-delay:.18s; }
+    .og-seite { animation:ogFade .35s ease both; }
 
     /* Navigation */
-    .og-nav { position:relative; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; padding:8px 0; white-space:nowrap; }
-    .og-nav::after { content:''; position:absolute; left:0; right:0; bottom:2px; height:1px; background:#B98A5A; transform:scaleX(0); transform-origin:left; transition:transform .45s cubic-bezier(.22,1,.36,1); }
-    .og-nav:hover::after, .og-nav[aria-current="page"]::after { transform:scaleX(1); }
-    .og-burger span { position:absolute; left:12px; right:12px; height:1px; background:#F1ECE4; transition:transform .4s cubic-bezier(.22,1,.36,1), opacity .25s ease, top .4s cubic-bezier(.22,1,.36,1); }
+    .og-nav { font-size:14px; padding:8px 0; white-space:nowrap; text-underline-offset:10px; }
+    .og-nav[aria-current="page"] { text-decoration:underline; text-decoration-thickness:1px; }
+    .og-burger span { position:absolute; left:13px; right:13px; height:1px; background:#F1ECE4; transition:transform .25s ease, opacity .2s ease, top .25s ease; }
 
-    /* Bildkarten: sanfter Zoom beim Hovern */
-    .og-foto { transition:transform 1.4s cubic-bezier(.22,1,.36,1), opacity .6s ease; }
-    .og-zoom:hover .og-foto, .og-zoom:focus-visible .og-foto { transform:scale(1.045); }
-    .og-zoom .og-pfeil { transition:transform .45s cubic-bezier(.22,1,.36,1); display:inline-block; }
-    .og-zoom:hover .og-pfeil { transform:translateX(6px); }
+    /* Bilder: einheitlicher Radius, sehr dezenter Hover */
+    .og-fig { border-radius:var(--og-r); }
+    .og-voll .og-fig { border-radius:0; }
+    .og-foto { transition:opacity .3s ease; }
+    .og-zoom:hover .og-foto { opacity:.88; }
+    .og-pfeil { display:inline-block; }
 
-    /* Laufband */
-    .og-lauf { display:flex; width:max-content; animation:ogLauf 46s linear infinite; }
-    .og-lauf-wrap:hover .og-lauf { animation-play-state:paused; }
-    .og-hohl { color:transparent; -webkit-text-stroke:1px rgba(241,236,228,.55); }
+    /* Laufband: langsam und zurückhaltend */
+    .og-lauf { display:flex; width:max-content; animation:ogLauf 120s linear infinite; }
+    .og-hohl { opacity:.4; }
 
-    /* Planskizzen (quelle/plaene.js) */
-    .og-plan { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:clamp(34px,7%,84px) clamp(22px,6%,80px) clamp(30px,6%,70px); }
+    /* Planskizzen (quelle/plaene.js): neutrale Linien, statisch */
+    .og-plan { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:clamp(40px,8%,96px) clamp(28px,7%,96px); container-type:size; }
     .og-plan svg { width:100%; height:100%; overflow:visible; }
-    .og-plan-monogramm { padding:6% 10%; }
-    .og-plan { container-type:size; }
-    .og-plan .s { fill:none; stroke:#B98A5A; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
-    .og-plan .d { stroke:#A8A096; stroke-width:1.4; opacity:.85; }
-    .og-plan .h { stroke:#A8A096; stroke-width:1; opacity:.45; }
-    .og-plan .m { stroke:#A8A096; stroke-width:.9; opacity:.85; }
-    .og-plan .tc.s { stroke:#C9A56A; }
-    .og-plan .f { fill:rgba(185,138,90,.08); }
-    .og-plan .p { fill:#B98A5A; }
-    .og-plan text { font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.14em; fill:#A8A096; }
-    .og-plan text.tc { fill:#B98A5A; font-size:14px; }
-    .og-plan text.tm { font-size:11.5px; }
-    @container (min-width: 1000px) { .og-plan:not(.og-plan-monogramm) > svg { width:60%; margin-left:auto; } }
-    @container (max-width: 560px) { .og-plan text:not(.mg) { display:none; } .og-plan .s { stroke-width:2.8; } .og-plan .d { stroke-width:1.8; } }
-    .og-plan text.mg { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:260px; letter-spacing:-.03em; fill:#B98A5A; }
+    .og-plan-monogramm { padding:10% 14%; }
+    .og-plan .s { fill:none; stroke:rgba(241,236,228,.55); stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+    .og-plan .d { stroke:#A8A096; stroke-width:1.1; opacity:.6; }
+    .og-plan .h { stroke:#A8A096; stroke-width:.8; opacity:.28; }
+    .og-plan .m { stroke:#A8A096; stroke-width:.8; opacity:.55; }
+    .og-plan .tc.s { stroke:rgba(241,236,228,.55); }
+    .og-plan .f { fill:rgba(241,236,228,.04); }
+    .og-plan .p { fill:rgba(241,236,228,.75); }
+    .og-plan text { font-family:'Instrument Sans',sans-serif; font-size:13px; letter-spacing:.06em; fill:#A8A096; }
+    .og-plan text.tc { fill:#A8A096; }
+    .og-plan text.tm { font-size:12px; }
+    @container (min-width: 1000px) { .og-plan:not(.og-plan-monogramm) > svg { width:56%; margin-left:auto; } }
+    @container (max-width: 560px) { .og-plan text:not(.mg) { display:none; } .og-plan .s { stroke-width:2.2; } .og-plan .d { stroke-width:1.5; } }
+    .og-plan text.mg { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:230px; letter-spacing:-.02em; fill:#D9D2C7; }
 
     /* Rechtstexte */
-    .og-prose h2 { margin:clamp(34px,5vw,56px) 0 12px; font-family:'Cormorant Garamond',serif; font-size:clamp(24px,2.6vw,34px); line-height:1.1; font-weight:400; color:#F1ECE4; }
-    .og-prose h3 { margin:22px 0 6px; font-size:15px; font-weight:600; color:#F1ECE4; }
-    .og-prose p, .og-prose li { margin:0 0 12px; font-size:15px; line-height:1.75; color:#A8A096; }
-    .og-prose ul { margin:0 0 12px; padding-left:18px; }
+    .og-prose h2 { margin:clamp(48px,6vw,72px) 0 14px; font-family:'Cormorant Garamond',serif; font-size:clamp(26px,2.4vw,32px); line-height:1.15; font-weight:400; color:#F1ECE4; }
+    .og-prose h3 { margin:24px 0 8px; font-size:15px; font-weight:600; color:#F1ECE4; }
+    .og-prose p, .og-prose li { margin:0 0 14px; font-size:16px; line-height:1.75; color:#A8A096; }
+    .og-prose ul { margin:0 0 14px; padding-left:18px; }
     .og-prose strong { color:#F1ECE4; font-weight:600; }
-
-    /* Scroll-getriebene Effekte: nur wo unterstuetzt, sonst statisch und vollstaendig */
-    @supports (animation-timeline: view()) {
-      @media (prefers-reduced-motion: no-preference) {
-        .og-rv { animation:ogRise linear both; animation-timeline:view(); animation-range:entry 0% entry 62%; }
-        .og-plan { view-timeline:--ogplan block; }
-        .og-plan .s { stroke-dasharray:1 1; animation:ogZeichnen linear both; animation-timeline:--ogplan; animation-range:entry calc(var(--i, 0) * .9%) cover calc(24% + var(--i, 0) * .45%); }
-        .og-plan text, .og-plan .p { animation:ogEin linear both; animation-timeline:--ogplan; animation-range:entry 30% cover 34%; }
-        .og-parallax { animation:ogParallax linear both; animation-timeline:view(); animation-range:exit 0% exit 100%; }
-      }
-    }
-    @keyframes ogParallax { from { transform:translateY(0) scale(1.02); } to { transform:translateY(18%) scale(1.08); } }
 
     @media (prefers-reduced-motion: reduce) {
       html, body { scroll-behavior:auto !important; }
@@ -488,26 +475,25 @@
 
 <div style="position:relative;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',system-ui,sans-serif;font-size:16px;line-height:1.6;">
 
-  <div aria-hidden="true" style="position:fixed;inset:0;z-index:70;pointer-events:none;mix-blend-mode:overlay;opacity:.05;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27180%27 height=%27180%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 sc-camel-base-frequency=%27.85%27 sc-camel-num-octaves=%273%27/%3E%3C/filter%3E%3Crect width=%27180%27 height=%27180%27 filter=%27url(%23n)%27/%3E%3C/svg%3E');"></div>
 
   <!-- ============ HEADER ============ -->
-  <header style="position:sticky;top:0;z-index:60;background:{{ kopfBg }};backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);border-bottom:1px solid rgba(168,160,150,.16);transition:background .3s ease;">
-    <div style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3.2vw,44px);display:flex;align-items:center;justify-content:space-between;gap:20px;height:66px;">
+  <header style="position:sticky;top:0;z-index:60;background:{{ kopfBg }};backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);transition:background .3s ease;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:flex;align-items:center;justify-content:space-between;gap:20px;height:66px;">
       <a href="#/" aria-label="Ochs und Graf – zur Startseite" style="display:flex;align-items:center;gap:12px;color:#F1ECE4;" style-hover="color:#F1ECE4">
-        <span aria-hidden="true" style="display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(241,236,228,.35);font-family:'IBM Plex Mono',monospace;font-size:10px;color:#B98A5A;">O&amp;G</span>
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;">OCHS &amp; GRAF</span>
+        <span aria-hidden="true" style="display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(241,236,228,.22);border-radius:6px;font-family:'Instrument Sans',sans-serif;font-size:10px;color:#A8A096;">O&amp;G</span>
+        <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;font-weight:500;">OCHS &amp; GRAF</span>
       </a>
       <nav aria-label="Hauptnavigation" style="display:{{ navDisplay }};align-items:center;gap:clamp(20px,2.6vw,40px);margin-left:auto;">
         <sc-for list="{{ navHaupt }}" as="n" hint-placeholder-count="4">
-          <a href="{{ n.href }}" class="og-nav" aria-current="{{ n.current }}" style="color:{{ n.fg }};" style-hover="color:#B98A5A">{{ n.t }}</a>
+          <a href="{{ n.href }}" class="og-nav" aria-current="{{ n.current }}" style="color:{{ n.fg }};" style-hover="opacity:.65">{{ n.t }}</a>
         </sc-for>
       </nav>
       <div style="display:flex;align-items:center;gap:10px;">
-        <a href="tel:+491749353078" data-event="phone_click" aria-label="Ochs und Graf anrufen" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;" style-hover="border-color:#B98A5A;color:#B98A5A">
+        <a href="tel:+491749353078" data-event="phone_click" aria-label="Ochs und Graf anrufen" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">
           <svg width="17" height="17" sc-camel-view-box="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.4a13 13 0 006.5 6.5l1.4-2 4 1.5v3a2 2 0 01-2.2 2A17.5 17.5 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"></path></svg>
         </a>
-        <a href="#/kontakt" data-event="cta_click" style="display:{{ ctaDisplay }};align-items:center;height:44px;padding:0 20px;background:#B98A5A;color:#141311;font-size:14px;font-weight:600;" style-hover="background:#C9A56A;color:#141311">Projekt anfragen</a>
-        <button type="button" class="og-burger" sc-camel-on-click="{{ toggleMenu }}" aria-expanded="{{ menuExp }}" aria-controls="og-menu" aria-label="{{ menuLabel }}" style="display:{{ burgerDisplay }};position:relative;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);background:transparent;cursor:pointer;padding:0;">
+        <a href="#/kontakt" data-event="cta_click" style="display:{{ ctaDisplay }};align-items:center;height:44px;padding:0 20px;background:#B98A5A;color:#141311;font-size:14px;font-weight:600;border-radius:6px;" style-hover="background:#C69A6C;color:#141311">Projekt anfragen</a>
+        <button type="button" class="og-burger" sc-camel-on-click="{{ toggleMenu }}" aria-expanded="{{ menuExp }}" aria-controls="og-menu" aria-label="{{ menuLabel }}" style="display:{{ burgerDisplay }};position:relative;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);background:transparent;cursor:pointer;padding:0;border-radius:6px;">
           <span style="top:{{ b1 }};transform:{{ b1t }};"></span>
           <span style="top:21px;opacity:{{ b2o }};"></span>
           <span style="top:{{ b3 }};transform:{{ b3t }};"></span>
@@ -520,14 +506,14 @@
   <div id="og-menu" role="dialog" aria-modal="true" aria-label="Menü" aria-hidden="{{ menuHidden }}" style="position:fixed;top:66px;left:0;right:0;bottom:0;z-index:59;background:#141311;overflow-y:auto;transition:opacity .35s ease,visibility .35s,transform .45s cubic-bezier(.22,1,.36,1);opacity:{{ menuO }};visibility:{{ menuV }};transform:{{ menuT }};">
     <nav aria-label="Mobile Navigation" style="padding:18px 20px 8px;">
       <sc-for list="{{ navMobil }}" as="n" hint-placeholder-count="5">
-        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display:flex;align-items:baseline;gap:16px;padding:16px 0;border-bottom:1px solid rgba(168,160,150,.16);color:{{ n.fg }};font-family:'Cormorant Garamond',serif;font-size:clamp(34px,9vw,46px);line-height:1;" style-hover="color:#B98A5A"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">{{ n.nr }}</span>{{ n.t }}</a>
+        <a href="{{ n.href }}" aria-current="{{ n.current }}" style="display:flex;align-items:baseline;gap:16px;padding:16px 0;color:{{ n.fg }};font-family:'Cormorant Garamond',serif;font-size:clamp(34px,9vw,46px);line-height:1;" style-hover="opacity:.65"><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ n.nr }}</span>{{ n.t }}</a>
       </sc-for>
     </nav>
     <div style="padding:18px 20px 32px;display:grid;gap:10px;">
-      <a href="tel:+491749353078" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(168,160,150,.22);color:#F1ECE4;font-size:15px;">Yannik Mosthaf <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">+49 174 9353078</span></a>
-      <a href="tel:+4917682042302" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(168,160,150,.22);color:#F1ECE4;font-size:15px;">Marius Landgraf <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">+49 176 82042302</span></a>
-      <a href="mailto:info@ochsundgraf.de" data-event="mail_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(168,160,150,.22);color:#F1ECE4;font-size:15px;">E-Mail <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">info@ochsundgraf.de</span></a>
-      <p style="margin:14px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#B98A5A;">The Wood. The Better.</p>
+      <a href="tel:+491749353078" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(241,236,228,.14);border-radius:6px;color:#F1ECE4;font-size:15px;">Yannik Mosthaf <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">+49 174 9353078</span></a>
+      <a href="tel:+4917682042302" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(241,236,228,.14);border-radius:6px;color:#F1ECE4;font-size:15px;">Marius Landgraf <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">+49 176 82042302</span></a>
+      <a href="mailto:info@ochsundgraf.de" data-event="mail_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(241,236,228,.14);border-radius:6px;color:#F1ECE4;font-size:15px;">E-Mail <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">info@ochsundgraf.de</span></a>
+      <p style="margin:14px 0 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:#A8A096;">The Wood. The Better.</p>
     </div>
   </div>
 
@@ -538,9 +524,9 @@
        ===================================================================== -->
   <sc-if value="{{ isStart }}" hint-placeholder-val="{{ false }}">
     <section aria-label="Einstieg" style="position:relative;min-height:{{ heroFull }};display:flex;align-items:flex-end;overflow:hidden;background:#141311;">
-      <div aria-hidden="true" style="position:absolute;inset:0;">
+      <div aria-hidden="true" class="og-voll" style="position:absolute;inset:0;">
         <sc-for list="{{ slides }}" as="sl" hint-placeholder-count="5">
-          <div style="position:absolute;inset:0;transition:opacity 1.6s ease;opacity:{{ sl.o }};">
+          <div style="position:absolute;inset:0;transition:opacity 1s ease;opacity:{{ sl.o }};">
             <div style="position:absolute;inset:0;transform:{{ sl.tf }};transition:{{ sl.tt }};">
               <dc-import name="ImagePlaceholder" img-id="{{ sl.img }}" laden="{{ sl.laden }}" deko="1" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </div>
@@ -548,131 +534,124 @@
         </sc-for>
         <div style="position:absolute;inset:0;background:{{ heroVerlauf }};"></div>
       </div>
-      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(110px,16vh,180px) clamp(16px,3.2vw,44px) clamp(26px,5vh,54px);">
-        <p class="og-in" style="margin:0 0 clamp(14px,2.2vh,24px);font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,1vw,12px);letter-spacing:.26em;color:#B98A5A;">SCHREINEREI · LANDAU IN DER PFALZ</p>
-        <h1 class="og-in og-in2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(56px,10.4vw,168px);line-height:.88;letter-spacing:-.025em;font-weight:400;">The Wood.<br><em style="color:#B98A5A;">The Better.</em></h1>
+      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(110px,16vh,180px) clamp(20px,5vw,72px) clamp(26px,5vh,54px);">
+        <p class="og-in" style="margin:0 0 clamp(14px,2.2vh,24px);font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">SCHREINEREI · LANDAU IN DER PFALZ</p>
+        <h1 class="og-in og-in2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7.2vw,116px);line-height:.95;letter-spacing:-.02em;font-weight:400;">The Wood.<br><em>The Better.</em></h1>
         <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:28px 48px;margin-top:clamp(22px,3.4vh,38px);">
           <div class="og-in og-in3" style="max-width:46ch;">
             <p style="margin:0;font-size:clamp(15px,1.25vw,19px);line-height:1.6;color:#F1ECE4;text-wrap:pretty;">Küchen, Badmöbel, Massivholztische und Innenausbau – geplant per 3D-Aufmaß, gefertigt von zwei Tischlermeistern aus Landau in der Pfalz.</p>
             <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(18px,2.8vh,28px);">
-              <a href="#/kontakt" data-event="cta_click" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;background:#B98A5A;color:#141311;font-size:15px;font-weight:600;" style-hover="background:#C9A56A;color:#141311">Projekt anfragen</a>
-              <a href="#/referenzen" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;border:1px solid rgba(241,236,228,.34);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Referenzen ansehen</a>
+              <a href="#/kontakt" data-event="cta_click" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;background:#B98A5A;color:#141311;font-size:15px;font-weight:600;border-radius:6px;" style-hover="background:#C69A6C;color:#141311">Projekt anfragen</a>
+              <a href="#/referenzen" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Referenzen ansehen</a>
             </div>
           </div>
           <div class="og-in og-in4" style="display:{{ slideInfoDisp }};width:min(100%,340px);">
-            <a href="{{ slide.href }}" class="og-zoom" style="display:block;color:#F1ECE4;" style-hover="color:#B98A5A">
-              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#A8A096;">{{ slide.nr }} / {{ slideCount }} · PROJEKT</span>
+            <a href="{{ slide.href }}" class="og-zoom" style="display:block;color:#F1ECE4;" style-hover="opacity:.65">
+              <span style="display:block;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ slide.nr }} / {{ slideCount }} · PROJEKT</span>
               <span style="display:block;margin-top:6px;font-family:'Cormorant Garamond',serif;font-size:clamp(21px,1.9vw,27px);line-height:1.1;">{{ slide.t }} <span class="og-pfeil" aria-hidden="true">→</span></span>
             </a>
             <div style="display:flex;align-items:center;gap:10px;margin-top:14px;">
-              <button type="button" sc-camel-on-click="{{ slidePrev }}" aria-label="Vorheriges Projektbild" style="display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(241,236,228,.26);background:rgba(20,19,17,.4);color:#F1ECE4;cursor:pointer;" style-hover="border-color:#B98A5A;color:#B98A5A">←</button>
+              <button type="button" sc-camel-on-click="{{ slidePrev }}" aria-label="Vorheriges Projektbild" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);border-radius:6px;background:transparent;color:#F1ECE4;cursor:pointer;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">←</button>
               <div aria-hidden="true" style="position:relative;flex:1;height:1px;background:rgba(241,236,228,.22);overflow:hidden;">
-                <span style="position:absolute;inset:0;background:#B98A5A;transform-origin:left;animation:{{ slide.bar }};"></span>
+                <span style="display:none;"></span>
               </div>
-              <button type="button" sc-camel-on-click="{{ slideNext }}" aria-label="Nächstes Projektbild" style="display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(241,236,228,.26);background:rgba(20,19,17,.4);color:#F1ECE4;cursor:pointer;" style-hover="border-color:#B98A5A;color:#B98A5A">→</button>
+              <button type="button" sc-camel-on-click="{{ slideNext }}" aria-label="Nächstes Projektbild" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);border-radius:6px;background:transparent;color:#F1ECE4;cursor:pointer;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">→</button>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section style="max-width:1440px;margin:0 auto;padding:clamp(76px,13vh,160px) clamp(16px,3.2vw,44px) clamp(40px,7vh,84px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
-      <p class="og-rv" style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">OCHS &amp; GRAF</p>
-      <p class="og-rv" style="margin:0;max-width:30ch;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.8vw,58px);line-height:1.12;font-weight:400;text-wrap:pretty;">Wir sind eine kleine Schreinerei mit großer Liebe zu <em style="color:#B98A5A;">Massivholz.</em> Wir planen digital, fertigen präzise und bauen bei euch ein – persönlich und millimetergenau.</p>
+    <section style="max-width:1440px;margin:0 auto;padding:clamp(112px,16vh,200px) clamp(20px,5vw,72px) clamp(72px,10vh,128px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
+      <p class="og-rv" style="margin:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">OCHS &amp; GRAF</p>
+      <p class="og-rv" style="margin:0;max-width:34ch;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.6vw,38px);line-height:1.3;font-weight:400;text-wrap:pretty;">Wir sind eine kleine Schreinerei mit großer Liebe zu <em>Massivholz.</em> Wir planen digital, fertigen präzise und bauen bei euch ein – persönlich und millimetergenau.</p>
     </section>
 
-    <section aria-label="Kurz und knapp" style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3.2vw,44px) clamp(76px,12vh,140px);">
-      <div aria-hidden="true" style="position:relative;height:1px;background:rgba(168,160,150,.35);margin-bottom:26px;">
-        <span style="position:absolute;left:0;top:-6px;width:1px;height:13px;background:#B98A5A;"></span>
-        <span style="position:absolute;left:25%;top:-4px;width:1px;height:9px;background:rgba(168,160,150,.6);"></span>
-        <span style="position:absolute;left:50%;top:-4px;width:1px;height:9px;background:rgba(168,160,150,.6);"></span>
-        <span style="position:absolute;left:75%;top:-4px;width:1px;height:9px;background:rgba(168,160,150,.6);"></span>
-        <span style="position:absolute;right:0;top:-6px;width:1px;height:13px;background:#B98A5A;"></span>
-      </div>
+    <section aria-label="Kurz und knapp" style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(104px,15vh,184px);">
       <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ faktCols }};gap:clamp(22px,3vw,40px);">
         <sc-for list="{{ fakten }}" as="fk" hint-placeholder-count="4">
           <li class="og-rv">
-            <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(46px,5.4vw,84px);line-height:1;color:#F1ECE4;">{{ fk.z }}</p>
-            <p style="margin:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#B98A5A;">{{ fk.t }}</p>
+            <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,3.8vw,56px);line-height:1;color:#F1ECE4;">{{ fk.z }}</p>
+            <p style="margin:12px 0 8px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ fk.t }}</p>
             <p style="margin:0;max-width:30ch;font-size:15px;line-height:1.6;color:#A8A096;">{{ fk.d }}</p>
           </li>
         </sc-for>
       </ul>
     </section>
 
-    <div aria-hidden="true" class="og-lauf-wrap" style="overflow:hidden;border-top:1px solid rgba(168,160,150,.16);border-bottom:1px solid rgba(168,160,150,.16);background:#1D1B19;padding:clamp(18px,3vh,30px) 0;">
+    <div aria-hidden="true" class="og-lauf-wrap" style="overflow:hidden;padding:clamp(24px,4vh,40px) 0;">
       <div class="og-lauf">
         <sc-for list="{{ laufband }}" as="lb" hint-placeholder-count="12">
-          <span style="flex:0 0 auto;display:flex;align-items:center;gap:clamp(20px,3vw,44px);padding-right:clamp(20px,3vw,44px);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(40px,6.4vw,104px);line-height:1;white-space:nowrap;"><span class="{{ lb.k }}">{{ lb.t }}</span><span style="font-style:normal;font-size:.36em;color:#B98A5A;">✦</span></span>
+          <span style="flex:0 0 auto;display:flex;align-items:center;gap:clamp(20px,3vw,44px);padding-right:clamp(20px,3vw,44px);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(28px,3.2vw,46px);line-height:1;white-space:nowrap;"><span class="{{ lb.k }}">{{ lb.t }}</span><span style="font-style:normal;font-size:.36em;color:#A8A096;">✦</span></span>
         </sc-for>
       </div>
     </div>
 
-    <section aria-labelledby="leist-h2" style="max-width:1440px;margin:0 auto;padding:clamp(76px,13vh,150px) clamp(16px,3.2vw,44px) clamp(40px,6vh,72px);">
-      <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 40px;margin-bottom:clamp(28px,4vw,52px);">
+    <section aria-labelledby="leist-h2" style="max-width:1440px;margin:0 auto;padding:clamp(112px,16vh,200px) clamp(20px,5vw,72px) clamp(64px,9vh,112px);">
+      <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px 40px;margin-bottom:clamp(40px,5vw,72px);">
         <div>
-          <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">LEISTUNGEN</p>
-          <h2 id="leist-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.6vw,86px);line-height:.95;font-weight:400;">Was wir <em style="color:#B98A5A;">bauen.</em></h2>
+          <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">LEISTUNGEN</p>
+          <h2 id="leist-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Was wir <em>bauen.</em></h2>
         </div>
         <p style="margin:0;max-width:42ch;font-size:clamp(15px,1.15vw,17px);line-height:1.65;color:#A8A096;">Jedes Stück entsteht nach Maß: Wir erfassen euren Raum per 3D-Aufmaß, planen im CAD und fertigen Massivholz und Individualisierungen in unseren eigenen Hallen.</p>
       </div>
-      <div style="display:grid;grid-template-columns:{{ twoCol }};gap:clamp(12px,1.6vw,20px);">
+      <div style="display:grid;grid-template-columns:{{ twoCol }};gap:clamp(56px,7vw,96px) clamp(24px,3vw,48px);">
         <sc-for list="{{ leistungen }}" as="ls" hint-placeholder-count="4">
-          <a href="{{ ls.href }}" class="og-zoom og-rv" style="position:relative;display:block;aspect-ratio:{{ leistRatio }};overflow:hidden;color:#F1ECE4;" style-hover="color:#F1ECE4">
-            <dc-import name="ImagePlaceholder" img-id="{{ ls.img }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
-            <span aria-hidden="true" style="position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(20,19,17,.55) 0%,rgba(20,19,17,0) 30%,rgba(20,19,17,.3) 52%,rgba(20,19,17,.94) 100%);"></span>
-            <span style="position:absolute;top:18px;left:20px;z-index:4;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#B98A5A;">{{ ls.n }}</span>
-            <span style="position:absolute;left:clamp(18px,2vw,28px);right:clamp(18px,2vw,28px);bottom:clamp(18px,2vw,28px);z-index:4;display:block;">
-              <span style="display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.2vw,50px);line-height:1;">{{ ls.t }}</span>
-              <span style="display:block;margin-top:10px;max-width:46ch;font-size:15px;line-height:1.55;color:#D9D2C7;">{{ ls.d }}</span>
-              <span style="display:block;margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#B98A5A;">REFERENZEN <span class="og-pfeil">→</span></span>
+          <a href="{{ ls.href }}" class="og-zoom" style="display:block;color:#F1ECE4;" style-hover="color:#F1ECE4">
+            <span style="position:relative;display:block;aspect-ratio:{{ leistRatio }};">
+              <dc-import name="ImagePlaceholder" img-id="{{ ls.img }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </span>
+            <span style="display:flex;align-items:baseline;gap:16px;margin-top:24px;">
+              <span style="font-family:'Instrument Sans',sans-serif;font-size:13px;color:#A8A096;">{{ ls.n }}</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.4vw,34px);line-height:1.15;">{{ ls.t }}</span>
+            </span>
+            <span style="display:block;margin-top:10px;max-width:52ch;font-size:16px;line-height:1.65;color:#A8A096;">{{ ls.d }}</span>
+            <span style="display:inline-block;margin-top:18px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;font-weight:500;color:#F1ECE4;">REFERENZEN <span class="og-pfeil">→</span></span>
           </a>
         </sc-for>
       </div>
     </section>
 
-    <section aria-labelledby="ausw-h2" style="max-width:1440px;margin:0 auto;padding:clamp(40px,6vh,72px) clamp(16px,3.2vw,44px) clamp(76px,13vh,150px);">
-      <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(28px,4vw,52px);">
+    <section aria-labelledby="ausw-h2" style="max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,112px) clamp(20px,5vw,72px) clamp(112px,16vh,200px);">
+      <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(40px,5vw,72px);">
         <div>
-          <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">AUSGEWÄHLTE PROJEKTE</p>
-          <h2 id="ausw-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.6vw,86px);line-height:.95;font-weight:400;">Aus der <em style="color:#B98A5A;">Werkstatt.</em></h2>
+          <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">AUSGEWÄHLTE PROJEKTE</p>
+          <h2 id="ausw-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Aus der <em>Werkstatt.</em></h2>
         </div>
-        <a href="#/referenzen" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Alle Referenzen <span class="og-pfeil" aria-hidden="true">→</span></a>
+        <a href="#/referenzen" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Alle Referenzen <span class="og-pfeil" aria-hidden="true">→</span></a>
       </div>
-      <div style="display:grid;grid-template-columns:{{ auswCols }};grid-auto-rows:{{ auswRow }};gap:clamp(12px,1.6vw,20px);">
+      <div style="display:grid;grid-template-columns:{{ auswCols }};gap:clamp(32px,3vw,48px) clamp(24px,2.6vw,40px);">
         <sc-for list="{{ auswahl }}" as="aw" hint-placeholder-count="3">
-          <a href="{{ aw.href }}" class="og-zoom og-rv" style="position:relative;display:block;overflow:hidden;grid-column:{{ aw.col }};grid-row:{{ aw.row }};color:#F1ECE4;" style-hover="color:#F1ECE4">
-            <dc-import name="ImagePlaceholder" img-id="{{ aw.img }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
-            <span aria-hidden="true" style="position:absolute;inset:0;z-index:3;background:linear-gradient(180deg,rgba(20,19,17,0) 28%,rgba(20,19,17,.55) 62%,rgba(20,19,17,.94) 100%);"></span>
-            <span style="position:absolute;left:clamp(18px,2vw,28px);right:clamp(18px,2vw,28px);bottom:clamp(18px,2vw,26px);z-index:4;display:block;">
-              <span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#B98A5A;">{{ aw.id }} · {{ aw.ortU }}</span>
-              <span style="display:block;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,44px);line-height:1;">{{ aw.t }} <span class="og-pfeil" aria-hidden="true">→</span></span>
-              <span style="display:block;margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">{{ aw.tags }}</span>
+          <a href="{{ aw.href }}" class="og-zoom" style="display:block;color:#F1ECE4;" style-hover="color:#F1ECE4">
+            <span style="position:relative;display:block;aspect-ratio:4 / 5;">
+              <dc-import name="ImagePlaceholder" img-id="{{ aw.img }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </span>
+            <span style="display:block;margin-top:20px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;font-weight:500;color:#A8A096;">{{ aw.id }} · {{ aw.ortU }}</span>
+            <span style="display:block;margin-top:8px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;">{{ aw.t }} <span class="og-pfeil" aria-hidden="true">→</span></span>
+            <span style="display:block;margin-top:8px;font-size:14px;line-height:1.5;color:#A8A096;">{{ aw.tags }}</span>
           </a>
         </sc-for>
       </div>
     </section>
 
-    <section aria-labelledby="prozess-h2" style="background:#1D1B19;border-top:1px solid rgba(168,160,150,.14);border-bottom:1px solid rgba(168,160,150,.14);">
-      <div style="max-width:1440px;margin:0 auto;padding:clamp(76px,13vh,150px) clamp(16px,3.2vw,44px);">
+    <section aria-labelledby="prozess-h2" style="background:#1D1B19;">
+      <div style="max-width:1440px;margin:0 auto;padding:clamp(112px,16vh,200px) clamp(20px,5vw,72px);">
         <div class="og-rv" style="display:grid;grid-template-columns:{{ introCols }};gap:clamp(22px,4vw,72px);align-items:end;margin-bottom:clamp(36px,5vw,64px);">
           <div>
-            <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">SO ARBEITEN WIR</p>
-            <h2 id="prozess-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5.6vw,86px);line-height:.95;font-weight:400;">Vom Scan zum <em style="color:#B98A5A;">Möbel.</em></h2>
+            <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">SO ARBEITEN WIR</p>
+            <h2 id="prozess-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Vom Scan zum <em>Möbel.</em></h2>
           </div>
           <div>
             <p style="margin:0 0 22px;max-width:48ch;font-size:clamp(15px,1.15vw,17px);line-height:1.65;color:#A8A096;">Durch einen hohen Digitalisierungsgrad können wir maximal vorplanen und vorproduzieren. So habt ihr vorab eine genaue Vorstellung – und wir sind bei der Montage schnell wieder raus.</p>
-            <a href="#/so-arbeiten-wir" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Unsere Arbeitsweise <span class="og-pfeil" aria-hidden="true">→</span></a>
+            <a href="#/so-arbeiten-wir" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Unsere Arbeitsweise <span class="og-pfeil" aria-hidden="true">→</span></a>
           </div>
         </div>
-        <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ faktCols }};gap:2px;background:rgba(168,160,150,.16);border:1px solid rgba(168,160,150,.16);">
+        <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ faktCols }};gap:clamp(40px,5vw,80px);">
           <sc-for list="{{ prozess }}" as="ps" hint-placeholder-count="4">
-            <li class="og-rv" style="background:#1D1B19;padding:clamp(22px,2.6vw,36px);">
-              <svg width="42" height="42" sc-camel-view-box="0 0 24 24" fill="none" aria-hidden="true" style="display:block;margin-bottom:28px;"><path d="{{ ps.icon }}" stroke="#B98A5A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#B98A5A;">{{ ps.n }}</p>
-              <h3 style="margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.4vw,34px);line-height:1.05;font-weight:400;">{{ ps.t }}</h3>
+            <li class="og-rv" style="">
+              <svg width="42" height="42" sc-camel-view-box="0 0 24 24" fill="none" aria-hidden="true" style="display:block;margin-bottom:28px;"><path d="{{ ps.icon }}" stroke="#A8A096" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <p style="margin:0 0 10px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ ps.n }}</p>
+              <h3 style="margin:0 0 10px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;font-weight:400;">{{ ps.t }}</h3>
               <p style="margin:0;font-size:15px;line-height:1.6;color:#A8A096;">{{ ps.d }}</p>
             </li>
           </sc-for>
@@ -680,27 +659,27 @@
       </div>
     </section>
 
-    <section aria-labelledby="duo-h2" style="max-width:1440px;margin:0 auto;padding:clamp(76px,13vh,150px) clamp(16px,3.2vw,44px);display:grid;grid-template-columns:{{ duoCols }};gap:clamp(28px,5vw,88px);align-items:center;">
+    <section aria-labelledby="duo-h2" style="max-width:1440px;margin:0 auto;padding:clamp(112px,16vh,200px) clamp(20px,5vw,72px);display:grid;grid-template-columns:{{ duoCols }};gap:clamp(28px,5vw,88px);align-items:center;">
       <div class="og-rv" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
         <div style="position:relative;aspect-ratio:3 / 4;"><dc-import name="ImagePlaceholder" img-id="TEAM-02" alt="Monogramm von Marius Landgraf" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div>
         <div style="position:relative;aspect-ratio:3 / 4;margin-top:clamp(24px,5vw,72px);"><dc-import name="ImagePlaceholder" img-id="TEAM-03" alt="Monogramm von Yannik Mosthaf" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div>
       </div>
       <div class="og-rv">
-        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">ÜBER UNS</p>
-        <h2 id="duo-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6vw,96px);line-height:.95;font-weight:400;">„Arbeit macht <em style="color:#B98A5A;">Bock.</em>“</h2>
+        <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">ÜBER UNS</p>
+        <h2 id="duo-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">„Arbeit macht <em>Bock.</em>“</h2>
         <p style="margin:clamp(20px,3vh,30px) 0 0;max-width:46ch;font-size:clamp(15px,1.2vw,18px);line-height:1.65;color:#A8A096;">Marius Landgraf und Yannik Mosthaf – zwei Meister im Tischler-Handwerk mit einer Vision: gleiche Vorstellungen von Qualität, Arbeitsweise, Zusammenarbeit und Kundenkontakt.</p>
-        <a href="#/ueber-uns" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;margin-top:clamp(22px,3vh,32px);height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Das Team kennenlernen <span class="og-pfeil" aria-hidden="true">→</span></a>
+        <a href="#/ueber-uns" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;margin-top:clamp(22px,3vh,32px);height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Das Team kennenlernen <span class="og-pfeil" aria-hidden="true">→</span></a>
       </div>
     </section>
 
-    <section aria-labelledby="insta-start-h2" style="background:#1D1B19;border-top:1px solid rgba(168,160,150,.14);">
-      <div style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);">
-        <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(20px,3vw,32px);">
+    <section aria-labelledby="insta-start-h2" style="">
+      <div style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);">
+        <div class="og-rv" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(32px,4vw,56px);">
           <div>
-            <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">#OCHSUNDGRAF · #THEWOOD.THEBETTER</p>
-            <h2 id="insta-start-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,46px);line-height:1;font-weight:400;">Folgt uns auf Instagram.</h2>
+            <p style="margin:0 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">#OCHSUNDGRAF · #THEWOOD.THEBETTER</p>
+            <h2 id="insta-start-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1;font-weight:400;">Folgt uns auf Instagram.</h2>
           </div>
-          <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">@ochsundgraf ↗</a>
+          <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">@ochsundgraf ↗</a>
         </div>
         <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ instaCols }};gap:8px;">
           <sc-for list="{{ insta }}" as="i" hint-placeholder-count="6">
@@ -721,41 +700,40 @@
        ===================================================================== -->
   <sc-if value="{{ isWeg }}" hint-placeholder-val="{{ false }}">
     <section class="og-seite" style="position:relative;min-height:{{ heroH }};display:flex;align-items:flex-end;overflow:hidden;">
-      <div style="position:absolute;inset:0;">
-        <!-- BILD WEG-01 → später <picture>, fetchpriority="high" -->
+      <div class="og-voll" style="position:absolute;inset:0;">
         <dc-import name="ImagePlaceholder" img-id="WEG-01" laden="eager" ratio="16:9" min-px="2400" motif="Vollbild: 3D-Aufmaßgerät im Rohbau oder in der Werkstatt" alt="3D-Aufmaß mit dem Messgerät von Ochs und Graf" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.6) 0%,rgba(20,19,17,.3) 40%,rgba(20,19,17,.94) 100%);"></div>
       </div>
-      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(16px,3.2vw,44px) clamp(36px,6vh,72px);">
+      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(20px,5vw,72px) clamp(36px,6vh,72px);">
         <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-            <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li>
+          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+            <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" style="color:#B98A5A;">SO ARBEITEN WIR</li>
+            <li aria-current="page" style="color:#A8A096;">SO ARBEITEN WIR</li>
           </ol>
         </nav>
-        <h1 style="margin:0;max-width:17ch;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6.4vw,92px);line-height:1;letter-spacing:-.015em;font-weight:400;">So arbeiten wir: vom 3D-Aufmaß bis zur <em style="color:#B98A5A;">Montage</em></h1>
+        <h1 style="margin:0;max-width:17ch;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;letter-spacing:-.01em;font-weight:400;">So arbeiten wir: vom 3D-Aufmaß bis zur <em>Montage</em></h1>
       </div>
     </section>
 
-    <section style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
-      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">ARBEITSWEISE</p>
-      <p style="margin:0;max-width:40ch;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.8vw,40px);line-height:1.3;font-weight:400;text-wrap:pretty;">Wir sind eine kleine Schreinerei. Wir lieben das Arbeiten mit Massivholz. Mit unserem Netzwerk an Partnerbetrieben können wir einzelne Produktionsschritte ausgliedern und uns so auf das traditionelle Schreinerhandwerk konzentrieren. Gleichzeitig verbinden wir Tradition mit moderner Technik: 3D-Aufmaß, CAD-Software und CNC-Maschinen ermöglichen uns effizientes Arbeiten.</p>
+    <section style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
+      <p style="margin:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">ARBEITSWEISE</p>
+      <p style="margin:0;max-width:40ch;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.3vw,34px);line-height:1.35;font-weight:400;text-wrap:pretty;">Wir sind eine kleine Schreinerei. Wir lieben das Arbeiten mit Massivholz. Mit unserem Netzwerk an Partnerbetrieben können wir einzelne Produktionsschritte ausgliedern und uns so auf das traditionelle Schreinerhandwerk konzentrieren. Gleichzeitig verbinden wir Tradition mit moderner Technik: 3D-Aufmaß, CAD-Software und CNC-Maschinen ermöglichen uns effizientes Arbeiten.</p>
     </section>
 
     <!-- 3D-Szene „Vom Scan zum Möbel“ – Punktwolke → Drahtmodell → Flächen → Foto WEG-05 -->
-    <section ref="{{ wegSecRef }}" aria-label="Vom Scan zum Möbel – vier Schritte" style="position:relative;background:#1D1B19;border-top:1px solid rgba(168,160,150,.14);border-bottom:1px solid rgba(168,160,150,.14);">
-      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3.2vw,44px);display:grid;grid-template-columns:{{ twoCol }};gap:clamp(20px,4vw,72px);">
+    <section ref="{{ wegSecRef }}" aria-label="Vom Scan zum Möbel – vier Schritte" style="position:relative;background:#1D1B19;">
+      <div style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px);display:grid;grid-template-columns:{{ twoCol }};gap:clamp(20px,4vw,72px);">
         <ol style="order:{{ stepsOrder }};list-style:none;margin:0;padding:0;">
           <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
             <li style="min-height:{{ stepH }};display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,5vh,56px) 0;transition:opacity .5s ease;opacity:{{ st.o }};">
               <div style="display:flex;align-items:center;gap:14px;">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#B98A5A;">{{ st.n }}</span>
+                <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ st.n }}</span>
                 <span aria-hidden="true" style="flex:1;height:1px;background:rgba(168,160,150,.2);position:relative;">
-                  <span style="position:absolute;inset:0 auto 0 0;height:1px;background:#B98A5A;transition:width .6s cubic-bezier(.22,1,.36,1);width:{{ st.bar }};"></span>
+                  <span style="position:absolute;inset:0 auto 0 0;height:1px;background:#F1ECE4;transition:width .6s cubic-bezier(.22,1,.36,1);width:{{ st.bar }};"></span>
                 </span>
               </div>
-              <h2 style="margin:14px 0 12px;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.6vw,52px);line-height:1.02;font-weight:400;">{{ st.t }}</h2>
+              <h2 style="margin:14px 0 12px;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1;font-weight:400;">{{ st.t }}</h2>
               <p style="margin:0;max-width:48ch;font-size:16px;line-height:1.7;color:#A8A096;text-wrap:pretty;">{{ st.d }}</p>
               <sc-if value="{{ st.hasImg }}" hint-placeholder-val="{{ true }}">
                 <div style="position:relative;aspect-ratio:16 / 9;max-width:420px;margin-top:22px;">
@@ -767,25 +745,25 @@
         </ol>
 
         <div style="order:{{ sceneOrder }};position:sticky;top:{{ sceneTop }};height:{{ sceneH }};align-self:start;z-index:2;background:#1D1B19;padding:{{ scenePad }};">
-          <div style="position:relative;width:100%;height:100%;background:#141311;border:1px solid rgba(168,160,150,.16);background-image:linear-gradient(rgba(168,160,150,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(168,160,150,.06) 1px,transparent 1px);background-size:32px 32px;overflow:hidden;">
+          <div style="position:relative;width:100%;height:100%;background:#141311;border-radius:6px;overflow:hidden;">
             <canvas ref="{{ canvasRef }}" role="img" aria-label="Animation: Eine Punktwolke formt einen Raum mit Küchenzeile, wird zum Drahtmodell und füllt sich mit Flächen" style="position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .8s ease;opacity:{{ canvasO }};"></canvas>
             <div style="position:absolute;inset:0;transition:opacity .8s ease;opacity:{{ photoO }};">
               <!-- BILD WEG-05 → Abschluss der Szene (Montage) -->
               <dc-import name="ImagePlaceholder" img-id="WEG-05" ratio="4:3" min-px="2000" motif="Montage: fertig eingebaute Küche beim Kunden" alt="Fertig montierte Küche von Ochs und Graf beim Kunden" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </div>
-            <p aria-hidden="true" style="position:absolute;top:12px;left:14px;z-index:5;margin:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#B98A5A;background:rgba(20,19,17,.72);padding:5px 8px;">{{ phaseLabel }}</p>
+            <p aria-hidden="true" style="position:absolute;top:12px;left:14px;z-index:5;margin:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ phaseLabel }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section aria-labelledby="hallen-h2" style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);">
-      <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">TRANSPARENZ</p>
-      <h2 id="hallen-h2" style="margin:0 0 clamp(26px,3.4vw,44px);max-width:20ch;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,58px);line-height:1.02;font-weight:400;">Was wir selbst machen. Und mit <em style="color:#B98A5A;">wem.</em></h2>
-      <div style="display:grid;grid-template-columns:{{ twoCol }};gap:2px;background:rgba(168,160,150,.18);border:1px solid rgba(168,160,150,.18);">
-        <div style="background:#141311;padding:clamp(22px,3vw,40px);">
-          <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#B98A5A;">IN UNSEREN HALLEN</p>
-          <h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.6vw,36px);line-height:1.08;font-weight:400;">Massivholz und Individualisierung</h3>
+    <section aria-labelledby="hallen-h2" style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);">
+      <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">TRANSPARENZ</p>
+      <h2 id="hallen-h2" style="margin:0 0 clamp(26px,3.4vw,44px);max-width:20ch;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Was wir selbst machen. Und mit <em>wem.</em></h2>
+      <div style="display:grid;grid-template-columns:{{ twoCol }};gap:clamp(40px,5vw,80px);">
+        <div style="">
+          <p style="margin:0 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">IN UNSEREN HALLEN</p>
+          <h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;font-weight:400;">Massivholz und Individualisierung</h3>
           <ul style="margin:0;padding:0 0 0 18px;display:grid;gap:8px;font-size:15px;line-height:1.6;color:#A8A096;">
             <li>Esstische, Deckplatten, Holzfußgestelle und Waschtische</li>
             <li>Gravurfräsungen</li>
@@ -793,9 +771,9 @@
             <li>Besondere Ausschnitte</li>
           </ul>
         </div>
-        <div style="background:#141311;padding:clamp(22px,3vw,40px);">
-          <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#A8A096;">MIT REGIONALEN PARTNERN</p>
-          <h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.6vw,36px);line-height:1.08;font-weight:400;">Standardprodukte</h3>
+        <div style="">
+          <p style="margin:0 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">MIT REGIONALEN PARTNERN</p>
+          <h3 style="margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;font-weight:400;">Standardprodukte</h3>
           <ul style="margin:0;padding:0 0 0 18px;display:grid;gap:8px;font-size:15px;line-height:1.6;color:#A8A096;">
             <li>Küchenkorpusse und weitere Standardfertigung</li>
             <li>Netzwerk regionaler Betriebe</li>
@@ -813,41 +791,41 @@
        ===================================================================== -->
   <sc-if value="{{ isRef }}" hint-placeholder-val="{{ false }}">
     <section class="og-seite" style="position:relative;min-height:{{ heroHSmall }};display:flex;align-items:flex-end;overflow:hidden;">
-      <div style="position:absolute;inset:0;">
+      <div class="og-voll" style="position:absolute;inset:0;">
         <dc-import name="ImagePlaceholder" img-id="REF-01" laden="eager" deko="1" ratio="16:9" min-px="2400" motif="Vollbild: Collage oder starkes Einzelbild aus den Referenzprojekten" alt="Referenzprojekte von Ochs und Graf in Landau und der Südpfalz" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.55) 0%,rgba(20,19,17,.94) 100%);"></div>
       </div>
-      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(16px,3.2vw,44px) clamp(36px,6vh,64px);">
+      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(20px,5vw,72px) clamp(36px,6vh,64px);">
         <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-            <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li>
+          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+            <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" style="color:#B98A5A;">REFERENZEN</li>
+            <li aria-current="page" style="color:#A8A096;">REFERENZEN</li>
           </ol>
         </nav>
-        <h1 style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6.2vw,90px);line-height:1;letter-spacing:-.015em;font-weight:400;">Referenzen: Projekte aus Landau &amp; der <em style="color:#B98A5A;">Südpfalz</em></h1>
+        <h1 style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;letter-spacing:-.01em;font-weight:400;">Referenzen: Projekte aus Landau &amp; der <em>Südpfalz</em></h1>
         <p style="margin:clamp(18px,3vh,28px) 0 0;max-width:52ch;font-size:clamp(15px,1.2vw,18px);line-height:1.6;text-wrap:pretty;">Schaut gerne, an welchen Projekten wir in letzter Zeit gearbeitet haben. Ist was für euch dabei? Dann meldet euch per Telefon, Mail oder Kontaktformular.</p>
       </div>
     </section>
 
-    <section aria-label="Projektliste" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,80px) clamp(16px,3.2vw,44px) clamp(56px,9vh,110px);">
-      <div role="toolbar" aria-label="Projekte filtern" style="display:flex;flex-wrap:wrap;gap:6px;padding-bottom:clamp(22px,3vw,36px);border-bottom:1px solid rgba(168,160,150,.18);">
+    <section aria-label="Projektliste" style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,168px) clamp(20px,5vw,72px) clamp(96px,14vh,176px);">
+      <div role="toolbar" aria-label="Projekte filtern" style="display:flex;flex-wrap:wrap;gap:6px;padding-bottom:clamp(22px,3vw,36px);">
         <sc-for list="{{ filters }}" as="fl" hint-placeholder-count="6">
-          <button type="button" sc-camel-on-click="{{ fl.onTap }}" aria-pressed="{{ fl.pressed }}" style="height:44px;padding:0 18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;cursor:pointer;transition:background .2s,color .2s,border-color .2s;border:1px solid {{ fl.bd }};background:{{ fl.bg }};color:{{ fl.fg }};">{{ fl.t }}</button>
+          <button type="button" sc-camel-on-click="{{ fl.onTap }}" aria-pressed="{{ fl.pressed }}" style="height:44px;padding:0 18px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s,border-color .2s;border:1px solid {{ fl.bd }};background:{{ fl.bg }};color:{{ fl.fg }};font-weight:500;border-radius:6px;">{{ fl.t }}</button>
         </sc-for>
-        <span style="margin-left:auto;align-self:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">{{ refCount }}</span>
+        <span style="margin-left:auto;align-self:center;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ refCount }}</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(20px,3vw,40px) clamp(14px,2vw,28px);margin-top:clamp(28px,4vw,52px);">
+      <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(56px,6vw,88px) clamp(24px,3vw,48px);margin-top:clamp(40px,5vw,72px);">
         <sc-for list="{{ refList }}" as="p" hint-placeholder-count="4">
-          <a href="{{ p.href }}" class="og-zoom" style="grid-column:{{ p.span }};margin-top:{{ p.offset }};display:block;color:#F1ECE4;animation:ogFade .6s cubic-bezier(.22,1,.36,1) both;" style-hover="color:#B98A5A">
+          <a href="{{ p.href }}" class="og-zoom" style="grid-column:{{ p.span }};margin-top:{{ p.offset }};display:block;color:#F1ECE4;animation:ogFade .6s cubic-bezier(.22,1,.36,1) both;" style-hover="opacity:.65">
             <div style="position:relative;aspect-ratio:{{ p.ratio }};overflow:hidden;">
               <dc-import name="ImagePlaceholder" img-id="{{ p.img }}" ratio="{{ p.ratioLabel }}" min-px="2000" motif="{{ p.motif }}" alt="{{ p.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </div>
-            <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-top:14px;padding-bottom:12px;border-bottom:1px solid rgba(168,160,150,.2);">
-              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.6vw,38px);line-height:1.05;font-weight:400;">{{ p.t }} <span class="og-pfeil" aria-hidden="true" style="color:#B98A5A;">→</span></h2>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">{{ p.id }} · {{ p.ortU }}</span>
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin-top:14px;padding-bottom:12px;">
+              <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,32px);line-height:1.15;font-weight:400;">{{ p.t }} <span class="og-pfeil" aria-hidden="true" style="color:#A8A096;">→</span></h2>
+              <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ p.id }} · {{ p.ortU }}</span>
             </div>
-            <p style="margin:10px 0 0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">{{ p.tags }}</p>
+            <p style="margin:10px 0 0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ p.tags }}</p>
             <p style="margin:8px 0 0;max-width:54ch;font-size:14px;line-height:1.6;color:#A8A096;">{{ p.d }}</p>
           </a>
         </sc-for>
@@ -860,67 +838,67 @@
        ===================================================================== -->
   <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
     <section class="og-seite" style="position:relative;min-height:{{ heroH }};display:flex;align-items:flex-end;overflow:hidden;">
-      <div style="position:absolute;inset:0;">
+      <div class="og-voll" style="position:absolute;inset:0;">
         <dc-import name="ImagePlaceholder" img-id="{{ proj.img }}" laden="eager" ratio="16:9" min-px="2400" motif="{{ proj.motif }}" alt="{{ proj.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,17,.5) 0%,rgba(20,19,17,.25) 45%,rgba(20,19,17,.94) 100%);"></div>
       </div>
-      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(16px,3.2vw,44px) clamp(36px,6vh,72px);">
+      <div style="position:relative;width:100%;max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,110px) clamp(20px,5vw,72px) clamp(36px,6vh,72px);">
         <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-            <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li>
+          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+            <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li>
             <li aria-hidden="true">/</li>
-            <li><a href="#/referenzen" style="color:#A8A096;" style-hover="color:#B98A5A">REFERENZEN</a></li>
+            <li><a href="#/referenzen" style="color:#A8A096;" style-hover="opacity:.65">REFERENZEN</a></li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" style="color:#B98A5A;">{{ proj.tU }}</li>
+            <li aria-current="page" style="color:#A8A096;">{{ proj.tU }}</li>
           </ol>
         </nav>
-        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:clamp(10px,1.1vw,12px);letter-spacing:.24em;color:#B98A5A;">{{ proj.id }} · {{ proj.ortU }}</p>
-        <h1 style="margin:0;max-width:16ch;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,104px);line-height:.98;letter-spacing:-.015em;font-weight:400;">{{ proj.t }}</h1>
+        <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ proj.id }} · {{ proj.ortU }}</p>
+        <h1 style="margin:0;max-width:16ch;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;letter-spacing:-.01em;font-weight:400;">{{ proj.t }}</h1>
         <p style="margin:clamp(18px,3vh,28px) 0 0;max-width:50ch;font-size:clamp(15px,1.2vw,18px);line-height:1.6;text-wrap:pretty;">{{ proj.d }}</p>
       </div>
     </section>
 
-    <section aria-labelledby="daten-h2" style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
+    <section aria-labelledby="daten-h2" style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);align-items:start;">
       <div>
-        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">DATENBLATT</p>
-        <h2 id="daten-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,46px);line-height:1.05;font-weight:400;">Das Projekt in Zahlen und Fakten.</h2>
+        <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">DATENBLATT</p>
+        <h2 id="daten-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1.05;font-weight:400;">Das Projekt in Zahlen und Fakten.</h2>
       </div>
-      <dl style="margin:0;border-top:1px solid rgba(168,160,150,.22);">
+      <dl style="margin:0;">
         <sc-for list="{{ proj.specs }}" as="s" hint-placeholder-count="5">
-          <div style="display:grid;grid-template-columns:minmax(110px,.55fr) 1.45fr;gap:16px;padding:14px 0;border-bottom:1px solid rgba(168,160,150,.14);">
-            <dt style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">{{ s.k }}</dt>
+          <div style="display:grid;grid-template-columns:minmax(110px,.55fr) 1.45fr;gap:16px;padding:14px 0;">
+            <dt style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ s.k }}</dt>
             <dd style="margin:0;font-size:15px;line-height:1.55;color:#F1ECE4;">{{ s.v }}</dd>
           </div>
         </sc-for>
       </dl>
     </section>
 
-    <section aria-label="Galerie" style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3.2vw,44px) clamp(56px,9vh,110px);">
-      <div style="columns:{{ masonryCols }};column-gap:12px;">
+    <section aria-label="Galerie" style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(96px,14vh,176px);">
+      <div style="columns:{{ masonryCols }};column-gap:24px;">
         <sc-for list="{{ projGallery }}" as="g" hint-placeholder-count="5">
-          <div style="position:relative;break-inside:avoid;margin-bottom:12px;aspect-ratio:{{ g.ratio }};">
+          <div style="position:relative;break-inside:avoid;margin-bottom:24px;aspect-ratio:{{ g.ratio }};">
             <dc-import name="ImagePlaceholder" img-id="{{ g.id }}" ratio="{{ g.ratioLabel }}" min-px="1600" motif="{{ g.motif }}" alt="{{ g.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             <button type="button" sc-camel-on-click="{{ g.open }}" aria-label="Bild vergrößern: {{ g.alt }}" style="position:absolute;inset:0;border:0;background:transparent;cursor:zoom-in;"></button>
           </div>
         </sc-for>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:clamp(24px,3vw,40px);">
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#A8A096;padding-right:8px;">LEISTUNGEN IM PROJEKT</span>
+        <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;padding-right:8px;font-weight:500;">LEISTUNGEN IM PROJEKT</span>
         <sc-for list="{{ proj.links }}" as="l" hint-placeholder-count="3">
-          <a href="{{ l.href }}" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 18px;border:1px solid rgba(241,236,228,.26);color:#F1ECE4;font-size:14px;" style-hover="border-color:#B98A5A;color:#B98A5A">{{ l.t }} <span class="og-pfeil" aria-hidden="true">→</span></a>
+          <a href="{{ l.href }}" class="og-zoom" style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:14px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">{{ l.t }} <span class="og-pfeil" aria-hidden="true">→</span></a>
         </sc-for>
       </div>
     </section>
 
     <!-- „Nächstes Projekt“: führt reihum durch alle Referenzen. -->
-    <a href="{{ nextProj.href }}" class="og-zoom" aria-label="Nächstes Projekt: {{ nextProj.t }}" style="position:relative;display:block;min-height:clamp(320px,62vh,620px);overflow:hidden;color:#F1ECE4;border-top:1px solid rgba(168,160,150,.14);">
-      <div style="position:absolute;inset:0;">
+    <a href="{{ nextProj.href }}" class="og-zoom" aria-label="Nächstes Projekt: {{ nextProj.t }}" style="position:relative;display:block;min-height:clamp(320px,62vh,620px);overflow:hidden;color:#F1ECE4;">
+      <div class="og-voll" style="position:absolute;inset:0;">
         <dc-import name="ImagePlaceholder" img-id="{{ nextProj.img }}" deko="1" ratio="16:9" min-px="2400" motif="{{ nextProj.motif }}" alt="" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(20,19,17,.66);"></div>
       </div>
-      <div style="position:relative;max-width:1440px;margin:0 auto;padding:clamp(56px,10vh,120px) clamp(16px,3.2vw,44px);">
-        <p style="margin:0 0 16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">NÄCHSTES PROJEKT · {{ nextProj.id }}</p>
-        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6.4vw,96px);line-height:1;font-weight:400;">{{ nextProj.t }} <span class="og-pfeil" aria-hidden="true" style="color:#B98A5A;">→</span></p>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,168px) clamp(20px,5vw,72px);">
+        <p style="margin:0 0 16px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">NÄCHSTES PROJEKT · {{ nextProj.id }}</p>
+        <p style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">{{ nextProj.t }} <span class="og-pfeil" aria-hidden="true" style="color:#A8A096;">→</span></p>
       </div>
     </a>
   </sc-if>
@@ -929,40 +907,40 @@
        ÜBER UNS  /ueber-uns/
        ===================================================================== -->
   <sc-if value="{{ isUeber }}" hint-placeholder-val="{{ false }}">
-    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(16px,3.2vw,44px) clamp(40px,6vh,72px);">
+    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(64px,10vh,128px) clamp(20px,5vw,72px) clamp(64px,9vh,112px);">
       <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-        <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-          <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li>
+        <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+          <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li>
           <li aria-hidden="true">/</li>
-          <li aria-current="page" style="color:#B98A5A;">ÜBER UNS</li>
+          <li aria-current="page" style="color:#A8A096;">ÜBER UNS</li>
         </ol>
       </nav>
       <div style="display:grid;grid-template-columns:{{ twoCol }};gap:clamp(24px,4vw,64px);align-items:end;">
-        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,6.6vw,96px);line-height:.98;letter-spacing:-.015em;font-weight:400;">Ochs &amp; Graf – Tischlermeister aus <em style="color:#B98A5A;">Landau</em></h1>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;letter-spacing:-.01em;font-weight:400;">Ochs &amp; Graf – Tischlermeister aus <em>Landau</em></h1>
         <p style="margin:0;max-width:46ch;font-size:clamp(15px,1.2vw,18px);line-height:1.65;color:#A8A096;text-wrap:pretty;">Zwei Meister im Tischler-Handwerk mit einer Vision: gleiche Vorstellungen von Qualität, Arbeitsweise, Zusammenarbeit und Kundenkontakt. Arbeit macht Bock.</p>
       </div>
-      <div style="position:relative;aspect-ratio:{{ duoRatio }};margin-top:clamp(28px,4vw,52px);">
+      <div style="position:relative;aspect-ratio:{{ duoRatio }};margin-top:clamp(40px,5vw,72px);">
         <dc-import name="ImagePlaceholder" img-id="TEAM-01" ratio="21:9" min-px="2400" motif="Duo-Foto: Marius Landgraf und Yannik Mosthaf in der Werkstatt" alt="Marius Landgraf und Yannik Mosthaf, Inhaber von Ochs und Graf, in ihrer Werkstatt in Landau" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
       </div>
     </section>
 
-    <section aria-labelledby="team-h2" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(16px,3.2vw,44px);">
-      <h2 id="team-h2" style="margin:0 0 clamp(24px,3.4vw,40px);font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,58px);line-height:1;font-weight:400;">Das <em style="color:#B98A5A;">Team.</em></h2>
+    <section aria-labelledby="team-h2" style="max-width:1440px;margin:0 auto;padding:clamp(64px,10vh,128px) clamp(20px,5vw,72px);">
+      <h2 id="team-h2" style="margin:0 0 clamp(36px,4.5vw,64px);font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Das <em>Team.</em></h2>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:clamp(16px,2vw,28px);">
         <sc-for list="{{ team }}" as="m" hint-placeholder-count="3">
           <article style="display:flex;flex-direction:column;">
             <div style="position:relative;aspect-ratio:{{ teamRatio }};">
               <dc-import name="ImagePlaceholder" img-id="{{ m.img }}" ratio="3:4" min-px="1200" motif="{{ m.motif }}" alt="{{ m.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             </div>
-            <h3 style="margin:16px 0 4px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.4vw,34px);line-height:1.05;font-weight:400;">{{ m.name }}</h3>
-            <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">{{ m.role }}</p>
-            <ul style="list-style:none;margin:0 0 16px;padding:0;border-top:1px solid rgba(168,160,150,.18);">
+            <h3 style="margin:16px 0 4px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;font-weight:400;">{{ m.name }}</h3>
+            <p style="margin:0 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ m.role }}</p>
+            <ul style="list-style:none;margin:4px 0 24px;padding:0;">
               <sc-for list="{{ m.quals }}" as="q" hint-placeholder-count="2">
-                <li style="padding:9px 0;border-bottom:1px solid rgba(168,160,150,.12);font-size:14px;line-height:1.5;color:#A8A096;">{{ q }}</li>
+                <li style="padding:4px 0;font-size:15px;line-height:1.5;color:#A8A096;">{{ q }}</li>
               </sc-for>
             </ul>
             <sc-if value="{{ m.hasTel }}" hint-placeholder-val="{{ true }}">
-              <a href="{{ m.telHref }}" data-event="phone_click" style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;height:50px;padding:0 16px;border:1px solid rgba(241,236,228,.26);color:#F1ECE4;font-size:14px;" style-hover="border-color:#B98A5A;color:#B98A5A">Direkt anrufen <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">{{ m.tel }}</span></a>
+              <a href="{{ m.telHref }}" data-event="phone_click" style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px;height:48px;padding:0 16px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:14px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Direkt anrufen <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">{{ m.tel }}</span></a>
             </sc-if>
           </article>
         </sc-for>
@@ -970,20 +948,13 @@
     </section>
 
     <section aria-labelledby="zeit-h2" style="background:#F1ECE4;color:#141311;">
-      <div style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);">
-        <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#7A5530;">GESCHICHTE</p>
-        <h2 id="zeit-h2" style="margin:0 0 clamp(32px,4.4vw,60px);font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,58px);line-height:1;font-weight:400;">Von der Meisterschule zur <em style="color:#7A5530;">Schreinerei.</em></h2>
-        <!-- Timeline im Maßlinien-Stil -->
-        <div aria-hidden="true" style="position:relative;height:1px;background:#141311;margin-bottom:24px;">
-          <span style="position:absolute;left:0;top:-6px;width:1px;height:13px;background:#141311;"></span>
-          <span style="position:absolute;left:33.33%;top:-6px;width:1px;height:13px;background:#141311;"></span>
-          <span style="position:absolute;left:66.66%;top:-6px;width:1px;height:13px;background:#141311;"></span>
-          <span style="position:absolute;right:0;top:-6px;width:1px;height:13px;background:#141311;"></span>
-        </div>
+      <div style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);">
+        <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#57534C;font-weight:500;">GESCHICHTE</p>
+        <h2 id="zeit-h2" style="margin:0 0 clamp(32px,4.4vw,60px);font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Von der Meisterschule zur <em>Schreinerei.</em></h2>
         <ol style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(20px,3vw,40px);">
           <sc-for list="{{ timeline }}" as="tl" hint-placeholder-count="3">
             <li>
-              <p style="margin:0 0 10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:#7A5530;">{{ tl.date }}</p>
+              <p style="margin:0 0 10px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#57534C;font-weight:500;">{{ tl.date }}</p>
               <h3 style="margin:0 0 8px;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.2vw,30px);line-height:1.1;font-weight:400;">{{ tl.t }}</h3>
               <p style="margin:0;max-width:36ch;font-size:15px;line-height:1.65;color:#57534C;">{{ tl.d }}</p>
             </li>
@@ -992,42 +963,42 @@
       </div>
     </section>
 
-    <section aria-labelledby="werte-h2" style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);">
-      <h2 id="werte-h2" style="margin:0 0 clamp(24px,3.4vw,40px);font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,58px);line-height:1;font-weight:400;">Wofür wir <em style="color:#B98A5A;">stehen.</em></h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;background:rgba(168,160,150,.18);border:1px solid rgba(168,160,150,.18);">
+    <section aria-labelledby="werte-h2" style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);">
+      <h2 id="werte-h2" style="margin:0 0 clamp(36px,4.5vw,64px);font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.05;font-weight:400;">Wofür wir <em>stehen.</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(40px,5vw,80px);">
         <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
-          <article style="background:#141311;padding:clamp(22px,3vw,38px);">
-            <p style="margin:0 0 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">{{ v.n }}</p>
-            <h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.6vw,36px);line-height:1.08;font-weight:400;">{{ v.t }}</h3>
+          <article style="">
+            <p style="margin:0 0 16px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ v.n }}</p>
+            <h3 style="margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-size:clamp(24px,2.2vw,30px);line-height:1.15;font-weight:400;">{{ v.t }}</h3>
             <p style="margin:0;font-size:15px;line-height:1.65;color:#A8A096;text-wrap:pretty;">{{ v.d }}</p>
           </article>
         </sc-for>
       </div>
     </section>
 
-    <section aria-labelledby="werkstatt-h2" style="max-width:1440px;margin:0 auto;padding:0 clamp(16px,3.2vw,44px) clamp(56px,9vh,110px);">
-      <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:clamp(20px,3vw,32px);">
-        <h2 id="werkstatt-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,46px);line-height:1;font-weight:400;">Handwerk im <em style="color:#B98A5A;">Detail.</em></h2>
-        <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">GEFERTIGT IN LANDAU</span>
+    <section aria-labelledby="werkstatt-h2" style="max-width:1440px;margin:0 auto;padding:0 clamp(20px,5vw,72px) clamp(96px,14vh,176px);">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:clamp(32px,4vw,56px);">
+        <h2 id="werkstatt-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1;font-weight:400;">Handwerk im <em>Detail.</em></h2>
+        <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">GEFERTIGT IN LANDAU</span>
       </div>
       <div style="display:grid;grid-template-columns:{{ werkCols }};gap:12px;">
         <sc-for list="{{ details }}" as="dt" hint-placeholder-count="3">
           <figure class="og-rv" style="margin:0;">
             <div style="position:relative;aspect-ratio:4 / 5;overflow:hidden;"><dc-import name="ImagePlaceholder" img-id="{{ dt.img }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import></div>
-            <figcaption style="margin-top:12px;font-size:14px;line-height:1.5;color:#A8A096;"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">{{ dt.n }}</span> · {{ dt.t }}</figcaption>
+            <figcaption style="margin-top:12px;font-size:14px;line-height:1.5;color:#A8A096;"><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ dt.n }}</span> · {{ dt.t }}</figcaption>
           </figure>
         </sc-for>
       </div>
     </section>
 
-    <section aria-labelledby="insta-h2" style="background:#1D1B19;border-top:1px solid rgba(168,160,150,.14);">
-      <div style="max-width:1440px;margin:0 auto;padding:clamp(56px,9vh,110px) clamp(16px,3.2vw,44px);">
-        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(20px,3vw,32px);">
+    <section aria-labelledby="insta-h2" style="">
+      <div style="max-width:1440px;margin:0 auto;padding:clamp(96px,14vh,176px) clamp(20px,5vw,72px);">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:clamp(32px,4vw,56px);">
           <div>
-            <p style="margin:0 0 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;color:#B98A5A;">#OCHSUNDGRAF · #THEWOOD.THEBETTER</p>
-            <h2 id="insta-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.4vw,46px);line-height:1;font-weight:400;">Folgt uns auf Instagram.</h2>
+            <p style="margin:0 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">#OCHSUNDGRAF · #THEWOOD.THEBETTER</p>
+            <h2 id="insta-h2" style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1;font-weight:400;">Folgt uns auf Instagram.</h2>
           </div>
-          <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">@ochsundgraf ↗</a>
+          <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">@ochsundgraf ↗</a>
         </div>
         <!-- Statische Kacheln, kein Widget (DSGVO). -->
         <ul style="list-style:none;margin:0;padding:0;display:grid;grid-template-columns:{{ instaCols }};gap:8px;">
@@ -1047,15 +1018,15 @@
        KONTAKT & PROJEKTANFRAGE  /kontakt/
        ===================================================================== -->
   <sc-if value="{{ isKontakt }}" hint-placeholder-val="{{ false }}">
-    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(16px,3.2vw,44px) clamp(56px,9vh,110px);">
+    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(64px,10vh,128px) clamp(20px,5vw,72px) clamp(96px,14vh,176px);">
       <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-        <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-          <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li>
+        <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+          <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li>
           <li aria-hidden="true">/</li>
-          <li aria-current="page" style="color:#B98A5A;">KONTAKT</li>
+          <li aria-current="page" style="color:#A8A096;">KONTAKT</li>
         </ol>
       </nav>
-      <h1 style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(38px,6vw,88px);line-height:1;letter-spacing:-.015em;font-weight:400;">Projekt anfragen – Kontakt zu Ochs &amp; <em style="color:#B98A5A;">Graf</em></h1>
+      <h1 style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;letter-spacing:-.01em;font-weight:400;">Projekt anfragen – Kontakt zu Ochs &amp; <em>Graf</em></h1>
       <p style="margin:clamp(16px,2.6vh,26px) 0 0;max-width:52ch;font-size:clamp(15px,1.2vw,18px);line-height:1.6;color:#A8A096;">So erreicht ihr uns: Gerne könnt ihr euch telefonisch oder per Kontaktformular bei uns melden.</p>
 
       <div style="display:grid;grid-template-columns:{{ kontaktCols }};gap:clamp(28px,4vw,64px);align-items:start;margin-top:clamp(32px,5vw,64px);">
@@ -1063,19 +1034,19 @@
         <!-- Links: Kontaktkarten, Adresse, Karte (2-Klick) -->
         <div style="display:grid;gap:12px;">
           <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="2">
-            <article style="display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;padding:14px;border:1px solid rgba(168,160,150,.2);background:#1D1B19;">
+            <article style="display:grid;grid-template-columns:96px 1fr;gap:24px;align-items:center;">
               <div style="position:relative;aspect-ratio:3 / 4;">
                 <dc-import name="ImagePlaceholder" img-id="{{ c.img }}" ratio="3:4" min-px="600" motif="Portrait" alt="{{ c.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
               </div>
               <div>
                 <h2 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:26px;line-height:1.1;font-weight:400;">{{ c.name }}</h2>
-                <p style="margin:4px 0 12px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A8A096;">TISCHLERMEISTER · INHABER</p>
-                <a href="{{ c.telHref }}" data-event="phone_click" style="display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 16px;background:#B98A5A;color:#141311;font-size:14px;font-weight:600;" style-hover="background:#C9A56A;color:#141311">Anrufen <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;">{{ c.tel }}</span></a>
+                <p style="margin:4px 0 12px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">TISCHLERMEISTER · INHABER</p>
+                <a href="{{ c.telHref }}" data-event="phone_click" style="display:inline-flex;align-items:center;gap:10px;height:48px;padding:0 18px;border:1px solid rgba(241,236,228,.22);border-radius:6px;color:#F1ECE4;font-size:14px;font-weight:500;" style-hover="border-color:rgba(241,236,228,.55)">Anrufen <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;font-weight:500;">{{ c.tel }}</span></a>
               </div>
             </article>
           </sc-for>
 
-          <div style="padding:18px;border:1px solid rgba(168,160,150,.2);display:grid;gap:12px;">
+          <div style="padding:8px 0;display:grid;gap:12px;">
             <address style="margin:0;font-style:normal;font-size:15px;line-height:1.75;color:#F1ECE4;">
               Ochs &amp; Graf – M. Landgraf &amp; Y. Mosthaf GdbR<br>
               Cornichonstraße 5b · 76829 Landau in der Pfalz<br>
@@ -1085,14 +1056,14 @@
           </div>
 
           <!-- Karte als 2-Klick-Lösung: Google Maps erst nach Klick. -->
-          <div style="position:relative;aspect-ratio:4 / 3;border:1px solid rgba(168,160,150,.2);overflow:hidden;">
+          <div style="position:relative;aspect-ratio:4 / 3;border-radius:6px;overflow:hidden;">
             <dc-import name="ImagePlaceholder" img-id="KONTAKT-01" ratio="4:3" min-px="1200" motif="Statisches Kartenbild: Lage der Werkstatt in Landau" alt="Kartenausschnitt mit der Lage von Ochs und Graf in Landau" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
             <sc-if value="{{ mapOff }}" hint-placeholder-val="{{ true }}">
               <div style="position:absolute;inset:auto 0 0 0;z-index:6;padding:16px;background:rgba(20,19,17,.9);display:grid;gap:10px;">
                 <p style="margin:0;font-size:13px;line-height:1.55;color:#A8A096;">Mit „Karte laden“ willigt ihr ein, dass Daten an Google übertragen werden. Mehr dazu in der <a href="#/datenschutz">Datenschutzerklärung</a>.</p>
                 <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                  <button type="button" sc-camel-on-click="{{ loadMap }}" style="height:44px;padding:0 18px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">Karte laden</button>
-                  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Cornichonstra%C3%9Fe%205b%2C%2076829%20Landau" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:44px;padding:0 18px;border:1px solid rgba(241,236,228,.28);color:#F1ECE4;font-size:14px;" style-hover="border-color:#B98A5A;color:#B98A5A">Route planen ↗</a>
+                  <button type="button" sc-camel-on-click="{{ loadMap }}" style="height:44px;padding:0 18px;border:1px solid rgba(241,236,228,.22);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border-radius:6px;">Karte laden</button>
+                  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Cornichonstra%C3%9Fe%205b%2C%2076829%20Landau" rel="noopener" target="_blank" style="display:inline-flex;align-items:center;height:44px;padding:0 18px;border:1px solid rgba(241,236,228,.22);color:#F1ECE4;font-size:14px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Route planen ↗</a>
                 </div>
               </div>
             </sc-if>
@@ -1104,22 +1075,17 @@
         </div>
 
         <!-- Rechts: mehrstufiges Formular -->
-        <div style="border:1px solid rgba(168,160,150,.22);background:#1D1B19;">
+        <div style="background:#1B1A18;border-radius:6px;">
           <div style="padding:20px clamp(18px,3vw,34px) 0;">
-            <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#B98A5A;">{{ fstepLabel }}</p>
+            <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ fstepLabel }}</p>
             <div aria-hidden="true" style="position:relative;height:1px;background:rgba(168,160,150,.22);">
-              <span style="position:absolute;left:0;top:0;height:1px;background:#B98A5A;transition:width .5s cubic-bezier(.22,1,.36,1);width:{{ fbar }};"></span>
-              <span style="position:absolute;left:0;top:-3px;width:1px;height:7px;background:rgba(168,160,150,.5);"></span>
-              <span style="position:absolute;left:25%;top:-3px;width:1px;height:7px;background:rgba(168,160,150,.35);"></span>
-              <span style="position:absolute;left:50%;top:-3px;width:1px;height:7px;background:rgba(168,160,150,.35);"></span>
-              <span style="position:absolute;left:75%;top:-3px;width:1px;height:7px;background:rgba(168,160,150,.35);"></span>
-              <span style="position:absolute;right:0;top:-3px;width:1px;height:7px;background:rgba(168,160,150,.5);"></span>
+              <span style="position:absolute;left:0;top:0;height:1px;background:#F1ECE4;transition:width .5s cubic-bezier(.22,1,.36,1);width:{{ fbar }};"></span>
             </div>
           </div>
 
           <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
           <form sc-camel-on-submit="{{ fsubmit }}" sc-camel-no-validate="novalidate" data-event="form_submit" style="position:relative;padding:clamp(22px,3vw,34px) clamp(18px,3vw,34px) 32px;">
-            <h2 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.2vw,40px);line-height:1.05;font-weight:400;">Eure Anfrage in 60 Sekunden.</h2>
+            <h2 style="margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:clamp(26px,2.4vw,34px);line-height:1.12;font-weight:400;">Eure Anfrage in 60 Sekunden.</h2>
             <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#A8A096;">Vier kurze Schritte. Danach melden wir uns persönlich.</p>
 
             <!-- Honeypot gegen Spam (fuer Menschen unsichtbar) -->
@@ -1130,7 +1096,7 @@
                 <legend style="padding:0;margin:0 0 14px;font-size:15px;font-weight:600;color:#F1ECE4;">Was plant ihr? <span style="font-weight:400;color:#A8A096;">Mehrfachauswahl möglich.</span></legend>
                 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;">
                   <sc-for list="{{ ftypes }}" as="ft" hint-placeholder-count="8">
-                    <button type="button" sc-camel-on-click="{{ ft.onTap }}" aria-pressed="{{ ft.pressed }}" style="min-height:52px;padding:12px;font-family:'Instrument Sans',sans-serif;font-size:14px;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,color .2s;border:1px solid {{ ft.bd }};background:{{ ft.bg }};color:{{ ft.fg }};">{{ ft.t }}</button>
+                    <button type="button" sc-camel-on-click="{{ ft.onTap }}" aria-pressed="{{ ft.pressed }}" style="min-height:48px;padding:12px;font-family:'Instrument Sans',sans-serif;font-size:14px;text-align:left;cursor:pointer;transition:background .2s,border-color .2s,color .2s;border:1px solid {{ ft.bd }};background:{{ ft.bg }};color:{{ ft.fg }};">{{ ft.t }}</button>
                   </sc-for>
                 </div>
                 <p role="alert" style="margin:10px 0 0;min-height:1em;font-size:13px;color:#E3A27A;">{{ err.types }}</p>
@@ -1140,11 +1106,11 @@
             <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
               <div style="display:grid;gap:18px;" data-event="form_step">
                 <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">PLZ und Ort
-                  <input type="text" name="ort" value="{{ f.ort }}" sc-camel-on-change="{{ on.ort }}" sc-camel-auto-complete="postal-code" placeholder="76829 Landau" aria-invalid="{{ inv.ort }}" style="height:52px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.ort }};">
+                  <input type="text" name="ort" value="{{ f.ort }}" sc-camel-on-change="{{ on.ort }}" sc-camel-auto-complete="postal-code" placeholder="76829 Landau" aria-invalid="{{ inv.ort }}" style="height:48px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.ort }};border-radius:6px;">
                   <span role="alert" style="min-height:1em;font-size:13px;color:#E3A27A;">{{ err.ort }}</span>
                 </label>
                 <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Zeitraum
-                  <sc-raw-select name="zeitraum" value="{{ f.zeit }}" sc-camel-on-change="{{ on.zeit }}" style="height:52px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;">
+                  <sc-raw-select name="zeitraum" value="{{ f.zeit }}" sc-camel-on-change="{{ on.zeit }}" style="height:48px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border-radius:6px;">
                     <option>So bald wie möglich</option>
                     <option>In 3–6 Monaten</option>
                     <option>Später</option>
@@ -1160,7 +1126,7 @@
                   <textarea name="details" rows="6" value="{{ f.details }}" sc-camel-on-change="{{ on.details }}" placeholder="Raum, Maße, Material, Wünsche …" style="padding:14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;resize:vertical;"></textarea>
                 </label>
                 <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Budgetrahmen (optional)
-                  <sc-raw-select name="budget" value="{{ f.budget }}" sc-camel-on-change="{{ on.budget }}" style="height:52px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;">
+                  <sc-raw-select name="budget" value="{{ f.budget }}" sc-camel-on-change="{{ on.budget }}" style="height:48px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border-radius:6px;">
                     <option value="">Keine Angabe</option>
                     <option>bis 5.000 €</option>
                     <option>5.000 – 15.000 €</option>
@@ -1178,62 +1144,62 @@
             <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
               <div style="display:grid;gap:16px;" data-event="form_step">
                 <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Name
-                  <input type="text" name="name" value="{{ f.name }}" sc-camel-on-change="{{ on.name }}" sc-camel-auto-complete="name" aria-invalid="{{ inv.name }}" style="height:52px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.name }};">
+                  <input type="text" name="name" value="{{ f.name }}" sc-camel-on-change="{{ on.name }}" sc-camel-auto-complete="name" aria-invalid="{{ inv.name }}" style="height:48px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.name }};border-radius:6px;">
                   <span role="alert" style="min-height:1em;font-size:13px;color:#E3A27A;">{{ err.name }}</span>
                 </label>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
                   <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Telefon
-                    <input type="tel" name="tel" value="{{ f.tel }}" sc-camel-on-change="{{ on.tel }}" sc-camel-auto-complete="tel" aria-invalid="{{ inv.tel }}" style="height:52px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.tel }};">
+                    <input type="tel" name="tel" value="{{ f.tel }}" sc-camel-on-change="{{ on.tel }}" sc-camel-auto-complete="tel" aria-invalid="{{ inv.tel }}" style="height:48px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.tel }};border-radius:6px;">
                     <span role="alert" style="min-height:1em;font-size:13px;color:#E3A27A;">{{ err.tel }}</span>
                   </label>
                   <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">E-Mail
-                    <input type="email" name="mail" value="{{ f.mail }}" sc-camel-on-change="{{ on.mail }}" sc-camel-auto-complete="email" aria-invalid="{{ inv.mail }}" style="height:52px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.mail }};">
+                    <input type="email" name="mail" value="{{ f.mail }}" sc-camel-on-change="{{ on.mail }}" sc-camel-auto-complete="email" aria-invalid="{{ inv.mail }}" style="height:48px;padding:0 14px;background:#141311;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border:1px solid {{ bd.mail }};border-radius:6px;">
                     <span role="alert" style="min-height:1em;font-size:13px;color:#E3A27A;">{{ err.mail }}</span>
                   </label>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
                   <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Bevorzugter Kontaktweg
-                    <sc-raw-select name="weg" value="{{ f.weg }}" sc-camel-on-change="{{ on.weg }}" style="height:52px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;">
+                    <sc-raw-select name="weg" value="{{ f.weg }}" sc-camel-on-change="{{ on.weg }}" style="height:48px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border-radius:6px;">
                       <option>Telefon</option><option>E-Mail</option>
                     </sc-raw-select>
                   </label>
                   <label style="display:grid;gap:8px;font-size:14px;color:#F1ECE4;">Wunschzeit für Rückruf
-                    <input type="text" name="rueckruf" value="{{ f.rueck }}" sc-camel-on-change="{{ on.rueck }}" placeholder="z. B. werktags ab 17 Uhr" style="height:52px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;">
+                    <input type="text" name="rueckruf" value="{{ f.rueck }}" sc-camel-on-change="{{ on.rueck }}" placeholder="z. B. werktags ab 17 Uhr" style="height:48px;padding:0 14px;background:#141311;border:1px solid rgba(168,160,150,.28);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;border-radius:6px;">
                   </label>
                 </div>
                 <label style="display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.6;color:#A8A096;">
-                  <input type="checkbox" name="dsgvo" checked="{{ f.dsgvo }}" sc-camel-on-change="{{ on.dsgvo }}" aria-invalid="{{ inv.dsgvo }}" style="margin-top:3px;width:20px;height:20px;accent-color:#B98A5A;flex:0 0 auto;">
+                  <input type="checkbox" name="dsgvo" checked="{{ f.dsgvo }}" sc-camel-on-change="{{ on.dsgvo }}" aria-invalid="{{ inv.dsgvo }}" style="margin-top:3px;width:20px;height:20px;accent-color:#A8A096;flex:0 0 auto;">
                   <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Details in der <a href="#/datenschutz">Datenschutzerklärung</a>.</span>
                 </label>
                 <span role="alert" style="min-height:1em;font-size:13px;color:#E3A27A;">{{ err.dsgvo }}</span>
               </div>
             </sc-if>
 
-            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid rgba(168,160,150,.16);">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:24px;padding-top:20px;">
               <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
-                <button type="button" sc-camel-on-click="{{ fprev }}" style="height:52px;padding:0 22px;border:1px solid rgba(241,236,228,.28);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;cursor:pointer;">Zurück</button>
+                <button type="button" sc-camel-on-click="{{ fprev }}" style="height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;cursor:pointer;border-radius:6px;">Zurück</button>
               </sc-if>
               <sc-if value="{{ canNext }}" hint-placeholder-val="{{ true }}">
-                <button type="button" sc-camel-on-click="{{ fnext }}" style="height:52px;padding:0 26px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;" style-hover="background:#C9A56A">Weiter</button>
+                <button type="button" sc-camel-on-click="{{ fnext }}" style="height:48px;padding:0 24px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border-radius:6px;" style-hover="background:#C69A6C;color:#141311">Weiter</button>
               </sc-if>
               <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
-                <button type="submit" style="height:52px;padding:0 26px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;" style-hover="background:#C9A56A">Anfrage senden</button>
+                <button type="submit" style="height:48px;padding:0 24px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;border-radius:6px;" style-hover="background:#C69A6C;color:#141311">Anfrage senden</button>
               </sc-if>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A8A096;">UNVERBINDLICH &amp; PERSÖNLICH.</span>
+              <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">UNVERBINDLICH &amp; PERSÖNLICH.</span>
             </div>
           </form>
           </sc-if>
 
           <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
             <div role="status" style="padding:clamp(26px,4vw,44px) clamp(18px,3vw,34px);">
-              <p style="margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;color:#B98A5A;">ANFRAGE EINGEGANGEN</p>
-              <h2 style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.4vw,44px);line-height:1.05;font-weight:400;">Danke, {{ f.name }} – wir melden uns.</h2>
+              <p style="margin:0 0 14px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">ANFRAGE EINGEGANGEN</p>
+              <h2 style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-size:clamp(28px,2.8vw,40px);line-height:1.1;font-weight:400;">Danke, {{ f.name }} – wir melden uns.</h2>
               <ol style="list-style:none;margin:0;padding:0;display:grid;gap:10px;">
-                <li style="padding:16px;border:1px solid rgba(168,160,150,.2);"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">01</span><p style="margin:8px 0 0;font-size:15px;">Wir melden uns persönlich bei euch.</p></li>
-                <li style="padding:16px;border:1px solid rgba(168,160,150,.2);"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">02</span><p style="margin:8px 0 0;font-size:15px;">Wir vereinbaren einen Termin für das 3D-Aufmaß bei euch.</p></li>
-                <li style="padding:16px;border:1px solid rgba(168,160,150,.2);"><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#B98A5A;">03</span><p style="margin:8px 0 0;font-size:15px;">Ihr bekommt CAD-Entwurf und Angebot.</p></li>
+                <li style="padding:6px 0;"><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">01</span><p style="margin:8px 0 0;font-size:15px;">Wir melden uns persönlich bei euch.</p></li>
+                <li style="padding:6px 0;"><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">02</span><p style="margin:8px 0 0;font-size:15px;">Wir vereinbaren einen Termin für das 3D-Aufmaß bei euch.</p></li>
+                <li style="padding:6px 0;"><span style="font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">03</span><p style="margin:8px 0 0;font-size:15px;">Ihr bekommt CAD-Entwurf und Angebot.</p></li>
               </ol>
-              <button type="button" sc-camel-on-click="{{ freset }}" style="margin-top:22px;height:50px;padding:0 22px;border:1px solid rgba(241,236,228,.28);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;cursor:pointer;">Neue Anfrage</button>
+              <button type="button" sc-camel-on-click="{{ freset }}" style="margin-top:22px;height:48px;padding:0 22px;border:1px solid rgba(241,236,228,.22);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;cursor:pointer;border-radius:6px;">Neue Anfrage</button>
             </div>
           </sc-if>
         </div>
@@ -1245,14 +1211,14 @@
        IMPRESSUM  #/impressum   ·   DATENSCHUTZ  #/datenschutz
        ===================================================================== -->
   <sc-if value="{{ isImpressum }}" hint-placeholder-val="{{ false }}">
-    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(16px,3.2vw,44px) clamp(64px,10vh,120px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);">
+    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(64px,10vh,128px) clamp(20px,5vw,72px) clamp(96px,14vh,168px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);">
       <div>
         <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-            <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li><li aria-hidden="true">/</li><li aria-current="page" style="color:#B98A5A;">IMPRESSUM</li>
+          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+            <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li><li aria-hidden="true">/</li><li aria-current="page" style="color:#A8A096;">IMPRESSUM</li>
           </ol>
         </nav>
-        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.6vw,100px);line-height:.95;font-weight:400;">Impres&shy;sum</h1>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;font-weight:400;">Impres&shy;sum</h1>
       </div>
       <div class="og-prose" style="max-width:68ch;">
         <h2 style="margin-top:0;">Angaben gemäß § 5 DDG</h2>
@@ -1275,14 +1241,14 @@
   </sc-if>
 
   <sc-if value="{{ isDatenschutz }}" hint-placeholder-val="{{ false }}">
-    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(40px,7vh,88px) clamp(16px,3.2vw,44px) clamp(64px,10vh,120px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);">
+    <section class="og-seite" style="max-width:1440px;margin:0 auto;padding:clamp(64px,10vh,128px) clamp(20px,5vw,72px) clamp(96px,14vh,168px);display:grid;grid-template-columns:{{ introCols }};gap:clamp(28px,5vw,80px);">
       <div>
         <nav aria-label="Brotkrumen" style="margin-bottom:clamp(18px,3vh,30px);">
-          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;color:#A8A096;">
-            <li><a href="#/" style="color:#A8A096;" style-hover="color:#B98A5A">START</a></li><li aria-hidden="true">/</li><li aria-current="page" style="color:#B98A5A;">DATENSCHUTZ</li>
+          <ol style="list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">
+            <li><a href="#/" style="color:#A8A096;" style-hover="opacity:.65">START</a></li><li aria-hidden="true">/</li><li aria-current="page" style="color:#A8A096;">DATENSCHUTZ</li>
           </ol>
         </nav>
-        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.6vw,100px);line-height:.95;font-weight:400;">Daten&shy;schutz</h1>
+        <h1 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:clamp(40px,5.2vw,78px);line-height:1.02;font-weight:400;">Daten&shy;schutz</h1>
         <p style="margin:18px 0 0;max-width:34ch;font-size:15px;line-height:1.65;color:#A8A096;">Kurz gesagt: kein Tracking, keine Cookies, keine eingebetteten Dienste ohne eure Einwilligung.</p>
       </div>
       <div class="og-prose" style="max-width:68ch;">
@@ -1295,29 +1261,29 @@
         <p>Wenn ihr uns per Telefon, E-Mail oder über das Anfrageformular kontaktiert, verarbeiten wir eure Angaben (z. B. Name, Kontaktdaten, Projektbeschreibung, freiwillig hochgeladene Fotos oder Grundrisse) ausschließlich zur Bearbeitung eurer Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen). Die Daten werden gelöscht, sobald sie nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten bestehen.</p>
         <h2>4. Google Maps (Zwei-Klick-Lösung)</h2>
         <p>Die Karte auf der Kontaktseite wird erst geladen, wenn ihr auf „Karte laden“ klickt. Erst dann werden Daten (u. a. eure IP-Adresse) an Google Ireland Limited bzw. Google LLC (USA) übertragen. Rechtsgrundlage ist eure Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO. Eure Entscheidung speichern wir nur lokal in eurem Browser (localStorage).</p>
-        <p><button type="button" sc-camel-on-click="{{ mapWiderruf }}" style="height:46px;padding:0 18px;border:1px solid rgba(241,236,228,.28);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:14px;cursor:pointer;" style-hover="border-color:#B98A5A;color:#B98A5A">{{ mapWiderrufText }}</button></p>
+        <p><button type="button" sc-camel-on-click="{{ mapWiderruf }}" style="height:48px;padding:0 18px;border:1px solid rgba(241,236,228,.22);background:transparent;color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:14px;cursor:pointer;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">{{ mapWiderrufText }}</button></p>
         <h2>5. Links zu Instagram</h2>
         <p>Wir verlinken auf unser Instagram-Profil. Es handelt sich um einfache Links, nicht um eingebettete Inhalte: Daten werden erst übertragen, wenn ihr einen Link anklickt und Instagram öffnet.</p>
         <h2>6. Eure Rechte</h2>
         <p>Ihr habt das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung, auf Datenübertragbarkeit sowie auf Widerspruch gegen die Verarbeitung. Eine erteilte Einwilligung könnt ihr jederzeit für die Zukunft widerrufen. Außerdem könnt ihr euch bei einer Aufsichtsbehörde beschweren, z. B. beim Landesbeauftragten für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz.</p>
-        <p style="margin-top:28px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:rgba(168,160,150,.75);">STAND: SEPTEMBER 2026</p>
+        <p style="margin-top:28px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:rgba(168,160,150,.75);font-weight:500;">STAND: SEPTEMBER 2026</p>
       </div>
     </section>
   </sc-if>
 
   <!-- ============ CTA-BLOCK (nicht auf Kontakt) ============ -->
   <sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
-    <section aria-labelledby="ucta-h2" style="position:relative;overflow:hidden;border-top:1px solid rgba(168,160,150,.14);">
-      <div style="position:absolute;inset:0;">
+    <section aria-labelledby="ucta-h2" style="position:relative;overflow:hidden;">
+      <div class="og-voll" style="position:absolute;inset:0;">
         <dc-import name="ImagePlaceholder" img-id="START-06" deko="1" ratio="21:9" min-px="2400" motif="Stimmungsbild" alt="" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(20,19,17,.8);"></div>
       </div>
-      <div style="position:relative;max-width:1440px;margin:0 auto;padding:clamp(60px,10vh,120px) clamp(16px,3.2vw,44px);">
-        <h2 id="ucta-h2" style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4.8vw,70px);line-height:1.02;font-weight:400;">Habt ihr ein Projekt im Kopf? <em style="color:#B98A5A;">Wir freuen uns auf euch.</em></h2>
+      <div style="position:relative;max-width:1440px;margin:0 auto;padding:clamp(60px,10vh,120px) clamp(20px,5vw,72px);">
+        <h2 id="ucta-h2" style="margin:0;max-width:18ch;font-family:'Cormorant Garamond',serif;font-size:clamp(34px,3.8vw,56px);line-height:1.08;font-weight:400;">Habt ihr ein Projekt im Kopf? <em>Wir freuen uns auf euch.</em></h2>
         <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(24px,3.2vw,38px);">
-          <a href="#/kontakt" data-event="cta_click" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;background:#B98A5A;color:#141311;font-size:15px;font-weight:600;" style-hover="background:#C9A56A;color:#141311">Projekt anfragen</a>
-          <a href="tel:+491749353078" data-event="phone_click" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;border:1px solid rgba(241,236,228,.3);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Yannik anrufen</a>
-          <a href="tel:+4917682042302" data-event="phone_click" style="display:inline-flex;align-items:center;height:54px;padding:0 26px;border:1px solid rgba(241,236,228,.3);color:#F1ECE4;font-size:15px;" style-hover="border-color:#B98A5A;color:#B98A5A">Marius anrufen</a>
+          <a href="#/kontakt" data-event="cta_click" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;background:#B98A5A;color:#141311;font-size:15px;font-weight:600;border-radius:6px;" style-hover="background:#C69A6C;color:#141311">Projekt anfragen</a>
+          <a href="tel:+491749353078" data-event="phone_click" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;border:1px solid rgba(241,236,228,.3);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Yannik anrufen</a>
+          <a href="tel:+4917682042302" data-event="phone_click" style="display:inline-flex;align-items:center;height:48px;padding:0 24px;border:1px solid rgba(241,236,228,.3);color:#F1ECE4;font-size:15px;border-radius:6px;" style-hover="border-color:rgba(241,236,228,.55)">Marius anrufen</a>
         </div>
       </div>
     </section>
@@ -1327,29 +1293,29 @@
   <!-- ============ LIGHTBOX (Projekt-Galerie) ============ -->
   <div role="dialog" aria-modal="true" aria-label="Bildansicht" aria-hidden="{{ lbHidden }}" sc-camel-on-touch-start="{{ lbTouchStart }}" sc-camel-on-touch-end="{{ lbTouchEnd }}" style="position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;transition:opacity .35s ease,visibility .35s;opacity:{{ lbO }};visibility:{{ lbV }};">
     <div sc-camel-on-click="{{ lbClose }}" style="position:absolute;inset:0;background:rgba(20,19,17,.94);"></div>
-    <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(16px,3.2vw,44px);">
-      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#B98A5A;">{{ lbCount }} <span style="color:#A8A096;">· {{ lbShot.motif }}</span></p>
-      <button type="button" sc-camel-on-click="{{ lbClose }}" aria-label="Bildansicht schließen" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.24);background:transparent;color:#F1ECE4;cursor:pointer;">
+    <div style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px clamp(20px,5vw,72px);">
+      <p style="margin:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">{{ lbCount }} <span style="color:#A8A096;">· {{ lbShot.motif }}</span></p>
+      <button type="button" sc-camel-on-click="{{ lbClose }}" aria-label="Bildansicht schließen" style="display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(241,236,228,.22);background:transparent;color:#F1ECE4;cursor:pointer;border-radius:6px;">
         <svg width="15" height="15" sc-camel-view-box="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 1l14 14M15 1L1 15" stroke="currentColor" stroke-width="1.3"></path></svg>
       </button>
     </div>
     <div style="position:relative;flex:1;display:flex;align-items:center;gap:clamp(8px,2vw,20px);padding:0 clamp(12px,3vw,44px) clamp(20px,4vh,40px);min-height:0;">
-      <button type="button" sc-camel-on-click="{{ lbPrev }}" aria-label="Vorheriges Bild" style="flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(241,236,228,.24);background:rgba(20,19,17,.7);color:#F1ECE4;font-size:18px;cursor:pointer;">←</button>
+      <button type="button" sc-camel-on-click="{{ lbPrev }}" aria-label="Vorheriges Bild" style="flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(241,236,228,.22);background:rgba(20,19,17,.7);color:#F1ECE4;font-size:18px;cursor:pointer;border-radius:6px;">←</button>
       <div style="flex:1;min-width:0;height:100%;display:flex;align-items:center;justify-content:center;">
         <div style="position:relative;width:min(100%,1100px);max-height:100%;aspect-ratio:{{ lbShot.ratio }};">
           <dc-import name="ImagePlaceholder" img-id="{{ lbShot.id }}" ratio="{{ lbShot.ratioLabel }}" min-px="2000" motif="{{ lbShot.motif }}" alt="{{ lbShot.alt }}" hint-size="100%,100%" style="position:absolute;inset:0"></dc-import>
         </div>
       </div>
-      <button type="button" sc-camel-on-click="{{ lbNext }}" aria-label="Nächstes Bild" style="flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(241,236,228,.24);background:rgba(20,19,17,.7);color:#F1ECE4;font-size:18px;cursor:pointer;">→</button>
+      <button type="button" sc-camel-on-click="{{ lbNext }}" aria-label="Nächstes Bild" style="flex:0 0 auto;display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(241,236,228,.22);background:rgba(20,19,17,.7);color:#F1ECE4;font-size:18px;cursor:pointer;border-radius:6px;">→</button>
     </div>
   </div>
 
   <!-- ============ FOOTER ============ -->
-  <footer style="background:#141311;border-top:1px solid rgba(168,160,150,.16);">
-    <div style="max-width:1440px;margin:0 auto;padding:clamp(40px,6vh,72px) clamp(16px,3.2vw,44px) 24px;display:grid;grid-template-columns:{{ footCols }};gap:clamp(24px,4vw,64px);">
+  <footer style="background:#141311;border-top:1px solid rgba(241,236,228,.08);">
+    <div style="max-width:1440px;margin:0 auto;padding:clamp(64px,9vh,112px) clamp(20px,5vw,72px) 24px;display:grid;grid-template-columns:{{ footCols }};gap:clamp(24px,4vw,64px);">
       <div>
-        <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.24em;">OCHS &amp; GRAF</p>
-        <p style="margin:10px 0 0;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.4vw,32px);line-height:1.1;color:#B98A5A;font-style:italic;">The Wood. The Better.</p>
+        <p style="margin:0;font-family:'Instrument Sans',sans-serif;font-size:13px;letter-spacing:.08em;font-weight:500;">OCHS &amp; GRAF</p>
+        <p style="margin:10px 0 0;font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.4vw,32px);line-height:1.1;color:#A8A096;font-style:italic;">The Wood. The Better.</p>
         <address style="margin:22px 0 0;font-style:normal;font-size:14px;line-height:1.8;color:#A8A096;">
           Ochs &amp; Graf – M. Landgraf &amp; Y. Mosthaf GdbR<br>
           Cornichonstraße 5b · 76829 Landau in der Pfalz<br>
@@ -1357,23 +1323,23 @@
         </address>
       </div>
       <nav aria-label="Leistungen" style="display:flex;flex-direction:column;gap:10px;">
-        <p style="margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#A8A096;">LEISTUNGEN</p>
-        <a href="#/kuechen" style="color:#F1ECE4;font-size:14px;" style-hover="color:#B98A5A">Küchen nach Maß</a>
-        <a href="#/badmoebel" style="color:#F1ECE4;font-size:14px;" style-hover="color:#B98A5A">Badmöbel &amp; Waschtische</a>
-        <a href="#/moebel" style="color:#F1ECE4;font-size:14px;" style-hover="color:#B98A5A">Möbel &amp; Massivholztische</a>
-        <a href="#/innenausbau" style="color:#F1ECE4;font-size:14px;" style-hover="color:#B98A5A">Innenausbau</a>
+        <p style="margin:0 0 6px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">LEISTUNGEN</p>
+        <a href="#/kuechen" style="color:#F1ECE4;font-size:14px;" style-hover="opacity:.65">Küchen nach Maß</a>
+        <a href="#/badmoebel" style="color:#F1ECE4;font-size:14px;" style-hover="opacity:.65">Badmöbel &amp; Waschtische</a>
+        <a href="#/moebel" style="color:#F1ECE4;font-size:14px;" style-hover="opacity:.65">Möbel &amp; Massivholztische</a>
+        <a href="#/innenausbau" style="color:#F1ECE4;font-size:14px;" style-hover="opacity:.65">Innenausbau</a>
       </nav>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <p style="margin:0 0 6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;color:#A8A096;">EINZUGSGEBIET</p>
+        <p style="margin:0 0 6px;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">EINZUGSGEBIET</p>
         <p style="margin:0;max-width:34ch;font-size:14px;line-height:1.7;color:#A8A096;">Landau in der Pfalz und die ganze Südpfalz – Bellheim, Edenkoben, Bad Bergzabern, Annweiler, Herxheim, Germersheim, Neustadt. Auf Anfrage auch überregional.</p>
-        <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" style="margin-top:8px;color:#F1ECE4;font-size:14px;" style-hover="color:#B98A5A">Instagram @ochsundgraf ↗</a>
+        <a href="https://www.instagram.com/ochsundgraf/" rel="noopener" style="margin-top:8px;color:#F1ECE4;font-size:14px;" style-hover="opacity:.65">Instagram @ochsundgraf ↗</a>
       </div>
     </div>
-    <div style="max-width:1440px;margin:0 auto;padding:16px clamp(16px,3.2vw,44px) {{ footPad }};border-top:1px solid rgba(168,160,150,.14);display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;">
-      <p style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:#A8A096;">© 2026 OCHS &amp; GRAF · USt-IdNr. DE326507308</p>
+    <div style="max-width:1440px;margin:0 auto;padding:16px clamp(20px,5vw,72px) {{ footPad }};display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;">
+      <p style="margin:0;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.08em;color:#A8A096;font-weight:500;">© 2026 OCHS &amp; GRAF · USt-IdNr. DE326507308</p>
       <nav aria-label="Rechtliches" style="display:flex;flex-wrap:wrap;gap:8px 18px;margin-left:auto;">
-        <a href="#/impressum" style="font-size:13px;color:#A8A096;" style-hover="color:#B98A5A">Impressum</a>
-        <a href="#/datenschutz" style="font-size:13px;color:#A8A096;" style-hover="color:#B98A5A">Datenschutz</a>
+        <a href="#/impressum" style="font-size:13px;color:#A8A096;" style-hover="opacity:.65">Impressum</a>
+        <a href="#/datenschutz" style="font-size:13px;color:#A8A096;" style-hover="opacity:.65">Datenschutz</a>
       </nav>
     </div>
   </footer>
@@ -1383,9 +1349,9 @@
     <button type="button" sc-camel-on-click="{{ toggleCall }}" aria-expanded="{{ callExp }}" data-event="phone_click" style="height:58px;border:0;background:rgba(20,19,17,.96);color:#F1ECE4;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;">Anrufen</button>
     <button type="button" sc-camel-on-click="{{ goKontakt }}" data-event="cta_click" style="height:58px;border:0;background:#B98A5A;color:#141311;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;">Projekt anfragen</button>
   </div>
-  <div role="dialog" aria-label="Wen möchtet ihr anrufen?" aria-hidden="{{ callHidden }}" style="position:fixed;left:12px;right:12px;bottom:70px;z-index:56;background:#1D1B19;border:1px solid rgba(168,160,150,.22);padding:14px;display:grid;gap:8px;transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1),visibility .3s;opacity:{{ callO }};visibility:{{ callV }};transform:{{ callT }};">
-    <a href="tel:+491749353078" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(168,160,150,.22);color:#F1ECE4;font-size:15px;">Yannik Mosthaf <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">+49 174 9353078</span></a>
-    <a href="tel:+4917682042302" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(168,160,150,.22);color:#F1ECE4;font-size:15px;">Marius Landgraf <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#B98A5A;">+49 176 82042302</span></a>
+  <div role="dialog" aria-label="Wen möchtet ihr anrufen?" aria-hidden="{{ callHidden }}" style="position:fixed;left:12px;right:12px;bottom:70px;z-index:56;background:#1D1B19;border-radius:6px;padding:14px;display:grid;gap:8px;transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1),visibility .3s;opacity:{{ callO }};visibility:{{ callV }};transform:{{ callT }};">
+    <a href="tel:+491749353078" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(241,236,228,.14);border-radius:6px;color:#F1ECE4;font-size:15px;">Yannik Mosthaf <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">+49 174 9353078</span></a>
+    <a href="tel:+4917682042302" data-event="phone_click" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid rgba(241,236,228,.14);border-radius:6px;color:#F1ECE4;font-size:15px;">Marius Landgraf <span style="font-family:'Instrument Sans',sans-serif;font-size:12px;color:#A8A096;">+49 176 82042302</span></a>
   </div>
 </div>
 </x-dc>
@@ -1740,9 +1706,9 @@ class Component extends DCLogic {
   buildScene() {
     const W = 4.6, H = 2.6, D = 3.4, n = this.state.narrow ? 3200 : 7500;
     const boxes = [
-      { a: [.4, 0, 0], b: [3.6, .9, .62], fill: [185, 138, 90] },   // Unterschraenke
-      { a: [.4, 1.5, 0], b: [3.6, 2.2, .36], fill: [138, 106, 69] }, // Oberschraenke
-      { a: [3.6, 0, 0], b: [4.2, 2.2, .62], fill: [74, 68, 62] }     // Hochschrank
+      { a: [.4, 0, 0], b: [3.6, .9, .62], fill: [168, 160, 150] },   // Unterschraenke
+      { a: [.4, 1.5, 0], b: [3.6, 2.2, .36], fill: [120, 114, 106] }, // Oberschraenke
+      { a: [3.6, 0, 0], b: [4.2, 2.2, .62], fill: [74, 70, 64] }     // Hochschrank
     ];
     const quads = [
       { o: [0, 0, 0], u: [W, 0, 0], v: [0, 0, D], w: 1 },   // Boden
@@ -1836,7 +1802,7 @@ class Component extends DCLogic {
       });
     }
     if (cad > 0) {
-      ctx.strokeStyle = 'rgba(201,165,106,' + (0.25 + cad * 0.6 - prod * 0.35).toFixed(3) + ')';
+      ctx.strokeStyle = 'rgba(241,236,228,' + (0.25 + cad * 0.6 - prod * 0.35).toFixed(3) + ')';
       ctx.lineWidth = 1;
       ctx.beginPath();
       sc.edges.forEach(e => {
@@ -1848,11 +1814,11 @@ class Component extends DCLogic {
     const nShow = Math.floor(sc.pts.length * Math.min(1, scan * 1.04));
     const pa = 0.85 * (1 - cad * 0.55) * (1 - prod * 0.8);
     if (pa > 0.02) {
-      ctx.fillStyle = 'rgba(185,138,90,' + pa.toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(241,236,228,' + (pa * .8).toFixed(3) + ')';
       for (let i = 0; i < nShow; i++) { const q = P(sc.pts[i]); ctx.fillRect(q[0], q[1], 1.4, 1.4); }
       if (scan < 1 && nShow > 0) { // Scan-Kante
         const q = P(sc.pts[nShow - 1]);
-        ctx.fillStyle = 'rgba(241,236,228,.55)';
+        ctx.fillStyle = 'rgba(241,236,228,.25)';
         ctx.fillRect(q[0] - .5, 0, 1, h);
       }
     }
@@ -1922,7 +1888,7 @@ class Component extends DCLogic {
     if (!this.booted && typeof window !== 'undefined') setTimeout(() => this.afterRender(), 0);
     else if (typeof window !== 'undefined') setTimeout(() => { try { this.syncScene(); } catch (e) {} }, 0);
     const S = this.state, narrow = S.narrow, pg = S.page;
-    const pill = (on) => ({ bg: on ? '#B98A5A' : 'transparent', fg: on ? '#141311' : '#A8A096', bd: on ? '#B98A5A' : 'rgba(168,160,150,.28)', pressed: on ? 'true' : 'false' });
+    const pill = (on) => ({ bg: on ? '#F1ECE4' : 'transparent', fg: on ? '#141311' : '#A8A096', bd: on ? '#F1ECE4' : 'rgba(241,236,228,.16)', pressed: on ? 'true' : 'false' });
 
     const refAll = this.PROJ.map((p, i) => Object.assign({}, p, { idx: i }));
     const refFiltered = refAll.filter(p => S.refFilter === 'Alle' || p.cats.indexOf(S.refFilter) >= 0);
@@ -1930,19 +1896,19 @@ class Component extends DCLogic {
     const refList = refFiltered.map((p, i) => ({
       id: p.id, t: p.t, ortU: p.ort.toUpperCase(), tags: p.tags, d: p.d, img: p.img, motif: p.motif, alt: p.alt,
       href: '#/referenzen/' + p.slug,
-      ratio: RR[i % 4][0], ratioLabel: RR[i % 4][1],
-      span: narrow ? 'span 12' : ((i % 4 === 0 || i % 4 === 3) ? 'span 7' : 'span 5'),
-      offset: (!narrow && i % 2 === 1) ? 'clamp(0px,8vw,120px)' : '0px',
+      ratio: '4 / 3', ratioLabel: '4:3',
+      span: narrow ? 'span 12' : 'span 6',
+      offset: '0px',
     }));
     const projNach = (slug) => this.PROJ.find(p => p.slug === slug) || this.PROJ[0];
     const sl = this.SLIDES[S.slide % this.SLIDES.length], slP = projNach(sl.slug);
     const navAktiv = (k) => k === pg || (k === 'ref' && pg === 'detail');
     const nav = this.NAV.map((n, i) => ({ t: n.t, href: n.href, nurMobil: n.nurMobil, nr: '0' + (i + 1),
-      current: navAktiv(n.k) ? 'page' : undefined, fg: navAktiv(n.k) ? '#B98A5A' : '#F1ECE4' }));
+      current: navAktiv(n.k) ? 'page' : undefined, fg: navAktiv(n.k) ? '#F1ECE4' : '#A8A096' }));
     const auswahl = this.AUSWAHL.map((a, i) => {
       const p = projNach(a.slug);
       return { img: a.img, t: p.t, id: p.id, ortU: p.ort.toUpperCase(), tags: p.tags, href: '#/referenzen/' + p.slug,
-        col: narrow ? 'auto' : (i === 0 ? '1 / span 5' : '6 / span 7'), row: narrow ? 'auto' : (i === 0 ? 'span 2' : 'span 1') };
+      };
     });
 
     const pr = this.PROJ[S.proj];
@@ -1974,15 +1940,14 @@ class Component extends DCLogic {
         : 'linear-gradient(180deg,rgba(20,19,17,.66) 0%,rgba(20,19,17,.1) 30%,rgba(20,19,17,.38) 62%,rgba(20,19,17,.97) 100%),linear-gradient(90deg,rgba(20,19,17,.6) 0%,rgba(20,19,17,0) 62%)',
       slideInfoDisp: narrow ? 'none' : 'block', teamRatio: narrow ? '16 / 11' : '3 / 4',
       slides: this.SLIDES.map((x, i) => ({ img: x.img, o: i === S.slide ? '1' : '0', laden: i === 0 ? 'eager' : 'lazy',
-        tf: i === S.slide ? 'scale(1)' : 'scale(1.07)',
-        tt: i === S.slide ? 'transform 8s cubic-bezier(.2,.6,.3,1)' : 'transform 0s linear 1.7s' })),
+        tf: 'none', tt: 'none' })),
       slide: { t: sl.t, href: '#/referenzen/' + slP.slug, nr: '0' + (S.slide + 1),
         bar: this.reduced ? 'none' : ((S.slide % 2 ? 'ogBarA' : 'ogBarB') + ' 6.5s linear both') },
       slideCount: '0' + this.SLIDES.length, slidePrev: this.slideGeh(-1), slideNext: this.slideGeh(1),
       fakten: this.FAKTEN, faktCols: narrow ? 'repeat(2,minmax(0,1fr))' : 'repeat(4,minmax(0,1fr))',
       laufband: this.LAUFBAND.concat(this.LAUFBAND).map((t, i) => ({ t, k: i % 2 ? 'og-hohl' : '' })),
-      leistungen: this.LEISTUNGEN, leistRatio: narrow ? '4 / 5' : '16 / 11',
-      auswahl, auswCols: narrow ? '1fr' : 'repeat(12,minmax(0,1fr))', auswRow: narrow ? 'clamp(300px,92vw,460px)' : 'clamp(240px,25vw,380px)',
+      leistungen: this.LEISTUNGEN, leistRatio: narrow ? '4 / 3' : '3 / 2',
+      auswahl, auswCols: narrow ? '1fr' : 'repeat(3,minmax(0,1fr))',
       prozess: this.PROZESS,
       duoCols: narrow ? '1fr' : '.9fr 1.1fr',
       /* Layout */
@@ -2043,7 +2008,7 @@ class Component extends DCLogic {
       inv: { ort: E.ort ? 'true' : 'false', name: E.name ? 'true' : 'false', tel: E.tel ? 'true' : 'false', mail: E.mail ? 'true' : 'false', dsgvo: E.dsgvo ? 'true' : 'false' },
       filesLabel: S.files ? S.files + ' Datei(en) ausgewählt' : '',
       ftypes: this.FTYPES.map(t => Object.assign({ t, onTap: this.toggleType(t) }, (function (on) {
-        return { bg: on ? '#B98A5A' : 'transparent', fg: on ? '#141311' : '#F1ECE4', bd: on ? '#B98A5A' : 'rgba(168,160,150,.3)', pressed: on ? 'true' : 'false' };
+        return { bg: on ? 'rgba(241,236,228,.1)' : 'transparent', fg: '#F1ECE4', bd: on ? '#F1ECE4' : 'rgba(241,236,228,.16)', pressed: on ? 'true' : 'false' };
       })(S.ftypes.indexOf(t) >= 0))),
       fstepLabel: 'SCHRITT ' + (S.fstep + 1) + ' VON 4',
       fbar: ((S.fstep + 1) / 4 * 100) + '%',

@@ -65,6 +65,9 @@
     var wende = function (k) {
       knoepfe.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === k)); });
       eintraege.forEach(function (e) { e.hidden = k !== "alle" && e.dataset.kat.split(" ").indexOf(k) < 0; });
+      /* versetztes Raster: Plätze nur unter den sichtbaren Projekten neu verteilen */
+      var n0 = 0;
+      w.querySelectorAll(".projekt").forEach(function (e) { if (!e.hidden) e.setAttribute("data-slot", String(n0++ % 4)); });
       var weitere = w.querySelector(".weitere-block");
       if (weitere) weitere.hidden = !weitere.querySelector("li:not([hidden])");
       var status = w.querySelector("[data-filter-status]"), n = w.querySelectorAll(".projekt:not([hidden])").length;
@@ -163,12 +166,12 @@
         });
       }
       if (cad > 0) {
-        x.strokeStyle = "rgba(31,27,22," + (.2 + cad * .55 - prod * .3).toFixed(3) + ")"; x.lineWidth = 1; x.beginPath();
+        x.strokeStyle = "rgba(17,17,17," + (.25 + cad * .6 - prod * .3).toFixed(3) + ")"; x.lineWidth = 1; x.beginPath();
         sc.edges.forEach(function (e) { var a = P(e[0]), b = P(e[1]); x.moveTo(a[0], a[1]); x.lineTo(a[0] + (b[0] - a[0]) * cad, a[1] + (b[1] - a[1]) * cad); });
         x.stroke();
       }
       var n = Math.floor(sc.pts.length * Math.min(1, scan * 1.04)), pa = .85 * (1 - cad * .55) * (1 - prod * .85);
-      if (pa > .02) { x.fillStyle = "rgba(31,27,22," + pa.toFixed(3) + ")"; for (var i = 0; i < n; i++) { var q = P(sc.pts[i]); x.fillRect(q[0], q[1], 1.6, 1.6); } }
+      if (pa > .02) { x.fillStyle = "rgba(17,17,17," + pa.toFixed(3) + ")"; for (var i = 0; i < n; i++) { var q = P(sc.pts[i]); x.fillRect(q[0], q[1], 1.6, 1.6); } }
     }
 
     /* Fortschritt direkt aus den Textblöcken: Schritt i ist aktiv, solange seine Lesezeile

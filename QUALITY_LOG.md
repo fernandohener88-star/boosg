@@ -157,3 +157,23 @@ Was Lighthouse nicht misst, habe ich gezielt gesucht:
 | Barrierefreiheit | 6 | 10 |
 | DSGVO | 7 | 9 |
 | Agentur | 4 | 9 |
+
+---
+
+## Runde 6 – Neue Gestaltung „Architekturstudio“ (Wunsch: kein KI-Look)
+
+**Befund:** Die Richtung „Werkstatt bei Tageslicht“ war zwar sauber, entsprach aber fast 1:1 dem Erscheinungsbild von Claude selbst: cremefarbener Grund, Serifen-Überschriften, rostoranger Akzent. Dazu kamen typische KI-Muster: Überzeilen über jeder Überschrift, kursive Einzelwörter, gerundete Bildkästen, Pillen-Filter und gleich aufgebaute Abschnitte.
+
+**Umgesetzt:**
+1. **Farbe:** Weiß und Schwarz, Farbe kommt nur noch aus den Fotos. Kein Creme, kein Orange.
+2. **Schrift:** eine Familie, Schibsted Grotesk (skandinavische Zeitungs-Grotesk), kräftig und eng gesetzt. Archivo wurde getestet und verworfen, weil sein stilisiertes „&“ den Firmennamen entstellt.
+3. **Formen:** rechte Winkel überall, Knöpfe schwarz gefüllt oder mit schwarzem Rand, Links mit Pfeil.
+4. **Layout:**
+   - Hero mit großer Überschrift und randlosem Vollbild-Foto statt Text links und Bildkasten rechts.
+   - Leistungen als großer typografischer Index.
+   - Projekte im versetzten Editorial-Raster (hoch, versetzt, quer).
+   - Galerie mit starken Fotos groß und schwachen klein.
+   - Abschluss und Fuß als ein schwarzer Block.
+5. **ENTFERNT:** Überzeilen, kursive Hervorhebungen, runde Ecken, Pillen-Filter (jetzt Textauswahl), zweite Schriftfamilie. Schriftgewicht 105 KB → 47 KB.
+
+**Ergebnis:** Lighthouse Mobil auf allen geprüften Seiten 100 / 100 / 100 / 100, 97–220 KB pro Seite. Alle Funktionstests bestanden: Tastatur, Lightbox, Filter, Formular, Menü, ohne JavaScript und Einzeldatei.

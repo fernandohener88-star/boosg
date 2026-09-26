@@ -58,7 +58,7 @@ PROJEKTE = [
      'd': 'Innenausbau aus einem Guss: eine Faltwerktreppe aus Eiche mit Wandleuchten, dazu Garderobenbank, Einbauschrank und ein Spiegel mit Eichenrahmen.',
      'meta': 'Faltwerktreppe aus Eiche, Garderobe und Einbauschrank – Innenausbau der Schreinerei Ochs & Graf aus Landau.',
      'eck': [('Leistung', 'Treppe, Garderobe, Einbauschrank, Spiegel'), ('Material', 'Eiche, weiße Fronten'), ('Details', 'Faltwerk-Optik, Wandleuchten entlang der Treppe')],
-     'bilder': [('REF-38', 'Faltwerktreppe mit weißem Geländer'), ('REF-41', 'Garderobenbank mit Schubkästen'), ('REF-40', 'Stufen mit Wandleuchte'), ('REF-39', 'Treppenauge mit Hängeleuchten'), ('REF-43', 'Spiegel mit Eichenrahmen'), ('REF-42', 'Einbauschrank innen')]},
+     'bilder': [('REF-38', 'Faltwerktreppe mit weißem Geländer'), ('REF-41', 'Garderobenbank mit Schubkästen'), ('REF-40', 'Stufen mit Wandleuchte'), ('REF-43', 'Spiegel mit Eichenrahmen'), ('REF-39', 'Treppenauge mit Hängeleuchten'), ('REF-42', 'Einbauschrank innen')]},
     {'slug': 'kueche-eiche-messing', 't': 'Küche Eiche & Messing', 'art': 'Küche', 'kat': ['kueche'],
      'kurz': 'Fronten aus Eiche, Spüle und Griffleisten aus Messing.',
      'd': 'Fronten aus Eiche, Spüle, Armatur und Griffleisten in Messing, eine helle Arbeitsplatte und ein LED-Band unter den Hängeschränken. Die Schneidebretter mit eingefrästem Logo kommen aus unserer Werkstatt.',
@@ -95,7 +95,8 @@ WEITERE = [
      'd': 'Modulares Wandsystem und mobile Warenpräsentation für den Buchladen. Variabel. Schlicht. Nachhaltig.'},
 ]
 
-AUSWAHL = ['badmoebel-waschtische', 'treppe-garderobe-schrank', 'sideboard-esstisch']
+# Startseite: (Projekt, Bild für diesen Platz) – Platz 1 und 2 hochkant, Platz 3 quer.
+AUSWAHL = [('badmoebel-waschtische', 'REF-22'), ('treppe-garderobe-schrank', 'REF-38'), ('sideboard-esstisch', 'REF-35')]
 
 TEAM = [
     {'name': 'Marius Landgraf', 'rolle': 'Inhaber · Tischlermeister', 'quals': ['Meister im Tischler-Handwerk (Bachelor Professional)', 'Fotograf'],

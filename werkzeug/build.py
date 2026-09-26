@@ -108,7 +108,7 @@ def abschluss(A):
   <div class="huelle">
     <h2 id="abschluss-t">Habt ihr ein Projekt im Kopf?</h2>
     <p class="lead">Erzählt uns kurz, was ihr vorhabt. Wir melden uns persönlich und kommen zum Aufmaß zu euch.</p>
-    <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a></div>
+    <a class="knopf knopf--hell" href="{A.link('kontakt/')}">Projekt anfragen</a>
     <div class="abschluss__tel">
       <div>Yannik Mosthaf<a href="tel:+491749353078">0174 9353078</a></div>
       <div>Marius Landgraf<a href="tel:+4917682042302">0176 82042302</a></div>
@@ -123,11 +123,11 @@ def pfad(A, teile):
     return f'<nav aria-label="Brotkrumen"><ol class="pfad">{li}</ol></nav>'
 
 
-def projektkarte(A, p, sizes, h='h3'):
-    return f'''<a class="projekt" href="{A.link('referenzen/' + p['slug'] + '/')}" data-kat="{' '.join(p['kat'])}">
-  <div class="projekt__bild">{A.bild(p['bilder'][0][0], sizes, alt='')}</div>
-  <span class="projekt__art">{p['art']}</span>
-  <{h}>{p['t']}</{h}>
+def projektkarte(A, p, sizes, h='h3', slot=None, bild=None):
+    s = f' data-slot="{slot}"' if slot is not None else ''
+    return f'''<a class="projekt" href="{A.link('referenzen/' + p['slug'] + '/')}" data-kat="{' '.join(p['kat'])}"{s}>
+  <div class="projekt__bild">{A.bild(bild or p['bilder'][0][0], sizes, alt='')}</div>
+  <div class="projekt__kopf"><{h}>{p['t']}</{h}><span class="projekt__art">{p['art']}</span></div>
   <p>{p['kurz']}</p>
 </a>'''
 
@@ -135,20 +135,21 @@ def projektkarte(A, p, sizes, h='h3'):
 # ---------------------------------------------------------------- Seiten
 
 def seite_start(A):
-    leist = ''.join(f'''<a class="leistung" href="{A.link('referenzen/')}{'' if A.einzeldatei else '#' + l['filter']}" data-filter="{l['filter']}"><h3>{l['t']}</h3><p>{l['d']}</p><span class="leistung__mehr">Projekte ansehen →</span></a>''' for l in I.LEISTUNGEN)
-    auswahl = ''.join(projektkarte(A, I.projekt(s), '(min-width: 1000px) 33vw, (min-width: 700px) 50vw, 100vw') for s in I.AUSWAHL)
-    schritte = ''.join(f'<li><h3>{s["t"]}</h3><p>{s["kurz"]}</p></li>' for s in I.SCHRITTE)
-    return f'''<section class="einstieg">
-  <div class="huelle einstieg__raster">
-    <div>
-      <span class="vorzeile">Schreinerei · Landau in der Pfalz</span>
-      <h1>Küchen, Bäder und Möbel nach Maß – aus unserer Werkstatt in Landau.</h1>
+    leist = ''.join(f'''<li><a href="{A.link('referenzen/')}{'' if A.einzeldatei else '#' + l['filter']}" data-filter="{l['filter']}"><span class="index__t">{l['t']}</span><span class="index__d">{l['d']}</span><span class="index__pfeil" aria-hidden="true">→</span></a></li>''' for l in I.LEISTUNGEN)
+    auswahl = ''.join(projektkarte(A, I.projekt(slug), '(min-width: 900px) 55vw, 100vw', slot=i, bild=b) for i, (slug, b) in enumerate(I.AUSWAHL))
+    schritte = ''.join(f'<li><span class="schritte__nr">{i + 1}</span><h3>{s["t"]}</h3><p>{s["kurz"]}</p></li>' for i, s in enumerate(I.SCHRITTE))
+    return f'''<section class="start">
+  <div class="huelle">
+    <h1>Küchen, Bäder und Möbel nach Maß – aus unserer Werkstatt in Landau.</h1>
+    <div class="start__unten">
       <p class="lead">Wir sind Marius Landgraf und Yannik Mosthaf, zwei Tischlermeister. Vom 3D-Aufmaß bis zur Montage bekommt ihr bei uns alles aus einer Hand.</p>
-      <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a><a class="textlink" href="{A.link('referenzen/')}">Referenzen ansehen</a></div>
-      <p class="einstieg__tel">Lieber direkt sprechen? <a href="tel:+4963417005116">06341 7005116</a></p>
+      <div class="start__aktion">
+        <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a><a class="pfeillink" href="{A.link('referenzen/')}">Referenzen ansehen</a></div>
+        <p class="start__tel">Lieber direkt sprechen? <a href="tel:+4963417005116">06341 7005116</a></p>
+      </div>
     </div>
-    <div class="einstieg__bild">{A.bild('REF-28', '(min-width: 900px) 45vw, 100vw', eager=True)}</div>
   </div>
+  <div class="vollbild">{A.bild('REF-27', '100vw', eager=True)}</div>
   <div class="huelle">
     <ul class="fakten">
       <li><strong>Meisterbetrieb</strong>Zwei Tischlermeister</li>
@@ -160,43 +161,42 @@ def seite_start(A):
 
 <section class="sektion" aria-labelledby="leist-t">
   <div class="huelle">
-    <div class="kopfzeile">
+    <div class="titelzeile">
       <h2 id="leist-t">Was wir für euch bauen</h2>
       <p class="text">Wir sind spezialisiert auf Massivholz. Standardteile wie Küchenkorpusse kommen von regionalen Partnern – alles Individuelle entsteht in unseren eigenen Hallen.</p>
     </div>
-    <div class="leistungen">{leist}</div>
+    <ul class="index">{leist}</ul>
   </div>
 </section>
 
 <section class="sektion" aria-labelledby="ausw-t">
   <div class="huelle">
-    <div class="kopfzeile">
+    <div class="titelzeile">
       <h2 id="ausw-t">Ausgewählte Projekte</h2>
-      <p><a class="textlink" href="{A.link('referenzen/')}">Alle Referenzen</a></p>
+      <p><a class="pfeillink" href="{A.link('referenzen/')}">Alle Referenzen</a></p>
     </div>
-    <div class="projekte projekte--drei">{auswahl}</div>
+    <div class="projekte auswahl">{auswahl}</div>
   </div>
 </section>
 
-<section class="sektion" aria-labelledby="ablauf-t">
+<section class="sektion grau" aria-labelledby="ablauf-t">
   <div class="huelle">
-    <div class="kopfzeile">
+    <div class="titelzeile">
       <h2 id="ablauf-t">So läuft ein Projekt bei uns</h2>
       <p class="text">Durch das 3D-Aufmaß und die CAD-Planung wisst ihr vorher genau, was ihr bekommt. Und wir sind bei der Montage schnell wieder raus.</p>
     </div>
     <ol class="schritte">{schritte}</ol>
-    <p style="margin-top:48px"><a class="textlink" href="{A.link('so-arbeiten-wir/')}">Mehr zu unserer Arbeitsweise</a></p>
+    <p style="margin-top:56px"><a class="pfeillink" href="{A.link('so-arbeiten-wir/')}">Mehr zu unserer Arbeitsweise</a></p>
   </div>
 </section>
 
 <section class="sektion" aria-labelledby="wir-t">
   <div class="huelle zweispalter">
-    {A.bild('REF-22', '(min-width: 900px) 50vw, 100vw')}
+    {A.bild('REF-26', '(min-width: 900px) 40vw, 100vw')}
     <div>
-      <span class="vorzeile">Über uns</span>
-      <h2 id="wir-t">„Arbeit macht Bock.“</h2>
+      <h2 id="wir-t" class="zitat">„Arbeit macht Bock.“</h2>
       <p class="text">Marius und Yannik haben sich 2019 noch während der Meisterschule selbstständig gemacht – zuerst als Parkettleger, seit dem Meistertitel 2020 als Schreinerei. Was die beiden verbindet: die gleichen Vorstellungen von Qualität, Arbeitsweise und Kundenkontakt.</p>
-      <a class="textlink" href="{A.link('ueber-uns/')}">Mehr über uns</a>
+      <a class="pfeillink" href="{A.link('ueber-uns/')}">Mehr über uns</a>
     </div>
   </div>
 </section>
@@ -227,9 +227,9 @@ def seite_weg(A):
   </div>
 </section>
 
-<section class="sektion" aria-labelledby="wer-t">
+<section class="sektion grau" aria-labelledby="wer-t">
   <div class="huelle">
-    <div class="kopfzeile"><h2 id="wer-t">Was wir selbst machen – und mit wem</h2></div>
+    <div class="titelzeile"><h2 id="wer-t">Was wir selbst machen – und mit wem</h2></div>
     <div class="listen">
       <div><h3>In unseren Hallen</h3><ul><li>Esstische, Deckplatten, Holzfußgestelle und Waschtische</li><li>Gravurfräsungen</li><li>Integrierte LEDs</li><li>Besondere Ausschnitte</li></ul></div>
       <div><h3>Mit regionalen Partnern</h3><ul><li>Küchenkorpusse und weitere Standardfertigung</li><li>Netzwerk regionaler Betriebe</li></ul></div>
@@ -242,8 +242,8 @@ def seite_weg(A):
 
 def seite_referenzen(A):
     filt = ''.join(f'<button type="button" data-k="{k}" aria-pressed="false">{t}</button>' for k, t in I.FILTER)
-    karten = ''.join(projektkarte(A, p, '(min-width: 700px) 50vw, 100vw' if i else '100vw', 'h2') for i, p in enumerate(I.PROJEKTE))
-    weitere = ''.join(f'''<li data-kat="{' '.join(p['kat'])}"><div><span class="projekt__art">{p['art']}</span><h3>{p['t']}</h3></div><p>{p['d']}</p></li>''' for p in I.WEITERE)
+    karten = ''.join(projektkarte(A, p, '(min-width: 900px) 55vw, (min-width: 700px) 50vw, 100vw', 'h2', slot=i % 4) for i, p in enumerate(I.PROJEKTE))
+    weitere = ''.join(f'''<li data-kat="{' '.join(p['kat'])}"><div><h3>{p['t']}</h3><p class="meta">{p['art']}</p></div><p>{p['d']}</p></li>''' for p in I.WEITERE)
     return f'''<section class="seitenkopf">
   <div class="huelle">
     {pfad(A, [('Start', ''), ('Referenzen', None)])}
@@ -255,9 +255,9 @@ def seite_referenzen(A):
   <div class="huelle">
     <div class="filter" role="group" aria-label="Projekte filtern" hidden>{filt}</div>
     <p class="visually-hidden" aria-live="polite" data-filter-status></p>
-    <div class="projekte projekte--gross">{karten}</div>
+    <div class="projekte">{karten}</div>
     <div class="weitere-block" style="margin-top:var(--sektion)">
-      <div class="kopfzeile"><h2>Weitere Projekte</h2></div>
+      <div class="titelzeile"><h2>Weitere Projekte</h2></div>
       <ul class="weitere">{weitere}</ul>
     </div>
   </div>
@@ -271,19 +271,18 @@ def seite_projekt(A, p, naechstes):
     return f'''<section class="seitenkopf">
   <div class="huelle">
     {pfad(A, [('Start', ''), ('Referenzen', 'referenzen/'), (p['t'], None)])}
-    <span class="vorzeile">{p['art']}</span>
     <h1>{p['t']}</h1>
-    <div class="kopfzeile" style="margin:0;align-items:start">
+    <div class="detailkopf">
       <p class="lead">{p['d']}</p>
-      <dl class="eckdaten">{eck}</dl>
+      <dl class="eckdaten"><div><dt>Bereich</dt><dd>{p['art']}</dd></div>{eck}</dl>
     </div>
   </div>
 </section>
 <section class="sektion" style="padding-top:0" aria-label="Bilder">
   <div class="huelle">
     <div class="galerie">{gal}</div>
-    <div class="aktionen" style="margin:56px 0 var(--sektion)"><a class="knopf" href="{A.link('kontakt/')}">Ähnliches Projekt anfragen</a></div>
-    <a class="naechstes" href="{A.link('referenzen/' + naechstes['slug'] + '/')}"><span>Nächstes Projekt</span><strong>{naechstes['t']} →</strong></a>
+    <div class="aktionen" style="margin:72px 0 var(--sektion)"><a class="knopf" href="{A.link('kontakt/')}">Ähnliches Projekt anfragen</a></div>
+    <a class="naechstes" href="{A.link('referenzen/' + naechstes['slug'] + '/')}"><span>Nächstes Projekt</span><strong>{naechstes['t']}</strong></a>
   </div>
 </section>
 <dialog class="lightbox" aria-label="Bildansicht">
@@ -306,22 +305,22 @@ def seite_ueber(A):
     <p class="lead">Zwei Meister im Tischler-Handwerk mit einer Vision: gleiche Vorstellungen von Qualität, Arbeitsweise, Zusammenarbeit und Kundenkontakt. Arbeit macht Bock.</p>
   </div>
 </section>
-<div class="huelle breitbild">{A.bild('REF-37', '100vw', eager=True)}</div>
+<div class="vollbild">{A.bild('REF-37', '100vw', eager=True)}</div>
 <section class="sektion" aria-labelledby="team-t">
   <div class="huelle">
-    <div class="kopfzeile"><h2 id="team-t">Das Team</h2></div>
+    <div class="titelzeile"><h2 id="team-t">Das Team</h2></div>
     <ul class="team">{team}</ul>
   </div>
 </section>
 <section class="sektion" aria-labelledby="chronik-t">
   <div class="huelle">
-    <div class="kopfzeile"><h2 id="chronik-t">Von der Meisterschule zur Schreinerei</h2></div>
+    <div class="titelzeile"><h2 id="chronik-t">Von der Meisterschule zur Schreinerei</h2></div>
     <ol class="chronik">{chronik}</ol>
   </div>
 </section>
 <section class="sektion" aria-labelledby="detail-t">
   <div class="huelle">
-    <div class="kopfzeile"><h2 id="detail-t">Handwerk im Detail</h2><p class="text">Gefertigt in unserer Werkstatt in Landau.</p></div>
+    <div class="titelzeile"><h2 id="detail-t">Handwerk im Detail</h2><p class="text">Gefertigt in unserer Werkstatt in Landau.</p></div>
     <div class="details">{det}</div>
   </div>
 </section>
@@ -456,7 +455,7 @@ def jsonld(route, krumen_titel):
         {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': u} for i, (n, u) in enumerate(teile)]}]
 
 
-FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%231F1B16'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' text-anchor='middle' fill='%23F5F1EA'%3EO%26amp%3BG%3C/text%3E%3C/svg%3E"
+FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23111111'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='700' font-size='26' text-anchor='middle' fill='%23FFFFFF'%3EO%26amp%3BG%3C/text%3E%3C/svg%3E"
 
 
 def dokument(A, titel, beschreibung, route, koerper, ld, extra_kopf=''):
@@ -469,7 +468,7 @@ def dokument(A, titel, beschreibung, route, koerper, ld, extra_kopf=''):
 <title>{e(titel)}</title>
 <meta name="description" content="{e(beschreibung)}">
 <link rel="canonical" href="{DOMAIN}{route}">
-<meta name="theme-color" content="#F5F1EA">
+<meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="Ochs &amp; Graf">
@@ -494,8 +493,7 @@ def baue_hosting():
     routen = []
     for route, aktiv, titel, beschr, fn, krume in seitenliste():
         A = Ausgabe(False, route)
-        kopfteil = (f'<link rel="preload" href="{A.asset("fonts/cormorant-400.woff2")}" as="font" type="font/woff2" crossorigin>\n'
-                    f'<link rel="preload" href="{A.asset("fonts/instrument.woff2")}" as="font" type="font/woff2" crossorigin>\n'
+        kopfteil = (f'<link rel="preload" href="{A.asset("fonts/schibsted.woff2")}" as="font" type="font/woff2" crossorigin>\n'
                     f'<link rel="stylesheet" href="{A.asset("site.css")}">\n<script src="{A.asset("site.js")}" defer></script>\n')
         koerper = f'{kopf(A, aktiv)}\n<main id="inhalt">\n{fn(A)}\n</main>\n{fuss(A)}'
         ziel = os.path.join(route, 'index.html') if route else 'index.html'
@@ -516,7 +514,7 @@ def baue_hosting():
 
 def baue_einzeldatei():
     css = open('assets/site.css', encoding='utf-8').read()
-    for f in ('cormorant-400', 'cormorant-400i', 'instrument'):
+    for f in ('schibsted',):
         b64 = base64.b64encode(open(f'assets/fonts/{f}.woff2', 'rb').read()).decode()
         css = css.replace(f'url("fonts/{f}.woff2")', f'url(data:font/woff2;base64,{b64})')
     js = open('assets/site.js', encoding='utf-8').read()

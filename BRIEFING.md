@@ -37,4 +37,4 @@ Inventur → Bildzuordnung → Umsetzung → Browser-Test → Commit & Push → 
 ---
 
 ## Nachtrag: Neubau (Runden 1–4)
-Die Seite wurde als statische Website neu gebaut, um Qualität, Tempo und Auffindbarkeit zu verbessern. Der erste Stand war eine 4,2-MB-Einzelseiten-App aus dem Design-Export. Protokoll und Begründungen stehen in `QUALITY_LOG.md`, offene Punkte in `PRUEFLISTE.md`. Die Anforderungen oben zu Planskizzen, Laufband und Ken Burns sind durch die spätere Design-Richtung „Werkstatt bei Tageslicht“ überholt und wurden bewusst entfernt.
+Die Seite wurde als statische Website neu gebaut, um Qualität, Tempo und Auffindbarkeit zu verbessern. Der erste Stand war eine 4,2-MB-Einzelseiten-App aus dem Design-Export. Protokoll und Begründungen stehen in `QUALITY_LOG.md`, offene Punkte in `PRUEFLISTE.md`. Die Anforderungen oben zu Planskizzen, Laufband und Ken Burns sind durch spätere Design-Richtungen überholt und wurden bewusst entfernt. Aktuell gilt „Architekturstudio“: Weiß und Schwarz, Schibsted Grotesk, rechte Winkel, Farbe nur aus den Fotos – ausdrücklich kein KI- bzw. Claude-Look (siehe QUALITY_LOG.md, Runde 6).

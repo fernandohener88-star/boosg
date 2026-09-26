@@ -1,35 +1,33 @@
-# Ochs & Graf – Prüfliste vor dem Livegang
+# Ochs & Graf – offene Punkte vor dem Livegang
 
-Die Website ist präsentationsfertig. Diese Punkte sollten vor der Veröffentlichung mit Ochs & Graf geklärt werden. Auf der Seite selbst ist nichts davon als Vermerk sichtbar.
+Die Website ist präsentationsfertig. Die folgenden Punkte kann nur der Kunde klären. Im Code sind sie mit **[PLATZHALTER]** markiert.
 
-## Mit dem Kunden klären
-- [ ] **Adresse**: Der Prototyp nannte zwei Varianten (Cornichonstraße 5b oder Westbahnstraße 5). Verwendet wird jetzt überall Cornichonstraße 5b: Kontakt, Footer, Impressum, Karte und Routenlink.
-- [ ] **Öffnungszeiten** oder Hinweis „Termine nach Vereinbarung“: bewusst weggelassen.
-- [ ] **Stefan Mattern**: Ist er noch im Team? Er steht auf „Über uns“ als Tischlermeister.
-- [ ] **Projekte mit Fotos** (Küche Schwarz & Eiche, Badmöbel, Treppe/Garderobe, Küche Eiche & Messing, Sideboard & Esstisch, Küche Weiß): Die Namen sind neutral gewählt. Falls die Fotos zu den bekannten Projekten gehören, lassen sie sich dort zuordnen. Die schwarze Küche, die Garderobe und der Spiegel passen vermutlich zum **Einfamilienhaus Bellheim** (Fischgrätparkett, Küche, Garderobe, Spiegel).
-- [ ] **Ferienhaus Westerwald**: Die dunkle Küchenzeile wurde wegen des Dekors „Egger F627 PT“ diesem Projekt zugeordnet. Bitte bestätigen.
-- [ ] **Partnerbetriebe**: namentlich nennen oder nicht (Abschnitt „Was wir selbst machen. Und mit wem.“).
-- [ ] **Budgetstufen** im Anfrageformular (bis 5.000 € / 5–15 T€ / 15–30 T€ / über 30 T€): passen die?
-- [ ] **Antwortzeit** nach einer Anfrage: Ein Versprechen wie „innerhalb von 48 Stunden“ lässt sich ergänzen.
+## Vom Kunden benötigt
+- [ ] **Fotos von Marius und Yannik**, am besten zusammen in der Werkstatt. Das ist der wichtigste Vertrauensanker für einen lokalen Handwerksbetrieb und gehört auf die Startseite („Über uns“) und auf „Über uns“ (Titelbild).
+- [ ] **Fotos der drei Projekte ohne Bilder:** Einfamilienhaus Bellheim, Einfamilienhaus Landau, Bücher Knecht. Solange keine Fotos da sind, stehen sie bewusst nur als Text unter „Weitere Projekte“.
+- [ ] **Hosting-Anbieter** (Name, Anschrift) für die Datenschutzerklärung, Abschnitt 2 → `[PLATZHALTER: Name und Anschrift des Hosting-Anbieters]`.
+- [ ] **Formular-Endpunkt:** Das Formular prüft die Eingaben und zeigt die Danke-Meldung, versendet aber erst, wenn in `werkzeug/build.py` statt `[PLATZHALTER-FORMULAR-ENDPUNKT]` eine echte Adresse steht, z. B. der Formulardienst des Hosters, Formspree oder ein kleines PHP-Skript.
+- [ ] **Adresse bestätigen:** Überall steht Cornichonstraße 5b. Im alten Entwurf stand alternativ Westbahnstraße 5.
+- [ ] **Stefan Mattern:** Ist er noch im Team?
+- [ ] **Rechtsform:** Im alten Entwurf stand „GdbR“, jetzt steht überall „GbR“. Bitte bestätigen.
+- [ ] **Impressum und Datenschutz** juristisch prüfen lassen (Kammer, Stand).
 
-## Vor dem Livegang technisch
-- [ ] **Formularversand**: Das Formular prüft die Eingaben und zeigt eine Erfolgsmeldung, versendet aber noch nichts. Dafür muss ein Endpunkt angebunden werden, z. B. der Formulardienst des Hostings (Stelle `fsubmit` in `quelle/seite.dc.html`).
-- [ ] **Impressum & Datenschutz** juristisch prüfen lassen. Das betrifft den Hosting-Anbieter, die Kammerangabe „Handwerkskammer der Pfalz“ und das Datum „Stand“.
-- [ ] **Hosting**: Die Seite ist eine einzige Datei (`index.html`), die Routen laufen über `#/…`. Sie funktioniert ohne Server-Konfiguration auf jedem Webspace.
-- [ ] **Fehlende Fotos**: Für Bücher Knecht, EFH Bellheim, EFH Landau, Teile vom Ferienhaus und die Team-Porträts stehen gestaltete Planskizzen und Monogramme. Echte Fotos ersetzen sie automatisch (siehe unten).
+## Inhaltliche Vorschläge (nicht umgesetzt, brauchen Freigabe)
+1. Zwei bis drei kurze **Kundenstimmen** mit Vorname und Ort.
+2. **Preisorientierung** oder Hinweis wie „Aufmaß und Erstgespräch kostenlos“, falls das stimmt.
+3. **Belegbare Zahl** statt allgemeiner Fakten, z. B. „über X Küchen seit 2019“.
+4. Ort und Jahr zu den Fotoprojekten (Küche Schwarz & Eiche usw.). Das stärkt das lokale SEO.
 
-## Pflege: so kommen neue Fotos auf die Seite
-1. Das Foto als `bilder/<bild-id>.webp` ablegen, z. B. `bilder/team-02.webp` für das Porträt von Marius oder `bilder/ref-02.webp` für Bücher Knecht.
-2. In `bilder/bilder.json` unter `fotos` einen Alt-Text eintragen.
-3. `python3 werkzeug/build.py` ausführen. Das Foto ersetzt dann die Skizze an diesem Platz.
+## Technik
+- **Hosting:** Den Ordner so hochladen, wie er ist (`index.html`, Unterordner, `assets/`, `404.html`, `sitemap.xml`, `robots.txt`, `.htaccess`). Bei Apache-Hostern (IONOS, Strato, all-inkl) greift die `.htaccess` automatisch: 404-Seite, Kompression, Caching, Sicherheits-Header.
+- **Domain:** In `werkzeug/build.py` steht `DOMAIN = 'https://www.ochsundgraf.de/'`. Das wird für Canonical, Sitemap und die Vorschau beim Teilen verwendet.
+- **Vorschau-Datei:** `dist/Ochs & Graf.html` enthält alle Seiten in einer Datei, zum Präsentieren ohne Server.
 
-| Bild-ID | Platz |
-|---|---|
-| TEAM-01 | Über uns, großes Bild oben (aktuell Waschtisch-Detail) |
-| TEAM-02 / 03 / 04 | Porträts Marius / Yannik / Stefan (aktuell Monogramme) |
-| REF-02 bis REF-05 | Bücher Knecht (Titel + 3 Galeriebilder) |
-| REF-06 bis REF-10 | EFH Bellheim (Titel + 4 Galeriebilder) |
-| REF-13 bis REF-15 | Ferienhaus Westerwald, Galerie |
-| REF-16 bis REF-20 | EFH Landau (Titel + 4 Galeriebilder) |
-| WEG-02 / WEG-03 | So arbeiten wir: 3D-Aufmaß / CAD-Planung |
-| KONTAKT-01 | Kartenvorschau auf der Kontaktseite |
+## Pflege
+- **Texte, Projekte, Team:** `werkzeug/inhalte.py`
+- **Neues Foto:**
+  1. Als `bilder/ref-XX.webp` ablegen.
+  2. Den Alt-Text in `bilder/bilder.json` eintragen.
+  3. Die Bildvarianten mit `node werkzeug/bildvarianten.js bilder assets/img` erzeugen.
+  4. Das Foto in `inhalte.py` dem Projekt zuordnen.
+- **Neu bauen:** `python3 werkzeug/build.py`

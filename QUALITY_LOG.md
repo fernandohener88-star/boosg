@@ -84,3 +84,76 @@ Skala 1–10. „Agentur“ = Würde eine Top-Agentur das so ausliefern?
 5. **Hero-Text gekürzt** (5 → 4 Zeilen mobil), Formularfelder bündig ausgerichtet.
 
 **Ergebnis:** Lighthouse Mobil 99–100 überall. Selbsttest: 1 H1 pro Seite, keine Überschriftensprünge, keine defekten Links, Lightbox und Menü per Tastatur, ohne JS vollständig, Einzeldatei fehlerfrei. Besser als Runde 2.
+
+---
+
+## Runde 4 – Kritik
+
+| Kategorie | Score | Begründung |
+|---|---|---|
+| Erster Eindruck | 9 | – |
+| Design & Typografie | 8,5 | Kleine Serifen-Überschriften (Cormorant 400) wirken bei 24–30 px dünn. Der Datei-Upload-Knopf im Formular ist browser-grau und fällt aus dem System. |
+| Texte | 9 | Dopplungen entfernt, nur Kundentexte. |
+| Conversion | 9 | Auf Projektseiten konkurrieren „Ähnliches Projekt anfragen“, „Alle Referenzen“ und „Nächstes Projekt“ um Aufmerksamkeit. |
+| Mobile | 8,5 | Startseite noch 7.900 px, die drei Auswahl-Projekte im Hochformat nehmen am Handy je einen ganzen Bildschirm ein. „Anrufen“ im Kopf mit kleiner Tippfläche. |
+| Performance | 10 | – |
+| SEO | 9,5 | – |
+| Barrierefreiheit | 9,5 | Leere Fehlerzeilen erzeugen Lücken. |
+| DSGVO | 9 | Nur noch Kundendaten offen (Hoster), sauber als [PLATZHALTER] markiert. |
+| Agentur | 8,5 | – |
+
+**Top 5:**
+1. **ENTFERNT:** doppelter Link „Alle Referenzen“ auf Projektseiten. Pro Seite gibt es jetzt genau eine Hauptaktion.
+2. **Überschriften h3 in 500** statt 400 für bessere Lesbarkeit bei kleinen Größen.
+3. **Datei-Upload** im Stil der Zweitknöpfe, leere Fehlerzeilen ausgeblendet, Feldabstände vereinheitlicht.
+4. **Auswahl-Projekte mobil im Querformat** (4:3). Startseite mobil 7.924 → 7.399 px.
+5. **„Anrufen“ im Handy-Kopf** mit 44 px Tippfläche.
+
+**Ergebnis:** Lighthouse Mobil: alle 8 geprüften Seiten 99–100 / 100 / 100 / 100. Desktop: 100 / 100 / 100 / 100. Besser als Runde 3.
+
+---
+
+## Runde 5 – Kritik (Abschlussprüfung)
+
+Was Lighthouse nicht misst, habe ich gezielt gesucht:
+
+| Kategorie | Score | Begründung |
+|---|---|---|
+| Erster Eindruck | 9,5 | Aussage, Ort, Menschen, Aktion und Telefon auf dem ersten Bildschirm, mobil wie Desktop. |
+| Design & Typografie | 9 | Ein System, zwei Schriften, ein Akzent, ein Radius, zwei Knopfarten. Echte Fotos der Inhaber würden die letzte Lücke schließen (Kundensache). |
+| Texte | 9 | Ausschließlich Kundentexte, keine Floskeln, keine Statistiken ohne Quelle. |
+| Conversion | 9,5 | Eine Hauptaktion pro Seite, Telefon überall mit einem Tipp erreichbar, Formular in einem Schritt. |
+| Mobile | 9,5 | Kein festes Band, das Inhalte verdeckt. Hero passt auf einen Bildschirm, Menü bedienbar mit Esc und inert-Hintergrund. |
+| Performance | 10 | Mobil 99–100, LCP 1,5–1,9 s, 113–297 KB pro Seite (vorher 4.196 KB). |
+| SEO | 9,5 | Einzelseiten, Titel und Beschreibung je Seite, Canonical, Sitemap, robots, BreadcrumbList, LocalBusiness-JSON-LD, Teilen-Vorschau. |
+| Barrierefreiheit | 10 | Fehler gefunden und behoben: Fokusring im dunklen Band hatte nur 2,55:1 Kontrast, jetzt 15:1. Filter-Ergebnis wird Screenreadern angesagt. |
+| DSGVO | 9 | Keine Cookies, keine Tracker, Schriften lokal, Karte erst nach Einwilligung (widerrufbar). Offen: Hoster-Angabe (Kunde). |
+| Agentur | 9 | Ja – mit den Kundenfotos der Inhaber wäre es eine 10. |
+
+**Umgesetzt:**
+1. Fokusring auf dunklem Grund hell (2,55 → 15,2:1).
+2. **ENTFERNT:** Einblend-Animation im Hero. Der Inhalt steht sofort, ohne Verzögerung.
+3. Mobiles Menü: Seite dahinter per `inert` gesperrt, Tastatur bleibt im Menü.
+4. Filter: Ergebnis wird per `aria-live` angesagt („4 Projekte mit Fotos“).
+5. `PRUEFLISTE.md` und `BRIEFING.md` auf den Neubau aktualisiert.
+
+**Ergebnis:** Lighthouse Mobil Start 100 / 100 / 100 / 100, Referenzen 99 / 100 / 100 / 100. Alle Kategorien ≥ 9.
+
+**Abbruch:** Eine weitere Runde fand nur noch Geschmacksfragen oder Punkte, die Kundeninhalte brauchen (Fotos der Inhaber, Kundenstimmen, Hoster, Formular-Endpunkt). Siehe `PRUEFLISTE.md`.
+
+---
+
+## Übersicht Start → Ende
+
+| Kategorie | Runde 0 | Runde 5 |
+|---|---|---|
+| Erster Eindruck | 5 | 9,5 |
+| Design & Typografie | 6 | 9 |
+| Texte | 6 | 9 |
+| Conversion | 6 | 9,5 |
+| Mobile | 5 | 9,5 |
+| Performance | 2 (LH 26) | 10 (LH 99–100) |
+| SEO | 4 | 9,5 |
+| Barrierefreiheit | 6 | 10 |
+| DSGVO | 7 | 9 |
+| Agentur | 4 | 9 |

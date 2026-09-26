@@ -140,14 +140,14 @@ def seite_start(A):
     schritte = ''.join(f'<li><h3>{s["t"]}</h3><p>{s["kurz"]}</p></li>' for s in I.SCHRITTE)
     return f'''<section class="einstieg">
   <div class="huelle einstieg__raster">
-    <div class="einblenden">
+    <div>
       <span class="vorzeile">Schreinerei · Landau in der Pfalz</span>
       <h1>Küchen, Bäder und Möbel nach Maß – aus unserer Werkstatt in Landau.</h1>
       <p class="lead">Wir sind Marius Landgraf und Yannik Mosthaf, zwei Tischlermeister. Vom 3D-Aufmaß bis zur Montage bekommt ihr bei uns alles aus einer Hand.</p>
       <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a><a class="textlink" href="{A.link('referenzen/')}">Referenzen ansehen</a></div>
       <p class="einstieg__tel">Lieber direkt sprechen? <a href="tel:+4963417005116">06341 7005116</a></p>
     </div>
-    <div class="einstieg__bild einblenden einblenden--2">{A.bild('REF-28', '(min-width: 900px) 45vw, 100vw', eager=True)}</div>
+    <div class="einstieg__bild">{A.bild('REF-28', '(min-width: 900px) 45vw, 100vw', eager=True)}</div>
   </div>
   <div class="huelle">
     <ul class="fakten">
@@ -254,6 +254,7 @@ def seite_referenzen(A):
 <section class="sektion" style="padding-top:0" aria-label="Projekte">
   <div class="huelle">
     <div class="filter" role="group" aria-label="Projekte filtern" hidden>{filt}</div>
+    <p class="visually-hidden" aria-live="polite" data-filter-status></p>
     <div class="projekte projekte--gross">{karten}</div>
     <div class="weitere-block" style="margin-top:var(--sektion)">
       <div class="kopfzeile"><h2>Weitere Projekte</h2></div>
@@ -281,7 +282,7 @@ def seite_projekt(A, p, naechstes):
 <section class="sektion" style="padding-top:0" aria-label="Bilder">
   <div class="huelle">
     <div class="galerie">{gal}</div>
-    <div class="aktionen" style="margin:56px 0 var(--sektion)"><a class="knopf" href="{A.link('kontakt/')}">Ähnliches Projekt anfragen</a><a class="textlink" href="{A.link('referenzen/')}">Alle Referenzen</a></div>
+    <div class="aktionen" style="margin:56px 0 var(--sektion)"><a class="knopf" href="{A.link('kontakt/')}">Ähnliches Projekt anfragen</a></div>
     <a class="naechstes" href="{A.link('referenzen/' + naechstes['slug'] + '/')}"><span>Nächstes Projekt</span><strong>{naechstes['t']} →</strong></a>
   </div>
 </section>

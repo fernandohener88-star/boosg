@@ -31,7 +31,7 @@ p { margin: 0; }
 h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 400; line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; }
 h1 { font-size: clamp(40px, 5vw, 72px); line-height: 1.04; }
 h2 { font-size: clamp(34px, 4vw, 56px); }
-h3 { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.15; }
+h3 { font-size: clamp(24px, 2.2vw, 30px); line-height: 1.15; font-weight: 500; }
 em { font-style: italic; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 ::selection { background: var(--tinte); color: var(--papier); }
@@ -76,7 +76,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .kopf__tel { display: none; font-size: 15px; font-weight: 500; text-decoration: none; }
 .kopf .knopf { min-height: 44px; padding: 0 20px; font-size: 15px; }
 .kopf__knopf { display: none; }
-.kopf__anruf { font-size: 15px; font-weight: 500; text-decoration: none; padding: 10px 4px; }
+.kopf__anruf { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; font-size: 15px; font-weight: 500; text-decoration: none; }
 @media (min-width: 1000px) { .kopf__anruf { display: none; } }
 .menue-knopf { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 4px; border: 0; background: none; color: var(--tinte); font: 500 15px var(--sans); cursor: pointer; }
 .menue-knopf__striche { position: relative; width: 22px; height: 12px; }
@@ -131,7 +131,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .projekt[hidden] { display: none; }
 .projekt__bild { overflow: hidden; border-radius: var(--r); margin-bottom: 20px; background: var(--papier-2); }
 .projekt__bild img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .6s ease; }
-.projekte--drei .projekt__bild img { aspect-ratio: 4 / 5; }
+.projekte--drei .projekt__bild img { aspect-ratio: 4 / 3; }
+@media (min-width: 700px) { .projekte--drei .projekt__bild img { aspect-ratio: 4 / 5; } }
 .projekt:hover .projekt__bild img { transform: scale(1.02); }
 .projekt__art { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: var(--grau); }
 .projekt h3 { margin-bottom: 8px; }
@@ -174,6 +175,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .abschluss { background: var(--tinte); color: var(--papier); padding: var(--sektion) 0; }
 .abschluss h2 { max-width: 14em; margin-bottom: 32px; }
 .abschluss .lead { color: #B5AA9B; margin-bottom: 40px; }
+.abschluss :focus-visible, .lightbox :focus-visible { outline-color: var(--papier); }
 .abschluss .knopf--leise { color: var(--papier); border-color: rgba(245, 241, 234, .28); }
 .abschluss .knopf--leise:hover { border-color: var(--papier); }
 .abschluss__tel { display: grid; gap: 8px 40px; margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(245, 241, 234, .16); color: #B5AA9B; font-size: 15px; }
@@ -299,17 +301,21 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 599px) { .formular { margin: 0 calc(-1 * var(--rand)); border-radius: 0; padding: 40px var(--rand); } }
 .formular h2 { font-size: clamp(30px, 3vw, 40px); margin-bottom: 8px; }
 .anfrage > p { color: var(--grau); margin-bottom: 36px; }
-.feld { display: grid; gap: 8px; margin-bottom: 22px; }
+.feld { display: grid; gap: 8px; margin-bottom: 24px; }
 .feld label, .feld legend { font-size: 15px; font-weight: 500; padding: 0; }
 .feld .hinweis { font-weight: 400; color: var(--grau); }
 .feld input[type="text"], .feld input[type="tel"], .feld input[type="email"], .feld select, .feld textarea { width: 100%; height: 50px; margin: 0; padding: 12px 14px; border: 1px solid rgba(31, 27, 22, .22); border-radius: var(--r); background: #fff; color: var(--tinte); font: 16px/1.4 var(--sans); }
 .feld textarea { height: auto; min-height: 140px; resize: vertical; }
 .feld input:focus, .feld select:focus, .feld textarea:focus { outline: 2px solid var(--akzent); outline-offset: 0; border-color: var(--akzent); }
 .feld input[aria-invalid="true"], .feld textarea[aria-invalid="true"] { border-color: #A3341C; }
-.fehler { min-height: 1em; font-size: 14px; color: #A3341C; }
+.fehler { font-size: 14px; color: #A3341C; }
+.fehler:empty { display: none; }
+.feld input[type="file"] { font: 15px var(--sans); color: var(--grau); }
+.feld input[type="file"]::file-selector-button { margin-right: 14px; min-height: 44px; padding: 0 18px; border: 1px solid var(--linie); border-radius: var(--r); background: transparent; color: var(--tinte); font: 500 15px var(--sans); cursor: pointer; transition: border-color .2s ease; }
+.feld input[type="file"]::file-selector-button:hover { border-color: var(--tinte); }
 .zwei { display: grid; gap: 0 16px; align-items: start; }
 @media (min-width: 600px) { .zwei { grid-template-columns: 1fr 1fr; } }
-fieldset.feld { border: 0; margin: 0 0 22px; padding: 0; }
+fieldset.feld { border: 0; margin: 0 0 24px; padding: 0; }
 .wahl { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .wahl label { position: relative; cursor: pointer; font-weight: 400; }
 .wahl input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -334,10 +340,4 @@ fieldset.feld { border: 0; margin: 0 0 22px; padding: 0; }
 .recht__text p { color: var(--grau); margin-bottom: 14px; }
 .recht__text strong { color: var(--tinte); font-weight: 600; }
 
-/* Erst-Einblendung: nur einmal, nur beim Laden, nur Deckkraft */
-@media (prefers-reduced-motion: no-preference) {
-  .einblenden { animation: einblenden .7s ease both; }
-  .einblenden--2 { animation-delay: .12s; }
-  @keyframes einblenden { from { opacity: 0; } to { opacity: 1; } }
-}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }

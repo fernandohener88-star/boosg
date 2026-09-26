@@ -44,6 +44,7 @@
       mk.querySelector(".menue-knopf__text").textContent = auf ? "Schließen" : "Menü";
       menue.hidden = !auf;
       document.body.style.overflow = auf ? "hidden" : "";
+      document.querySelectorAll("main, .fuss").forEach(function (x) { x.inert = auf; });
     };
     mk.addEventListener("click", function () { setze(mk.getAttribute("aria-expanded") !== "true"); });
     menue.addEventListener("click", function (e) { if (e.target.closest("a")) setze(false); });
@@ -66,6 +67,8 @@
       eintraege.forEach(function (e) { e.hidden = k !== "alle" && e.dataset.kat.split(" ").indexOf(k) < 0; });
       var weitere = w.querySelector(".weitere-block");
       if (weitere) weitere.hidden = !weitere.querySelector("li:not([hidden])");
+      var status = w.querySelector("[data-filter-status]"), n = w.querySelectorAll(".projekt:not([hidden])").length;
+      if (status && k !== "alle") status.textContent = n + (n === 1 ? " Projekt" : " Projekte") + " mit Fotos";
     };
     knoepfe.forEach(function (b) { b.addEventListener("click", function () { wende(b.dataset.k); }); });
     var start = (location.hash.match(/^#([a-z]+)$/) || [])[1] || sessionStorage.getItem("og-filter");

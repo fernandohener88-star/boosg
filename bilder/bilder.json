@@ -1,5 +1,5 @@
 {
-  "_hinweis": "Fotos liegen als <bild-id>.webp in diesem Ordner. 'fotos' beschreibt jedes Foto (Alt-Text, Bildausschnitt). 'zuordnung' setzt ein vorhandenes Foto auf einen weiteren Bildplatz. Liegt fuer einen Platz eine eigene Datei vor (z. B. weg-01.webp), gewinnt die Datei. Plaetze ohne Foto zeigen automatisch eine Planskizze (quelle/plaene.js).",
+  "_hinweis": "Alt-Texte und Bildausschnitt (pos) je Foto. Fotos liegen als <bild-id>.webp in diesem Ordner; nach Änderungen: node werkzeug/bildvarianten.js und python3 werkzeug/build.py.",
   "fotos": {
     "REF-11": {
       "alt": "Küchenzeile mit dunklen Fronten, Hochschrank und Einbaubackofen, davor ein runder Eichentisch"
@@ -28,7 +28,7 @@
       "alt": "Schwarze Küche mit offener Kaffeenische aus Eiche und Einbaubackofen"
     },
     "REF-28": {
-      "alt": "Hochschrankwand in Mattschwarz mit Kaffeenische aus Eiche",
+      "alt": "Schwarze Hochschrankwand mit offener Kaffeenische aus Eiche und Einbaubackofen",
       "pos": "50% 42%"
     },
     "REF-29": {
@@ -73,23 +73,5 @@
     "WEG-05": {
       "alt": "Küche mit Fronten aus Eiche, Messingspüle und Griffleisten aus Messing"
     }
-  },
-  "zuordnung": {
-    "WEG-01": "REF-37",
-    "WEG-04": "REF-26",
-    "WEG-06": "REF-35",
-    "REF-01": "REF-12",
-    "REF-25": "WEG-05",
-    "TEAM-01": "REF-22",
-    "TEAM-05": "REF-26",
-    "TEAM-06": "REF-36",
-    "TEAM-07": "REF-24",
-    "INSTA-01": "REF-29",
-    "INSTA-02": "REF-43",
-    "INSTA-03": "REF-31",
-    "INSTA-04": "REF-39",
-    "INSTA-05": "REF-23",
-    "INSTA-06": "REF-28",
-    "START-06": "REF-11"
   }
 }

@@ -65,9 +65,9 @@
     var wende = function (k) {
       knoepfe.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.k === k)); });
       eintraege.forEach(function (e) { e.hidden = k !== "alle" && e.dataset.kat.split(" ").indexOf(k) < 0; });
-      /* versetztes Raster: Plätze nur unter den sichtbaren Projekten neu verteilen */
+      /* Das erste sichtbare Projekt steht breit, alle weiteren im Zweier-Raster */
       var n0 = 0;
-      w.querySelectorAll(".projekt").forEach(function (e) { if (!e.hidden) e.setAttribute("data-slot", String(n0++ % 4)); });
+      w.querySelectorAll(".projekte--liste .projekt").forEach(function (e) { if (!e.hidden) e.setAttribute("data-slot", n0++ ? "1" : "0"); });
       var weitere = w.querySelector(".weitere-block");
       if (weitere) weitere.hidden = !weitere.querySelector("li:not([hidden])");
       var status = w.querySelector("[data-filter-status]"), n = w.querySelectorAll(".projekt:not([hidden])").length;

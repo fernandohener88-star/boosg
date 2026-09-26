@@ -177,3 +177,55 @@ Was Lighthouse nicht misst, habe ich gezielt gesucht:
 5. **ENTFERNT:** Überzeilen, kursive Hervorhebungen, runde Ecken, Pillen-Filter (jetzt Textauswahl), zweite Schriftfamilie. Schriftgewicht 105 KB → 47 KB.
 
 **Ergebnis:** Lighthouse Mobil auf allen geprüften Seiten 100 / 100 / 100 / 100, 97–220 KB pro Seite. Alle Funktionstests bestanden: Tastatur, Lightbox, Filter, Formular, Menü, ohne JavaScript und Einzeldatei.
+
+---
+
+## Runde 7 – Aufbau reparieren (Feedback: „Aufbau auseinandergenommen“)
+
+| Kategorie | Score vorher (Runde 6) | Begründung |
+|---|---|---|
+| Erster Eindruck | 8 | Überschrift stark, aber Einleitung und Knöpfe links und rechts auseinandergezogen, Foto erst nach dem Hero. |
+| Design & Typografie | 7 | Die versetzten Raster (Offsets, wechselnde Formate) wirken zerrissen, Weißraum-Löcher, keine gemeinsamen Kanten. |
+| Texte | 9 | – |
+| Conversion | 8,5 | Knöpfe getrennt von der Einleitung. |
+| Mobile | 8,5 | Bereichsangaben springen mal neben, mal unter den Titel. Bei 768 px hängt eine Kachel allein in der Zeile. |
+| Performance | 10 | – |
+| SEO | 9,5 | – |
+| Barrierefreiheit | 10 | – |
+| DSGVO | 9 | – |
+| Agentur | 7 | Struktur wirkt unfertig. |
+
+**Top 5:**
+1. **ENTFERNT:** alle versetzten Raster und Offsets (Auswahl, Referenzen, Galerie, Detailbilder). Stattdessen bündige Raster mit einheitlichen Formaten: 3 Spalten auf der Startseite, 1 breit + 2 Spalten bei den Referenzen.
+2. **Hero wieder zweispaltig:** Überschrift, Einleitung, Knöpfe und Telefon als ein Block links, Foto rechts, bündig im Raster.
+3. **Über-uns-Foto** wieder im Raster statt randlos.
+4. **Galerie:** Paare, ein breites Bild nur bei ungerader Anzahl. Nie mehr ein einzelnes Bild, das allein hängt.
+5. **Projektkarten:** Bereich immer über dem Titel, einheitlich auf allen Breiten.
+
+**Ergebnis:** Lighthouse Mobil 99–100 / 100 / 100 / 100. Screenshots in 1440, 768 und 390 px: alle Raster bündig, keine Löcher. Besser als Runde 6.
+
+---
+
+## Runde 8 – Abschlussprüfung nach der Reparatur
+
+| Kategorie | Score | Begründung |
+|---|---|---|
+| Erster Eindruck | 9,5 | Hero als geschlossener Block: Aussage, Einleitung, Aktion, Telefon links, Foto rechts. Passt komplett auf einen Bildschirm (1440×900). |
+| Design & Typografie | 9 | Bündige Raster, gemeinsame Kanten, ein Schriftsystem. Kein KI-Look: Schwarz/Weiß, Grotesk, rechte Winkel. |
+| Texte | 9 | Unverändert, nur Kundentexte. |
+| Conversion | 9,5 | Eine Hauptaktion pro Seite, Telefon überall mit einem Tipp erreichbar. |
+| Mobile | 9,5 | Einheitliche Kartenstruktur, Pfeil bricht nicht mehr allein um, Detailfotos im Querformat (kürzere Seite). |
+| Performance | 10 | 99–100 auf allen 8 Seiten, 93–219 KB. |
+| SEO | 9,5 | – |
+| Barrierefreiheit | 10 | 100 auf allen Seiten, Tastatur- und Screenreader-Tests bestanden. |
+| DSGVO | 9 | Offen nur Kundendaten (Hoster, Formular-Endpunkt). |
+| Agentur | 9 | Ja. Mit echten Fotos der Inhaber eine 10. |
+
+**Umgesetzt:**
+1. Hero-Foto passt in den ersten Bildschirm.
+2. „Nächstes Projekt →“: Pfeil mit geschütztem Leerzeichen.
+3. „Handwerk im Detail“ mobil im Querformat.
+4. **ENTFERNT:** „Bereich“ als doppelte Angabe in den Eckdaten. Er steht jetzt einmal über dem Titel.
+5. Abstand vor „Nächstes Projekt“ verkürzt.
+
+**Abbruch:** Alle Kategorien ≥ 9, Lighthouse überall ≥ 99. Die nächste Runde fand nur noch Geschmacksfragen oder Punkte, die Kundeninhalte brauchen.

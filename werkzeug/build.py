@@ -127,7 +127,8 @@ def projektkarte(A, p, sizes, h='h3', slot=None, bild=None):
     s = f' data-slot="{slot}"' if slot is not None else ''
     return f'''<a class="projekt" href="{A.link('referenzen/' + p['slug'] + '/')}" data-kat="{' '.join(p['kat'])}"{s}>
   <div class="projekt__bild">{A.bild(bild or p['bilder'][0][0], sizes, alt='')}</div>
-  <div class="projekt__kopf"><{h}>{p['t']}</{h}><span class="projekt__art">{p['art']}</span></div>
+  <span class="projekt__art">{p['art']}</span>
+  <{h}>{p['t']}</{h}>
   <p>{p['kurz']}</p>
 </a>'''
 
@@ -136,20 +137,18 @@ def projektkarte(A, p, sizes, h='h3', slot=None, bild=None):
 
 def seite_start(A):
     leist = ''.join(f'''<li><a href="{A.link('referenzen/')}{'' if A.einzeldatei else '#' + l['filter']}" data-filter="{l['filter']}"><span class="index__t">{l['t']}</span><span class="index__d">{l['d']}</span><span class="index__pfeil" aria-hidden="true">→</span></a></li>''' for l in I.LEISTUNGEN)
-    auswahl = ''.join(projektkarte(A, I.projekt(slug), '(min-width: 900px) 55vw, 100vw', slot=i, bild=b) for i, (slug, b) in enumerate(I.AUSWAHL))
+    auswahl = ''.join(projektkarte(A, I.projekt(slug), '(min-width: 700px) 33vw, 100vw', bild=b) for slug, b in I.AUSWAHL)
     schritte = ''.join(f'<li><span class="schritte__nr">{i + 1}</span><h3>{s["t"]}</h3><p>{s["kurz"]}</p></li>' for i, s in enumerate(I.SCHRITTE))
     return f'''<section class="start">
-  <div class="huelle">
-    <h1>Küchen, Bäder und Möbel nach Maß – aus unserer Werkstatt in Landau.</h1>
-    <div class="start__unten">
+  <div class="huelle start__raster">
+    <div>
+      <h1>Küchen, Bäder und Möbel nach Maß – aus unserer Werkstatt in Landau.</h1>
       <p class="lead">Wir sind Marius Landgraf und Yannik Mosthaf, zwei Tischlermeister. Vom 3D-Aufmaß bis zur Montage bekommt ihr bei uns alles aus einer Hand.</p>
-      <div class="start__aktion">
-        <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a><a class="pfeillink" href="{A.link('referenzen/')}">Referenzen ansehen</a></div>
-        <p class="start__tel">Lieber direkt sprechen? <a href="tel:+4963417005116">06341 7005116</a></p>
-      </div>
+      <div class="aktionen"><a class="knopf" href="{A.link('kontakt/')}">Projekt anfragen</a><a class="pfeillink" href="{A.link('referenzen/')}">Referenzen ansehen</a></div>
+      <p class="start__tel">Lieber direkt sprechen? <a href="tel:+4963417005116">06341 7005116</a></p>
     </div>
+    <div class="start__bild">{A.bild('REF-28', '(min-width: 900px) 45vw, 100vw', eager=True)}</div>
   </div>
-  <div class="vollbild">{A.bild('REF-27', '100vw', eager=True)}</div>
   <div class="huelle">
     <ul class="fakten">
       <li><strong>Meisterbetrieb</strong>Zwei Tischlermeister</li>
@@ -175,7 +174,7 @@ def seite_start(A):
       <h2 id="ausw-t">Ausgewählte Projekte</h2>
       <p><a class="pfeillink" href="{A.link('referenzen/')}">Alle Referenzen</a></p>
     </div>
-    <div class="projekte auswahl">{auswahl}</div>
+    <div class="projekte projekte--drei">{auswahl}</div>
   </div>
 </section>
 
@@ -192,7 +191,7 @@ def seite_start(A):
 
 <section class="sektion" aria-labelledby="wir-t">
   <div class="huelle zweispalter">
-    {A.bild('REF-26', '(min-width: 900px) 40vw, 100vw')}
+    {A.bild('REF-26', '(min-width: 900px) 50vw, 100vw')}
     <div>
       <h2 id="wir-t" class="zitat">„Arbeit macht Bock.“</h2>
       <p class="text">Marius und Yannik haben sich 2019 noch während der Meisterschule selbstständig gemacht – zuerst als Parkettleger, seit dem Meistertitel 2020 als Schreinerei. Was die beiden verbindet: die gleichen Vorstellungen von Qualität, Arbeitsweise und Kundenkontakt.</p>
@@ -242,7 +241,7 @@ def seite_weg(A):
 
 def seite_referenzen(A):
     filt = ''.join(f'<button type="button" data-k="{k}" aria-pressed="false">{t}</button>' for k, t in I.FILTER)
-    karten = ''.join(projektkarte(A, p, '(min-width: 900px) 55vw, (min-width: 700px) 50vw, 100vw', 'h2', slot=i % 4) for i, p in enumerate(I.PROJEKTE))
+    karten = ''.join(projektkarte(A, p, '100vw' if i == 0 else '(min-width: 700px) 50vw, 100vw', 'h2', slot=0 if i == 0 else 1) for i, p in enumerate(I.PROJEKTE))
     weitere = ''.join(f'''<li data-kat="{' '.join(p['kat'])}"><div><h3>{p['t']}</h3><p class="meta">{p['art']}</p></div><p>{p['d']}</p></li>''' for p in I.WEITERE)
     return f'''<section class="seitenkopf">
   <div class="huelle">
@@ -255,7 +254,7 @@ def seite_referenzen(A):
   <div class="huelle">
     <div class="filter" role="group" aria-label="Projekte filtern" hidden>{filt}</div>
     <p class="visually-hidden" aria-live="polite" data-filter-status></p>
-    <div class="projekte">{karten}</div>
+    <div class="projekte projekte--liste">{karten}</div>
     <div class="weitere-block" style="margin-top:var(--sektion)">
       <div class="titelzeile"><h2>Weitere Projekte</h2></div>
       <ul class="weitere">{weitere}</ul>
@@ -267,18 +266,20 @@ def seite_referenzen(A):
 
 def seite_projekt(A, p, naechstes):
     eck = ''.join(f'<div><dt>{k}</dt><dd>{v}</dd></div>' for k, v in p['eck'])
-    gal = ''.join(f'''<figure><button type="button" aria-label="Bild vergrößern: {e(c)}">{A.bild(b, '(min-width: 700px) ' + ('100vw' if i == 0 else '50vw') + ', 100vw', eager=(i == 0), alt=FOTOS.get(b, {}).get('alt', c), gross=True)}</button><figcaption>{c}</figcaption></figure>''' for i, (b, c) in enumerate(p['bilder']))
+    breit = len(p['bilder']) % 2 == 1
+    gal = ''.join(f'''<figure{' class="breit"' if (i == 0 and breit) else ''}><button type="button" aria-label="Bild vergrößern: {e(c)}">{A.bild(b, '(min-width: 700px) ' + ('100vw' if (i == 0 and breit) else '50vw') + ', 100vw', eager=(i < 2), alt=FOTOS.get(b, {}).get('alt', c), gross=True)}</button><figcaption>{c}</figcaption></figure>''' for i, (b, c) in enumerate(p['bilder']))
     return f'''<section class="seitenkopf">
   <div class="huelle">
     {pfad(A, [('Start', ''), ('Referenzen', 'referenzen/'), (p['t'], None)])}
+    <span class="projekt__art">{p['art']}</span>
     <h1>{p['t']}</h1>
     <div class="detailkopf">
       <p class="lead">{p['d']}</p>
-      <dl class="eckdaten"><div><dt>Bereich</dt><dd>{p['art']}</dd></div>{eck}</dl>
+      <dl class="eckdaten">{eck}</dl>
     </div>
   </div>
 </section>
-<section class="sektion" style="padding-top:0" aria-label="Bilder">
+<section class="sektion sektion--kurz" style="padding-top:0" aria-label="Bilder">
   <div class="huelle">
     <div class="galerie">{gal}</div>
     <div class="aktionen" style="margin:72px 0 var(--sektion)"><a class="knopf" href="{A.link('kontakt/')}">Ähnliches Projekt anfragen</a></div>
@@ -305,7 +306,7 @@ def seite_ueber(A):
     <p class="lead">Zwei Meister im Tischler-Handwerk mit einer Vision: gleiche Vorstellungen von Qualität, Arbeitsweise, Zusammenarbeit und Kundenkontakt. Arbeit macht Bock.</p>
   </div>
 </section>
-<div class="vollbild">{A.bild('REF-37', '100vw', eager=True)}</div>
+<div class="huelle breitbild">{A.bild('REF-37', '100vw', eager=True)}</div>
 <section class="sektion" aria-labelledby="team-t">
   <div class="huelle">
     <div class="titelzeile"><h2 id="team-t">Das Team</h2></div>
